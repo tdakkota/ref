@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: dsl.go in package github.com/quasilyte/go-ruleguard/dsl</title>
+<link href="../../../../../css/light-v0.2.7-preview.css" rel="stylesheet">
+<script src="../../../../../jvs/golds-v0.2.7-preview.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	dsl.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../../../pkg/github.com/quasilyte/go-ruleguard/dsl.html">github.com/quasilyte/go-ruleguard/dsl</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16],
+input[id=r17]:checked ~pre label[for=r17],
+input[id=r18]:checked ~pre label[for=r18],
+input[id=r19]:checked ~pre label[for=r19],
+input[id=r20]:checked ~pre label[for=r20],
+input[id=r21]:checked ~pre label[for=r21],
+input[id=r22]:checked ~pre label[for=r22],
+input[id=r23]:checked ~pre label[for=r23],
+input[id=r24]:checked ~pre label[for=r24],
+input[id=r25]:checked ~pre label[for=r25],
+input[id=r26]:checked ~pre label[for=r26],
+input[id=r27]:checked ~pre label[for=r27],
+input[id=r28]:checked ~pre label[for=r28],
+input[id=r29]:checked ~pre label[for=r29],
+input[id=r30]:checked ~pre label[for=r30],
+input[id=r31]:checked ~pre label[for=r31],
+input[id=r32]:checked ~pre label[for=r32],
+input[id=r33]:checked ~pre label[for=r33],
+input[id=r34]:checked ~pre label[for=r34],
+input[id=r35]:checked ~pre label[for=r35],
+input[id=r36]:checked ~pre label[for=r36],
+input[id=r37]:checked ~pre label[for=r37],
+input[id=r38]:checked ~pre label[for=r38],
+input[id=r39]:checked ~pre label[for=r39],
+input[id=r40]:checked ~pre label[for=r40],
+input[id=r41]:checked ~pre label[for=r41],
+input[id=r42]:checked ~pre label[for=r42],
+input[id=r43]:checked ~pre label[for=r43],
+input[id=r44]:checked ~pre label[for=r44]
+{background: #226; color: #ff8;}
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="r17" type="radio" name="g"/>
+<input id="r18" type="radio" name="g"/>
+<input id="r19" type="radio" name="g"/>
+<input id="r20" type="radio" name="g"/>
+<input id="r21" type="radio" name="g"/>
+<input id="r22" type="radio" name="g"/>
+<input id="r23" type="radio" name="g"/>
+<input id="r24" type="radio" name="g"/>
+<input id="r25" type="radio" name="g"/>
+<input id="r26" type="radio" name="g"/>
+<input id="r27" type="radio" name="g"/>
+<input id="r28" type="radio" name="g"/>
+<input id="r29" type="radio" name="g"/>
+<input id="r30" type="radio" name="g"/>
+<input id="r31" type="radio" name="g"/>
+<input id="r32" type="radio" name="g"/>
+<input id="r33" type="radio" name="g"/>
+<input id="r34" type="radio" name="g"/>
+<input id="r35" type="radio" name="g"/>
+<input id="r36" type="radio" name="g"/>
+<input id="r37" type="radio" name="g"/>
+<input id="r38" type="radio" name="g"/>
+<input id="r39" type="radio" name="g"/>
+<input id="r40" type="radio" name="g"/>
+<input id="r41" type="radio" name="g"/>
+<input id="r42" type="radio" name="g"/>
+<input id="r43" type="radio" name="g"/>
+<input id="r44" type="radio" name="g"/>
+
+<pre class="line-numbers">
+<span class="codeline" id="line-1"><code><span class="keyword">package</span> dsl</code></span>
+<span class="codeline" id="line-2"><code></code></span>
+<span class="codeline" id="line-3"><code><span class="comment">// Matcher is a main API group-level entry point.</span></code></span>
+<span class="codeline" id="line-4"><code><span class="comment">// It's used to define and configure the group rules.</span></code></span>
+<span class="codeline" id="line-5"><code><span class="comment">// It also represents a map of all rule-local variables.</span></code></span>
+<span class="codeline" id="line-6"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/quasilyte/go-ruleguard/dsl.html#name-Matcher" class="ident">Matcher</a> <span class="keyword">map</span>[<a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>]<a href="#line-91" class="ident">Var</a></code></span>
+<span class="codeline" id="line-7"><code></code></span>
+<span class="codeline" id="line-8"><code><span class="comment">// Import loads given package path into a rule group imports table.</span></code></span>
+<span class="codeline" id="line-9"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-10"><code><span class="comment">// That table is used during the rules compilation.</span></code></span>
+<span class="codeline" id="line-11"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-12"><code><span class="comment">// The table has the following effect on the rules:</span></code></span>
+<span class="codeline" id="line-13"><code><span class="comment">//	* For type expressions, it's used to resolve the</span></code></span>
+<span class="codeline" id="line-14"><code><span class="comment">//	  full package paths of qualified types, like `foo.Bar`.</span></code></span>
+<span class="codeline" id="line-15"><code><span class="comment">//	  If Import(`a/b/foo`) is called, `foo.Bar` will match</span></code></span>
+<span class="codeline" id="line-16"><code><span class="comment">//	  `a/b/foo.Bar` type during the pattern execution.</span></code></span>
+<span class="codeline" id="line-17"><code><span class="keyword">func</span> (<label for="r0" class="ident">m</label> <a href="#line-6" class="ident">Matcher</a>) <label for="r1" class="ident"><a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..Matcher.Import.html" class="ident">Import</a></label>(<label for="r2" class="ident">pkgPath</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) {}</code></span>
+<span class="codeline" id="line-18"><code></code></span>
+<span class="codeline" id="line-19"><code><span class="comment">// Match specifies a set of patterns that match a rule being defined.</span></code></span>
+<span class="codeline" id="line-20"><code><span class="comment">// Pattern matching succeeds if at least 1 pattern matches.</span></code></span>
+<span class="codeline" id="line-21"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-22"><code><span class="comment">// If none of the given patterns matched, rule execution stops.</span></code></span>
+<span class="codeline" id="line-23"><code><span class="keyword">func</span> (<label for="r3" class="ident">m</label> <a href="#line-6" class="ident">Matcher</a>) <label for="r4" class="ident"><a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..Matcher.Match.html" class="ident">Match</a></label>(<label for="r5" class="ident">pattern</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r6" class="ident">alternatives</label> ...<a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="#line-6" class="ident">Matcher</a> {</code></span>
+<span class="codeline" id="line-24"><code>	<span class="keyword">return</span> <label for="r3" class="ident">m</label></code></span>
+<span class="codeline" id="line-25"><code>}</code></span>
+<span class="codeline" id="line-26"><code></code></span>
+<span class="codeline" id="line-27"><code><span class="comment">// MatchComment is like Match, but handles only comments and uses regexp patterns.</span></code></span>
+<span class="codeline" id="line-28"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-29"><code><span class="comment">// Multi-line /**/ comments are passed as a single string.</span></code></span>
+<span class="codeline" id="line-30"><code><span class="comment">// Single-line // comments are passed line-by-line.</span></code></span>
+<span class="codeline" id="line-31"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-32"><code><span class="comment">// Hint: if you want to match a plain text and don't want to do meta char escaping,</span></code></span>
+<span class="codeline" id="line-33"><code><span class="comment">// prepend `\Q` to your pattern. `\Qf(x)` will match `f(x)` as a plain text</span></code></span>
+<span class="codeline" id="line-34"><code><span class="comment">// and there is no need to escape the `(` and `)` chars.</span></code></span>
+<span class="codeline" id="line-35"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-36"><code><span class="comment">// Named regexp capture groups can be accessed using the usual indexing notation.</span></code></span>
+<span class="codeline" id="line-37"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-38"><code><span class="comment">// Given this pattern:</span></code></span>
+<span class="codeline" id="line-39"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-40"><code><span class="comment">//     `(?P&lt;first&gt;\d+)\.(\d+).(?P&lt;second&gt;\d+)`</span></code></span>
+<span class="codeline" id="line-41"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-42"><code><span class="comment">// And this input comment: `// 14.6.600`</span></code></span>
+<span class="codeline" id="line-43"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-44"><code><span class="comment">// We'll get these submatches:</span></code></span>
+<span class="codeline" id="line-45"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-46"><code><span class="comment">//     m["$$"] =&gt; `// 14.6.600`</span></code></span>
+<span class="codeline" id="line-47"><code><span class="comment">//     m["first"] =&gt; `14`</span></code></span>
+<span class="codeline" id="line-48"><code><span class="comment">//     m["second"] =&gt; `600`</span></code></span>
+<span class="codeline" id="line-49"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-50"><code><span class="comment">// All usual filters can be applied:</span></code></span>
+<span class="codeline" id="line-51"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-52"><code><span class="comment">//     Where(!m["first"].Text.Matches(`foo`))</span></code></span>
+<span class="codeline" id="line-53"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-54"><code><span class="comment">// You can use this to reject some matches (allow-list behavior).</span></code></span>
+<span class="codeline" id="line-55"><code><span class="keyword">func</span> (<label for="r7" class="ident">m</label> <a href="#line-6" class="ident">Matcher</a>) <label for="r8" class="ident"><a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..Matcher.MatchComment.html" class="ident">MatchComment</a></label>(<label for="r9" class="ident">pattern</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r10" class="ident">alternatives</label> ...<a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="#line-6" class="ident">Matcher</a> {</code></span>
+<span class="codeline" id="line-56"><code>	<span class="keyword">return</span> <label for="r7" class="ident">m</label></code></span>
+<span class="codeline" id="line-57"><code>}</code></span>
+<span class="codeline" id="line-58"><code></code></span>
+<span class="codeline" id="line-59"><code><span class="comment">// Where applies additional constraint to a match.</span></code></span>
+<span class="codeline" id="line-60"><code><span class="comment">// If a given cond is not satisfied, a match is rejected and</span></code></span>
+<span class="codeline" id="line-61"><code><span class="comment">// rule execution stops.</span></code></span>
+<span class="codeline" id="line-62"><code><span class="keyword">func</span> (<label for="r11" class="ident">m</label> <a href="#line-6" class="ident">Matcher</a>) <label for="r12" class="ident"><a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..Matcher.Where.html" class="ident">Where</a></label>(<label for="r13" class="ident">cond</label> <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a>) <a href="#line-6" class="ident">Matcher</a> {</code></span>
+<span class="codeline" id="line-63"><code>	<span class="keyword">return</span> <label for="r11" class="ident">m</label></code></span>
+<span class="codeline" id="line-64"><code>}</code></span>
+<span class="codeline" id="line-65"><code></code></span>
+<span class="codeline" id="line-66"><code><span class="comment">// Report prints a message if associated rule match is successful.</span></code></span>
+<span class="codeline" id="line-67"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-68"><code><span class="comment">// A message is a string that can contain interpolated expressions.</span></code></span>
+<span class="codeline" id="line-69"><code><span class="comment">// For every matched variable it's possible to interpolate</span></code></span>
+<span class="codeline" id="line-70"><code><span class="comment">// their printed representation into the message text with $&lt;name&gt;.</span></code></span>
+<span class="codeline" id="line-71"><code><span class="comment">// An entire match can be addressed with $$.</span></code></span>
+<span class="codeline" id="line-72"><code><span class="keyword">func</span> (<label for="r14" class="ident">m</label> <a href="#line-6" class="ident">Matcher</a>) <label for="r15" class="ident"><a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..Matcher.Report.html" class="ident">Report</a></label>(<label for="r16" class="ident">message</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="#line-6" class="ident">Matcher</a> {</code></span>
+<span class="codeline" id="line-73"><code>	<span class="keyword">return</span> <label for="r14" class="ident">m</label></code></span>
+<span class="codeline" id="line-74"><code>}</code></span>
+<span class="codeline" id="line-75"><code></code></span>
+<span class="codeline" id="line-76"><code><span class="comment">// Suggest assigns a quickfix suggestion for the matched code.</span></code></span>
+<span class="codeline" id="line-77"><code><span class="keyword">func</span> (<label for="r17" class="ident">m</label> <a href="#line-6" class="ident">Matcher</a>) <label for="r18" class="ident"><a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..Matcher.Suggest.html" class="ident">Suggest</a></label>(<label for="r19" class="ident">suggestion</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="#line-6" class="ident">Matcher</a> {</code></span>
+<span class="codeline" id="line-78"><code>	<span class="keyword">return</span> <label for="r17" class="ident">m</label></code></span>
+<span class="codeline" id="line-79"><code>}</code></span>
+<span class="codeline" id="line-80"><code></code></span>
+<span class="codeline" id="line-81"><code><span class="comment">// At binds the reported node to a named submatch.</span></code></span>
+<span class="codeline" id="line-82"><code><span class="comment">// If no explicit location is given, the outermost node ($$) is used.</span></code></span>
+<span class="codeline" id="line-83"><code><span class="keyword">func</span> (<label for="r20" class="ident">m</label> <a href="#line-6" class="ident">Matcher</a>) <label for="r21" class="ident"><a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..Matcher.At.html" class="ident">At</a></label>(<label for="r22" class="ident">v</label> <a href="#line-91" class="ident">Var</a>) <a href="#line-6" class="ident">Matcher</a> {</code></span>
+<span class="codeline" id="line-84"><code>	<span class="keyword">return</span> <label for="r20" class="ident">m</label></code></span>
+<span class="codeline" id="line-85"><code>}</code></span>
+<span class="codeline" id="line-86"><code></code></span>
+<span class="codeline" id="line-87"><code><span class="comment">// File returns the current file context.</span></code></span>
+<span class="codeline" id="line-88"><code><span class="keyword">func</span> (<label for="r23" class="ident">m</label> <a href="#line-6" class="ident">Matcher</a>) <label for="r24" class="ident"><a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..Matcher.File.html" class="ident">File</a></label>() <a href="#line-184" class="ident">File</a> { <span class="keyword">return</span> <a href="#line-184" class="ident">File</a>{} }</code></span>
+<span class="codeline" id="line-89"><code></code></span>
+<span class="codeline" id="line-90"><code><span class="comment">// Var is a pattern variable that describes a named submatch.</span></code></span>
+<span class="codeline" id="line-91"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/quasilyte/go-ruleguard/dsl.html#name-Var" class="ident">Var</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-92"><code>	<span class="comment">// Pure reports whether expr matched by var is side-effect-free.</span></code></span>
+<span class="codeline" id="line-93"><code>	<a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..Var.Pure.html" class="ident">Pure</a> <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-94"><code></code></span>
+<span class="codeline" id="line-95"><code>	<span class="comment">// Const reports whether expr matched by var is a constant value.</span></code></span>
+<span class="codeline" id="line-96"><code>	<a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..Var.Const.html" class="ident">Const</a> <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-97"><code></code></span>
+<span class="codeline" id="line-98"><code>	<span class="comment">// Value is a compile-time computable value of the expression.</span></code></span>
+<span class="codeline" id="line-99"><code>	<a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..Var.Value.html" class="ident">Value</a> <a href="#line-139" class="ident">ExprValue</a></code></span>
+<span class="codeline" id="line-100"><code></code></span>
+<span class="codeline" id="line-101"><code>	<span class="comment">// Addressable reports whether the corresponding expression is addressable.</span></code></span>
+<span class="codeline" id="line-102"><code><span class="comment">	// See https://golang.org/ref/spec#Address_operators.</span></code></span>
+<span class="codeline" id="line-103"><code>	<a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..Var.Addressable.html" class="ident">Addressable</a> <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-104"><code></code></span>
+<span class="codeline" id="line-105"><code>	<span class="comment">// Type is a type of a matched expr.</span></code></span>
+<span class="codeline" id="line-106"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-107"><code><span class="comment">	// For function call expressions, a type is a function result type,</span></code></span>
+<span class="codeline" id="line-108"><code><span class="comment">	// but for a function expression itself it's a *types.Signature.</span></code></span>
+<span class="codeline" id="line-109"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-110"><code><span class="comment">	// Suppose we have a `a.b()` expression:</span></code></span>
+<span class="codeline" id="line-111"><code><span class="comment">	//	`$x()` m["x"].Type is `a.b` function type</span></code></span>
+<span class="codeline" id="line-112"><code><span class="comment">	//	`$x` m["x"].Type is `a.b()` function call result type</span></code></span>
+<span class="codeline" id="line-113"><code>	<a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..Var.Type.html" class="ident">Type</a> <a href="#line-146" class="ident">ExprType</a></code></span>
+<span class="codeline" id="line-114"><code></code></span>
+<span class="codeline" id="line-115"><code>	<span class="comment">// Text is a captured node text as in the source code.</span></code></span>
+<span class="codeline" id="line-116"><code>	<a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..Var.Text.html" class="ident">Text</a> <a href="#line-172" class="ident">MatchedText</a></code></span>
+<span class="codeline" id="line-117"><code></code></span>
+<span class="codeline" id="line-118"><code>	<span class="comment">// Node is a captured AST node.</span></code></span>
+<span class="codeline" id="line-119"><code>	<a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..Var.Node.html" class="ident">Node</a> <a href="#line-130" class="ident">MatchedNode</a></code></span>
+<span class="codeline" id="line-120"><code>}</code></span>
+<span class="codeline" id="line-121"><code></code></span>
+<span class="codeline" id="line-122"><code><span class="comment">// Filter applies a custom predicate function on a submatch.</span></code></span>
+<span class="codeline" id="line-123"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-124"><code><span class="comment">// The callback function should use VarFilterContext to access the</span></code></span>
+<span class="codeline" id="line-125"><code><span class="comment">// information that is usually accessed through Var.</span></code></span>
+<span class="codeline" id="line-126"><code><span class="comment">// For example, `VarFilterContext.Type` is mapped to `Var.Type`.</span></code></span>
+<span class="codeline" id="line-127"><code><span class="keyword">func</span> (<a href="#line-91" class="ident">Var</a>) <label for="r25" class="ident"><a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..Var.Filter.html" class="ident">Filter</a></label>(<label for="r26" class="ident">pred</label> <span class="keyword">func</span>(*<a href="filter.go.html#line-9" class="ident">VarFilterContext</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> { <span class="keyword">return</span> <a href="internal.go.html#line-3" class="ident">boolResult</a> }</code></span>
+<span class="codeline" id="line-128"><code></code></span>
+<span class="codeline" id="line-129"><code><span class="comment">// MatchedNode represents an AST node associated with a named submatch.</span></code></span>
+<span class="codeline" id="line-130"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/quasilyte/go-ruleguard/dsl.html#name-MatchedNode" class="ident">MatchedNode</a> <span class="keyword">struct</span>{}</code></span>
+<span class="codeline" id="line-131"><code></code></span>
+<span class="codeline" id="line-132"><code><span class="comment">// Is reports whether a matched node AST type is compatible with the specified type.</span></code></span>
+<span class="codeline" id="line-133"><code><span class="comment">// A valid argument is a ast.Node implementing type name from the "go/ast" package.</span></code></span>
+<span class="codeline" id="line-134"><code><span class="comment">// Examples: "BasicLit", "Expr", "Stmt", "Ident", "ParenExpr".</span></code></span>
+<span class="codeline" id="line-135"><code><span class="comment">// See https://golang.org/pkg/go/ast/.</span></code></span>
+<span class="codeline" id="line-136"><code><span class="keyword">func</span> (<a href="#line-130" class="ident">MatchedNode</a>) <label for="r27" class="ident"><a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..MatchedNode.Is.html" class="ident">Is</a></label>(<label for="r28" class="ident">typ</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> { <span class="keyword">return</span> <a href="internal.go.html#line-3" class="ident">boolResult</a> }</code></span>
+<span class="codeline" id="line-137"><code></code></span>
+<span class="codeline" id="line-138"><code><span class="comment">// ExprValue describes a compile-time computable value of a matched expr.</span></code></span>
+<span class="codeline" id="line-139"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/quasilyte/go-ruleguard/dsl.html#name-ExprValue" class="ident">ExprValue</a> <span class="keyword">struct</span>{}</code></span>
+<span class="codeline" id="line-140"><code></code></span>
+<span class="codeline" id="line-141"><code><span class="comment">// Int returns compile-time computable int value of the expression.</span></code></span>
+<span class="codeline" id="line-142"><code><span class="comment">// If value can't be computed, condition will fail.</span></code></span>
+<span class="codeline" id="line-143"><code><span class="keyword">func</span> (<a href="#line-139" class="ident">ExprValue</a>) <label for="r29" class="ident"><a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..ExprValue.Int.html" class="ident">Int</a></label>() <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a> { <span class="keyword">return</span> <a href="internal.go.html#line-4" class="ident">intResult</a> }</code></span>
+<span class="codeline" id="line-144"><code></code></span>
+<span class="codeline" id="line-145"><code><span class="comment">// ExprType describes a type of a matcher expr.</span></code></span>
+<span class="codeline" id="line-146"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/quasilyte/go-ruleguard/dsl.html#name-ExprType" class="ident">ExprType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-147"><code>	<span class="comment">// Size represents expression type size in bytes.</span></code></span>
+<span class="codeline" id="line-148"><code>	<a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..ExprType.Size.html" class="ident">Size</a> <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-149"><code>}</code></span>
+<span class="codeline" id="line-150"><code></code></span>
+<span class="codeline" id="line-151"><code><span class="comment">// Underlying returns expression type underlying type.</span></code></span>
+<span class="codeline" id="line-152"><code><span class="comment">// See https://golang.org/pkg/go/types/#Type Underlying() method documentation.</span></code></span>
+<span class="codeline" id="line-153"><code><span class="comment">// Read https://golang.org/ref/spec#Types section to learn more about underlying types.</span></code></span>
+<span class="codeline" id="line-154"><code><span class="keyword">func</span> (<a href="#line-146" class="ident">ExprType</a>) <label for="r30" class="ident"><a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..ExprType.Underlying.html" class="ident">Underlying</a></label>() <a href="#line-146" class="ident">ExprType</a> { <span class="keyword">return</span> <a href="internal.go.html#line-6" class="ident">underlyingType</a> }</code></span>
+<span class="codeline" id="line-155"><code></code></span>
+<span class="codeline" id="line-156"><code><span class="comment">// AssignableTo reports whether a type is assign-compatible with a given type.</span></code></span>
+<span class="codeline" id="line-157"><code><span class="comment">// See https://golang.org/pkg/go/types/#AssignableTo.</span></code></span>
+<span class="codeline" id="line-158"><code><span class="keyword">func</span> (<a href="#line-146" class="ident">ExprType</a>) <label for="r31" class="ident"><a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..ExprType.AssignableTo.html" class="ident">AssignableTo</a></label>(<label for="r32" class="ident">typ</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> { <span class="keyword">return</span> <a href="internal.go.html#line-3" class="ident">boolResult</a> }</code></span>
+<span class="codeline" id="line-159"><code></code></span>
+<span class="codeline" id="line-160"><code><span class="comment">// ConvertibleTo reports whether a type is conversible to a given type.</span></code></span>
+<span class="codeline" id="line-161"><code><span class="comment">// See https://golang.org/pkg/go/types/#ConvertibleTo.</span></code></span>
+<span class="codeline" id="line-162"><code><span class="keyword">func</span> (<a href="#line-146" class="ident">ExprType</a>) <label for="r33" class="ident"><a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..ExprType.ConvertibleTo.html" class="ident">ConvertibleTo</a></label>(<label for="r34" class="ident">typ</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> { <span class="keyword">return</span> <a href="internal.go.html#line-3" class="ident">boolResult</a> }</code></span>
+<span class="codeline" id="line-163"><code></code></span>
+<span class="codeline" id="line-164"><code><span class="comment">// Implements reports whether a type implements a given interface.</span></code></span>
+<span class="codeline" id="line-165"><code><span class="comment">// See https://golang.org/pkg/go/types/#Implements.</span></code></span>
+<span class="codeline" id="line-166"><code><span class="keyword">func</span> (<a href="#line-146" class="ident">ExprType</a>) <label for="r35" class="ident"><a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..ExprType.Implements.html" class="ident">Implements</a></label>(<label for="r36" class="ident">typ</label> <a href="#line-206" class="ident">typeName</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> { <span class="keyword">return</span> <a href="internal.go.html#line-3" class="ident">boolResult</a> }</code></span>
+<span class="codeline" id="line-167"><code></code></span>
+<span class="codeline" id="line-168"><code><span class="comment">// Is reports whether a type is identical to a given type.</span></code></span>
+<span class="codeline" id="line-169"><code><span class="keyword">func</span> (<a href="#line-146" class="ident">ExprType</a>) <label for="r37" class="ident"><a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..ExprType.Is.html" class="ident">Is</a></label>(<label for="r38" class="ident">typ</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> { <span class="keyword">return</span> <a href="internal.go.html#line-3" class="ident">boolResult</a> }</code></span>
+<span class="codeline" id="line-170"><code></code></span>
+<span class="codeline" id="line-171"><code><span class="comment">// MatchedText represents a source text associated with a matched node.</span></code></span>
+<span class="codeline" id="line-172"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/quasilyte/go-ruleguard/dsl.html#name-MatchedText" class="ident">MatchedText</a> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-173"><code></code></span>
+<span class="codeline" id="line-174"><code><span class="comment">// Matches reports whether the text matches the given regexp pattern.</span></code></span>
+<span class="codeline" id="line-175"><code><span class="keyword">func</span> (<a href="#line-172" class="ident">MatchedText</a>) <label for="r39" class="ident"><a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..MatchedText.Matches.html" class="ident">Matches</a></label>(<label for="r40" class="ident">pattern</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> { <span class="keyword">return</span> <a href="internal.go.html#line-3" class="ident">boolResult</a> }</code></span>
+<span class="codeline" id="line-176"><code></code></span>
+<span class="codeline" id="line-177"><code><span class="comment">// String represents an arbitrary string-typed data.</span></code></span>
+<span class="codeline" id="line-178"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/quasilyte/go-ruleguard/dsl.html#name-String" class="ident">String</a> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-179"><code></code></span>
+<span class="codeline" id="line-180"><code><span class="comment">// Matches reports whether a string matches the given regexp pattern.</span></code></span>
+<span class="codeline" id="line-181"><code><span class="keyword">func</span> (<a href="#line-178" class="ident">String</a>) <label for="r41" class="ident"><a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..String.Matches.html" class="ident">Matches</a></label>(<label for="r42" class="ident">pattern</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> { <span class="keyword">return</span> <a href="internal.go.html#line-3" class="ident">boolResult</a> }</code></span>
+<span class="codeline" id="line-182"><code></code></span>
+<span class="codeline" id="line-183"><code><span class="comment">// File represents the current Go source file.</span></code></span>
+<span class="codeline" id="line-184"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/quasilyte/go-ruleguard/dsl.html#name-File" class="ident">File</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-185"><code>	<span class="comment">// Name is a file base name.</span></code></span>
+<span class="codeline" id="line-186"><code>	<a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..File.Name.html" class="ident">Name</a> <a href="#line-178" class="ident">String</a></code></span>
+<span class="codeline" id="line-187"><code></code></span>
+<span class="codeline" id="line-188"><code>	<span class="comment">// PkgPath is a file package path.</span></code></span>
+<span class="codeline" id="line-189"><code><span class="comment">	// Examples: "io/ioutil", "strings", "github.com/quasilyte/go-ruleguard/dsl".</span></code></span>
+<span class="codeline" id="line-190"><code>	<a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..File.PkgPath.html" class="ident">PkgPath</a> <a href="#line-178" class="ident">String</a></code></span>
+<span class="codeline" id="line-191"><code>}</code></span>
+<span class="codeline" id="line-192"><code></code></span>
+<span class="codeline" id="line-193"><code><span class="comment">// Imports reports whether the current file imports the given path.</span></code></span>
+<span class="codeline" id="line-194"><code><span class="keyword">func</span> (<a href="#line-184" class="ident">File</a>) <label for="r43" class="ident"><a href="../../../../../use/github.com/quasilyte/go-ruleguard/dsl..File.Imports.html" class="ident">Imports</a></label>(<label for="r44" class="ident">path</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> { <span class="keyword">return</span> <a href="internal.go.html#line-3" class="ident">boolResult</a> }</code></span>
+<span class="codeline" id="line-195"><code></code></span>
+<span class="codeline" id="line-196"><code><span class="comment">// typeName is a helper type used to document function params better.</span></code></span>
+<span class="codeline" id="line-197"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-198"><code><span class="comment">// A type name can be:</span></code></span>
+<span class="codeline" id="line-199"><code><span class="comment">//	- builtin type name: `error`, `string`, etc.</span></code></span>
+<span class="codeline" id="line-200"><code><span class="comment">//	- qualified name from a standard library: `io.Reader`, etc.</span></code></span>
+<span class="codeline" id="line-201"><code><span class="comment">//	- fully-qualified type name, like `github.com/username/pkgname.TypeName`</span></code></span>
+<span class="codeline" id="line-202"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-203"><code><span class="comment">// typeName is also affected by a local import table, which can override</span></code></span>
+<span class="codeline" id="line-204"><code><span class="comment">// how qualified names are interpreted.</span></code></span>
+<span class="codeline" id="line-205"><code><span class="comment">// See `Matcher.Import` for more info.</span></code></span>
+<span class="codeline" id="line-206"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/quasilyte/go-ruleguard/dsl.html#name-typeName" class="ident">typeName</a> = <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+</pre><pre id="footer">
+<table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

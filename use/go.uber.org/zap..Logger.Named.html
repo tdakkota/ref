@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>References: go.uber.org/zap.Logger.Named</title>
+<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre><code><span style="font-size:x-large;"><b><a href="../../pkg/go.uber.org/zap.html">go.uber.org/zap</a>.<a href="../../src/go.uber.org/zap/logger.go.html#line-41">Logger</a>.<a href="../../src/go.uber.org/zap/logger.go.html#line-135">Named</a></b></span><span style="font-size: large;"><i> (method)</i></span>
+
+<span class="title">19 uses</span>
+
+	go.uber.org/zap (current package)
+		<a href="../../src/go.uber.org/zap/logger.go.html#line-135">logger.go#L135</a>: func (log *Logger) <b>Named</b>(s string) *Logger {
+		<a href="../../src/go.uber.org/zap/sugar.go.html#line-61">sugar.go#L61</a>: 	return &amp;SugaredLogger{base: s.base.<b>Named</b>(name)}
+
+	<a href="../../pkg/github.com/gotd/td/internal/mtproto.html">github.com/gotd/td/internal/mtproto</a>
+		<a href="../../src/github.com/gotd/td/internal/mtproto/ack.go.html#line-14">ack.go#L14</a>: 	log := c.log.<b>Named</b>("ack")
+		<a href="../../src/github.com/gotd/td/internal/mtproto/conn.go.html#line-144">conn.go#L144</a>: 			Logger:        opt.Logger.<b>Named</b>("rpc"),
+		<a href="../../src/github.com/gotd/td/internal/mtproto/conn.go.html#line-192" class="path-duplicate">conn.go</a><a href="../../src/github.com/gotd/td/internal/mtproto/conn.go.html#line-192">#L192</a>: 		g := tdsync.NewLogGroup(ctx, c.log.<b>Named</b>("group"))
+		<a href="../../src/github.com/gotd/td/internal/mtproto/create_auth_key.go.html#line-13">create_auth_key.go#L13</a>: 		WithLogger(c.log.<b>Named</b>("exchange")).
+		<a href="../../src/github.com/gotd/td/internal/mtproto/read.go.html#line-108">read.go#L108</a>: 	log := c.log.<b>Named</b>("read")
+
+	<a href="../../pkg/github.com/gotd/td/internal/rpc.html">github.com/gotd/td/internal/rpc</a>
+		<a href="../../src/github.com/gotd/td/internal/rpc/engine.go.html#line-195">engine.go#L195</a>: 		log     = e.log.<b>Named</b>("retry").With(zap.Int64("msg_id", req.MsgID))
+
+	<a href="../../pkg/github.com/gotd/td/telegram.html">github.com/gotd/td/telegram</a>
+		<a href="../../src/github.com/gotd/td/telegram/builder.go.html#line-153">builder.go#L153</a>: 		logger = opts.Logger.<b>Named</b>("test")
+		<a href="../../src/github.com/gotd/td/telegram/conn_builder.go.html#line-71">conn_builder.go#L71</a>: 	opts.Logger = c.log.<b>Named</b>("conn").With(
+		<a href="../../src/github.com/gotd/td/telegram/pool.go.html#line-31">pool.go#L31</a>: 		Logger:             c.log.<b>Named</b>("pool").With(zap.Int("dc_id", dc)),
+		<a href="../../src/github.com/gotd/td/telegram/pool.go.html#line-79" class="path-duplicate">pool.go</a><a href="../../src/github.com/gotd/td/telegram/pool.go.html#line-79">#L79</a>: 		options.Logger = c.log.<b>Named</b>("conn").With(
+
+	<a href="../../pkg/github.com/gotd/td/telegram/internal/e2etest.html">github.com/gotd/td/telegram/internal/e2etest</a>
+		<a href="../../src/github.com/gotd/td/telegram/internal/e2etest/echo_bot.go.html#line-32">echo_bot.go#L32</a>: 		logger: suite.Log.<b>Named</b>("echobot"),
+		<a href="../../src/github.com/gotd/td/telegram/internal/e2etest/echo_bot.go.html#line-125" class="path-duplicate">echo_bot.go</a><a href="../../src/github.com/gotd/td/telegram/internal/e2etest/echo_bot.go.html#line-125">#L125</a>: 			b.logger.<b>Named</b>("dispatcher").
+		<a href="../../src/github.com/gotd/td/telegram/internal/e2etest/terentyev.go.html#line-32">terentyev.go#L32</a>: 		logger:   suite.Log.<b>Named</b>("terentyev"),
+		<a href="../../src/github.com/gotd/td/telegram/internal/e2etest/terentyev.go.html#line-43" class="path-duplicate">terentyev.go</a><a href="../../src/github.com/gotd/td/telegram/internal/e2etest/terentyev.go.html#line-43">#L43</a>: 		u.logger.<b>Named</b>("dispatcher").
+
+	<a href="../../pkg/github.com/gotd/td/telegram/internal/manager.html">github.com/gotd/td/telegram/internal/manager</a>
+		<a href="../../src/github.com/gotd/td/telegram/internal/manager/create.go.html#line-56">create.go#L56</a>: 	opts.Logger = conn.log.<b>Named</b>("mtproto")
+
+	<a href="../../pkg/github.com/gotd/td/telegram/internal/tgtest.html">github.com/gotd/td/telegram/internal/tgtest</a>
+		<a href="../../src/github.com/gotd/td/telegram/internal/tgtest/dcs.go.html#line-69">dcs.go#L69</a>: 	logger := q.log.<b>Named</b>(name).With(zap.Int("dc_id", id))
+		<a href="../../src/github.com/gotd/td/telegram/internal/tgtest/exchange.go.html#line-14">exchange.go#L14</a>: 		WithLogger(s.log.<b>Named</b>("exchange")).
+</code></pre><pre id="footer">
+<table><tr><td><img src="../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

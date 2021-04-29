@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dependency Relation: context</title>
+<link href="../css/light-v0.2.7-preview.css" rel="stylesheet">
+<script src="../jvs/golds-v0.2.7-preview.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre><code><span style="font-size:xx-large;">package <b>context</b></span>
+
+<span class="title">Import Path</span>
+	<a href="../pkg/context.html">context</a>
+
+<span class="title">Imports</span><div id="packages">
+<code>      <span class="order">1</span>. <a href="../pkg/errors.html">errors</a></code>
+<code>      <span class="order">2</span>. <a href="../pkg/internal/reflectlite.html">internal/reflectlite</a></code>
+<code>      <span class="order">3</span>. <a href="../pkg/sync.html">sync</a></code>
+<code>      <span class="order">4</span>. <a href="../pkg/sync/atomic.html" class="path-duplicate">sync/</a><a href="../pkg/sync/atomic.html">atomic</a></code>
+<code>      <span class="order">5</span>. <a href="../pkg/time.html">time</a></code></div>
+<span class="title" id="imported-by">Imported By</span><div id="packages">
+<code>      <span class="order"> 1</span>. <a href="../pkg/crypto/tls.html">crypto/tls</a></code>
+<code>      <span class="order"> 2</span>. <a href="../pkg/github.com/cenkalti/backoff/v4.html">github.com/cenkalti/backoff/v4</a></code>
+<code>      <span class="order"> 3</span>. <a href="../pkg/github.com/gotd/getdoc.html" class="path-duplicate">github.com/</a><a href="../pkg/github.com/gotd/getdoc.html">gotd/getdoc</a></code>
+<code>      <span class="order"> 4</span>. <a href="../pkg/github.com/gotd/getdoc/dl.html" class="path-duplicate">github.com/gotd/getdoc/</a><a href="../pkg/github.com/gotd/getdoc/dl.html">dl</a></code>
+<code>   <a href="../src/github.com/gotd/td/cmd/gotdchats/main.go.html#line-91">m➜</a> <span class="order"> 5</span>. <a href="../pkg/github.com/gotd/td/cmd/gotdchats.html" class="path-duplicate">github.com/gotd/</a><a href="../pkg/github.com/gotd/td/cmd/gotdchats.html">td/cmd/gotdchats</a></code>
+<code>   <a href="../src/github.com/gotd/td/cmd/gotdecho/main.go.html#line-41">m➜</a> <span class="order"> 6</span>. <a href="../pkg/github.com/gotd/td/cmd/gotdecho.html" class="path-duplicate">github.com/gotd/td/cmd/</a><a href="../pkg/github.com/gotd/td/cmd/gotdecho.html">gotdecho</a></code>
+<code>      <span class="order"> 7</span>. <a href="../pkg/github.com/gotd/td/internal/exchange.html" class="path-duplicate">github.com/gotd/td/</a><a href="../pkg/github.com/gotd/td/internal/exchange.html">internal/exchange</a></code>
+<code>      <span class="order"> 8</span>. <a href="../pkg/github.com/gotd/td/internal/gen/example.html" class="path-duplicate">github.com/gotd/td/internal/</a><a href="../pkg/github.com/gotd/td/internal/gen/example.html">gen/example</a></code>
+<code>      <span class="order"> 9</span>. <a href="../pkg/github.com/gotd/td/internal/mt.html" class="path-duplicate">github.com/gotd/td/internal/</a><a href="../pkg/github.com/gotd/td/internal/mt.html">mt</a></code>
+<code>      <span class="order">10</span>. <a href="../pkg/github.com/gotd/td/internal/mtproto.html" class="path-duplicate">github.com/gotd/td/internal/</a><a href="../pkg/github.com/gotd/td/internal/mtproto.html">mtproto</a></code>
+<code>      <span class="order">11</span>. <a href="../pkg/github.com/gotd/td/internal/pool.html" class="path-duplicate">github.com/gotd/td/internal/</a><a href="../pkg/github.com/gotd/td/internal/pool.html">pool</a></code>
+<code>      <span class="order">12</span>. <a href="../pkg/github.com/gotd/td/internal/rpc.html" class="path-duplicate">github.com/gotd/td/internal/</a><a href="../pkg/github.com/gotd/td/internal/rpc.html">rpc</a></code>
+<code>      <span class="order">13</span>. <a href="../pkg/github.com/gotd/td/internal/tdsync.html" class="path-duplicate">github.com/gotd/td/internal/</a><a href="../pkg/github.com/gotd/td/internal/tdsync.html">tdsync</a></code>
+<code>      <span class="order">14</span>. <a href="../pkg/github.com/gotd/td/session.html" class="path-duplicate">github.com/gotd/td/</a><a href="../pkg/github.com/gotd/td/session.html">session</a></code>
+<code>      <span class="order">15</span>. <a href="../pkg/github.com/gotd/td/tdp/internal/schema.html" class="path-duplicate">github.com/gotd/td/</a><a href="../pkg/github.com/gotd/td/tdp/internal/schema.html">tdp/internal/schema</a></code>
+<code>      <span class="order">16</span>. <a href="../pkg/github.com/gotd/td/telegram.html" class="path-duplicate">github.com/gotd/td/</a><a href="../pkg/github.com/gotd/td/telegram.html">telegram</a></code>
+<code>      <span class="order">17</span>. <a href="../pkg/github.com/gotd/td/telegram/dcs.html" class="path-duplicate">github.com/gotd/td/telegram/</a><a href="../pkg/github.com/gotd/td/telegram/dcs.html">dcs</a></code>
+<code>      <span class="order">18</span>. <a href="../pkg/github.com/gotd/td/telegram/downloader.html" class="path-duplicate">github.com/gotd/td/telegram/</a><a href="../pkg/github.com/gotd/td/telegram/downloader.html">downloader</a></code>
+<code>      <span class="order">19</span>. <a href="../pkg/github.com/gotd/td/telegram/internal/e2etest.html" class="path-duplicate">github.com/gotd/td/telegram/</a><a href="../pkg/github.com/gotd/td/telegram/internal/e2etest.html">internal/e2etest</a></code>
+<code>      <span class="order">20</span>. <a href="../pkg/github.com/gotd/td/telegram/internal/helpers.html" class="path-duplicate">github.com/gotd/td/telegram/internal/</a><a href="../pkg/github.com/gotd/td/telegram/internal/helpers.html">helpers</a></code>
+<code>      <span class="order">21</span>. <a href="../pkg/github.com/gotd/td/telegram/internal/manager.html" class="path-duplicate">github.com/gotd/td/telegram/internal/</a><a href="../pkg/github.com/gotd/td/telegram/internal/manager.html">manager</a></code>
+<code>      <span class="order">22</span>. <a href="../pkg/github.com/gotd/td/telegram/internal/rpcmock.html" class="path-duplicate">github.com/gotd/td/telegram/internal/</a><a href="../pkg/github.com/gotd/td/telegram/internal/rpcmock.html">rpcmock</a></code>
+<code>      <span class="order">23</span>. <a href="../pkg/github.com/gotd/td/telegram/internal/tgtest.html" class="path-duplicate">github.com/gotd/td/telegram/internal/</a><a href="../pkg/github.com/gotd/td/telegram/internal/tgtest.html">tgtest</a></code>
+<code>      <span class="order">24</span>. <a href="../pkg/github.com/gotd/td/telegram/internal/tgtest/services/file.html" class="path-duplicate">github.com/gotd/td/telegram/internal/tgtest/</a><a href="../pkg/github.com/gotd/td/telegram/internal/tgtest/services/file.html">services/file</a></code>
+<code>      <span class="order">25</span>. <a href="../pkg/github.com/gotd/td/telegram/invokers.html" class="path-duplicate">github.com/gotd/td/telegram/</a><a href="../pkg/github.com/gotd/td/telegram/invokers.html">invokers</a></code>
+<code>      <span class="order">26</span>. <a href="../pkg/github.com/gotd/td/telegram/message.html" class="path-duplicate">github.com/gotd/td/telegram/</a><a href="../pkg/github.com/gotd/td/telegram/message.html">message</a></code>
+<code>      <span class="order">27</span>. <a href="../pkg/github.com/gotd/td/telegram/message/inline.html" class="path-duplicate">github.com/gotd/td/telegram/message/</a><a href="../pkg/github.com/gotd/td/telegram/message/inline.html">inline</a></code>
+<code>      <span class="order">28</span>. <a href="../pkg/github.com/gotd/td/telegram/message/peer.html" class="path-duplicate">github.com/gotd/td/telegram/message/</a><a href="../pkg/github.com/gotd/td/telegram/message/peer.html">peer</a></code>
+<code>      <span class="order">29</span>. <a href="../pkg/github.com/gotd/td/telegram/query/cached.html" class="path-duplicate">github.com/gotd/td/telegram/</a><a href="../pkg/github.com/gotd/td/telegram/query/cached.html">query/cached</a></code>
+<code>      <span class="order">30</span>. <a href="../pkg/github.com/gotd/td/telegram/query/channels/participants.html" class="path-duplicate">github.com/gotd/td/telegram/query/</a><a href="../pkg/github.com/gotd/td/telegram/query/channels/participants.html">channels/participants</a></code>
+<code>      <span class="order">31</span>. <a href="../pkg/github.com/gotd/td/telegram/query/contacts/blocked.html" class="path-duplicate">github.com/gotd/td/telegram/query/</a><a href="../pkg/github.com/gotd/td/telegram/query/contacts/blocked.html">contacts/blocked</a></code>
+<code>      <span class="order">32</span>. <a href="../pkg/github.com/gotd/td/telegram/query/dialogs.html" class="path-duplicate">github.com/gotd/td/telegram/query/</a><a href="../pkg/github.com/gotd/td/telegram/query/dialogs.html">dialogs</a></code>
+<code>   <a href="../src/github.com/gotd/td/telegram/query/internal/cachedgen/gen.go.html#line-57">m➜</a> <span class="order">33</span>. <a href="../pkg/github.com/gotd/td/telegram/query/internal/cachedgen.html" class="path-duplicate">github.com/gotd/td/telegram/query/</a><a href="../pkg/github.com/gotd/td/telegram/query/internal/cachedgen.html">internal/cachedgen</a></code>
+<code>      <span class="order">34</span>. <a href="../pkg/github.com/gotd/td/telegram/query/internal/genutil.html" class="path-duplicate">github.com/gotd/td/telegram/query/internal/</a><a href="../pkg/github.com/gotd/td/telegram/query/internal/genutil.html">genutil</a></code>
+<code>   <a href="../src/github.com/gotd/td/telegram/query/internal/itergen/gen.go.html#line-61">m➜</a> <span class="order">35</span>. <a href="../pkg/github.com/gotd/td/telegram/query/internal/itergen.html" class="path-duplicate">github.com/gotd/td/telegram/query/internal/</a><a href="../pkg/github.com/gotd/td/telegram/query/internal/itergen.html">itergen</a></code>
+<code>      <span class="order">36</span>. <a href="../pkg/github.com/gotd/td/telegram/query/messages.html" class="path-duplicate">github.com/gotd/td/telegram/query/</a><a href="../pkg/github.com/gotd/td/telegram/query/messages.html">messages</a></code>
+<code>      <span class="order">37</span>. <a href="../pkg/github.com/gotd/td/telegram/query/messages/stickers/featured.html" class="path-duplicate">github.com/gotd/td/telegram/query/messages/</a><a href="../pkg/github.com/gotd/td/telegram/query/messages/stickers/featured.html">stickers/featured</a></code>
+<code>      <span class="order">38</span>. <a href="../pkg/github.com/gotd/td/telegram/query/photos.html" class="path-duplicate">github.com/gotd/td/telegram/query/</a><a href="../pkg/github.com/gotd/td/telegram/query/photos.html">photos</a></code>
+<code>      <span class="order">39</span>. <a href="../pkg/github.com/gotd/td/telegram/uploader.html" class="path-duplicate">github.com/gotd/td/telegram/</a><a href="../pkg/github.com/gotd/td/telegram/uploader.html">uploader</a></code>
+<code>      <span class="order">40</span>. <a href="../pkg/github.com/gotd/td/telegram/uploader/source.html" class="path-duplicate">github.com/gotd/td/telegram/uploader/</a><a href="../pkg/github.com/gotd/td/telegram/uploader/source.html">source</a></code>
+<code>      <span class="order">41</span>. <a href="../pkg/github.com/gotd/td/tg.html" class="path-duplicate">github.com/gotd/td/</a><a href="../pkg/github.com/gotd/td/tg.html">tg</a></code>
+<code>      <span class="order">42</span>. <a href="../pkg/github.com/gotd/td/tg/e2e.html" class="path-duplicate">github.com/gotd/td/tg/</a><a href="../pkg/github.com/gotd/td/tg/e2e.html">e2e</a></code>
+<code>      <span class="order">43</span>. <a href="../pkg/github.com/gotd/td/transport.html" class="path-duplicate">github.com/gotd/td/</a><a href="../pkg/github.com/gotd/td/transport.html">transport</a></code>
+<code>      <span class="order">44</span>. <a href="../pkg/golang.org/x/net/internal/socks.html">golang.org/x/net/internal/socks</a></code>
+<code>      <span class="order">45</span>. <a href="../pkg/golang.org/x/net/proxy.html" class="path-duplicate">golang.org/x/net/</a><a href="../pkg/golang.org/x/net/proxy.html">proxy</a></code>
+<code>      <span class="order">46</span>. <a href="../pkg/golang.org/x/sync/errgroup.html" class="path-duplicate">golang.org/x/</a><a href="../pkg/golang.org/x/sync/errgroup.html">sync/errgroup</a></code>
+<code>      <span class="order">47</span>. <a href="../pkg/golang.org/x/tools/go/internal/packagesdriver.html" class="path-duplicate">golang.org/x/</a><a href="../pkg/golang.org/x/tools/go/internal/packagesdriver.html">tools/go/internal/packagesdriver</a></code>
+<code>      <span class="order">48</span>. <a href="../pkg/golang.org/x/tools/go/packages.html" class="path-duplicate">golang.org/x/tools/go/</a><a href="../pkg/golang.org/x/tools/go/packages.html">packages</a></code>
+<code>      <span class="order">49</span>. <a href="../pkg/golang.org/x/tools/internal/event.html" class="path-duplicate">golang.org/x/tools/</a><a href="../pkg/golang.org/x/tools/internal/event.html">internal/event</a></code>
+<code>      <span class="order">50</span>. <a href="../pkg/golang.org/x/tools/internal/event/core.html" class="path-duplicate">golang.org/x/tools/internal/event/</a><a href="../pkg/golang.org/x/tools/internal/event/core.html">core</a></code>
+<code>      <span class="order">51</span>. <a href="../pkg/golang.org/x/tools/internal/gocommand.html" class="path-duplicate">golang.org/x/tools/internal/</a><a href="../pkg/golang.org/x/tools/internal/gocommand.html">gocommand</a></code>
+<code>      <span class="order">52</span>. <a href="../pkg/internal/execabs.html">internal/execabs</a></code>
+<code>      <span class="order">53</span>. <a href="../pkg/net.html">net</a></code>
+<code>      <span class="order">54</span>. <a href="../pkg/net/http.html" class="path-duplicate">net/</a><a href="../pkg/net/http.html">http</a></code>
+<code>      <span class="order">55</span>. <a href="../pkg/net/http/httptrace.html" class="path-duplicate">net/http/</a><a href="../pkg/net/http/httptrace.html">httptrace</a></code>
+<code>      <span class="order">56</span>. <a href="../pkg/os/exec.html">os/exec</a></code>
+<code>      <span class="order">57</span>. <a href="../pkg/os/signal.html" class="path-duplicate">os/</a><a href="../pkg/os/signal.html">signal</a></code>
+<code>      <span class="order">58</span>. <a href="../pkg/runtime/trace.html">runtime/trace</a></code></div><pre id="footer">
+<table><tr><td><img src="../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

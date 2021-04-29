@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: assignments.go in package go/types</title>
+<link href="../../../css/light-v0.2.7-preview.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.2.7-preview.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	assignments.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../pkg/go/types.html">go/types</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16],
+input[id=r17]:checked ~pre label[for=r17],
+input[id=r18]:checked ~pre label[for=r18],
+input[id=r19]:checked ~pre label[for=r19],
+input[id=r20]:checked ~pre label[for=r20],
+input[id=r21]:checked ~pre label[for=r21],
+input[id=r22]:checked ~pre label[for=r22],
+input[id=r23]:checked ~pre label[for=r23],
+input[id=r24]:checked ~pre label[for=r24],
+input[id=r25]:checked ~pre label[for=r25],
+input[id=r26]:checked ~pre label[for=r26],
+input[id=r27]:checked ~pre label[for=r27],
+input[id=r28]:checked ~pre label[for=r28],
+input[id=r29]:checked ~pre label[for=r29],
+input[id=r30]:checked ~pre label[for=r30],
+input[id=r31]:checked ~pre label[for=r31],
+input[id=r32]:checked ~pre label[for=r32],
+input[id=r33]:checked ~pre label[for=r33],
+input[id=r34]:checked ~pre label[for=r34],
+input[id=r35]:checked ~pre label[for=r35],
+input[id=r36]:checked ~pre label[for=r36],
+input[id=r37]:checked ~pre label[for=r37],
+input[id=r38]:checked ~pre label[for=r38],
+input[id=r39]:checked ~pre label[for=r39],
+input[id=r40]:checked ~pre label[for=r40],
+input[id=r41]:checked ~pre label[for=r41],
+input[id=r42]:checked ~pre label[for=r42],
+input[id=r43]:checked ~pre label[for=r43],
+input[id=r44]:checked ~pre label[for=r44],
+input[id=r45]:checked ~pre label[for=r45],
+input[id=r46]:checked ~pre label[for=r46],
+input[id=r47]:checked ~pre label[for=r47],
+input[id=r48]:checked ~pre label[for=r48],
+input[id=r49]:checked ~pre label[for=r49],
+input[id=r50]:checked ~pre label[for=r50],
+input[id=r51]:checked ~pre label[for=r51],
+input[id=r52]:checked ~pre label[for=r52],
+input[id=r53]:checked ~pre label[for=r53],
+input[id=r54]:checked ~pre label[for=r54],
+input[id=r55]:checked ~pre label[for=r55],
+input[id=r56]:checked ~pre label[for=r56],
+input[id=r57]:checked ~pre label[for=r57],
+input[id=r58]:checked ~pre label[for=r58],
+input[id=r59]:checked ~pre label[for=r59],
+input[id=r60]:checked ~pre label[for=r60],
+input[id=r61]:checked ~pre label[for=r61],
+input[id=r62]:checked ~pre label[for=r62],
+input[id=r63]:checked ~pre label[for=r63],
+input[id=r64]:checked ~pre label[for=r64],
+input[id=r65]:checked ~pre label[for=r65],
+input[id=r66]:checked ~pre label[for=r66],
+input[id=r67]:checked ~pre label[for=r67],
+input[id=r68]:checked ~pre label[for=r68],
+input[id=r69]:checked ~pre label[for=r69],
+input[id=r70]:checked ~pre label[for=r70],
+input[id=r71]:checked ~pre label[for=r71],
+input[id=r72]:checked ~pre label[for=r72],
+input[id=r73]:checked ~pre label[for=r73],
+input[id=r74]:checked ~pre label[for=r74],
+input[id=r75]:checked ~pre label[for=r75],
+input[id=r76]:checked ~pre label[for=r76],
+input[id=r77]:checked ~pre label[for=r77],
+input[id=r78]:checked ~pre label[for=r78],
+input[id=r79]:checked ~pre label[for=r79],
+input[id=r80]:checked ~pre label[for=r80],
+input[id=r81]:checked ~pre label[for=r81],
+input[id=r82]:checked ~pre label[for=r82],
+input[id=r83]:checked ~pre label[for=r83],
+input[id=r84]:checked ~pre label[for=r84],
+input[id=r85]:checked ~pre label[for=r85],
+input[id=r86]:checked ~pre label[for=r86],
+input[id=r87]:checked ~pre label[for=r87],
+input[id=r88]:checked ~pre label[for=r88],
+input[id=r89]:checked ~pre label[for=r89],
+input[id=r90]:checked ~pre label[for=r90],
+input[id=r91]:checked ~pre label[for=r91],
+input[id=r92]:checked ~pre label[for=r92]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1,
+input[id=i2]:checked ~pre .i2
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="r17" type="radio" name="g"/>
+<input id="r18" type="radio" name="g"/>
+<input id="r19" type="radio" name="g"/>
+<input id="r20" type="radio" name="g"/>
+<input id="r21" type="radio" name="g"/>
+<input id="r22" type="radio" name="g"/>
+<input id="r23" type="radio" name="g"/>
+<input id="r24" type="radio" name="g"/>
+<input id="r25" type="radio" name="g"/>
+<input id="r26" type="radio" name="g"/>
+<input id="r27" type="radio" name="g"/>
+<input id="r28" type="radio" name="g"/>
+<input id="r29" type="radio" name="g"/>
+<input id="r30" type="radio" name="g"/>
+<input id="r31" type="radio" name="g"/>
+<input id="r32" type="radio" name="g"/>
+<input id="r33" type="radio" name="g"/>
+<input id="r34" type="radio" name="g"/>
+<input id="r35" type="radio" name="g"/>
+<input id="r36" type="radio" name="g"/>
+<input id="r37" type="radio" name="g"/>
+<input id="r38" type="radio" name="g"/>
+<input id="r39" type="radio" name="g"/>
+<input id="r40" type="radio" name="g"/>
+<input id="r41" type="radio" name="g"/>
+<input id="r42" type="radio" name="g"/>
+<input id="r43" type="radio" name="g"/>
+<input id="r44" type="radio" name="g"/>
+<input id="r45" type="radio" name="g"/>
+<input id="r46" type="radio" name="g"/>
+<input id="r47" type="radio" name="g"/>
+<input id="r48" type="radio" name="g"/>
+<input id="r49" type="radio" name="g"/>
+<input id="r50" type="radio" name="g"/>
+<input id="r51" type="radio" name="g"/>
+<input id="r52" type="radio" name="g"/>
+<input id="r53" type="radio" name="g"/>
+<input id="r54" type="radio" name="g"/>
+<input id="r55" type="radio" name="g"/>
+<input id="r56" type="radio" name="g"/>
+<input id="r57" type="radio" name="g"/>
+<input id="r58" type="radio" name="g"/>
+<input id="r59" type="radio" name="g"/>
+<input id="r60" type="radio" name="g"/>
+<input id="r61" type="radio" name="g"/>
+<input id="r62" type="radio" name="g"/>
+<input id="r63" type="radio" name="g"/>
+<input id="r64" type="radio" name="g"/>
+<input id="r65" type="radio" name="g"/>
+<input id="r66" type="radio" name="g"/>
+<input id="r67" type="radio" name="g"/>
+<input id="r68" type="radio" name="g"/>
+<input id="r69" type="radio" name="g"/>
+<input id="r70" type="radio" name="g"/>
+<input id="r71" type="radio" name="g"/>
+<input id="r72" type="radio" name="g"/>
+<input id="r73" type="radio" name="g"/>
+<input id="r74" type="radio" name="g"/>
+<input id="r75" type="radio" name="g"/>
+<input id="r76" type="radio" name="g"/>
+<input id="r77" type="radio" name="g"/>
+<input id="r78" type="radio" name="g"/>
+<input id="r79" type="radio" name="g"/>
+<input id="r80" type="radio" name="g"/>
+<input id="r81" type="radio" name="g"/>
+<input id="r82" type="radio" name="g"/>
+<input id="r83" type="radio" name="g"/>
+<input id="r84" type="radio" name="g"/>
+<input id="r85" type="radio" name="g"/>
+<input id="r86" type="radio" name="g"/>
+<input id="r87" type="radio" name="g"/>
+<input id="r88" type="radio" name="g"/>
+<input id="r89" type="radio" name="g"/>
+<input id="r90" type="radio" name="g"/>
+<input id="r91" type="radio" name="g"/>
+<input id="r92" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+<input id="i2" type="radio" name="i"/>
+
+<pre class="line-numbers">
+<span class="codeline" id="line-1"><code><span class="comment">// Copyright 2013 The Go Authors. All rights reserved.</span></code></span>
+<span class="codeline" id="line-2"><code><span class="comment">// Use of this source code is governed by a BSD-style</span></code></span>
+<span class="codeline" id="line-3"><code><span class="comment">// license that can be found in the LICENSE file.</span></code></span>
+<span class="codeline" id="line-4"><code></code></span>
+<span class="codeline" id="line-5"><code><span class="comment">// This file implements initialization and assignment checks.</span></code></span>
+<span class="codeline" id="line-6"><code></code></span>
+<span class="codeline" id="line-7"><code><span class="keyword">package</span> types</code></span>
+<span class="codeline" id="line-8"><code></code></span>
+<span class="codeline" id="line-9"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-10"><code>	<label for="i0"><span class="lit-string i0">"errors"</span></label></code></span>
+<span class="codeline" id="line-11"><code>	<label for="i1"><span class="lit-string i1">"go/ast"</span></label></code></span>
+<span class="codeline" id="line-12"><code>	<label for="i2"><span class="lit-string i2">"go/token"</span></label></code></span>
+<span class="codeline" id="line-13"><code>)</code></span>
+<span class="codeline" id="line-14"><code></code></span>
+<span class="codeline" id="line-15"><code><span class="comment">// assignment reports whether x can be assigned to a variable of type T,</span></code></span>
+<span class="codeline" id="line-16"><code><span class="comment">// if necessary by attempting to convert untyped values to the appropriate</span></code></span>
+<span class="codeline" id="line-17"><code><span class="comment">// type. context describes the context in which the assignment takes place.</span></code></span>
+<span class="codeline" id="line-18"><code><span class="comment">// Use T == nil to indicate assignment to an untyped blank identifier.</span></code></span>
+<span class="codeline" id="line-19"><code><span class="comment">// x.mode is set to invalid if the assignment failed.</span></code></span>
+<span class="codeline" id="line-20"><code><span class="keyword">func</span> (<label for="r0" class="ident">check</label> *<a href="check.go.html#line-74" class="ident">Checker</a>) <label for="r1" class="ident"><a href="../../../use/go/types..Checker.assignment.html" class="ident">assignment</a></label>(<label for="r2" class="ident">x</label> *<a href="operand.go.html#line-54" class="ident">operand</a>, <label for="r3" class="ident">T</label> <a href="type.go.html#line-11" class="ident">Type</a>, <label for="r4" class="ident">context</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) {</code></span>
+<span class="codeline" id="line-21"><code>	<label for="r0" class="ident">check</label>.<a href="expr.go.html#line-1630" class="ident">singleValue</a>(<label for="r2" class="ident">x</label>)</code></span>
+<span class="codeline" id="line-22"><code></code></span>
+<span class="codeline" id="line-23"><code>	<span class="keyword">switch</span> <label for="r2" class="ident">x</label>.<a href="operand.go.html#line-55" class="ident">mode</a> {</code></span>
+<span class="codeline" id="line-24"><code>	<span class="keyword">case</span> <a href="operand.go.html#line-21" class="ident">invalid</a>:</code></span>
+<span class="codeline" id="line-25"><code>		<span class="keyword">return</span> <span class="comment">// error reported before</span></code></span>
+<span class="codeline" id="line-26"><code>	<span class="keyword">case</span> <a href="operand.go.html#line-25" class="ident">constant_</a>, <a href="operand.go.html#line-26" class="ident">variable</a>, <a href="operand.go.html#line-27" class="ident">mapindex</a>, <a href="operand.go.html#line-28" class="ident">value</a>, <a href="operand.go.html#line-29" class="ident">commaok</a>, <a href="operand.go.html#line-30" class="ident">commaerr</a>:</code></span>
+<span class="codeline" id="line-27"><code>		<span class="comment">// ok</span></code></span>
+<span class="codeline" id="line-28"><code>	<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-29"><code>		<a href="errors.go.html#line-24" class="ident">unreachable</a>()</code></span>
+<span class="codeline" id="line-30"><code>	}</code></span>
+<span class="codeline" id="line-31"><code></code></span>
+<span class="codeline" id="line-32"><code>	<span class="keyword">if</span> <a href="predicates.go.html#line-59" class="ident">isUntyped</a>(<label for="r2" class="ident">x</label>.<a href="operand.go.html#line-57" class="ident">typ</a>) {</code></span>
+<span class="codeline" id="line-33"><code>		<label for="r5" class="ident">target</label> := <label for="r3" class="ident">T</label></code></span>
+<span class="codeline" id="line-34"><code>		<span class="comment">// spec: "If an untyped constant is assigned to a variable of interface</span></code></span>
+<span class="codeline" id="line-35"><code><span class="comment">		// type or the blank identifier, the constant is first converted to type</span></code></span>
+<span class="codeline" id="line-36"><code><span class="comment">		// bool, rune, int, float64, complex128 or string respectively, depending</span></code></span>
+<span class="codeline" id="line-37"><code><span class="comment">		// on whether the value is a boolean, rune, integer, floating-point,</span></code></span>
+<span class="codeline" id="line-38"><code><span class="comment">		// complex, or string constant."</span></code></span>
+<span class="codeline" id="line-39"><code>		<span class="keyword">if</span> <label for="r3" class="ident">T</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> || <a href="predicates.go.html#line-75" class="ident">IsInterface</a>(<label for="r3" class="ident">T</label>) {</code></span>
+<span class="codeline" id="line-40"><code>			<span class="keyword">if</span> <label for="r3" class="ident">T</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> &amp;&amp; <label for="r2" class="ident">x</label>.<a href="operand.go.html#line-57" class="ident">typ</a> == <a href="universe.go.html#line-36" class="ident">Typ</a>[<a href="type.go.html#line-52" class="ident">UntypedNil</a>] {</code></span>
+<span class="codeline" id="line-41"><code>				<label for="r0" class="ident">check</label>.<a href="errors.go.html#line-148" class="ident">errorf</a>(<label for="r2" class="ident">x</label>, <a href="errorcodes.go.html#line-159" class="ident">_UntypedNil</a>, <span class="lit-string">"use of untyped nil in %s"</span>, <label for="r4" class="ident">context</label>)</code></span>
+<span class="codeline" id="line-42"><code>				<label for="r2" class="ident">x</label>.<a href="operand.go.html#line-55" class="ident">mode</a> = <a href="operand.go.html#line-21" class="ident">invalid</a></code></span>
+<span class="codeline" id="line-43"><code>				<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-44"><code>			}</code></span>
+<span class="codeline" id="line-45"><code>			<label for="r5" class="ident">target</label> = <a href="predicates.go.html#line-322" class="ident">Default</a>(<label for="r2" class="ident">x</label>.<a href="operand.go.html#line-57" class="ident">typ</a>)</code></span>
+<span class="codeline" id="line-46"><code>		}</code></span>
+<span class="codeline" id="line-47"><code>		<span class="keyword">if</span> <label for="r6" class="ident">err</label> := <label for="r0" class="ident">check</label>.<a href="expr.go.html#line-509" class="ident">canConvertUntyped</a>(<label for="r2" class="ident">x</label>, <label for="r5" class="ident">target</label>); <label for="r6" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-48"><code>			<label for="r7" class="ident">msg</label> := <label for="r0" class="ident">check</label>.<a href="errors.go.html#line-40" class="ident">sprintf</a>(<span class="lit-string">"cannot use %s as %s value in %s"</span>, <label for="r2" class="ident">x</label>, <label for="r5" class="ident">target</label>, <label for="r4" class="ident">context</label>)</code></span>
+<span class="codeline" id="line-49"><code>			<label for="r8" class="ident">code</label> := <a href="errorcodes.go.html#line-240" class="ident">_IncompatibleAssign</a></code></span>
+<span class="codeline" id="line-50"><code>			<span class="keyword">var</span> <label for="r9" class="ident">ierr</label> <a href="api.go.html#line-41" class="ident">Error</a></code></span>
+<span class="codeline" id="line-51"><code>			<span class="keyword">if</span> <a href="../../../pkg/errors.html" class="ident i0">errors</a>.<a href="../../errors/wrap.go.html#line-77" class="ident">As</a>(<label for="r6" class="ident">err</label>, &amp;<label for="r9" class="ident">ierr</label>) {</code></span>
+<span class="codeline" id="line-52"><code>				<span class="comment">// Preserve these inner errors, as they are informative.</span></code></span>
+<span class="codeline" id="line-53"><code>				<span class="keyword">switch</span> <label for="r9" class="ident">ierr</label>.<a href="api.go.html#line-52" class="ident">go116code</a> {</code></span>
+<span class="codeline" id="line-54"><code>				<span class="keyword">case</span> <a href="errorcodes.go.html#line-435" class="ident">_TruncatedFloat</a>:</code></span>
+<span class="codeline" id="line-55"><code>					<label for="r7" class="ident">msg</label> += <span class="lit-string">" (truncated)"</span></code></span>
+<span class="codeline" id="line-56"><code>					<label for="r8" class="ident">code</label> = <label for="r9" class="ident">ierr</label>.<a href="api.go.html#line-52" class="ident">go116code</a></code></span>
+<span class="codeline" id="line-57"><code>				<span class="keyword">case</span> <a href="errorcodes.go.html#line-441" class="ident">_NumericOverflow</a>:</code></span>
+<span class="codeline" id="line-58"><code>					<label for="r7" class="ident">msg</label> += <span class="lit-string">" (overflows)"</span></code></span>
+<span class="codeline" id="line-59"><code>					<label for="r8" class="ident">code</label> = <label for="r9" class="ident">ierr</label>.<a href="api.go.html#line-52" class="ident">go116code</a></code></span>
+<span class="codeline" id="line-60"><code>				}</code></span>
+<span class="codeline" id="line-61"><code>			}</code></span>
+<span class="codeline" id="line-62"><code>			<label for="r0" class="ident">check</label>.<a href="errors.go.html#line-144" class="ident">error</a>(<label for="r2" class="ident">x</label>, <label for="r8" class="ident">code</label>, <label for="r7" class="ident">msg</label>)</code></span>
+<span class="codeline" id="line-63"><code>			<label for="r2" class="ident">x</label>.<a href="operand.go.html#line-55" class="ident">mode</a> = <a href="operand.go.html#line-21" class="ident">invalid</a></code></span>
+<span class="codeline" id="line-64"><code>			<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-65"><code>		}</code></span>
+<span class="codeline" id="line-66"><code>	}</code></span>
+<span class="codeline" id="line-67"><code>	<span class="comment">// x.typ is typed</span></code></span>
+<span class="codeline" id="line-68"><code></code></span>
+<span class="codeline" id="line-69"><code>	<span class="comment">// spec: "If a left-hand side is the blank identifier, any typed or</span></code></span>
+<span class="codeline" id="line-70"><code><span class="comment">	// non-constant value except for the predeclared identifier nil may</span></code></span>
+<span class="codeline" id="line-71"><code><span class="comment">	// be assigned to it."</span></code></span>
+<span class="codeline" id="line-72"><code>	<span class="keyword">if</span> <label for="r3" class="ident">T</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-73"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-74"><code>	}</code></span>
+<span class="codeline" id="line-75"><code></code></span>
+<span class="codeline" id="line-76"><code>	<label for="r10" class="ident">reason</label> := <span class="lit-string">""</span></code></span>
+<span class="codeline" id="line-77"><code>	<span class="keyword">if</span> <label for="r11" class="ident">ok</label>, <label for="r12" class="ident">code</label> := <label for="r2" class="ident">x</label>.<a href="operand.go.html#line-219" class="ident">assignableTo</a>(<label for="r0" class="ident">check</label>, <label for="r3" class="ident">T</label>, &amp;<label for="r10" class="ident">reason</label>); !<label for="r11" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-78"><code>		<span class="keyword">if</span> <label for="r10" class="ident">reason</label> != <span class="lit-string">""</span> {</code></span>
+<span class="codeline" id="line-79"><code>			<label for="r0" class="ident">check</label>.<a href="errors.go.html#line-148" class="ident">errorf</a>(<label for="r2" class="ident">x</label>, <label for="r12" class="ident">code</label>, <span class="lit-string">"cannot use %s as %s value in %s: %s"</span>, <label for="r2" class="ident">x</label>, <label for="r3" class="ident">T</label>, <label for="r4" class="ident">context</label>, <label for="r10" class="ident">reason</label>)</code></span>
+<span class="codeline" id="line-80"><code>		} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-81"><code>			<label for="r0" class="ident">check</label>.<a href="errors.go.html#line-148" class="ident">errorf</a>(<label for="r2" class="ident">x</label>, <label for="r12" class="ident">code</label>, <span class="lit-string">"cannot use %s as %s value in %s"</span>, <label for="r2" class="ident">x</label>, <label for="r3" class="ident">T</label>, <label for="r4" class="ident">context</label>)</code></span>
+<span class="codeline" id="line-82"><code>		}</code></span>
+<span class="codeline" id="line-83"><code>		<label for="r2" class="ident">x</label>.<a href="operand.go.html#line-55" class="ident">mode</a> = <a href="operand.go.html#line-21" class="ident">invalid</a></code></span>
+<span class="codeline" id="line-84"><code>	}</code></span>
+<span class="codeline" id="line-85"><code>}</code></span>
+<span class="codeline" id="line-86"><code></code></span>
+<span class="codeline" id="line-87"><code><span class="keyword">func</span> (<label for="r13" class="ident">check</label> *<a href="check.go.html#line-74" class="ident">Checker</a>) <label for="r14" class="ident"><a href="../../../use/go/types..Checker.initConst.html" class="ident">initConst</a></label>(<label for="r15" class="ident">lhs</label> *<a href="object.go.html#line-197" class="ident">Const</a>, <label for="r16" class="ident">x</label> *<a href="operand.go.html#line-54" class="ident">operand</a>) {</code></span>
+<span class="codeline" id="line-88"><code>	<span class="keyword">if</span> <label for="r16" class="ident">x</label>.<a href="operand.go.html#line-55" class="ident">mode</a> == <a href="operand.go.html#line-21" class="ident">invalid</a> || <label for="r16" class="ident">x</label>.<a href="operand.go.html#line-57" class="ident">typ</a> == <a href="universe.go.html#line-36" class="ident">Typ</a>[<a href="type.go.html#line-23" class="ident">Invalid</a>] || <label for="r15" class="ident">lhs</label>.<a href="object.go.html#line-84" class="ident">typ</a> == <a href="universe.go.html#line-36" class="ident">Typ</a>[<a href="type.go.html#line-23" class="ident">Invalid</a>] {</code></span>
+<span class="codeline" id="line-89"><code>		<span class="keyword">if</span> <label for="r15" class="ident">lhs</label>.<a href="object.go.html#line-84" class="ident">typ</a> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-90"><code>			<label for="r15" class="ident">lhs</label>.<a href="object.go.html#line-84" class="ident">typ</a> = <a href="universe.go.html#line-36" class="ident">Typ</a>[<a href="type.go.html#line-23" class="ident">Invalid</a>]</code></span>
+<span class="codeline" id="line-91"><code>		}</code></span>
+<span class="codeline" id="line-92"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-93"><code>	}</code></span>
+<span class="codeline" id="line-94"><code></code></span>
+<span class="codeline" id="line-95"><code>	<span class="comment">// rhs must be a constant</span></code></span>
+<span class="codeline" id="line-96"><code>	<span class="keyword">if</span> <label for="r16" class="ident">x</label>.<a href="operand.go.html#line-55" class="ident">mode</a> != <a href="operand.go.html#line-25" class="ident">constant_</a> {</code></span>
+<span class="codeline" id="line-97"><code>		<label for="r13" class="ident">check</label>.<a href="errors.go.html#line-148" class="ident">errorf</a>(<label for="r16" class="ident">x</label>, <a href="errorcodes.go.html#line-133" class="ident">_InvalidConstInit</a>, <span class="lit-string">"%s is not constant"</span>, <label for="r16" class="ident">x</label>)</code></span>
+<span class="codeline" id="line-98"><code>		<span class="keyword">if</span> <label for="r15" class="ident">lhs</label>.<a href="object.go.html#line-84" class="ident">typ</a> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-99"><code>			<label for="r15" class="ident">lhs</label>.<a href="object.go.html#line-84" class="ident">typ</a> = <a href="universe.go.html#line-36" class="ident">Typ</a>[<a href="type.go.html#line-23" class="ident">Invalid</a>]</code></span>
+<span class="codeline" id="line-100"><code>		}</code></span>
+<span class="codeline" id="line-101"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-102"><code>	}</code></span>
+<span class="codeline" id="line-103"><code>	<a href="errors.go.html#line-18" class="ident">assert</a>(<a href="predicates.go.html#line-69" class="ident">isConstType</a>(<label for="r16" class="ident">x</label>.<a href="operand.go.html#line-57" class="ident">typ</a>))</code></span>
+<span class="codeline" id="line-104"><code></code></span>
+<span class="codeline" id="line-105"><code>	<span class="comment">// If the lhs doesn't have a type yet, use the type of x.</span></code></span>
+<span class="codeline" id="line-106"><code>	<span class="keyword">if</span> <label for="r15" class="ident">lhs</label>.<a href="object.go.html#line-84" class="ident">typ</a> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-107"><code>		<label for="r15" class="ident">lhs</label>.<a href="object.go.html#line-84" class="ident">typ</a> = <label for="r16" class="ident">x</label>.<a href="operand.go.html#line-57" class="ident">typ</a></code></span>
+<span class="codeline" id="line-108"><code>	}</code></span>
+<span class="codeline" id="line-109"><code></code></span>
+<span class="codeline" id="line-110"><code>	<label for="r13" class="ident">check</label>.<a href="#line-20" class="ident">assignment</a>(<label for="r16" class="ident">x</label>, <label for="r15" class="ident">lhs</label>.<a href="object.go.html#line-84" class="ident">typ</a>, <span class="lit-string">"constant declaration"</span>)</code></span>
+<span class="codeline" id="line-111"><code>	<span class="keyword">if</span> <label for="r16" class="ident">x</label>.<a href="operand.go.html#line-55" class="ident">mode</a> == <a href="operand.go.html#line-21" class="ident">invalid</a> {</code></span>
+<span class="codeline" id="line-112"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-113"><code>	}</code></span>
+<span class="codeline" id="line-114"><code></code></span>
+<span class="codeline" id="line-115"><code>	<label for="r15" class="ident">lhs</label>.<a href="object.go.html#line-199" class="ident">val</a> = <label for="r16" class="ident">x</label>.<a href="operand.go.html#line-58" class="ident">val</a></code></span>
+<span class="codeline" id="line-116"><code>}</code></span>
+<span class="codeline" id="line-117"><code></code></span>
+<span class="codeline" id="line-118"><code><span class="keyword">func</span> (<label for="r17" class="ident">check</label> *<a href="check.go.html#line-74" class="ident">Checker</a>) <label for="r18" class="ident"><a href="../../../use/go/types..Checker.initVar.html" class="ident">initVar</a></label>(<label for="r19" class="ident">lhs</label> *<a href="object.go.html#line-254" class="ident">Var</a>, <label for="r20" class="ident">x</label> *<a href="operand.go.html#line-54" class="ident">operand</a>, <label for="r21" class="ident">context</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="type.go.html#line-11" class="ident">Type</a> {</code></span>
+<span class="codeline" id="line-119"><code>	<span class="keyword">if</span> <label for="r20" class="ident">x</label>.<a href="operand.go.html#line-55" class="ident">mode</a> == <a href="operand.go.html#line-21" class="ident">invalid</a> || <label for="r20" class="ident">x</label>.<a href="operand.go.html#line-57" class="ident">typ</a> == <a href="universe.go.html#line-36" class="ident">Typ</a>[<a href="type.go.html#line-23" class="ident">Invalid</a>] || <label for="r19" class="ident">lhs</label>.<a href="object.go.html#line-84" class="ident">typ</a> == <a href="universe.go.html#line-36" class="ident">Typ</a>[<a href="type.go.html#line-23" class="ident">Invalid</a>] {</code></span>
+<span class="codeline" id="line-120"><code>		<span class="keyword">if</span> <label for="r19" class="ident">lhs</label>.<a href="object.go.html#line-84" class="ident">typ</a> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-121"><code>			<label for="r19" class="ident">lhs</label>.<a href="object.go.html#line-84" class="ident">typ</a> = <a href="universe.go.html#line-36" class="ident">Typ</a>[<a href="type.go.html#line-23" class="ident">Invalid</a>]</code></span>
+<span class="codeline" id="line-122"><code>		}</code></span>
+<span class="codeline" id="line-123"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-124"><code>	}</code></span>
+<span class="codeline" id="line-125"><code></code></span>
+<span class="codeline" id="line-126"><code>	<span class="comment">// If the lhs doesn't have a type yet, use the type of x.</span></code></span>
+<span class="codeline" id="line-127"><code>	<span class="keyword">if</span> <label for="r19" class="ident">lhs</label>.<a href="object.go.html#line-84" class="ident">typ</a> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-128"><code>		<label for="r22" class="ident">typ</label> := <label for="r20" class="ident">x</label>.<a href="operand.go.html#line-57" class="ident">typ</a></code></span>
+<span class="codeline" id="line-129"><code>		<span class="keyword">if</span> <a href="predicates.go.html#line-59" class="ident">isUntyped</a>(<label for="r22" class="ident">typ</label>) {</code></span>
+<span class="codeline" id="line-130"><code>			<span class="comment">// convert untyped types to default types</span></code></span>
+<span class="codeline" id="line-131"><code>			<span class="keyword">if</span> <label for="r22" class="ident">typ</label> == <a href="universe.go.html#line-36" class="ident">Typ</a>[<a href="type.go.html#line-52" class="ident">UntypedNil</a>] {</code></span>
+<span class="codeline" id="line-132"><code>				<label for="r17" class="ident">check</label>.<a href="errors.go.html#line-148" class="ident">errorf</a>(<label for="r20" class="ident">x</label>, <a href="errorcodes.go.html#line-159" class="ident">_UntypedNil</a>, <span class="lit-string">"use of untyped nil in %s"</span>, <label for="r21" class="ident">context</label>)</code></span>
+<span class="codeline" id="line-133"><code>				<label for="r19" class="ident">lhs</label>.<a href="object.go.html#line-84" class="ident">typ</a> = <a href="universe.go.html#line-36" class="ident">Typ</a>[<a href="type.go.html#line-23" class="ident">Invalid</a>]</code></span>
+<span class="codeline" id="line-134"><code>				<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-135"><code>			}</code></span>
+<span class="codeline" id="line-136"><code>			<label for="r22" class="ident">typ</label> = <a href="predicates.go.html#line-322" class="ident">Default</a>(<label for="r22" class="ident">typ</label>)</code></span>
+<span class="codeline" id="line-137"><code>		}</code></span>
+<span class="codeline" id="line-138"><code>		<label for="r19" class="ident">lhs</label>.<a href="object.go.html#line-84" class="ident">typ</a> = <label for="r22" class="ident">typ</label></code></span>
+<span class="codeline" id="line-139"><code>	}</code></span>
+<span class="codeline" id="line-140"><code></code></span>
+<span class="codeline" id="line-141"><code>	<label for="r17" class="ident">check</label>.<a href="#line-20" class="ident">assignment</a>(<label for="r20" class="ident">x</label>, <label for="r19" class="ident">lhs</label>.<a href="object.go.html#line-84" class="ident">typ</a>, <label for="r21" class="ident">context</label>)</code></span>
+<span class="codeline" id="line-142"><code>	<span class="keyword">if</span> <label for="r20" class="ident">x</label>.<a href="operand.go.html#line-55" class="ident">mode</a> == <a href="operand.go.html#line-21" class="ident">invalid</a> {</code></span>
+<span class="codeline" id="line-143"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-144"><code>	}</code></span>
+<span class="codeline" id="line-145"><code></code></span>
+<span class="codeline" id="line-146"><code>	<span class="keyword">return</span> <label for="r20" class="ident">x</label>.<a href="operand.go.html#line-57" class="ident">typ</a></code></span>
+<span class="codeline" id="line-147"><code>}</code></span>
+<span class="codeline" id="line-148"><code></code></span>
+<span class="codeline" id="line-149"><code><span class="keyword">func</span> (<label for="r23" class="ident">check</label> *<a href="check.go.html#line-74" class="ident">Checker</a>) <label for="r24" class="ident"><a href="../../../use/go/types..Checker.assignVar.html" class="ident">assignVar</a></label>(<label for="r25" class="ident">lhs</label> <a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-39" class="ident">Expr</a>, <label for="r26" class="ident">x</label> *<a href="operand.go.html#line-54" class="ident">operand</a>) <a href="type.go.html#line-11" class="ident">Type</a> {</code></span>
+<span class="codeline" id="line-150"><code>	<span class="keyword">if</span> <label for="r26" class="ident">x</label>.<a href="operand.go.html#line-55" class="ident">mode</a> == <a href="operand.go.html#line-21" class="ident">invalid</a> || <label for="r26" class="ident">x</label>.<a href="operand.go.html#line-57" class="ident">typ</a> == <a href="universe.go.html#line-36" class="ident">Typ</a>[<a href="type.go.html#line-23" class="ident">Invalid</a>] {</code></span>
+<span class="codeline" id="line-151"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-152"><code>	}</code></span>
+<span class="codeline" id="line-153"><code></code></span>
+<span class="codeline" id="line-154"><code>	<span class="comment">// Determine if the lhs is a (possibly parenthesized) identifier.</span></code></span>
+<span class="codeline" id="line-155"><code>	<label for="r27" class="ident">ident</label>, <label for="r28" class="ident">_</label> := <a href="builtins.go.html#line-689" class="ident">unparen</a>(<label for="r25" class="ident">lhs</label>).(*<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-278" class="ident">Ident</a>)</code></span>
+<span class="codeline" id="line-156"><code></code></span>
+<span class="codeline" id="line-157"><code>	<span class="comment">// Don't evaluate lhs if it is the blank identifier.</span></code></span>
+<span class="codeline" id="line-158"><code>	<span class="keyword">if</span> <label for="r27" class="ident">ident</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> &amp;&amp; <label for="r27" class="ident">ident</label>.<a href="../ast/ast.go.html#line-280" class="ident">Name</a> == <span class="lit-string">"_"</span> {</code></span>
+<span class="codeline" id="line-159"><code>		<label for="r23" class="ident">check</label>.<a href="check.go.html#line-380" class="ident">recordDef</a>(<label for="r27" class="ident">ident</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-160"><code>		<label for="r23" class="ident">check</label>.<a href="#line-20" class="ident">assignment</a>(<label for="r26" class="ident">x</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <span class="lit-string">"assignment to _ identifier"</span>)</code></span>
+<span class="codeline" id="line-161"><code>		<span class="keyword">if</span> <label for="r26" class="ident">x</label>.<a href="operand.go.html#line-55" class="ident">mode</a> == <a href="operand.go.html#line-21" class="ident">invalid</a> {</code></span>
+<span class="codeline" id="line-162"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-163"><code>		}</code></span>
+<span class="codeline" id="line-164"><code>		<span class="keyword">return</span> <label for="r26" class="ident">x</label>.<a href="operand.go.html#line-57" class="ident">typ</a></code></span>
+<span class="codeline" id="line-165"><code>	}</code></span>
+<span class="codeline" id="line-166"><code></code></span>
+<span class="codeline" id="line-167"><code>	<span class="comment">// If the lhs is an identifier denoting a variable v, this assignment</span></code></span>
+<span class="codeline" id="line-168"><code><span class="comment">	// is not a 'use' of v. Remember current value of v.used and restore</span></code></span>
+<span class="codeline" id="line-169"><code><span class="comment">	// after evaluating the lhs via check.expr.</span></code></span>
+<span class="codeline" id="line-170"><code>	<span class="keyword">var</span> <label for="r29" class="ident">v</label> *<a href="object.go.html#line-254" class="ident">Var</a></code></span>
+<span class="codeline" id="line-171"><code>	<span class="keyword">var</span> <label for="r30" class="ident">v_used</label> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-172"><code>	<span class="keyword">if</span> <label for="r27" class="ident">ident</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-173"><code>		<span class="keyword">if</span> <label for="r31" class="ident">obj</label> := <label for="r23" class="ident">check</label>.<a href="check.go.html#line-57" class="ident">lookup</a>(<label for="r27" class="ident">ident</label>.<a href="../ast/ast.go.html#line-280" class="ident">Name</a>); <label for="r31" class="ident">obj</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-174"><code>			<span class="comment">// It's ok to mark non-local variables, but ignore variables</span></code></span>
+<span class="codeline" id="line-175"><code><span class="comment">			// from other packages to avoid potential race conditions with</span></code></span>
+<span class="codeline" id="line-176"><code><span class="comment">			// dot-imported variables.</span></code></span>
+<span class="codeline" id="line-177"><code>			<span class="keyword">if</span> <label for="r32" class="ident">w</label>, <label for="r33" class="ident">_</label> := <label for="r31" class="ident">obj</label>.(*<a href="object.go.html#line-254" class="ident">Var</a>); <label for="r32" class="ident">w</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> &amp;&amp; <label for="r32" class="ident">w</label>.<a href="object.go.html#line-82" class="ident">pkg</a> == <label for="r23" class="ident">check</label>.<a href="check.go.html#line-79" class="ident">pkg</a> {</code></span>
+<span class="codeline" id="line-178"><code>				<label for="r29" class="ident">v</label> = <label for="r32" class="ident">w</label></code></span>
+<span class="codeline" id="line-179"><code>				<label for="r30" class="ident">v_used</label> = <label for="r29" class="ident">v</label>.<a href="object.go.html#line-258" class="ident">used</a></code></span>
+<span class="codeline" id="line-180"><code>			}</code></span>
+<span class="codeline" id="line-181"><code>		}</code></span>
+<span class="codeline" id="line-182"><code>	}</code></span>
+<span class="codeline" id="line-183"><code></code></span>
+<span class="codeline" id="line-184"><code>	<span class="keyword">var</span> <label for="r34" class="ident">z</label> <a href="operand.go.html#line-54" class="ident">operand</a></code></span>
+<span class="codeline" id="line-185"><code>	<label for="r23" class="ident">check</label>.<a href="expr.go.html#line-1645" class="ident">expr</a>(&amp;<label for="r34" class="ident">z</label>, <label for="r25" class="ident">lhs</label>)</code></span>
+<span class="codeline" id="line-186"><code>	<span class="keyword">if</span> <label for="r29" class="ident">v</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-187"><code>		<label for="r29" class="ident">v</label>.<a href="object.go.html#line-258" class="ident">used</a> = <label for="r30" class="ident">v_used</label> <span class="comment">// restore v.used</span></code></span>
+<span class="codeline" id="line-188"><code>	}</code></span>
+<span class="codeline" id="line-189"><code></code></span>
+<span class="codeline" id="line-190"><code>	<span class="keyword">if</span> <label for="r34" class="ident">z</label>.<a href="operand.go.html#line-55" class="ident">mode</a> == <a href="operand.go.html#line-21" class="ident">invalid</a> || <label for="r34" class="ident">z</label>.<a href="operand.go.html#line-57" class="ident">typ</a> == <a href="universe.go.html#line-36" class="ident">Typ</a>[<a href="type.go.html#line-23" class="ident">Invalid</a>] {</code></span>
+<span class="codeline" id="line-191"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-192"><code>	}</code></span>
+<span class="codeline" id="line-193"><code></code></span>
+<span class="codeline" id="line-194"><code>	<span class="comment">// spec: "Each left-hand side operand must be addressable, a map index</span></code></span>
+<span class="codeline" id="line-195"><code><span class="comment">	// expression, or the blank identifier. Operands may be parenthesized."</span></code></span>
+<span class="codeline" id="line-196"><code>	<span class="keyword">switch</span> <label for="r34" class="ident">z</label>.<a href="operand.go.html#line-55" class="ident">mode</a> {</code></span>
+<span class="codeline" id="line-197"><code>	<span class="keyword">case</span> <a href="operand.go.html#line-21" class="ident">invalid</a>:</code></span>
+<span class="codeline" id="line-198"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-199"><code>	<span class="keyword">case</span> <a href="operand.go.html#line-26" class="ident">variable</a>, <a href="operand.go.html#line-27" class="ident">mapindex</a>:</code></span>
+<span class="codeline" id="line-200"><code>		<span class="comment">// ok</span></code></span>
+<span class="codeline" id="line-201"><code>	<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-202"><code>		<span class="keyword">if</span> <label for="r35" class="ident">sel</label>, <label for="r36" class="ident">ok</label> := <label for="r34" class="ident">z</label>.<a href="operand.go.html#line-56" class="ident">expr</a>.(*<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-328" class="ident">SelectorExpr</a>); <label for="r36" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-203"><code>			<span class="keyword">var</span> <label for="r37" class="ident">op</label> <a href="operand.go.html#line-54" class="ident">operand</a></code></span>
+<span class="codeline" id="line-204"><code>			<label for="r23" class="ident">check</label>.<a href="expr.go.html#line-1645" class="ident">expr</a>(&amp;<label for="r37" class="ident">op</label>, <label for="r35" class="ident">sel</label>.<a href="../ast/ast.go.html#line-329" class="ident">X</a>)</code></span>
+<span class="codeline" id="line-205"><code>			<span class="keyword">if</span> <label for="r37" class="ident">op</label>.<a href="operand.go.html#line-55" class="ident">mode</a> == <a href="operand.go.html#line-27" class="ident">mapindex</a> {</code></span>
+<span class="codeline" id="line-206"><code>				<label for="r23" class="ident">check</label>.<a href="errors.go.html#line-148" class="ident">errorf</a>(&amp;<label for="r34" class="ident">z</label>, <a href="errorcodes.go.html#line-250" class="ident">_UnaddressableFieldAssign</a>, <span class="lit-string">"cannot assign to struct field %s in map"</span>, <a href="exprstring.go.html#line-17" class="ident">ExprString</a>(<label for="r34" class="ident">z</label>.<a href="operand.go.html#line-56" class="ident">expr</a>))</code></span>
+<span class="codeline" id="line-207"><code>				<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-208"><code>			}</code></span>
+<span class="codeline" id="line-209"><code>		}</code></span>
+<span class="codeline" id="line-210"><code>		<label for="r23" class="ident">check</label>.<a href="errors.go.html#line-148" class="ident">errorf</a>(&amp;<label for="r34" class="ident">z</label>, <a href="errorcodes.go.html#line-177" class="ident">_UnassignableOperand</a>, <span class="lit-string">"cannot assign to %s"</span>, &amp;<label for="r34" class="ident">z</label>)</code></span>
+<span class="codeline" id="line-211"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-212"><code>	}</code></span>
+<span class="codeline" id="line-213"><code></code></span>
+<span class="codeline" id="line-214"><code>	<label for="r23" class="ident">check</label>.<a href="#line-20" class="ident">assignment</a>(<label for="r26" class="ident">x</label>, <label for="r34" class="ident">z</label>.<a href="operand.go.html#line-57" class="ident">typ</a>, <span class="lit-string">"assignment"</span>)</code></span>
+<span class="codeline" id="line-215"><code>	<span class="keyword">if</span> <label for="r26" class="ident">x</label>.<a href="operand.go.html#line-55" class="ident">mode</a> == <a href="operand.go.html#line-21" class="ident">invalid</a> {</code></span>
+<span class="codeline" id="line-216"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-217"><code>	}</code></span>
+<span class="codeline" id="line-218"><code></code></span>
+<span class="codeline" id="line-219"><code>	<span class="keyword">return</span> <label for="r26" class="ident">x</label>.<a href="operand.go.html#line-57" class="ident">typ</a></code></span>
+<span class="codeline" id="line-220"><code>}</code></span>
+<span class="codeline" id="line-221"><code></code></span>
+<span class="codeline" id="line-222"><code><span class="comment">// If returnPos is valid, initVars is called to type-check the assignment of</span></code></span>
+<span class="codeline" id="line-223"><code><span class="comment">// return expressions, and returnPos is the position of the return statement.</span></code></span>
+<span class="codeline" id="line-224"><code><span class="keyword">func</span> (<label for="r38" class="ident">check</label> *<a href="check.go.html#line-74" class="ident">Checker</a>) <label for="r39" class="ident"><a href="../../../use/go/types..Checker.initVars.html" class="ident">initVars</a></label>(<label for="r40" class="ident">lhs</label> []*<a href="object.go.html#line-254" class="ident">Var</a>, <label for="r41" class="ident">rhs</label> []<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-39" class="ident">Expr</a>, <label for="r42" class="ident">returnPos</label> <a href="../../../pkg/go/token.html" class="ident i2">token</a>.<a href="../token/position.go.html#line-79" class="ident">Pos</a>) {</code></span>
+<span class="codeline" id="line-225"><code>	<label for="r43" class="ident">l</label> := <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r40" class="ident">lhs</label>)</code></span>
+<span class="codeline" id="line-226"><code>	<label for="r44" class="ident">get</label>, <label for="r45" class="ident">r</label>, <label for="r46" class="ident">commaOk</label> := <a href="call.go.html#line-186" class="ident">unpack</a>(<span class="keyword">func</span>(<label for="r47" class="ident">x</label> *<a href="operand.go.html#line-54" class="ident">operand</a>, <label for="r48" class="ident">i</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>) { <label for="r38" class="ident">check</label>.<a href="expr.go.html#line-1651" class="ident">multiExpr</a>(<label for="r47" class="ident">x</label>, <label for="r41" class="ident">rhs</label>[<label for="r48" class="ident">i</label>]) }, <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r41" class="ident">rhs</label>), <label for="r43" class="ident">l</label> == <span class="lit-number">2</span> &amp;&amp; !<label for="r42" class="ident">returnPos</label>.<a href="../token/position.go.html#line-89" class="ident">IsValid</a>())</code></span>
+<span class="codeline" id="line-227"><code>	<span class="keyword">if</span> <label for="r44" class="ident">get</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> || <label for="r43" class="ident">l</label> != <label for="r45" class="ident">r</label> {</code></span>
+<span class="codeline" id="line-228"><code>		<span class="comment">// invalidate lhs and use rhs</span></code></span>
+<span class="codeline" id="line-229"><code>		<span class="keyword">for</span> <label for="r49" class="ident">_</label>, <label for="r50" class="ident">obj</label> := <span class="keyword">range</span> <label for="r40" class="ident">lhs</label> {</code></span>
+<span class="codeline" id="line-230"><code>			<span class="keyword">if</span> <label for="r50" class="ident">obj</label>.<a href="object.go.html#line-84" class="ident">typ</a> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-231"><code>				<label for="r50" class="ident">obj</label>.<a href="object.go.html#line-84" class="ident">typ</a> = <a href="universe.go.html#line-36" class="ident">Typ</a>[<a href="type.go.html#line-23" class="ident">Invalid</a>]</code></span>
+<span class="codeline" id="line-232"><code>			}</code></span>
+<span class="codeline" id="line-233"><code>		}</code></span>
+<span class="codeline" id="line-234"><code>		<span class="keyword">if</span> <label for="r44" class="ident">get</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-235"><code>			<span class="keyword">return</span> <span class="comment">// error reported by unpack</span></code></span>
+<span class="codeline" id="line-236"><code>		}</code></span>
+<span class="codeline" id="line-237"><code>		<label for="r38" class="ident">check</label>.<a href="call.go.html#line-156" class="ident">useGetter</a>(<label for="r44" class="ident">get</label>, <label for="r45" class="ident">r</label>)</code></span>
+<span class="codeline" id="line-238"><code>		<span class="keyword">if</span> <label for="r42" class="ident">returnPos</label>.<a href="../token/position.go.html#line-89" class="ident">IsValid</a>() {</code></span>
+<span class="codeline" id="line-239"><code>			<label for="r38" class="ident">check</label>.<a href="errors.go.html#line-148" class="ident">errorf</a>(<a href="errors.go.html#line-199" class="ident">atPos</a>(<label for="r42" class="ident">returnPos</label>), <a href="errorcodes.go.html#line-1042" class="ident">_WrongResultCount</a>, <span class="lit-string">"wrong number of return values (want %d, got %d)"</span>, <label for="r43" class="ident">l</label>, <label for="r45" class="ident">r</label>)</code></span>
+<span class="codeline" id="line-240"><code>			<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-241"><code>		}</code></span>
+<span class="codeline" id="line-242"><code>		<label for="r38" class="ident">check</label>.<a href="errors.go.html#line-148" class="ident">errorf</a>(<label for="r41" class="ident">rhs</label>[<span class="lit-number">0</span>], <a href="errorcodes.go.html#line-167" class="ident">_WrongAssignCount</a>, <span class="lit-string">"cannot initialize %d variables with %d values"</span>, <label for="r43" class="ident">l</label>, <label for="r45" class="ident">r</label>)</code></span>
+<span class="codeline" id="line-243"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-244"><code>	}</code></span>
+<span class="codeline" id="line-245"><code></code></span>
+<span class="codeline" id="line-246"><code>	<label for="r51" class="ident">context</label> := <span class="lit-string">"assignment"</span></code></span>
+<span class="codeline" id="line-247"><code>	<span class="keyword">if</span> <label for="r42" class="ident">returnPos</label>.<a href="../token/position.go.html#line-89" class="ident">IsValid</a>() {</code></span>
+<span class="codeline" id="line-248"><code>		<label for="r51" class="ident">context</label> = <span class="lit-string">"return statement"</span></code></span>
+<span class="codeline" id="line-249"><code>	}</code></span>
+<span class="codeline" id="line-250"><code></code></span>
+<span class="codeline" id="line-251"><code>	<span class="keyword">var</span> <label for="r52" class="ident">x</label> <a href="operand.go.html#line-54" class="ident">operand</a></code></span>
+<span class="codeline" id="line-252"><code>	<span class="keyword">if</span> <label for="r46" class="ident">commaOk</label> {</code></span>
+<span class="codeline" id="line-253"><code>		<span class="keyword">var</span> <label for="r53" class="ident">a</label> [<span class="lit-number">2</span>]<a href="type.go.html#line-11" class="ident">Type</a></code></span>
+<span class="codeline" id="line-254"><code>		<span class="keyword">for</span> <label for="r54" class="ident">i</label> := <span class="keyword">range</span> <label for="r53" class="ident">a</label> {</code></span>
+<span class="codeline" id="line-255"><code>			<label for="r44" class="ident">get</label>(&amp;<label for="r52" class="ident">x</label>, <label for="r54" class="ident">i</label>)</code></span>
+<span class="codeline" id="line-256"><code>			<label for="r53" class="ident">a</label>[<label for="r54" class="ident">i</label>] = <label for="r38" class="ident">check</label>.<a href="#line-118" class="ident">initVar</a>(<label for="r40" class="ident">lhs</label>[<label for="r54" class="ident">i</label>], &amp;<label for="r52" class="ident">x</label>, <label for="r51" class="ident">context</label>)</code></span>
+<span class="codeline" id="line-257"><code>		}</code></span>
+<span class="codeline" id="line-258"><code>		<label for="r38" class="ident">check</label>.<a href="check.go.html#line-354" class="ident">recordCommaOkTypes</a>(<label for="r41" class="ident">rhs</label>[<span class="lit-number">0</span>], <label for="r53" class="ident">a</label>)</code></span>
+<span class="codeline" id="line-259"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-260"><code>	}</code></span>
+<span class="codeline" id="line-261"><code></code></span>
+<span class="codeline" id="line-262"><code>	<span class="keyword">for</span> <label for="r55" class="ident">i</label>, <label for="r56" class="ident">lhs</label> := <span class="keyword">range</span> <label for="r40" class="ident">lhs</label> {</code></span>
+<span class="codeline" id="line-263"><code>		<label for="r44" class="ident">get</label>(&amp;<label for="r52" class="ident">x</label>, <label for="r55" class="ident">i</label>)</code></span>
+<span class="codeline" id="line-264"><code>		<label for="r38" class="ident">check</label>.<a href="#line-118" class="ident">initVar</a>(<label for="r56" class="ident">lhs</label>, &amp;<label for="r52" class="ident">x</label>, <label for="r51" class="ident">context</label>)</code></span>
+<span class="codeline" id="line-265"><code>	}</code></span>
+<span class="codeline" id="line-266"><code>}</code></span>
+<span class="codeline" id="line-267"><code></code></span>
+<span class="codeline" id="line-268"><code><span class="keyword">func</span> (<label for="r57" class="ident">check</label> *<a href="check.go.html#line-74" class="ident">Checker</a>) <label for="r58" class="ident"><a href="../../../use/go/types..Checker.assignVars.html" class="ident">assignVars</a></label>(<label for="r59" class="ident">lhs</label>, <label for="r60" class="ident">rhs</label> []<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-39" class="ident">Expr</a>) {</code></span>
+<span class="codeline" id="line-269"><code>	<label for="r61" class="ident">l</label> := <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r59" class="ident">lhs</label>)</code></span>
+<span class="codeline" id="line-270"><code>	<label for="r62" class="ident">get</label>, <label for="r63" class="ident">r</label>, <label for="r64" class="ident">commaOk</label> := <a href="call.go.html#line-186" class="ident">unpack</a>(<span class="keyword">func</span>(<label for="r65" class="ident">x</label> *<a href="operand.go.html#line-54" class="ident">operand</a>, <label for="r66" class="ident">i</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>) { <label for="r57" class="ident">check</label>.<a href="expr.go.html#line-1651" class="ident">multiExpr</a>(<label for="r65" class="ident">x</label>, <label for="r60" class="ident">rhs</label>[<label for="r66" class="ident">i</label>]) }, <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r60" class="ident">rhs</label>), <label for="r61" class="ident">l</label> == <span class="lit-number">2</span>)</code></span>
+<span class="codeline" id="line-271"><code>	<span class="keyword">if</span> <label for="r62" class="ident">get</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-272"><code>		<label for="r57" class="ident">check</label>.<a href="call.go.html#line-122" class="ident">useLHS</a>(<label for="r59" class="ident">lhs</label>...)</code></span>
+<span class="codeline" id="line-273"><code>		<span class="keyword">return</span> <span class="comment">// error reported by unpack</span></code></span>
+<span class="codeline" id="line-274"><code>	}</code></span>
+<span class="codeline" id="line-275"><code>	<span class="keyword">if</span> <label for="r61" class="ident">l</label> != <label for="r63" class="ident">r</label> {</code></span>
+<span class="codeline" id="line-276"><code>		<label for="r57" class="ident">check</label>.<a href="call.go.html#line-156" class="ident">useGetter</a>(<label for="r62" class="ident">get</label>, <label for="r63" class="ident">r</label>)</code></span>
+<span class="codeline" id="line-277"><code>		<label for="r57" class="ident">check</label>.<a href="errors.go.html#line-148" class="ident">errorf</a>(<label for="r60" class="ident">rhs</label>[<span class="lit-number">0</span>], <a href="errorcodes.go.html#line-167" class="ident">_WrongAssignCount</a>, <span class="lit-string">"cannot assign %d values to %d variables"</span>, <label for="r63" class="ident">r</label>, <label for="r61" class="ident">l</label>)</code></span>
+<span class="codeline" id="line-278"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-279"><code>	}</code></span>
+<span class="codeline" id="line-280"><code></code></span>
+<span class="codeline" id="line-281"><code>	<span class="keyword">var</span> <label for="r67" class="ident">x</label> <a href="operand.go.html#line-54" class="ident">operand</a></code></span>
+<span class="codeline" id="line-282"><code>	<span class="keyword">if</span> <label for="r64" class="ident">commaOk</label> {</code></span>
+<span class="codeline" id="line-283"><code>		<span class="keyword">var</span> <label for="r68" class="ident">a</label> [<span class="lit-number">2</span>]<a href="type.go.html#line-11" class="ident">Type</a></code></span>
+<span class="codeline" id="line-284"><code>		<span class="keyword">for</span> <label for="r69" class="ident">i</label> := <span class="keyword">range</span> <label for="r68" class="ident">a</label> {</code></span>
+<span class="codeline" id="line-285"><code>			<label for="r62" class="ident">get</label>(&amp;<label for="r67" class="ident">x</label>, <label for="r69" class="ident">i</label>)</code></span>
+<span class="codeline" id="line-286"><code>			<label for="r68" class="ident">a</label>[<label for="r69" class="ident">i</label>] = <label for="r57" class="ident">check</label>.<a href="#line-149" class="ident">assignVar</a>(<label for="r59" class="ident">lhs</label>[<label for="r69" class="ident">i</label>], &amp;<label for="r67" class="ident">x</label>)</code></span>
+<span class="codeline" id="line-287"><code>		}</code></span>
+<span class="codeline" id="line-288"><code>		<label for="r57" class="ident">check</label>.<a href="check.go.html#line-354" class="ident">recordCommaOkTypes</a>(<label for="r60" class="ident">rhs</label>[<span class="lit-number">0</span>], <label for="r68" class="ident">a</label>)</code></span>
+<span class="codeline" id="line-289"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-290"><code>	}</code></span>
+<span class="codeline" id="line-291"><code></code></span>
+<span class="codeline" id="line-292"><code>	<span class="keyword">for</span> <label for="r70" class="ident">i</label>, <label for="r71" class="ident">lhs</label> := <span class="keyword">range</span> <label for="r59" class="ident">lhs</label> {</code></span>
+<span class="codeline" id="line-293"><code>		<label for="r62" class="ident">get</label>(&amp;<label for="r67" class="ident">x</label>, <label for="r70" class="ident">i</label>)</code></span>
+<span class="codeline" id="line-294"><code>		<label for="r57" class="ident">check</label>.<a href="#line-149" class="ident">assignVar</a>(<label for="r71" class="ident">lhs</label>, &amp;<label for="r67" class="ident">x</label>)</code></span>
+<span class="codeline" id="line-295"><code>	}</code></span>
+<span class="codeline" id="line-296"><code>}</code></span>
+<span class="codeline" id="line-297"><code></code></span>
+<span class="codeline" id="line-298"><code><span class="keyword">func</span> (<label for="r72" class="ident">check</label> *<a href="check.go.html#line-74" class="ident">Checker</a>) <label for="r73" class="ident"><a href="../../../use/go/types..Checker.shortVarDecl.html" class="ident">shortVarDecl</a></label>(<label for="r74" class="ident">pos</label> <a href="errors.go.html#line-170" class="ident">positioner</a>, <label for="r75" class="ident">lhs</label>, <label for="r76" class="ident">rhs</label> []<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-39" class="ident">Expr</a>) {</code></span>
+<span class="codeline" id="line-299"><code>	<label for="r77" class="ident">top</label> := <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r72" class="ident">check</label>.<a href="check.go.html#line-95" class="ident">delayed</a>)</code></span>
+<span class="codeline" id="line-300"><code>	<label for="r78" class="ident">scope</label> := <label for="r72" class="ident">check</label>.<a href="check.go.html#line-46" class="ident">scope</a></code></span>
+<span class="codeline" id="line-301"><code></code></span>
+<span class="codeline" id="line-302"><code>	<span class="comment">// collect lhs variables</span></code></span>
+<span class="codeline" id="line-303"><code>	<span class="keyword">var</span> <label for="r79" class="ident">newVars</label> []*<a href="object.go.html#line-254" class="ident">Var</a></code></span>
+<span class="codeline" id="line-304"><code>	<span class="keyword">var</span> <label for="r80" class="ident">lhsVars</label> = <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]*<a href="object.go.html#line-254" class="ident">Var</a>, <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r75" class="ident">lhs</label>))</code></span>
+<span class="codeline" id="line-305"><code>	<span class="keyword">for</span> <label for="r81" class="ident">i</label>, <label for="r82" class="ident">lhs</label> := <span class="keyword">range</span> <label for="r75" class="ident">lhs</label> {</code></span>
+<span class="codeline" id="line-306"><code>		<span class="keyword">var</span> <label for="r83" class="ident">obj</label> *<a href="object.go.html#line-254" class="ident">Var</a></code></span>
+<span class="codeline" id="line-307"><code>		<span class="keyword">if</span> <label for="r84" class="ident">ident</label>, <label for="r85" class="ident">_</label> := <label for="r82" class="ident">lhs</label>.(*<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-278" class="ident">Ident</a>); <label for="r84" class="ident">ident</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-308"><code>			<span class="comment">// Use the correct obj if the ident is redeclared. The</span></code></span>
+<span class="codeline" id="line-309"><code><span class="comment">			// variable's scope starts after the declaration; so we</span></code></span>
+<span class="codeline" id="line-310"><code><span class="comment">			// must use Scope.Lookup here and call Scope.Insert</span></code></span>
+<span class="codeline" id="line-311"><code><span class="comment">			// (via check.declare) later.</span></code></span>
+<span class="codeline" id="line-312"><code>			<label for="r86" class="ident">name</label> := <label for="r84" class="ident">ident</label>.<a href="../ast/ast.go.html#line-280" class="ident">Name</a></code></span>
+<span class="codeline" id="line-313"><code>			<span class="keyword">if</span> <label for="r87" class="ident">alt</label> := <label for="r78" class="ident">scope</label>.<a href="scope.go.html#line-68" class="ident">Lookup</a>(<label for="r86" class="ident">name</label>); <label for="r87" class="ident">alt</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-314"><code>				<span class="comment">// redeclared object must be a variable</span></code></span>
+<span class="codeline" id="line-315"><code>				<span class="keyword">if</span> <label for="r88" class="ident">alt</label>, <label for="r89" class="ident">_</label> := <label for="r87" class="ident">alt</label>.(*<a href="object.go.html#line-254" class="ident">Var</a>); <label for="r88" class="ident">alt</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-316"><code>					<label for="r83" class="ident">obj</label> = <label for="r88" class="ident">alt</label></code></span>
+<span class="codeline" id="line-317"><code>				} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-318"><code>					<label for="r72" class="ident">check</label>.<a href="errors.go.html#line-148" class="ident">errorf</a>(<label for="r82" class="ident">lhs</label>, <a href="errorcodes.go.html#line-177" class="ident">_UnassignableOperand</a>, <span class="lit-string">"cannot assign to %s"</span>, <label for="r82" class="ident">lhs</label>)</code></span>
+<span class="codeline" id="line-319"><code>				}</code></span>
+<span class="codeline" id="line-320"><code>				<label for="r72" class="ident">check</label>.<a href="check.go.html#line-387" class="ident">recordUse</a>(<label for="r84" class="ident">ident</label>, <label for="r87" class="ident">alt</label>)</code></span>
+<span class="codeline" id="line-321"><code>			} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-322"><code>				<span class="comment">// declare new variable, possibly a blank (_) variable</span></code></span>
+<span class="codeline" id="line-323"><code>				<label for="r83" class="ident">obj</label> = <a href="object.go.html#line-263" class="ident">NewVar</a>(<label for="r84" class="ident">ident</label>.<a href="../ast/ast.go.html#line-470" class="ident">Pos</a>(), <label for="r72" class="ident">check</label>.<a href="check.go.html#line-79" class="ident">pkg</a>, <label for="r86" class="ident">name</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-324"><code>				<span class="keyword">if</span> <label for="r86" class="ident">name</label> != <span class="lit-string">"_"</span> {</code></span>
+<span class="codeline" id="line-325"><code>					<label for="r79" class="ident">newVars</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r79" class="ident">newVars</label>, <label for="r83" class="ident">obj</label>)</code></span>
+<span class="codeline" id="line-326"><code>				}</code></span>
+<span class="codeline" id="line-327"><code>				<label for="r72" class="ident">check</label>.<a href="check.go.html#line-380" class="ident">recordDef</a>(<label for="r84" class="ident">ident</label>, <label for="r83" class="ident">obj</label>)</code></span>
+<span class="codeline" id="line-328"><code>			}</code></span>
+<span class="codeline" id="line-329"><code>		} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-330"><code>			<label for="r72" class="ident">check</label>.<a href="call.go.html#line-122" class="ident">useLHS</a>(<label for="r82" class="ident">lhs</label>)</code></span>
+<span class="codeline" id="line-331"><code>			<label for="r72" class="ident">check</label>.<a href="errors.go.html#line-156" class="ident">invalidAST</a>(<label for="r82" class="ident">lhs</label>, <span class="lit-string">"cannot declare %s"</span>, <label for="r82" class="ident">lhs</label>)</code></span>
+<span class="codeline" id="line-332"><code>		}</code></span>
+<span class="codeline" id="line-333"><code>		<span class="keyword">if</span> <label for="r83" class="ident">obj</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-334"><code>			<label for="r83" class="ident">obj</label> = <a href="object.go.html#line-263" class="ident">NewVar</a>(<label for="r82" class="ident">lhs</label>.<a href="../ast/ast.go.html#line-34" class="ident">Pos</a>(), <label for="r72" class="ident">check</label>.<a href="check.go.html#line-79" class="ident">pkg</a>, <span class="lit-string">"_"</span>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>) <span class="comment">// dummy variable</span></code></span>
+<span class="codeline" id="line-335"><code>		}</code></span>
+<span class="codeline" id="line-336"><code>		<label for="r80" class="ident">lhsVars</label>[<label for="r81" class="ident">i</label>] = <label for="r83" class="ident">obj</label></code></span>
+<span class="codeline" id="line-337"><code>	}</code></span>
+<span class="codeline" id="line-338"><code></code></span>
+<span class="codeline" id="line-339"><code>	<label for="r72" class="ident">check</label>.<a href="#line-224" class="ident">initVars</a>(<label for="r80" class="ident">lhsVars</label>, <label for="r76" class="ident">rhs</label>, <a href="../../../pkg/go/token.html" class="ident i2">token</a>.<a href="../token/position.go.html#line-86" class="ident">NoPos</a>)</code></span>
+<span class="codeline" id="line-340"><code></code></span>
+<span class="codeline" id="line-341"><code>	<span class="comment">// process function literals in rhs expressions before scope changes</span></code></span>
+<span class="codeline" id="line-342"><code>	<label for="r72" class="ident">check</label>.<a href="check.go.html#line-283" class="ident">processDelayed</a>(<label for="r77" class="ident">top</label>)</code></span>
+<span class="codeline" id="line-343"><code></code></span>
+<span class="codeline" id="line-344"><code>	<span class="comment">// declare new variables</span></code></span>
+<span class="codeline" id="line-345"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r79" class="ident">newVars</label>) &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-346"><code>		<span class="comment">// spec: "The scope of a constant or variable identifier declared inside</span></code></span>
+<span class="codeline" id="line-347"><code><span class="comment">		// a function begins at the end of the ConstSpec or VarSpec (ShortVarDecl</span></code></span>
+<span class="codeline" id="line-348"><code><span class="comment">		// for short variable declarations) and ends at the end of the innermost</span></code></span>
+<span class="codeline" id="line-349"><code><span class="comment">		// containing block."</span></code></span>
+<span class="codeline" id="line-350"><code>		<label for="r90" class="ident">scopePos</label> := <label for="r76" class="ident">rhs</label>[<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r76" class="ident">rhs</label>)-<span class="lit-number">1</span>].<a href="../ast/ast.go.html#line-35" class="ident">End</a>()</code></span>
+<span class="codeline" id="line-351"><code>		<span class="keyword">for</span> <label for="r91" class="ident">_</label>, <label for="r92" class="ident">obj</label> := <span class="keyword">range</span> <label for="r79" class="ident">newVars</label> {</code></span>
+<span class="codeline" id="line-352"><code>			<label for="r72" class="ident">check</label>.<a href="decl.go.html#line-22" class="ident">declare</a>(<label for="r78" class="ident">scope</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r92" class="ident">obj</label>, <label for="r90" class="ident">scopePos</label>) <span class="comment">// recordObject already called</span></code></span>
+<span class="codeline" id="line-353"><code>		}</code></span>
+<span class="codeline" id="line-354"><code>	} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-355"><code>		<label for="r72" class="ident">check</label>.<a href="errors.go.html#line-152" class="ident">softErrorf</a>(<label for="r74" class="ident">pos</label>, <a href="errorcodes.go.html#line-187" class="ident">_NoNewVar</a>, <span class="lit-string">"no new variables on left side of :="</span>)</code></span>
+<span class="codeline" id="line-356"><code>	}</code></span>
+<span class="codeline" id="line-357"><code>}</code></span>
+</pre><pre id="footer">
+<table><tr><td><img src="../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

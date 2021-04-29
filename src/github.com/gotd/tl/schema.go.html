@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: schema.go in package github.com/gotd/tl</title>
+<link href="../../../../css/light-v0.2.7-preview.css" rel="stylesheet">
+<script src="../../../../jvs/golds-v0.2.7-preview.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	schema.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../../pkg/github.com/gotd/tl.html">github.com/gotd/tl</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16],
+input[id=r17]:checked ~pre label[for=r17],
+input[id=r18]:checked ~pre label[for=r18],
+input[id=r19]:checked ~pre label[for=r19],
+input[id=r20]:checked ~pre label[for=r20],
+input[id=r21]:checked ~pre label[for=r21],
+input[id=r22]:checked ~pre label[for=r22],
+input[id=r23]:checked ~pre label[for=r23],
+input[id=r24]:checked ~pre label[for=r24],
+input[id=r25]:checked ~pre label[for=r25],
+input[id=r26]:checked ~pre label[for=r26],
+input[id=r27]:checked ~pre label[for=r27],
+input[id=r28]:checked ~pre label[for=r28],
+input[id=r29]:checked ~pre label[for=r29],
+input[id=r30]:checked ~pre label[for=r30],
+input[id=r31]:checked ~pre label[for=r31],
+input[id=r32]:checked ~pre label[for=r32],
+input[id=r33]:checked ~pre label[for=r33],
+input[id=r34]:checked ~pre label[for=r34],
+input[id=r35]:checked ~pre label[for=r35],
+input[id=r36]:checked ~pre label[for=r36],
+input[id=r37]:checked ~pre label[for=r37],
+input[id=r38]:checked ~pre label[for=r38],
+input[id=r39]:checked ~pre label[for=r39],
+input[id=r40]:checked ~pre label[for=r40],
+input[id=r41]:checked ~pre label[for=r41],
+input[id=r42]:checked ~pre label[for=r42],
+input[id=r43]:checked ~pre label[for=r43]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1,
+input[id=i2]:checked ~pre .i2,
+input[id=i3]:checked ~pre .i3,
+input[id=i4]:checked ~pre .i4
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="r17" type="radio" name="g"/>
+<input id="r18" type="radio" name="g"/>
+<input id="r19" type="radio" name="g"/>
+<input id="r20" type="radio" name="g"/>
+<input id="r21" type="radio" name="g"/>
+<input id="r22" type="radio" name="g"/>
+<input id="r23" type="radio" name="g"/>
+<input id="r24" type="radio" name="g"/>
+<input id="r25" type="radio" name="g"/>
+<input id="r26" type="radio" name="g"/>
+<input id="r27" type="radio" name="g"/>
+<input id="r28" type="radio" name="g"/>
+<input id="r29" type="radio" name="g"/>
+<input id="r30" type="radio" name="g"/>
+<input id="r31" type="radio" name="g"/>
+<input id="r32" type="radio" name="g"/>
+<input id="r33" type="radio" name="g"/>
+<input id="r34" type="radio" name="g"/>
+<input id="r35" type="radio" name="g"/>
+<input id="r36" type="radio" name="g"/>
+<input id="r37" type="radio" name="g"/>
+<input id="r38" type="radio" name="g"/>
+<input id="r39" type="radio" name="g"/>
+<input id="r40" type="radio" name="g"/>
+<input id="r41" type="radio" name="g"/>
+<input id="r42" type="radio" name="g"/>
+<input id="r43" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+<input id="i2" type="radio" name="i"/>
+<input id="i3" type="radio" name="i"/>
+<input id="i4" type="radio" name="i"/>
+
+<pre class="line-numbers">
+<span class="codeline" id="line-1"><code><span class="keyword">package</span> tl</code></span>
+<span class="codeline" id="line-2"><code></code></span>
+<span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"bufio"</span></label></code></span>
+<span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"fmt"</span></label></code></span>
+<span class="codeline" id="line-6"><code>	<label for="i2"><span class="lit-string i2">"io"</span></label></code></span>
+<span class="codeline" id="line-7"><code>	<label for="i3"><span class="lit-string i3">"strconv"</span></label></code></span>
+<span class="codeline" id="line-8"><code>	<label for="i4"><span class="lit-string i4">"strings"</span></label></code></span>
+<span class="codeline" id="line-9"><code>)</code></span>
+<span class="codeline" id="line-10"><code></code></span>
+<span class="codeline" id="line-11"><code><span class="comment">// SchemaDefinition is annotated Definition with Category.</span></code></span>
+<span class="codeline" id="line-12"><code><span class="keyword">type</span> <a href="../../../../pkg/github.com/gotd/tl.html#name-SchemaDefinition" class="ident">SchemaDefinition</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-13"><code>	<a href="../../../../use/github.com/gotd/tl..SchemaDefinition.Annotations.html" class="ident">Annotations</a> []<a href="annotation.go.html#line-21" class="ident">Annotation</a> <span class="lit-string">`json:"annotations,omitempty"`</span> <span class="comment">// annotations (comments)</span></code></span>
+<span class="codeline" id="line-14"><code>	<a href="../../../../use/github.com/gotd/tl..SchemaDefinition.Definition.html" class="ident">Definition</a>  <a href="definition.go.html#line-15" class="ident">Definition</a>   <span class="lit-string">`json:"definition"`</span>            <span class="comment">// definition</span></code></span>
+<span class="codeline" id="line-15"><code>	<a href="../../../../use/github.com/gotd/tl..SchemaDefinition.Category.html" class="ident">Category</a>    <a href="category.go.html#line-4" class="ident">Category</a>     <span class="lit-string">`json:"category"`</span>              <span class="comment">// category of definition (function or type)</span></code></span>
+<span class="codeline" id="line-16"><code>}</code></span>
+<span class="codeline" id="line-17"><code></code></span>
+<span class="codeline" id="line-18"><code><span class="comment">// Class describes a non-bare Type with one or more constructors.</span></code></span>
+<span class="codeline" id="line-19"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-20"><code><span class="comment">// Example: `//@class InputChatPhoto @description Describes input chat photo`.</span></code></span>
+<span class="codeline" id="line-21"><code><span class="keyword">type</span> <a href="../../../../pkg/github.com/gotd/tl.html#name-Class" class="ident">Class</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-22"><code>	<a href="../../../../use/github.com/gotd/tl..Class.Name.html" class="ident">Name</a>        <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-23"><code>	<a href="../../../../use/github.com/gotd/tl..Class.Description.html" class="ident">Description</a> <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-24"><code>}</code></span>
+<span class="codeline" id="line-25"><code></code></span>
+<span class="codeline" id="line-26"><code><span class="comment">// Schema represents single TL file with information about definitions and</span></code></span>
+<span class="codeline" id="line-27"><code><span class="comment">// so called "Classes" aka non-bare types with one or multiple constructors.</span></code></span>
+<span class="codeline" id="line-28"><code><span class="keyword">type</span> <a href="../../../../pkg/github.com/gotd/tl.html#name-Schema" class="ident">Schema</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-29"><code>	<a href="../../../../use/github.com/gotd/tl..Schema.Layer.html" class="ident">Layer</a>       <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>                <span class="lit-string">`json:"layer,omitempty"`</span></code></span>
+<span class="codeline" id="line-30"><code>	<a href="../../../../use/github.com/gotd/tl..Schema.Definitions.html" class="ident">Definitions</a> []<a href="#line-12" class="ident">SchemaDefinition</a> <span class="lit-string">`json:"definitions"`</span></code></span>
+<span class="codeline" id="line-31"><code>	<a href="../../../../use/github.com/gotd/tl..Schema.Classes.html" class="ident">Classes</a>     []<a href="#line-21" class="ident">Class</a>            <span class="lit-string">`json:"classes,omitempty"`</span></code></span>
+<span class="codeline" id="line-32"><code>}</code></span>
+<span class="codeline" id="line-33"><code></code></span>
+<span class="codeline" id="line-34"><code><span class="comment">// WriteTo writes whole schema to w, implementing io.WriterTo.</span></code></span>
+<span class="codeline" id="line-35"><code><span class="keyword">func</span> (<label for="r0" class="ident">s</label> <a href="#line-28" class="ident">Schema</a>) <label for="r1" class="ident"><a href="../../../../use/github.com/gotd/tl..Schema.WriteTo.html" class="ident">WriteTo</a></label>(<label for="r2" class="ident">w</label> <a href="../../../../pkg/io.html" class="ident i2">io</a>.<a href="../../../io/io.go.html#line-96" class="ident">Writer</a>) (<a href="../../../../pkg/builtin.html#name-int64" class="ident">int64</a>, <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-36"><code>	<label for="r3" class="ident">classes</label> := <a href="../../../../pkg/builtin.html#name-make" class="ident">make</a>(<span class="keyword">map</span>[<a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>]<a href="#line-21" class="ident">Class</a>)</code></span>
+<span class="codeline" id="line-37"><code>	<label for="r4" class="ident">classDefined</label> := <a href="../../../../pkg/builtin.html#name-make" class="ident">make</a>(<span class="keyword">map</span>[<a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>]<span class="keyword">struct</span>{})</code></span>
+<span class="codeline" id="line-38"><code>	<span class="keyword">for</span> <label for="r5" class="ident">_</label>, <label for="r6" class="ident">class</label> := <span class="keyword">range</span> <label for="r0" class="ident">s</label>.<a href="#line-31" class="ident">Classes</a> {</code></span>
+<span class="codeline" id="line-39"><code>		<label for="r3" class="ident">classes</label>[<label for="r6" class="ident">class</label>.<a href="#line-22" class="ident">Name</a>] = <label for="r6" class="ident">class</label></code></span>
+<span class="codeline" id="line-40"><code>	}</code></span>
+<span class="codeline" id="line-41"><code></code></span>
+<span class="codeline" id="line-42"><code>	<label for="r7" class="ident">category</label> := <a href="category.go.html#line-7" class="ident">CategoryType</a></code></span>
+<span class="codeline" id="line-43"><code></code></span>
+<span class="codeline" id="line-44"><code>	<span class="comment">// Probably we can write to w directly, but schemas that are larger than</span></code></span>
+<span class="codeline" id="line-45"><code><span class="comment">	// few megs are a problem itself.</span></code></span>
+<span class="codeline" id="line-46"><code>	<span class="keyword">var</span> <label for="r8" class="ident">b</label> <a href="../../../../pkg/strings.html" class="ident i4">strings</a>.<a href="../../../strings/builder.go.html#line-15" class="ident">Builder</a></code></span>
+<span class="codeline" id="line-47"><code>	<span class="keyword">for</span> <label for="r9" class="ident">_</label>, <label for="r10" class="ident">d</label> := <span class="keyword">range</span> <label for="r0" class="ident">s</label>.<a href="#line-30" class="ident">Definitions</a> {</code></span>
+<span class="codeline" id="line-48"><code>		<span class="keyword">if</span> <label for="r10" class="ident">d</label>.<a href="#line-15" class="ident">Category</a> != <label for="r7" class="ident">category</label> {</code></span>
+<span class="codeline" id="line-49"><code>			<label for="r7" class="ident">category</label> = <label for="r10" class="ident">d</label>.<a href="#line-15" class="ident">Category</a></code></span>
+<span class="codeline" id="line-50"><code>			<label for="r8" class="ident">b</label>.<a href="../../../strings/builder.go.html#line-121" class="ident">WriteString</a>(<span class="lit-string">"\n"</span>)</code></span>
+<span class="codeline" id="line-51"><code>			<span class="keyword">switch</span> <label for="r7" class="ident">category</label> {</code></span>
+<span class="codeline" id="line-52"><code>			<span class="keyword">case</span> <a href="category.go.html#line-7" class="ident">CategoryType</a>:</code></span>
+<span class="codeline" id="line-53"><code>				<label for="r8" class="ident">b</label>.<a href="../../../strings/builder.go.html#line-121" class="ident">WriteString</a>(<a href="tokens.go.html#line-5" class="ident">tokTypes</a>)</code></span>
+<span class="codeline" id="line-54"><code>			<span class="keyword">case</span> <a href="category.go.html#line-8" class="ident">CategoryFunction</a>:</code></span>
+<span class="codeline" id="line-55"><code>				<label for="r8" class="ident">b</label>.<a href="../../../strings/builder.go.html#line-121" class="ident">WriteString</a>(<a href="tokens.go.html#line-4" class="ident">tokFunctions</a>)</code></span>
+<span class="codeline" id="line-56"><code>			}</code></span>
+<span class="codeline" id="line-57"><code>			<label for="r8" class="ident">b</label>.<a href="../../../strings/builder.go.html#line-121" class="ident">WriteString</a>(<span class="lit-string">"\n\n"</span>)</code></span>
+<span class="codeline" id="line-58"><code>		}</code></span>
+<span class="codeline" id="line-59"><code></code></span>
+<span class="codeline" id="line-60"><code>		<span class="keyword">if</span> <label for="r11" class="ident">class</label>, <label for="r12" class="ident">exist</label> := <label for="r3" class="ident">classes</label>[<label for="r10" class="ident">d</label>.<a href="#line-14" class="ident">Definition</a>.<a href="definition.go.html#line-20" class="ident">Type</a>.<a href="type.go.html#line-12" class="ident">Name</a>]; <label for="r12" class="ident">exist</label> {</code></span>
+<span class="codeline" id="line-61"><code>			<span class="comment">// Describing class if not already defined.</span></code></span>
+<span class="codeline" id="line-62"><code>			<span class="keyword">if</span> <label for="r13" class="ident">_</label>, <label for="r14" class="ident">defined</label> := <label for="r4" class="ident">classDefined</label>[<label for="r11" class="ident">class</label>.<a href="#line-22" class="ident">Name</a>]; !<label for="r14" class="ident">defined</label> {</code></span>
+<span class="codeline" id="line-63"><code>				<label for="r8" class="ident">b</label>.<a href="../../../strings/builder.go.html#line-121" class="ident">WriteString</a>(<a href="annotation.go.html#line-47" class="ident">singleLineAnnotations</a>([]<a href="annotation.go.html#line-21" class="ident">Annotation</a>{</code></span>
+<span class="codeline" id="line-64"><code>					{<a href="annotation.go.html#line-29" class="ident">Name</a>: <a href="annotation.go.html#line-15" class="ident">AnnotationClass</a>, <a href="annotation.go.html#line-31" class="ident">Value</a>: <label for="r11" class="ident">class</label>.<a href="#line-22" class="ident">Name</a>},</code></span>
+<span class="codeline" id="line-65"><code>					{<a href="annotation.go.html#line-29" class="ident">Name</a>: <a href="annotation.go.html#line-13" class="ident">AnnotationDescription</a>, <a href="annotation.go.html#line-31" class="ident">Value</a>: <label for="r11" class="ident">class</label>.<a href="#line-23" class="ident">Description</a>},</code></span>
+<span class="codeline" id="line-66"><code>				}))</code></span>
+<span class="codeline" id="line-67"><code>				<label for="r4" class="ident">classDefined</label>[<label for="r11" class="ident">class</label>.<a href="#line-22" class="ident">Name</a>] = <span class="keyword">struct</span>{}{}</code></span>
+<span class="codeline" id="line-68"><code>				<label for="r8" class="ident">b</label>.<a href="../../../strings/builder.go.html#line-121" class="ident">WriteString</a>(<span class="lit-string">"\n\n"</span>)</code></span>
+<span class="codeline" id="line-69"><code>			}</code></span>
+<span class="codeline" id="line-70"><code>		}</code></span>
+<span class="codeline" id="line-71"><code>		<span class="keyword">for</span> <label for="r15" class="ident">_</label>, <label for="r16" class="ident">a</label> := <span class="keyword">range</span> <label for="r10" class="ident">d</label>.<a href="#line-13" class="ident">Annotations</a> {</code></span>
+<span class="codeline" id="line-72"><code>			<label for="r8" class="ident">b</label>.<a href="../../../strings/builder.go.html#line-121" class="ident">WriteString</a>(<label for="r16" class="ident">a</label>.<a href="annotation.go.html#line-34" class="ident">String</a>())</code></span>
+<span class="codeline" id="line-73"><code>			<label for="r8" class="ident">b</label>.<a href="../../../strings/builder.go.html#line-121" class="ident">WriteString</a>(<span class="lit-string">"\n"</span>)</code></span>
+<span class="codeline" id="line-74"><code>		}</code></span>
+<span class="codeline" id="line-75"><code>		<span class="comment">// Writing definition itself.</span></code></span>
+<span class="codeline" id="line-76"><code>		<label for="r8" class="ident">b</label>.<a href="../../../strings/builder.go.html#line-121" class="ident">WriteString</a>(<label for="r10" class="ident">d</label>.<a href="#line-14" class="ident">Definition</a>.<a href="definition.go.html#line-25" class="ident">String</a>())</code></span>
+<span class="codeline" id="line-77"><code>		<label for="r8" class="ident">b</label>.<a href="../../../strings/builder.go.html#line-121" class="ident">WriteString</a>(<span class="lit-string">";\n\n"</span>)</code></span>
+<span class="codeline" id="line-78"><code>	}</code></span>
+<span class="codeline" id="line-79"><code></code></span>
+<span class="codeline" id="line-80"><code>	<span class="keyword">if</span> <label for="r0" class="ident">s</label>.<a href="#line-29" class="ident">Layer</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-81"><code>		<label for="r8" class="ident">b</label>.<a href="../../../strings/builder.go.html#line-121" class="ident">WriteString</a>(<a href="../../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../../fmt/print.go.html#line-217" class="ident">Sprintf</a>(<span class="lit-string">"// LAYER %d\n"</span>, <label for="r0" class="ident">s</label>.<a href="#line-29" class="ident">Layer</a>))</code></span>
+<span class="codeline" id="line-82"><code>	}</code></span>
+<span class="codeline" id="line-83"><code></code></span>
+<span class="codeline" id="line-84"><code>	<label for="r17" class="ident">n</label>, <label for="r18" class="ident">err</label> := <label for="r2" class="ident">w</label>.<a href="../../../io/io.go.html#line-97" class="ident">Write</a>([]<a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a>(<label for="r8" class="ident">b</label>.<a href="../../../strings/builder.go.html#line-47" class="ident">String</a>()))</code></span>
+<span class="codeline" id="line-85"><code>	<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r17" class="ident">n</label>), <label for="r18" class="ident">err</label></code></span>
+<span class="codeline" id="line-86"><code>}</code></span>
+<span class="codeline" id="line-87"><code></code></span>
+<span class="codeline" id="line-88"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-89"><code>	<a href="../../../../pkg/github.com/gotd/tl.html#name-vectorDefinition" class="ident">vectorDefinition</a>       = <span class="lit-string">"vector {t:Type} # [ t ] = Vector t;"</span></code></span>
+<span class="codeline" id="line-90"><code>	<a href="../../../../pkg/github.com/gotd/tl.html#name-vectorDefinitionWithID" class="ident">vectorDefinitionWithID</a> = <span class="lit-string">"vector#1cb5c415 {t:Type} # [ t ] = Vector t;"</span></code></span>
+<span class="codeline" id="line-91"><code>)</code></span>
+<span class="codeline" id="line-92"><code></code></span>
+<span class="codeline" id="line-93"><code><span class="comment">// Parse reads Schema from reader.</span></code></span>
+<span class="codeline" id="line-94"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-95"><code><span class="comment">// Can return i/o or validation error.</span></code></span>
+<span class="codeline" id="line-96"><code><span class="keyword">func</span> <label for="r19" class="ident"><a href="../../../../pkg/github.com/gotd/tl.html#name-Parse" class="ident">Parse</a></label>(<label for="r20" class="ident">reader</label> <a href="../../../../pkg/io.html" class="ident i2">io</a>.<a href="../../../io/io.go.html#line-83" class="ident">Reader</a>) (*<a href="#line-28" class="ident">Schema</a>, <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-97"><code>	<span class="keyword">var</span> (</code></span>
+<span class="codeline" id="line-98"><code>		<label for="r21" class="ident">def</label>  <a href="#line-12" class="ident">SchemaDefinition</a></code></span>
+<span class="codeline" id="line-99"><code>		<label for="r22" class="ident">line</label> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-100"><code></code></span>
+<span class="codeline" id="line-101"><code>		<label for="r23" class="ident">category</label> = <a href="category.go.html#line-7" class="ident">CategoryType</a></code></span>
+<span class="codeline" id="line-102"><code>		<label for="r24" class="ident">schema</label>   = &amp;<a href="#line-28" class="ident">Schema</a>{}</code></span>
+<span class="codeline" id="line-103"><code>		<label for="r25" class="ident">scanner</label>  = <a href="../../../../pkg/bufio.html" class="ident i0">bufio</a>.<a href="../../../bufio/scan.go.html#line-87" class="ident">NewScanner</a>(<label for="r20" class="ident">reader</label>)</code></span>
+<span class="codeline" id="line-104"><code>	)</code></span>
+<span class="codeline" id="line-105"><code>	<span class="keyword">for</span> <label for="r25" class="ident">scanner</label>.<a href="../../../bufio/scan.go.html#line-135" class="ident">Scan</a>() {</code></span>
+<span class="codeline" id="line-106"><code>		<label for="r22" class="ident">line</label>++</code></span>
+<span class="codeline" id="line-107"><code>		<label for="r26" class="ident">s</label> := <a href="../../../../pkg/strings.html" class="ident i4">strings</a>.<a href="../../../strings/strings.go.html#line-867" class="ident">TrimSpace</a>(<label for="r25" class="ident">scanner</label>.<a href="../../../bufio/scan.go.html#line-112" class="ident">Text</a>())</code></span>
+<span class="codeline" id="line-108"><code>		<span class="keyword">if</span> <a href="../../../../pkg/strings.html" class="ident i4">strings</a>.<a href="../../../strings/strings.go.html#line-444" class="ident">HasPrefix</a>(<label for="r26" class="ident">s</label>, <span class="lit-string">"///"</span>) {</code></span>
+<span class="codeline" id="line-109"><code>			<label for="r26" class="ident">s</label> = <label for="r26" class="ident">s</label>[<span class="lit-number">1</span>:] <span class="comment">// normalize comments</span></code></span>
+<span class="codeline" id="line-110"><code>		}</code></span>
+<span class="codeline" id="line-111"><code>		<span class="keyword">switch</span> <label for="r26" class="ident">s</label> {</code></span>
+<span class="codeline" id="line-112"><code>		<span class="keyword">case</span> <span class="lit-string">""</span>:</code></span>
+<span class="codeline" id="line-113"><code>			<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-114"><code>		<span class="keyword">case</span> <a href="tokens.go.html#line-4" class="ident">tokFunctions</a>:</code></span>
+<span class="codeline" id="line-115"><code>			<label for="r23" class="ident">category</label> = <a href="category.go.html#line-8" class="ident">CategoryFunction</a></code></span>
+<span class="codeline" id="line-116"><code>			<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-117"><code>		<span class="keyword">case</span> <a href="tokens.go.html#line-5" class="ident">tokTypes</a>:</code></span>
+<span class="codeline" id="line-118"><code>			<label for="r23" class="ident">category</label> = <a href="category.go.html#line-7" class="ident">CategoryType</a></code></span>
+<span class="codeline" id="line-119"><code>			<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-120"><code>		<span class="keyword">case</span> <a href="#line-89" class="ident">vectorDefinition</a>, <a href="#line-90" class="ident">vectorDefinitionWithID</a>:</code></span>
+<span class="codeline" id="line-121"><code>			<span class="comment">// Special case for vector.</span></code></span>
+<span class="codeline" id="line-122"><code>			<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-123"><code>		}</code></span>
+<span class="codeline" id="line-124"><code>		<span class="keyword">if</span> <a href="../../../../pkg/strings.html" class="ident i4">strings</a>.<a href="../../../strings/strings.go.html#line-444" class="ident">HasPrefix</a>(<label for="r26" class="ident">s</label>, <a href="tokens.go.html#line-7" class="ident">tokLayer</a>) {</code></span>
+<span class="codeline" id="line-125"><code>			<span class="comment">// Layer version annotation.</span></code></span>
+<span class="codeline" id="line-126"><code>			<label for="r27" class="ident">layer</label>, <label for="r28" class="ident">err</label> := <a href="../../../../pkg/strconv.html" class="ident i3">strconv</a>.<a href="../../../strconv/atoi.go.html#line-224" class="ident">Atoi</a>(<a href="../../../../pkg/strings.html" class="ident i4">strings</a>.<a href="../../../strings/strings.go.html#line-902" class="ident">TrimPrefix</a>(<label for="r26" class="ident">s</label>, <a href="tokens.go.html#line-7" class="ident">tokLayer</a>))</code></span>
+<span class="codeline" id="line-127"><code>			<span class="keyword">if</span> <label for="r28" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-128"><code>				<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"failed to parse layer: %w"</span>, <label for="r28" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-129"><code>			}</code></span>
+<span class="codeline" id="line-130"><code>			<label for="r24" class="ident">schema</label>.<a href="#line-29" class="ident">Layer</a> = <label for="r27" class="ident">layer</label></code></span>
+<span class="codeline" id="line-131"><code>		}</code></span>
+<span class="codeline" id="line-132"><code>		<span class="keyword">if</span> <a href="../../../../pkg/strings.html" class="ident i4">strings</a>.<a href="../../../strings/strings.go.html#line-444" class="ident">HasPrefix</a>(<label for="r26" class="ident">s</label>, <span class="lit-string">"//@"</span>) {</code></span>
+<span class="codeline" id="line-133"><code>			<span class="comment">// Found annotation.</span></code></span>
+<span class="codeline" id="line-134"><code>			<label for="r29" class="ident">ann</label>, <label for="r30" class="ident">err</label> := <a href="annotation.go.html#line-60" class="ident">parseAnnotation</a>(<label for="r26" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-135"><code>			<span class="keyword">if</span> <label for="r30" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-136"><code>				<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"failed to parse line %d: %w"</span>, <label for="r22" class="ident">line</label>, <label for="r30" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-137"><code>			}</code></span>
+<span class="codeline" id="line-138"><code>			<span class="keyword">if</span> <a href="../../../../pkg/strings.html" class="ident i4">strings</a>.<a href="../../../strings/strings.go.html#line-444" class="ident">HasPrefix</a>(<label for="r26" class="ident">s</label>, <span class="lit-string">"//@"</span>+<a href="annotation.go.html#line-15" class="ident">AnnotationClass</a>) {</code></span>
+<span class="codeline" id="line-139"><code>				<span class="comment">// Handling class annotation as special case.</span></code></span>
+<span class="codeline" id="line-140"><code>				<span class="keyword">var</span> <label for="r31" class="ident">class</label> <a href="#line-21" class="ident">Class</a></code></span>
+<span class="codeline" id="line-141"><code>				<span class="keyword">for</span> <label for="r32" class="ident">_</label>, <label for="r33" class="ident">a</label> := <span class="keyword">range</span> <label for="r29" class="ident">ann</label> {</code></span>
+<span class="codeline" id="line-142"><code>					<span class="keyword">if</span> <label for="r33" class="ident">a</label>.<a href="annotation.go.html#line-29" class="ident">Name</a> == <a href="annotation.go.html#line-15" class="ident">AnnotationClass</a> {</code></span>
+<span class="codeline" id="line-143"><code>						<label for="r31" class="ident">class</label>.<a href="#line-22" class="ident">Name</a> = <label for="r33" class="ident">a</label>.<a href="annotation.go.html#line-31" class="ident">Value</a></code></span>
+<span class="codeline" id="line-144"><code>					}</code></span>
+<span class="codeline" id="line-145"><code>					<span class="keyword">if</span> <label for="r33" class="ident">a</label>.<a href="annotation.go.html#line-29" class="ident">Name</a> == <a href="annotation.go.html#line-13" class="ident">AnnotationDescription</a> {</code></span>
+<span class="codeline" id="line-146"><code>						<label for="r31" class="ident">class</label>.<a href="#line-23" class="ident">Description</a> = <label for="r33" class="ident">a</label>.<a href="annotation.go.html#line-31" class="ident">Value</a></code></span>
+<span class="codeline" id="line-147"><code>					}</code></span>
+<span class="codeline" id="line-148"><code>				}</code></span>
+<span class="codeline" id="line-149"><code>				<span class="keyword">if</span> <label for="r31" class="ident">class</label>.<a href="#line-22" class="ident">Name</a> != <span class="lit-string">""</span> &amp;&amp; <label for="r31" class="ident">class</label>.<a href="#line-23" class="ident">Description</a> != <span class="lit-string">""</span> {</code></span>
+<span class="codeline" id="line-150"><code>					<label for="r24" class="ident">schema</label>.<a href="#line-31" class="ident">Classes</a> = <a href="../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r24" class="ident">schema</label>.<a href="#line-31" class="ident">Classes</a>, <label for="r31" class="ident">class</label>)</code></span>
+<span class="codeline" id="line-151"><code>				}</code></span>
+<span class="codeline" id="line-152"><code>				<span class="comment">// Reset annotations so we don't include them to next type.</span></code></span>
+<span class="codeline" id="line-153"><code>				<label for="r29" class="ident">ann</label> = <label for="r29" class="ident">ann</label>[:<span class="lit-number">0</span>]</code></span>
+<span class="codeline" id="line-154"><code>			}</code></span>
+<span class="codeline" id="line-155"><code></code></span>
+<span class="codeline" id="line-156"><code>			<label for="r21" class="ident">def</label>.<a href="#line-13" class="ident">Annotations</a> = <a href="../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r21" class="ident">def</label>.<a href="#line-13" class="ident">Annotations</a>, <label for="r29" class="ident">ann</label>...)</code></span>
+<span class="codeline" id="line-157"><code>			<span class="keyword">continue</span> <span class="comment">// annotation is parsed, moving to next line</span></code></span>
+<span class="codeline" id="line-158"><code>		}</code></span>
+<span class="codeline" id="line-159"><code>		<span class="keyword">if</span> <a href="../../../../pkg/strings.html" class="ident i4">strings</a>.<a href="../../../strings/strings.go.html#line-444" class="ident">HasPrefix</a>(<label for="r26" class="ident">s</label>, <span class="lit-string">"//"</span>) {</code></span>
+<span class="codeline" id="line-160"><code>			<span class="keyword">continue</span> <span class="comment">// skip comments</span></code></span>
+<span class="codeline" id="line-161"><code>		}</code></span>
+<span class="codeline" id="line-162"><code></code></span>
+<span class="codeline" id="line-163"><code>		<span class="comment">// Type definition started.</span></code></span>
+<span class="codeline" id="line-164"><code>		<label for="r21" class="ident">def</label>.<a href="#line-15" class="ident">Category</a> = <label for="r23" class="ident">category</label></code></span>
+<span class="codeline" id="line-165"><code>		<span class="keyword">if</span> <label for="r34" class="ident">err</label> := <label for="r21" class="ident">def</label>.<a href="#line-14" class="ident">Definition</a>.<a href="definition.go.html#line-50" class="ident">Parse</a>(<label for="r26" class="ident">s</label>); <label for="r34" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-166"><code>			<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"failed to parse line %d: definition: %w"</span>, <label for="r22" class="ident">line</label>, <label for="r34" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-167"><code>		}</code></span>
+<span class="codeline" id="line-168"><code></code></span>
+<span class="codeline" id="line-169"><code>		<span class="comment">// Validating annotations.</span></code></span>
+<span class="codeline" id="line-170"><code>		<label for="r35" class="ident">paramExist</label> := <span class="keyword">map</span>[<a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>]<span class="keyword">struct</span>{}{}</code></span>
+<span class="codeline" id="line-171"><code>		<span class="keyword">for</span> <label for="r36" class="ident">_</label>, <label for="r37" class="ident">p</label> := <span class="keyword">range</span> <label for="r21" class="ident">def</label>.<a href="#line-14" class="ident">Definition</a>.<a href="definition.go.html#line-19" class="ident">Params</a> {</code></span>
+<span class="codeline" id="line-172"><code>			<label for="r35" class="ident">paramExist</label>[<label for="r37" class="ident">p</label>.<a href="parameter.go.html#line-11" class="ident">Name</a>] = <span class="keyword">struct</span>{}{}</code></span>
+<span class="codeline" id="line-173"><code>		}</code></span>
+<span class="codeline" id="line-174"><code>		<span class="keyword">for</span> <label for="r38" class="ident">_</label>, <label for="r39" class="ident">ann</label> := <span class="keyword">range</span> <label for="r21" class="ident">def</label>.<a href="#line-13" class="ident">Annotations</a> {</code></span>
+<span class="codeline" id="line-175"><code>			<span class="keyword">if</span> <label for="r39" class="ident">ann</label>.<a href="annotation.go.html#line-29" class="ident">Name</a> == <a href="annotation.go.html#line-13" class="ident">AnnotationDescription</a> {</code></span>
+<span class="codeline" id="line-176"><code>				<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-177"><code>			}</code></span>
+<span class="codeline" id="line-178"><code>			<label for="r40" class="ident">searchFor</label> := <label for="r39" class="ident">ann</label>.<a href="annotation.go.html#line-29" class="ident">Name</a></code></span>
+<span class="codeline" id="line-179"><code>			<span class="keyword">if</span> <label for="r39" class="ident">ann</label>.<a href="annotation.go.html#line-29" class="ident">Name</a> == <a href="annotation.go.html#line-17" class="ident">AnnotationParamDescription</a> {</code></span>
+<span class="codeline" id="line-180"><code>				<span class="comment">// Special case for "description" parameter name that collides</span></code></span>
+<span class="codeline" id="line-181"><code><span class="comment">				// with global description.</span></code></span>
+<span class="codeline" id="line-182"><code>				<label for="r40" class="ident">searchFor</label> = <span class="lit-string">"description"</span></code></span>
+<span class="codeline" id="line-183"><code>			}</code></span>
+<span class="codeline" id="line-184"><code>			<span class="keyword">if</span> <label for="r41" class="ident">_</label>, <label for="r42" class="ident">ok</label> := <label for="r35" class="ident">paramExist</label>[<label for="r40" class="ident">searchFor</label>]; !<label for="r42" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-185"><code>				<span class="comment">// Probably such errors can be just skipped, but seems like it</span></code></span>
+<span class="codeline" id="line-186"><code><span class="comment">				// is OK to consider this as hard failure.</span></code></span>
+<span class="codeline" id="line-187"><code>				<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"failed to parse line %d: "</span>+</code></span>
+<span class="codeline" id="line-188"><code>					<span class="lit-string">"can't find param for annotation %q"</span>, <label for="r22" class="ident">line</label>, <label for="r39" class="ident">ann</label>.<a href="annotation.go.html#line-29" class="ident">Name</a>)</code></span>
+<span class="codeline" id="line-189"><code>			}</code></span>
+<span class="codeline" id="line-190"><code>		}</code></span>
+<span class="codeline" id="line-191"><code></code></span>
+<span class="codeline" id="line-192"><code>		<label for="r24" class="ident">schema</label>.<a href="#line-30" class="ident">Definitions</a> = <a href="../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r24" class="ident">schema</label>.<a href="#line-30" class="ident">Definitions</a>, <label for="r21" class="ident">def</label>)</code></span>
+<span class="codeline" id="line-193"><code>		<label for="r21" class="ident">def</label> = <a href="#line-12" class="ident">SchemaDefinition</a>{} <span class="comment">// reset definition</span></code></span>
+<span class="codeline" id="line-194"><code>	}</code></span>
+<span class="codeline" id="line-195"><code>	<span class="keyword">if</span> <label for="r43" class="ident">err</label> := <label for="r25" class="ident">scanner</label>.<a href="../../../bufio/scan.go.html#line-96" class="ident">Err</a>(); <label for="r43" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-196"><code>		<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"failed to scan: %w"</span>, <label for="r43" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-197"><code>	}</code></span>
+<span class="codeline" id="line-198"><code></code></span>
+<span class="codeline" id="line-199"><code>	<span class="comment">// Remaining type.</span></code></span>
+<span class="codeline" id="line-200"><code>	<span class="keyword">if</span> <label for="r21" class="ident">def</label>.<a href="#line-14" class="ident">Definition</a>.<a href="definition.go.html#line-18" class="ident">ID</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-201"><code>		<label for="r24" class="ident">schema</label>.<a href="#line-30" class="ident">Definitions</a> = <a href="../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r24" class="ident">schema</label>.<a href="#line-30" class="ident">Definitions</a>, <label for="r21" class="ident">def</label>)</code></span>
+<span class="codeline" id="line-202"><code>	}</code></span>
+<span class="codeline" id="line-203"><code></code></span>
+<span class="codeline" id="line-204"><code>	<span class="keyword">return</span> <label for="r24" class="ident">schema</label>, <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-205"><code>}</code></span>
+</pre><pre id="footer">
+<table><tr><td><img src="../../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

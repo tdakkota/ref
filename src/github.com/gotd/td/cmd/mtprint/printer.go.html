@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: printer.go in package github.com/gotd/td/cmd/mtprint</title>
+<link href="../../../../../../css/light-v0.2.7-preview.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.2.7-preview.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	printer.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../../../../pkg/github.com/gotd/td/cmd/mtprint.html">github.com/gotd/td/cmd/mtprint</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16],
+input[id=r17]:checked ~pre label[for=r17],
+input[id=r18]:checked ~pre label[for=r18],
+input[id=r19]:checked ~pre label[for=r19],
+input[id=r20]:checked ~pre label[for=r20],
+input[id=r21]:checked ~pre label[for=r21],
+input[id=r22]:checked ~pre label[for=r22],
+input[id=r23]:checked ~pre label[for=r23],
+input[id=r24]:checked ~pre label[for=r24],
+input[id=r25]:checked ~pre label[for=r25],
+input[id=r26]:checked ~pre label[for=r26],
+input[id=r27]:checked ~pre label[for=r27],
+input[id=r28]:checked ~pre label[for=r28],
+input[id=r29]:checked ~pre label[for=r29],
+input[id=r30]:checked ~pre label[for=r30],
+input[id=r31]:checked ~pre label[for=r31],
+input[id=r32]:checked ~pre label[for=r32],
+input[id=r33]:checked ~pre label[for=r33],
+input[id=r34]:checked ~pre label[for=r34],
+input[id=r35]:checked ~pre label[for=r35],
+input[id=r36]:checked ~pre label[for=r36],
+input[id=r37]:checked ~pre label[for=r37]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1,
+input[id=i2]:checked ~pre .i2,
+input[id=i3]:checked ~pre .i3,
+input[id=i4]:checked ~pre .i4,
+input[id=i5]:checked ~pre .i5,
+input[id=i6]:checked ~pre .i6,
+input[id=i7]:checked ~pre .i7,
+input[id=i8]:checked ~pre .i8,
+input[id=i9]:checked ~pre .i9,
+input[id=i10]:checked ~pre .i10,
+input[id=i11]:checked ~pre .i11,
+input[id=i12]:checked ~pre .i12
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="r17" type="radio" name="g"/>
+<input id="r18" type="radio" name="g"/>
+<input id="r19" type="radio" name="g"/>
+<input id="r20" type="radio" name="g"/>
+<input id="r21" type="radio" name="g"/>
+<input id="r22" type="radio" name="g"/>
+<input id="r23" type="radio" name="g"/>
+<input id="r24" type="radio" name="g"/>
+<input id="r25" type="radio" name="g"/>
+<input id="r26" type="radio" name="g"/>
+<input id="r27" type="radio" name="g"/>
+<input id="r28" type="radio" name="g"/>
+<input id="r29" type="radio" name="g"/>
+<input id="r30" type="radio" name="g"/>
+<input id="r31" type="radio" name="g"/>
+<input id="r32" type="radio" name="g"/>
+<input id="r33" type="radio" name="g"/>
+<input id="r34" type="radio" name="g"/>
+<input id="r35" type="radio" name="g"/>
+<input id="r36" type="radio" name="g"/>
+<input id="r37" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+<input id="i2" type="radio" name="i"/>
+<input id="i3" type="radio" name="i"/>
+<input id="i4" type="radio" name="i"/>
+<input id="i5" type="radio" name="i"/>
+<input id="i6" type="radio" name="i"/>
+<input id="i7" type="radio" name="i"/>
+<input id="i8" type="radio" name="i"/>
+<input id="i9" type="radio" name="i"/>
+<input id="i10" type="radio" name="i"/>
+<input id="i11" type="radio" name="i"/>
+<input id="i12" type="radio" name="i"/>
+
+<pre class="line-numbers">
+<span class="codeline" id="line-1"><code><span class="keyword">package</span> main</code></span>
+<span class="codeline" id="line-2"><code></code></span>
+<span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"encoding/json"</span></label></code></span>
+<span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"errors"</span></label></code></span>
+<span class="codeline" id="line-6"><code>	<label for="i2"><span class="lit-string i2">"fmt"</span></label></code></span>
+<span class="codeline" id="line-7"><code>	<label for="i3"><span class="lit-string i3">"io"</span></label></code></span>
+<span class="codeline" id="line-8"><code></code></span>
+<span class="codeline" id="line-9"><code>	<label for="i4"><span class="lit-string i4">"github.com/k0kubun/pp/v3"</span></label></code></span>
+<span class="codeline" id="line-10"><code>	<label for="i5"><span class="lit-string i5">"golang.org/x/xerrors"</span></label></code></span>
+<span class="codeline" id="line-11"><code></code></span>
+<span class="codeline" id="line-12"><code>	<label for="i6"><span class="lit-string i6">"github.com/gotd/td/bin"</span></label></code></span>
+<span class="codeline" id="line-13"><code>	<label for="i7"><span class="lit-string i7">"github.com/gotd/td/internal/mt"</span></label></code></span>
+<span class="codeline" id="line-14"><code>	<label for="i8"><span class="lit-string i8">"github.com/gotd/td/internal/proto/codec"</span></label></code></span>
+<span class="codeline" id="line-15"><code>	<label for="i9"><span class="lit-string i9">"github.com/gotd/td/internal/tmap"</span></label></code></span>
+<span class="codeline" id="line-16"><code>	<label for="i10"><span class="lit-string i10">"github.com/gotd/td/tdp"</span></label></code></span>
+<span class="codeline" id="line-17"><code>	<label for="i11"><span class="lit-string i11">"github.com/gotd/td/tg"</span></label></code></span>
+<span class="codeline" id="line-18"><code>	<label for="i12"><span class="lit-string i12">"github.com/gotd/td/transport"</span></label></code></span>
+<span class="codeline" id="line-19"><code>)</code></span>
+<span class="codeline" id="line-20"><code></code></span>
+<span class="codeline" id="line-21"><code><span class="comment">// Object is abstraction for TL schema object.</span></code></span>
+<span class="codeline" id="line-22"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/cmd/mtprint.html#name-Object" class="ident">Object</a> <span class="keyword">interface</span> {</code></span>
+<span class="codeline" id="line-23"><code>	<a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../bin/bin.go.html#line-59" class="ident">Object</a></code></span>
+<span class="codeline" id="line-24"><code>	<a href="../../../../../../pkg/github.com/gotd/td/tdp.html" class="ident i10">tdp</a>.<a href="../../tdp/type.go.html#line-23" class="ident">Object</a></code></span>
+<span class="codeline" id="line-25"><code>}</code></span>
+<span class="codeline" id="line-26"><code></code></span>
+<span class="codeline" id="line-27"><code><span class="comment">// Formatter formats given bin.Object and prints it to io.Writer.</span></code></span>
+<span class="codeline" id="line-28"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/cmd/mtprint.html#name-Formatter" class="ident">Formatter</a> <span class="keyword">interface</span> {</code></span>
+<span class="codeline" id="line-29"><code>	<a href="../../../../../../imp/github.com/gotd/td/cmd/mtprint.Formatter.html#name-Format" class="ident">Format</a>(w <a href="../../../../../../pkg/io.html" class="ident i3">io</a>.<a href="../../../../../io/io.go.html#line-96" class="ident">Writer</a>, i <a href="#line-22" class="ident">Object</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-30"><code>}</code></span>
+<span class="codeline" id="line-31"><code></code></span>
+<span class="codeline" id="line-32"><code><span class="comment">// FormatterFunc is functional adapter for Formatter.</span></code></span>
+<span class="codeline" id="line-33"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/cmd/mtprint.html#name-FormatterFunc" class="ident">FormatterFunc</a> <span class="keyword">func</span>(w <a href="../../../../../../pkg/io.html" class="ident i3">io</a>.<a href="../../../../../io/io.go.html#line-96" class="ident">Writer</a>, i <a href="#line-22" class="ident">Object</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-34"><code></code></span>
+<span class="codeline" id="line-35"><code><span class="comment">// Format implements Formatter.</span></code></span>
+<span class="codeline" id="line-36"><code><span class="keyword">func</span> (<label for="r0" class="ident">f</label> <a href="#line-33" class="ident">FormatterFunc</a>) <label for="r1" class="ident"><a href="../../../../../../use/github.com/gotd/td/cmd/mtprint..FormatterFunc.Format.html" class="ident">Format</a></label>(<label for="r2" class="ident">w</label> <a href="../../../../../../pkg/io.html" class="ident i3">io</a>.<a href="../../../../../io/io.go.html#line-96" class="ident">Writer</a>, <label for="r3" class="ident">i</label> <a href="#line-22" class="ident">Object</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-37"><code>	<span class="keyword">return</span> <label for="r0" class="ident">f</label>(<label for="r2" class="ident">w</label>, <label for="r3" class="ident">i</label>)</code></span>
+<span class="codeline" id="line-38"><code>}</code></span>
+<span class="codeline" id="line-39"><code></code></span>
+<span class="codeline" id="line-40"><code><span class="keyword">func</span> <label for="r4" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/cmd/mtprint.html#name-formats" class="ident">formats</a></label>(<label for="r5" class="ident">name</label> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="#line-28" class="ident">Formatter</a> {</code></span>
+<span class="codeline" id="line-41"><code>	<span class="keyword">switch</span> <label for="r5" class="ident">name</label> {</code></span>
+<span class="codeline" id="line-42"><code>	<span class="keyword">case</span> <span class="lit-string">"json"</span>:</code></span>
+<span class="codeline" id="line-43"><code>		<span class="keyword">return</span> <a href="#line-33" class="ident">FormatterFunc</a>(<span class="keyword">func</span>(<label for="r6" class="ident">w</label> <a href="../../../../../../pkg/io.html" class="ident i3">io</a>.<a href="../../../../../io/io.go.html#line-96" class="ident">Writer</a>, <label for="r7" class="ident">i</label> <a href="#line-22" class="ident">Object</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-44"><code>			<label for="r8" class="ident">e</label> := <a href="../../../../../../pkg/encoding/json.html" class="ident i0">json</a>.<a href="../../../../../encoding/json/stream.go.html#line-192" class="ident">NewEncoder</a>(<label for="r6" class="ident">w</label>)</code></span>
+<span class="codeline" id="line-45"><code>			<label for="r8" class="ident">e</label>.<a href="../../../../../encoding/json/stream.go.html#line-241" class="ident">SetIndent</a>(<span class="lit-string">""</span>, <span class="lit-string">"\t"</span>)</code></span>
+<span class="codeline" id="line-46"><code>			<span class="keyword">return</span> <label for="r8" class="ident">e</label>.<a href="../../../../../encoding/json/stream.go.html#line-201" class="ident">Encode</a>(<label for="r7" class="ident">i</label>)</code></span>
+<span class="codeline" id="line-47"><code>		})</code></span>
+<span class="codeline" id="line-48"><code>	<span class="keyword">case</span> <span class="lit-string">"pp"</span>:</code></span>
+<span class="codeline" id="line-49"><code>		<span class="keyword">return</span> <a href="#line-33" class="ident">FormatterFunc</a>(<span class="keyword">func</span>(<label for="r9" class="ident">w</label> <a href="../../../../../../pkg/io.html" class="ident i3">io</a>.<a href="../../../../../io/io.go.html#line-96" class="ident">Writer</a>, <label for="r10" class="ident">i</label> <a href="#line-22" class="ident">Object</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-50"><code>			<label for="r11" class="ident">_</label>, <label for="r12" class="ident">err</label> := <a href="../../../../../../pkg/github.com/k0kubun/pp/v3.html" class="ident i4">pp</a>.<a href="../../../../k0kubun/pp/v3/pp.go.html#line-213" class="ident">Fprintln</a>(<label for="r9" class="ident">w</label>, <label for="r10" class="ident">i</label>)</code></span>
+<span class="codeline" id="line-51"><code>			<span class="keyword">return</span> <label for="r12" class="ident">err</label></code></span>
+<span class="codeline" id="line-52"><code>		})</code></span>
+<span class="codeline" id="line-53"><code>	<span class="keyword">case</span> <span class="lit-string">"tdp"</span>:</code></span>
+<span class="codeline" id="line-54"><code>		<span class="keyword">return</span> <a href="#line-33" class="ident">FormatterFunc</a>(<span class="keyword">func</span>(<label for="r13" class="ident">w</label> <a href="../../../../../../pkg/io.html" class="ident i3">io</a>.<a href="../../../../../io/io.go.html#line-96" class="ident">Writer</a>, <label for="r14" class="ident">i</label> <a href="#line-22" class="ident">Object</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-55"><code>			<label for="r15" class="ident">_</label>, <label for="r16" class="ident">err</label> := <a href="../../../../../../pkg/io.html" class="ident i3">io</a>.<a href="../../../../../io/io.go.html#line-307" class="ident">WriteString</a>(<label for="r13" class="ident">w</label>, <a href="../../../../../../pkg/github.com/gotd/td/tdp.html" class="ident i10">tdp</a>.<a href="../../tdp/tdp.go.html#line-113" class="ident">Format</a>(<label for="r14" class="ident">i</label>))</code></span>
+<span class="codeline" id="line-56"><code>			<span class="keyword">return</span> <label for="r16" class="ident">err</label></code></span>
+<span class="codeline" id="line-57"><code>		})</code></span>
+<span class="codeline" id="line-58"><code>	<span class="keyword">default</span>: <span class="comment">// "go" format</span></code></span>
+<span class="codeline" id="line-59"><code>		<span class="keyword">return</span> <a href="#line-33" class="ident">FormatterFunc</a>(<span class="keyword">func</span>(<label for="r17" class="ident">w</label> <a href="../../../../../../pkg/io.html" class="ident i3">io</a>.<a href="../../../../../io/io.go.html#line-96" class="ident">Writer</a>, <label for="r18" class="ident">i</label> <a href="#line-22" class="ident">Object</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-60"><code>			<label for="r19" class="ident">_</label>, <label for="r20" class="ident">err</label> := <a href="../../../../../../pkg/fmt.html" class="ident i2">fmt</a>.<a href="../../../../../fmt/print.go.html#line-262" class="ident">Fprintln</a>(<label for="r17" class="ident">w</label>, <label for="r18" class="ident">i</label>)</code></span>
+<span class="codeline" id="line-61"><code>			<span class="keyword">return</span> <label for="r20" class="ident">err</label></code></span>
+<span class="codeline" id="line-62"><code>		})</code></span>
+<span class="codeline" id="line-63"><code>	}</code></span>
+<span class="codeline" id="line-64"><code>}</code></span>
+<span class="codeline" id="line-65"><code></code></span>
+<span class="codeline" id="line-66"><code><span class="comment">// Printer decodes messages from given reader and prints is using Formatter.</span></code></span>
+<span class="codeline" id="line-67"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/cmd/mtprint.html#name-Printer" class="ident">Printer</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-68"><code>	<a href="../../../../../../use/github.com/gotd/td/cmd/mtprint..Printer.src.html" class="ident">src</a>    <a href="../../../../../../pkg/io.html" class="ident i3">io</a>.<a href="../../../../../io/io.go.html#line-83" class="ident">Reader</a></code></span>
+<span class="codeline" id="line-69"><code>	<a href="../../../../../../use/github.com/gotd/td/cmd/mtprint..Printer.codec.html" class="ident">codec</a>  <a href="../../../../../../pkg/github.com/gotd/td/transport.html" class="ident i12">transport</a>.<a href="../../transport/codec.go.html#line-10" class="ident">Codec</a></code></span>
+<span class="codeline" id="line-70"><code>	<a href="../../../../../../use/github.com/gotd/td/cmd/mtprint..Printer.format.html" class="ident">format</a> <a href="#line-28" class="ident">Formatter</a></code></span>
+<span class="codeline" id="line-71"><code>}</code></span>
+<span class="codeline" id="line-72"><code></code></span>
+<span class="codeline" id="line-73"><code><span class="comment">// NewPrinter creates new Printer.</span></code></span>
+<span class="codeline" id="line-74"><code><span class="comment">// If format is nil, "go" format will be used.</span></code></span>
+<span class="codeline" id="line-75"><code><span class="comment">// If c is nil, codec.Intermediate will be use.</span></code></span>
+<span class="codeline" id="line-76"><code><span class="keyword">func</span> <label for="r21" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/cmd/mtprint.html#name-NewPrinter" class="ident">NewPrinter</a></label>(<label for="r22" class="ident">src</label> <a href="../../../../../../pkg/io.html" class="ident i3">io</a>.<a href="../../../../../io/io.go.html#line-83" class="ident">Reader</a>, <label for="r23" class="ident">format</label> <a href="#line-28" class="ident">Formatter</a>, <label for="r24" class="ident">c</label> <a href="../../../../../../pkg/github.com/gotd/td/transport.html" class="ident i12">transport</a>.<a href="../../transport/codec.go.html#line-10" class="ident">Codec</a>) <a href="#line-67" class="ident">Printer</a> {</code></span>
+<span class="codeline" id="line-77"><code>	<span class="keyword">if</span> <label for="r24" class="ident">c</label> == <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-78"><code>		<label for="r24" class="ident">c</label> = <a href="../../../../../../pkg/github.com/gotd/td/internal/proto/codec.html" class="ident i8">codec</a>.<a href="../../internal/proto/codec/intermediate.go.html#line-20" class="ident">Intermediate</a>{}</code></span>
+<span class="codeline" id="line-79"><code>	}</code></span>
+<span class="codeline" id="line-80"><code>	<span class="keyword">if</span> <label for="r23" class="ident">format</label> == <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-81"><code>		<label for="r23" class="ident">format</label> = <a href="#line-40" class="ident">formats</a>(<span class="lit-string">"go"</span>)</code></span>
+<span class="codeline" id="line-82"><code>	}</code></span>
+<span class="codeline" id="line-83"><code>	<span class="keyword">return</span> <a href="#line-67" class="ident">Printer</a>{</code></span>
+<span class="codeline" id="line-84"><code>		<a href="#line-68" class="ident">src</a>:    <label for="r22" class="ident">src</label>,</code></span>
+<span class="codeline" id="line-85"><code>		<a href="#line-69" class="ident">codec</a>:  <label for="r24" class="ident">c</label>,</code></span>
+<span class="codeline" id="line-86"><code>		<a href="#line-70" class="ident">format</a>: <label for="r23" class="ident">format</label>,</code></span>
+<span class="codeline" id="line-87"><code>	}</code></span>
+<span class="codeline" id="line-88"><code>}</code></span>
+<span class="codeline" id="line-89"><code></code></span>
+<span class="codeline" id="line-90"><code><span class="comment">// Print prints decoded messages to output.</span></code></span>
+<span class="codeline" id="line-91"><code><span class="keyword">func</span> (<label for="r25" class="ident">p</label> <a href="#line-67" class="ident">Printer</a>) <label for="r26" class="ident"><a href="../../../../../../use/github.com/gotd/td/cmd/mtprint..Printer.Print.html" class="ident">Print</a></label>(<label for="r27" class="ident">output</label> <a href="../../../../../../pkg/io.html" class="ident i3">io</a>.<a href="../../../../../io/io.go.html#line-96" class="ident">Writer</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-92"><code>	<label for="r28" class="ident">b</label> := &amp;<a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../bin/buffer.go.html#line-8" class="ident">Buffer</a>{}</code></span>
+<span class="codeline" id="line-93"><code></code></span>
+<span class="codeline" id="line-94"><code>	<label for="r29" class="ident">m</label> := <a href="../../../../../../pkg/github.com/gotd/td/internal/tmap.html" class="ident i9">tmap</a>.<a href="../../internal/tmap/constructor.go.html#line-31" class="ident">NewConstructor</a>(</code></span>
+<span class="codeline" id="line-95"><code>		<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i11">tg</a>.<a href="../../tg/tl_registry_gen.go.html#line-2622" class="ident">TypesConstructorMap</a>(),</code></span>
+<span class="codeline" id="line-96"><code>		<a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i7">mt</a>.<a href="../../internal/mt/tl_registry_gen.go.html#line-131" class="ident">TypesConstructorMap</a>(),</code></span>
+<span class="codeline" id="line-97"><code>	)</code></span>
+<span class="codeline" id="line-98"><code>	<span class="keyword">for</span> {</code></span>
+<span class="codeline" id="line-99"><code>		<label for="r28" class="ident">b</label>.<a href="../../bin/encode.go.html#line-100" class="ident">Reset</a>()</code></span>
+<span class="codeline" id="line-100"><code>		<span class="keyword">if</span> <label for="r30" class="ident">err</label> := <label for="r25" class="ident">p</label>.<a href="#line-69" class="ident">codec</a>.<a href="../../transport/codec.go.html#line-18" class="ident">Read</a>(<label for="r25" class="ident">p</label>.<a href="#line-68" class="ident">src</a>, <label for="r28" class="ident">b</label>); <label for="r30" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-101"><code>			<span class="keyword">if</span> <a href="../../../../../../pkg/errors.html" class="ident i1">errors</a>.<a href="../../../../../errors/wrap.go.html#line-39" class="ident">Is</a>(<label for="r30" class="ident">err</label>, <a href="../../../../../../pkg/io.html" class="ident i3">io</a>.<a href="../../../../../io/io.go.html#line-44" class="ident">EOF</a>) {</code></span>
+<span class="codeline" id="line-102"><code>				<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-103"><code>			}</code></span>
+<span class="codeline" id="line-104"><code></code></span>
+<span class="codeline" id="line-105"><code>			<span class="keyword">return</span> <label for="r30" class="ident">err</label></code></span>
+<span class="codeline" id="line-106"><code>		}</code></span>
+<span class="codeline" id="line-107"><code></code></span>
+<span class="codeline" id="line-108"><code>		<label for="r31" class="ident">id</label>, <label for="r32" class="ident">err</label> := <label for="r28" class="ident">b</label>.<a href="../../bin/decode.go.html#line-11" class="ident">PeekID</a>()</code></span>
+<span class="codeline" id="line-109"><code>		<span class="keyword">if</span> <label for="r32" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-110"><code>			<span class="keyword">return</span> <label for="r32" class="ident">err</label></code></span>
+<span class="codeline" id="line-111"><code>		}</code></span>
+<span class="codeline" id="line-112"><code></code></span>
+<span class="codeline" id="line-113"><code>		<label for="r33" class="ident">obj</label> := <label for="r29" class="ident">m</label>.<a href="../../internal/tmap/constructor.go.html#line-19" class="ident">New</a>(<label for="r31" class="ident">id</label>)</code></span>
+<span class="codeline" id="line-114"><code>		<span class="keyword">if</span> <label for="r33" class="ident">obj</label> == <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-115"><code>			<span class="keyword">return</span> <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i5">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"failed to find type 0x%x"</span>, <label for="r31" class="ident">id</label>)</code></span>
+<span class="codeline" id="line-116"><code>		}</code></span>
+<span class="codeline" id="line-117"><code></code></span>
+<span class="codeline" id="line-118"><code>		<label for="r34" class="ident">v</label>, <label for="r35" class="ident">ok</label> := <label for="r33" class="ident">obj</label>.(<a href="#line-22" class="ident">Object</a>)</code></span>
+<span class="codeline" id="line-119"><code>		<span class="keyword">if</span> !<label for="r35" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-120"><code>			<span class="keyword">return</span> <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i5">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"unexpected type %T"</span>, <label for="r33" class="ident">obj</label>)</code></span>
+<span class="codeline" id="line-121"><code>		}</code></span>
+<span class="codeline" id="line-122"><code></code></span>
+<span class="codeline" id="line-123"><code>		<span class="keyword">if</span> <label for="r36" class="ident">err</label> := <label for="r34" class="ident">v</label>.<a href="../../bin/bin.go.html#line-43" class="ident">Decode</a>(<label for="r28" class="ident">b</label>); <label for="r36" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-124"><code>			<span class="keyword">return</span> <label for="r36" class="ident">err</label></code></span>
+<span class="codeline" id="line-125"><code>		}</code></span>
+<span class="codeline" id="line-126"><code></code></span>
+<span class="codeline" id="line-127"><code>		<span class="keyword">if</span> <label for="r37" class="ident">err</label> := <label for="r25" class="ident">p</label>.<a href="#line-70" class="ident">format</a>.<a href="#line-29" class="ident">Format</a>(<label for="r27" class="ident">output</label>, <label for="r34" class="ident">v</label>); <label for="r37" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-128"><code>			<span class="keyword">return</span> <label for="r37" class="ident">err</label></code></span>
+<span class="codeline" id="line-129"><code>		}</code></span>
+<span class="codeline" id="line-130"><code>	}</code></span>
+<span class="codeline" id="line-131"><code>}</code></span>
+</pre><pre id="footer">
+<table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

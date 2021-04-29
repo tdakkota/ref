@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>References: go/types.Scope</title>
+<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre><code><span style="font-size:x-large;">type <b><a href="../../pkg/go/types.html">go/types</a>.<a href="../../src/go/types/scope.go.html#line-22">Scope</a></b></span>
+
+<span class="title">48 uses</span>
+
+	go/types (current package)
+		<a href="../../src/go/types/api.go.html#line-236">api.go#L236</a>: 	Scopes map[ast.Node]*<b>Scope</b>
+		<a href="../../src/go/types/check.go.html#line-46">check.go#L46</a>: 	scope         *<b>Scope</b>                 // top-most scope for lookups
+		<a href="../../src/go/types/check.go.html#line-90" class="path-duplicate">check.go</a><a href="../../src/go/types/check.go.html#line-90">#L90</a>: 	unusedDotImports map[*<b>Scope</b>]map[*Package]*ast.ImportSpec // unused dot-imported packages
+		<a href="../../src/go/types/check.go.html#line-109" class="path-duplicate">check.go</a><a href="../../src/go/types/check.go.html#line-109">#L109</a>: func (check *Checker) addUnusedDotImport(scope *<b>Scope</b>, pkg *Package, spec *ast.ImportSpec) {
+		<a href="../../src/go/types/check.go.html#line-112" class="path-duplicate">check.go</a><a href="../../src/go/types/check.go.html#line-112">#L112</a>: 		mm = make(map[*<b>Scope</b>]map[*Package]*ast.ImportSpec)
+		<a href="../../src/go/types/check.go.html#line-411" class="path-duplicate">check.go</a><a href="../../src/go/types/check.go.html#line-411">#L411</a>: func (check *Checker) recordScope(node ast.Node, scope *<b>Scope</b>) {
+		<a href="../../src/go/types/decl.go.html#line-22">decl.go#L22</a>: func (check *Checker) declare(scope *<b>Scope</b>, id *ast.Ident, obj Object, pos token.Pos) {
+		<a href="../../src/go/types/eval.go.html#line-58">eval.go#L58</a>: 	var scope *<b>Scope</b>
+		<a href="../../src/go/types/labels.go.html#line-93">labels.go#L93</a>: func (check *Checker) blockBranches(all *<b>Scope</b>, parent *block, lstmt *ast.LabeledStmt, list []ast.Stmt) []*ast.BranchStmt {
+		<a href="../../src/go/types/object.go.html#line-19">object.go#L19</a>: 	Parent() *<b>Scope</b> // scope in which this object is declared; nil for methods and struct fields
+		<a href="../../src/go/types/object.go.html#line-46" class="path-duplicate">object.go</a><a href="../../src/go/types/object.go.html#line-46">#L46</a>: 	setParent(*<b>Scope</b>)
+		<a href="../../src/go/types/object.go.html#line-80" class="path-duplicate">object.go</a><a href="../../src/go/types/object.go.html#line-80">#L80</a>: 	parent    *<b>Scope</b>
+		<a href="../../src/go/types/object.go.html#line-123" class="path-duplicate">object.go</a><a href="../../src/go/types/object.go.html#line-123">#L123</a>: func (obj *object) Parent() *<b>Scope</b> { return obj.parent }
+		<a href="../../src/go/types/object.go.html#line-151" class="path-duplicate">object.go</a><a href="../../src/go/types/object.go.html#line-151">#L151</a>: func (obj *object) setParent(parent *<b>Scope</b>)   { obj.parent = parent }
+		<a href="../../src/go/types/object.go.html#line-319" class="path-duplicate">object.go</a><a href="../../src/go/types/object.go.html#line-319">#L319</a>: func (obj *Func) Scope() *<b>Scope</b> { return obj.typ.(*Signature).scope }
+		<a href="../../src/go/types/package.go.html#line-16">package.go#L16</a>: 	scope    *<b>Scope</b>
+		<a href="../../src/go/types/package.go.html#line-42" class="path-duplicate">package.go</a><a href="../../src/go/types/package.go.html#line-42">#L42</a>: func (pkg *Package) Scope() *<b>Scope</b> { return pkg.scope }
+		<a href="../../src/go/types/resolver.go.html#line-20">resolver.go#L20</a>: 	file      *<b>Scope</b>        // scope of file containing this declaration
+		<a href="../../src/go/types/scope.go.html#line-22">scope.go#L22</a>: type <b>Scope</b> struct {
+		<a href="../../src/go/types/scope.go.html#line-23" class="path-duplicate">scope.go</a><a href="../../src/go/types/scope.go.html#line-23">#L23</a>: 	parent   *<b>Scope</b>
+		<a href="../../src/go/types/scope.go.html#line-24" class="path-duplicate">scope.go</a><a href="../../src/go/types/scope.go.html#line-24">#L24</a>: 	children []*<b>Scope</b>
+		<a href="../../src/go/types/scope.go.html#line-33" class="path-duplicate">scope.go</a><a href="../../src/go/types/scope.go.html#line-33">#L33</a>: func NewScope(parent *<b>Scope</b>, pos, end token.Pos, comment string) *<b>Scope</b> {
+		<a href="../../src/go/types/scope.go.html#line-34" class="path-duplicate">scope.go</a><a href="../../src/go/types/scope.go.html#line-34">#L34</a>: 	s := &amp;<b>Scope</b>{parent, nil, nil, pos, end, comment, false}
+		<a href="../../src/go/types/scope.go.html#line-43" class="path-duplicate">scope.go</a><a href="../../src/go/types/scope.go.html#line-43">#L43</a>: func (s *<b>Scope</b>) Parent() *<b>Scope</b> { return s.parent }
+		<a href="../../src/go/types/scope.go.html#line-46" class="path-duplicate">scope.go</a><a href="../../src/go/types/scope.go.html#line-46">#L46</a>: func (s *<b>Scope</b>) Len() int { return len(s.elems) }
+		<a href="../../src/go/types/scope.go.html#line-49" class="path-duplicate">scope.go</a><a href="../../src/go/types/scope.go.html#line-49">#L49</a>: func (s *<b>Scope</b>) Names() []string {
+		<a href="../../src/go/types/scope.go.html#line-61" class="path-duplicate">scope.go</a><a href="../../src/go/types/scope.go.html#line-61">#L61</a>: func (s *<b>Scope</b>) NumChildren() int { return len(s.children) }
+		<a href="../../src/go/types/scope.go.html#line-64" class="path-duplicate">scope.go</a><a href="../../src/go/types/scope.go.html#line-64">#L64</a>: func (s *<b>Scope</b>) Child(i int) *<b>Scope</b> { return s.children[i] }
+		<a href="../../src/go/types/scope.go.html#line-68" class="path-duplicate">scope.go</a><a href="../../src/go/types/scope.go.html#line-68">#L68</a>: func (s *<b>Scope</b>) Lookup(name string) Object {
+		<a href="../../src/go/types/scope.go.html#line-82" class="path-duplicate">scope.go</a><a href="../../src/go/types/scope.go.html#line-82">#L82</a>: func (s *<b>Scope</b>) LookupParent(name string, pos token.Pos) (*<b>Scope</b>, Object) {
+		<a href="../../src/go/types/scope.go.html#line-96" class="path-duplicate">scope.go</a><a href="../../src/go/types/scope.go.html#line-96">#L96</a>: func (s *<b>Scope</b>) Insert(obj Object) Object {
+		<a href="../../src/go/types/scope.go.html#line-115" class="path-duplicate">scope.go</a><a href="../../src/go/types/scope.go.html#line-115">#L115</a>: func (s *<b>Scope</b>) Pos() token.Pos { return s.pos }
+		<a href="../../src/go/types/scope.go.html#line-116" class="path-duplicate">scope.go</a><a href="../../src/go/types/scope.go.html#line-116">#L116</a>: func (s *<b>Scope</b>) End() token.Pos { return s.end }
+		<a href="../../src/go/types/scope.go.html#line-121" class="path-duplicate">scope.go</a><a href="../../src/go/types/scope.go.html#line-121">#L121</a>: func (s *<b>Scope</b>) Contains(pos token.Pos) bool {
+		<a href="../../src/go/types/scope.go.html#line-130" class="path-duplicate">scope.go</a><a href="../../src/go/types/scope.go.html#line-130">#L130</a>: func (s *<b>Scope</b>) Innermost(pos token.Pos) *<b>Scope</b> {
+		<a href="../../src/go/types/scope.go.html#line-157" class="path-duplicate">scope.go</a><a href="../../src/go/types/scope.go.html#line-157">#L157</a>: func (s *<b>Scope</b>) WriteTo(w io.Writer, n int, recurse bool) {
+		<a href="../../src/go/types/scope.go.html#line-178" class="path-duplicate">scope.go</a><a href="../../src/go/types/scope.go.html#line-178">#L178</a>: func (s *<b>Scope</b>) String() string {
+		<a href="../../src/go/types/stmt.go.html#line-57">stmt.go#L57</a>: func (check *Checker) usage(scope *<b>Scope</b>) {
+		<a href="../../src/go/types/stmt.go.html#line-302" class="path-duplicate">stmt.go</a><a href="../../src/go/types/stmt.go.html#line-302">#L302</a>: 		defer func(scope *<b>Scope</b>) {
+		<a href="../../src/go/types/type.go.html#line-202">type.go#L202</a>: 	scope    *<b>Scope</b> // function scope, present for package-local signatures
+		<a href="../../src/go/types/typexpr.go.html#line-397">typexpr.go#L397</a>: func (check *Checker) collectParams(scope *<b>Scope</b>, list *ast.FieldList, variadicOk bool) (params []*Var, variadic bool) {
+		<a href="../../src/go/types/universe.go.html#line-17">universe.go#L17</a>: var Universe *<b>Scope</b>
+
+	<a href="../../pkg/golang.org/x/tools/go/packages.html">golang.org/x/tools/go/packages</a>
+		<a href="../../src/golang.org/x/tools/go/packages/packages.go.html#line-883">packages.go#L883</a>: 		Scopes:     make(map[ast.Node]*types.<b>Scope</b>),
+</code></pre><pre id="footer">
+<table><tr><td><img src="../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

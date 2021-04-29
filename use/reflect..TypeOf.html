@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>References: reflect.TypeOf</title>
+<link href="../css/light-v0.2.7-preview.css" rel="stylesheet">
+<script src="../jvs/golds-v0.2.7-preview.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre><code><span style="font-size:x-large;">func <b><a href="../pkg/reflect.html">reflect</a>.<a href="../src/reflect/type.go.html#line-1368">TypeOf</a></b></span>
+
+<span class="title">106 uses</span>
+
+	reflect (current package)
+		<a href="../src/reflect/type.go.html#line-1368">type.go#L1368</a>: func <b>TypeOf</b>(i interface{}) Type {
+		<a href="../src/reflect/type.go.html#line-2606" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2606">#L2606</a>: 			{Name: "S", Type: <b>TypeOf</b>(structType{})},
+		<a href="../src/reflect/type.go.html#line-2607" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2607">#L2607</a>: 			{Name: "U", Type: <b>TypeOf</b>(uncommonType{})},
+		<a href="../src/reflect/type.go.html#line-2608" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2608">#L2608</a>: 			{Name: "M", Type: ArrayOf(len(methods), <b>TypeOf</b>(methods[0]))},
+		<a href="../src/reflect/value.go.html#line-934">value.go#L934</a>: var uint8Type = <b>TypeOf</b>(uint8(0)).(*rtype)
+
+	<a href="../pkg/encoding/asn1.html">encoding/asn1</a>
+		<a href="../src/encoding/asn1/asn1.go.html#line-656">asn1.go#L656</a>: 	bitStringType        = reflect.<b>TypeOf</b>(BitString{})
+		<a href="../src/encoding/asn1/asn1.go.html#line-657" class="path-duplicate">asn1.go</a><a href="../src/encoding/asn1/asn1.go.html#line-657">#L657</a>: 	objectIdentifierType = reflect.<b>TypeOf</b>(ObjectIdentifier{})
+		<a href="../src/encoding/asn1/asn1.go.html#line-658" class="path-duplicate">asn1.go</a><a href="../src/encoding/asn1/asn1.go.html#line-658">#L658</a>: 	enumeratedType       = reflect.<b>TypeOf</b>(Enumerated(0))
+		<a href="../src/encoding/asn1/asn1.go.html#line-659" class="path-duplicate">asn1.go</a><a href="../src/encoding/asn1/asn1.go.html#line-659">#L659</a>: 	flagType             = reflect.<b>TypeOf</b>(Flag(false))
+		<a href="../src/encoding/asn1/asn1.go.html#line-660" class="path-duplicate">asn1.go</a><a href="../src/encoding/asn1/asn1.go.html#line-660">#L660</a>: 	timeType             = reflect.<b>TypeOf</b>(time.Time{})
+		<a href="../src/encoding/asn1/asn1.go.html#line-661" class="path-duplicate">asn1.go</a><a href="../src/encoding/asn1/asn1.go.html#line-661">#L661</a>: 	rawValueType         = reflect.<b>TypeOf</b>(RawValue{})
+		<a href="../src/encoding/asn1/asn1.go.html#line-662" class="path-duplicate">asn1.go</a><a href="../src/encoding/asn1/asn1.go.html#line-662">#L662</a>: 	rawContentsType      = reflect.<b>TypeOf</b>(RawContent(nil))
+		<a href="../src/encoding/asn1/asn1.go.html#line-663" class="path-duplicate">asn1.go</a><a href="../src/encoding/asn1/asn1.go.html#line-663">#L663</a>: 	bigIntType           = reflect.<b>TypeOf</b>(new(big.Int))
+		<a href="../src/encoding/asn1/asn1.go.html#line-1115" class="path-duplicate">asn1.go</a><a href="../src/encoding/asn1/asn1.go.html#line-1115">#L1115</a>: 		return nil, &amp;invalidUnmarshalError{reflect.<b>TypeOf</b>(val)}
+
+	<a href="../pkg/encoding/binary.html">encoding/binary</a>
+		<a href="../src/encoding/binary/binary.go.html#line-253">binary.go#L253</a>: 		return errors.New("binary.Read: invalid type " + reflect.<b>TypeOf</b>(data).String())
+		<a href="../src/encoding/binary/binary.go.html#line-383" class="path-duplicate">binary.go</a><a href="../src/encoding/binary/binary.go.html#line-383">#L383</a>: 		return errors.New("binary.Write: invalid type " + reflect.<b>TypeOf</b>(data).String())
+
+	<a href="../pkg/encoding/json.html">encoding/json</a>
+		<a href="../src/encoding/json/decode.go.html#line-173">decode.go#L173</a>: 		return &amp;InvalidUnmarshalError{reflect.<b>TypeOf</b>(v)}
+		<a href="../src/encoding/json/decode.go.html#line-599" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-599">#L599</a>: var textUnmarshalerType = reflect.<b>TypeOf</b>((*encoding.TextUnmarshaler)(nil)).Elem()
+		<a href="../src/encoding/json/decode.go.html#line-838" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-838">#L838</a>: 		return nil, &amp;UnmarshalTypeError{Value: "number " + s, Type: reflect.<b>TypeOf</b>(0.0), Offset: int64(d.off)}
+		<a href="../src/encoding/json/decode.go.html#line-843" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-843">#L843</a>: var numberType = reflect.<b>TypeOf</b>(Number(""))
+		<a href="../src/encoding/json/encode.go.html#line-411">encode.go#L411</a>: 	marshalerType     = reflect.<b>TypeOf</b>((*Marshaler)(nil)).Elem()
+		<a href="../src/encoding/json/encode.go.html#line-412" class="path-duplicate">encode.go</a><a href="../src/encoding/json/encode.go.html#line-412">#L412</a>: 	textMarshalerType = reflect.<b>TypeOf</b>((*encoding.TextMarshaler)(nil)).Elem()
+
+	<a href="../pkg/flag.html">flag</a>
+		<a href="../src/flag/flag.go.html#line-457">flag.go#L457</a>: 	typ := reflect.<b>TypeOf</b>(flag.Value)
+
+	<a href="../pkg/fmt.html">fmt</a>
+		<a href="../src/fmt/print.go.html#line-337">print.go#L337</a>: 		p.buf.writeString(reflect.<b>TypeOf</b>(p.arg).String())
+		<a href="../src/fmt/print.go.html#line-652" class="path-duplicate">print.go</a><a href="../src/fmt/print.go.html#line-652">#L652</a>: 		p.fmt.fmtS(reflect.<b>TypeOf</b>(arg).String())
+		<a href="../src/fmt/print.go.html#line-1140" class="path-duplicate">print.go</a><a href="../src/fmt/print.go.html#line-1140">#L1140</a>: 				p.buf.writeString(reflect.<b>TypeOf</b>(arg).String())
+		<a href="../src/fmt/print.go.html#line-1152" class="path-duplicate">print.go</a><a href="../src/fmt/print.go.html#line-1152">#L1152</a>: 		isString := arg != nil &amp;&amp; reflect.<b>TypeOf</b>(arg).Kind() == reflect.String
+
+	<a href="../pkg/github.com/davecgh/go-spew/spew.html">github.com/davecgh/go-spew/spew</a>
+		<a href="../src/github.com/davecgh/go-spew/spew/bypass.go.html#line-72">bypass.go#L72</a>: 	field, ok := reflect.<b>TypeOf</b>(reflect.Value{}).FieldByName("flag")
+		<a href="../src/github.com/davecgh/go-spew/spew/bypass.go.html#line-106" class="path-duplicate">bypass.go</a><a href="../src/github.com/davecgh/go-spew/spew/bypass.go.html#line-106">#L106</a>: 	field, ok := reflect.<b>TypeOf</b>(reflect.Value{}).FieldByName("flag")
+		<a href="../src/github.com/davecgh/go-spew/spew/bypass.go.html#line-110" class="path-duplicate">bypass.go</a><a href="../src/github.com/davecgh/go-spew/spew/bypass.go.html#line-110">#L110</a>: 	if field.Type.Kind() != reflect.<b>TypeOf</b>(flag(0)).Kind() {
+		<a href="../src/github.com/davecgh/go-spew/spew/dump.go.html#line-34">dump.go#L34</a>: 	uint8Type = reflect.<b>TypeOf</b>(uint8(0))
+
+	<a href="../pkg/github.com/stretchr/testify/assert.html">github.com/stretchr/testify/assert</a>
+		<a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-17">assertion_compare.go#L17</a>: 	intType   = reflect.<b>TypeOf</b>(int(1))
+		<a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-18" class="path-duplicate">assertion_compare.go</a><a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-18">#L18</a>: 	int8Type  = reflect.<b>TypeOf</b>(int8(1))
+		<a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-19" class="path-duplicate">assertion_compare.go</a><a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-19">#L19</a>: 	int16Type = reflect.<b>TypeOf</b>(int16(1))
+		<a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-20" class="path-duplicate">assertion_compare.go</a><a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-20">#L20</a>: 	int32Type = reflect.<b>TypeOf</b>(int32(1))
+		<a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-21" class="path-duplicate">assertion_compare.go</a><a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-21">#L21</a>: 	int64Type = reflect.<b>TypeOf</b>(int64(1))
+		<a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-23" class="path-duplicate">assertion_compare.go</a><a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-23">#L23</a>: 	uintType   = reflect.<b>TypeOf</b>(uint(1))
+		<a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-24" class="path-duplicate">assertion_compare.go</a><a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-24">#L24</a>: 	uint8Type  = reflect.<b>TypeOf</b>(uint8(1))
+		<a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-25" class="path-duplicate">assertion_compare.go</a><a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-25">#L25</a>: 	uint16Type = reflect.<b>TypeOf</b>(uint16(1))
+		<a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-26" class="path-duplicate">assertion_compare.go</a><a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-26">#L26</a>: 	uint32Type = reflect.<b>TypeOf</b>(uint32(1))
+		<a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-27" class="path-duplicate">assertion_compare.go</a><a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-27">#L27</a>: 	uint64Type = reflect.<b>TypeOf</b>(uint64(1))
+		<a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-29" class="path-duplicate">assertion_compare.go</a><a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-29">#L29</a>: 	float32Type = reflect.<b>TypeOf</b>(float32(1))
+		<a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-30" class="path-duplicate">assertion_compare.go</a><a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-30">#L30</a>: 	float64Type = reflect.<b>TypeOf</b>(float64(1))
+		<a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-32" class="path-duplicate">assertion_compare.go</a><a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-32">#L32</a>: 	stringType = reflect.<b>TypeOf</b>("")
+		<a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-350" class="path-duplicate">assertion_compare.go</a><a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-350">#L350</a>: 	zero := reflect.Zero(reflect.<b>TypeOf</b>(e))
+		<a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-359" class="path-duplicate">assertion_compare.go</a><a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-359">#L359</a>: 	zero := reflect.Zero(reflect.<b>TypeOf</b>(e))
+		<a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-376" class="path-duplicate">assertion_compare.go</a><a href="../src/github.com/stretchr/testify/assert/assertion_compare.go.html#line-376">#L376</a>: 		return Fail(t, fmt.Sprintf("Can not compare type \"%s\"", reflect.<b>TypeOf</b>(e1)), msgAndArgs...)
+		<a href="../src/github.com/stretchr/testify/assert/assertion_order.go.html#line-10">assertion_order.go#L10</a>: 	objKind := reflect.<b>TypeOf</b>(object).Kind()
+		<a href="../src/github.com/stretchr/testify/assert/assertion_order.go.html#line-36" class="path-duplicate">assertion_order.go</a><a href="../src/github.com/stretchr/testify/assert/assertion_order.go.html#line-36">#L36</a>: 			return Fail(t, fmt.Sprintf("Can not compare type \"%s\" and \"%s\"", reflect.<b>TypeOf</b>(value), reflect.<b>TypeOf</b>(prevValue)), msgAndArgs...)
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-85">assertions.go#L85</a>: 	actualType := reflect.<b>TypeOf</b>(actual)
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-302" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-302">#L302</a>: 	interfaceType := reflect.<b>TypeOf</b>(interfaceObject).Elem()
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-307" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-307">#L307</a>: 	if !reflect.<b>TypeOf</b>(object).Implements(interfaceType) {
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-320" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-320">#L320</a>: 	if !ObjectsAreEqual(reflect.<b>TypeOf</b>(object), reflect.<b>TypeOf</b>(expectedType)) {
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-321" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-321">#L321</a>: 		return Fail(t, fmt.Sprintf("Object expected to be of type %v, but was %v", reflect.<b>TypeOf</b>(expectedType), reflect.<b>TypeOf</b>(object)), msgAndArgs...)
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-415" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-415">#L415</a>: 	firstType, secondType := reflect.<b>TypeOf</b>(first), reflect.<b>TypeOf</b>(second)
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-431" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-431">#L431</a>: 	if reflect.<b>TypeOf</b>(expected) != reflect.<b>TypeOf</b>(actual) {
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-484" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-484">#L484</a>: 	aType := reflect.<b>TypeOf</b>(expected)
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-485" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-485">#L485</a>: 	bType := reflect.<b>TypeOf</b>(actual)
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-724" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-724">#L724</a>: 	listKind := reflect.<b>TypeOf</b>(list).Kind()
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-821" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-821">#L821</a>: 	listKind := reflect.<b>TypeOf</b>(list).Kind()
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-822" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-822">#L822</a>: 	subsetKind := reflect.<b>TypeOf</b>(subset).Kind()
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-865" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-865">#L865</a>: 	listKind := reflect.<b>TypeOf</b>(list).Kind()
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-866" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-866">#L866</a>: 	subsetKind := reflect.<b>TypeOf</b>(subset).Kind()
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-918" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-918">#L918</a>: 	kind := reflect.<b>TypeOf</b>(list).Kind()
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1189" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1189">#L1189</a>: 		reflect.<b>TypeOf</b>(actual).Kind() != reflect.Slice ||
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1190" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1190">#L1190</a>: 		reflect.<b>TypeOf</b>(expected).Kind() != reflect.Slice {
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1213" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1213">#L1213</a>: 		reflect.<b>TypeOf</b>(actual).Kind() != reflect.Map ||
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1214" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1214">#L1214</a>: 		reflect.<b>TypeOf</b>(expected).Kind() != reflect.Map {
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1299" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1299">#L1299</a>: 		reflect.<b>TypeOf</b>(actual).Kind() != reflect.Slice ||
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1300" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1300">#L1300</a>: 		reflect.<b>TypeOf</b>(expected).Kind() != reflect.Slice {
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1433" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1433">#L1433</a>: 	if i != nil &amp;&amp; !reflect.DeepEqual(i, reflect.Zero(reflect.<b>TypeOf</b>(i)).Interface()) {
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1444" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1444">#L1444</a>: 	if i == nil || reflect.DeepEqual(i, reflect.Zero(reflect.<b>TypeOf</b>(i)).Interface()) {
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1562" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1562">#L1562</a>: 	t := reflect.<b>TypeOf</b>(v)
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1591" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1591">#L1591</a>: 	if et != reflect.<b>TypeOf</b>("") {
+		<a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1616" class="path-duplicate">assertions.go</a><a href="../src/github.com/stretchr/testify/assert/assertions.go.html#line-1616">#L1616</a>: 	return reflect.<b>TypeOf</b>(arg).Kind() == reflect.Func
+
+	<a href="../pkg/golang.org/x/tools/go/internal/gcimporter.html">golang.org/x/tools/go/internal/gcimporter</a>
+		<a href="../src/golang.org/x/tools/go/internal/gcimporter/iexport.go.html#line-440">iexport.go#L440</a>: 		panic(internalErrorf("unexpected type: %v, %v", t, reflect.<b>TypeOf</b>(t)))
+
+	<a href="../pkg/golang.org/x/xerrors.html">golang.org/x/xerrors</a>
+		<a href="../src/golang.org/x/xerrors/adaptor.go.html#line-62">adaptor.go#L62</a>: 			p.buf.WriteString(reflect.<b>TypeOf</b>(f).String())
+		<a href="../src/golang.org/x/xerrors/wrap.go.html#line-55">wrap.go#L55</a>: 	isComparable := reflect.<b>TypeOf</b>(target).Comparable()
+		<a href="../src/golang.org/x/xerrors/wrap.go.html#line-94" class="path-duplicate">wrap.go</a><a href="../src/golang.org/x/xerrors/wrap.go.html#line-94">#L94</a>: 		if reflect.<b>TypeOf</b>(err).AssignableTo(targetType) {
+		<a href="../src/golang.org/x/xerrors/wrap.go.html#line-106" class="path-duplicate">wrap.go</a><a href="../src/golang.org/x/xerrors/wrap.go.html#line-106">#L106</a>: var errorType = reflect.<b>TypeOf</b>((*error)(nil)).Elem()
+
+	<a href="../pkg/gopkg.in/yaml.v3.html">gopkg.in/yaml.v3</a>
+		<a href="../src/gopkg.in/yaml.v3/decode.go.html#line-318">decode.go#L318</a>: 	nodeType       = reflect.<b>TypeOf</b>(Node{})
+		<a href="../src/gopkg.in/yaml.v3/decode.go.html#line-319" class="path-duplicate">decode.go</a><a href="../src/gopkg.in/yaml.v3/decode.go.html#line-319">#L319</a>: 	durationType   = reflect.<b>TypeOf</b>(time.Duration(0))
+		<a href="../src/gopkg.in/yaml.v3/decode.go.html#line-320" class="path-duplicate">decode.go</a><a href="../src/gopkg.in/yaml.v3/decode.go.html#line-320">#L320</a>: 	stringMapType  = reflect.<b>TypeOf</b>(map[string]interface{}{})
+		<a href="../src/gopkg.in/yaml.v3/decode.go.html#line-321" class="path-duplicate">decode.go</a><a href="../src/gopkg.in/yaml.v3/decode.go.html#line-321">#L321</a>: 	generalMapType = reflect.<b>TypeOf</b>(map[interface{}]interface{}{})
+		<a href="../src/gopkg.in/yaml.v3/decode.go.html#line-323" class="path-duplicate">decode.go</a><a href="../src/gopkg.in/yaml.v3/decode.go.html#line-323">#L323</a>: 	timeType       = reflect.<b>TypeOf</b>(time.Time{})
+		<a href="../src/gopkg.in/yaml.v3/decode.go.html#line-324" class="path-duplicate">decode.go</a><a href="../src/gopkg.in/yaml.v3/decode.go.html#line-324">#L324</a>: 	ptrTimeType    = reflect.<b>TypeOf</b>(&time.Time{})
+		<a href="../src/gopkg.in/yaml.v3/yaml.go.html#line-544">yaml.go#L544</a>: 				if field.Type.Key() != reflect.<b>TypeOf</b>("") {
+
+	<a href="../pkg/net/http.html">net/http</a>
+		<a href="../src/net/http/client.go.html#line-328">client.go#L328</a>: 	if reflect.<b>TypeOf</b>(rt).String() == "*http2.Transport" {
+		<a href="../src/net/http/transfer.go.html#line-422">transfer.go#L422</a>: 	if reflect.<b>TypeOf</b>(t.Body) == nopCloserType {
+		<a href="../src/net/http/transfer.go.html#line-1077" class="path-duplicate">transfer.go</a><a href="../src/net/http/transfer.go.html#line-1077">#L1077</a>: var nopCloserType = reflect.<b>TypeOf</b>(io.NopCloser(nil))
+		<a href="../src/net/http/transfer.go.html#line-1087" class="path-duplicate">transfer.go</a><a href="../src/net/http/transfer.go.html#line-1087">#L1087</a>: 	if reflect.<b>TypeOf</b>(r) == nopCloserType {
+
+	<a href="../pkg/text/template.html">text/template</a>
+		<a href="../src/text/template/exec.go.html#line-665">exec.go#L665</a>: 	errorType        = reflect.<b>TypeOf</b>((*error)(nil)).Elem()
+		<a href="../src/text/template/exec.go.html#line-666" class="path-duplicate">exec.go</a><a href="../src/text/template/exec.go.html#line-666">#L666</a>: 	fmtStringerType  = reflect.<b>TypeOf</b>((*fmt.Stringer)(nil)).Elem()
+		<a href="../src/text/template/exec.go.html#line-667" class="path-duplicate">exec.go</a><a href="../src/text/template/exec.go.html#line-667">#L667</a>: 	reflectValueType = reflect.<b>TypeOf</b>((*reflect.Value)(nil)).Elem()
+
+	<a href="../pkg/vendor/golang.org/x/crypto/cryptobyte.html">vendor/golang.org/x/crypto/cryptobyte</a>
+		<a href="../src/vendor/golang.org/x/crypto/cryptobyte/asn1.go.html#line-254">asn1.go#L254</a>: var bigIntType = reflect.<b>TypeOf</b>((*big.Int)(nil)).Elem()
+		<a href="../src/vendor/golang.org/x/crypto/cryptobyte/asn1.go.html#line-260" class="path-duplicate">asn1.go</a><a href="../src/vendor/golang.org/x/crypto/cryptobyte/asn1.go.html#line-260">#L260</a>: 	if reflect.<b>TypeOf</b>(out).Kind() != reflect.Ptr {
+		<a href="../src/vendor/golang.org/x/crypto/cryptobyte/asn1.go.html#line-279" class="path-duplicate">asn1.go</a><a href="../src/vendor/golang.org/x/crypto/cryptobyte/asn1.go.html#line-279">#L279</a>: 		if reflect.<b>TypeOf</b>(out).Elem() == bigIntType {
+		<a href="../src/vendor/golang.org/x/crypto/cryptobyte/asn1.go.html#line-606" class="path-duplicate">asn1.go</a><a href="../src/vendor/golang.org/x/crypto/cryptobyte/asn1.go.html#line-606">#L606</a>: 	if reflect.<b>TypeOf</b>(out).Kind() != reflect.Ptr {
+		<a href="../src/vendor/golang.org/x/crypto/cryptobyte/asn1.go.html#line-620" class="path-duplicate">asn1.go</a><a href="../src/vendor/golang.org/x/crypto/cryptobyte/asn1.go.html#line-620">#L620</a>: 			if reflect.<b>TypeOf</b>(out).Elem() != bigIntType {
+		<a href="../src/vendor/golang.org/x/crypto/cryptobyte/asn1.go.html#line-623" class="path-duplicate">asn1.go</a><a href="../src/vendor/golang.org/x/crypto/cryptobyte/asn1.go.html#line-623">#L623</a>: 			if reflect.<b>TypeOf</b>(defaultValue).Kind() != reflect.Ptr ||
+		<a href="../src/vendor/golang.org/x/crypto/cryptobyte/asn1.go.html#line-624" class="path-duplicate">asn1.go</a><a href="../src/vendor/golang.org/x/crypto/cryptobyte/asn1.go.html#line-624">#L624</a>: 				reflect.<b>TypeOf</b>(defaultValue).Elem() != bigIntType {
+</code></pre><pre id="footer">
+<table><tr><td><img src="../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

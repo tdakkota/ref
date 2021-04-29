@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Package: go.uber.org/multierr</title>
+<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="package-details"><code><span style="font-size:xx-large;">package <b>multierr</b></span>
+
+<span class="title">Import Path</span>
+	<a href="../../index.html#pkg-go.uber.org/multierr">go.uber.org/multierr</a><i> (on <a href="https://pkg.go.dev/go.uber.org/multierr" target="_blank">go.dev</a>)</i>
+
+<span class="title">Dependency Relation</span>
+	imports <a href="../../dep/go.uber.org/multierr.html">7 packages</a>, and imported by <a href="../../dep/go.uber.org/multierr.html#imported-by">15 packages</a>
+
+<div><span class="title">Involved Source Files</span>
+	<input type='checkbox' class="fold" id="file-0-fold-content"><label for="file-0-fold-content">   <a href="../../src/go.uber.org/multierr/error.go.html#doc">d➜</a> <a href="../../src/go.uber.org/multierr/error.go.html">error.go</a></label><span id='file-0-fold-content-items' class="fold-items">
+		Package multierr allows combining one or more errors together.
+
+		Overview
+
+		Errors can be combined with the use of the Combine function.
+
+			multierr.Combine(
+				reader.Close(),
+				writer.Close(),
+				conn.Close(),
+			)
+
+		If only two errors are being combined, the Append function may be used
+		instead.
+
+			err = multierr.Append(reader.Close(), writer.Close())
+
+		This makes it possible to record resource cleanup failures from deferred
+		blocks with the help of named return values.
+
+			func sendRequest(req Request) (err error) {
+				conn, err := openConnection()
+				if err != nil {
+					return err
+				}
+				defer func() {
+					err = multierr.Append(err, conn.Close())
+				}()
+				// ...
+			}
+
+		The underlying list of errors for a returned error object may be retrieved
+		with the Errors function.
+
+			errors := multierr.Errors(err)
+			if len(errors) &gt; 0 {
+				fmt.Println("The following errors occurred:", errors)
+			}
+
+		Advanced Usage
+
+		Errors returned by Combine and Append MAY implement the following
+		interface.
+
+			type errorGroup interface {
+				// Returns a slice containing the underlying list of errors.
+				//
+				// This slice MUST NOT be modified by the caller.
+				Errors() []error
+			}
+
+		Note that if you need access to list of errors behind a multierr error, you
+		should prefer using the Errors function. That said, if you need cheap
+		read-only access to the underlying errors slice, you can attempt to cast
+		the error to this interface. You MUST handle the failure case gracefully
+		because errors returned by Combine and Append are not guaranteed to
+		implement this interface.
+
+			var errors []error
+			group, ok := err.(errorGroup)
+			if ok {
+				errors = group.Errors()
+			} else {
+				errors = []error{err}
+			}
+</span>
+	<span class="nodocs">      <a href="../../src/go.uber.org/multierr/go113.go.html">go113.go</a></span></div>
+<span class="title type-res">Package-Level Type Names<span class="title-stat"><i> (total 3, none are exported)</i></span></span>
+
+<div id="exported-types-buttons" class="js-on">	/* sort exporteds by: <label id="sort-types-by-alphabet" class="button">alphabet</label> | <label id="sort-types-by-popularity" class="button">popularity</label> */</div><div id="exported-types"></div><div>	<input type='checkbox' class="showhide" id="unexported-typenames-showhide"><i><label for="unexported-typenames-showhide" class="show-inline">/* 3 unexporteds ... */</label><label for="unexported-typenames-showhide" class="hide-inline">/* 3 unexporteds: */</label></i><div class="anchor type-res hidden" id="name-errorGroup" data-popularity="400">	<input type='checkbox' class="fold" id="errorGroup-fold-content"><label for="errorGroup-fold-content"> <a href="../../use/go.uber.org/multierr..errorGroup.html">type</a> <a href="../../src/go.uber.org/multierr/error.go.html#line-128">errorGroup</a> <b><i>(interface)</i></b></label><span id='errorGroup-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="errorGroup-fold-methods"><label for="errorGroup-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='errorGroup-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">( T) <a href="../../src/go.uber.org/multierr/error.go.html#line-129">Errors</a>() []<a href="../builtin.html#name-error">error</a></span></span></span>
+		<input type='checkbox' class="fold" id="errorGroup-fold-impledby"><label for="errorGroup-fold-impledby">Implemented By (<i>at least 2, neither is exported</i>)</label><span id='errorGroup-fold-impledby-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="errorGroup-showhide-impedBys"><i><label for="errorGroup-showhide-impedBys" class="show-inline">/* 2+ unexporteds ... */</label><label for="errorGroup-showhide-impedBys" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
+			*<a href="#name-multiError">multiError</a></i></span><span class="hidden"><i>
+			 go.uber.org/zap/zapcore.<a href="zap/zapcore.html#name-errorGroup">errorGroup</a> <i>(interface)</i></i></span></span>
+		<input type='checkbox' class="fold" id="errorGroup-fold-impls"><label for="errorGroup-fold-impls">Implements (<i>at least one unexported</i>)</label><span id='errorGroup-fold-impls-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="errorGroup-showhide-impls"><i><label for="errorGroup-showhide-impls" class="show-inline">/* at least one unexported ... */</label><label for="errorGroup-showhide-impls" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
+			 T : go.uber.org/zap/zapcore.<a href="zap/zapcore.html#name-errorGroup">errorGroup</a></i></span></span>
+
+</span></div><div class="anchor type-res hidden" id="name-inspectResult" data-popularity="75">	<input type='checkbox' class="fold" id="inspectResult-fold-content"><label for="inspectResult-fold-content"> <a href="../../use/go.uber.org/multierr..inspectResult.html">type</a> <a href="../../src/go.uber.org/multierr/error.go.html#line-253">inspectResult</a> <i>(struct)</i></label><span id='inspectResult-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="inspectResult-fold-fields"><label for="inspectResult-fold-fields">Fields (<i>total 4, all are exported</i>)</label><span id='inspectResult-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="inspectResult-fold-field-Capacity"><label for="inspectResult-fold-field-Capacity"><a href="../../src/go.uber.org/multierr/error.go.html#line-258">Capacity</a> <i><a href="../builtin.html#name-int">int</a></i></label><span id='inspectResult-fold-field-Capacity-docs' class="fold-docs">
+				Total number of errors including multiErrors
+</span></span><span>
+			<input type='checkbox' class="fold" id="inspectResult-fold-field-ContainsMultiError"><label for="inspectResult-fold-field-ContainsMultiError"><a href="../../src/go.uber.org/multierr/error.go.html#line-265">ContainsMultiError</a> <i><a href="../builtin.html#name-bool">bool</a></i></label><span id='inspectResult-fold-field-ContainsMultiError-docs' class="fold-docs">
+				Whether the list contains at least one multiError
+</span></span><span>
+			<input type='checkbox' class="fold" id="inspectResult-fold-field-Count"><label for="inspectResult-fold-field-Count"><a href="../../src/go.uber.org/multierr/error.go.html#line-255">Count</a> <i><a href="../builtin.html#name-int">int</a></i></label><span id='inspectResult-fold-field-Count-docs' class="fold-docs">
+				Number of top-level non-nil errors
+</span></span><span>
+			<input type='checkbox' class="fold" id="inspectResult-fold-field-FirstErrorIdx"><label for="inspectResult-fold-field-FirstErrorIdx"><a href="../../src/go.uber.org/multierr/error.go.html#line-262">FirstErrorIdx</a> <i><a href="../builtin.html#name-int">int</a></i></label><span id='inspectResult-fold-field-FirstErrorIdx-docs' class="fold-docs">
+				Index of the first non-nil error in the list. Value is meaningless if
+				Count is zero.
+</span></span></span>
+		<input type='checkbox' class="fold" id="inspectResult-fold-results"><label for="inspectResult-fold-results">As Outputs Of (<i>at least one unexported</i>)</label><span id='inspectResult-fold-results-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="inspectResult-showhide-inputofs"><i><label for="inspectResult-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="inspectResult-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
+			func <a href="#name-inspect">inspect</a>(errors []<a href="../builtin.html#name-error">error</a>) (res <b>inspectResult</b>)</i></span></span>
+
+</span></div><div class="anchor type-res hidden" id="name-multiError" data-popularity="550">	<input type='checkbox' class="fold" id="multiError-fold-content"><label for="multiError-fold-content"> <a href="../../use/go.uber.org/multierr..multiError.html">type</a> <a href="../../src/go.uber.org/multierr/error.go.html#line-172">multiError</a> <i>(struct)</i></label><span id='multiError-fold-content-docs' class="fold-docs">
+		multiError is an error that holds one or more errors.
+
+		An instance of this is guaranteed to be non-empty and flattened. That is,
+		none of the errors inside multiError are other multiErrors.
+
+		multiError formats to a semi-colon delimited list of error messages with
+		%v and with a more readable multi-line format with %+v.
+
+		<input type='checkbox' class="fold" id="multiError-fold-fields"><label for="multiError-fold-fields">Fields (<i>total 2, neither is exported</i>)</label><span id='multiError-fold-fields-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="multiError-showhide-fields"><i><label for="multiError-showhide-fields" class="show-inline">/* 2 unexporteds ... */</label><label for="multiError-showhide-fields" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/go.uber.org/multierr/error.go.html#line-173">copyNeeded</a> <i><a href="atomic.html">atomic</a>.<a href="atomic.html#name-Bool">Bool</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/go.uber.org/multierr/error.go.html#line-174">errors</a> <i>[]<a href="../builtin.html#name-error">error</a></i></span></i></span></span>
+		<input type='checkbox' class="fold" id="multiError-fold-methods"><label for="multiError-fold-methods">Methods (<i>total 7, in which 5 are exported</i>)</label><span id='multiError-fold-methods-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="multiError-fold-method-As"><label for="multiError-fold-method-As">(*T) <a href="../../src/go.uber.org/multierr/go113.go.html#line-32">As</a>(target interface{}) <a href="../builtin.html#name-bool">bool</a></label><span id='multiError-fold-method-As-docs' class="fold-docs">
+				As attempts to find the first error in the error list that matches the type
+				of the value that target points to.
+
+				This function allows errors.As to traverse the values stored on the
+				multierr error.
+</span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/go.uber.org/multierr/error.go.html#line-189">Error</a>() <a href="../builtin.html#name-string">string</a></span></span><span>
+			<input type='checkbox' class="fold" id="multiError-fold-method-Errors"><label for="multiError-fold-method-Errors">(*T) <a href="../../src/go.uber.org/multierr/error.go.html#line-182">Errors</a>() []<a href="../builtin.html#name-error">error</a></label><span id='multiError-fold-method-Errors-docs' class="fold-docs">
+				Errors returns the list of underlying errors.
+
+				This slice MUST NOT be modified.
+</span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/go.uber.org/multierr/error.go.html#line-204">Format</a>(f <a href="../fmt.html">fmt</a>.<a href="../fmt.html#name-State">State</a>, c <a href="../builtin.html#name-rune">rune</a>)</span></span><span>
+			<input type='checkbox' class="fold" id="multiError-fold-method-Is"><label for="multiError-fold-method-Is">(*T) <a href="../../src/go.uber.org/multierr/go113.go.html#line-45">Is</a>(target <a href="../builtin.html#name-error">error</a>) <a href="../builtin.html#name-bool">bool</a></label><span id='multiError-fold-method-Is-docs' class="fold-docs">
+				Is attempts to match the provided error against errors in the error list.
+
+				This function allows errors.Is to traverse the values stored on the
+				multierr error.
+</span></span>
+			<input type='checkbox' checked class="showhide" id="multiError-showhide-methods"><i><label for="multiError-showhide-methods" class="show-inline">/* 2 unexporteds ... */</label><label for="multiError-showhide-methods" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/go.uber.org/multierr/error.go.html#line-224">writeMultiline</a>(w <a href="../io.html">io</a>.<a href="../io.html#name-Writer">Writer</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/go.uber.org/multierr/error.go.html#line-212">writeSingleline</a>(w <a href="../io.html">io</a>.<a href="../io.html#name-Writer">Writer</a>)</span></i></span></span>
+		<input type='checkbox' class="fold" id="multiError-fold-impls"><label for="multiError-fold-impls">Implements (<i>at least 4, in which 2 are exported</i>)</label><span id='multiError-fold-impls-items' class="fold-items"><span>
+			*T : <a href="../builtin.html#name-error">error</a></span><span>
+			*T : fmt.<a href="../fmt.html#name-Formatter">Formatter</a></span>
+			<input type='checkbox' checked class="showhide" id="multiError-showhide-impls"><i><label for="multiError-showhide-impls" class="show-inline">/* 2+ unexporteds ... */</label><label for="multiError-showhide-impls" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
+			*T : <a href="#name-errorGroup">errorGroup</a></i></span><span class="hidden"><i>
+			*T : go.uber.org/zap/zapcore.<a href="zap/zapcore.html#name-errorGroup">errorGroup</a></i></span></span>
+
+</span></div></div>
+<div><span class="title value-res">Package-Level Functions<span class="title-stat"><i> (total 7, in which 4 are exported)</i></span></span>
+
+<div class="anchor value-res" id="name-Append">	<input type='checkbox' class="fold" id="Append-fold-content"><label for="Append-fold-content"> <a href="../../use/go.uber.org/multierr..Append.html">func</a> <a href="../../src/go.uber.org/multierr/error.go.html#line-375">Append</a>(left <a href="../builtin.html#name-error">error</a>, right <a href="../builtin.html#name-error">error</a>) <a href="../builtin.html#name-error">error</a></label><span id='Append-fold-content-docs' class="fold-docs">
+		Append appends the given errors together. Either value may be nil.
+
+		This function is a specialization of Combine for the common case where
+		there are only two errors.
+
+			err = multierr.Append(reader.Close(), writer.Close())
+
+		The following pattern may also be used to record failure of deferred
+		operations without losing information about the original error.
+
+			func doSomething(..) (err error) {
+				f := acquireResource()
+				defer func() {
+					err = multierr.Append(err, f.Close())
+				}()
+
+</span></div><div class="anchor value-res" id="name-AppendInto">	<input type='checkbox' class="fold" id="AppendInto-fold-content"><label for="AppendInto-fold-content"> <a href="../../use/go.uber.org/multierr..AppendInto.html">func</a> <a href="../../src/go.uber.org/multierr/error.go.html#line-435">AppendInto</a>(into *<a href="../builtin.html#name-error">error</a>, err <a href="../builtin.html#name-error">error</a>) (errored <a href="../builtin.html#name-bool">bool</a>)</label><span id='AppendInto-fold-content-docs' class="fold-docs">
+		AppendInto appends an error into the destination of an error pointer and
+		returns whether the error being appended was non-nil.
+
+			var err error
+			multierr.AppendInto(&amp;err, r.Close())
+			multierr.AppendInto(&amp;err, w.Close())
+
+		The above is equivalent to,
+
+			err := multierr.Append(r.Close(), w.Close())
+
+		As AppendInto reports whether the provided error was non-nil, it may be
+		used to build a multierr error in a loop more ergonomically. For example:
+
+			var err error
+			for line := range lines {
+				var item Item
+				if multierr.AppendInto(&amp;err, parse(line, &amp;item)) {
+					continue
+				}
+				items = append(items, item)
+			}
+
+		Compare this with a verison that relies solely on Append:
+
+			var err error
+			for line := range lines {
+				var item Item
+				if parseErr := parse(line, &amp;item); parseErr != nil {
+					err = multierr.Append(err, parseErr)
+					continue
+				}
+				items = append(items, item)
+			}
+
+</span></div><div class="anchor value-res" id="name-Combine">	<input type='checkbox' class="fold" id="Combine-fold-content"><label for="Combine-fold-content"> <a href="../../use/go.uber.org/multierr..Combine.html">func</a> <a href="../../src/go.uber.org/multierr/error.go.html#line-356">Combine</a>(errors ...<a href="../builtin.html#name-error">error</a>) <a href="../builtin.html#name-error">error</a></label><span id='Combine-fold-content-docs' class="fold-docs">
+		Combine combines the passed errors into a single error.
+
+		If zero arguments were passed or if all items are nil, a nil error is
+		returned.
+
+			Combine(nil, nil)  // == nil
+
+		If only a single error was passed, it is returned as-is.
+
+			Combine(err)  // == err
+
+		Combine skips over nil arguments so this function may be used to combine
+		together errors from operations that fail independently of each other.
+
+			multierr.Combine(
+				reader.Close(),
+				writer.Close(),
+				pipe.Close(),
+			)
+
+		If any of the passed errors is a multierr error, it will be flattened along
+		with the other errors.
+
+			multierr.Combine(multierr.Combine(err1, err2), err3)
+			// is the same as
+			multierr.Combine(err1, err2, err3)
+
+		The returned error formats into a readable multi-line error message if
+		formatted with %+v.
+
+			fmt.Sprintf("%+v", multierr.Combine(err1, err2))
+
+</span></div><div class="anchor value-res" id="name-Errors">	<input type='checkbox' class="fold" id="Errors-fold-content"><label for="Errors-fold-content"> <a href="../../use/go.uber.org/multierr..Errors.html">func</a> <a href="../../src/go.uber.org/multierr/error.go.html#line-142">Errors</a>(err <a href="../builtin.html#name-error">error</a>) []<a href="../builtin.html#name-error">error</a></label><span id='Errors-fold-content-docs' class="fold-docs">
+		Errors returns a slice containing zero or more errors that the supplied
+		error is composed of. If the error is nil, a nil slice is returned.
+
+			err := multierr.Append(r.Close(), w.Close())
+			errors := multierr.Errors(err)
+
+		If the error is not composed of other errors, the returned slice contains
+		just the error that was passed in.
+
+		Callers of this function are free to modify the returned slice.
+
+</span></div>	<input type='checkbox' class="showhide" id="unexported-functions-showhide"><i><label for="unexported-functions-showhide" class="show-inline">/* 3 unexporteds ... */</label><label for="unexported-functions-showhide" class="hide-inline">/* 3 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-fromSlice"><i>	<input type='checkbox' class="fold" id="fromSlice-fold-content"><label for="fromSlice-fold-content"> <a href="../../use/go.uber.org/multierr..fromSlice.html">func</a> <a href="../../src/go.uber.org/multierr/error.go.html#line-294">fromSlice</a>(errors []<a href="../builtin.html#name-error">error</a>) <a href="../builtin.html#name-error">error</a></label><span id='fromSlice-fold-content-docs' class="fold-docs">
+		fromSlice converts the given list of errors into a single error.
+
+</span></i></div><div class="anchor value-res hidden" id="name-inspect"><i>	<input type='checkbox' class="fold" id="inspect-fold-content"><label for="inspect-fold-content"> <a href="../../use/go.uber.org/multierr..inspect.html">func</a> <a href="../../src/go.uber.org/multierr/error.go.html#line-270">inspect</a>(errors []<a href="../builtin.html#name-error">error</a>) (res <a href="#name-inspectResult">inspectResult</a>)</label><span id='inspect-fold-content-docs' class="fold-docs">
+		Inspects the given slice of errors so that we can efficiently allocate
+		space for it.
+
+</span></i></div><div class="anchor value-res hidden" id="name-writePrefixLine"><i>	<input type='checkbox' class="fold" id="writePrefixLine-fold-content"><label for="writePrefixLine-fold-content"> <a href="../../use/go.uber.org/multierr..writePrefixLine.html">func</a> <a href="../../src/go.uber.org/multierr/error.go.html#line-234">writePrefixLine</a>(w <a href="../io.html">io</a>.<a href="../io.html#name-Writer">Writer</a>, prefix []<a href="../builtin.html#name-byte">byte</a>, s <a href="../builtin.html#name-string">string</a>)</label><span id='writePrefixLine-fold-content-docs' class="fold-docs">
+		Writes s to the writer with the given prefix added before each line after
+		the first.
+
+</span></i></div></div>
+<div><span class="title value-res">Package-Level Variables<span class="title-stat"><i> (total 5, none are exported)</i></span></span>
+
+	<input type='checkbox' class="showhide" id="unexported-variables-showhide"><i><label for="unexported-variables-showhide" class="show-inline">/* 5 unexporteds ... */</label><label for="unexported-variables-showhide" class="hide-inline">/* 5 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-_bufferPool"><i>	<input type='checkbox' class="fold" id="_bufferPool-fold-content"><label for="_bufferPool-fold-content">  <a href="../../use/go.uber.org/multierr.._bufferPool.html">var</a> <a href="../../src/go.uber.org/multierr/error.go.html#line-122">_bufferPool</a> <a href="../sync.html">sync</a>.<a href="../sync.html#name-Pool">Pool</a></label><span id='_bufferPool-fold-content-docs' class="fold-docs">
+		_bufferPool is a pool of bytes.Buffers.
+
+</span></i></div><div class="anchor value-res hidden" id="name-_multilineIndent"><i>	<span class="nodocs">  <a href="../../use/go.uber.org/multierr.._multilineIndent.html">var</a> <a href="../../src/go.uber.org/multierr/error.go.html#line-118">_multilineIndent</a> []<a href="../builtin.html#name-byte">byte</a></span></i></div><div class="anchor value-res hidden" id="name-_multilinePrefix"><i>	<input type='checkbox' class="fold" id="_multilinePrefix-fold-content"><label for="_multilinePrefix-fold-content">  <a href="../../use/go.uber.org/multierr.._multilinePrefix.html">var</a> <a href="../../src/go.uber.org/multierr/error.go.html#line-103">_multilinePrefix</a> []<a href="../builtin.html#name-byte">byte</a></label><span id='_multilinePrefix-fold-content-docs' class="fold-docs">
+		Prefix for multi-line messages
+
+</span></i></div><div class="anchor value-res hidden" id="name-_multilineSeparator"><i>	<input type='checkbox' class="fold" id="_multilineSeparator-fold-content"><label for="_multilineSeparator-fold-content">  <a href="../../use/go.uber.org/multierr.._multilineSeparator.html">var</a> <a href="../../src/go.uber.org/multierr/error.go.html#line-117">_multilineSeparator</a> []<a href="../builtin.html#name-byte">byte</a></label><span id='_multilineSeparator-fold-content-docs' class="fold-docs">
+		Prefix for the first and following lines of an item in a list of
+		multi-line error messages.
+
+		For example, if a single item is:
+
+			foo
+			bar
+
+		It will become,
+
+			 -  foo
+			    bar
+
+</span></i></div><div class="anchor value-res hidden" id="name-_singlelineSeparator"><i>	<input type='checkbox' class="fold" id="_singlelineSeparator-fold-content"><label for="_singlelineSeparator-fold-content">  <a href="../../use/go.uber.org/multierr.._singlelineSeparator.html">var</a> <a href="../../src/go.uber.org/multierr/error.go.html#line-100">_singlelineSeparator</a> []<a href="../builtin.html#name-byte">byte</a></label><span id='_singlelineSeparator-fold-content-docs' class="fold-docs">
+		Separator for single-line error messages.
+
+</span></i></div></div></code></pre><pre id="footer">
+<table><tr><td><img src="../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

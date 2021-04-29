@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: scope.go in package go/types</title>
+<link href="../../../css/light-v0.2.7-preview.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.2.7-preview.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	scope.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../pkg/go/types.html">go/types</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16],
+input[id=r17]:checked ~pre label[for=r17],
+input[id=r18]:checked ~pre label[for=r18],
+input[id=r19]:checked ~pre label[for=r19],
+input[id=r20]:checked ~pre label[for=r20],
+input[id=r21]:checked ~pre label[for=r21],
+input[id=r22]:checked ~pre label[for=r22],
+input[id=r23]:checked ~pre label[for=r23],
+input[id=r24]:checked ~pre label[for=r24],
+input[id=r25]:checked ~pre label[for=r25],
+input[id=r26]:checked ~pre label[for=r26],
+input[id=r27]:checked ~pre label[for=r27],
+input[id=r28]:checked ~pre label[for=r28],
+input[id=r29]:checked ~pre label[for=r29],
+input[id=r30]:checked ~pre label[for=r30],
+input[id=r31]:checked ~pre label[for=r31],
+input[id=r32]:checked ~pre label[for=r32],
+input[id=r33]:checked ~pre label[for=r33],
+input[id=r34]:checked ~pre label[for=r34],
+input[id=r35]:checked ~pre label[for=r35],
+input[id=r36]:checked ~pre label[for=r36],
+input[id=r37]:checked ~pre label[for=r37],
+input[id=r38]:checked ~pre label[for=r38],
+input[id=r39]:checked ~pre label[for=r39],
+input[id=r40]:checked ~pre label[for=r40],
+input[id=r41]:checked ~pre label[for=r41],
+input[id=r42]:checked ~pre label[for=r42],
+input[id=r43]:checked ~pre label[for=r43],
+input[id=r44]:checked ~pre label[for=r44],
+input[id=r45]:checked ~pre label[for=r45],
+input[id=r46]:checked ~pre label[for=r46],
+input[id=r47]:checked ~pre label[for=r47],
+input[id=r48]:checked ~pre label[for=r48],
+input[id=r49]:checked ~pre label[for=r49],
+input[id=r50]:checked ~pre label[for=r50],
+input[id=r51]:checked ~pre label[for=r51],
+input[id=r52]:checked ~pre label[for=r52],
+input[id=r53]:checked ~pre label[for=r53],
+input[id=r54]:checked ~pre label[for=r54],
+input[id=r55]:checked ~pre label[for=r55],
+input[id=r56]:checked ~pre label[for=r56],
+input[id=r57]:checked ~pre label[for=r57],
+input[id=r58]:checked ~pre label[for=r58],
+input[id=r59]:checked ~pre label[for=r59],
+input[id=r60]:checked ~pre label[for=r60],
+input[id=r61]:checked ~pre label[for=r61],
+input[id=r62]:checked ~pre label[for=r62]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1,
+input[id=i2]:checked ~pre .i2,
+input[id=i3]:checked ~pre .i3,
+input[id=i4]:checked ~pre .i4,
+input[id=i5]:checked ~pre .i5
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="r17" type="radio" name="g"/>
+<input id="r18" type="radio" name="g"/>
+<input id="r19" type="radio" name="g"/>
+<input id="r20" type="radio" name="g"/>
+<input id="r21" type="radio" name="g"/>
+<input id="r22" type="radio" name="g"/>
+<input id="r23" type="radio" name="g"/>
+<input id="r24" type="radio" name="g"/>
+<input id="r25" type="radio" name="g"/>
+<input id="r26" type="radio" name="g"/>
+<input id="r27" type="radio" name="g"/>
+<input id="r28" type="radio" name="g"/>
+<input id="r29" type="radio" name="g"/>
+<input id="r30" type="radio" name="g"/>
+<input id="r31" type="radio" name="g"/>
+<input id="r32" type="radio" name="g"/>
+<input id="r33" type="radio" name="g"/>
+<input id="r34" type="radio" name="g"/>
+<input id="r35" type="radio" name="g"/>
+<input id="r36" type="radio" name="g"/>
+<input id="r37" type="radio" name="g"/>
+<input id="r38" type="radio" name="g"/>
+<input id="r39" type="radio" name="g"/>
+<input id="r40" type="radio" name="g"/>
+<input id="r41" type="radio" name="g"/>
+<input id="r42" type="radio" name="g"/>
+<input id="r43" type="radio" name="g"/>
+<input id="r44" type="radio" name="g"/>
+<input id="r45" type="radio" name="g"/>
+<input id="r46" type="radio" name="g"/>
+<input id="r47" type="radio" name="g"/>
+<input id="r48" type="radio" name="g"/>
+<input id="r49" type="radio" name="g"/>
+<input id="r50" type="radio" name="g"/>
+<input id="r51" type="radio" name="g"/>
+<input id="r52" type="radio" name="g"/>
+<input id="r53" type="radio" name="g"/>
+<input id="r54" type="radio" name="g"/>
+<input id="r55" type="radio" name="g"/>
+<input id="r56" type="radio" name="g"/>
+<input id="r57" type="radio" name="g"/>
+<input id="r58" type="radio" name="g"/>
+<input id="r59" type="radio" name="g"/>
+<input id="r60" type="radio" name="g"/>
+<input id="r61" type="radio" name="g"/>
+<input id="r62" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+<input id="i2" type="radio" name="i"/>
+<input id="i3" type="radio" name="i"/>
+<input id="i4" type="radio" name="i"/>
+<input id="i5" type="radio" name="i"/>
+
+<pre class="line-numbers">
+<span class="codeline" id="line-1"><code><span class="comment">// Copyright 2013 The Go Authors. All rights reserved.</span></code></span>
+<span class="codeline" id="line-2"><code><span class="comment">// Use of this source code is governed by a BSD-style</span></code></span>
+<span class="codeline" id="line-3"><code><span class="comment">// license that can be found in the LICENSE file.</span></code></span>
+<span class="codeline" id="line-4"><code></code></span>
+<span class="codeline" id="line-5"><code><span class="comment">// This file implements Scopes.</span></code></span>
+<span class="codeline" id="line-6"><code></code></span>
+<span class="codeline" id="line-7"><code><span class="keyword">package</span> types</code></span>
+<span class="codeline" id="line-8"><code></code></span>
+<span class="codeline" id="line-9"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-10"><code>	<label for="i0"><span class="lit-string i0">"bytes"</span></label></code></span>
+<span class="codeline" id="line-11"><code>	<label for="i1"><span class="lit-string i1">"fmt"</span></label></code></span>
+<span class="codeline" id="line-12"><code>	<label for="i2"><span class="lit-string i2">"go/token"</span></label></code></span>
+<span class="codeline" id="line-13"><code>	<label for="i3"><span class="lit-string i3">"io"</span></label></code></span>
+<span class="codeline" id="line-14"><code>	<label for="i4"><span class="lit-string i4">"sort"</span></label></code></span>
+<span class="codeline" id="line-15"><code>	<label for="i5"><span class="lit-string i5">"strings"</span></label></code></span>
+<span class="codeline" id="line-16"><code>)</code></span>
+<span class="codeline" id="line-17"><code></code></span>
+<span class="codeline" id="line-18"><code><span class="comment">// A Scope maintains a set of objects and links to its containing</span></code></span>
+<span class="codeline" id="line-19"><code><span class="comment">// (parent) and contained (children) scopes. Objects may be inserted</span></code></span>
+<span class="codeline" id="line-20"><code><span class="comment">// and looked up by name. The zero value for Scope is a ready-to-use</span></code></span>
+<span class="codeline" id="line-21"><code><span class="comment">// empty scope.</span></code></span>
+<span class="codeline" id="line-22"><code><span class="keyword">type</span> <a href="../../../pkg/go/types.html#name-Scope" class="ident">Scope</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-23"><code>	<a href="../../../use/go/types..Scope.parent.html" class="ident">parent</a>   *<a href="#line-22" class="ident">Scope</a></code></span>
+<span class="codeline" id="line-24"><code>	<a href="../../../use/go/types..Scope.children.html" class="ident">children</a> []*<a href="#line-22" class="ident">Scope</a></code></span>
+<span class="codeline" id="line-25"><code>	<a href="../../../use/go/types..Scope.elems.html" class="ident">elems</a>    <span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>]<a href="object.go.html#line-18" class="ident">Object</a> <span class="comment">// lazily allocated</span></code></span>
+<span class="codeline" id="line-26"><code>	<a href="../../../use/go/types..Scope.pos.html" class="ident">pos</a>, <a href="../../../use/go/types..Scope.end.html" class="ident">end</a> <a href="../../../pkg/go/token.html" class="ident i2">token</a>.<a href="../token/position.go.html#line-79" class="ident">Pos</a>         <span class="comment">// scope extent; may be invalid</span></code></span>
+<span class="codeline" id="line-27"><code>	<a href="../../../use/go/types..Scope.comment.html" class="ident">comment</a>  <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>            <span class="comment">// for debugging only</span></code></span>
+<span class="codeline" id="line-28"><code>	<a href="../../../use/go/types..Scope.isFunc.html" class="ident">isFunc</a>   <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>              <span class="comment">// set if this is a function scope (internal use only)</span></code></span>
+<span class="codeline" id="line-29"><code>}</code></span>
+<span class="codeline" id="line-30"><code></code></span>
+<span class="codeline" id="line-31"><code><span class="comment">// NewScope returns a new, empty scope contained in the given parent</span></code></span>
+<span class="codeline" id="line-32"><code><span class="comment">// scope, if any. The comment is for debugging only.</span></code></span>
+<span class="codeline" id="line-33"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../pkg/go/types.html#name-NewScope" class="ident">NewScope</a></label>(<label for="r1" class="ident">parent</label> *<a href="#line-22" class="ident">Scope</a>, <label for="r2" class="ident">pos</label>, <label for="r3" class="ident">end</label> <a href="../../../pkg/go/token.html" class="ident i2">token</a>.<a href="../token/position.go.html#line-79" class="ident">Pos</a>, <label for="r4" class="ident">comment</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) *<a href="#line-22" class="ident">Scope</a> {</code></span>
+<span class="codeline" id="line-34"><code>	<label for="r5" class="ident">s</label> := &amp;<a href="#line-22" class="ident">Scope</a>{<label for="r1" class="ident">parent</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r2" class="ident">pos</label>, <label for="r3" class="ident">end</label>, <label for="r4" class="ident">comment</label>, <a href="../../../pkg/builtin.html#name-false" class="ident">false</a>}</code></span>
+<span class="codeline" id="line-35"><code>	<span class="comment">// don't add children to Universe scope!</span></code></span>
+<span class="codeline" id="line-36"><code>	<span class="keyword">if</span> <label for="r1" class="ident">parent</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> &amp;&amp; <label for="r1" class="ident">parent</label> != <a href="universe.go.html#line-17" class="ident">Universe</a> {</code></span>
+<span class="codeline" id="line-37"><code>		<label for="r1" class="ident">parent</label>.<a href="#line-24" class="ident">children</a> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r1" class="ident">parent</label>.<a href="#line-24" class="ident">children</a>, <label for="r5" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-38"><code>	}</code></span>
+<span class="codeline" id="line-39"><code>	<span class="keyword">return</span> <label for="r5" class="ident">s</label></code></span>
+<span class="codeline" id="line-40"><code>}</code></span>
+<span class="codeline" id="line-41"><code></code></span>
+<span class="codeline" id="line-42"><code><span class="comment">// Parent returns the scope's containing (parent) scope.</span></code></span>
+<span class="codeline" id="line-43"><code><span class="keyword">func</span> (<label for="r6" class="ident">s</label> *<a href="#line-22" class="ident">Scope</a>) <label for="r7" class="ident"><a href="../../../use/go/types..Scope.Parent.html" class="ident">Parent</a></label>() *<a href="#line-22" class="ident">Scope</a> { <span class="keyword">return</span> <label for="r6" class="ident">s</label>.<a href="#line-23" class="ident">parent</a> }</code></span>
+<span class="codeline" id="line-44"><code></code></span>
+<span class="codeline" id="line-45"><code><span class="comment">// Len returns the number of scope elements.</span></code></span>
+<span class="codeline" id="line-46"><code><span class="keyword">func</span> (<label for="r8" class="ident">s</label> *<a href="#line-22" class="ident">Scope</a>) <label for="r9" class="ident"><a href="../../../use/go/types..Scope.Len.html" class="ident">Len</a></label>() <a href="../../../pkg/builtin.html#name-int" class="ident">int</a> { <span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r8" class="ident">s</label>.<a href="#line-25" class="ident">elems</a>) }</code></span>
+<span class="codeline" id="line-47"><code></code></span>
+<span class="codeline" id="line-48"><code><span class="comment">// Names returns the scope's element names in sorted order.</span></code></span>
+<span class="codeline" id="line-49"><code><span class="keyword">func</span> (<label for="r10" class="ident">s</label> *<a href="#line-22" class="ident">Scope</a>) <label for="r11" class="ident"><a href="../../../use/go/types..Scope.Names.html" class="ident">Names</a></label>() []<a href="../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-50"><code>	<label for="r12" class="ident">names</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>, <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r10" class="ident">s</label>.<a href="#line-25" class="ident">elems</a>))</code></span>
+<span class="codeline" id="line-51"><code>	<label for="r13" class="ident">i</label> := <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-52"><code>	<span class="keyword">for</span> <label for="r14" class="ident">name</label> := <span class="keyword">range</span> <label for="r10" class="ident">s</label>.<a href="#line-25" class="ident">elems</a> {</code></span>
+<span class="codeline" id="line-53"><code>		<label for="r12" class="ident">names</label>[<label for="r13" class="ident">i</label>] = <label for="r14" class="ident">name</label></code></span>
+<span class="codeline" id="line-54"><code>		<label for="r13" class="ident">i</label>++</code></span>
+<span class="codeline" id="line-55"><code>	}</code></span>
+<span class="codeline" id="line-56"><code>	<a href="../../../pkg/sort.html" class="ident i4">sort</a>.<a href="../../sort/sort.go.html#line-335" class="ident">Strings</a>(<label for="r12" class="ident">names</label>)</code></span>
+<span class="codeline" id="line-57"><code>	<span class="keyword">return</span> <label for="r12" class="ident">names</label></code></span>
+<span class="codeline" id="line-58"><code>}</code></span>
+<span class="codeline" id="line-59"><code></code></span>
+<span class="codeline" id="line-60"><code><span class="comment">// NumChildren returns the number of scopes nested in s.</span></code></span>
+<span class="codeline" id="line-61"><code><span class="keyword">func</span> (<label for="r15" class="ident">s</label> *<a href="#line-22" class="ident">Scope</a>) <label for="r16" class="ident"><a href="../../../use/go/types..Scope.NumChildren.html" class="ident">NumChildren</a></label>() <a href="../../../pkg/builtin.html#name-int" class="ident">int</a> { <span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r15" class="ident">s</label>.<a href="#line-24" class="ident">children</a>) }</code></span>
+<span class="codeline" id="line-62"><code></code></span>
+<span class="codeline" id="line-63"><code><span class="comment">// Child returns the i'th child scope for 0 &lt;= i &lt; NumChildren().</span></code></span>
+<span class="codeline" id="line-64"><code><span class="keyword">func</span> (<label for="r17" class="ident">s</label> *<a href="#line-22" class="ident">Scope</a>) <label for="r18" class="ident"><a href="../../../use/go/types..Scope.Child.html" class="ident">Child</a></label>(<label for="r19" class="ident">i</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>) *<a href="#line-22" class="ident">Scope</a> { <span class="keyword">return</span> <label for="r17" class="ident">s</label>.<a href="#line-24" class="ident">children</a>[<label for="r19" class="ident">i</label>] }</code></span>
+<span class="codeline" id="line-65"><code></code></span>
+<span class="codeline" id="line-66"><code><span class="comment">// Lookup returns the object in scope s with the given name if such an</span></code></span>
+<span class="codeline" id="line-67"><code><span class="comment">// object exists; otherwise the result is nil.</span></code></span>
+<span class="codeline" id="line-68"><code><span class="keyword">func</span> (<label for="r20" class="ident">s</label> *<a href="#line-22" class="ident">Scope</a>) <label for="r21" class="ident"><a href="../../../use/go/types..Scope.Lookup.html" class="ident">Lookup</a></label>(<label for="r22" class="ident">name</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="object.go.html#line-18" class="ident">Object</a> {</code></span>
+<span class="codeline" id="line-69"><code>	<span class="keyword">return</span> <label for="r20" class="ident">s</label>.<a href="#line-25" class="ident">elems</a>[<label for="r22" class="ident">name</label>]</code></span>
+<span class="codeline" id="line-70"><code>}</code></span>
+<span class="codeline" id="line-71"><code></code></span>
+<span class="codeline" id="line-72"><code><span class="comment">// LookupParent follows the parent chain of scopes starting with s until</span></code></span>
+<span class="codeline" id="line-73"><code><span class="comment">// it finds a scope where Lookup(name) returns a non-nil object, and then</span></code></span>
+<span class="codeline" id="line-74"><code><span class="comment">// returns that scope and object. If a valid position pos is provided,</span></code></span>
+<span class="codeline" id="line-75"><code><span class="comment">// only objects that were declared at or before pos are considered.</span></code></span>
+<span class="codeline" id="line-76"><code><span class="comment">// If no such scope and object exists, the result is (nil, nil).</span></code></span>
+<span class="codeline" id="line-77"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-78"><code><span class="comment">// Note that obj.Parent() may be different from the returned scope if the</span></code></span>
+<span class="codeline" id="line-79"><code><span class="comment">// object was inserted into the scope and already had a parent at that</span></code></span>
+<span class="codeline" id="line-80"><code><span class="comment">// time (see Insert). This can only happen for dot-imported objects</span></code></span>
+<span class="codeline" id="line-81"><code><span class="comment">// whose scope is the scope of the package that exported them.</span></code></span>
+<span class="codeline" id="line-82"><code><span class="keyword">func</span> (<label for="r23" class="ident">s</label> *<a href="#line-22" class="ident">Scope</a>) <label for="r24" class="ident"><a href="../../../use/go/types..Scope.LookupParent.html" class="ident">LookupParent</a></label>(<label for="r25" class="ident">name</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r26" class="ident">pos</label> <a href="../../../pkg/go/token.html" class="ident i2">token</a>.<a href="../token/position.go.html#line-79" class="ident">Pos</a>) (*<a href="#line-22" class="ident">Scope</a>, <a href="object.go.html#line-18" class="ident">Object</a>) {</code></span>
+<span class="codeline" id="line-83"><code>	<span class="keyword">for</span> ; <label for="r23" class="ident">s</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>; <label for="r23" class="ident">s</label> = <label for="r23" class="ident">s</label>.<a href="#line-23" class="ident">parent</a> {</code></span>
+<span class="codeline" id="line-84"><code>		<span class="keyword">if</span> <label for="r27" class="ident">obj</label> := <label for="r23" class="ident">s</label>.<a href="#line-25" class="ident">elems</a>[<label for="r25" class="ident">name</label>]; <label for="r27" class="ident">obj</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> &amp;&amp; (!<label for="r26" class="ident">pos</label>.<a href="../token/position.go.html#line-89" class="ident">IsValid</a>() || <label for="r27" class="ident">obj</label>.<a href="object.go.html#line-52" class="ident">scopePos</a>() &lt;= <label for="r26" class="ident">pos</label>) {</code></span>
+<span class="codeline" id="line-85"><code>			<span class="keyword">return</span> <label for="r23" class="ident">s</label>, <label for="r27" class="ident">obj</label></code></span>
+<span class="codeline" id="line-86"><code>		}</code></span>
+<span class="codeline" id="line-87"><code>	}</code></span>
+<span class="codeline" id="line-88"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-89"><code>}</code></span>
+<span class="codeline" id="line-90"><code></code></span>
+<span class="codeline" id="line-91"><code><span class="comment">// Insert attempts to insert an object obj into scope s.</span></code></span>
+<span class="codeline" id="line-92"><code><span class="comment">// If s already contains an alternative object alt with</span></code></span>
+<span class="codeline" id="line-93"><code><span class="comment">// the same name, Insert leaves s unchanged and returns alt.</span></code></span>
+<span class="codeline" id="line-94"><code><span class="comment">// Otherwise it inserts obj, sets the object's parent scope</span></code></span>
+<span class="codeline" id="line-95"><code><span class="comment">// if not already set, and returns nil.</span></code></span>
+<span class="codeline" id="line-96"><code><span class="keyword">func</span> (<label for="r28" class="ident">s</label> *<a href="#line-22" class="ident">Scope</a>) <label for="r29" class="ident"><a href="../../../use/go/types..Scope.Insert.html" class="ident">Insert</a></label>(<label for="r30" class="ident">obj</label> <a href="object.go.html#line-18" class="ident">Object</a>) <a href="object.go.html#line-18" class="ident">Object</a> {</code></span>
+<span class="codeline" id="line-97"><code>	<label for="r31" class="ident">name</label> := <label for="r30" class="ident">obj</label>.<a href="object.go.html#line-22" class="ident">Name</a>()</code></span>
+<span class="codeline" id="line-98"><code>	<span class="keyword">if</span> <label for="r32" class="ident">alt</label> := <label for="r28" class="ident">s</label>.<a href="#line-25" class="ident">elems</a>[<label for="r31" class="ident">name</label>]; <label for="r32" class="ident">alt</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-99"><code>		<span class="keyword">return</span> <label for="r32" class="ident">alt</label></code></span>
+<span class="codeline" id="line-100"><code>	}</code></span>
+<span class="codeline" id="line-101"><code>	<span class="keyword">if</span> <label for="r28" class="ident">s</label>.<a href="#line-25" class="ident">elems</a> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-102"><code>		<label for="r28" class="ident">s</label>.<a href="#line-25" class="ident">elems</a> = <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>(<span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>]<a href="object.go.html#line-18" class="ident">Object</a>)</code></span>
+<span class="codeline" id="line-103"><code>	}</code></span>
+<span class="codeline" id="line-104"><code>	<label for="r28" class="ident">s</label>.<a href="#line-25" class="ident">elems</a>[<label for="r31" class="ident">name</label>] = <label for="r30" class="ident">obj</label></code></span>
+<span class="codeline" id="line-105"><code>	<span class="keyword">if</span> <label for="r30" class="ident">obj</label>.<a href="object.go.html#line-19" class="ident">Parent</a>() == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-106"><code>		<label for="r30" class="ident">obj</label>.<a href="object.go.html#line-46" class="ident">setParent</a>(<label for="r28" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-107"><code>	}</code></span>
+<span class="codeline" id="line-108"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-109"><code>}</code></span>
+<span class="codeline" id="line-110"><code></code></span>
+<span class="codeline" id="line-111"><code><span class="comment">// Pos and End describe the scope's source code extent [pos, end).</span></code></span>
+<span class="codeline" id="line-112"><code><span class="comment">// The results are guaranteed to be valid only if the type-checked</span></code></span>
+<span class="codeline" id="line-113"><code><span class="comment">// AST has complete position information. The extent is undefined</span></code></span>
+<span class="codeline" id="line-114"><code><span class="comment">// for Universe and package scopes.</span></code></span>
+<span class="codeline" id="line-115"><code><span class="keyword">func</span> (<label for="r33" class="ident">s</label> *<a href="#line-22" class="ident">Scope</a>) <label for="r34" class="ident"><a href="../../../use/go/types..Scope.Pos.html" class="ident">Pos</a></label>() <a href="../../../pkg/go/token.html" class="ident i2">token</a>.<a href="../token/position.go.html#line-79" class="ident">Pos</a> { <span class="keyword">return</span> <label for="r33" class="ident">s</label>.<a href="#line-26" class="ident">pos</a> }</code></span>
+<span class="codeline" id="line-116"><code><span class="keyword">func</span> (<label for="r35" class="ident">s</label> *<a href="#line-22" class="ident">Scope</a>) <label for="r36" class="ident"><a href="../../../use/go/types..Scope.End.html" class="ident">End</a></label>() <a href="../../../pkg/go/token.html" class="ident i2">token</a>.<a href="../token/position.go.html#line-79" class="ident">Pos</a> { <span class="keyword">return</span> <label for="r35" class="ident">s</label>.<a href="#line-26" class="ident">end</a> }</code></span>
+<span class="codeline" id="line-117"><code></code></span>
+<span class="codeline" id="line-118"><code><span class="comment">// Contains reports whether pos is within the scope's extent.</span></code></span>
+<span class="codeline" id="line-119"><code><span class="comment">// The result is guaranteed to be valid only if the type-checked</span></code></span>
+<span class="codeline" id="line-120"><code><span class="comment">// AST has complete position information.</span></code></span>
+<span class="codeline" id="line-121"><code><span class="keyword">func</span> (<label for="r37" class="ident">s</label> *<a href="#line-22" class="ident">Scope</a>) <label for="r38" class="ident"><a href="../../../use/go/types..Scope.Contains.html" class="ident">Contains</a></label>(<label for="r39" class="ident">pos</label> <a href="../../../pkg/go/token.html" class="ident i2">token</a>.<a href="../token/position.go.html#line-79" class="ident">Pos</a>) <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-122"><code>	<span class="keyword">return</span> <label for="r37" class="ident">s</label>.<a href="#line-26" class="ident">pos</a> &lt;= <label for="r39" class="ident">pos</label> &amp;&amp; <label for="r39" class="ident">pos</label> &lt; <label for="r37" class="ident">s</label>.<a href="#line-26" class="ident">end</a></code></span>
+<span class="codeline" id="line-123"><code>}</code></span>
+<span class="codeline" id="line-124"><code></code></span>
+<span class="codeline" id="line-125"><code><span class="comment">// Innermost returns the innermost (child) scope containing</span></code></span>
+<span class="codeline" id="line-126"><code><span class="comment">// pos. If pos is not within any scope, the result is nil.</span></code></span>
+<span class="codeline" id="line-127"><code><span class="comment">// The result is also nil for the Universe scope.</span></code></span>
+<span class="codeline" id="line-128"><code><span class="comment">// The result is guaranteed to be valid only if the type-checked</span></code></span>
+<span class="codeline" id="line-129"><code><span class="comment">// AST has complete position information.</span></code></span>
+<span class="codeline" id="line-130"><code><span class="keyword">func</span> (<label for="r40" class="ident">s</label> *<a href="#line-22" class="ident">Scope</a>) <label for="r41" class="ident"><a href="../../../use/go/types..Scope.Innermost.html" class="ident">Innermost</a></label>(<label for="r42" class="ident">pos</label> <a href="../../../pkg/go/token.html" class="ident i2">token</a>.<a href="../token/position.go.html#line-79" class="ident">Pos</a>) *<a href="#line-22" class="ident">Scope</a> {</code></span>
+<span class="codeline" id="line-131"><code>	<span class="comment">// Package scopes do not have extents since they may be</span></code></span>
+<span class="codeline" id="line-132"><code><span class="comment">	// discontiguous, so iterate over the package's files.</span></code></span>
+<span class="codeline" id="line-133"><code>	<span class="keyword">if</span> <label for="r40" class="ident">s</label>.<a href="#line-23" class="ident">parent</a> == <a href="universe.go.html#line-17" class="ident">Universe</a> {</code></span>
+<span class="codeline" id="line-134"><code>		<span class="keyword">for</span> <label for="r43" class="ident">_</label>, <label for="r44" class="ident">s</label> := <span class="keyword">range</span> <label for="r40" class="ident">s</label>.<a href="#line-24" class="ident">children</a> {</code></span>
+<span class="codeline" id="line-135"><code>			<span class="keyword">if</span> <label for="r45" class="ident">inner</label> := <label for="r44" class="ident">s</label>.<label for="r41" class="ident">Innermost</label>(<label for="r42" class="ident">pos</label>); <label for="r45" class="ident">inner</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-136"><code>				<span class="keyword">return</span> <label for="r45" class="ident">inner</label></code></span>
+<span class="codeline" id="line-137"><code>			}</code></span>
+<span class="codeline" id="line-138"><code>		}</code></span>
+<span class="codeline" id="line-139"><code>	}</code></span>
+<span class="codeline" id="line-140"><code></code></span>
+<span class="codeline" id="line-141"><code>	<span class="keyword">if</span> <label for="r40" class="ident">s</label>.<a href="#line-121" class="ident">Contains</a>(<label for="r42" class="ident">pos</label>) {</code></span>
+<span class="codeline" id="line-142"><code>		<span class="keyword">for</span> <label for="r46" class="ident">_</label>, <label for="r47" class="ident">s</label> := <span class="keyword">range</span> <label for="r40" class="ident">s</label>.<a href="#line-24" class="ident">children</a> {</code></span>
+<span class="codeline" id="line-143"><code>			<span class="keyword">if</span> <label for="r47" class="ident">s</label>.<a href="#line-121" class="ident">Contains</a>(<label for="r42" class="ident">pos</label>) {</code></span>
+<span class="codeline" id="line-144"><code>				<span class="keyword">return</span> <label for="r47" class="ident">s</label>.<label for="r41" class="ident">Innermost</label>(<label for="r42" class="ident">pos</label>)</code></span>
+<span class="codeline" id="line-145"><code>			}</code></span>
+<span class="codeline" id="line-146"><code>		}</code></span>
+<span class="codeline" id="line-147"><code>		<span class="keyword">return</span> <label for="r40" class="ident">s</label></code></span>
+<span class="codeline" id="line-148"><code>	}</code></span>
+<span class="codeline" id="line-149"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-150"><code>}</code></span>
+<span class="codeline" id="line-151"><code></code></span>
+<span class="codeline" id="line-152"><code><span class="comment">// WriteTo writes a string representation of the scope to w,</span></code></span>
+<span class="codeline" id="line-153"><code><span class="comment">// with the scope elements sorted by name.</span></code></span>
+<span class="codeline" id="line-154"><code><span class="comment">// The level of indentation is controlled by n &gt;= 0, with</span></code></span>
+<span class="codeline" id="line-155"><code><span class="comment">// n == 0 for no indentation.</span></code></span>
+<span class="codeline" id="line-156"><code><span class="comment">// If recurse is set, it also writes nested (children) scopes.</span></code></span>
+<span class="codeline" id="line-157"><code><span class="keyword">func</span> (<label for="r48" class="ident">s</label> *<a href="#line-22" class="ident">Scope</a>) <label for="r49" class="ident"><a href="../../../use/go/types..Scope.WriteTo.html" class="ident">WriteTo</a></label>(<label for="r50" class="ident">w</label> <a href="../../../pkg/io.html" class="ident i3">io</a>.<a href="../../io/io.go.html#line-96" class="ident">Writer</a>, <label for="r51" class="ident">n</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r52" class="ident">recurse</label> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
+<span class="codeline" id="line-158"><code>	<span class="keyword">const</span> <label for="r53" class="ident">ind</label> = <span class="lit-string">".  "</span></code></span>
+<span class="codeline" id="line-159"><code>	<label for="r54" class="ident">indn</label> := <a href="../../../pkg/strings.html" class="ident i5">strings</a>.<a href="../../strings/strings.go.html#line-519" class="ident">Repeat</a>(<label for="r53" class="ident">ind</label>, <label for="r51" class="ident">n</label>)</code></span>
+<span class="codeline" id="line-160"><code></code></span>
+<span class="codeline" id="line-161"><code>	<a href="../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../fmt/print.go.html#line-202" class="ident">Fprintf</a>(<label for="r50" class="ident">w</label>, <span class="lit-string">"%s%s scope %p {\n"</span>, <label for="r54" class="ident">indn</label>, <label for="r48" class="ident">s</label>.<a href="#line-27" class="ident">comment</a>, <label for="r48" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-162"><code></code></span>
+<span class="codeline" id="line-163"><code>	<label for="r55" class="ident">indn1</label> := <label for="r54" class="ident">indn</label> + <label for="r53" class="ident">ind</label></code></span>
+<span class="codeline" id="line-164"><code>	<span class="keyword">for</span> <label for="r56" class="ident">_</label>, <label for="r57" class="ident">name</label> := <span class="keyword">range</span> <label for="r48" class="ident">s</label>.<a href="#line-49" class="ident">Names</a>() {</code></span>
+<span class="codeline" id="line-165"><code>		<a href="../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../fmt/print.go.html#line-202" class="ident">Fprintf</a>(<label for="r50" class="ident">w</label>, <span class="lit-string">"%s%s\n"</span>, <label for="r55" class="ident">indn1</label>, <label for="r48" class="ident">s</label>.<a href="#line-25" class="ident">elems</a>[<label for="r57" class="ident">name</label>])</code></span>
+<span class="codeline" id="line-166"><code>	}</code></span>
+<span class="codeline" id="line-167"><code></code></span>
+<span class="codeline" id="line-168"><code>	<span class="keyword">if</span> <label for="r52" class="ident">recurse</label> {</code></span>
+<span class="codeline" id="line-169"><code>		<span class="keyword">for</span> <label for="r58" class="ident">_</label>, <label for="r59" class="ident">s</label> := <span class="keyword">range</span> <label for="r48" class="ident">s</label>.<a href="#line-24" class="ident">children</a> {</code></span>
+<span class="codeline" id="line-170"><code>			<label for="r59" class="ident">s</label>.<label for="r49" class="ident">WriteTo</label>(<label for="r50" class="ident">w</label>, <label for="r51" class="ident">n</label>+<span class="lit-number">1</span>, <label for="r52" class="ident">recurse</label>)</code></span>
+<span class="codeline" id="line-171"><code>		}</code></span>
+<span class="codeline" id="line-172"><code>	}</code></span>
+<span class="codeline" id="line-173"><code></code></span>
+<span class="codeline" id="line-174"><code>	<a href="../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../fmt/print.go.html#line-202" class="ident">Fprintf</a>(<label for="r50" class="ident">w</label>, <span class="lit-string">"%s}\n"</span>, <label for="r54" class="ident">indn</label>)</code></span>
+<span class="codeline" id="line-175"><code>}</code></span>
+<span class="codeline" id="line-176"><code></code></span>
+<span class="codeline" id="line-177"><code><span class="comment">// String returns a string representation of the scope, for debugging.</span></code></span>
+<span class="codeline" id="line-178"><code><span class="keyword">func</span> (<label for="r60" class="ident">s</label> *<a href="#line-22" class="ident">Scope</a>) <label for="r61" class="ident"><a href="../../../use/go/types..Scope.String.html" class="ident">String</a></label>() <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-179"><code>	<span class="keyword">var</span> <label for="r62" class="ident">buf</label> <a href="../../../pkg/bytes.html" class="ident i0">bytes</a>.<a href="../../bytes/buffer.go.html#line-20" class="ident">Buffer</a></code></span>
+<span class="codeline" id="line-180"><code>	<label for="r60" class="ident">s</label>.<a href="#line-157" class="ident">WriteTo</a>(&amp;<label for="r62" class="ident">buf</label>, <span class="lit-number">0</span>, <a href="../../../pkg/builtin.html#name-false" class="ident">false</a>)</code></span>
+<span class="codeline" id="line-181"><code>	<span class="keyword">return</span> <label for="r62" class="ident">buf</label>.<a href="../../bytes/buffer.go.html#line-60" class="ident">String</a>()</code></span>
+<span class="codeline" id="line-182"><code>}</code></span>
+</pre><pre id="footer">
+<table><tr><td><img src="../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

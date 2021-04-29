@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: flag.go in package github.com/gotd/tl</title>
+<link href="../../../../css/light-v0.2.7-preview.css" rel="stylesheet">
+<script src="../../../../jvs/golds-v0.2.7-preview.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	flag.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../../pkg/github.com/gotd/tl.html">github.com/gotd/tl</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1,
+input[id=i2]:checked ~pre .i2
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+<input id="i2" type="radio" name="i"/>
+
+<pre class="line-numbers">
+<span class="codeline" id="line-1"><code><span class="keyword">package</span> tl</code></span>
+<span class="codeline" id="line-2"><code></code></span>
+<span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"fmt"</span></label></code></span>
+<span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"strconv"</span></label></code></span>
+<span class="codeline" id="line-6"><code>	<label for="i2"><span class="lit-string i2">"strings"</span></label></code></span>
+<span class="codeline" id="line-7"><code>)</code></span>
+<span class="codeline" id="line-8"><code></code></span>
+<span class="codeline" id="line-9"><code><span class="comment">// Flag describes conditional parameter.</span></code></span>
+<span class="codeline" id="line-10"><code><span class="keyword">type</span> <a href="../../../../pkg/github.com/gotd/tl.html#name-Flag" class="ident">Flag</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-11"><code>	<span class="comment">// Name of the parameter.</span></code></span>
+<span class="codeline" id="line-12"><code>	<a href="../../../../use/github.com/gotd/tl..Flag.Name.html" class="ident">Name</a> <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a> <span class="lit-string">`json:"name"`</span></code></span>
+<span class="codeline" id="line-13"><code>	<span class="comment">// Index represent bit index.</span></code></span>
+<span class="codeline" id="line-14"><code>	<a href="../../../../use/github.com/gotd/tl..Flag.Index.html" class="ident">Index</a> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a> <span class="lit-string">`json:"index"`</span></code></span>
+<span class="codeline" id="line-15"><code>}</code></span>
+<span class="codeline" id="line-16"><code></code></span>
+<span class="codeline" id="line-17"><code><span class="keyword">func</span> (<label for="r0" class="ident">f</label> <a href="#line-10" class="ident">Flag</a>) <label for="r1" class="ident"><a href="../../../../use/github.com/gotd/tl..Flag.String.html" class="ident">String</a></label>() <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-18"><code>	<span class="keyword">return</span> <a href="../../../../pkg/fmt.html" class="ident i0">fmt</a>.<a href="../../../fmt/print.go.html#line-217" class="ident">Sprintf</a>(<span class="lit-string">"%s.%d"</span>, <label for="r0" class="ident">f</label>.<a href="#line-12" class="ident">Name</a>, <label for="r0" class="ident">f</label>.<a href="#line-14" class="ident">Index</a>)</code></span>
+<span class="codeline" id="line-19"><code>}</code></span>
+<span class="codeline" id="line-20"><code></code></span>
+<span class="codeline" id="line-21"><code><span class="keyword">func</span> (<label for="r2" class="ident">f</label> *<a href="#line-10" class="ident">Flag</a>) <label for="r3" class="ident"><a href="../../../../use/github.com/gotd/tl..Flag.Parse.html" class="ident">Parse</a></label>(<label for="r4" class="ident">s</label> <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-22"><code>	<label for="r5" class="ident">pos</label> := <a href="../../../../pkg/strings.html" class="ident i2">strings</a>.<a href="../../../strings/strings.go.html#line-1024" class="ident">Index</a>(<label for="r4" class="ident">s</label>, <span class="lit-string">"."</span>)</code></span>
+<span class="codeline" id="line-23"><code>	<span class="keyword">if</span> <label for="r5" class="ident">pos</label> &lt; <span class="lit-number">1</span> {</code></span>
+<span class="codeline" id="line-24"><code>		<span class="keyword">return</span> <a href="../../../../pkg/fmt.html" class="ident i0">fmt</a>.<a href="../../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"bad flag %q"</span>, <label for="r4" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-25"><code>	}</code></span>
+<span class="codeline" id="line-26"><code>	<label for="r2" class="ident">f</label>.<a href="#line-12" class="ident">Name</a> = <label for="r4" class="ident">s</label>[:<label for="r5" class="ident">pos</label>]</code></span>
+<span class="codeline" id="line-27"><code>	<span class="keyword">if</span> !<a href="definition.go.html#line-138" class="ident">isValidName</a>(<label for="r2" class="ident">f</label>.<a href="#line-12" class="ident">Name</a>) {</code></span>
+<span class="codeline" id="line-28"><code>		<span class="keyword">return</span> <a href="../../../../pkg/fmt.html" class="ident i0">fmt</a>.<a href="../../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"name %q is invalid"</span>, <label for="r2" class="ident">f</label>.<a href="#line-12" class="ident">Name</a>)</code></span>
+<span class="codeline" id="line-29"><code>	}</code></span>
+<span class="codeline" id="line-30"><code>	<label for="r6" class="ident">idx</label>, <label for="r7" class="ident">err</label> := <a href="../../../../pkg/strconv.html" class="ident i1">strconv</a>.<a href="../../../strconv/atoi.go.html#line-224" class="ident">Atoi</a>(<label for="r4" class="ident">s</label>[<label for="r5" class="ident">pos</label>+<span class="lit-number">1</span>:])</code></span>
+<span class="codeline" id="line-31"><code>	<span class="keyword">if</span> <label for="r7" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-32"><code>		<span class="keyword">return</span> <a href="../../../../pkg/fmt.html" class="ident i0">fmt</a>.<a href="../../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"bad index: %w"</span>, <label for="r7" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-33"><code>	}</code></span>
+<span class="codeline" id="line-34"><code>	<label for="r2" class="ident">f</label>.<a href="#line-14" class="ident">Index</a> = <label for="r6" class="ident">idx</label></code></span>
+<span class="codeline" id="line-35"><code>	<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-36"><code>}</code></span>
+</pre><pre id="footer">
+<table><tr><td><img src="../../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

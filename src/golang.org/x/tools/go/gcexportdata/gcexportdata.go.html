@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: gcexportdata.go in package golang.org/x/tools/go/gcexportdata</title>
+<link href="../../../../../../css/light-v0.2.7-preview.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.2.7-preview.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	gcexportdata.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../../../../pkg/golang.org/x/tools/go/gcexportdata.html">golang.org/x/tools/go/gcexportdata</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16],
+input[id=r17]:checked ~pre label[for=r17],
+input[id=r18]:checked ~pre label[for=r18],
+input[id=r19]:checked ~pre label[for=r19],
+input[id=r20]:checked ~pre label[for=r20],
+input[id=r21]:checked ~pre label[for=r21],
+input[id=r22]:checked ~pre label[for=r22],
+input[id=r23]:checked ~pre label[for=r23],
+input[id=r24]:checked ~pre label[for=r24],
+input[id=r25]:checked ~pre label[for=r25],
+input[id=r26]:checked ~pre label[for=r26],
+input[id=r27]:checked ~pre label[for=r27]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1,
+input[id=i2]:checked ~pre .i2,
+input[id=i3]:checked ~pre .i3,
+input[id=i4]:checked ~pre .i4,
+input[id=i5]:checked ~pre .i5,
+input[id=i6]:checked ~pre .i6,
+input[id=i7]:checked ~pre .i7
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="r17" type="radio" name="g"/>
+<input id="r18" type="radio" name="g"/>
+<input id="r19" type="radio" name="g"/>
+<input id="r20" type="radio" name="g"/>
+<input id="r21" type="radio" name="g"/>
+<input id="r22" type="radio" name="g"/>
+<input id="r23" type="radio" name="g"/>
+<input id="r24" type="radio" name="g"/>
+<input id="r25" type="radio" name="g"/>
+<input id="r26" type="radio" name="g"/>
+<input id="r27" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+<input id="i2" type="radio" name="i"/>
+<input id="i3" type="radio" name="i"/>
+<input id="i4" type="radio" name="i"/>
+<input id="i5" type="radio" name="i"/>
+<input id="i6" type="radio" name="i"/>
+<input id="i7" type="radio" name="i"/>
+
+<pre class="line-numbers">
+<span class="codeline" id="line-1"><code><span class="comment">// Copyright 2016 The Go Authors. All rights reserved.</span></code></span>
+<span class="codeline" id="line-2"><code><span class="comment">// Use of this source code is governed by a BSD-style</span></code></span>
+<span class="codeline" id="line-3"><code><span class="comment">// license that can be found in the LICENSE file.</span></code></span>
+<span class="codeline" id="line-4"><code></code></span>
+<div class="anchor" id="doc"><span class="codeline" id="line-5"><code><span class="comment">// Package gcexportdata provides functions for locating, reading, and</span></code></span>
+<span class="codeline" id="line-6"><code><span class="comment">// writing export data files containing type information produced by the</span></code></span>
+<span class="codeline" id="line-7"><code><span class="comment">// gc compiler.  This package supports go1.7 export data format and all</span></code></span>
+<span class="codeline" id="line-8"><code><span class="comment">// later versions.</span></code></span>
+<span class="codeline" id="line-9"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-10"><code><span class="comment">// Although it might seem convenient for this package to live alongside</span></code></span>
+<span class="codeline" id="line-11"><code><span class="comment">// go/types in the standard library, this would cause version skew</span></code></span>
+<span class="codeline" id="line-12"><code><span class="comment">// problems for developer tools that use it, since they must be able to</span></code></span>
+<span class="codeline" id="line-13"><code><span class="comment">// consume the outputs of the gc compiler both before and after a Go</span></code></span>
+<span class="codeline" id="line-14"><code><span class="comment">// update such as from Go 1.7 to Go 1.8.  Because this package lives in</span></code></span>
+<span class="codeline" id="line-15"><code><span class="comment">// golang.org/x/tools, sites can update their version of this repo some</span></code></span>
+<span class="codeline" id="line-16"><code><span class="comment">// time before the Go 1.8 release and rebuild and redeploy their</span></code></span>
+<span class="codeline" id="line-17"><code><span class="comment">// developer tools, which will then be able to consume both Go 1.7 and</span></code></span>
+<span class="codeline" id="line-18"><code><span class="comment">// Go 1.8 export data files, so they will work before and after the</span></code></span>
+<span class="codeline" id="line-19"><code><span class="comment">// Go update. (See discussion at https://golang.org/issue/15651.)</span></code></span>
+<span class="codeline" id="line-20"><code><span class="comment">//</span></code></span></div><span class="codeline" id="line-21"><code><span class="keyword">package</span> gcexportdata <span class="comment">// import "golang.org/x/tools/go/gcexportdata"</span></code></span>
+<span class="codeline" id="line-22"><code></code></span>
+<span class="codeline" id="line-23"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-24"><code>	<label for="i0"><span class="lit-string i0">"bufio"</span></label></code></span>
+<span class="codeline" id="line-25"><code>	<label for="i1"><span class="lit-string i1">"bytes"</span></label></code></span>
+<span class="codeline" id="line-26"><code>	<label for="i2"><span class="lit-string i2">"fmt"</span></label></code></span>
+<span class="codeline" id="line-27"><code>	<label for="i3"><span class="lit-string i3">"go/token"</span></label></code></span>
+<span class="codeline" id="line-28"><code>	<label for="i4"><span class="lit-string i4">"go/types"</span></label></code></span>
+<span class="codeline" id="line-29"><code>	<label for="i5"><span class="lit-string i5">"io"</span></label></code></span>
+<span class="codeline" id="line-30"><code>	<label for="i6"><span class="lit-string i6">"io/ioutil"</span></label></code></span>
+<span class="codeline" id="line-31"><code></code></span>
+<span class="codeline" id="line-32"><code>	<label for="i7"><span class="lit-string i7">"golang.org/x/tools/go/internal/gcimporter"</span></label></code></span>
+<span class="codeline" id="line-33"><code>)</code></span>
+<span class="codeline" id="line-34"><code></code></span>
+<span class="codeline" id="line-35"><code><span class="comment">// Find returns the name of an object (.o) or archive (.a) file</span></code></span>
+<span class="codeline" id="line-36"><code><span class="comment">// containing type information for the specified import path,</span></code></span>
+<span class="codeline" id="line-37"><code><span class="comment">// using the workspace layout conventions of go/build.</span></code></span>
+<span class="codeline" id="line-38"><code><span class="comment">// If no file was found, an empty filename is returned.</span></code></span>
+<span class="codeline" id="line-39"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-40"><code><span class="comment">// A relative srcDir is interpreted relative to the current working directory.</span></code></span>
+<span class="codeline" id="line-41"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-42"><code><span class="comment">// Find also returns the package's resolved (canonical) import path,</span></code></span>
+<span class="codeline" id="line-43"><code><span class="comment">// reflecting the effects of srcDir and vendoring on importPath.</span></code></span>
+<span class="codeline" id="line-44"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/golang.org/x/tools/go/gcexportdata.html#name-Find" class="ident">Find</a></label>(<label for="r1" class="ident">importPath</label>, <label for="r2" class="ident">srcDir</label> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) (<label for="r3" class="ident">filename</label>, <label for="r4" class="ident">path</label> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) {</code></span>
+<span class="codeline" id="line-45"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/golang.org/x/tools/go/internal/gcimporter.html" class="ident i7">gcimporter</a>.<a href="../internal/gcimporter/gcimporter.go.html#line-43" class="ident">FindPkg</a>(<label for="r1" class="ident">importPath</label>, <label for="r2" class="ident">srcDir</label>)</code></span>
+<span class="codeline" id="line-46"><code>}</code></span>
+<span class="codeline" id="line-47"><code></code></span>
+<span class="codeline" id="line-48"><code><span class="comment">// NewReader returns a reader for the export data section of an object</span></code></span>
+<span class="codeline" id="line-49"><code><span class="comment">// (.o) or archive (.a) file read from r.  The new reader may provide</span></code></span>
+<span class="codeline" id="line-50"><code><span class="comment">// additional trailing data beyond the end of the export data.</span></code></span>
+<span class="codeline" id="line-51"><code><span class="keyword">func</span> <label for="r5" class="ident"><a href="../../../../../../pkg/golang.org/x/tools/go/gcexportdata.html#name-NewReader" class="ident">NewReader</a></label>(<label for="r6" class="ident">r</label> <a href="../../../../../../pkg/io.html" class="ident i5">io</a>.<a href="../../../../../io/io.go.html#line-83" class="ident">Reader</a>) (<a href="../../../../../../pkg/io.html" class="ident i5">io</a>.<a href="../../../../../io/io.go.html#line-83" class="ident">Reader</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-52"><code>	<label for="r7" class="ident">buf</label> := <a href="../../../../../../pkg/bufio.html" class="ident i0">bufio</a>.<a href="../../../../../bufio/bufio.go.html#line-62" class="ident">NewReader</a>(<label for="r6" class="ident">r</label>)</code></span>
+<span class="codeline" id="line-53"><code>	<label for="r8" class="ident">_</label>, <label for="r9" class="ident">err</label> := <a href="../../../../../../pkg/golang.org/x/tools/go/internal/gcimporter.html" class="ident i7">gcimporter</a>.<a href="../internal/gcimporter/exportdata.go.html#line-46" class="ident">FindExportData</a>(<label for="r7" class="ident">buf</label>)</code></span>
+<span class="codeline" id="line-54"><code>	<span class="comment">// If we ever switch to a zip-like archive format with the ToC</span></code></span>
+<span class="codeline" id="line-55"><code><span class="comment">	// at the end, we can return the correct portion of export data,</span></code></span>
+<span class="codeline" id="line-56"><code><span class="comment">	// but for now we must return the entire rest of the file.</span></code></span>
+<span class="codeline" id="line-57"><code>	<span class="keyword">return</span> <label for="r7" class="ident">buf</label>, <label for="r9" class="ident">err</label></code></span>
+<span class="codeline" id="line-58"><code>}</code></span>
+<span class="codeline" id="line-59"><code></code></span>
+<span class="codeline" id="line-60"><code><span class="comment">// Read reads export data from in, decodes it, and returns type</span></code></span>
+<span class="codeline" id="line-61"><code><span class="comment">// information for the package.</span></code></span>
+<span class="codeline" id="line-62"><code><span class="comment">// The package name is specified by path.</span></code></span>
+<span class="codeline" id="line-63"><code><span class="comment">// File position information is added to fset.</span></code></span>
+<span class="codeline" id="line-64"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-65"><code><span class="comment">// Read may inspect and add to the imports map to ensure that references</span></code></span>
+<span class="codeline" id="line-66"><code><span class="comment">// within the export data to other packages are consistent.  The caller</span></code></span>
+<span class="codeline" id="line-67"><code><span class="comment">// must ensure that imports[path] does not exist, or exists but is</span></code></span>
+<span class="codeline" id="line-68"><code><span class="comment">// incomplete (see types.Package.Complete), and Read inserts the</span></code></span>
+<span class="codeline" id="line-69"><code><span class="comment">// resulting package into this map entry.</span></code></span>
+<span class="codeline" id="line-70"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-71"><code><span class="comment">// On return, the state of the reader is undefined.</span></code></span>
+<span class="codeline" id="line-72"><code><span class="keyword">func</span> <label for="r10" class="ident"><a href="../../../../../../pkg/golang.org/x/tools/go/gcexportdata.html#name-Read" class="ident">Read</a></label>(<label for="r11" class="ident">in</label> <a href="../../../../../../pkg/io.html" class="ident i5">io</a>.<a href="../../../../../io/io.go.html#line-83" class="ident">Reader</a>, <label for="r12" class="ident">fset</label> *<a href="../../../../../../pkg/go/token.html" class="ident i3">token</a>.<a href="../../../../../go/token/position.go.html#line-386" class="ident">FileSet</a>, <label for="r13" class="ident">imports</label> <span class="keyword">map</span>[<a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>]*<a href="../../../../../../pkg/go/types.html" class="ident i4">types</a>.<a href="../../../../../go/types/package.go.html#line-13" class="ident">Package</a>, <label for="r14" class="ident">path</label> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) (*<a href="../../../../../../pkg/go/types.html" class="ident i4">types</a>.<a href="../../../../../go/types/package.go.html#line-13" class="ident">Package</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-73"><code>	<label for="r15" class="ident">data</label>, <label for="r16" class="ident">err</label> := <a href="../../../../../../pkg/io/ioutil.html" class="ident i6">ioutil</a>.<a href="../../../../../io/ioutil/ioutil.go.html#line-26" class="ident">ReadAll</a>(<label for="r11" class="ident">in</label>)</code></span>
+<span class="codeline" id="line-74"><code>	<span class="keyword">if</span> <label for="r16" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-75"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/fmt.html" class="ident i2">fmt</a>.<a href="../../../../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"reading export data for %q: %v"</span>, <label for="r14" class="ident">path</label>, <label for="r16" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-76"><code>	}</code></span>
+<span class="codeline" id="line-77"><code></code></span>
+<span class="codeline" id="line-78"><code>	<span class="keyword">if</span> <a href="../../../../../../pkg/bytes.html" class="ident i1">bytes</a>.<a href="../../../../../bytes/bytes.go.html#line-537" class="ident">HasPrefix</a>(<label for="r15" class="ident">data</label>, []<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>(<span class="lit-string">"!&lt;arch&gt;"</span>)) {</code></span>
+<span class="codeline" id="line-79"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/fmt.html" class="ident i2">fmt</a>.<a href="../../../../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"can't read export data for %q directly from an archive file (call gcexportdata.NewReader first to extract export data)"</span>, <label for="r14" class="ident">path</label>)</code></span>
+<span class="codeline" id="line-80"><code>	}</code></span>
+<span class="codeline" id="line-81"><code></code></span>
+<span class="codeline" id="line-82"><code>	<span class="comment">// The App Engine Go runtime v1.6 uses the old export data format.</span></code></span>
+<span class="codeline" id="line-83"><code><span class="comment">	// TODO(adonovan): delete once v1.7 has been around for a while.</span></code></span>
+<span class="codeline" id="line-84"><code>	<span class="keyword">if</span> <a href="../../../../../../pkg/bytes.html" class="ident i1">bytes</a>.<a href="../../../../../bytes/bytes.go.html#line-537" class="ident">HasPrefix</a>(<label for="r15" class="ident">data</label>, []<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>(<span class="lit-string">"package "</span>)) {</code></span>
+<span class="codeline" id="line-85"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/golang.org/x/tools/go/internal/gcimporter.html" class="ident i7">gcimporter</a>.<a href="../internal/gcimporter/gcimporter.go.html#line-107" class="ident">ImportData</a>(<label for="r13" class="ident">imports</label>, <label for="r14" class="ident">path</label>, <label for="r14" class="ident">path</label>, <a href="../../../../../../pkg/bytes.html" class="ident i1">bytes</a>.<a href="../../../../../bytes/reader.go.html#line-160" class="ident">NewReader</a>(<label for="r15" class="ident">data</label>))</code></span>
+<span class="codeline" id="line-86"><code>	}</code></span>
+<span class="codeline" id="line-87"><code></code></span>
+<span class="codeline" id="line-88"><code>	<span class="comment">// The indexed export format starts with an 'i'; the older</span></code></span>
+<span class="codeline" id="line-89"><code><span class="comment">	// binary export format starts with a 'c', 'd', or 'v'</span></code></span>
+<span class="codeline" id="line-90"><code><span class="comment">	// (from "version"). Select appropriate importer.</span></code></span>
+<span class="codeline" id="line-91"><code>	<span class="keyword">if</span> <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r15" class="ident">data</label>) &gt; <span class="lit-number">0</span> &amp;&amp; <label for="r15" class="ident">data</label>[<span class="lit-number">0</span>] == <span class="lit-number">'i'</span> {</code></span>
+<span class="codeline" id="line-92"><code>		<label for="r17" class="ident">_</label>, <label for="r18" class="ident">pkg</label>, <label for="r19" class="ident">err</label> := <a href="../../../../../../pkg/golang.org/x/tools/go/internal/gcimporter.html" class="ident i7">gcimporter</a>.<a href="../internal/gcimporter/iimport.go.html#line-65" class="ident">IImportData</a>(<label for="r12" class="ident">fset</label>, <label for="r13" class="ident">imports</label>, <label for="r15" class="ident">data</label>[<span class="lit-number">1</span>:], <label for="r14" class="ident">path</label>)</code></span>
+<span class="codeline" id="line-93"><code>		<span class="keyword">return</span> <label for="r18" class="ident">pkg</label>, <label for="r19" class="ident">err</label></code></span>
+<span class="codeline" id="line-94"><code>	}</code></span>
+<span class="codeline" id="line-95"><code></code></span>
+<span class="codeline" id="line-96"><code>	<label for="r20" class="ident">_</label>, <label for="r21" class="ident">pkg</label>, <label for="r16" class="ident">err</label> := <a href="../../../../../../pkg/golang.org/x/tools/go/internal/gcimporter.html" class="ident i7">gcimporter</a>.<a href="../internal/gcimporter/bimport.go.html#line-53" class="ident">BImportData</a>(<label for="r12" class="ident">fset</label>, <label for="r13" class="ident">imports</label>, <label for="r15" class="ident">data</label>, <label for="r14" class="ident">path</label>)</code></span>
+<span class="codeline" id="line-97"><code>	<span class="keyword">return</span> <label for="r21" class="ident">pkg</label>, <label for="r16" class="ident">err</label></code></span>
+<span class="codeline" id="line-98"><code>}</code></span>
+<span class="codeline" id="line-99"><code></code></span>
+<span class="codeline" id="line-100"><code><span class="comment">// Write writes encoded type information for the specified package to out.</span></code></span>
+<span class="codeline" id="line-101"><code><span class="comment">// The FileSet provides file position information for named objects.</span></code></span>
+<span class="codeline" id="line-102"><code><span class="keyword">func</span> <label for="r22" class="ident"><a href="../../../../../../pkg/golang.org/x/tools/go/gcexportdata.html#name-Write" class="ident">Write</a></label>(<label for="r23" class="ident">out</label> <a href="../../../../../../pkg/io.html" class="ident i5">io</a>.<a href="../../../../../io/io.go.html#line-96" class="ident">Writer</a>, <label for="r24" class="ident">fset</label> *<a href="../../../../../../pkg/go/token.html" class="ident i3">token</a>.<a href="../../../../../go/token/position.go.html#line-386" class="ident">FileSet</a>, <label for="r25" class="ident">pkg</label> *<a href="../../../../../../pkg/go/types.html" class="ident i4">types</a>.<a href="../../../../../go/types/package.go.html#line-13" class="ident">Package</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-103"><code>	<label for="r26" class="ident">b</label>, <label for="r27" class="ident">err</label> := <a href="../../../../../../pkg/golang.org/x/tools/go/internal/gcimporter.html" class="ident i7">gcimporter</a>.<a href="../internal/gcimporter/iexport.go.html#line-33" class="ident">IExportData</a>(<label for="r24" class="ident">fset</label>, <label for="r25" class="ident">pkg</label>)</code></span>
+<span class="codeline" id="line-104"><code>	<span class="keyword">if</span> <label for="r27" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-105"><code>		<span class="keyword">return</span> <label for="r27" class="ident">err</label></code></span>
+<span class="codeline" id="line-106"><code>	}</code></span>
+<span class="codeline" id="line-107"><code>	_, <label for="r27" class="ident">err</label> = <label for="r23" class="ident">out</label>.<a href="../../../../../io/io.go.html#line-97" class="ident">Write</a>(<label for="r26" class="ident">b</label>)</code></span>
+<span class="codeline" id="line-108"><code>	<span class="keyword">return</span> <label for="r27" class="ident">err</label></code></span>
+<span class="codeline" id="line-109"><code>}</code></span>
+</pre><pre id="footer">
+<table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

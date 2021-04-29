@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: method.go in package github.com/gotd/td/telegram/query/internal/itergen</title>
+<link href="../../../../../../../../css/light-v0.2.7-preview.css" rel="stylesheet">
+<script src="../../../../../../../../jvs/golds-v0.2.7-preview.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	method.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../../../../../../pkg/github.com/gotd/td/telegram/query/internal/itergen.html">github.com/gotd/td/telegram/query/internal/itergen</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1,
+input[id=i2]:checked ~pre .i2,
+input[id=i3]:checked ~pre .i3
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+<input id="i2" type="radio" name="i"/>
+<input id="i3" type="radio" name="i"/>
+
+<pre class="line-numbers">
+<span class="codeline" id="line-1"><code><span class="keyword">package</span> main</code></span>
+<span class="codeline" id="line-2"><code></code></span>
+<span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"go/types"</span></label></code></span>
+<span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"sort"</span></label></code></span>
+<span class="codeline" id="line-6"><code>	<label for="i2"><span class="lit-string i2">"strings"</span></label></code></span>
+<span class="codeline" id="line-7"><code></code></span>
+<span class="codeline" id="line-8"><code>	<label for="i3"><span class="lit-string i3">"github.com/gotd/td/telegram/query/internal/genutil"</span></label></code></span>
+<span class="codeline" id="line-9"><code>)</code></span>
+<span class="codeline" id="line-10"><code></code></span>
+<span class="codeline" id="line-11"><code><span class="comment">// Param represents request parameter.</span></code></span>
+<span class="codeline" id="line-12"><code><span class="keyword">type</span> <a href="../../../../../../../../pkg/github.com/gotd/td/telegram/query/internal/itergen.html#name-Param" class="ident">Param</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-13"><code>	<span class="comment">// Name to use in function declaration.</span></code></span>
+<span class="codeline" id="line-14"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..Param.Name.html" class="ident">Name</a> <a href="../../../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-15"><code>	<span class="comment">// OriginalName in struct definition.</span></code></span>
+<span class="codeline" id="line-16"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..Param.OriginalName.html" class="ident">OriginalName</a> <a href="../../../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-17"><code>	<span class="comment">// Go type.</span></code></span>
+<span class="codeline" id="line-18"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..Param.Type.html" class="ident">Type</a> <a href="../../../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-19"><code>}</code></span>
+<span class="codeline" id="line-20"><code></code></span>
+<span class="codeline" id="line-21"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../../../pkg/github.com/gotd/td/telegram/query/internal/itergen.html#name-varToParam" class="ident">varToParam</a></label>(<label for="r1" class="ident">field</label> *<a href="../../../../../../../../pkg/go/types.html" class="ident i0">types</a>.<a href="../../../../../../../go/types/object.go.html#line-254" class="ident">Var</a>) <a href="#line-12" class="ident">Param</a> {</code></span>
+<span class="codeline" id="line-22"><code>	<label for="r2" class="ident">fieldName</label> := <label for="r1" class="ident">field</label>.<a href="../../../../../../../go/types/object.go.html#line-133" class="ident">Name</a>()</code></span>
+<span class="codeline" id="line-23"><code>	<label for="r2" class="ident">fieldName</label> = <a href="../../../../../../../../pkg/strings.html" class="ident i2">strings</a>.<a href="../../../../../../../strings/strings.go.html#line-580" class="ident">ToLower</a>(<label for="r2" class="ident">fieldName</label>[:<span class="lit-number">1</span>]) + <label for="r2" class="ident">fieldName</label>[<span class="lit-number">1</span>:]</code></span>
+<span class="codeline" id="line-24"><code>	<span class="keyword">return</span> <a href="#line-12" class="ident">Param</a>{</code></span>
+<span class="codeline" id="line-25"><code>		<a href="#line-14" class="ident">Name</a>:         <label for="r2" class="ident">fieldName</label>,</code></span>
+<span class="codeline" id="line-26"><code>		<a href="#line-16" class="ident">OriginalName</a>: <label for="r1" class="ident">field</label>.<a href="../../../../../../../go/types/object.go.html#line-133" class="ident">Name</a>(),</code></span>
+<span class="codeline" id="line-27"><code>		<a href="#line-18" class="ident">Type</a>:         <a href="../../../../../../../../pkg/github.com/gotd/td/telegram/query/internal/genutil.html" class="ident i3">genutil</a>.<a href="../genutil/print.go.html#line-6" class="ident">PrintType</a>(<label for="r1" class="ident">field</label>.<a href="../../../../../../../go/types/object.go.html#line-136" class="ident">Type</a>()),</code></span>
+<span class="codeline" id="line-28"><code>	}</code></span>
+<span class="codeline" id="line-29"><code>}</code></span>
+<span class="codeline" id="line-30"><code></code></span>
+<span class="codeline" id="line-31"><code><span class="keyword">func</span> <label for="r3" class="ident"><a href="../../../../../../../../pkg/github.com/gotd/td/telegram/query/internal/itergen.html#name-sortParams" class="ident">sortParams</a></label>(<label for="r4" class="ident">p</label> []<a href="#line-12" class="ident">Param</a>) []<a href="#line-12" class="ident">Param</a> {</code></span>
+<span class="codeline" id="line-32"><code>	<a href="../../../../../../../../pkg/sort.html" class="ident i1">sort</a>.<a href="../../../../../../../sort/slice.go.html#line-29" class="ident">SliceStable</a>(<label for="r4" class="ident">p</label>, <span class="keyword">func</span>(<label for="r5" class="ident">i</label>, <label for="r6" class="ident">j</label> <a href="../../../../../../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-33"><code>		<span class="keyword">return</span> <label for="r4" class="ident">p</label>[<label for="r5" class="ident">i</label>].<a href="#line-14" class="ident">Name</a> &lt; <label for="r4" class="ident">p</label>[<label for="r6" class="ident">j</label>].<a href="#line-14" class="ident">Name</a></code></span>
+<span class="codeline" id="line-34"><code>	})</code></span>
+<span class="codeline" id="line-35"><code></code></span>
+<span class="codeline" id="line-36"><code>	<span class="keyword">return</span> <label for="r4" class="ident">p</label></code></span>
+<span class="codeline" id="line-37"><code>}</code></span>
+<span class="codeline" id="line-38"><code></code></span>
+<span class="codeline" id="line-39"><code><span class="comment">// SpecialCaseChain represents special request parameter setter.</span></code></span>
+<span class="codeline" id="line-40"><code><span class="keyword">type</span> <a href="../../../../../../../../pkg/github.com/gotd/td/telegram/query/internal/itergen.html#name-SpecialCaseChain" class="ident">SpecialCaseChain</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-41"><code>	<span class="comment">// ConstructorName to use in function body.</span></code></span>
+<span class="codeline" id="line-42"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..SpecialCaseChain.ConstructorName.html" class="ident">ConstructorName</a> <a href="../../../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-43"><code>	<span class="comment">// ConstructorType to use in function body.</span></code></span>
+<span class="codeline" id="line-44"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..SpecialCaseChain.ConstructorType.html" class="ident">ConstructorType</a> <a href="../../../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-45"><code>	<span class="comment">// Field of request struct.</span></code></span>
+<span class="codeline" id="line-46"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..SpecialCaseChain.Field.html" class="ident">Field</a> <a href="#line-12" class="ident">Param</a></code></span>
+<span class="codeline" id="line-47"><code>	<span class="comment">// Args is a slice of arguments. May be empty.</span></code></span>
+<span class="codeline" id="line-48"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..SpecialCaseChain.Args.html" class="ident">Args</a> []<a href="#line-12" class="ident">Param</a></code></span>
+<span class="codeline" id="line-49"><code>}</code></span>
+<span class="codeline" id="line-50"><code></code></span>
+<span class="codeline" id="line-51"><code><span class="comment">// RequestArgument represents request parameter passed by iterator.</span></code></span>
+<span class="codeline" id="line-52"><code><span class="keyword">type</span> <a href="../../../../../../../../pkg/github.com/gotd/td/telegram/query/internal/itergen.html#name-RequestArgument" class="ident">RequestArgument</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-53"><code>	<span class="comment">// Arg describes argument.</span></code></span>
+<span class="codeline" id="line-54"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..RequestArgument.Arg.html" class="ident">Arg</a> <a href="#line-12" class="ident">Param</a></code></span>
+<span class="codeline" id="line-55"><code>	<span class="comment">// Chain is flag to generate builder chain setter.</span></code></span>
+<span class="codeline" id="line-56"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..RequestArgument.Chain.html" class="ident">Chain</a> <a href="../../../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-57"><code>	<span class="comment">// RequiredByIter is flag to generate pass to iterator constructor.</span></code></span>
+<span class="codeline" id="line-58"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..RequestArgument.RequiredByIter.html" class="ident">RequiredByIter</a> <a href="../../../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-59"><code>}</code></span>
+<span class="codeline" id="line-60"><code></code></span>
+<span class="codeline" id="line-61"><code><span class="comment">// Method is a RPC method.</span></code></span>
+<span class="codeline" id="line-62"><code><span class="keyword">type</span> <a href="../../../../../../../../pkg/github.com/gotd/td/telegram/query/internal/itergen.html#name-Method" class="ident">Method</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-63"><code>	<span class="comment">// Name to use in function declaration.</span></code></span>
+<span class="codeline" id="line-64"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..Method.Name.html" class="ident">Name</a> <a href="../../../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-65"><code>	<span class="comment">// OriginalName is name of method of tg.Client.</span></code></span>
+<span class="codeline" id="line-66"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..Method.OriginalName.html" class="ident">OriginalName</a> <a href="../../../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-67"><code>	<span class="comment">// RequestName is name of request struct.</span></code></span>
+<span class="codeline" id="line-68"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..Method.RequestName.html" class="ident">RequestName</a> <a href="../../../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-69"><code>	<span class="comment">// ResultName is name of result type.</span></code></span>
+<span class="codeline" id="line-70"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..Method.ResultName.html" class="ident">ResultName</a> <a href="../../../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-71"><code>	<span class="comment">// RequiredParams is a required params for query builder.</span></code></span>
+<span class="codeline" id="line-72"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..Method.RequiredParams.html" class="ident">RequiredParams</a> []<a href="#line-12" class="ident">Param</a></code></span>
+<span class="codeline" id="line-73"><code>	<span class="comment">// AdditionalMapping is names of field from iterator.</span></code></span>
+<span class="codeline" id="line-74"><code><span class="comment">	// Some type doesn't have AddOffset for example, so we customize mapping here.</span></code></span>
+<span class="codeline" id="line-75"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..Method.AdditionalMapping.html" class="ident">AdditionalMapping</a> []<a href="#line-52" class="ident">RequestArgument</a></code></span>
+<span class="codeline" id="line-76"><code></code></span>
+<span class="codeline" id="line-77"><code>	<span class="comment">// SpecialCase is a slice of special case chains.</span></code></span>
+<span class="codeline" id="line-78"><code><span class="comment">	// Like tg.MessagesFilterClass constructor field setters.</span></code></span>
+<span class="codeline" id="line-79"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..Method.SpecialCase.html" class="ident">SpecialCase</a> []<a href="#line-40" class="ident">SpecialCaseChain</a></code></span>
+<span class="codeline" id="line-80"><code></code></span>
+<span class="codeline" id="line-81"><code>	<span class="comment">// Other parameters of request to pass it in constructor.</span></code></span>
+<span class="codeline" id="line-82"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..Method.AdditionalParams.html" class="ident">AdditionalParams</a> []<a href="#line-12" class="ident">Param</a></code></span>
+<span class="codeline" id="line-83"><code></code></span>
+<span class="codeline" id="line-84"><code>	<span class="comment">// IteratorName is name of iterator to build.</span></code></span>
+<span class="codeline" id="line-85"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..Method.IteratorName.html" class="ident">IteratorName</a> <a href="../../../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-86"><code>	<span class="comment">// ElemName  is name of iterator elem.</span></code></span>
+<span class="codeline" id="line-87"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..Method.ElemName.html" class="ident">ElemName</a> <a href="../../../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-88"><code>}</code></span>
+<span class="codeline" id="line-89"><code></code></span>
+<span class="codeline" id="line-90"><code><span class="comment">// Config is codegeneration config to use.</span></code></span>
+<span class="codeline" id="line-91"><code><span class="keyword">type</span> <a href="../../../../../../../../pkg/github.com/gotd/td/telegram/query/internal/itergen.html#name-Config" class="ident">Config</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-92"><code>	<span class="comment">// Methods to generate helpers and query builders.</span></code></span>
+<span class="codeline" id="line-93"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..Config.Methods.html" class="ident">Methods</a> []<a href="#line-62" class="ident">Method</a></code></span>
+<span class="codeline" id="line-94"><code>	<span class="comment">// ResultName package name</span></code></span>
+<span class="codeline" id="line-95"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..Config.Package.html" class="ident">Package</a> <a href="../../../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-96"><code>	<span class="comment">// ResultName is name of result type.</span></code></span>
+<span class="codeline" id="line-97"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..Config.ResultName.html" class="ident">ResultName</a> <a href="../../../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-98"><code>	<span class="comment">// RequestFields is a slice of request struct fields.</span></code></span>
+<span class="codeline" id="line-99"><code>	<a href="../../../../../../../../use/github.com/gotd/td/telegram/query/internal/itergen..Config.RequestFields.html" class="ident">RequestFields</a> []<a href="#line-12" class="ident">Param</a></code></span>
+<span class="codeline" id="line-100"><code>}</code></span>
+</pre><pre id="footer">
+<table><tr><td><img src="../../../../../../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

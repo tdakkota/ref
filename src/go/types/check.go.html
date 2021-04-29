@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: check.go in package go/types</title>
+<link href="../../../css/light-v0.2.7-preview.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.2.7-preview.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	check.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../pkg/go/types.html">go/types</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16],
+input[id=r17]:checked ~pre label[for=r17],
+input[id=r18]:checked ~pre label[for=r18],
+input[id=r19]:checked ~pre label[for=r19],
+input[id=r20]:checked ~pre label[for=r20],
+input[id=r21]:checked ~pre label[for=r21],
+input[id=r22]:checked ~pre label[for=r22],
+input[id=r23]:checked ~pre label[for=r23],
+input[id=r24]:checked ~pre label[for=r24],
+input[id=r25]:checked ~pre label[for=r25],
+input[id=r26]:checked ~pre label[for=r26],
+input[id=r27]:checked ~pre label[for=r27],
+input[id=r28]:checked ~pre label[for=r28],
+input[id=r29]:checked ~pre label[for=r29],
+input[id=r30]:checked ~pre label[for=r30],
+input[id=r31]:checked ~pre label[for=r31],
+input[id=r32]:checked ~pre label[for=r32],
+input[id=r33]:checked ~pre label[for=r33],
+input[id=r34]:checked ~pre label[for=r34],
+input[id=r35]:checked ~pre label[for=r35],
+input[id=r36]:checked ~pre label[for=r36],
+input[id=r37]:checked ~pre label[for=r37],
+input[id=r38]:checked ~pre label[for=r38],
+input[id=r39]:checked ~pre label[for=r39],
+input[id=r40]:checked ~pre label[for=r40],
+input[id=r41]:checked ~pre label[for=r41],
+input[id=r42]:checked ~pre label[for=r42],
+input[id=r43]:checked ~pre label[for=r43],
+input[id=r44]:checked ~pre label[for=r44],
+input[id=r45]:checked ~pre label[for=r45],
+input[id=r46]:checked ~pre label[for=r46],
+input[id=r47]:checked ~pre label[for=r47],
+input[id=r48]:checked ~pre label[for=r48],
+input[id=r49]:checked ~pre label[for=r49],
+input[id=r50]:checked ~pre label[for=r50],
+input[id=r51]:checked ~pre label[for=r51],
+input[id=r52]:checked ~pre label[for=r52],
+input[id=r53]:checked ~pre label[for=r53],
+input[id=r54]:checked ~pre label[for=r54],
+input[id=r55]:checked ~pre label[for=r55],
+input[id=r56]:checked ~pre label[for=r56],
+input[id=r57]:checked ~pre label[for=r57],
+input[id=r58]:checked ~pre label[for=r58],
+input[id=r59]:checked ~pre label[for=r59],
+input[id=r60]:checked ~pre label[for=r60],
+input[id=r61]:checked ~pre label[for=r61],
+input[id=r62]:checked ~pre label[for=r62],
+input[id=r63]:checked ~pre label[for=r63],
+input[id=r64]:checked ~pre label[for=r64],
+input[id=r65]:checked ~pre label[for=r65],
+input[id=r66]:checked ~pre label[for=r66],
+input[id=r67]:checked ~pre label[for=r67],
+input[id=r68]:checked ~pre label[for=r68],
+input[id=r69]:checked ~pre label[for=r69],
+input[id=r70]:checked ~pre label[for=r70],
+input[id=r71]:checked ~pre label[for=r71],
+input[id=r72]:checked ~pre label[for=r72],
+input[id=r73]:checked ~pre label[for=r73],
+input[id=r74]:checked ~pre label[for=r74],
+input[id=r75]:checked ~pre label[for=r75],
+input[id=r76]:checked ~pre label[for=r76],
+input[id=r77]:checked ~pre label[for=r77],
+input[id=r78]:checked ~pre label[for=r78],
+input[id=r79]:checked ~pre label[for=r79],
+input[id=r80]:checked ~pre label[for=r80],
+input[id=r81]:checked ~pre label[for=r81],
+input[id=r82]:checked ~pre label[for=r82],
+input[id=r83]:checked ~pre label[for=r83],
+input[id=r84]:checked ~pre label[for=r84],
+input[id=r85]:checked ~pre label[for=r85],
+input[id=r86]:checked ~pre label[for=r86],
+input[id=r87]:checked ~pre label[for=r87],
+input[id=r88]:checked ~pre label[for=r88],
+input[id=r89]:checked ~pre label[for=r89],
+input[id=r90]:checked ~pre label[for=r90],
+input[id=r91]:checked ~pre label[for=r91],
+input[id=r92]:checked ~pre label[for=r92],
+input[id=r93]:checked ~pre label[for=r93],
+input[id=r94]:checked ~pre label[for=r94],
+input[id=r95]:checked ~pre label[for=r95],
+input[id=r96]:checked ~pre label[for=r96],
+input[id=r97]:checked ~pre label[for=r97],
+input[id=r98]:checked ~pre label[for=r98],
+input[id=r99]:checked ~pre label[for=r99],
+input[id=r100]:checked ~pre label[for=r100],
+input[id=r101]:checked ~pre label[for=r101],
+input[id=r102]:checked ~pre label[for=r102],
+input[id=r103]:checked ~pre label[for=r103],
+input[id=r104]:checked ~pre label[for=r104],
+input[id=r105]:checked ~pre label[for=r105],
+input[id=r106]:checked ~pre label[for=r106],
+input[id=r107]:checked ~pre label[for=r107],
+input[id=r108]:checked ~pre label[for=r108],
+input[id=r109]:checked ~pre label[for=r109],
+input[id=r110]:checked ~pre label[for=r110],
+input[id=r111]:checked ~pre label[for=r111],
+input[id=r112]:checked ~pre label[for=r112],
+input[id=r113]:checked ~pre label[for=r113],
+input[id=r114]:checked ~pre label[for=r114],
+input[id=r115]:checked ~pre label[for=r115],
+input[id=r116]:checked ~pre label[for=r116],
+input[id=r117]:checked ~pre label[for=r117],
+input[id=r118]:checked ~pre label[for=r118],
+input[id=r119]:checked ~pre label[for=r119],
+input[id=r120]:checked ~pre label[for=r120],
+input[id=r121]:checked ~pre label[for=r121],
+input[id=r122]:checked ~pre label[for=r122],
+input[id=r123]:checked ~pre label[for=r123],
+input[id=r124]:checked ~pre label[for=r124]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1,
+input[id=i2]:checked ~pre .i2,
+input[id=i3]:checked ~pre .i3
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="r17" type="radio" name="g"/>
+<input id="r18" type="radio" name="g"/>
+<input id="r19" type="radio" name="g"/>
+<input id="r20" type="radio" name="g"/>
+<input id="r21" type="radio" name="g"/>
+<input id="r22" type="radio" name="g"/>
+<input id="r23" type="radio" name="g"/>
+<input id="r24" type="radio" name="g"/>
+<input id="r25" type="radio" name="g"/>
+<input id="r26" type="radio" name="g"/>
+<input id="r27" type="radio" name="g"/>
+<input id="r28" type="radio" name="g"/>
+<input id="r29" type="radio" name="g"/>
+<input id="r30" type="radio" name="g"/>
+<input id="r31" type="radio" name="g"/>
+<input id="r32" type="radio" name="g"/>
+<input id="r33" type="radio" name="g"/>
+<input id="r34" type="radio" name="g"/>
+<input id="r35" type="radio" name="g"/>
+<input id="r36" type="radio" name="g"/>
+<input id="r37" type="radio" name="g"/>
+<input id="r38" type="radio" name="g"/>
+<input id="r39" type="radio" name="g"/>
+<input id="r40" type="radio" name="g"/>
+<input id="r41" type="radio" name="g"/>
+<input id="r42" type="radio" name="g"/>
+<input id="r43" type="radio" name="g"/>
+<input id="r44" type="radio" name="g"/>
+<input id="r45" type="radio" name="g"/>
+<input id="r46" type="radio" name="g"/>
+<input id="r47" type="radio" name="g"/>
+<input id="r48" type="radio" name="g"/>
+<input id="r49" type="radio" name="g"/>
+<input id="r50" type="radio" name="g"/>
+<input id="r51" type="radio" name="g"/>
+<input id="r52" type="radio" name="g"/>
+<input id="r53" type="radio" name="g"/>
+<input id="r54" type="radio" name="g"/>
+<input id="r55" type="radio" name="g"/>
+<input id="r56" type="radio" name="g"/>
+<input id="r57" type="radio" name="g"/>
+<input id="r58" type="radio" name="g"/>
+<input id="r59" type="radio" name="g"/>
+<input id="r60" type="radio" name="g"/>
+<input id="r61" type="radio" name="g"/>
+<input id="r62" type="radio" name="g"/>
+<input id="r63" type="radio" name="g"/>
+<input id="r64" type="radio" name="g"/>
+<input id="r65" type="radio" name="g"/>
+<input id="r66" type="radio" name="g"/>
+<input id="r67" type="radio" name="g"/>
+<input id="r68" type="radio" name="g"/>
+<input id="r69" type="radio" name="g"/>
+<input id="r70" type="radio" name="g"/>
+<input id="r71" type="radio" name="g"/>
+<input id="r72" type="radio" name="g"/>
+<input id="r73" type="radio" name="g"/>
+<input id="r74" type="radio" name="g"/>
+<input id="r75" type="radio" name="g"/>
+<input id="r76" type="radio" name="g"/>
+<input id="r77" type="radio" name="g"/>
+<input id="r78" type="radio" name="g"/>
+<input id="r79" type="radio" name="g"/>
+<input id="r80" type="radio" name="g"/>
+<input id="r81" type="radio" name="g"/>
+<input id="r82" type="radio" name="g"/>
+<input id="r83" type="radio" name="g"/>
+<input id="r84" type="radio" name="g"/>
+<input id="r85" type="radio" name="g"/>
+<input id="r86" type="radio" name="g"/>
+<input id="r87" type="radio" name="g"/>
+<input id="r88" type="radio" name="g"/>
+<input id="r89" type="radio" name="g"/>
+<input id="r90" type="radio" name="g"/>
+<input id="r91" type="radio" name="g"/>
+<input id="r92" type="radio" name="g"/>
+<input id="r93" type="radio" name="g"/>
+<input id="r94" type="radio" name="g"/>
+<input id="r95" type="radio" name="g"/>
+<input id="r96" type="radio" name="g"/>
+<input id="r97" type="radio" name="g"/>
+<input id="r98" type="radio" name="g"/>
+<input id="r99" type="radio" name="g"/>
+<input id="r100" type="radio" name="g"/>
+<input id="r101" type="radio" name="g"/>
+<input id="r102" type="radio" name="g"/>
+<input id="r103" type="radio" name="g"/>
+<input id="r104" type="radio" name="g"/>
+<input id="r105" type="radio" name="g"/>
+<input id="r106" type="radio" name="g"/>
+<input id="r107" type="radio" name="g"/>
+<input id="r108" type="radio" name="g"/>
+<input id="r109" type="radio" name="g"/>
+<input id="r110" type="radio" name="g"/>
+<input id="r111" type="radio" name="g"/>
+<input id="r112" type="radio" name="g"/>
+<input id="r113" type="radio" name="g"/>
+<input id="r114" type="radio" name="g"/>
+<input id="r115" type="radio" name="g"/>
+<input id="r116" type="radio" name="g"/>
+<input id="r117" type="radio" name="g"/>
+<input id="r118" type="radio" name="g"/>
+<input id="r119" type="radio" name="g"/>
+<input id="r120" type="radio" name="g"/>
+<input id="r121" type="radio" name="g"/>
+<input id="r122" type="radio" name="g"/>
+<input id="r123" type="radio" name="g"/>
+<input id="r124" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+<input id="i2" type="radio" name="i"/>
+<input id="i3" type="radio" name="i"/>
+
+<pre class="line-numbers">
+<span class="codeline" id="line-1"><code><span class="comment">// Copyright 2011 The Go Authors. All rights reserved.</span></code></span>
+<span class="codeline" id="line-2"><code><span class="comment">// Use of this source code is governed by a BSD-style</span></code></span>
+<span class="codeline" id="line-3"><code><span class="comment">// license that can be found in the LICENSE file.</span></code></span>
+<span class="codeline" id="line-4"><code></code></span>
+<span class="codeline" id="line-5"><code><span class="comment">// This file implements the Check function, which drives type-checking.</span></code></span>
+<span class="codeline" id="line-6"><code></code></span>
+<span class="codeline" id="line-7"><code><span class="keyword">package</span> types</code></span>
+<span class="codeline" id="line-8"><code></code></span>
+<span class="codeline" id="line-9"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-10"><code>	<label for="i0"><span class="lit-string i0">"errors"</span></label></code></span>
+<span class="codeline" id="line-11"><code>	<label for="i1"><span class="lit-string i1">"go/ast"</span></label></code></span>
+<span class="codeline" id="line-12"><code>	<label for="i2"><span class="lit-string i2">"go/constant"</span></label></code></span>
+<span class="codeline" id="line-13"><code>	<label for="i3"><span class="lit-string i3">"go/token"</span></label></code></span>
+<span class="codeline" id="line-14"><code>)</code></span>
+<span class="codeline" id="line-15"><code></code></span>
+<span class="codeline" id="line-16"><code><span class="comment">// debugging/development support</span></code></span>
+<span class="codeline" id="line-17"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-18"><code>	<a href="../../../pkg/go/types.html#name-debug" class="ident">debug</a> = <a href="../../../pkg/builtin.html#name-false" class="ident">false</a> <span class="comment">// leave on during development</span></code></span>
+<span class="codeline" id="line-19"><code>	<a href="../../../pkg/go/types.html#name-trace" class="ident">trace</a> = <a href="../../../pkg/builtin.html#name-false" class="ident">false</a> <span class="comment">// turn on for detailed type resolution traces</span></code></span>
+<span class="codeline" id="line-20"><code>)</code></span>
+<span class="codeline" id="line-21"><code></code></span>
+<span class="codeline" id="line-22"><code><span class="comment">// If Strict is set, the type-checker enforces additional</span></code></span>
+<span class="codeline" id="line-23"><code><span class="comment">// rules not specified by the Go 1 spec, but which will</span></code></span>
+<span class="codeline" id="line-24"><code><span class="comment">// catch guaranteed run-time errors if the respective</span></code></span>
+<span class="codeline" id="line-25"><code><span class="comment">// code is executed. In other words, programs passing in</span></code></span>
+<span class="codeline" id="line-26"><code><span class="comment">// Strict mode are Go 1 compliant, but not all Go 1 programs</span></code></span>
+<span class="codeline" id="line-27"><code><span class="comment">// will pass in Strict mode. The additional rules are:</span></code></span>
+<span class="codeline" id="line-28"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-29"><code><span class="comment">// - A type assertion x.(T) where T is an interface type</span></code></span>
+<span class="codeline" id="line-30"><code><span class="comment">//   is invalid if any (statically known) method that exists</span></code></span>
+<span class="codeline" id="line-31"><code><span class="comment">//   for both x and T have different signatures.</span></code></span>
+<span class="codeline" id="line-32"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-33"><code><span class="keyword">const</span> <a href="../../../pkg/go/types.html#name-strict" class="ident">strict</a> = <a href="../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-34"><code></code></span>
+<span class="codeline" id="line-35"><code><span class="comment">// exprInfo stores information about an untyped expression.</span></code></span>
+<span class="codeline" id="line-36"><code><span class="keyword">type</span> <a href="../../../pkg/go/types.html#name-exprInfo" class="ident">exprInfo</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-37"><code>	<a href="../../../use/go/types..exprInfo.isLhs.html" class="ident">isLhs</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// expression is lhs operand of a shift with delayed type-check</span></code></span>
+<span class="codeline" id="line-38"><code>	<a href="../../../use/go/types..exprInfo.mode.html" class="ident">mode</a>  <a href="operand.go.html#line-18" class="ident">operandMode</a></code></span>
+<span class="codeline" id="line-39"><code>	<a href="../../../use/go/types..exprInfo.typ.html" class="ident">typ</a>   *<a href="type.go.html#line-78" class="ident">Basic</a></code></span>
+<span class="codeline" id="line-40"><code>	<a href="../../../use/go/types..exprInfo.val.html" class="ident">val</a>   <a href="../../../pkg/go/constant.html" class="ident i2">constant</a>.<a href="../constant/value.go.html#line-44" class="ident">Value</a> <span class="comment">// constant value; or nil (if not a constant)</span></code></span>
+<span class="codeline" id="line-41"><code>}</code></span>
+<span class="codeline" id="line-42"><code></code></span>
+<span class="codeline" id="line-43"><code><span class="comment">// A context represents the context within which an object is type-checked.</span></code></span>
+<span class="codeline" id="line-44"><code><span class="keyword">type</span> <a href="../../../pkg/go/types.html#name-context" class="ident">context</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-45"><code>	<a href="../../../use/go/types..context.decl.html" class="ident">decl</a>          *<a href="resolver.go.html#line-19" class="ident">declInfo</a>              <span class="comment">// package-level declaration whose init expression/function body is checked</span></code></span>
+<span class="codeline" id="line-46"><code>	<a href="../../../use/go/types..context.scope.html" class="ident">scope</a>         *<a href="scope.go.html#line-22" class="ident">Scope</a>                 <span class="comment">// top-most scope for lookups</span></code></span>
+<span class="codeline" id="line-47"><code>	<a href="../../../use/go/types..context.pos.html" class="ident">pos</a>           <a href="../../../pkg/go/token.html" class="ident i3">token</a>.<a href="../token/position.go.html#line-79" class="ident">Pos</a>              <span class="comment">// if valid, identifiers are looked up as if at position pos (used by Eval)</span></code></span>
+<span class="codeline" id="line-48"><code>	<a href="../../../use/go/types..context.iota.html" class="ident">iota</a>          <a href="../../../pkg/go/constant.html" class="ident i2">constant</a>.<a href="../constant/value.go.html#line-44" class="ident">Value</a>         <span class="comment">// value of iota in a constant declaration; nil otherwise</span></code></span>
+<span class="codeline" id="line-49"><code>	<a href="../../../use/go/types..context.errpos.html" class="ident">errpos</a>        <a href="errors.go.html#line-170" class="ident">positioner</a>             <span class="comment">// if set, identifier position of a constant with inherited initializer</span></code></span>
+<span class="codeline" id="line-50"><code>	<a href="../../../use/go/types..context.sig.html" class="ident">sig</a>           *<a href="type.go.html#line-197" class="ident">Signature</a>             <span class="comment">// function signature if inside a function; nil otherwise</span></code></span>
+<span class="codeline" id="line-51"><code>	<a href="../../../use/go/types..context.isPanic.html" class="ident">isPanic</a>       <span class="keyword">map</span>[*<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-363" class="ident">CallExpr</a>]<a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// set of panic call expressions (used for termination check)</span></code></span>
+<span class="codeline" id="line-52"><code>	<a href="../../../use/go/types..context.hasLabel.html" class="ident">hasLabel</a>      <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>                   <span class="comment">// set if a function makes use of labels (only ~1% of functions); unused outside functions</span></code></span>
+<span class="codeline" id="line-53"><code>	<a href="../../../use/go/types..context.hasCallOrRecv.html" class="ident">hasCallOrRecv</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>                   <span class="comment">// set if an expression contains a function call or channel receive operation</span></code></span>
+<span class="codeline" id="line-54"><code>}</code></span>
+<span class="codeline" id="line-55"><code></code></span>
+<span class="codeline" id="line-56"><code><span class="comment">// lookup looks up name in the current context and returns the matching object, or nil.</span></code></span>
+<span class="codeline" id="line-57"><code><span class="keyword">func</span> (<label for="r0" class="ident">ctxt</label> *<a href="#line-44" class="ident">context</a>) <label for="r1" class="ident"><a href="../../../use/go/types..context.lookup.html" class="ident">lookup</a></label>(<label for="r2" class="ident">name</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="object.go.html#line-18" class="ident">Object</a> {</code></span>
+<span class="codeline" id="line-58"><code>	<label for="r3" class="ident">_</label>, <label for="r4" class="ident">obj</label> := <label for="r0" class="ident">ctxt</label>.<a href="#line-46" class="ident">scope</a>.<a href="scope.go.html#line-82" class="ident">LookupParent</a>(<label for="r2" class="ident">name</label>, <label for="r0" class="ident">ctxt</label>.<a href="#line-47" class="ident">pos</a>)</code></span>
+<span class="codeline" id="line-59"><code>	<span class="keyword">return</span> <label for="r4" class="ident">obj</label></code></span>
+<span class="codeline" id="line-60"><code>}</code></span>
+<span class="codeline" id="line-61"><code></code></span>
+<span class="codeline" id="line-62"><code><span class="comment">// An importKey identifies an imported package by import path and source directory</span></code></span>
+<span class="codeline" id="line-63"><code><span class="comment">// (directory containing the file containing the import). In practice, the directory</span></code></span>
+<span class="codeline" id="line-64"><code><span class="comment">// may always be the same, or may not matter. Given an (import path, directory), an</span></code></span>
+<span class="codeline" id="line-65"><code><span class="comment">// importer must always return the same package (but given two different import paths,</span></code></span>
+<span class="codeline" id="line-66"><code><span class="comment">// an importer may still return the same package by mapping them to the same package</span></code></span>
+<span class="codeline" id="line-67"><code><span class="comment">// paths).</span></code></span>
+<span class="codeline" id="line-68"><code><span class="keyword">type</span> <a href="../../../pkg/go/types.html#name-importKey" class="ident">importKey</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-69"><code>	<a href="../../../use/go/types..importKey.path.html" class="ident">path</a>, <a href="../../../use/go/types..importKey.dir.html" class="ident">dir</a> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-70"><code>}</code></span>
+<span class="codeline" id="line-71"><code></code></span>
+<span class="codeline" id="line-72"><code><span class="comment">// A Checker maintains the state of the type checker.</span></code></span>
+<span class="codeline" id="line-73"><code><span class="comment">// It must be created with NewChecker.</span></code></span>
+<span class="codeline" id="line-74"><code><span class="keyword">type</span> <a href="../../../pkg/go/types.html#name-Checker" class="ident">Checker</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-75"><code>	<span class="comment">// package information</span></code></span>
+<span class="codeline" id="line-76"><code><span class="comment">	// (initialized by NewChecker, valid for the life-time of checker)</span></code></span>
+<span class="codeline" id="line-77"><code>	<a href="../../../use/go/types..Checker.conf.html" class="ident">conf</a> *<a href="api.go.html#line-103" class="ident">Config</a></code></span>
+<span class="codeline" id="line-78"><code>	<a href="../../../use/go/types..Checker.fset.html" class="ident">fset</a> *<a href="../../../pkg/go/token.html" class="ident i3">token</a>.<a href="../token/position.go.html#line-386" class="ident">FileSet</a></code></span>
+<span class="codeline" id="line-79"><code>	<a href="../../../use/go/types..Checker.pkg.html" class="ident">pkg</a>  *<a href="package.go.html#line-13" class="ident">Package</a></code></span>
+<span class="codeline" id="line-80"><code>	*<a href="api.go.html#line-160" class="ident">Info</a></code></span>
+<span class="codeline" id="line-81"><code>	<a href="../../../use/go/types..Checker.objMap.html" class="ident">objMap</a> <span class="keyword">map</span>[<a href="object.go.html#line-18" class="ident">Object</a>]*<a href="resolver.go.html#line-19" class="ident">declInfo</a>       <span class="comment">// maps package-level objects and (non-interface) methods to declaration info</span></code></span>
+<span class="codeline" id="line-82"><code>	<a href="../../../use/go/types..Checker.impMap.html" class="ident">impMap</a> <span class="keyword">map</span>[<a href="#line-68" class="ident">importKey</a>]*<a href="package.go.html#line-13" class="ident">Package</a>     <span class="comment">// maps (import path, source directory) to (complete or fake) package</span></code></span>
+<span class="codeline" id="line-83"><code>	<a href="../../../use/go/types..Checker.posMap.html" class="ident">posMap</a> <span class="keyword">map</span>[*<a href="type.go.html#line-244" class="ident">Interface</a>][]<a href="../../../pkg/go/token.html" class="ident i3">token</a>.<a href="../token/position.go.html#line-79" class="ident">Pos</a> <span class="comment">// maps interface types to lists of embedded interface positions</span></code></span>
+<span class="codeline" id="line-84"><code>	<a href="../../../use/go/types..Checker.pkgCnt.html" class="ident">pkgCnt</a> <span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>]<a href="../../../pkg/builtin.html#name-int" class="ident">int</a>             <span class="comment">// counts number of imported packages with a given name (for better error messages)</span></code></span>
+<span class="codeline" id="line-85"><code></code></span>
+<span class="codeline" id="line-86"><code>	<span class="comment">// information collected during type-checking of a set of package files</span></code></span>
+<span class="codeline" id="line-87"><code><span class="comment">	// (initialized by Files, valid only for the duration of check.Files;</span></code></span>
+<span class="codeline" id="line-88"><code><span class="comment">	// maps and lists are allocated on demand)</span></code></span>
+<span class="codeline" id="line-89"><code>	<a href="../../../use/go/types..Checker.files.html" class="ident">files</a>            []*<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-1033" class="ident">File</a>                             <span class="comment">// package files</span></code></span>
+<span class="codeline" id="line-90"><code>	<a href="../../../use/go/types..Checker.unusedDotImports.html" class="ident">unusedDotImports</a> <span class="keyword">map</span>[*<a href="scope.go.html#line-22" class="ident">Scope</a>]<span class="keyword">map</span>[*<a href="package.go.html#line-13" class="ident">Package</a>]*<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-878" class="ident">ImportSpec</a> <span class="comment">// unused dot-imported packages</span></code></span>
+<span class="codeline" id="line-91"><code></code></span>
+<span class="codeline" id="line-92"><code>	<a href="../../../use/go/types..Checker.firstErr.html" class="ident">firstErr</a> <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>                 <span class="comment">// first error encountered</span></code></span>
+<span class="codeline" id="line-93"><code>	<a href="../../../use/go/types..Checker.methods.html" class="ident">methods</a>  <span class="keyword">map</span>[*<a href="object.go.html#line-214" class="ident">TypeName</a>][]*<a href="object.go.html#line-294" class="ident">Func</a> <span class="comment">// maps package scope type names to associated non-blank (non-interface) methods</span></code></span>
+<span class="codeline" id="line-94"><code>	<a href="../../../use/go/types..Checker.untyped.html" class="ident">untyped</a>  <span class="keyword">map</span>[<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-39" class="ident">Expr</a>]<a href="#line-36" class="ident">exprInfo</a> <span class="comment">// map of expressions without final type</span></code></span>
+<span class="codeline" id="line-95"><code>	<a href="../../../use/go/types..Checker.delayed.html" class="ident">delayed</a>  []<span class="keyword">func</span>()              <span class="comment">// stack of delayed action segments; segments are processed in FIFO order</span></code></span>
+<span class="codeline" id="line-96"><code>	<a href="../../../use/go/types..Checker.finals.html" class="ident">finals</a>   []<span class="keyword">func</span>()              <span class="comment">// list of final actions; processed at the end of type-checking the current set of files</span></code></span>
+<span class="codeline" id="line-97"><code>	<a href="../../../use/go/types..Checker.objPath.html" class="ident">objPath</a>  []<a href="object.go.html#line-18" class="ident">Object</a>              <span class="comment">// path of object dependencies during type inference (for cycle reporting)</span></code></span>
+<span class="codeline" id="line-98"><code></code></span>
+<span class="codeline" id="line-99"><code>	<span class="comment">// context within which the current object is type-checked</span></code></span>
+<span class="codeline" id="line-100"><code><span class="comment">	// (valid only for the duration of type-checking a specific object)</span></code></span>
+<span class="codeline" id="line-101"><code>	<a href="#line-44" class="ident">context</a></code></span>
+<span class="codeline" id="line-102"><code></code></span>
+<span class="codeline" id="line-103"><code>	<span class="comment">// debugging</span></code></span>
+<span class="codeline" id="line-104"><code>	<a href="../../../use/go/types..Checker.indent.html" class="ident">indent</a> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a> <span class="comment">// indentation for tracing</span></code></span>
+<span class="codeline" id="line-105"><code>}</code></span>
+<span class="codeline" id="line-106"><code></code></span>
+<span class="codeline" id="line-107"><code><span class="comment">// addUnusedImport adds the position of a dot-imported package</span></code></span>
+<span class="codeline" id="line-108"><code><span class="comment">// pkg to the map of dot imports for the given file scope.</span></code></span>
+<span class="codeline" id="line-109"><code><span class="keyword">func</span> (<label for="r5" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r6" class="ident"><a href="../../../use/go/types..Checker.addUnusedDotImport.html" class="ident">addUnusedDotImport</a></label>(<label for="r7" class="ident">scope</label> *<a href="scope.go.html#line-22" class="ident">Scope</a>, <label for="r8" class="ident">pkg</label> *<a href="package.go.html#line-13" class="ident">Package</a>, <label for="r9" class="ident">spec</label> *<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-878" class="ident">ImportSpec</a>) {</code></span>
+<span class="codeline" id="line-110"><code>	<label for="r10" class="ident">mm</label> := <label for="r5" class="ident">check</label>.<a href="#line-90" class="ident">unusedDotImports</a></code></span>
+<span class="codeline" id="line-111"><code>	<span class="keyword">if</span> <label for="r10" class="ident">mm</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-112"><code>		<label for="r10" class="ident">mm</label> = <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>(<span class="keyword">map</span>[*<a href="scope.go.html#line-22" class="ident">Scope</a>]<span class="keyword">map</span>[*<a href="package.go.html#line-13" class="ident">Package</a>]*<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-878" class="ident">ImportSpec</a>)</code></span>
+<span class="codeline" id="line-113"><code>		<label for="r5" class="ident">check</label>.<a href="#line-90" class="ident">unusedDotImports</a> = <label for="r10" class="ident">mm</label></code></span>
+<span class="codeline" id="line-114"><code>	}</code></span>
+<span class="codeline" id="line-115"><code>	<label for="r11" class="ident">m</label> := <label for="r10" class="ident">mm</label>[<label for="r7" class="ident">scope</label>]</code></span>
+<span class="codeline" id="line-116"><code>	<span class="keyword">if</span> <label for="r11" class="ident">m</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-117"><code>		<label for="r11" class="ident">m</label> = <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>(<span class="keyword">map</span>[*<a href="package.go.html#line-13" class="ident">Package</a>]*<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-878" class="ident">ImportSpec</a>)</code></span>
+<span class="codeline" id="line-118"><code>		<label for="r10" class="ident">mm</label>[<label for="r7" class="ident">scope</label>] = <label for="r11" class="ident">m</label></code></span>
+<span class="codeline" id="line-119"><code>	}</code></span>
+<span class="codeline" id="line-120"><code>	<label for="r11" class="ident">m</label>[<label for="r8" class="ident">pkg</label>] = <label for="r9" class="ident">spec</label></code></span>
+<span class="codeline" id="line-121"><code>}</code></span>
+<span class="codeline" id="line-122"><code></code></span>
+<span class="codeline" id="line-123"><code><span class="comment">// addDeclDep adds the dependency edge (check.decl -&gt; to) if check.decl exists</span></code></span>
+<span class="codeline" id="line-124"><code><span class="keyword">func</span> (<label for="r12" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r13" class="ident"><a href="../../../use/go/types..Checker.addDeclDep.html" class="ident">addDeclDep</a></label>(<label for="r14" class="ident">to</label> <a href="object.go.html#line-18" class="ident">Object</a>) {</code></span>
+<span class="codeline" id="line-125"><code>	<label for="r15" class="ident">from</label> := <label for="r12" class="ident">check</label>.<a href="#line-45" class="ident">decl</a></code></span>
+<span class="codeline" id="line-126"><code>	<span class="keyword">if</span> <label for="r15" class="ident">from</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-127"><code>		<span class="keyword">return</span> <span class="comment">// not in a package-level init expression</span></code></span>
+<span class="codeline" id="line-128"><code>	}</code></span>
+<span class="codeline" id="line-129"><code>	<span class="keyword">if</span> <label for="r16" class="ident">_</label>, <label for="r17" class="ident">found</label> := <label for="r12" class="ident">check</label>.<a href="#line-81" class="ident">objMap</a>[<label for="r14" class="ident">to</label>]; !<label for="r17" class="ident">found</label> {</code></span>
+<span class="codeline" id="line-130"><code>		<span class="keyword">return</span> <span class="comment">// to is not a package-level object</span></code></span>
+<span class="codeline" id="line-131"><code>	}</code></span>
+<span class="codeline" id="line-132"><code>	<label for="r15" class="ident">from</label>.<a href="resolver.go.html#line-39" class="ident">addDep</a>(<label for="r14" class="ident">to</label>)</code></span>
+<span class="codeline" id="line-133"><code>}</code></span>
+<span class="codeline" id="line-134"><code></code></span>
+<span class="codeline" id="line-135"><code><span class="keyword">func</span> (<label for="r18" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r19" class="ident"><a href="../../../use/go/types..Checker.rememberUntyped.html" class="ident">rememberUntyped</a></label>(<label for="r20" class="ident">e</label> <a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-39" class="ident">Expr</a>, <label for="r21" class="ident">lhs</label> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>, <label for="r22" class="ident">mode</label> <a href="operand.go.html#line-18" class="ident">operandMode</a>, <label for="r23" class="ident">typ</label> *<a href="type.go.html#line-78" class="ident">Basic</a>, <label for="r24" class="ident">val</label> <a href="../../../pkg/go/constant.html" class="ident i2">constant</a>.<a href="../constant/value.go.html#line-44" class="ident">Value</a>) {</code></span>
+<span class="codeline" id="line-136"><code>	<label for="r25" class="ident">m</label> := <label for="r18" class="ident">check</label>.<a href="#line-94" class="ident">untyped</a></code></span>
+<span class="codeline" id="line-137"><code>	<span class="keyword">if</span> <label for="r25" class="ident">m</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-138"><code>		<label for="r25" class="ident">m</label> = <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>(<span class="keyword">map</span>[<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-39" class="ident">Expr</a>]<a href="#line-36" class="ident">exprInfo</a>)</code></span>
+<span class="codeline" id="line-139"><code>		<label for="r18" class="ident">check</label>.<a href="#line-94" class="ident">untyped</a> = <label for="r25" class="ident">m</label></code></span>
+<span class="codeline" id="line-140"><code>	}</code></span>
+<span class="codeline" id="line-141"><code>	<label for="r25" class="ident">m</label>[<label for="r20" class="ident">e</label>] = <a href="#line-36" class="ident">exprInfo</a>{<label for="r21" class="ident">lhs</label>, <label for="r22" class="ident">mode</label>, <label for="r23" class="ident">typ</label>, <label for="r24" class="ident">val</label>}</code></span>
+<span class="codeline" id="line-142"><code>}</code></span>
+<span class="codeline" id="line-143"><code></code></span>
+<span class="codeline" id="line-144"><code><span class="comment">// later pushes f on to the stack of actions that will be processed later;</span></code></span>
+<span class="codeline" id="line-145"><code><span class="comment">// either at the end of the current statement, or in case of a local constant</span></code></span>
+<span class="codeline" id="line-146"><code><span class="comment">// or variable declaration, before the constant or variable is in scope</span></code></span>
+<span class="codeline" id="line-147"><code><span class="comment">// (so that f still sees the scope before any new declarations).</span></code></span>
+<span class="codeline" id="line-148"><code><span class="keyword">func</span> (<label for="r26" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r27" class="ident"><a href="../../../use/go/types..Checker.later.html" class="ident">later</a></label>(<label for="r28" class="ident">f</label> <span class="keyword">func</span>()) {</code></span>
+<span class="codeline" id="line-149"><code>	<label for="r26" class="ident">check</label>.<a href="#line-95" class="ident">delayed</a> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r26" class="ident">check</label>.<a href="#line-95" class="ident">delayed</a>, <label for="r28" class="ident">f</label>)</code></span>
+<span class="codeline" id="line-150"><code>}</code></span>
+<span class="codeline" id="line-151"><code></code></span>
+<span class="codeline" id="line-152"><code><span class="comment">// atEnd adds f to the list of actions processed at the end</span></code></span>
+<span class="codeline" id="line-153"><code><span class="comment">// of type-checking, before initialization order computation.</span></code></span>
+<span class="codeline" id="line-154"><code><span class="comment">// Actions added by atEnd are processed after any actions</span></code></span>
+<span class="codeline" id="line-155"><code><span class="comment">// added by later.</span></code></span>
+<span class="codeline" id="line-156"><code><span class="keyword">func</span> (<label for="r29" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r30" class="ident"><a href="../../../use/go/types..Checker.atEnd.html" class="ident">atEnd</a></label>(<label for="r31" class="ident">f</label> <span class="keyword">func</span>()) {</code></span>
+<span class="codeline" id="line-157"><code>	<label for="r29" class="ident">check</label>.<a href="#line-96" class="ident">finals</a> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r29" class="ident">check</label>.<a href="#line-96" class="ident">finals</a>, <label for="r31" class="ident">f</label>)</code></span>
+<span class="codeline" id="line-158"><code>}</code></span>
+<span class="codeline" id="line-159"><code></code></span>
+<span class="codeline" id="line-160"><code><span class="comment">// push pushes obj onto the object path and returns its index in the path.</span></code></span>
+<span class="codeline" id="line-161"><code><span class="keyword">func</span> (<label for="r32" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r33" class="ident"><a href="../../../use/go/types..Checker.push.html" class="ident">push</a></label>(<label for="r34" class="ident">obj</label> <a href="object.go.html#line-18" class="ident">Object</a>) <a href="../../../pkg/builtin.html#name-int" class="ident">int</a> {</code></span>
+<span class="codeline" id="line-162"><code>	<label for="r32" class="ident">check</label>.<a href="#line-97" class="ident">objPath</a> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r32" class="ident">check</label>.<a href="#line-97" class="ident">objPath</a>, <label for="r34" class="ident">obj</label>)</code></span>
+<span class="codeline" id="line-163"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r32" class="ident">check</label>.<a href="#line-97" class="ident">objPath</a>) - <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-164"><code>}</code></span>
+<span class="codeline" id="line-165"><code></code></span>
+<span class="codeline" id="line-166"><code><span class="comment">// pop pops and returns the topmost object from the object path.</span></code></span>
+<span class="codeline" id="line-167"><code><span class="keyword">func</span> (<label for="r35" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r36" class="ident"><a href="../../../use/go/types..Checker.pop.html" class="ident">pop</a></label>() <a href="object.go.html#line-18" class="ident">Object</a> {</code></span>
+<span class="codeline" id="line-168"><code>	<label for="r37" class="ident">i</label> := <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r35" class="ident">check</label>.<a href="#line-97" class="ident">objPath</a>) - <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-169"><code>	<label for="r38" class="ident">obj</label> := <label for="r35" class="ident">check</label>.<a href="#line-97" class="ident">objPath</a>[<label for="r37" class="ident">i</label>]</code></span>
+<span class="codeline" id="line-170"><code>	<label for="r35" class="ident">check</label>.<a href="#line-97" class="ident">objPath</a>[<label for="r37" class="ident">i</label>] = <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-171"><code>	<label for="r35" class="ident">check</label>.<a href="#line-97" class="ident">objPath</a> = <label for="r35" class="ident">check</label>.<a href="#line-97" class="ident">objPath</a>[:<label for="r37" class="ident">i</label>]</code></span>
+<span class="codeline" id="line-172"><code>	<span class="keyword">return</span> <label for="r38" class="ident">obj</label></code></span>
+<span class="codeline" id="line-173"><code>}</code></span>
+<span class="codeline" id="line-174"><code></code></span>
+<span class="codeline" id="line-175"><code><span class="comment">// NewChecker returns a new Checker instance for a given package.</span></code></span>
+<span class="codeline" id="line-176"><code><span class="comment">// Package files may be added incrementally via checker.Files.</span></code></span>
+<span class="codeline" id="line-177"><code><span class="keyword">func</span> <label for="r39" class="ident"><a href="../../../pkg/go/types.html#name-NewChecker" class="ident">NewChecker</a></label>(<label for="r40" class="ident">conf</label> *<a href="api.go.html#line-103" class="ident">Config</a>, <label for="r41" class="ident">fset</label> *<a href="../../../pkg/go/token.html" class="ident i3">token</a>.<a href="../token/position.go.html#line-386" class="ident">FileSet</a>, <label for="r42" class="ident">pkg</label> *<a href="package.go.html#line-13" class="ident">Package</a>, <label for="r43" class="ident">info</label> *<a href="api.go.html#line-160" class="ident">Info</a>) *<a href="#line-74" class="ident">Checker</a> {</code></span>
+<span class="codeline" id="line-178"><code>	<span class="comment">// make sure we have a configuration</span></code></span>
+<span class="codeline" id="line-179"><code>	<span class="keyword">if</span> <label for="r40" class="ident">conf</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-180"><code>		<label for="r40" class="ident">conf</label> = <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="api.go.html#line-103" class="ident">Config</a>)</code></span>
+<span class="codeline" id="line-181"><code>	}</code></span>
+<span class="codeline" id="line-182"><code></code></span>
+<span class="codeline" id="line-183"><code>	<span class="comment">// make sure we have an info struct</span></code></span>
+<span class="codeline" id="line-184"><code>	<span class="keyword">if</span> <label for="r43" class="ident">info</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-185"><code>		<label for="r43" class="ident">info</label> = <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="api.go.html#line-160" class="ident">Info</a>)</code></span>
+<span class="codeline" id="line-186"><code>	}</code></span>
+<span class="codeline" id="line-187"><code></code></span>
+<span class="codeline" id="line-188"><code>	<span class="keyword">return</span> &amp;<a href="#line-74" class="ident">Checker</a>{</code></span>
+<span class="codeline" id="line-189"><code>		<a href="#line-77" class="ident">conf</a>:   <label for="r40" class="ident">conf</label>,</code></span>
+<span class="codeline" id="line-190"><code>		<a href="#line-78" class="ident">fset</a>:   <label for="r41" class="ident">fset</label>,</code></span>
+<span class="codeline" id="line-191"><code>		<a href="#line-79" class="ident">pkg</a>:    <label for="r42" class="ident">pkg</label>,</code></span>
+<span class="codeline" id="line-192"><code>		<a href="#line-80" class="ident">Info</a>:   <label for="r43" class="ident">info</label>,</code></span>
+<span class="codeline" id="line-193"><code>		<a href="#line-81" class="ident">objMap</a>: <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>(<span class="keyword">map</span>[<a href="object.go.html#line-18" class="ident">Object</a>]*<a href="resolver.go.html#line-19" class="ident">declInfo</a>),</code></span>
+<span class="codeline" id="line-194"><code>		<a href="#line-82" class="ident">impMap</a>: <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>(<span class="keyword">map</span>[<a href="#line-68" class="ident">importKey</a>]*<a href="package.go.html#line-13" class="ident">Package</a>),</code></span>
+<span class="codeline" id="line-195"><code>		<a href="#line-83" class="ident">posMap</a>: <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>(<span class="keyword">map</span>[*<a href="type.go.html#line-244" class="ident">Interface</a>][]<a href="../../../pkg/go/token.html" class="ident i3">token</a>.<a href="../token/position.go.html#line-79" class="ident">Pos</a>),</code></span>
+<span class="codeline" id="line-196"><code>		<a href="#line-84" class="ident">pkgCnt</a>: <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>(<span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>]<a href="../../../pkg/builtin.html#name-int" class="ident">int</a>),</code></span>
+<span class="codeline" id="line-197"><code>	}</code></span>
+<span class="codeline" id="line-198"><code>}</code></span>
+<span class="codeline" id="line-199"><code></code></span>
+<span class="codeline" id="line-200"><code><span class="comment">// initFiles initializes the files-specific portion of checker.</span></code></span>
+<span class="codeline" id="line-201"><code><span class="comment">// The provided files must all belong to the same package.</span></code></span>
+<span class="codeline" id="line-202"><code><span class="keyword">func</span> (<label for="r44" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r45" class="ident"><a href="../../../use/go/types..Checker.initFiles.html" class="ident">initFiles</a></label>(<label for="r46" class="ident">files</label> []*<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-1033" class="ident">File</a>) {</code></span>
+<span class="codeline" id="line-203"><code>	<span class="comment">// start with a clean slate (check.Files may be called multiple times)</span></code></span>
+<span class="codeline" id="line-204"><code>	<label for="r44" class="ident">check</label>.<a href="#line-89" class="ident">files</a> = <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-205"><code>	<label for="r44" class="ident">check</label>.<a href="#line-90" class="ident">unusedDotImports</a> = <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-206"><code></code></span>
+<span class="codeline" id="line-207"><code>	<label for="r44" class="ident">check</label>.<a href="#line-92" class="ident">firstErr</a> = <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-208"><code>	<label for="r44" class="ident">check</label>.<a href="#line-93" class="ident">methods</a> = <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-209"><code>	<label for="r44" class="ident">check</label>.<a href="#line-94" class="ident">untyped</a> = <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-210"><code>	<label for="r44" class="ident">check</label>.<a href="#line-95" class="ident">delayed</a> = <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-211"><code>	<label for="r44" class="ident">check</label>.<a href="#line-96" class="ident">finals</a> = <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-212"><code></code></span>
+<span class="codeline" id="line-213"><code>	<span class="comment">// determine package name and collect valid files</span></code></span>
+<span class="codeline" id="line-214"><code>	<label for="r47" class="ident">pkg</label> := <label for="r44" class="ident">check</label>.<a href="#line-79" class="ident">pkg</a></code></span>
+<span class="codeline" id="line-215"><code>	<span class="keyword">for</span> <label for="r48" class="ident">_</label>, <label for="r49" class="ident">file</label> := <span class="keyword">range</span> <label for="r46" class="ident">files</label> {</code></span>
+<span class="codeline" id="line-216"><code>		<span class="keyword">switch</span> <label for="r50" class="ident">name</label> := <label for="r49" class="ident">file</label>.<a href="../ast/ast.go.html#line-1036" class="ident">Name</a>.<a href="../ast/ast.go.html#line-280" class="ident">Name</a>; <label for="r47" class="ident">pkg</label>.<a href="package.go.html#line-15" class="ident">name</a> {</code></span>
+<span class="codeline" id="line-217"><code>		<span class="keyword">case</span> <span class="lit-string">""</span>:</code></span>
+<span class="codeline" id="line-218"><code>			<span class="keyword">if</span> <label for="r50" class="ident">name</label> != <span class="lit-string">"_"</span> {</code></span>
+<span class="codeline" id="line-219"><code>				<label for="r47" class="ident">pkg</label>.<a href="package.go.html#line-15" class="ident">name</a> = <label for="r50" class="ident">name</label></code></span>
+<span class="codeline" id="line-220"><code>			} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-221"><code>				<label for="r44" class="ident">check</label>.<a href="errors.go.html#line-148" class="ident">errorf</a>(<label for="r49" class="ident">file</label>.<a href="../ast/ast.go.html#line-1036" class="ident">Name</a>, <a href="errorcodes.go.html#line-43" class="ident">_BlankPkgName</a>, <span class="lit-string">"invalid package name _"</span>)</code></span>
+<span class="codeline" id="line-222"><code>			}</code></span>
+<span class="codeline" id="line-223"><code>			<span class="keyword">fallthrough</span></code></span>
+<span class="codeline" id="line-224"><code></code></span>
+<span class="codeline" id="line-225"><code>		<span class="keyword">case</span> <label for="r50" class="ident">name</label>:</code></span>
+<span class="codeline" id="line-226"><code>			<label for="r44" class="ident">check</label>.<a href="#line-89" class="ident">files</a> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r44" class="ident">check</label>.<a href="#line-89" class="ident">files</a>, <label for="r49" class="ident">file</label>)</code></span>
+<span class="codeline" id="line-227"><code></code></span>
+<span class="codeline" id="line-228"><code>		<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-229"><code>			<label for="r44" class="ident">check</label>.<a href="errors.go.html#line-148" class="ident">errorf</a>(<a href="errors.go.html#line-199" class="ident">atPos</a>(<label for="r49" class="ident">file</label>.<a href="../ast/ast.go.html#line-1035" class="ident">Package</a>), <a href="errorcodes.go.html#line-47" class="ident">_MismatchedPkgName</a>, <span class="lit-string">"package %s; expected %s"</span>, <label for="r50" class="ident">name</label>, <label for="r47" class="ident">pkg</label>.<a href="package.go.html#line-15" class="ident">name</a>)</code></span>
+<span class="codeline" id="line-230"><code>			<span class="comment">// ignore this file</span></code></span>
+<span class="codeline" id="line-231"><code>		}</code></span>
+<span class="codeline" id="line-232"><code>	}</code></span>
+<span class="codeline" id="line-233"><code>}</code></span>
+<span class="codeline" id="line-234"><code></code></span>
+<span class="codeline" id="line-235"><code><span class="comment">// A bailout panic is used for early termination.</span></code></span>
+<span class="codeline" id="line-236"><code><span class="keyword">type</span> <a href="../../../pkg/go/types.html#name-bailout" class="ident">bailout</a> <span class="keyword">struct</span>{}</code></span>
+<span class="codeline" id="line-237"><code></code></span>
+<span class="codeline" id="line-238"><code><span class="keyword">func</span> (<label for="r51" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r52" class="ident"><a href="../../../use/go/types..Checker.handleBailout.html" class="ident">handleBailout</a></label>(<label for="r53" class="ident">err</label> *<a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-239"><code>	<span class="keyword">switch</span> p := <a href="../../../pkg/builtin.html#name-recover" class="ident">recover</a>().(<span class="keyword">type</span>) {</code></span>
+<span class="codeline" id="line-240"><code>	<span class="keyword">case</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="#line-236" class="ident">bailout</a>:</code></span>
+<span class="codeline" id="line-241"><code>		<span class="comment">// normal return or early exit</span></code></span>
+<span class="codeline" id="line-242"><code>		*<label for="r53" class="ident">err</label> = <label for="r51" class="ident">check</label>.<a href="#line-92" class="ident">firstErr</a></code></span>
+<span class="codeline" id="line-243"><code>	<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-244"><code>		<span class="comment">// re-panic</span></code></span>
+<span class="codeline" id="line-245"><code>		<a href="../../../pkg/builtin.html#name-panic" class="ident">panic</a>(<label for="r54" class="ident">p</label>)</code></span>
+<span class="codeline" id="line-246"><code>	}</code></span>
+<span class="codeline" id="line-247"><code>}</code></span>
+<span class="codeline" id="line-248"><code></code></span>
+<span class="codeline" id="line-249"><code><span class="comment">// Files checks the provided files as part of the checker's package.</span></code></span>
+<span class="codeline" id="line-250"><code><span class="keyword">func</span> (<label for="r55" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r56" class="ident"><a href="../../../use/go/types..Checker.Files.html" class="ident">Files</a></label>(<label for="r57" class="ident">files</label> []*<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-1033" class="ident">File</a>) <a href="../../../pkg/builtin.html#name-error" class="ident">error</a> { <span class="keyword">return</span> <label for="r55" class="ident">check</label>.<a href="#line-254" class="ident">checkFiles</a>(<label for="r57" class="ident">files</label>) }</code></span>
+<span class="codeline" id="line-251"><code></code></span>
+<span class="codeline" id="line-252"><code><span class="keyword">var</span> <a href="../../../pkg/go/types.html#name-errBadCgo" class="ident">errBadCgo</a> = <a href="../../../pkg/errors.html" class="ident i0">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"cannot use FakeImportC and go115UsesCgo together"</span>)</code></span>
+<span class="codeline" id="line-253"><code></code></span>
+<span class="codeline" id="line-254"><code><span class="keyword">func</span> (<label for="r58" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r59" class="ident"><a href="../../../use/go/types..Checker.checkFiles.html" class="ident">checkFiles</a></label>(<label for="r60" class="ident">files</label> []*<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-1033" class="ident">File</a>) (<label for="r61" class="ident">err</label> <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-255"><code>	<span class="keyword">if</span> <label for="r58" class="ident">check</label>.<a href="#line-77" class="ident">conf</a>.<a href="api.go.html#line-115" class="ident">FakeImportC</a> &amp;&amp; <label for="r58" class="ident">check</label>.<a href="#line-77" class="ident">conf</a>.<a href="api.go.html#line-124" class="ident">go115UsesCgo</a> {</code></span>
+<span class="codeline" id="line-256"><code>		<span class="keyword">return</span> <a href="#line-252" class="ident">errBadCgo</a></code></span>
+<span class="codeline" id="line-257"><code>	}</code></span>
+<span class="codeline" id="line-258"><code></code></span>
+<span class="codeline" id="line-259"><code>	<span class="keyword">defer</span> <label for="r58" class="ident">check</label>.<a href="#line-238" class="ident">handleBailout</a>(&amp;<label for="r61" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-260"><code></code></span>
+<span class="codeline" id="line-261"><code>	<label for="r58" class="ident">check</label>.<a href="#line-202" class="ident">initFiles</a>(<label for="r60" class="ident">files</label>)</code></span>
+<span class="codeline" id="line-262"><code></code></span>
+<span class="codeline" id="line-263"><code>	<label for="r58" class="ident">check</label>.<a href="resolver.go.html#line-205" class="ident">collectObjects</a>()</code></span>
+<span class="codeline" id="line-264"><code></code></span>
+<span class="codeline" id="line-265"><code>	<label for="r58" class="ident">check</label>.<a href="resolver.go.html#line-505" class="ident">packageObjects</a>()</code></span>
+<span class="codeline" id="line-266"><code></code></span>
+<span class="codeline" id="line-267"><code>	<label for="r58" class="ident">check</label>.<a href="#line-283" class="ident">processDelayed</a>(<span class="lit-number">0</span>) <span class="comment">// incl. all functions</span></code></span>
+<span class="codeline" id="line-268"><code>	<label for="r58" class="ident">check</label>.<a href="#line-297" class="ident">processFinals</a>()</code></span>
+<span class="codeline" id="line-269"><code></code></span>
+<span class="codeline" id="line-270"><code>	<label for="r58" class="ident">check</label>.<a href="initorder.go.html#line-13" class="ident">initOrder</a>()</code></span>
+<span class="codeline" id="line-271"><code></code></span>
+<span class="codeline" id="line-272"><code>	<span class="keyword">if</span> !<label for="r58" class="ident">check</label>.<a href="#line-77" class="ident">conf</a>.<a href="api.go.html#line-149" class="ident">DisableUnusedImportCheck</a> {</code></span>
+<span class="codeline" id="line-273"><code>		<label for="r58" class="ident">check</label>.<a href="resolver.go.html#line-559" class="ident">unusedImports</a>()</code></span>
+<span class="codeline" id="line-274"><code>	}</code></span>
+<span class="codeline" id="line-275"><code></code></span>
+<span class="codeline" id="line-276"><code>	<label for="r58" class="ident">check</label>.<a href="#line-307" class="ident">recordUntyped</a>()</code></span>
+<span class="codeline" id="line-277"><code></code></span>
+<span class="codeline" id="line-278"><code>	<label for="r58" class="ident">check</label>.<a href="#line-79" class="ident">pkg</a>.<a href="package.go.html#line-17" class="ident">complete</a> = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-279"><code>	<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-280"><code>}</code></span>
+<span class="codeline" id="line-281"><code></code></span>
+<span class="codeline" id="line-282"><code><span class="comment">// processDelayed processes all delayed actions pushed after top.</span></code></span>
+<span class="codeline" id="line-283"><code><span class="keyword">func</span> (<label for="r62" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r63" class="ident"><a href="../../../use/go/types..Checker.processDelayed.html" class="ident">processDelayed</a></label>(<label for="r64" class="ident">top</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>) {</code></span>
+<span class="codeline" id="line-284"><code>	<span class="comment">// If each delayed action pushes a new action, the</span></code></span>
+<span class="codeline" id="line-285"><code><span class="comment">	// stack will continue to grow during this loop.</span></code></span>
+<span class="codeline" id="line-286"><code><span class="comment">	// However, it is only processing functions (which</span></code></span>
+<span class="codeline" id="line-287"><code><span class="comment">	// are processed in a delayed fashion) that may</span></code></span>
+<span class="codeline" id="line-288"><code><span class="comment">	// add more actions (such as nested functions), so</span></code></span>
+<span class="codeline" id="line-289"><code><span class="comment">	// this is a sufficiently bounded process.</span></code></span>
+<span class="codeline" id="line-290"><code>	<span class="keyword">for</span> <label for="r65" class="ident">i</label> := <label for="r64" class="ident">top</label>; <label for="r65" class="ident">i</label> &lt; <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r62" class="ident">check</label>.<a href="#line-95" class="ident">delayed</a>); <label for="r65" class="ident">i</label>++ {</code></span>
+<span class="codeline" id="line-291"><code>		<label for="r62" class="ident">check</label>.<a href="#line-95" class="ident">delayed</a>[<label for="r65" class="ident">i</label>]() <span class="comment">// may append to check.delayed</span></code></span>
+<span class="codeline" id="line-292"><code>	}</code></span>
+<span class="codeline" id="line-293"><code>	<a href="errors.go.html#line-18" class="ident">assert</a>(<label for="r64" class="ident">top</label> &lt;= <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r62" class="ident">check</label>.<a href="#line-95" class="ident">delayed</a>)) <span class="comment">// stack must not have shrunk</span></code></span>
+<span class="codeline" id="line-294"><code>	<label for="r62" class="ident">check</label>.<a href="#line-95" class="ident">delayed</a> = <label for="r62" class="ident">check</label>.<a href="#line-95" class="ident">delayed</a>[:<label for="r64" class="ident">top</label>]</code></span>
+<span class="codeline" id="line-295"><code>}</code></span>
+<span class="codeline" id="line-296"><code></code></span>
+<span class="codeline" id="line-297"><code><span class="keyword">func</span> (<label for="r66" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r67" class="ident"><a href="../../../use/go/types..Checker.processFinals.html" class="ident">processFinals</a></label>() {</code></span>
+<span class="codeline" id="line-298"><code>	<label for="r68" class="ident">n</label> := <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r66" class="ident">check</label>.<a href="#line-96" class="ident">finals</a>)</code></span>
+<span class="codeline" id="line-299"><code>	<span class="keyword">for</span> <label for="r69" class="ident">_</label>, <label for="r70" class="ident">f</label> := <span class="keyword">range</span> <label for="r66" class="ident">check</label>.<a href="#line-96" class="ident">finals</a> {</code></span>
+<span class="codeline" id="line-300"><code>		<label for="r70" class="ident">f</label>() <span class="comment">// must not append to check.finals</span></code></span>
+<span class="codeline" id="line-301"><code>	}</code></span>
+<span class="codeline" id="line-302"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r66" class="ident">check</label>.<a href="#line-96" class="ident">finals</a>) != <label for="r68" class="ident">n</label> {</code></span>
+<span class="codeline" id="line-303"><code>		<a href="../../../pkg/builtin.html#name-panic" class="ident">panic</a>(<span class="lit-string">"internal error: final action list grew"</span>)</code></span>
+<span class="codeline" id="line-304"><code>	}</code></span>
+<span class="codeline" id="line-305"><code>}</code></span>
+<span class="codeline" id="line-306"><code></code></span>
+<span class="codeline" id="line-307"><code><span class="keyword">func</span> (<label for="r71" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r72" class="ident"><a href="../../../use/go/types..Checker.recordUntyped.html" class="ident">recordUntyped</a></label>() {</code></span>
+<span class="codeline" id="line-308"><code>	<span class="keyword">if</span> !<a href="#line-18" class="ident">debug</a> &amp;&amp; <label for="r71" class="ident">check</label>.<a href="api.go.html#line-178" class="ident">Types</a> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-309"><code>		<span class="keyword">return</span> <span class="comment">// nothing to do</span></code></span>
+<span class="codeline" id="line-310"><code>	}</code></span>
+<span class="codeline" id="line-311"><code></code></span>
+<span class="codeline" id="line-312"><code>	<span class="keyword">for</span> <label for="r73" class="ident">x</label>, <label for="r74" class="ident">info</label> := <span class="keyword">range</span> <label for="r71" class="ident">check</label>.<a href="#line-94" class="ident">untyped</a> {</code></span>
+<span class="codeline" id="line-313"><code>		<span class="keyword">if</span> <a href="#line-18" class="ident">debug</a> &amp;&amp; <a href="predicates.go.html#line-54" class="ident">isTyped</a>(<label for="r74" class="ident">info</label>.<a href="#line-39" class="ident">typ</a>) {</code></span>
+<span class="codeline" id="line-314"><code>			<label for="r71" class="ident">check</label>.<a href="errors.go.html#line-72" class="ident">dump</a>(<span class="lit-string">"%v: %s (type %s) is typed"</span>, <label for="r73" class="ident">x</label>.<a href="../ast/ast.go.html#line-34" class="ident">Pos</a>(), <label for="r73" class="ident">x</label>, <label for="r74" class="ident">info</label>.<a href="#line-39" class="ident">typ</a>)</code></span>
+<span class="codeline" id="line-315"><code>			<a href="errors.go.html#line-24" class="ident">unreachable</a>()</code></span>
+<span class="codeline" id="line-316"><code>		}</code></span>
+<span class="codeline" id="line-317"><code>		<label for="r71" class="ident">check</label>.<a href="#line-321" class="ident">recordTypeAndValue</a>(<label for="r73" class="ident">x</label>, <label for="r74" class="ident">info</label>.<a href="#line-38" class="ident">mode</a>, <label for="r74" class="ident">info</label>.<a href="#line-39" class="ident">typ</a>, <label for="r74" class="ident">info</label>.<a href="#line-40" class="ident">val</a>)</code></span>
+<span class="codeline" id="line-318"><code>	}</code></span>
+<span class="codeline" id="line-319"><code>}</code></span>
+<span class="codeline" id="line-320"><code></code></span>
+<span class="codeline" id="line-321"><code><span class="keyword">func</span> (<label for="r75" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r76" class="ident"><a href="../../../use/go/types..Checker.recordTypeAndValue.html" class="ident">recordTypeAndValue</a></label>(<label for="r77" class="ident">x</label> <a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-39" class="ident">Expr</a>, <label for="r78" class="ident">mode</label> <a href="operand.go.html#line-18" class="ident">operandMode</a>, <label for="r79" class="ident">typ</label> <a href="type.go.html#line-11" class="ident">Type</a>, <label for="r80" class="ident">val</label> <a href="../../../pkg/go/constant.html" class="ident i2">constant</a>.<a href="../constant/value.go.html#line-44" class="ident">Value</a>) {</code></span>
+<span class="codeline" id="line-322"><code>	<a href="errors.go.html#line-18" class="ident">assert</a>(<label for="r77" class="ident">x</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-323"><code>	<a href="errors.go.html#line-18" class="ident">assert</a>(<label for="r79" class="ident">typ</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-324"><code>	<span class="keyword">if</span> <label for="r78" class="ident">mode</label> == <a href="operand.go.html#line-21" class="ident">invalid</a> {</code></span>
+<span class="codeline" id="line-325"><code>		<span class="keyword">return</span> <span class="comment">// omit</span></code></span>
+<span class="codeline" id="line-326"><code>	}</code></span>
+<span class="codeline" id="line-327"><code>	<span class="keyword">if</span> <label for="r78" class="ident">mode</label> == <a href="operand.go.html#line-25" class="ident">constant_</a> {</code></span>
+<span class="codeline" id="line-328"><code>		<a href="errors.go.html#line-18" class="ident">assert</a>(<label for="r80" class="ident">val</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-329"><code>		<a href="errors.go.html#line-18" class="ident">assert</a>(<label for="r79" class="ident">typ</label> == <a href="universe.go.html#line-36" class="ident">Typ</a>[<a href="type.go.html#line-23" class="ident">Invalid</a>] || <a href="predicates.go.html#line-69" class="ident">isConstType</a>(<label for="r79" class="ident">typ</label>))</code></span>
+<span class="codeline" id="line-330"><code>	}</code></span>
+<span class="codeline" id="line-331"><code>	<span class="keyword">if</span> <label for="r81" class="ident">m</label> := <label for="r75" class="ident">check</label>.<a href="api.go.html#line-178" class="ident">Types</a>; <label for="r81" class="ident">m</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-332"><code>		<label for="r81" class="ident">m</label>[<label for="r77" class="ident">x</label>] = <a href="api.go.html#line-278" class="ident">TypeAndValue</a>{<label for="r78" class="ident">mode</label>, <label for="r79" class="ident">typ</label>, <label for="r80" class="ident">val</label>}</code></span>
+<span class="codeline" id="line-333"><code>	}</code></span>
+<span class="codeline" id="line-334"><code>}</code></span>
+<span class="codeline" id="line-335"><code></code></span>
+<span class="codeline" id="line-336"><code><span class="keyword">func</span> (<label for="r82" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r83" class="ident"><a href="../../../use/go/types..Checker.recordBuiltinType.html" class="ident">recordBuiltinType</a></label>(<label for="r84" class="ident">f</label> <a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-39" class="ident">Expr</a>, <label for="r85" class="ident">sig</label> *<a href="type.go.html#line-197" class="ident">Signature</a>) {</code></span>
+<span class="codeline" id="line-337"><code>	<span class="comment">// f must be a (possibly parenthesized) identifier denoting a built-in</span></code></span>
+<span class="codeline" id="line-338"><code><span class="comment">	// (built-ins in package unsafe always produce a constant result and</span></code></span>
+<span class="codeline" id="line-339"><code><span class="comment">	// we don't record their signatures, so we don't see qualified idents</span></code></span>
+<span class="codeline" id="line-340"><code><span class="comment">	// here): record the signature for f and possible children.</span></code></span>
+<span class="codeline" id="line-341"><code>	<span class="keyword">for</span> {</code></span>
+<span class="codeline" id="line-342"><code>		<label for="r82" class="ident">check</label>.<a href="#line-321" class="ident">recordTypeAndValue</a>(<label for="r84" class="ident">f</label>, <a href="operand.go.html#line-23" class="ident">builtin</a>, <label for="r85" class="ident">sig</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-343"><code>		<span class="keyword">switch</span> p := <label for="r84" class="ident">f</label>.(<span class="keyword">type</span>) {</code></span>
+<span class="codeline" id="line-344"><code>		<span class="keyword">case</span> *<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-278" class="ident">Ident</a>:</code></span>
+<span class="codeline" id="line-345"><code>			<span class="keyword">return</span> <span class="comment">// we're done</span></code></span>
+<span class="codeline" id="line-346"><code>		<span class="keyword">case</span> *<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-321" class="ident">ParenExpr</a>:</code></span>
+<span class="codeline" id="line-347"><code>			<label for="r84" class="ident">f</label> = <label for="r86" class="ident">p</label>.<a href="../ast/ast.go.html#line-323" class="ident">X</a></code></span>
+<span class="codeline" id="line-348"><code>		<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-349"><code>			<a href="errors.go.html#line-24" class="ident">unreachable</a>()</code></span>
+<span class="codeline" id="line-350"><code>		}</code></span>
+<span class="codeline" id="line-351"><code>	}</code></span>
+<span class="codeline" id="line-352"><code>}</code></span>
+<span class="codeline" id="line-353"><code></code></span>
+<span class="codeline" id="line-354"><code><span class="keyword">func</span> (<label for="r87" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r88" class="ident"><a href="../../../use/go/types..Checker.recordCommaOkTypes.html" class="ident">recordCommaOkTypes</a></label>(<label for="r89" class="ident">x</label> <a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-39" class="ident">Expr</a>, <label for="r90" class="ident">a</label> [<span class="lit-number">2</span>]<a href="type.go.html#line-11" class="ident">Type</a>) {</code></span>
+<span class="codeline" id="line-355"><code>	<a href="errors.go.html#line-18" class="ident">assert</a>(<label for="r89" class="ident">x</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-356"><code>	<span class="keyword">if</span> <label for="r90" class="ident">a</label>[<span class="lit-number">0</span>] == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> || <label for="r90" class="ident">a</label>[<span class="lit-number">1</span>] == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-357"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-358"><code>	}</code></span>
+<span class="codeline" id="line-359"><code>	<a href="errors.go.html#line-18" class="ident">assert</a>(<a href="predicates.go.html#line-54" class="ident">isTyped</a>(<label for="r90" class="ident">a</label>[<span class="lit-number">0</span>]) &amp;&amp; <a href="predicates.go.html#line-54" class="ident">isTyped</a>(<label for="r90" class="ident">a</label>[<span class="lit-number">1</span>]) &amp;&amp; (<a href="predicates.go.html#line-19" class="ident">isBoolean</a>(<label for="r90" class="ident">a</label>[<span class="lit-number">1</span>]) || <label for="r90" class="ident">a</label>[<span class="lit-number">1</span>] == <a href="universe.go.html#line-27" class="ident">universeError</a>))</code></span>
+<span class="codeline" id="line-360"><code>	<span class="keyword">if</span> <label for="r91" class="ident">m</label> := <label for="r87" class="ident">check</label>.<a href="api.go.html#line-178" class="ident">Types</a>; <label for="r91" class="ident">m</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-361"><code>		<span class="keyword">for</span> {</code></span>
+<span class="codeline" id="line-362"><code>			<label for="r92" class="ident">tv</label> := <label for="r91" class="ident">m</label>[<label for="r89" class="ident">x</label>]</code></span>
+<span class="codeline" id="line-363"><code>			<a href="errors.go.html#line-18" class="ident">assert</a>(<label for="r92" class="ident">tv</label>.<a href="api.go.html#line-280" class="ident">Type</a> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>) <span class="comment">// should have been recorded already</span></code></span>
+<span class="codeline" id="line-364"><code>			<label for="r93" class="ident">pos</label> := <label for="r89" class="ident">x</label>.<a href="../ast/ast.go.html#line-34" class="ident">Pos</a>()</code></span>
+<span class="codeline" id="line-365"><code>			<label for="r92" class="ident">tv</label>.<a href="api.go.html#line-280" class="ident">Type</a> = <a href="type.go.html#line-177" class="ident">NewTuple</a>(</code></span>
+<span class="codeline" id="line-366"><code>				<a href="object.go.html#line-263" class="ident">NewVar</a>(<label for="r93" class="ident">pos</label>, <label for="r87" class="ident">check</label>.<a href="#line-79" class="ident">pkg</a>, <span class="lit-string">""</span>, <label for="r90" class="ident">a</label>[<span class="lit-number">0</span>]),</code></span>
+<span class="codeline" id="line-367"><code>				<a href="object.go.html#line-263" class="ident">NewVar</a>(<label for="r93" class="ident">pos</label>, <label for="r87" class="ident">check</label>.<a href="#line-79" class="ident">pkg</a>, <span class="lit-string">""</span>, <label for="r90" class="ident">a</label>[<span class="lit-number">1</span>]),</code></span>
+<span class="codeline" id="line-368"><code>			)</code></span>
+<span class="codeline" id="line-369"><code>			<label for="r91" class="ident">m</label>[<label for="r89" class="ident">x</label>] = <label for="r92" class="ident">tv</label></code></span>
+<span class="codeline" id="line-370"><code>			<span class="comment">// if x is a parenthesized expression (p.X), update p.X</span></code></span>
+<span class="codeline" id="line-371"><code>			<label for="r94" class="ident">p</label>, <label for="r95" class="ident">_</label> := <label for="r89" class="ident">x</label>.(*<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-321" class="ident">ParenExpr</a>)</code></span>
+<span class="codeline" id="line-372"><code>			<span class="keyword">if</span> <label for="r94" class="ident">p</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-373"><code>				<span class="keyword">break</span></code></span>
+<span class="codeline" id="line-374"><code>			}</code></span>
+<span class="codeline" id="line-375"><code>			<label for="r89" class="ident">x</label> = <label for="r94" class="ident">p</label>.<a href="../ast/ast.go.html#line-323" class="ident">X</a></code></span>
+<span class="codeline" id="line-376"><code>		}</code></span>
+<span class="codeline" id="line-377"><code>	}</code></span>
+<span class="codeline" id="line-378"><code>}</code></span>
+<span class="codeline" id="line-379"><code></code></span>
+<span class="codeline" id="line-380"><code><span class="keyword">func</span> (<label for="r96" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r97" class="ident"><a href="../../../use/go/types..Checker.recordDef.html" class="ident">recordDef</a></label>(<label for="r98" class="ident">id</label> *<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-278" class="ident">Ident</a>, <label for="r99" class="ident">obj</label> <a href="object.go.html#line-18" class="ident">Object</a>) {</code></span>
+<span class="codeline" id="line-381"><code>	<a href="errors.go.html#line-18" class="ident">assert</a>(<label for="r98" class="ident">id</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-382"><code>	<span class="keyword">if</span> <label for="r100" class="ident">m</label> := <label for="r96" class="ident">check</label>.<a href="api.go.html#line-189" class="ident">Defs</a>; <label for="r100" class="ident">m</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-383"><code>		<label for="r100" class="ident">m</label>[<label for="r98" class="ident">id</label>] = <label for="r99" class="ident">obj</label></code></span>
+<span class="codeline" id="line-384"><code>	}</code></span>
+<span class="codeline" id="line-385"><code>}</code></span>
+<span class="codeline" id="line-386"><code></code></span>
+<span class="codeline" id="line-387"><code><span class="keyword">func</span> (<label for="r101" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r102" class="ident"><a href="../../../use/go/types..Checker.recordUse.html" class="ident">recordUse</a></label>(<label for="r103" class="ident">id</label> *<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-278" class="ident">Ident</a>, <label for="r104" class="ident">obj</label> <a href="object.go.html#line-18" class="ident">Object</a>) {</code></span>
+<span class="codeline" id="line-388"><code>	<a href="errors.go.html#line-18" class="ident">assert</a>(<label for="r103" class="ident">id</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-389"><code>	<a href="errors.go.html#line-18" class="ident">assert</a>(<label for="r104" class="ident">obj</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-390"><code>	<span class="keyword">if</span> <label for="r105" class="ident">m</label> := <label for="r101" class="ident">check</label>.<a href="api.go.html#line-196" class="ident">Uses</a>; <label for="r105" class="ident">m</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-391"><code>		<label for="r105" class="ident">m</label>[<label for="r103" class="ident">id</label>] = <label for="r104" class="ident">obj</label></code></span>
+<span class="codeline" id="line-392"><code>	}</code></span>
+<span class="codeline" id="line-393"><code>}</code></span>
+<span class="codeline" id="line-394"><code></code></span>
+<span class="codeline" id="line-395"><code><span class="keyword">func</span> (<label for="r106" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r107" class="ident"><a href="../../../use/go/types..Checker.recordImplicit.html" class="ident">recordImplicit</a></label>(<label for="r108" class="ident">node</label> <a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-33" class="ident">Node</a>, <label for="r109" class="ident">obj</label> <a href="object.go.html#line-18" class="ident">Object</a>) {</code></span>
+<span class="codeline" id="line-396"><code>	<a href="errors.go.html#line-18" class="ident">assert</a>(<label for="r108" class="ident">node</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-397"><code>	<a href="errors.go.html#line-18" class="ident">assert</a>(<label for="r109" class="ident">obj</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-398"><code>	<span class="keyword">if</span> <label for="r110" class="ident">m</label> := <label for="r106" class="ident">check</label>.<a href="api.go.html#line-207" class="ident">Implicits</a>; <label for="r110" class="ident">m</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-399"><code>		<label for="r110" class="ident">m</label>[<label for="r108" class="ident">node</label>] = <label for="r109" class="ident">obj</label></code></span>
+<span class="codeline" id="line-400"><code>	}</code></span>
+<span class="codeline" id="line-401"><code>}</code></span>
+<span class="codeline" id="line-402"><code></code></span>
+<span class="codeline" id="line-403"><code><span class="keyword">func</span> (<label for="r111" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r112" class="ident"><a href="../../../use/go/types..Checker.recordSelection.html" class="ident">recordSelection</a></label>(<label for="r113" class="ident">x</label> *<a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-328" class="ident">SelectorExpr</a>, <label for="r114" class="ident">kind</label> <a href="selection.go.html#line-16" class="ident">SelectionKind</a>, <label for="r115" class="ident">recv</label> <a href="type.go.html#line-11" class="ident">Type</a>, <label for="r116" class="ident">obj</label> <a href="object.go.html#line-18" class="ident">Object</a>, <label for="r117" class="ident">index</label> []<a href="../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r118" class="ident">indirect</label> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
+<span class="codeline" id="line-404"><code>	<a href="errors.go.html#line-18" class="ident">assert</a>(<label for="r116" class="ident">obj</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> &amp;&amp; (<label for="r115" class="ident">recv</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> || <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r117" class="ident">index</label>) &gt; <span class="lit-number">0</span>))</code></span>
+<span class="codeline" id="line-405"><code>	<label for="r111" class="ident">check</label>.<a href="#line-387" class="ident">recordUse</a>(<label for="r113" class="ident">x</label>.<a href="../ast/ast.go.html#line-330" class="ident">Sel</a>, <label for="r116" class="ident">obj</label>)</code></span>
+<span class="codeline" id="line-406"><code>	<span class="keyword">if</span> <label for="r119" class="ident">m</label> := <label for="r111" class="ident">check</label>.<a href="api.go.html#line-211" class="ident">Selections</a>; <label for="r119" class="ident">m</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-407"><code>		<label for="r119" class="ident">m</label>[<label for="r113" class="ident">x</label>] = &amp;<a href="selection.go.html#line-40" class="ident">Selection</a>{<label for="r114" class="ident">kind</label>, <label for="r115" class="ident">recv</label>, <label for="r116" class="ident">obj</label>, <label for="r117" class="ident">index</label>, <label for="r118" class="ident">indirect</label>}</code></span>
+<span class="codeline" id="line-408"><code>	}</code></span>
+<span class="codeline" id="line-409"><code>}</code></span>
+<span class="codeline" id="line-410"><code></code></span>
+<span class="codeline" id="line-411"><code><span class="keyword">func</span> (<label for="r120" class="ident">check</label> *<a href="#line-74" class="ident">Checker</a>) <label for="r121" class="ident"><a href="../../../use/go/types..Checker.recordScope.html" class="ident">recordScope</a></label>(<label for="r122" class="ident">node</label> <a href="../../../pkg/go/ast.html" class="ident i1">ast</a>.<a href="../ast/ast.go.html#line-33" class="ident">Node</a>, <label for="r123" class="ident">scope</label> *<a href="scope.go.html#line-22" class="ident">Scope</a>) {</code></span>
+<span class="codeline" id="line-412"><code>	<a href="errors.go.html#line-18" class="ident">assert</a>(<label for="r122" class="ident">node</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-413"><code>	<a href="errors.go.html#line-18" class="ident">assert</a>(<label for="r123" class="ident">scope</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-414"><code>	<span class="keyword">if</span> <label for="r124" class="ident">m</label> := <label for="r120" class="ident">check</label>.<a href="api.go.html#line-236" class="ident">Scopes</a>; <label for="r124" class="ident">m</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-415"><code>		<label for="r124" class="ident">m</label>[<label for="r122" class="ident">node</label>] = <label for="r123" class="ident">scope</label></code></span>
+<span class="codeline" id="line-416"><code>	}</code></span>
+<span class="codeline" id="line-417"><code>}</code></span>
+</pre><pre id="footer">
+<table><tr><td><img src="../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

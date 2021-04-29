@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: make_bindings.go in package github.com/gotd/td/internal/gen</title>
+<link href="../../../../../../css/light-v0.2.7-preview.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.2.7-preview.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	make_bindings.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../../../../pkg/github.com/gotd/td/internal/gen.html">github.com/gotd/td/internal/gen</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16],
+input[id=r17]:checked ~pre label[for=r17],
+input[id=r18]:checked ~pre label[for=r18],
+input[id=r19]:checked ~pre label[for=r19],
+input[id=r20]:checked ~pre label[for=r20],
+input[id=r21]:checked ~pre label[for=r21],
+input[id=r22]:checked ~pre label[for=r22],
+input[id=r23]:checked ~pre label[for=r23],
+input[id=r24]:checked ~pre label[for=r24],
+input[id=r25]:checked ~pre label[for=r25]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1,
+input[id=i2]:checked ~pre .i2
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="r17" type="radio" name="g"/>
+<input id="r18" type="radio" name="g"/>
+<input id="r19" type="radio" name="g"/>
+<input id="r20" type="radio" name="g"/>
+<input id="r21" type="radio" name="g"/>
+<input id="r22" type="radio" name="g"/>
+<input id="r23" type="radio" name="g"/>
+<input id="r24" type="radio" name="g"/>
+<input id="r25" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+<input id="i2" type="radio" name="i"/>
+
+<pre class="line-numbers">
+<span class="codeline" id="line-1"><code><span class="keyword">package</span> gen</code></span>
+<span class="codeline" id="line-2"><code></code></span>
+<span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"strings"</span></label></code></span>
+<span class="codeline" id="line-5"><code></code></span>
+<span class="codeline" id="line-6"><code>	<label for="i1"><span class="lit-string i1">"golang.org/x/xerrors"</span></label></code></span>
+<span class="codeline" id="line-7"><code></code></span>
+<span class="codeline" id="line-8"><code>	<label for="i2"><span class="lit-string i2">"github.com/gotd/tl"</span></label></code></span>
+<span class="codeline" id="line-9"><code>)</code></span>
+<span class="codeline" id="line-10"><code></code></span>
+<span class="codeline" id="line-11"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/internal/gen.html#name-typeBinding" class="ident">typeBinding</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-12"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/gen..typeBinding.Namespace.html" class="ident">Namespace</a>     []<a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-13"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/gen..typeBinding.Class.html" class="ident">Class</a>         <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a> <span class="comment">// user.Auth, class in TL</span></code></span>
+<span class="codeline" id="line-14"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/gen..typeBinding.Name.html" class="ident">Name</a>          <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a> <span class="comment">// go type name, like in type Name struct{}</span></code></span>
+<span class="codeline" id="line-15"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/gen..typeBinding.Interface.html" class="ident">Interface</a>     <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a> <span class="comment">// go type interface, like UserAuthClass</span></code></span>
+<span class="codeline" id="line-16"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/gen..typeBinding.InterfaceFunc.html" class="ident">InterfaceFunc</a> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a> <span class="comment">// go encoding/decoding function postfix, like UserAuth in DecodeUserAuth</span></code></span>
+<span class="codeline" id="line-17"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/gen..typeBinding.Method.html" class="ident">Method</a>        <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a> <span class="comment">// go method name if function</span></code></span>
+<span class="codeline" id="line-18"><code>}</code></span>
+<span class="codeline" id="line-19"><code></code></span>
+<span class="codeline" id="line-20"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/internal/gen.html#name-classBinding" class="ident">classBinding</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-21"><code>	<span class="comment">// Name as used in go interface type definition,</span></code></span>
+<span class="codeline" id="line-22"><code><span class="comment">	// i.e. type Name interface {}.</span></code></span>
+<span class="codeline" id="line-23"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/gen..classBinding.Name.html" class="ident">Name</a> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-24"><code>	<span class="comment">// Func is used as postfix for Decode and Encode functions.</span></code></span>
+<span class="codeline" id="line-25"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/gen..classBinding.Func.html" class="ident">Func</a>      <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-26"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/gen..classBinding.Namespace.html" class="ident">Namespace</a> []<a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-27"><code>	<span class="comment">// Singular is special case for class where single constructor replaces</span></code></span>
+<span class="codeline" id="line-28"><code><span class="comment">	// class.</span></code></span>
+<span class="codeline" id="line-29"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/gen..classBinding.Singular.html" class="ident">Singular</a>     <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-30"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/gen..classBinding.Vector.html" class="ident">Vector</a>       <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-31"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/gen..classBinding.Constructors.html" class="ident">Constructors</a> []<a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-32"><code></code></span>
+<span class="codeline" id="line-33"><code>	<span class="comment">// BaseName is "Auth" for user.Auth interface.</span></code></span>
+<span class="codeline" id="line-34"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/gen..classBinding.BaseName.html" class="ident">BaseName</a> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-35"><code>	<span class="comment">// RawType of class from TL.</span></code></span>
+<span class="codeline" id="line-36"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/gen..classBinding.RawType.html" class="ident">RawType</a> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-37"><code>}</code></span>
+<span class="codeline" id="line-38"><code></code></span>
+<span class="codeline" id="line-39"><code><span class="comment">// namespacedName returns camel-case name with namespace prefix.</span></code></span>
+<span class="codeline" id="line-40"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/gen.html#name-namespacedName" class="ident">namespacedName</a></label>(<label for="r1" class="ident">name</label> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r2" class="ident">namespace</label> []<a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-41"><code>	<label for="r3" class="ident">goName</label> := <a href="names.go.html#line-100" class="ident">pascal</a>(<label for="r1" class="ident">name</label>)</code></span>
+<span class="codeline" id="line-42"><code>	<span class="keyword">if</span> <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r2" class="ident">namespace</label>) &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-43"><code>		<span class="keyword">var</span> <label for="r4" class="ident">b</label> <a href="../../../../../../pkg/strings.html" class="ident i0">strings</a>.<a href="../../../../../strings/builder.go.html#line-15" class="ident">Builder</a></code></span>
+<span class="codeline" id="line-44"><code>		<span class="keyword">for</span> <label for="r5" class="ident">_</label>, <label for="r6" class="ident">ns</label> := <span class="keyword">range</span> <label for="r2" class="ident">namespace</label> {</code></span>
+<span class="codeline" id="line-45"><code>			<label for="r4" class="ident">b</label>.<a href="../../../../../strings/builder.go.html#line-121" class="ident">WriteString</a>(<a href="names.go.html#line-100" class="ident">pascal</a>(<label for="r6" class="ident">ns</label>))</code></span>
+<span class="codeline" id="line-46"><code>		}</code></span>
+<span class="codeline" id="line-47"><code>		<label for="r4" class="ident">b</label>.<a href="../../../../../strings/builder.go.html#line-121" class="ident">WriteString</a>(<label for="r3" class="ident">goName</label>)</code></span>
+<span class="codeline" id="line-48"><code>		<label for="r3" class="ident">goName</label> = <label for="r4" class="ident">b</label>.<a href="../../../../../strings/builder.go.html#line-47" class="ident">String</a>()</code></span>
+<span class="codeline" id="line-49"><code>	}</code></span>
+<span class="codeline" id="line-50"><code>	<span class="keyword">return</span> <label for="r3" class="ident">goName</label></code></span>
+<span class="codeline" id="line-51"><code>}</code></span>
+<span class="codeline" id="line-52"><code></code></span>
+<span class="codeline" id="line-53"><code><span class="comment">// makeBindings fills classes and types fields of Generator.</span></code></span>
+<span class="codeline" id="line-54"><code><span class="keyword">func</span> (<label for="r7" class="ident">g</label> *<a href="generator.go.html#line-22" class="ident">Generator</a>) <label for="r8" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/gen..Generator.makeBindings.html" class="ident">makeBindings</a></label>() <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-55"><code>	<span class="comment">// 1) Searching for all classes with single constructor.</span></code></span>
+<span class="codeline" id="line-56"><code><span class="comment">	// If class has single constructor, it can be reduced to specific type.</span></code></span>
+<span class="codeline" id="line-57"><code>	<label for="r9" class="ident">constructors</label> := <span class="keyword">map</span>[<a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>]<a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a>{}</code></span>
+<span class="codeline" id="line-58"><code>	<span class="keyword">for</span> <label for="r10" class="ident">_</label>, <label for="r11" class="ident">d</label> := <span class="keyword">range</span> <label for="r7" class="ident">g</label>.<a href="generator.go.html#line-23" class="ident">schema</a>.<a href="../../../tl/schema.go.html#line-30" class="ident">Definitions</a> {</code></span>
+<span class="codeline" id="line-59"><code>		<span class="keyword">if</span> <label for="r11" class="ident">d</label>.<a href="../../../tl/schema.go.html#line-15" class="ident">Category</a> != <a href="../../../../../../pkg/github.com/gotd/tl.html" class="ident i2">tl</a>.<a href="../../../tl/category.go.html#line-7" class="ident">CategoryType</a> {</code></span>
+<span class="codeline" id="line-60"><code>			<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-61"><code>		}</code></span>
+<span class="codeline" id="line-62"><code>		<label for="r9" class="ident">constructors</label>[<label for="r11" class="ident">d</label>.<a href="../../../tl/schema.go.html#line-14" class="ident">Definition</a>.<a href="../../../tl/definition.go.html#line-20" class="ident">Type</a>.<a href="../../../tl/type.go.html#line-19" class="ident">String</a>()]++</code></span>
+<span class="codeline" id="line-63"><code>	}</code></span>
+<span class="codeline" id="line-64"><code></code></span>
+<span class="codeline" id="line-65"><code>	<span class="comment">// 2) Binding TL types to structures and interfaces.</span></code></span>
+<span class="codeline" id="line-66"><code>	<span class="keyword">for</span> <label for="r12" class="ident">_</label>, <label for="r13" class="ident">sd</label> := <span class="keyword">range</span> <label for="r7" class="ident">g</label>.<a href="generator.go.html#line-23" class="ident">schema</a>.<a href="../../../tl/schema.go.html#line-30" class="ident">Definitions</a> {</code></span>
+<span class="codeline" id="line-67"><code>		<span class="keyword">var</span> (</code></span>
+<span class="codeline" id="line-68"><code>			<label for="r14" class="ident">d</label>        = <label for="r13" class="ident">sd</label>.<a href="../../../tl/schema.go.html#line-14" class="ident">Definition</a></code></span>
+<span class="codeline" id="line-69"><code>			<label for="r15" class="ident">classKey</label> = <label for="r14" class="ident">d</label>.<a href="../../../tl/definition.go.html#line-20" class="ident">Type</a>.<a href="../../../tl/type.go.html#line-19" class="ident">String</a>()</code></span>
+<span class="codeline" id="line-70"><code>			<label for="r16" class="ident">typeKey</label>  = <a href="generator.go.html#line-14" class="ident">definitionType</a>(<label for="r14" class="ident">d</label>)</code></span>
+<span class="codeline" id="line-71"><code>			<label for="r17" class="ident">goName</label>   = <a href="#line-40" class="ident">namespacedName</a>(<label for="r14" class="ident">d</label>.<a href="../../../tl/definition.go.html#line-17" class="ident">Name</a>, <label for="r14" class="ident">d</label>.<a href="../../../tl/definition.go.html#line-16" class="ident">Namespace</a>)</code></span>
+<span class="codeline" id="line-72"><code>		)</code></span>
+<span class="codeline" id="line-73"><code></code></span>
+<span class="codeline" id="line-74"><code>		<span class="comment">// Binding bare type.</span></code></span>
+<span class="codeline" id="line-75"><code>		<label for="r18" class="ident">tb</label> := <a href="#line-11" class="ident">typeBinding</a>{</code></span>
+<span class="codeline" id="line-76"><code>			<a href="#line-12" class="ident">Namespace</a>: <label for="r14" class="ident">d</label>.<a href="../../../tl/definition.go.html#line-16" class="ident">Namespace</a>,</code></span>
+<span class="codeline" id="line-77"><code>			<a href="#line-13" class="ident">Class</a>:     <label for="r15" class="ident">classKey</label>,</code></span>
+<span class="codeline" id="line-78"><code>			<a href="#line-14" class="ident">Name</a>:      <label for="r17" class="ident">goName</label>,</code></span>
+<span class="codeline" id="line-79"><code>		}</code></span>
+<span class="codeline" id="line-80"><code></code></span>
+<span class="codeline" id="line-81"><code>		<span class="keyword">switch</span> <label for="r13" class="ident">sd</label>.<a href="../../../tl/schema.go.html#line-15" class="ident">Category</a> {</code></span>
+<span class="codeline" id="line-82"><code>		<span class="keyword">case</span> <a href="../../../../../../pkg/github.com/gotd/tl.html" class="ident i2">tl</a>.<a href="../../../tl/category.go.html#line-7" class="ident">CategoryType</a>:</code></span>
+<span class="codeline" id="line-83"><code>			<label for="r19" class="ident">constructorsCount</label>, <label for="r20" class="ident">ok</label> := <label for="r9" class="ident">constructors</label>[<label for="r15" class="ident">classKey</label>]</code></span>
+<span class="codeline" id="line-84"><code>			<span class="keyword">if</span> <label for="r19" class="ident">constructorsCount</label> == <span class="lit-number">0</span> || !<label for="r20" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-85"><code>				<span class="keyword">return</span> <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i1">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"constructors[%s] not found"</span>, <label for="r15" class="ident">classKey</label>)</code></span>
+<span class="codeline" id="line-86"><code>			}</code></span>
+<span class="codeline" id="line-87"><code>			<span class="keyword">if</span> <label for="r19" class="ident">constructorsCount</label> == <span class="lit-number">1</span> {</code></span>
+<span class="codeline" id="line-88"><code>				<span class="comment">// Using this constructor instead of generic class for all definitions</span></code></span>
+<span class="codeline" id="line-89"><code><span class="comment">				// that depends on that class.</span></code></span>
+<span class="codeline" id="line-90"><code>				<label for="r21" class="ident">b</label> := <a href="#line-20" class="ident">classBinding</a>{</code></span>
+<span class="codeline" id="line-91"><code>					<a href="#line-26" class="ident">Namespace</a>: <label for="r14" class="ident">d</label>.<a href="../../../tl/definition.go.html#line-16" class="ident">Namespace</a>,</code></span>
+<span class="codeline" id="line-92"><code>					<a href="#line-29" class="ident">Singular</a>:  <a href="../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
+<span class="codeline" id="line-93"><code>					<a href="#line-23" class="ident">Name</a>:      <label for="r17" class="ident">goName</label>,</code></span>
+<span class="codeline" id="line-94"><code>					<a href="#line-34" class="ident">BaseName</a>:  <label for="r14" class="ident">d</label>.<a href="../../../tl/definition.go.html#line-20" class="ident">Type</a>.<a href="../../../tl/type.go.html#line-12" class="ident">Name</a>,</code></span>
+<span class="codeline" id="line-95"><code>				}</code></span>
+<span class="codeline" id="line-96"><code>				<label for="r7" class="ident">g</label>.<a href="generator.go.html#line-26" class="ident">classes</a>[<label for="r15" class="ident">classKey</label>] = <label for="r21" class="ident">b</label></code></span>
+<span class="codeline" id="line-97"><code>				<label for="r7" class="ident">g</label>.<a href="generator.go.html#line-28" class="ident">types</a>[<label for="r16" class="ident">typeKey</label>] = <label for="r18" class="ident">tb</label></code></span>
+<span class="codeline" id="line-98"><code>				<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-99"><code>			}</code></span>
+<span class="codeline" id="line-100"><code></code></span>
+<span class="codeline" id="line-101"><code>			<span class="keyword">if</span> <label for="r22" class="ident">_</label>, <label for="r23" class="ident">ok</label> := <label for="r7" class="ident">g</label>.<a href="generator.go.html#line-26" class="ident">classes</a>[<label for="r15" class="ident">classKey</label>]; !<label for="r23" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-102"><code>				<span class="comment">// interfaceDef has multiple constructors and is new.</span></code></span>
+<span class="codeline" id="line-103"><code>				<label for="r24" class="ident">className</label> := <a href="#line-40" class="ident">namespacedName</a>(<label for="r14" class="ident">d</label>.<a href="../../../tl/definition.go.html#line-20" class="ident">Type</a>.<a href="../../../tl/type.go.html#line-12" class="ident">Name</a>, <label for="r14" class="ident">d</label>.<a href="../../../tl/definition.go.html#line-20" class="ident">Type</a>.<a href="../../../tl/type.go.html#line-11" class="ident">Namespace</a>)</code></span>
+<span class="codeline" id="line-104"><code>				<label for="r7" class="ident">g</label>.<a href="generator.go.html#line-26" class="ident">classes</a>[<label for="r15" class="ident">classKey</label>] = <a href="#line-20" class="ident">classBinding</a>{</code></span>
+<span class="codeline" id="line-105"><code>					<a href="#line-26" class="ident">Namespace</a>: <label for="r14" class="ident">d</label>.<a href="../../../tl/definition.go.html#line-16" class="ident">Namespace</a>,</code></span>
+<span class="codeline" id="line-106"><code>					<a href="#line-29" class="ident">Singular</a>:  <a href="../../../../../../pkg/builtin.html#name-false" class="ident">false</a>,</code></span>
+<span class="codeline" id="line-107"><code>					<a href="#line-25" class="ident">Func</a>:      <label for="r24" class="ident">className</label>,</code></span>
+<span class="codeline" id="line-108"><code>					<a href="#line-23" class="ident">Name</a>:      <label for="r24" class="ident">className</label> + <span class="lit-string">"Class"</span>,</code></span>
+<span class="codeline" id="line-109"><code>					<a href="#line-34" class="ident">BaseName</a>:  <label for="r14" class="ident">d</label>.<a href="../../../tl/definition.go.html#line-20" class="ident">Type</a>.<a href="../../../tl/type.go.html#line-12" class="ident">Name</a>,</code></span>
+<span class="codeline" id="line-110"><code>					<a href="#line-36" class="ident">RawType</a>:   <label for="r14" class="ident">d</label>.<a href="../../../tl/definition.go.html#line-20" class="ident">Type</a>.<a href="../../../tl/type.go.html#line-19" class="ident">String</a>(),</code></span>
+<span class="codeline" id="line-111"><code>				}</code></span>
+<span class="codeline" id="line-112"><code>			}</code></span>
+<span class="codeline" id="line-113"><code></code></span>
+<span class="codeline" id="line-114"><code>			<label for="r25" class="ident">c</label> := <label for="r7" class="ident">g</label>.<a href="generator.go.html#line-26" class="ident">classes</a>[<label for="r15" class="ident">classKey</label>]</code></span>
+<span class="codeline" id="line-115"><code>			<label for="r25" class="ident">c</label>.<a href="#line-31" class="ident">Constructors</a> = <a href="../../../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r25" class="ident">c</label>.<a href="#line-31" class="ident">Constructors</a>, <label for="r17" class="ident">goName</label>)</code></span>
+<span class="codeline" id="line-116"><code>			<label for="r7" class="ident">g</label>.<a href="generator.go.html#line-26" class="ident">classes</a>[<label for="r15" class="ident">classKey</label>] = <label for="r25" class="ident">c</label></code></span>
+<span class="codeline" id="line-117"><code></code></span>
+<span class="codeline" id="line-118"><code>			<label for="r18" class="ident">tb</label>.<a href="#line-15" class="ident">Interface</a> = <label for="r25" class="ident">c</label>.<a href="#line-23" class="ident">Name</a></code></span>
+<span class="codeline" id="line-119"><code>			<label for="r18" class="ident">tb</label>.<a href="#line-16" class="ident">InterfaceFunc</a> = <label for="r25" class="ident">c</label>.<a href="#line-25" class="ident">Func</a></code></span>
+<span class="codeline" id="line-120"><code>		<span class="keyword">case</span> <a href="../../../../../../pkg/github.com/gotd/tl.html" class="ident i2">tl</a>.<a href="../../../tl/category.go.html#line-8" class="ident">CategoryFunction</a>:</code></span>
+<span class="codeline" id="line-121"><code>			<span class="comment">// Just creating new bare type.</span></code></span>
+<span class="codeline" id="line-122"><code>			<label for="r18" class="ident">tb</label>.<a href="#line-17" class="ident">Method</a> = <label for="r18" class="ident">tb</label>.<a href="#line-14" class="ident">Name</a></code></span>
+<span class="codeline" id="line-123"><code>			<label for="r18" class="ident">tb</label>.<a href="#line-14" class="ident">Name</a> += <span class="lit-string">"Request"</span></code></span>
+<span class="codeline" id="line-124"><code>		}</code></span>
+<span class="codeline" id="line-125"><code>		<label for="r7" class="ident">g</label>.<a href="generator.go.html#line-28" class="ident">types</a>[<label for="r16" class="ident">typeKey</label>] = <label for="r18" class="ident">tb</label></code></span>
+<span class="codeline" id="line-126"><code>	}</code></span>
+<span class="codeline" id="line-127"><code></code></span>
+<span class="codeline" id="line-128"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-129"><code>}</code></span>
+</pre><pre id="footer">
+<table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

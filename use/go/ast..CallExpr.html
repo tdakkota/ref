@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>References: go/ast.CallExpr</title>
+<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre><code><span style="font-size:x-large;">type <b><a href="../../pkg/go/ast.html">go/ast</a>.<a href="../../src/go/ast/ast.go.html#line-363">CallExpr</a></b></span>
+
+<span class="title">23 uses</span>
+
+	go/ast (current package)
+		<a href="../../src/go/ast/ast.go.html#line-363">ast.go#L363</a>: 	<b>CallExpr</b> struct {
+		<a href="../../src/go/ast/ast.go.html#line-485" class="path-duplicate">ast.go</a><a href="../../src/go/ast/ast.go.html#line-485">#L485</a>: func (x *<b>CallExpr</b>) Pos() token.Pos       { return x.Fun.Pos() }
+		<a href="../../src/go/ast/ast.go.html#line-518" class="path-duplicate">ast.go</a><a href="../../src/go/ast/ast.go.html#line-518">#L518</a>: func (x *<b>CallExpr</b>) End() token.Pos       { return x.Rparen + 1 }
+		<a href="../../src/go/ast/ast.go.html#line-549" class="path-duplicate">ast.go</a><a href="../../src/go/ast/ast.go.html#line-549">#L549</a>: func (*<b>CallExpr</b>) exprNode()       {}
+		<a href="../../src/go/ast/ast.go.html#line-655" class="path-duplicate">ast.go</a><a href="../../src/go/ast/ast.go.html#line-655">#L655</a>: 		Call *<b>CallExpr</b>
+		<a href="../../src/go/ast/ast.go.html#line-661" class="path-duplicate">ast.go</a><a href="../../src/go/ast/ast.go.html#line-661">#L661</a>: 		Call  *<b>CallExpr</b>
+		<a href="../../src/go/ast/walk.go.html#line-135">walk.go#L135</a>: 	case *<b>CallExpr</b>:
+
+	<a href="../../pkg/go/parser.html">go/parser</a>
+		<a href="../../src/go/parser/parser.go.html#line-1261">parser.go#L1261</a>: func (p *parser) parseCallOrConversion(fun ast.Expr) *ast.<b>CallExpr</b> {
+		<a href="../../src/go/parser/parser.go.html#line-1284" class="path-duplicate">parser.go</a><a href="../../src/go/parser/parser.go.html#line-1284">#L1284</a>: 	return &amp;ast.<b>CallExpr</b>{Fun: fun, Lparen: lparen, Args: list, Ellipsis: ellipsis, Rparen: rparen}
+		<a href="../../src/go/parser/parser.go.html#line-1395" class="path-duplicate">parser.go</a><a href="../../src/go/parser/parser.go.html#line-1395">#L1395</a>: 	case *ast.<b>CallExpr</b>:
+		<a href="../../src/go/parser/parser.go.html#line-1747" class="path-duplicate">parser.go</a><a href="../../src/go/parser/parser.go.html#line-1747">#L1747</a>: func (p *parser) parseCallExpr(callType string) *ast.<b>CallExpr</b> {
+		<a href="../../src/go/parser/parser.go.html#line-1749" class="path-duplicate">parser.go</a><a href="../../src/go/parser/parser.go.html#line-1749">#L1749</a>: 	if call, isCall := x.(*ast.<b>CallExpr</b>); isCall {
+
+	<a href="../../pkg/go/printer.html">go/printer</a>
+		<a href="../../src/go/printer/nodes.go.html#line-878">nodes.go#L878</a>: 	case *ast.<b>CallExpr</b>:
+
+	<a href="../../pkg/go/types.html">go/types</a>
+		<a href="../../src/go/types/builtins.go.html#line-20">builtins.go#L20</a>: func (check *Checker) builtin(x *operand, call *ast.<b>CallExpr</b>, id builtinId) (_ bool) {
+		<a href="../../src/go/types/builtins.go.html#line-498" class="path-duplicate">builtins.go</a><a href="../../src/go/types/builtins.go.html#line-498">#L498</a>: 				p = make(map[*ast.<b>CallExpr</b>]bool)
+		<a href="../../src/go/types/call.go.html#line-16">call.go#L16</a>: func (check *Checker) call(x *operand, e *ast.<b>CallExpr</b>) exprKind {
+		<a href="../../src/go/types/call.go.html#line-234" class="path-duplicate">call.go</a><a href="../../src/go/types/call.go.html#line-234">#L234</a>: func (check *Checker) arguments(x *operand, call *ast.<b>CallExpr</b>, sig *Signature, arg getter, n int) {
+		<a href="../../src/go/types/check.go.html#line-51">check.go#L51</a>: 	isPanic       map[*ast.<b>CallExpr</b>]bool // set of panic call expressions (used for termination check)
+		<a href="../../src/go/types/expr.go.html#line-411">expr.go#L411</a>: 	case *ast.<b>CallExpr</b>:
+		<a href="../../src/go/types/expr.go.html#line-1518" class="path-duplicate">expr.go</a><a href="../../src/go/types/expr.go.html#line-1518">#L1518</a>: 	case *ast.<b>CallExpr</b>:
+		<a href="../../src/go/types/exprstring.go.html#line-98">exprstring.go#L98</a>: 	case *ast.<b>CallExpr</b>:
+		<a href="../../src/go/types/return.go.html#line-32">return.go#L32</a>: 		if call, ok := unparen(s.X).(*ast.<b>CallExpr</b>); ok && check.isPanic[call] {
+		<a href="../../src/go/types/stmt.go.html#line-168">stmt.go#L168</a>: func (check *Checker) suspendedCall(keyword string, call *ast.<b>CallExpr</b>) {
+</code></pre><pre id="footer">
+<table><tr><td><img src="../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

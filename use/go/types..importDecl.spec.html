@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>References: go/types.importDecl.spec</title>
+<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre><code><span style="font-size:x-large;"><b><a href="../../pkg/go/types.html">go/types</a>.<a href="../../src/go/types/decl.go.html#line-389">importDecl</a>.<a href="../../src/go/types/decl.go.html#line-389">spec</a></b></span><span style="font-size: large;"><i> (field)</i></span>
+
+<span class="title">15 uses</span>
+
+	go/types (current package)
+		<a href="../../src/go/types/decl.go.html#line-389">decl.go#L389</a>: 	importDecl struct{ <b>spec</b> *ast.ImportSpec }
+		<a href="../../src/go/types/decl.go.html#line-402" class="path-duplicate">decl.go</a><a href="../../src/go/types/decl.go.html#line-402">#L402</a>: func (d importDecl) node() ast.Node { return d.<b>spec</b> }
+		<a href="../../src/go/types/resolver.go.html#line-244">resolver.go#L244</a>: 				path, err := validatedImportPath(d.<b>spec</b>.Path.Value)
+		<a href="../../src/go/types/resolver.go.html#line-246" class="path-duplicate">resolver.go</a><a href="../../src/go/types/resolver.go.html#line-246">#L246</a>: 					check.errorf(d.<b>spec</b>.Path, _BadImportPath, "invalid import path (%s)", err)
+		<a href="../../src/go/types/resolver.go.html#line-250" class="path-duplicate">resolver.go</a><a href="../../src/go/types/resolver.go.html#line-250">#L250</a>: 				imp := check.importPackage(d.<b>spec</b>.Path.Pos(), path, fileDir)
+		<a href="../../src/go/types/resolver.go.html#line-265" class="path-duplicate">resolver.go</a><a href="../../src/go/types/resolver.go.html#line-265">#L265</a>: 				if d.<b>spec</b>.Name != nil {
+		<a href="../../src/go/types/resolver.go.html#line-266" class="path-duplicate">resolver.go</a><a href="../../src/go/types/resolver.go.html#line-266">#L266</a>: 					name = d.<b>spec</b>.Name.Name
+		<a href="../../src/go/types/resolver.go.html#line-269" class="path-duplicate">resolver.go</a><a href="../../src/go/types/resolver.go.html#line-269">#L269</a>: 						check.errorf(d.<b>spec</b>.Name, _ImportCRenamed, `cannot rename import "C"`)
+		<a href="../../src/go/types/resolver.go.html#line-273" class="path-duplicate">resolver.go</a><a href="../../src/go/types/resolver.go.html#line-273">#L273</a>: 						check.errorf(d.<b>spec</b>.Name, _InvalidInitDecl, "cannot declare init - must be func")
+		<a href="../../src/go/types/resolver.go.html#line-278" class="path-duplicate">resolver.go</a><a href="../../src/go/types/resolver.go.html#line-278">#L278</a>: 				obj := NewPkgName(d.<b>spec</b>.Pos(), pkg, name, imp)
+		<a href="../../src/go/types/resolver.go.html#line-279" class="path-duplicate">resolver.go</a><a href="../../src/go/types/resolver.go.html#line-279">#L279</a>: 				if d.<b>spec</b>.Name != nil {
+		<a href="../../src/go/types/resolver.go.html#line-281" class="path-duplicate">resolver.go</a><a href="../../src/go/types/resolver.go.html#line-281">#L281</a>: 					check.recordDef(d.<b>spec</b>.Name, obj)
+		<a href="../../src/go/types/resolver.go.html#line-283" class="path-duplicate">resolver.go</a><a href="../../src/go/types/resolver.go.html#line-283">#L283</a>: 					check.recordImplicit(d.<b>spec</b>, obj)
+		<a href="../../src/go/types/resolver.go.html#line-304" class="path-duplicate">resolver.go</a><a href="../../src/go/types/resolver.go.html#line-304">#L304</a>: 								check.errorf(d.<b>spec</b>.Name, _DuplicateDecl, "%s redeclared in this block", obj.Name())
+		<a href="../../src/go/types/resolver.go.html#line-311" class="path-duplicate">resolver.go</a><a href="../../src/go/types/resolver.go.html#line-311">#L311</a>: 					check.addUnusedDotImport(fileScope, imp, d.<b>spec</b>)
+</code></pre><pre id="footer">
+<table><tr><td><img src="../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

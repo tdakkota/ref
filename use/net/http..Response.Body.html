@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>References: net/http.Response.Body</title>
+<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre><code><span style="font-size:x-large;"><b><a href="../../pkg/net/http.html">net/http</a>.<a href="../../src/net/http/response.go.html#line-35">Response</a>.<a href="../../src/net/http/response.go.html#line-72">Body</a></b></span><span style="font-size: large;"><i> (field)</i></span>
+
+<span class="title">40 uses</span>
+
+	net/http (current package)
+		<a href="../../src/net/http/client.go.html#line-270">client.go#L270</a>: 	if resp.<b>Body</b> == nil {
+		<a href="../../src/net/http/client.go.html#line-284" class="path-duplicate">client.go</a><a href="../../src/net/http/client.go.html#line-284">#L284</a>: 		resp.<b>Body</b> = io.NopCloser(strings.NewReader(""))
+		<a href="../../src/net/http/client.go.html#line-287" class="path-duplicate">client.go</a><a href="../../src/net/http/client.go.html#line-287">#L287</a>: 		resp.<b>Body</b> = &cancelTimerBody{
+		<a href="../../src/net/http/client.go.html#line-289" class="path-duplicate">client.go</a><a href="../../src/net/http/client.go.html#line-289">#L289</a>: 			rc:            resp.<b>Body</b>,
+		<a href="../../src/net/http/client.go.html#line-699" class="path-duplicate">client.go</a><a href="../../src/net/http/client.go.html#line-699">#L699</a>: 				io.CopyN(io.Discard, resp.<b>Body</b>, maxBodySlurpSize)
+		<a href="../../src/net/http/client.go.html#line-701" class="path-duplicate">client.go</a><a href="../../src/net/http/client.go.html#line-701">#L701</a>: 			resp.<b>Body</b>.Close()
+		<a href="../../src/net/http/filetransport.go.html#line-59">filetransport.go#L59</a>: 			<b>Body</b>:       pr,
+		<a href="../../src/net/http/h2_bundle.go.html#line-8550">h2_bundle.go#L8550</a>: 		res.<b>Body</b> = http2noBody
+		<a href="../../src/net/http/h2_bundle.go.html#line-8556" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-8556">#L8556</a>: 	res.<b>Body</b> = http2transportResponseBody{cs}
+		<a href="../../src/net/http/h2_bundle.go.html#line-8563" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-8563">#L8563</a>: 		res.<b>Body</b> = &amp;http2gzipReader{body: res.<b>Body</b>}
+		<a href="../../src/net/http/response.go.html#line-72">response.go#L72</a>: 	<b>Body</b> io.ReadCloser
+		<a href="../../src/net/http/response.go.html#line-267" class="path-duplicate">response.go</a><a href="../../src/net/http/response.go.html#line-267">#L267</a>: 	if r1.ContentLength == 0 &amp;&amp; r1.<b>Body</b> != nil {
+		<a href="../../src/net/http/response.go.html#line-270" class="path-duplicate">response.go</a><a href="../../src/net/http/response.go.html#line-270">#L270</a>: 		n, err := r1.<b>Body</b>.Read(buf[:])
+		<a href="../../src/net/http/response.go.html#line-277" class="path-duplicate">response.go</a><a href="../../src/net/http/response.go.html#line-277">#L277</a>: 			r1.<b>Body</b> = NoBody
+		<a href="../../src/net/http/response.go.html#line-280" class="path-duplicate">response.go</a><a href="../../src/net/http/response.go.html#line-280">#L280</a>: 			r1.<b>Body</b> = struct {
+		<a href="../../src/net/http/response.go.html#line-284" class="path-duplicate">response.go</a><a href="../../src/net/http/response.go.html#line-284">#L284</a>: 				io.MultiReader(bytes.NewReader(buf[:1]), r.<b>Body</b>),
+		<a href="../../src/net/http/response.go.html#line-285" class="path-duplicate">response.go</a><a href="../../src/net/http/response.go.html#line-285">#L285</a>: 				r.<b>Body</b>,
+		<a href="../../src/net/http/response.go.html#line-338" class="path-duplicate">response.go</a><a href="../../src/net/http/response.go.html#line-338">#L338</a>: 	if r.<b>Body</b> != nil {
+		<a href="../../src/net/http/response.go.html#line-339" class="path-duplicate">response.go</a><a href="../../src/net/http/response.go.html#line-339">#L339</a>: 		r.<b>Body</b>.Close()
+		<a href="../../src/net/http/response.go.html#line-351" class="path-duplicate">response.go</a><a href="../../src/net/http/response.go.html#line-351">#L351</a>: 	_, ok := r.<b>Body</b>.(io.Writer)
+		<a href="../../src/net/http/transfer.go.html#line-113">transfer.go#L113</a>: 		t.Body = rr.<b>Body</b>
+		<a href="../../src/net/http/transfer.go.html#line-114" class="path-duplicate">transfer.go</a><a href="../../src/net/http/transfer.go.html#line-114">#L114</a>: 		t.BodyCloser = rr.<b>Body</b>
+		<a href="../../src/net/http/transfer.go.html#line-587" class="path-duplicate">transfer.go</a><a href="../../src/net/http/transfer.go.html#line-587">#L587</a>: 		rr.<b>Body</b> = t.Body
+		<a href="../../src/net/http/transport.go.html#line-2164">transport.go#L2164</a>: 			body: resp.<b>Body</b>,
+		<a href="../../src/net/http/transport.go.html#line-2185" class="path-duplicate">transport.go</a><a href="../../src/net/http/transport.go.html#line-2185">#L2185</a>: 		resp.<b>Body</b> = body
+		<a href="../../src/net/http/transport.go.html#line-2187" class="path-duplicate">transport.go</a><a href="../../src/net/http/transport.go.html#line-2187">#L2187</a>: 			resp.<b>Body</b> = &gzipReader{body: body}
+		<a href="../../src/net/http/transport.go.html#line-2312" class="path-duplicate">transport.go</a><a href="../../src/net/http/transport.go.html#line-2312">#L2312</a>: 		resp.<b>Body</b> = newReadWriteCloserBody(pc.br, pc.conn)
+
+	<a href="../../pkg/net/http/httptest.html">net/http/httptest</a>
+		<a href="../../src/net/http/httptest/recorder.go.html#line-182">recorder.go#L182</a>: 		res.<b>Body</b> = io.NopCloser(bytes.NewReader(rw.Body.Bytes()))
+		<a href="../../src/net/http/httptest/recorder.go.html#line-184" class="path-duplicate">recorder.go</a><a href="../../src/net/http/httptest/recorder.go.html#line-184">#L184</a>: 		res.<b>Body</b> = http.NoBody
+
+	<a href="../../pkg/github.com/gotd/getdoc/dl.html">github.com/gotd/getdoc/dl</a>
+		<a href="../../src/github.com/gotd/getdoc/dl/dl.go.html#line-99">dl.go#L99</a>: 	defer func() { _ = res.<b>Body</b>.Close() }()
+		<a href="../../src/github.com/gotd/getdoc/dl/dl.go.html#line-105" class="path-duplicate">dl.go</a><a href="../../src/github.com/gotd/getdoc/dl/dl.go.html#line-105">#L105</a>: 	body, err := ioutil.ReadAll(res.<b>Body</b>)
+
+	<a href="../../pkg/github.com/gotd/td/cmd/dlkey.html">github.com/gotd/td/cmd/dlkey</a>
+		<a href="../../src/github.com/gotd/td/cmd/dlkey/main.go.html#line-37">main.go#L37</a>: 	defer func() { _ = res.<b>Body</b>.Close() }()
+		<a href="../../src/github.com/gotd/td/cmd/dlkey/main.go.html#line-56" class="path-duplicate">main.go</a><a href="../../src/github.com/gotd/td/cmd/dlkey/main.go.html#line-56">#L56</a>: 	if err := keyparser.Extract(res.<b>Body</b>, outWriter); err != nil {
+
+	<a href="../../pkg/github.com/gotd/td/cmd/dltl.html">github.com/gotd/td/cmd/dltl</a>
+		<a href="../../src/github.com/gotd/td/cmd/dltl/main.go.html#line-64">main.go#L64</a>: 	defer func() { _ = res.<b>Body</b>.Close() }()
+		<a href="../../src/github.com/gotd/td/cmd/dltl/main.go.html#line-71" class="path-duplicate">main.go</a><a href="../../src/github.com/gotd/td/cmd/dltl/main.go.html#line-71">#L71</a>: 	s, err := tl.Parse(io.TeeReader(res.<b>Body</b>, h))
+
+	<a href="../../pkg/github.com/gotd/td/telegram/uploader/source.html">github.com/gotd/td/telegram/uploader/source</a>
+		<a href="../../src/github.com/gotd/td/telegram/uploader/source/http.go.html#line-65">http.go#L65</a>: 			multierr.AppendInto(&amp;rerr, resp.<b>Body</b>.Close())
+		<a href="../../src/github.com/gotd/td/telegram/uploader/source/http.go.html#line-78" class="path-duplicate">http.go</a><a href="../../src/github.com/gotd/td/telegram/uploader/source/http.go.html#line-78">#L78</a>: 		body: resp.<b>Body</b>,
+
+	<a href="../../pkg/github.com/PuerkitoBio/goquery.html">github.com/PuerkitoBio/goquery</a>
+		<a href="../../src/github.com/PuerkitoBio/goquery/type.go.html#line-69">type.go#L69</a>: 	defer res.<b>Body</b>.Close()
+		<a href="../../src/github.com/PuerkitoBio/goquery/type.go.html#line-75" class="path-duplicate">type.go</a><a href="../../src/github.com/PuerkitoBio/goquery/type.go.html#line-75">#L75</a>: 	root, e := html.Parse(res.<b>Body</b>)
+</code></pre><pre id="footer">
+<table><tr><td><img src="../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>
