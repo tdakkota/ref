@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: nss.go in package net</title>
-<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -111,18 +111,18 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-15"><code></code></span>
 <span class="codeline" id="line-16"><code><span class="comment">// nssConf represents the state of the machine's /etc/nsswitch.conf file.</span></code></span>
 <span class="codeline" id="line-17"><code><span class="keyword">type</span> <a href="../../pkg/net.html#name-nssConf" class="ident">nssConf</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-18"><code>	<a href="../../use/net..nssConf.err.html" class="ident">err</a>     <a href="../../pkg/builtin.html#name-error" class="ident">error</a>                  <span class="comment">// any error encountered opening or parsing the file</span></code></span>
-<span class="codeline" id="line-19"><code>	<a href="../../use/net..nssConf.sources.html" class="ident">sources</a> <span class="keyword">map</span>[<a href="../../pkg/builtin.html#name-string" class="ident">string</a>][]<a href="#line-22" class="ident">nssSource</a> <span class="comment">// keyed by database (e.g. "hosts")</span></code></span>
+<span class="codeline" id="line-18"><code>	<a href="../../use/net..nssConf*44abd.err*d9eb2.html" class="ident">err</a>     <a href="../../pkg/builtin.html#name-error" class="ident">error</a>                  <span class="comment">// any error encountered opening or parsing the file</span></code></span>
+<span class="codeline" id="line-19"><code>	<a href="../../use/net..nssConf*44abd.sources*878a5.html" class="ident">sources</a> <span class="keyword">map</span>[<a href="../../pkg/builtin.html#name-string" class="ident">string</a>][]<a href="#line-22" class="ident">nssSource</a> <span class="comment">// keyed by database (e.g. "hosts")</span></code></span>
 <span class="codeline" id="line-20"><code>}</code></span>
 <span class="codeline" id="line-21"><code></code></span>
 <span class="codeline" id="line-22"><code><span class="keyword">type</span> <a href="../../pkg/net.html#name-nssSource" class="ident">nssSource</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-23"><code>	<a href="../../use/net..nssSource.source.html" class="ident">source</a>   <a href="../../pkg/builtin.html#name-string" class="ident">string</a> <span class="comment">// e.g. "compat", "files", "mdns4_minimal"</span></code></span>
-<span class="codeline" id="line-24"><code>	<a href="../../use/net..nssSource.criteria.html" class="ident">criteria</a> []<a href="#line-40" class="ident">nssCriterion</a></code></span>
+<span class="codeline" id="line-23"><code>	<a href="../../use/net..nssSource*7ca7c.source*41cf6.html" class="ident">source</a>   <a href="../../pkg/builtin.html#name-string" class="ident">string</a> <span class="comment">// e.g. "compat", "files", "mdns4_minimal"</span></code></span>
+<span class="codeline" id="line-24"><code>	<a href="../../use/net..nssSource*7ca7c.criteria*262d5.html" class="ident">criteria</a> []<a href="#line-40" class="ident">nssCriterion</a></code></span>
 <span class="codeline" id="line-25"><code>}</code></span>
 <span class="codeline" id="line-26"><code></code></span>
 <span class="codeline" id="line-27"><code><span class="comment">// standardCriteria reports all specified criteria have the default</span></code></span>
 <span class="codeline" id="line-28"><code><span class="comment">// status actions.</span></code></span>
-<span class="codeline" id="line-29"><code><span class="keyword">func</span> (<label for="r0" class="ident">s</label> <a href="#line-22" class="ident">nssSource</a>) <label for="r1" class="ident"><a href="../../use/net..nssSource.standardCriteria.html" class="ident">standardCriteria</a></label>() <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-29"><code><span class="keyword">func</span> (<label for="r0" class="ident">s</label> <a href="#line-22" class="ident">nssSource</a>) <label for="r1" class="ident"><a href="../../use/net..nssSource*7ca7c.standardCriteria*71d51.html" class="ident">standardCriteria</a></label>() <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
 <span class="codeline" id="line-30"><code>	<span class="keyword">for</span> <label for="r2" class="ident">i</label>, <label for="r3" class="ident">crit</label> := <span class="keyword">range</span> <label for="r0" class="ident">s</label>.<a href="#line-24" class="ident">criteria</a> {</code></span>
 <span class="codeline" id="line-31"><code>		<span class="keyword">if</span> !<label for="r3" class="ident">crit</label>.<a href="#line-49" class="ident">standardStatusAction</a>(<label for="r2" class="ident">i</label> == <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r0" class="ident">s</label>.<a href="#line-24" class="ident">criteria</a>)-<span class="lit-number">1</span>) {</code></span>
 <span class="codeline" id="line-32"><code>			<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
@@ -134,15 +134,15 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-38"><code><span class="comment">// nssCriterion is the parsed structure of one of the criteria in brackets</span></code></span>
 <span class="codeline" id="line-39"><code><span class="comment">// after an NSS source name.</span></code></span>
 <span class="codeline" id="line-40"><code><span class="keyword">type</span> <a href="../../pkg/net.html#name-nssCriterion" class="ident">nssCriterion</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-41"><code>	<a href="../../use/net..nssCriterion.negate.html" class="ident">negate</a> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>   <span class="comment">// if "!" was present</span></code></span>
-<span class="codeline" id="line-42"><code>	<a href="../../use/net..nssCriterion.status.html" class="ident">status</a> <a href="../../pkg/builtin.html#name-string" class="ident">string</a> <span class="comment">// e.g. "success", "unavail" (lowercase)</span></code></span>
-<span class="codeline" id="line-43"><code>	<a href="../../use/net..nssCriterion.action.html" class="ident">action</a> <a href="../../pkg/builtin.html#name-string" class="ident">string</a> <span class="comment">// e.g. "return", "continue" (lowercase)</span></code></span>
+<span class="codeline" id="line-41"><code>	<a href="../../use/net..nssCriterion*8c376.negate*fd283.html" class="ident">negate</a> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>   <span class="comment">// if "!" was present</span></code></span>
+<span class="codeline" id="line-42"><code>	<a href="../../use/net..nssCriterion*8c376.status*073c1.html" class="ident">status</a> <a href="../../pkg/builtin.html#name-string" class="ident">string</a> <span class="comment">// e.g. "success", "unavail" (lowercase)</span></code></span>
+<span class="codeline" id="line-43"><code>	<a href="../../use/net..nssCriterion*8c376.action*bd938.html" class="ident">action</a> <a href="../../pkg/builtin.html#name-string" class="ident">string</a> <span class="comment">// e.g. "return", "continue" (lowercase)</span></code></span>
 <span class="codeline" id="line-44"><code>}</code></span>
 <span class="codeline" id="line-45"><code></code></span>
 <span class="codeline" id="line-46"><code><span class="comment">// standardStatusAction reports whether c is equivalent to not</span></code></span>
 <span class="codeline" id="line-47"><code><span class="comment">// specifying the criterion at all. last is whether this criteria is the</span></code></span>
 <span class="codeline" id="line-48"><code><span class="comment">// last in the list.</span></code></span>
-<span class="codeline" id="line-49"><code><span class="keyword">func</span> (<label for="r4" class="ident">c</label> <a href="#line-40" class="ident">nssCriterion</a>) <label for="r5" class="ident"><a href="../../use/net..nssCriterion.standardStatusAction.html" class="ident">standardStatusAction</a></label>(<label for="r6" class="ident">last</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-49"><code><span class="keyword">func</span> (<label for="r4" class="ident">c</label> <a href="#line-40" class="ident">nssCriterion</a>) <label for="r5" class="ident"><a href="../../use/net..nssCriterion*8c376.standardStatusAction*30d22.html" class="ident">standardStatusAction</a></label>(<label for="r6" class="ident">last</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
 <span class="codeline" id="line-50"><code>	<span class="keyword">if</span> <label for="r4" class="ident">c</label>.<a href="#line-41" class="ident">negate</a> {</code></span>
 <span class="codeline" id="line-51"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
 <span class="codeline" id="line-52"><code>	}</code></span>
@@ -256,7 +256,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-160"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

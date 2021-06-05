@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: close.go in package nhooyr.io/websocket</title>
+<link href="../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	close.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../pkg/nhooyr.io/websocket.html">nhooyr.io/websocket</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+
+<pre class="line-numbers">
+<span class="codeline" id="line-1"><code><span class="keyword">package</span> websocket</code></span>
+<span class="codeline" id="line-2"><code></code></span>
+<span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"errors"</span></label></code></span>
+<span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"fmt"</span></label></code></span>
+<span class="codeline" id="line-6"><code>)</code></span>
+<span class="codeline" id="line-7"><code></code></span>
+<span class="codeline" id="line-8"><code><span class="comment">// StatusCode represents a WebSocket status code.</span></code></span>
+<span class="codeline" id="line-9"><code><span class="comment">// https://tools.ietf.org/html/rfc6455#section-7.4</span></code></span>
+<span class="codeline" id="line-10"><code><span class="keyword">type</span> <a href="../../../pkg/nhooyr.io/websocket.html#name-StatusCode" class="ident">StatusCode</a> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-11"><code></code></span>
+<span class="codeline" id="line-12"><code><span class="comment">// https://www.iana.org/assignments/websocket/websocket.xhtml#close-code-number</span></code></span>
+<span class="codeline" id="line-13"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-14"><code><span class="comment">// These are only the status codes defined by the protocol.</span></code></span>
+<span class="codeline" id="line-15"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-16"><code><span class="comment">// You can define custom codes in the 3000-4999 range.</span></code></span>
+<span class="codeline" id="line-17"><code><span class="comment">// The 3000-3999 range is reserved for use by libraries, frameworks and applications.</span></code></span>
+<span class="codeline" id="line-18"><code><span class="comment">// The 4000-4999 range is reserved for private use.</span></code></span>
+<span class="codeline" id="line-19"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-20"><code>	<a href="../../../pkg/nhooyr.io/websocket.html#name-StatusNormalClosure" class="ident">StatusNormalClosure</a>   <a href="#line-10" class="ident">StatusCode</a> = <span class="lit-number">1000</span></code></span>
+<span class="codeline" id="line-21"><code>	<a href="../../../pkg/nhooyr.io/websocket.html#name-StatusGoingAway" class="ident">StatusGoingAway</a>       <a href="#line-10" class="ident">StatusCode</a> = <span class="lit-number">1001</span></code></span>
+<span class="codeline" id="line-22"><code>	<a href="../../../pkg/nhooyr.io/websocket.html#name-StatusProtocolError" class="ident">StatusProtocolError</a>   <a href="#line-10" class="ident">StatusCode</a> = <span class="lit-number">1002</span></code></span>
+<span class="codeline" id="line-23"><code>	<a href="../../../pkg/nhooyr.io/websocket.html#name-StatusUnsupportedData" class="ident">StatusUnsupportedData</a> <a href="#line-10" class="ident">StatusCode</a> = <span class="lit-number">1003</span></code></span>
+<span class="codeline" id="line-24"><code></code></span>
+<span class="codeline" id="line-25"><code>	<span class="comment">// 1004 is reserved and so unexported.</span></code></span>
+<span class="codeline" id="line-26"><code>	<a href="../../../pkg/nhooyr.io/websocket.html#name-statusReserved" class="ident">statusReserved</a> <a href="#line-10" class="ident">StatusCode</a> = <span class="lit-number">1004</span></code></span>
+<span class="codeline" id="line-27"><code></code></span>
+<span class="codeline" id="line-28"><code>	<span class="comment">// StatusNoStatusRcvd cannot be sent in a close message.</span></code></span>
+<span class="codeline" id="line-29"><code><span class="comment">	// It is reserved for when a close message is received without</span></code></span>
+<span class="codeline" id="line-30"><code><span class="comment">	// a status code.</span></code></span>
+<span class="codeline" id="line-31"><code>	<a href="../../../pkg/nhooyr.io/websocket.html#name-StatusNoStatusRcvd" class="ident">StatusNoStatusRcvd</a> <a href="#line-10" class="ident">StatusCode</a> = <span class="lit-number">1005</span></code></span>
+<span class="codeline" id="line-32"><code></code></span>
+<span class="codeline" id="line-33"><code>	<span class="comment">// StatusAbnormalClosure is exported for use only with Wasm.</span></code></span>
+<span class="codeline" id="line-34"><code><span class="comment">	// In non Wasm Go, the returned error will indicate whether the</span></code></span>
+<span class="codeline" id="line-35"><code><span class="comment">	// connection was closed abnormally.</span></code></span>
+<span class="codeline" id="line-36"><code>	<a href="../../../pkg/nhooyr.io/websocket.html#name-StatusAbnormalClosure" class="ident">StatusAbnormalClosure</a> <a href="#line-10" class="ident">StatusCode</a> = <span class="lit-number">1006</span></code></span>
+<span class="codeline" id="line-37"><code></code></span>
+<span class="codeline" id="line-38"><code>	<a href="../../../pkg/nhooyr.io/websocket.html#name-StatusInvalidFramePayloadData" class="ident">StatusInvalidFramePayloadData</a> <a href="#line-10" class="ident">StatusCode</a> = <span class="lit-number">1007</span></code></span>
+<span class="codeline" id="line-39"><code>	<a href="../../../pkg/nhooyr.io/websocket.html#name-StatusPolicyViolation" class="ident">StatusPolicyViolation</a>         <a href="#line-10" class="ident">StatusCode</a> = <span class="lit-number">1008</span></code></span>
+<span class="codeline" id="line-40"><code>	<a href="../../../pkg/nhooyr.io/websocket.html#name-StatusMessageTooBig" class="ident">StatusMessageTooBig</a>           <a href="#line-10" class="ident">StatusCode</a> = <span class="lit-number">1009</span></code></span>
+<span class="codeline" id="line-41"><code>	<a href="../../../pkg/nhooyr.io/websocket.html#name-StatusMandatoryExtension" class="ident">StatusMandatoryExtension</a>      <a href="#line-10" class="ident">StatusCode</a> = <span class="lit-number">1010</span></code></span>
+<span class="codeline" id="line-42"><code>	<a href="../../../pkg/nhooyr.io/websocket.html#name-StatusInternalError" class="ident">StatusInternalError</a>           <a href="#line-10" class="ident">StatusCode</a> = <span class="lit-number">1011</span></code></span>
+<span class="codeline" id="line-43"><code>	<a href="../../../pkg/nhooyr.io/websocket.html#name-StatusServiceRestart" class="ident">StatusServiceRestart</a>          <a href="#line-10" class="ident">StatusCode</a> = <span class="lit-number">1012</span></code></span>
+<span class="codeline" id="line-44"><code>	<a href="../../../pkg/nhooyr.io/websocket.html#name-StatusTryAgainLater" class="ident">StatusTryAgainLater</a>           <a href="#line-10" class="ident">StatusCode</a> = <span class="lit-number">1013</span></code></span>
+<span class="codeline" id="line-45"><code>	<a href="../../../pkg/nhooyr.io/websocket.html#name-StatusBadGateway" class="ident">StatusBadGateway</a>              <a href="#line-10" class="ident">StatusCode</a> = <span class="lit-number">1014</span></code></span>
+<span class="codeline" id="line-46"><code></code></span>
+<span class="codeline" id="line-47"><code>	<span class="comment">// StatusTLSHandshake is only exported for use with Wasm.</span></code></span>
+<span class="codeline" id="line-48"><code><span class="comment">	// In non Wasm Go, the returned error will indicate whether there was</span></code></span>
+<span class="codeline" id="line-49"><code><span class="comment">	// a TLS handshake failure.</span></code></span>
+<span class="codeline" id="line-50"><code>	<a href="../../../pkg/nhooyr.io/websocket.html#name-StatusTLSHandshake" class="ident">StatusTLSHandshake</a> <a href="#line-10" class="ident">StatusCode</a> = <span class="lit-number">1015</span></code></span>
+<span class="codeline" id="line-51"><code>)</code></span>
+<span class="codeline" id="line-52"><code></code></span>
+<span class="codeline" id="line-53"><code><span class="comment">// CloseError is returned when the connection is closed with a status and reason.</span></code></span>
+<span class="codeline" id="line-54"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-55"><code><span class="comment">// Use Go 1.13's errors.As to check for this error.</span></code></span>
+<span class="codeline" id="line-56"><code><span class="comment">// Also see the CloseStatus helper.</span></code></span>
+<span class="codeline" id="line-57"><code><span class="keyword">type</span> <a href="../../../pkg/nhooyr.io/websocket.html#name-CloseError" class="ident">CloseError</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-58"><code>	<a href="../../../use/nhooyr.io/websocket..CloseError.Code.html" class="ident">Code</a>   <a href="#line-10" class="ident">StatusCode</a></code></span>
+<span class="codeline" id="line-59"><code>	<a href="../../../use/nhooyr.io/websocket..CloseError.Reason.html" class="ident">Reason</a> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-60"><code>}</code></span>
+<span class="codeline" id="line-61"><code></code></span>
+<span class="codeline" id="line-62"><code><span class="keyword">func</span> (<label for="r0" class="ident">ce</label> <a href="#line-57" class="ident">CloseError</a>) <label for="r1" class="ident"><a href="../../../use/nhooyr.io/websocket..CloseError.Error.html" class="ident">Error</a></label>() <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-63"><code>	<span class="keyword">return</span> <a href="../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../fmt/print.go.html#line-217" class="ident">Sprintf</a>(<span class="lit-string">"status = %v and reason = %q"</span>, <label for="r0" class="ident">ce</label>.<a href="#line-58" class="ident">Code</a>, <label for="r0" class="ident">ce</label>.<a href="#line-59" class="ident">Reason</a>)</code></span>
+<span class="codeline" id="line-64"><code>}</code></span>
+<span class="codeline" id="line-65"><code></code></span>
+<span class="codeline" id="line-66"><code><span class="comment">// CloseStatus is a convenience wrapper around Go 1.13's errors.As to grab</span></code></span>
+<span class="codeline" id="line-67"><code><span class="comment">// the status code from a CloseError.</span></code></span>
+<span class="codeline" id="line-68"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-69"><code><span class="comment">// -1 will be returned if the passed error is nil or not a CloseError.</span></code></span>
+<span class="codeline" id="line-70"><code><span class="keyword">func</span> <label for="r2" class="ident"><a href="../../../pkg/nhooyr.io/websocket.html#name-CloseStatus" class="ident">CloseStatus</a></label>(<label for="r3" class="ident">err</label> <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) <a href="#line-10" class="ident">StatusCode</a> {</code></span>
+<span class="codeline" id="line-71"><code>	<span class="keyword">var</span> <label for="r4" class="ident">ce</label> <a href="#line-57" class="ident">CloseError</a></code></span>
+<span class="codeline" id="line-72"><code>	<span class="keyword">if</span> <a href="../../../pkg/errors.html" class="ident i0">errors</a>.<a href="../../errors/wrap.go.html#line-77" class="ident">As</a>(<label for="r3" class="ident">err</label>, &amp;<label for="r4" class="ident">ce</label>) {</code></span>
+<span class="codeline" id="line-73"><code>		<span class="keyword">return</span> <label for="r4" class="ident">ce</label>.<a href="#line-58" class="ident">Code</a></code></span>
+<span class="codeline" id="line-74"><code>	}</code></span>
+<span class="codeline" id="line-75"><code>	<span class="keyword">return</span> -<span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-76"><code>}</code></span>
+</pre><pre id="footer">
+<table><tr><td><img src="../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Package: fmt</title>
-<link href="../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="package-details"><code><span style="font-size:xx-large;">package <b>fmt</b></span>
@@ -15,10 +15,11 @@
 	<a href="../index.html#pkg-fmt">fmt</a><i> (on <a href="https://golang.org/pkg/fmt/" target="_blank">golang.org</a> and <a href="https://pkg.go.dev/fmt" target="_blank">go.dev</a>)</i>
 
 <span class="title">Dependency Relation</span>
-	imports <a href="../dep/fmt.html">9 packages</a>, and imported by <a href="../dep/fmt.html#imported-by">99 packages</a>
+	imports <a href="../dep/fmt.html">9 packages</a>, and imported by <a href="../dep/fmt.html#imported-by">46 packages</a>
 
-<div><span class="title">Involved Source Files</span>
-	<input type='checkbox' class="fold" id="file-0-fold-content"><label for="file-0-fold-content">   <a href="../src/fmt/doc.go.html#doc">d➜</a> <a href="../src/fmt/doc.go.html">doc.go</a></label><span id='file-0-fold-content-items' class="fold-items">
+<div id="files"><span class="title">Involved Source Files</span>
+
+	<input type='checkbox' checked class="fold" id="file-0-fold-content"><label for="file-0-fold-content">   <a href="../src/fmt/doc.go.html#doc">d➜</a> <a href="../src/fmt/doc.go.html">doc.go</a></label><span id='file-0-fold-content-items' class="fold-items">
 			Package fmt implements formatted I/O with functions analogous
 			to C's printf and scanf.  The format 'verbs' are derived from C's but
 			are simpler.
@@ -359,31 +360,443 @@
 	<span class="nodocs">      <a href="../src/fmt/format.go.html">format.go</a></span>
 	<span class="nodocs">      <a href="../src/fmt/print.go.html">print.go</a></span>
 	<span class="nodocs">      <a href="../src/fmt/scan.go.html">scan.go</a></span></div>
-<span class="title type-res">Package-Level Type Names<span class="title-stat"><i> (total 16, in which 6 are exported)</i></span></span>
+<div id="examples"><span class="title">Code Examples</span>
 
-<div id="exported-types-buttons" class="js-on">	/* sort exporteds by: <label id="sort-types-by-alphabet" class="button">alphabet</label> | <label id="sort-types-by-popularity" class="button">popularity</label> */</div><div id="exported-types"><div class="anchor type-res" id="name-Formatter" data-popularity="1625">	<input type='checkbox' class="fold" id="Formatter-fold-content"><label for="Formatter-fold-content"> <a href="../use/fmt..Formatter.html">type</a> <a href="../src/fmt/print.go.html#line-53">Formatter</a> <b><i>(interface)</i></b></label><span id='Formatter-fold-content-docs' class="fold-docs">
+	<input type='checkbox' class="fold" id="example-0-fold-content"><label for="example-0-fold-content">Errorf</label><span id='example-0-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"fmt"
+		)
+		
+		func main() {
+			const name, id = "bueller", 17
+			err := fmt.Errorf("user %q (id %d) not found", name, id)
+			fmt.Println(err.Error())
+		
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-1-fold-content"><label for="example-1-fold-content">Fprint</label><span id='example-1-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"fmt"
+			"os"
+		)
+		
+		func main() {
+			const name, age = "Kim", 22
+			n, err := fmt.Fprint(os.Stdout, name, " is ", age, " years old.\n")
+		
+			// The n and err return values from Fprint are
+			// those returned by the underlying io.Writer.
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "Fprint: %v\n", err)
+			}
+			fmt.Print(n, " bytes written.\n")
+		
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-2-fold-content"><label for="example-2-fold-content">Fprintf</label><span id='example-2-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"fmt"
+			"os"
+		)
+		
+		func main() {
+			const name, age = "Kim", 22
+			n, err := fmt.Fprintf(os.Stdout, "%s is %d years old.\n", name, age)
+		
+			// The n and err return values from Fprintf are
+			// those returned by the underlying io.Writer.
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "Fprintf: %v\n", err)
+			}
+			fmt.Printf("%d bytes written.\n", n)
+		
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-3-fold-content"><label for="example-3-fold-content">Fprintln</label><span id='example-3-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"fmt"
+			"os"
+		)
+		
+		func main() {
+			const name, age = "Kim", 22
+			n, err := fmt.Fprintln(os.Stdout, name, "is", age, "years old.")
+		
+			// The n and err return values from Fprintln are
+			// those returned by the underlying io.Writer.
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "Fprintln: %v\n", err)
+			}
+			fmt.Println(n, "bytes written.")
+		
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-4-fold-content"><label for="example-4-fold-content">Fscanf</label><span id='example-4-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"fmt"
+			"os"
+			"strings"
+		)
+		
+		func main() {
+			var (
+				i int
+				b bool
+				s string
+			)
+			r := strings.NewReader("5 true gophers")
+			n, err := fmt.Fscanf(r, "%d %t %s", &i, &b, &s)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "Fscanf: %v\n", err)
+			}
+			fmt.Println(i, b, s)
+			fmt.Println(n)
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-5-fold-content"><label for="example-5-fold-content">Fscanln</label><span id='example-5-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"fmt"
+			"io"
+			"strings"
+		)
+		
+		func main() {
+			s := `dmr 1771 1.61803398875
+			ken 271828 3.14159`
+			r := strings.NewReader(s)
+			var a string
+			var b int
+			var c float64
+			for {
+				n, err := fmt.Fscanln(r, &a, &b, &c)
+				if err == io.EOF {
+					break
+				}
+				if err != nil {
+					panic(err)
+				}
+				fmt.Printf("%d: %s, %d, %f\n", n, a, b, c)
+			}
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-6-fold-content"><label for="example-6-fold-content">Print</label><span id='example-6-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"fmt"
+		)
+		
+		func main() {
+			const name, age = "Kim", 22
+			fmt.Print(name, " is ", age, " years old.\n")
+		
+			// It is conventional not to worry about any
+			// error returned by Print.
+		
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-7-fold-content"><label for="example-7-fold-content">Printf</label><span id='example-7-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"fmt"
+		)
+		
+		func main() {
+			const name, age = "Kim", 22
+			fmt.Printf("%s is %d years old.\n", name, age)
+		
+			// It is conventional not to worry about any
+			// error returned by Printf.
+		
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-8-fold-content"><label for="example-8-fold-content">Println</label><span id='example-8-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"fmt"
+		)
+		
+		func main() {
+			const name, age = "Kim", 22
+			fmt.Println(name, "is", age, "years old.")
+		
+			// It is conventional not to worry about any
+			// error returned by Println.
+		
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-9-fold-content"><label for="example-9-fold-content">Sprint</label><span id='example-9-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"fmt"
+			"io"
+			"os"
+		)
+		
+		func main() {
+			const name, age = "Kim", 22
+			s := fmt.Sprint(name, " is ", age, " years old.\n")
+		
+			io.WriteString(os.Stdout, s) // Ignoring error for simplicity.
+		
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-10-fold-content"><label for="example-10-fold-content">Sprintf</label><span id='example-10-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"fmt"
+			"io"
+			"os"
+		)
+		
+		func main() {
+			const name, age = "Kim", 22
+			s := fmt.Sprintf("%s is %d years old.\n", name, age)
+		
+			io.WriteString(os.Stdout, s) // Ignoring error for simplicity.
+		
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-11-fold-content"><label for="example-11-fold-content">Sprintln</label><span id='example-11-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"fmt"
+			"io"
+			"os"
+		)
+		
+		func main() {
+			const name, age = "Kim", 22
+			s := fmt.Sprintln(name, "is", age, "years old.")
+		
+			io.WriteString(os.Stdout, s) // Ignoring error for simplicity.
+		
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-12-fold-content"><label for="example-12-fold-content">Sscanf</label><span id='example-12-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"fmt"
+		)
+		
+		func main() {
+			var name string
+			var age int
+			n, err := fmt.Sscanf("Kim is 22 years old", "%s is %d years old", &name, &age)
+			if err != nil {
+				panic(err)
+			}
+			fmt.Printf("%d: %s, %d\n", n, name, age)
+		
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-13-fold-content"><label for="example-13-fold-content">_formats</label><span id='example-13-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"fmt"
+			"math"
+			"time"
+		)
+		
+		func main() {
+			// A basic set of examples showing that %v is the default format, in this
+			// case decimal for integers, which can be explicitly requested with %d;
+			// the output is just what Println generates.
+			integer := 23
+			// Each of these prints "23" (without the quotes).
+			fmt.Println(integer)
+			fmt.Printf("%v\n", integer)
+			fmt.Printf("%d\n", integer)
+		
+			// The special verb %T shows the type of an item rather than its value.
+			fmt.Printf("%T %T\n", integer, &integer)
+			// Result: int *int
+		
+			// Println(x) is the same as Printf("%v\n", x) so we will use only Printf
+			// in the following examples. Each one demonstrates how to format values of
+			// a particular type, such as integers or strings. We start each format
+			// string with %v to show the default output and follow that with one or
+			// more custom formats.
+		
+			// Booleans print as "true" or "false" with %v or %t.
+			truth := true
+			fmt.Printf("%v %t\n", truth, truth)
+			// Result: true true
+		
+			// Integers print as decimals with %v and %d,
+			// or in hex with %x, octal with %o, or binary with %b.
+			answer := 42
+			fmt.Printf("%v %d %x %o %b\n", answer, answer, answer, answer, answer)
+			// Result: 42 42 2a 52 101010
+		
+			// Floats have multiple formats: %v and %g print a compact representation,
+			// while %f prints a decimal point and %e uses exponential notation. The
+			// format %6.2f used here shows how to set the width and precision to
+			// control the appearance of a floating-point value. In this instance, 6 is
+			// the total width of the printed text for the value (note the extra spaces
+			// in the output) and 2 is the number of decimal places to show.
+			pi := math.Pi
+			fmt.Printf("%v %g %.2f (%6.2f) %e\n", pi, pi, pi, pi, pi)
+			// Result: 3.141592653589793 3.141592653589793 3.14 (  3.14) 3.141593e+00
+		
+			// Complex numbers format as parenthesized pairs of floats, with an 'i'
+			// after the imaginary part.
+			point := 110.7 + 22.5i
+			fmt.Printf("%v %g %.2f %.2e\n", point, point, point, point)
+			// Result: (110.7+22.5i) (110.7+22.5i) (110.70+22.50i) (1.11e+02+2.25e+01i)
+		
+			// Runes are integers but when printed with %c show the character with that
+			// Unicode value. The %q verb shows them as quoted characters, %U as a
+			// hex Unicode code point, and %#U as both a code point and a quoted
+			// printable form if the rune is printable.
+			smile := '😀'
+			fmt.Printf("%v %d %c %q %U %#U\n", smile, smile, smile, smile, smile, smile)
+			// Result: 128512 128512 😀 '😀' U+1F600 U+1F600 '😀'
+		
+			// Strings are formatted with %v and %s as-is, with %q as quoted strings,
+			// and %#q as backquoted strings.
+			placeholders := `foo "bar"`
+			fmt.Printf("%v %s %q %#q\n", placeholders, placeholders, placeholders, placeholders)
+			// Result: foo "bar" foo "bar" "foo \"bar\"" `foo "bar"`
+		
+			// Maps formatted with %v show keys and values in their default formats.
+			// The %#v form (the # is called a "flag" in this context) shows the map in
+			// the Go source format. Maps are printed in a consistent order, sorted
+			// by the values of the keys.
+			isLegume := map[string]bool{
+				"peanut":    true,
+				"dachshund": false,
+			}
+			fmt.Printf("%v %#v\n", isLegume, isLegume)
+			// Result: map[dachshund:false peanut:true] map[string]bool{"dachshund":false, "peanut":true}
+		
+			// Structs formatted with %v show field values in their default formats.
+			// The %+v form shows the fields by name, while %#v formats the struct in
+			// Go source format.
+			person := struct {
+				Name string
+				Age  int
+			}{"Kim", 22}
+			fmt.Printf("%v %+v %#v\n", person, person, person)
+			// Result: {Kim 22} {Name:Kim Age:22} struct { Name string; Age int }{Name:"Kim", Age:22}
+		
+			// The default format for a pointer shows the underlying value preceded by
+			// an ampersand. The %p verb prints the pointer value in hex. We use a
+			// typed nil for the argument to %p here because the value of any non-nil
+			// pointer would change from run to run; run the commented-out Printf
+			// call yourself to see.
+			pointer := &person
+			fmt.Printf("%v %p\n", pointer, (*int)(nil))
+			// Result: &{Kim 22} 0x0
+			// fmt.Printf("%v %p\n", pointer, pointer)
+			// Result: &{Kim 22} 0x010203 // See comment above.
+		
+			// Arrays and slices are formatted by applying the format to each element.
+			greats := [5]string{"Kitano", "Kobayashi", "Kurosawa", "Miyazaki", "Ozu"}
+			fmt.Printf("%v %q\n", greats, greats)
+			// Result: [Kitano Kobayashi Kurosawa Miyazaki Ozu] ["Kitano" "Kobayashi" "Kurosawa" "Miyazaki" "Ozu"]
+		
+			kGreats := greats[:3]
+			fmt.Printf("%v %q %#v\n", kGreats, kGreats, kGreats)
+			// Result: [Kitano Kobayashi Kurosawa] ["Kitano" "Kobayashi" "Kurosawa"] []string{"Kitano", "Kobayashi", "Kurosawa"}
+		
+			// Byte slices are special. Integer verbs like %d print the elements in
+			// that format. The %s and %q forms treat the slice like a string. The %x
+			// verb has a special form with the space flag that puts a space between
+			// the bytes.
+			cmd := []byte("a⌘")
+			fmt.Printf("%v %d %s %q %x % x\n", cmd, cmd, cmd, cmd, cmd, cmd)
+			// Result: [97 226 140 152] [97 226 140 152] a⌘ "a⌘" 61e28c98 61 e2 8c 98
+		
+			// Types that implement Stringer are printed the same as strings. Because
+			// Stringers return a string, we can print them using a string-specific
+			// verb such as %q.
+			now := time.Unix(123456789, 0).UTC() // time.Time implements fmt.Stringer.
+			fmt.Printf("%v %q\n", now, now)
+			// Result: 1973-11-29 21:33:09 +0000 UTC "1973-11-29 21:33:09 +0000 UTC"
+		
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-14-fold-content"><label for="example-14-fold-content">_printers</label><span id='example-14-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"fmt"
+			"math"
+		)
+		
+		func main() {
+			a, b := 3.0, 4.0
+			h := math.Hypot(a, b)
+		
+			// Print inserts blanks between arguments when neither is a string.
+			// It does not add a newline to the output, so we add one explicitly.
+			fmt.Print("The vector (", a, b, ") has length ", h, ".\n")
+		
+			// Println always inserts spaces between its arguments,
+			// so it cannot be used to produce the same output as Print in this case;
+			// its output has extra spaces.
+			// Also, Println always adds a newline to the output.
+			fmt.Println("The vector (", a, b, ") has length", h, ".")
+		
+			// Printf provides complete control but is more complex to use.
+			// It does not add a newline to the output, so we add one explicitly
+			// at the end of the format specifier string.
+			fmt.Printf("The vector (%g %g) has length %g.\n", a, b, h)
+		
+		}
+</span>
+</div>
+<div id="exported-types"><span class="title">Package-Level Type Names<span class="title-stat"><i> (total 16, in which 6 are exported)</i></span></span>
+
+<div id="exported-types-buttons" class="js-on">	/* sort exporteds by: <label id="sort-types-by-alphabet" class="button">alphabet</label> | <label id="sort-types-by-popularity" class="button">popularity</label> */</div><div class="anchor type-res" id="name-Formatter" data-popularity="950">	<input type='checkbox' class="fold" id="Formatter-fold-content"><label for="Formatter-fold-content"> <a href="../use/fmt..Formatter.html">type</a> <a href="../src/fmt/print.go.html#line-53">Formatter</a> <b><i>(interface)</i></b></label><span id='Formatter-fold-content-docs' class="fold-docs">
 		Formatter is implemented by any value that has a Format method.
 		The implementation controls how State and rune are interpreted,
 		and may call Sprint(f) or Fprint(f) etc. to generate its output.
 
 		<input type='checkbox' class="fold" id="Formatter-fold-methods"><label for="Formatter-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='Formatter-fold-methods-items' class="fold-items"><span>
 			<span class="nodocs">( T) <a href="../src/fmt/print.go.html#line-54">Format</a>(f <a href="#name-State">State</a>, verb <a href="builtin.html#name-rune">rune</a>)</span></span></span>
-		<input type='checkbox' class="fold" id="Formatter-fold-impledby"><label for="Formatter-fold-impledby">Implemented By (<i>at least 9, in which 4 are exported</i>)</label><span id='Formatter-fold-impledby-items' class="fold-items"><span>
-			 golang.org/x/tools/internal/event/core.<a href="golang.org/x/tools/internal/event/core.html#name-Event">Event</a></span><span>
-			 golang.org/x/tools/internal/event/label.<a href="golang.org/x/tools/internal/event/label.html#name-Label">Label</a></span><span>
+		<input type='checkbox' class="fold" id="Formatter-fold-impledby"><label for="Formatter-fold-impledby">Implemented By (<i>at least 6, in which 2 are exported</i>)</label><span id='Formatter-fold-impledby-items' class="fold-items"><span>
 			*math/big.<a href="math/big.html#name-Float">Float</a></span><span>
 			*math/big.<a href="math/big.html#name-Int">Int</a></span>
-			<input type='checkbox' class="showhide" id="Formatter-showhide-impedBys"><i><label for="Formatter-showhide-impedBys" class="show-inline">/* 5+ unexporteds ... */</label><label for="Formatter-showhide-impedBys" class="hide-inline">/* 5+ unexporteds: */</label></i><span class="hidden"><i>
-			*github.com/davecgh/go-spew/spew.<a href="github.com/davecgh/go-spew/spew.html#name-formatState">formatState</a></i></span><span class="hidden"><i>
+			<input type='checkbox' class="showhide" id="Formatter-showhide-impedBys"><i><label for="Formatter-showhide-impedBys" class="show-inline">/* 4+ unexporteds ... */</label><label for="Formatter-showhide-impedBys" class="hide-inline">/* 4+ unexporteds: */</label></i><span class="hidden"><i>
 			*go.uber.org/multierr.<a href="go.uber.org/multierr.html#name-multiError">multiError</a></i></span><span class="hidden"><i>
 			*golang.org/x/xerrors.<a href="golang.org/x/xerrors.html#name-errorString">errorString</a></i></span><span class="hidden"><i>
 			*golang.org/x/xerrors.<a href="golang.org/x/xerrors.html#name-noWrapError">noWrapError</a></i></span><span class="hidden"><i>
 			*golang.org/x/xerrors.<a href="golang.org/x/xerrors.html#name-wrapError">wrapError</a></i></span></span>
-		<input type='checkbox' class="fold" id="Formatter-fold-results"><label for="Formatter-fold-results">As Outputs Of (<i>at least 3, in which 2 are exported</i>)</label><span id='Formatter-fold-results-items' class="fold-items"><span>
-			func github.com/davecgh/go-spew/spew.<a href="github.com/davecgh/go-spew/spew.html#name-NewFormatter">NewFormatter</a>(v interface{}) <b>Formatter</b></span><span>
-			func github.com/davecgh/go-spew/spew.(*<a href="github.com/davecgh/go-spew/spew.html#name-ConfigState">ConfigState</a>).<a href="../src/github.com/davecgh/go-spew/spew/config.go.html#line-240">NewFormatter</a>(v interface{}) <b>Formatter</b></span>
-			<input type='checkbox' class="showhide" id="Formatter-showhide-inputofs"><i><label for="Formatter-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="Formatter-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
-			func github.com/davecgh/go-spew/spew.<a href="github.com/davecgh/go-spew/spew.html#name-newFormatter">newFormatter</a>(cs *<a href="github.com/davecgh/go-spew/spew.html">spew</a>.<a href="github.com/davecgh/go-spew/spew.html#name-ConfigState">ConfigState</a>, v interface{}) <b>Formatter</b></i></span></span>
 
 </span></div><div class="anchor type-res" id="name-GoStringer" data-popularity="3650">	<input type='checkbox' class="fold" id="GoStringer-fold-content"><label for="GoStringer-fold-content"> <a href="../use/fmt..GoStringer.html">type</a> <a href="../src/fmt/print.go.html#line-70">GoStringer</a> <b><i>(interface)</i></b></label><span id='GoStringer-fold-content-docs' class="fold-docs">
 		GoStringer is implemented by any value that has a GoString method,
@@ -486,7 +899,7 @@
 			func math/big.(*<a href="math/big.html#name-Int">Int</a>).<a href="../src/math/big/intconv.go.html#line-238">Scan</a>(s <b>ScanState</b>, ch <a href="builtin.html#name-rune">rune</a>) <a href="builtin.html#name-error">error</a></span><span>
 			func math/big.(*<a href="math/big.html#name-Rat">Rat</a>).<a href="../src/math/big/ratconv.go.html#line-26">Scan</a>(s <b>ScanState</b>, ch <a href="builtin.html#name-rune">rune</a>) <a href="builtin.html#name-error">error</a></span></span>
 
-</span></div><div class="anchor type-res" id="name-State" data-popularity="945">	<input type='checkbox' class="fold" id="State-fold-content"><label for="State-fold-content"> <a href="../use/fmt..State.html">type</a> <a href="../src/fmt/print.go.html#line-38">State</a> <b><i>(interface)</i></b></label><span id='State-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res" id="name-State" data-popularity="875">	<input type='checkbox' class="fold" id="State-fold-content"><label for="State-fold-content"> <a href="../use/fmt..State.html">type</a> <a href="../src/fmt/print.go.html#line-38">State</a> <b><i>(interface)</i></b></label><span id='State-fold-content-docs' class="fold-docs">
 		State represents the printer state passed to custom formatters.
 		It provides access to the io.Writer interface plus information about
 		the flags and options for the operand's format specifier.
@@ -511,17 +924,15 @@
 			*golang.org/x/xerrors.<a href="golang.org/x/xerrors.html#name-state">state</a></i></span></span>
 		<input type='checkbox' class="fold" id="State-fold-impls"><label for="State-fold-impls">Implements (<i>at least one exported</i>)</label><span id='State-fold-impls-items' class="fold-items"><span>
 			 T : io.<a href="io.html#name-Writer">Writer</a></span></span>
-		<input type='checkbox' class="fold" id="State-fold-params"><label for="State-fold-params">As Inputs Of (<i>at least 7, in which 6 are exported</i>)</label><span id='State-fold-params-items' class="fold-items"><span>
+		<input type='checkbox' class="fold" id="State-fold-params"><label for="State-fold-params">As Inputs Of (<i>at least 5, in which 4 are exported</i>)</label><span id='State-fold-params-items' class="fold-items"><span>
 			func <a href="#name-Formatter">Formatter</a>.<a href="../src/fmt/print.go.html#line-54">Format</a>(f <b>State</b>, verb <a href="builtin.html#name-rune">rune</a>)</span><span>
-			func golang.org/x/tools/internal/event/core.<a href="golang.org/x/tools/internal/event/core.html#name-Event">Event</a>.<a href="../src/golang.org/x/tools/internal/event/core/event.go.html#line-38">Format</a>(f <b>State</b>, r <a href="builtin.html#name-rune">rune</a>)</span><span>
-			func golang.org/x/tools/internal/event/label.<a href="golang.org/x/tools/internal/event/label.html#name-Label">Label</a>.<a href="../src/golang.org/x/tools/internal/event/label/label.go.html#line-130">Format</a>(f <b>State</b>, r <a href="builtin.html#name-rune">rune</a>)</span><span>
 			func golang.org/x/xerrors.<a href="golang.org/x/xerrors.html#name-FormatError">FormatError</a>(f <a href="golang.org/x/xerrors.html">xerrors</a>.<a href="golang.org/x/xerrors.html#name-Formatter">Formatter</a>, s <b>State</b>, verb <a href="builtin.html#name-rune">rune</a>)</span><span>
 			func math/big.(*<a href="math/big.html#name-Float">Float</a>).<a href="../src/math/big/ftoa.go.html#line-465">Format</a>(s <b>State</b>, format <a href="builtin.html#name-rune">rune</a>)</span><span>
 			func math/big.(*<a href="math/big.html#name-Int">Int</a>).<a href="../src/math/big/intconv.go.html#line-67">Format</a>(s <b>State</b>, ch <a href="builtin.html#name-rune">rune</a>)</span>
 			<input type='checkbox' class="showhide" id="State-showhide-outputofs"><i><label for="State-showhide-outputofs" class="show-inline">/* at least one unexported ... */</label><label for="State-showhide-outputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
 			func math/big.<a href="math/big.html#name-writeMultiple">writeMultiple</a>(s <b>State</b>, text <a href="builtin.html#name-string">string</a>, count <a href="builtin.html#name-int">int</a>)</i></span></span>
 
-</span></div><div class="anchor type-res" id="name-Stringer" data-popularity="292885">	<input type='checkbox' class="fold" id="Stringer-fold-content"><label for="Stringer-fold-content"> <a href="../use/fmt..Stringer.html">type</a> <a href="../src/fmt/print.go.html#line-62">Stringer</a> <b><i>(interface)</i></b></label><span id='Stringer-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res" id="name-Stringer" data-popularity="250685">	<input type='checkbox' class="fold" id="Stringer-fold-content"><label for="Stringer-fold-content"> <a href="../use/fmt..Stringer.html">type</a> <a href="../src/fmt/print.go.html#line-62">Stringer</a> <b><i>(interface)</i></b></label><span id='Stringer-fold-content-docs' class="fold-docs">
 		Stringer is implemented by any value that has a String method,
 		which defines the ``native'' format for that value.
 		The String method is used to print values passed as an operand
@@ -530,7 +941,7 @@
 
 		<input type='checkbox' class="fold" id="Stringer-fold-methods"><label for="Stringer-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='Stringer-fold-methods-items' class="fold-items"><span>
 			<span class="nodocs">( T) <a href="../src/runtime/error.go.html#line-205">String</a>() <a href="builtin.html#name-string">string</a></span></span></span>
-		<input type='checkbox' class="fold" id="Stringer-fold-impledby"><label for="Stringer-fold-impledby">Implemented By (<i>at least 1951, in which 1843 are exported</i>)</label><span id='Stringer-fold-impledby-items' class="fold-items"><span>
+		<input type='checkbox' class="fold" id="Stringer-fold-impledby"><label for="Stringer-fold-impledby">Implemented By (<i>at least 1670, in which 1587 are exported</i>)</label><span id='Stringer-fold-impledby-items' class="fold-items"><span>
 			*bytes.<a href="bytes.html#name-Buffer">Buffer</a></span><span>
 			 crypto.<a href="crypto.html#name-Hash">Hash</a></span><span>
 			 crypto/tls.<a href="crypto/tls.html#name-ClientAuthType">ClientAuthType</a></span><span>
@@ -550,76 +961,6 @@
 			 github.com/gotd/td/bin.<a href="github.com/gotd/td/bin.html#name-Fields">Fields</a></span><span>
 			 github.com/gotd/td/internal/crypto.<a href="github.com/gotd/td/internal/crypto.html#name-AuthKey">AuthKey</a></span><span>
 			 github.com/gotd/td/internal/crypto.<a href="github.com/gotd/td/internal/crypto.html#name-Key">Key</a></span><span>
-			 github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-AbstractMessageClass">AbstractMessageClass</a> <i>(interface)</i></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-AccountThemes">AccountThemes</a></span><span>
-			 github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-AccountThemesClass">AccountThemesClass</a> <i>(interface)</i></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-AccountThemesNotModified">AccountThemesNotModified</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-Auth">Auth</a></span><span>
-			 github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-AuthClass">AuthClass</a> <i>(interface)</i></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-AuthPassword">AuthPassword</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-BigMessage">BigMessage</a></span><span>
-			 github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-BoolClass">BoolClass</a> <i>(interface)</i></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-Bytes">Bytes</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-BytesMessage">BytesMessage</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-ClientDHInnerData">ClientDHInnerData</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-Config">Config</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-DCOption">DCOption</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-DoAuthRequest">DoAuthRequest</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-EchoVectorRequest">EchoVectorRequest</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-Error">Error</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-False">False</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-FieldsMessage">FieldsMessage</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-GetUpdatesResp">GetUpdatesResp</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-Int32">Int32</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-IntVector">IntVector</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-InvokeWithLayer">InvokeWithLayer</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-Message">Message</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-NoMessage">NoMessage</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-Ok">Ok</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-PingRequest">PingRequest</a></span><span>
-			 github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-ResponseClass">ResponseClass</a> <i>(interface)</i></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-ResponseID">ResponseID</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-ResponseText">ResponseText</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-SendMultipleSMSRequest">SendMultipleSMSRequest</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-SendRequest">SendRequest</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-SMS">SMS</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-String">String</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TargetsMessage">TargetsMessage</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TestBytes">TestBytes</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TestInt">TestInt</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TestString">TestString</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TestVectorBytes">TestVectorBytes</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TestVectorInt">TestVectorInt</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TestVectorIntObject">TestVectorIntObject</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TestVectorString">TestVectorString</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TestVectorStringObject">TestVectorStringObject</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TestVectorVector">TestVectorVector</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TextEntities">TextEntities</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TextEntity">TextEntity</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TextEntityTypeBankCardNumber">TextEntityTypeBankCardNumber</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TextEntityTypeBold">TextEntityTypeBold</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TextEntityTypeBotCommand">TextEntityTypeBotCommand</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TextEntityTypeCashtag">TextEntityTypeCashtag</a></span><span>
-			 github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TextEntityTypeClass">TextEntityTypeClass</a> <i>(interface)</i></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TextEntityTypeCode">TextEntityTypeCode</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TextEntityTypeEmailAddress">TextEntityTypeEmailAddress</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TextEntityTypeHashtag">TextEntityTypeHashtag</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TextEntityTypeItalic">TextEntityTypeItalic</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TextEntityTypeMention">TextEntityTypeMention</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TextEntityTypeMentionName">TextEntityTypeMentionName</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TextEntityTypePhoneNumber">TextEntityTypePhoneNumber</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TextEntityTypePre">TextEntityTypePre</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TextEntityTypePreCode">TextEntityTypePreCode</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TextEntityTypeStrikethrough">TextEntityTypeStrikethrough</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TextEntityTypeTextURL">TextEntityTypeTextURL</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TextEntityTypeUnderline">TextEntityTypeUnderline</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-TextEntityTypeURL">TextEntityTypeURL</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-Theme">Theme</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-True">True</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-Update">Update</a></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-UserAuth">UserAuth</a></span><span>
-			 github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-UserAuthClass">UserAuthClass</a> <i>(interface)</i></span><span>
-			*github.com/gotd/td/internal/gen/example.<a href="github.com/gotd/td/internal/gen/example.html#name-UserAuthPassword">UserAuthPassword</a></span><span>
 			*github.com/gotd/td/internal/mt.<a href="github.com/gotd/td/internal/mt.html#name-BadMsgNotification">BadMsgNotification</a></span><span>
 			 github.com/gotd/td/internal/mt.<a href="github.com/gotd/td/internal/mt.html#name-BadMsgNotificationClass">BadMsgNotificationClass</a> <i>(interface)</i></span><span>
 			*github.com/gotd/td/internal/mt.<a href="github.com/gotd/td/internal/mt.html#name-BadServerSalt">BadServerSalt</a></span><span>
@@ -671,11 +1012,7 @@
 			*github.com/gotd/td/internal/mt.<a href="github.com/gotd/td/internal/mt.html#name-SetClientDHParamsRequest">SetClientDHParamsRequest</a></span><span>
 			 github.com/gotd/td/internal/proto.<a href="github.com/gotd/td/internal/proto.html#name-MessageID">MessageID</a></span><span>
 			 github.com/gotd/td/internal/proto.<a href="github.com/gotd/td/internal/proto.html#name-MessageType">MessageType</a></span><span>
-			*github.com/gotd/td/tdp/internal/schema.<a href="github.com/gotd/td/tdp/internal/schema.html#name-Config">Config</a></span><span>
-			*github.com/gotd/td/tdp/internal/schema.<a href="github.com/gotd/td/tdp/internal/schema.html#name-DCOption">DCOption</a></span><span>
-			 github.com/gotd/td/telegram/downloader.<a href="github.com/gotd/td/telegram/downloader.html#name-ExpiredTokenError">ExpiredTokenError</a></span><span>
 			 github.com/gotd/td/telegram/internal/manager.<a href="github.com/gotd/td/telegram/internal/manager.html#name-ConnMode">ConnMode</a></span><span>
-			 github.com/gotd/td/telegram/internal/tgtest.<a href="github.com/gotd/td/telegram/internal/tgtest.html#name-Session">Session</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-AccessPointRule">AccessPointRule</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-AccountAcceptAuthorizationRequest">AccountAcceptAuthorizationRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-AccountAuthorizationForm">AccountAuthorizationForm</a></span><span>
@@ -2133,119 +2470,6 @@
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-WebPageEmpty">WebPageEmpty</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-WebPageNotModified">WebPageNotModified</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-WebPagePending">WebPagePending</a></span><span>
-			 github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-BoolClass">BoolClass</a> <i>(interface)</i></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-BoolFalse">BoolFalse</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-BoolTrue">BoolTrue</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-Bytes">Bytes</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessage">DecryptedMessage</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessage23">DecryptedMessage23</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessage46">DecryptedMessage46</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessage8">DecryptedMessage8</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageActionAbortKey">DecryptedMessageActionAbortKey</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageActionAcceptKey">DecryptedMessageActionAcceptKey</a></span><span>
-			 github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageActionClass">DecryptedMessageActionClass</a> <i>(interface)</i></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageActionCommitKey">DecryptedMessageActionCommitKey</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageActionDeleteMessages">DecryptedMessageActionDeleteMessages</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageActionFlushHistory">DecryptedMessageActionFlushHistory</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageActionNoop">DecryptedMessageActionNoop</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageActionNotifyLayer">DecryptedMessageActionNotifyLayer</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageActionReadMessages">DecryptedMessageActionReadMessages</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageActionRequestKey">DecryptedMessageActionRequestKey</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageActionResend">DecryptedMessageActionResend</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageActionScreenshotMessages">DecryptedMessageActionScreenshotMessages</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageActionSetMessageTTL">DecryptedMessageActionSetMessageTTL</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageActionTyping">DecryptedMessageActionTyping</a></span><span>
-			 github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageClass">DecryptedMessageClass</a> <i>(interface)</i></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageLayer">DecryptedMessageLayer</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageMediaAudio">DecryptedMessageMediaAudio</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageMediaAudio8">DecryptedMessageMediaAudio8</a></span><span>
-			 github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageMediaClass">DecryptedMessageMediaClass</a> <i>(interface)</i></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageMediaContact">DecryptedMessageMediaContact</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageMediaDocument">DecryptedMessageMediaDocument</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageMediaDocument23">DecryptedMessageMediaDocument23</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageMediaEmpty">DecryptedMessageMediaEmpty</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageMediaExternalDocument">DecryptedMessageMediaExternalDocument</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageMediaGeoPoint">DecryptedMessageMediaGeoPoint</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageMediaPhoto">DecryptedMessageMediaPhoto</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageMediaPhoto23">DecryptedMessageMediaPhoto23</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageMediaVenue">DecryptedMessageMediaVenue</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageMediaVideo">DecryptedMessageMediaVideo</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageMediaVideo23">DecryptedMessageMediaVideo23</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageMediaVideo8">DecryptedMessageMediaVideo8</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageMediaWebPage">DecryptedMessageMediaWebPage</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageService">DecryptedMessageService</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DecryptedMessageService8">DecryptedMessageService8</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DocumentAttributeAnimated">DocumentAttributeAnimated</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DocumentAttributeAudio">DocumentAttributeAudio</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DocumentAttributeAudio23">DocumentAttributeAudio23</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DocumentAttributeAudio45">DocumentAttributeAudio45</a></span><span>
-			 github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DocumentAttributeClass">DocumentAttributeClass</a> <i>(interface)</i></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DocumentAttributeFilename">DocumentAttributeFilename</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DocumentAttributeImageSize">DocumentAttributeImageSize</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DocumentAttributeSticker">DocumentAttributeSticker</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DocumentAttributeSticker23">DocumentAttributeSticker23</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DocumentAttributeVideo">DocumentAttributeVideo</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-DocumentAttributeVideo66">DocumentAttributeVideo66</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-Double">Double</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-FileLocation">FileLocation</a></span><span>
-			 github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-FileLocationClass">FileLocationClass</a> <i>(interface)</i></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-FileLocationUnavailable">FileLocationUnavailable</a></span><span>
-			 github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-InputStickerSetClass">InputStickerSetClass</a> <i>(interface)</i></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-InputStickerSetEmpty">InputStickerSetEmpty</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-InputStickerSetShortName">InputStickerSetShortName</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-Int">Int</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-Long">Long</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-MessageEntityBankCard">MessageEntityBankCard</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-MessageEntityBlockquote">MessageEntityBlockquote</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-MessageEntityBold">MessageEntityBold</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-MessageEntityBotCommand">MessageEntityBotCommand</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-MessageEntityCashtag">MessageEntityCashtag</a></span><span>
-			 github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-MessageEntityClass">MessageEntityClass</a> <i>(interface)</i></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-MessageEntityCode">MessageEntityCode</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-MessageEntityEmail">MessageEntityEmail</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-MessageEntityHashtag">MessageEntityHashtag</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-MessageEntityItalic">MessageEntityItalic</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-MessageEntityMention">MessageEntityMention</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-MessageEntityMentionName">MessageEntityMentionName</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-MessageEntityPhone">MessageEntityPhone</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-MessageEntityPre">MessageEntityPre</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-MessageEntityStrike">MessageEntityStrike</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-MessageEntityTextURL">MessageEntityTextURL</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-MessageEntityUnderline">MessageEntityUnderline</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-MessageEntityUnknown">MessageEntityUnknown</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-MessageEntityURL">MessageEntityURL</a></span><span>
-			 github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-NotEmptyPhotoSize">NotEmptyPhotoSize</a> <i>(interface)</i></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-PhotoCachedSize">PhotoCachedSize</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-PhotoSize">PhotoSize</a></span><span>
-			 github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-PhotoSizeClass">PhotoSizeClass</a> <i>(interface)</i></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-PhotoSizeEmpty">PhotoSizeEmpty</a></span><span>
-			 github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-SendMessageActionClass">SendMessageActionClass</a> <i>(interface)</i></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-SendMessageCancelAction">SendMessageCancelAction</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-SendMessageChooseContactAction">SendMessageChooseContactAction</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-SendMessageGeoLocationAction">SendMessageGeoLocationAction</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-SendMessageRecordAudioAction">SendMessageRecordAudioAction</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-SendMessageRecordRoundAction">SendMessageRecordRoundAction</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-SendMessageRecordVideoAction">SendMessageRecordVideoAction</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-SendMessageTypingAction">SendMessageTypingAction</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-SendMessageUploadAudioAction">SendMessageUploadAudioAction</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-SendMessageUploadDocumentAction">SendMessageUploadDocumentAction</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-SendMessageUploadPhotoAction">SendMessageUploadPhotoAction</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-SendMessageUploadRoundAction">SendMessageUploadRoundAction</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-SendMessageUploadVideoAction">SendMessageUploadVideoAction</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-String">String</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-TestDummyFunctionRequest">TestDummyFunctionRequest</a></span><span>
-			*github.com/gotd/td/tg/e2e.<a href="github.com/gotd/td/tg/e2e.html#name-True">True</a></span><span>
-			 github.com/gotd/tl.<a href="github.com/gotd/tl.html#name-Annotation">Annotation</a></span><span>
-			 github.com/gotd/tl.<a href="github.com/gotd/tl.html#name-Category">Category</a></span><span>
-			 github.com/gotd/tl.<a href="github.com/gotd/tl.html#name-Definition">Definition</a></span><span>
-			 github.com/gotd/tl.<a href="github.com/gotd/tl.html#name-Flag">Flag</a></span><span>
-			 github.com/gotd/tl.<a href="github.com/gotd/tl.html#name-Parameter">Parameter</a></span><span>
-			 github.com/gotd/tl.<a href="github.com/gotd/tl.html#name-Type">Type</a></span><span>
-			*github.com/quasilyte/go-ruleguard/dsl/types.<a href="github.com/quasilyte/go-ruleguard/dsl/types.html#name-Array">Array</a></span><span>
-			*github.com/quasilyte/go-ruleguard/dsl/types.<a href="github.com/quasilyte/go-ruleguard/dsl/types.html#name-Interface">Interface</a></span><span>
-			*github.com/quasilyte/go-ruleguard/dsl/types.<a href="github.com/quasilyte/go-ruleguard/dsl/types.html#name-Pointer">Pointer</a></span><span>
-			*github.com/quasilyte/go-ruleguard/dsl/types.<a href="github.com/quasilyte/go-ruleguard/dsl/types.html#name-Slice">Slice</a></span><span>
-			 github.com/quasilyte/go-ruleguard/dsl/types.<a href="github.com/quasilyte/go-ruleguard/dsl/types.html#name-Type">Type</a> <i>(interface)</i></span><span>
 			*go.uber.org/atomic.<a href="go.uber.org/atomic.html#name-Bool">Bool</a></span><span>
 			*go.uber.org/atomic.<a href="go.uber.org/atomic.html#name-Duration">Duration</a></span><span>
 			*go.uber.org/atomic.<a href="go.uber.org/atomic.html#name-Float64">Float64</a></span><span>
@@ -2258,47 +2482,9 @@
 			*go.uber.org/zap/buffer.<a href="go.uber.org/zap/buffer.html#name-Buffer">Buffer</a></span><span>
 			 go.uber.org/zap/zapcore.<a href="go.uber.org/zap/zapcore.html#name-EntryCaller">EntryCaller</a></span><span>
 			 go.uber.org/zap/zapcore.<a href="go.uber.org/zap/zapcore.html#name-Level">Level</a></span><span>
-			 go/ast.<a href="go/ast.html#name-CommentMap">CommentMap</a></span><span>
-			*go/ast.<a href="go/ast.html#name-Ident">Ident</a></span><span>
-			 go/ast.<a href="go/ast.html#name-ObjKind">ObjKind</a></span><span>
-			*go/ast.<a href="go/ast.html#name-Scope">Scope</a></span><span>
-			 go/constant.<a href="go/constant.html#name-Value">Value</a> <i>(interface)</i></span><span>
-			 go/token.<a href="go/token.html#name-Position">Position</a></span><span>
-			 go/token.<a href="go/token.html#name-Token">Token</a></span><span>
-			*go/types.<a href="go/types.html#name-Array">Array</a></span><span>
-			*go/types.<a href="go/types.html#name-Basic">Basic</a></span><span>
-			*go/types.<a href="go/types.html#name-Builtin">Builtin</a></span><span>
-			*go/types.<a href="go/types.html#name-Chan">Chan</a></span><span>
-			*go/types.<a href="go/types.html#name-Const">Const</a></span><span>
-			*go/types.<a href="go/types.html#name-Func">Func</a></span><span>
-			*go/types.<a href="go/types.html#name-Initializer">Initializer</a></span><span>
-			*go/types.<a href="go/types.html#name-Interface">Interface</a></span><span>
-			*go/types.<a href="go/types.html#name-Label">Label</a></span><span>
-			*go/types.<a href="go/types.html#name-Map">Map</a></span><span>
-			*go/types.<a href="go/types.html#name-MethodSet">MethodSet</a></span><span>
-			*go/types.<a href="go/types.html#name-Named">Named</a></span><span>
-			*go/types.<a href="go/types.html#name-Nil">Nil</a></span><span>
-			 go/types.<a href="go/types.html#name-Object">Object</a> <i>(interface)</i></span><span>
-			*go/types.<a href="go/types.html#name-Package">Package</a></span><span>
-			*go/types.<a href="go/types.html#name-PkgName">PkgName</a></span><span>
-			*go/types.<a href="go/types.html#name-Pointer">Pointer</a></span><span>
-			*go/types.<a href="go/types.html#name-Scope">Scope</a></span><span>
-			*go/types.<a href="go/types.html#name-Selection">Selection</a></span><span>
-			*go/types.<a href="go/types.html#name-Signature">Signature</a></span><span>
-			*go/types.<a href="go/types.html#name-Slice">Slice</a></span><span>
-			*go/types.<a href="go/types.html#name-Struct">Struct</a></span><span>
-			*go/types.<a href="go/types.html#name-Tuple">Tuple</a></span><span>
-			 go/types.<a href="go/types.html#name-Type">Type</a> <i>(interface)</i></span><span>
-			*go/types.<a href="go/types.html#name-TypeName">TypeName</a></span><span>
-			*go/types.<a href="go/types.html#name-Var">Var</a></span><span>
-			 golang.org/x/net/html.<a href="golang.org/x/net/html.html#name-Token">Token</a></span><span>
-			 golang.org/x/net/html.<a href="golang.org/x/net/html.html#name-TokenType">TokenType</a></span><span>
-			 golang.org/x/net/html/atom.<a href="golang.org/x/net/html/atom.html#name-Atom">Atom</a></span><span>
 			*golang.org/x/net/internal/socks.<a href="golang.org/x/net/internal/socks.html#name-Addr">Addr</a></span><span>
 			 golang.org/x/net/internal/socks.<a href="golang.org/x/net/internal/socks.html#name-Command">Command</a></span><span>
 			 golang.org/x/net/internal/socks.<a href="golang.org/x/net/internal/socks.html#name-Reply">Reply</a></span><span>
-			 golang.org/x/tools/go/packages.<a href="golang.org/x/tools/go/packages.html#name-LoadMode">LoadMode</a></span><span>
-			*golang.org/x/tools/go/packages.<a href="golang.org/x/tools/go/packages.html#name-Package">Package</a></span><span>
 			 internal/reflectlite.<a href="internal/reflectlite.html#name-Kind">Kind</a></span><span>
 			 internal/reflectlite.<a href="internal/reflectlite.html#name-Type">Type</a> <i>(interface)</i></span><span>
 			 io/fs.<a href="io/fs.html#name-FileMode">FileMode</a></span><span>
@@ -2321,47 +2507,16 @@
 			*net/http.<a href="net/http.html#name-Cookie">Cookie</a></span><span>
 			*net/url.<a href="net/url.html#name-URL">URL</a></span><span>
 			*net/url.<a href="net/url.html#name-Userinfo">Userinfo</a></span><span>
+			 nhooyr.io/websocket.<a href="nhooyr.io/websocket.html#name-MessageType">MessageType</a></span><span>
+			 nhooyr.io/websocket.<a href="nhooyr.io/websocket.html#name-StatusCode">StatusCode</a></span><span>
 			*os.<a href="os.html#name-ProcessState">ProcessState</a></span><span>
 			 os.<a href="os.html#name-Signal">Signal</a> <i>(interface)</i></span><span>
-			*os/exec.<a href="os/exec.html#name-Cmd">Cmd</a></span><span>
-			 os/exec.<a href="os/exec.html#name-ExitError">ExitError</a></span><span>
 			 reflect.<a href="reflect.html#name-ChanDir">ChanDir</a></span><span>
 			 reflect.<a href="reflect.html#name-Kind">Kind</a></span><span>
 			 reflect.<a href="reflect.html#name-Type">Type</a> <i>(interface)</i></span><span>
 			 reflect.<a href="reflect.html#name-Value">Value</a></span><span>
-			*regexp.<a href="regexp.html#name-Regexp">Regexp</a></span><span>
-			 regexp/syntax.<a href="regexp/syntax.html#name-ErrorCode">ErrorCode</a></span><span>
-			*regexp/syntax.<a href="regexp/syntax.html#name-Inst">Inst</a></span><span>
-			 regexp/syntax.<a href="regexp/syntax.html#name-InstOp">InstOp</a></span><span>
-			 regexp/syntax.<a href="regexp/syntax.html#name-Op">Op</a></span><span>
-			*regexp/syntax.<a href="regexp/syntax.html#name-Prog">Prog</a></span><span>
-			*regexp/syntax.<a href="regexp/syntax.html#name-Regexp">Regexp</a></span><span>
 			*strings.<a href="strings.html#name-Builder">Builder</a></span><span>
 			 syscall.<a href="syscall.html#name-Signal">Signal</a></span><span>
-			 testing.<a href="testing.html#name-BenchmarkResult">BenchmarkResult</a></span><span>
-			 text/scanner.<a href="text/scanner.html#name-Position">Position</a></span><span>
-			 text/scanner.<a href="text/scanner.html#name-Scanner">Scanner</a></span><span>
-			*text/template/parse.<a href="text/template/parse.html#name-ActionNode">ActionNode</a></span><span>
-			*text/template/parse.<a href="text/template/parse.html#name-BoolNode">BoolNode</a></span><span>
-			*text/template/parse.<a href="text/template/parse.html#name-BranchNode">BranchNode</a></span><span>
-			*text/template/parse.<a href="text/template/parse.html#name-ChainNode">ChainNode</a></span><span>
-			*text/template/parse.<a href="text/template/parse.html#name-CommandNode">CommandNode</a></span><span>
-			*text/template/parse.<a href="text/template/parse.html#name-CommentNode">CommentNode</a></span><span>
-			*text/template/parse.<a href="text/template/parse.html#name-DotNode">DotNode</a></span><span>
-			*text/template/parse.<a href="text/template/parse.html#name-FieldNode">FieldNode</a></span><span>
-			*text/template/parse.<a href="text/template/parse.html#name-IdentifierNode">IdentifierNode</a></span><span>
-			*text/template/parse.<a href="text/template/parse.html#name-IfNode">IfNode</a></span><span>
-			*text/template/parse.<a href="text/template/parse.html#name-ListNode">ListNode</a></span><span>
-			*text/template/parse.<a href="text/template/parse.html#name-NilNode">NilNode</a></span><span>
-			 text/template/parse.<a href="text/template/parse.html#name-Node">Node</a> <i>(interface)</i></span><span>
-			*text/template/parse.<a href="text/template/parse.html#name-NumberNode">NumberNode</a></span><span>
-			*text/template/parse.<a href="text/template/parse.html#name-PipeNode">PipeNode</a></span><span>
-			*text/template/parse.<a href="text/template/parse.html#name-RangeNode">RangeNode</a></span><span>
-			*text/template/parse.<a href="text/template/parse.html#name-StringNode">StringNode</a></span><span>
-			*text/template/parse.<a href="text/template/parse.html#name-TemplateNode">TemplateNode</a></span><span>
-			*text/template/parse.<a href="text/template/parse.html#name-TextNode">TextNode</a></span><span>
-			*text/template/parse.<a href="text/template/parse.html#name-VariableNode">VariableNode</a></span><span>
-			*text/template/parse.<a href="text/template/parse.html#name-WithNode">WithNode</a></span><span>
 			 time.<a href="time.html#name-Duration">Duration</a></span><span>
 			*time.<a href="time.html#name-Location">Location</a></span><span>
 			 time.<a href="time.html#name-Month">Month</a></span><span>
@@ -2374,7 +2529,7 @@
 			 vendor/golang.org/x/net/http2/hpack.<a href="vendor/golang.org/x/net/http2/hpack.html#name-HeaderField">HeaderField</a></span><span>
 			*vendor/golang.org/x/net/idna.<a href="vendor/golang.org/x/net/idna.html#name-Profile">Profile</a></span><span>
 			*vendor/golang.org/x/text/unicode/bidi.<a href="vendor/golang.org/x/text/unicode/bidi.html#name-Run">Run</a></span>
-			<input type='checkbox' class="showhide" id="Stringer-showhide-impedBys"><i><label for="Stringer-showhide-impedBys" class="show-inline">/* 108+ unexporteds ... */</label><label for="Stringer-showhide-impedBys" class="hide-inline">/* 108+ unexporteds: */</label></i><span class="hidden"><i>
+			<input type='checkbox' class="showhide" id="Stringer-showhide-impedBys"><i><label for="Stringer-showhide-impedBys" class="show-inline">/* 83+ unexporteds ... */</label><label for="Stringer-showhide-impedBys" class="hide-inline">/* 83+ unexporteds: */</label></i><span class="hidden"><i>
 			*context.<a href="context.html#name-cancelCtx">cancelCtx</a></i></span><span class="hidden"><i>
 			*context.<a href="context.html#name-emptyCtx">emptyCtx</a></i></span><span class="hidden"><i>
 			 context.<a href="context.html#name-stringer">stringer</a> <i>(interface)</i></i></span><span class="hidden"><i>
@@ -2394,27 +2549,7 @@
 			*flag.<a href="flag.html#name-stringValue">stringValue</a></i></span><span class="hidden"><i>
 			*flag.<a href="flag.html#name-uint64Value">uint64Value</a></i></span><span class="hidden"><i>
 			*flag.<a href="flag.html#name-uintValue">uintValue</a></i></span><span class="hidden"><i>
-			 github.com/gotd/td/internal/gen.<a href="github.com/gotd/td/internal/gen.html#name-fieldDef">fieldDef</a></i></span><span class="hidden"><i>
-			*github.com/k0kubun/pp/v3.<a href="github.com/k0kubun/pp/v3.html#name-printer">printer</a></i></span><span class="hidden"><i>
-			 go/constant.<a href="go/constant.html#name-boolVal">boolVal</a></i></span><span class="hidden"><i>
-			 go/constant.<a href="go/constant.html#name-complexVal">complexVal</a></i></span><span class="hidden"><i>
-			 go/constant.<a href="go/constant.html#name-floatVal">floatVal</a></i></span><span class="hidden"><i>
-			 go/constant.<a href="go/constant.html#name-int64Val">int64Val</a></i></span><span class="hidden"><i>
-			 go/constant.<a href="go/constant.html#name-intVal">intVal</a></i></span><span class="hidden"><i>
-			 go/constant.<a href="go/constant.html#name-ratVal">ratVal</a></i></span><span class="hidden"><i>
-			*go/constant.<a href="go/constant.html#name-stringVal">stringVal</a></i></span><span class="hidden"><i>
-			 go/constant.<a href="go/constant.html#name-unknownVal">unknownVal</a></i></span><span class="hidden"><i>
-			 go/types.<a href="go/types.html#name-color">color</a></i></span><span class="hidden"><i>
-			 go/types.<a href="go/types.html#name-dependency">dependency</a> <i>(interface)</i></i></span><span class="hidden"><i>
-			*go/types.<a href="go/types.html#name-object">object</a></i></span><span class="hidden"><i>
-			*go/types.<a href="go/types.html#name-operand">operand</a></i></span><span class="hidden"><i>
-			 golang.org/x/tools/go/internal/gcimporter.<a href="golang.org/x/tools/go/internal/gcimporter.html#name-anyType">anyType</a></i></span><span class="hidden"><i>
-			*golang.org/x/tools/go/internal/gcimporter.<a href="golang.org/x/tools/go/internal/gcimporter.html#name-dddSlice">dddSlice</a></i></span><span class="hidden"><i>
-			*golang.org/x/tools/go/internal/gcimporter.<a href="golang.org/x/tools/go/internal/gcimporter.html#name-intWriter">intWriter</a></i></span><span class="hidden"><i>
-			 golang.org/x/tools/go/packages.<a href="golang.org/x/tools/go/packages.html#name-loaderPackage">loaderPackage</a></i></span><span class="hidden"><i>
-			 gopkg.in/yaml.v3.<a href="gopkg.in/yaml.v3.html#name-yaml_event_type_t">yaml_event_type_t</a></i></span><span class="hidden"><i>
-			 gopkg.in/yaml.v3.<a href="gopkg.in/yaml.v3.html#name-yaml_parser_state_t">yaml_parser_state_t</a></i></span><span class="hidden"><i>
-			 gopkg.in/yaml.v3.<a href="gopkg.in/yaml.v3.html#name-yaml_token_type_t">yaml_token_type_t</a></i></span><span class="hidden"><i>
+			 github.com/gotd/td/telegram/dcs.<a href="github.com/gotd/td/telegram/dcs.html#name-websocketAddr">websocketAddr</a></i></span><span class="hidden"><i>
 			*internal/reflectlite.<a href="internal/reflectlite.html#name-arrayType">arrayType</a></i></span><span class="hidden"><i>
 			*internal/reflectlite.<a href="internal/reflectlite.html#name-chanType">chanType</a></i></span><span class="hidden"><i>
 			*internal/reflectlite.<a href="internal/reflectlite.html#name-funcType">funcType</a></i></span><span class="hidden"><i>
@@ -2455,8 +2590,8 @@
 			*net/http.<a href="net/http.html#name-socksAddr">socksAddr</a></i></span><span class="hidden"><i>
 			 net/http.<a href="net/http.html#name-socksCommand">socksCommand</a></i></span><span class="hidden"><i>
 			 net/http.<a href="net/http.html#name-socksReply">socksReply</a></i></span><span class="hidden"><i>
-			*os/signal.<a href="os/signal.html#name-signalCtx">signalCtx</a></i></span><span class="hidden"><i>
-			 os/signal.<a href="os/signal.html#name-stringer">stringer</a> <i>(interface)</i></i></span><span class="hidden"><i>
+			 nhooyr.io/websocket.<a href="nhooyr.io/websocket.html#name-opcode">opcode</a></i></span><span class="hidden"><i>
+			 nhooyr.io/websocket.<a href="nhooyr.io/websocket.html#name-websocketAddr">websocketAddr</a></i></span><span class="hidden"><i>
 			*reflect.<a href="reflect.html#name-arrayType">arrayType</a></i></span><span class="hidden"><i>
 			*reflect.<a href="reflect.html#name-chanType">chanType</a></i></span><span class="hidden"><i>
 			*reflect.<a href="reflect.html#name-funcType">funcType</a></i></span><span class="hidden"><i>
@@ -2473,25 +2608,19 @@
 			*reflect.<a href="reflect.html#name-sliceType">sliceType</a></i></span><span class="hidden"><i>
 			*reflect.<a href="reflect.html#name-structType">structType</a></i></span><span class="hidden"><i>
 			*reflect.<a href="reflect.html#name-structTypeUncommon">structTypeUncommon</a></i></span><span class="hidden"><i>
-			*regexp.<a href="regexp.html#name-onePassInst">onePassInst</a></i></span><span class="hidden"><i>
 			 runtime.<a href="runtime.html#name-lockRank">lockRank</a></i></span><span class="hidden"><i>
 			 runtime.<a href="runtime.html#name-stringer">stringer</a> <i>(interface)</i></i></span><span class="hidden"><i>
 			 runtime.<a href="runtime.html#name-waitReason">waitReason</a></i></span><span class="hidden"><i>
 			*strconv.<a href="strconv.html#name-decimal">decimal</a></i></span><span class="hidden"><i>
-			*testing.<a href="testing.html#name-benchTimeFlag">benchTimeFlag</a></i></span><span class="hidden"><i>
-			*text/template/parse.<a href="text/template/parse.html#name-elseNode">elseNode</a></i></span><span class="hidden"><i>
-			*text/template/parse.<a href="text/template/parse.html#name-endNode">endNode</a></i></span><span class="hidden"><i>
-			 text/template/parse.<a href="text/template/parse.html#name-item">item</a></i></span><span class="hidden"><i>
 			*vendor/golang.org/x/text/unicode/bidi.<a href="vendor/golang.org/x/text/unicode/bidi.html#name-bracketPair">bracketPair</a></i></span></span>
-		<input type='checkbox' class="fold" id="Stringer-fold-impls"><label for="Stringer-fold-impls">Implements (<i>at least 3, none are exported</i>)</label><span id='Stringer-fold-impls-items' class="fold-items">
-			<input type='checkbox' class="showhide" id="Stringer-showhide-impls"><i><label for="Stringer-showhide-impls" class="show-inline">/* 3+ unexporteds ... */</label><label for="Stringer-showhide-impls" class="hide-inline">/* 3+ unexporteds: */</label></i><span class="hidden"><i>
+		<input type='checkbox' class="fold" id="Stringer-fold-impls"><label for="Stringer-fold-impls">Implements (<i>at least 2, neither is exported</i>)</label><span id='Stringer-fold-impls-items' class="fold-items">
+			<input type='checkbox' class="showhide" id="Stringer-showhide-impls"><i><label for="Stringer-showhide-impls" class="show-inline">/* 2+ unexporteds ... */</label><label for="Stringer-showhide-impls" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
 			 T : context.<a href="context.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
-			 T : os/signal.<a href="os/signal.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
 			 T : runtime.<a href="runtime.html#name-stringer">stringer</a></i></span></span>
 		<input type='checkbox' class="fold" id="Stringer-fold-params"><label for="Stringer-fold-params">As Inputs Of (<i>at least one exported</i>)</label><span id='Stringer-fold-params-items' class="fold-items"><span>
 			func go.uber.org/zap.<a href="go.uber.org/zap.html#name-Stringer">Stringer</a>(key <a href="builtin.html#name-string">string</a>, val <b>Stringer</b>) <a href="go.uber.org/zap.html">zap</a>.<a href="go.uber.org/zap.html#name-Field">Field</a></span></span>
 
-</span></div></div><div>	<input type='checkbox' class="showhide" id="unexported-typenames-showhide"><i><label for="unexported-typenames-showhide" class="show-inline">/* 10 unexporteds ... */</label><label for="unexported-typenames-showhide" class="hide-inline">/* 10 unexporteds: */</label></i><div class="anchor type-res hidden" id="name-buffer" data-popularity="200">	<input type='checkbox' class="fold" id="buffer-fold-content"><label for="buffer-fold-content"> <a href="../use/fmt..buffer.html">type</a> <a href="../src/fmt/print.go.html#line-75">buffer</a> <i>([]T)</i></label><span id='buffer-fold-content-docs' class="fold-docs">
+</span></div></div><div>	<input type='checkbox' class="showhide" id="unexported-typenames-showhide"><i><label for="unexported-typenames-showhide" class="show-inline">/* 10 unexporteds ... */</label><label for="unexported-typenames-showhide" class="hide-inline">/* 10 unexporteds: */</label></i><div class="anchor type-res hidden" id="name-buffer" data-popularity="200">	<input type='checkbox' class="fold" id="buffer-fold-content"><label for="buffer-fold-content"> <a href="../use/fmt..buffer*d0ca8.html">type</a> <a href="../src/fmt/print.go.html#line-75">buffer</a> <i>([]T)</i></label><span id='buffer-fold-content-docs' class="fold-docs">
 		Use simple []byte instead of bytes.Buffer to avoid large dependency.
 
 		<input type='checkbox' class="fold" id="buffer-fold-methods"><label for="buffer-fold-methods">Methods (<i>total 4, none are exported</i>)</label><span id='buffer-fold-methods-items' class="fold-items">
@@ -2501,7 +2630,7 @@
 			<span class="nodocs">(*T) <a href="../src/fmt/print.go.html#line-89">writeRune</a>(r <a href="builtin.html#name-rune">rune</a>)</span></i></span><span class="hidden"><i>
 			<span class="nodocs">(*T) <a href="../src/fmt/print.go.html#line-81">writeString</a>(s <a href="builtin.html#name-string">string</a>)</span></i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-fmt" data-popularity="950">	<input type='checkbox' class="fold" id="fmt-fold-content"><label for="fmt-fold-content"> <a href="../use/fmt..fmt.html">type</a> <a href="../src/fmt/format.go.html#line-41">fmt</a> <i>(struct)</i></label><span id='fmt-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-fmt" data-popularity="950">	<input type='checkbox' class="fold" id="fmt-fold-content"><label for="fmt-fold-content"> <a href="../use/fmt..fmt*c63e0.html">type</a> <a href="../src/fmt/format.go.html#line-41">fmt</a> <i>(struct)</i></label><span id='fmt-fold-content-docs' class="fold-docs">
 		A fmt is the raw formatter used by Printf etc.
 		It prints into a buffer that must be set up separately.
 
@@ -2593,7 +2722,7 @@
 				writePadding generates n bytes of padding.
 </span></i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-fmtFlags" data-popularity="0">	<input type='checkbox' class="fold" id="fmtFlags-fold-content"><label for="fmtFlags-fold-content"> <a href="../use/fmt..fmtFlags.html">type</a> <a href="../src/fmt/format.go.html#line-23">fmtFlags</a> <i>(struct)</i></label><span id='fmtFlags-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-fmtFlags" data-popularity="0">	<input type='checkbox' class="fold" id="fmtFlags-fold-content"><label for="fmtFlags-fold-content"> <a href="../use/fmt..fmtFlags*47b63.html">type</a> <a href="../src/fmt/format.go.html#line-23">fmtFlags</a> <i>(struct)</i></label><span id='fmtFlags-fold-content-docs' class="fold-docs">
 		flags placed in a separate struct for easy clearing.
 
 		<input type='checkbox' class="fold" id="fmtFlags-fold-fields"><label for="fmtFlags-fold-fields">Fields (<i>total 9, none are exported</i>)</label><span id='fmtFlags-fold-fields-items' class="fold-items">
@@ -2612,7 +2741,7 @@
 			<span class="nodocs"><a href="../src/fmt/format.go.html#line-24">widPresent</a> <i><a href="builtin.html#name-bool">bool</a></i></span></i></span><span class="hidden"><i>
 			<span class="nodocs"><a href="../src/fmt/format.go.html#line-30">zero</a> <i><a href="builtin.html#name-bool">bool</a></i></span></i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-pp" data-popularity="1575">	<input type='checkbox' class="fold" id="pp-fold-content"><label for="pp-fold-content"> <a href="../use/fmt..pp.html">type</a> <a href="../src/fmt/print.go.html#line-105">pp</a> <i>(struct)</i></label><span id='pp-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-pp" data-popularity="1575">	<input type='checkbox' class="fold" id="pp-fold-content"><label for="pp-fold-content"> <a href="../use/fmt..pp*d5331.html">type</a> <a href="../src/fmt/print.go.html#line-105">pp</a> <i>(struct)</i></label><span id='pp-fold-content-docs' class="fold-docs">
 		pp is used to store a printer's state and is reused with sync.Pool to avoid allocations.
 
 		<input type='checkbox' class="fold" id="pp-fold-fields"><label for="pp-fold-fields">Fields (<i>total 10, none are exported</i>)</label><span id='pp-fold-fields-items' class="fold-items">
@@ -2713,7 +2842,7 @@
 			<input type='checkbox' checked class="showhide" id="pp-showhide-inputofs"><i><label for="pp-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="pp-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
 			func <a href="#name-newPrinter">newPrinter</a>() *<b>pp</b></i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-readRune" data-popularity="250">	<input type='checkbox' class="fold" id="readRune-fold-content"><label for="readRune-fold-content"> <a href="../use/fmt..readRune.html">type</a> <a href="../src/fmt/scan.go.html#line-304">readRune</a> <i>(struct)</i></label><span id='readRune-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-readRune" data-popularity="250">	<input type='checkbox' class="fold" id="readRune-fold-content"><label for="readRune-fold-content"> <a href="../use/fmt..readRune*6ff7c.html">type</a> <a href="../src/fmt/scan.go.html#line-304">readRune</a> <i>(struct)</i></label><span id='readRune-fold-content-docs' class="fold-docs">
 		readRune is a structure to enable reading UTF-8 encoded code points
 		from an io.Reader. It is used if the Reader given to the scanner does
 		not already implement io.RuneScanner.
@@ -2748,7 +2877,7 @@
 			*T : io.<a href="io.html#name-RuneReader">RuneReader</a></span><span>
 			*T : io.<a href="io.html#name-RuneScanner">RuneScanner</a></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-scanError" data-popularity="0">	<input type='checkbox' class="fold" id="scanError-fold-content"><label for="scanError-fold-content"> <a href="../use/fmt..scanError.html">type</a> <a href="../src/fmt/scan.go.html#line-150">scanError</a> <i>(struct)</i></label><span id='scanError-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-scanError" data-popularity="0">	<input type='checkbox' class="fold" id="scanError-fold-content"><label for="scanError-fold-content"> <a href="../use/fmt..scanError*d9286.html">type</a> <a href="../src/fmt/scan.go.html#line-150">scanError</a> <i>(struct)</i></label><span id='scanError-fold-content-docs' class="fold-docs">
 		scanError represents an error generated by the scanning software.
 		It's used as a unique signature to identify such errors when recovering.
 
@@ -2756,7 +2885,7 @@
 			<input type='checkbox' checked class="showhide" id="scanError-showhide-fields"><i><label for="scanError-showhide-fields" class="show-inline">/* one unexported ... */</label><label for="scanError-showhide-fields" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
 			<span class="nodocs"><a href="../src/fmt/scan.go.html#line-151">err</a> <i><a href="builtin.html#name-error">error</a></i></span></i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-ss" data-popularity="2125">	<input type='checkbox' class="fold" id="ss-fold-content"><label for="ss-fold-content"> <a href="../use/fmt..ss.html">type</a> <a href="../src/fmt/scan.go.html#line-157">ss</a> <i>(struct)</i></label><span id='ss-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-ss" data-popularity="2125">	<input type='checkbox' class="fold" id="ss-fold-content"><label for="ss-fold-content"> <a href="../use/fmt..ss*a31fe.html">type</a> <a href="../src/fmt/scan.go.html#line-157">ss</a> <i>(struct)</i></label><span id='ss-fold-content-docs' class="fold-docs">
 		ss is the internal implementation of ScanState.
 
 		<input type='checkbox' class="fold" id="ss-fold-fields"><label for="ss-fold-fields">Fields (<i>total 11, none are exported</i>)</label><span id='ss-fold-fields-items' class="fold-items">
@@ -2933,7 +3062,7 @@
 			<input type='checkbox' checked class="showhide" id="ss-showhide-inputofs"><i><label for="ss-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="ss-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
 			func <a href="#name-newScanState">newScanState</a>(r <a href="io.html">io</a>.<a href="io.html#name-Reader">Reader</a>, nlIsSpace, nlIsEnd <a href="builtin.html#name-bool">bool</a>) (s *<b>ss</b>, old <a href="#name-ssave">ssave</a>)</i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-ssave" data-popularity="75">	<input type='checkbox' class="fold" id="ssave-fold-content"><label for="ssave-fold-content"> <a href="../use/fmt..ssave.html">type</a> <a href="../src/fmt/scan.go.html#line-167">ssave</a> <i>(struct)</i></label><span id='ssave-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-ssave" data-popularity="75">	<input type='checkbox' class="fold" id="ssave-fold-content"><label for="ssave-fold-content"> <a href="../use/fmt..ssave*61e20.html">type</a> <a href="../src/fmt/scan.go.html#line-167">ssave</a> <i>(struct)</i></label><span id='ssave-fold-content-docs' class="fold-docs">
 		ssave holds the parts of ss that need to be
 		saved and restored on recursive scans.
 
@@ -2961,14 +3090,14 @@
 			<input type='checkbox' checked class="showhide" id="ssave-showhide-inputofs"><i><label for="ssave-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="ssave-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
 			func <a href="#name-newScanState">newScanState</a>(r <a href="io.html">io</a>.<a href="io.html#name-Reader">Reader</a>, nlIsSpace, nlIsEnd <a href="builtin.html#name-bool">bool</a>) (s *<a href="#name-ss">ss</a>, old <b>ssave</b>)</i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-stringReader" data-popularity="100">	<input type='checkbox' class="fold" id="stringReader-fold-content"><label for="stringReader-fold-content"> <a href="../use/fmt..stringReader.html">type</a> <a href="../src/fmt/scan.go.html#line-84">stringReader</a> <a href="builtin.html#name-string">string</a> <i>(basic type)</i></label><span id='stringReader-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-stringReader" data-popularity="100">	<input type='checkbox' class="fold" id="stringReader-fold-content"><label for="stringReader-fold-content"> <a href="../use/fmt..stringReader*25cfa.html">type</a> <a href="../src/fmt/scan.go.html#line-84">stringReader</a> <a href="builtin.html#name-string">string</a> <i>(basic type)</i></label><span id='stringReader-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="stringReader-fold-methods"><label for="stringReader-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='stringReader-fold-methods-items' class="fold-items"><span>
 			<span class="nodocs">(*T) <a href="../src/fmt/scan.go.html#line-86">Read</a>(b []<a href="builtin.html#name-byte">byte</a>) (n <a href="builtin.html#name-int">int</a>, err <a href="builtin.html#name-error">error</a>)</span></span></span>
 		<input type='checkbox' class="fold" id="stringReader-fold-impls"><label for="stringReader-fold-impls">Implements (<i>at least one exported</i>)</label><span id='stringReader-fold-impls-items' class="fold-items"><span>
 			*T : io.<a href="io.html#name-Reader">Reader</a></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-wrapError" data-popularity="200">	<input type='checkbox' class="fold" id="wrapError-fold-content"><label for="wrapError-fold-content"> <a href="../use/fmt..wrapError.html">type</a> <a href="../src/fmt/errors.go.html#line-32">wrapError</a> <i>(struct)</i></label><span id='wrapError-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-wrapError" data-popularity="200">	<input type='checkbox' class="fold" id="wrapError-fold-content"><label for="wrapError-fold-content"> <a href="../use/fmt..wrapError*63633.html">type</a> <a href="../src/fmt/errors.go.html#line-32">wrapError</a> <i>(struct)</i></label><span id='wrapError-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="wrapError-fold-fields"><label for="wrapError-fold-fields">Fields (<i>total 2, neither is exported</i>)</label><span id='wrapError-fold-fields-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="wrapError-showhide-fields"><i><label for="wrapError-showhide-fields" class="show-inline">/* 2 unexporteds ... */</label><label for="wrapError-showhide-fields" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
@@ -2982,7 +3111,7 @@
 			*T : golang.org/x/xerrors.<a href="golang.org/x/xerrors.html#name-Wrapper">Wrapper</a></span></span>
 
 </span></div></div>
-<div><span class="title value-res">Package-Level Functions<span class="title-stat"><i> (total 32, in which 19 are exported)</i></span></span>
+<div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 32, in which 19 are exported)</i></span></span>
 
 <div class="anchor value-res" id="name-Errorf">	<input type='checkbox' class="fold" id="Errorf-fold-content"><label for="Errorf-fold-content"> <a href="../use/fmt..Errorf.html">func</a> <a href="../src/fmt/errors.go.html#line-17">Errorf</a>(format <a href="builtin.html#name-string">string</a>, a ...interface{}) <a href="builtin.html#name-error">error</a></label><span id='Errorf-fold-content-docs' class="fold-docs">
 		Errorf formats according to a format specifier and returns the string as a
@@ -3084,30 +3213,30 @@
 		Sscanln is similar to Sscan, but stops scanning at a newline and
 		after the final item there must be a newline or EOF.
 
-</span></div>	<input type='checkbox' class="showhide" id="unexported-functions-showhide"><i><label for="unexported-functions-showhide" class="show-inline">/* 13 unexporteds ... */</label><label for="unexported-functions-showhide" class="hide-inline">/* 13 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-errorHandler"><i>	<input type='checkbox' class="fold" id="errorHandler-fold-content"><label for="errorHandler-fold-content"> <a href="../use/fmt..errorHandler.html">func</a> <a href="../src/fmt/scan.go.html#line-1057">errorHandler</a>(errp *<a href="builtin.html#name-error">error</a>)</label><span id='errorHandler-fold-content-docs' class="fold-docs">
+</span></div>	<input type='checkbox' class="showhide" id="unexported-functions-showhide"><i><label for="unexported-functions-showhide" class="show-inline">/* 13 unexporteds ... */</label><label for="unexported-functions-showhide" class="hide-inline">/* 13 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-errorHandler"><i>	<input type='checkbox' class="fold" id="errorHandler-fold-content"><label for="errorHandler-fold-content"> <a href="../use/fmt..errorHandler*a7334.html">func</a> <a href="../src/fmt/scan.go.html#line-1057">errorHandler</a>(errp *<a href="builtin.html#name-error">error</a>)</label><span id='errorHandler-fold-content-docs' class="fold-docs">
 		errorHandler turns local panics into error returns.
 
-</span></i></div><div class="anchor value-res hidden" id="name-getField"><i>	<input type='checkbox' class="fold" id="getField-fold-content"><label for="getField-fold-content"> <a href="../use/fmt..getField.html">func</a> <a href="../src/fmt/print.go.html#line-290">getField</a>(v <a href="reflect.html">reflect</a>.<a href="reflect.html#name-Value">Value</a>, i <a href="builtin.html#name-int">int</a>) <a href="reflect.html">reflect</a>.<a href="reflect.html#name-Value">Value</a></label><span id='getField-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-getField"><i>	<input type='checkbox' class="fold" id="getField-fold-content"><label for="getField-fold-content"> <a href="../use/fmt..getField*126bd.html">func</a> <a href="../src/fmt/print.go.html#line-290">getField</a>(v <a href="reflect.html">reflect</a>.<a href="reflect.html#name-Value">Value</a>, i <a href="builtin.html#name-int">int</a>) <a href="reflect.html">reflect</a>.<a href="reflect.html#name-Value">Value</a></label><span id='getField-fold-content-docs' class="fold-docs">
 		getField gets the i'th field of the struct value.
 		If the field is itself is an interface, return a value for
 		the thing inside the interface, not the interface itself.
 
-</span></i></div><div class="anchor value-res hidden" id="name-hasX"><i>	<span class="nodocs"> <a href="../use/fmt..hasX.html">func</a> <a href="../src/fmt/scan.go.html#line-764">hasX</a>(s <a href="builtin.html#name-string">string</a>) <a href="builtin.html#name-bool">bool</a></span></i></div><div class="anchor value-res hidden" id="name-hexDigit"><i>	<input type='checkbox' class="fold" id="hexDigit-fold-content"><label for="hexDigit-fold-content"> <a href="../use/fmt..hexDigit.html">func</a> <a href="../src/fmt/scan.go.html#line-883">hexDigit</a>(d <a href="builtin.html#name-rune">rune</a>) (<a href="builtin.html#name-int">int</a>, <a href="builtin.html#name-bool">bool</a>)</label><span id='hexDigit-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-hasX"><i>	<span class="nodocs"> <a href="../use/fmt..hasX*874b4.html">func</a> <a href="../src/fmt/scan.go.html#line-764">hasX</a>(s <a href="builtin.html#name-string">string</a>) <a href="builtin.html#name-bool">bool</a></span></i></div><div class="anchor value-res hidden" id="name-hexDigit"><i>	<input type='checkbox' class="fold" id="hexDigit-fold-content"><label for="hexDigit-fold-content"> <a href="../use/fmt..hexDigit*32fc8.html">func</a> <a href="../src/fmt/scan.go.html#line-883">hexDigit</a>(d <a href="builtin.html#name-rune">rune</a>) (<a href="builtin.html#name-int">int</a>, <a href="builtin.html#name-bool">bool</a>)</label><span id='hexDigit-fold-content-docs' class="fold-docs">
 		hexDigit returns the value of the hexadecimal digit.
 
-</span></i></div><div class="anchor value-res hidden" id="name-indexRune"><i>	<span class="nodocs"> <a href="../use/fmt..indexRune.html">func</a> <a href="../src/fmt/scan.go.html#line-468">indexRune</a>(s <a href="builtin.html#name-string">string</a>, r <a href="builtin.html#name-rune">rune</a>) <a href="builtin.html#name-int">int</a></span></i></div><div class="anchor value-res hidden" id="name-intFromArg"><i>	<input type='checkbox' class="fold" id="intFromArg-fold-content"><label for="intFromArg-fold-content"> <a href="../use/fmt..intFromArg.html">func</a> <a href="../src/fmt/print.go.html#line-889">intFromArg</a>(a []interface{}, argNum <a href="builtin.html#name-int">int</a>) (num <a href="builtin.html#name-int">int</a>, isInt <a href="builtin.html#name-bool">bool</a>, newArgNum <a href="builtin.html#name-int">int</a>)</label><span id='intFromArg-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-indexRune"><i>	<span class="nodocs"> <a href="../use/fmt..indexRune*7fa9c.html">func</a> <a href="../src/fmt/scan.go.html#line-468">indexRune</a>(s <a href="builtin.html#name-string">string</a>, r <a href="builtin.html#name-rune">rune</a>) <a href="builtin.html#name-int">int</a></span></i></div><div class="anchor value-res hidden" id="name-intFromArg"><i>	<input type='checkbox' class="fold" id="intFromArg-fold-content"><label for="intFromArg-fold-content"> <a href="../use/fmt..intFromArg*06bfa.html">func</a> <a href="../src/fmt/print.go.html#line-889">intFromArg</a>(a []interface{}, argNum <a href="builtin.html#name-int">int</a>) (num <a href="builtin.html#name-int">int</a>, isInt <a href="builtin.html#name-bool">bool</a>, newArgNum <a href="builtin.html#name-int">int</a>)</label><span id='intFromArg-fold-content-docs' class="fold-docs">
 		intFromArg gets the argNumth element of a. On return, isInt reports whether the argument has integer type.
 
-</span></i></div><div class="anchor value-res hidden" id="name-isSpace"><i>	<span class="nodocs"> <a href="../use/fmt..isSpace.html">func</a> <a href="../src/fmt/scan.go.html#line-280">isSpace</a>(r <a href="builtin.html#name-rune">rune</a>) <a href="builtin.html#name-bool">bool</a></span></i></div><div class="anchor value-res hidden" id="name-newPrinter"><i>	<input type='checkbox' class="fold" id="newPrinter-fold-content"><label for="newPrinter-fold-content"> <a href="../use/fmt..newPrinter.html">func</a> <a href="../src/fmt/print.go.html#line-136">newPrinter</a>() *<a href="#name-pp">pp</a></label><span id='newPrinter-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-isSpace"><i>	<span class="nodocs"> <a href="../use/fmt..isSpace*7786f.html">func</a> <a href="../src/fmt/scan.go.html#line-280">isSpace</a>(r <a href="builtin.html#name-rune">rune</a>) <a href="builtin.html#name-bool">bool</a></span></i></div><div class="anchor value-res hidden" id="name-newPrinter"><i>	<input type='checkbox' class="fold" id="newPrinter-fold-content"><label for="newPrinter-fold-content"> <a href="../use/fmt..newPrinter*33676.html">func</a> <a href="../src/fmt/print.go.html#line-136">newPrinter</a>() *<a href="#name-pp">pp</a></label><span id='newPrinter-fold-content-docs' class="fold-docs">
 		newPrinter allocates a new pp struct or grabs a cached one.
 
-</span></i></div><div class="anchor value-res hidden" id="name-newScanState"><i>	<input type='checkbox' class="fold" id="newScanState-fold-content"><label for="newScanState-fold-content"> <a href="../use/fmt..newScanState.html">func</a> <a href="../src/fmt/scan.go.html#line-383">newScanState</a>(r <a href="io.html">io</a>.<a href="io.html#name-Reader">Reader</a>, nlIsSpace, nlIsEnd <a href="builtin.html#name-bool">bool</a>) (s *<a href="#name-ss">ss</a>, old <a href="#name-ssave">ssave</a>)</label><span id='newScanState-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-newScanState"><i>	<input type='checkbox' class="fold" id="newScanState-fold-content"><label for="newScanState-fold-content"> <a href="../use/fmt..newScanState*4123a.html">func</a> <a href="../src/fmt/scan.go.html#line-383">newScanState</a>(r <a href="io.html">io</a>.<a href="io.html#name-Reader">Reader</a>, nlIsSpace, nlIsEnd <a href="builtin.html#name-bool">bool</a>) (s *<a href="#name-ss">ss</a>, old <a href="#name-ssave">ssave</a>)</label><span id='newScanState-fold-content-docs' class="fold-docs">
 		newScanState allocates a new ss struct or grab a cached one.
 
-</span></i></div><div class="anchor value-res hidden" id="name-notSpace"><i>	<input type='checkbox' class="fold" id="notSpace-fold-content"><label for="notSpace-fold-content"> <a href="../use/fmt..notSpace.html">func</a> <a href="../src/fmt/scan.go.html#line-297">notSpace</a>(r <a href="builtin.html#name-rune">rune</a>) <a href="builtin.html#name-bool">bool</a></label><span id='notSpace-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-notSpace"><i>	<input type='checkbox' class="fold" id="notSpace-fold-content"><label for="notSpace-fold-content"> <a href="../use/fmt..notSpace*978f0.html">func</a> <a href="../src/fmt/scan.go.html#line-297">notSpace</a>(r <a href="builtin.html#name-rune">rune</a>) <a href="builtin.html#name-bool">bool</a></label><span id='notSpace-fold-content-docs' class="fold-docs">
 		notSpace is the default scanning function used in Token.
 
-</span></i></div><div class="anchor value-res hidden" id="name-parseArgNumber"><i>	<input type='checkbox' class="fold" id="parseArgNumber-fold-content"><label for="parseArgNumber-fold-content"> <a href="../use/fmt..parseArgNumber.html">func</a> <a href="../src/fmt/print.go.html#line-927">parseArgNumber</a>(format <a href="builtin.html#name-string">string</a>) (index <a href="builtin.html#name-int">int</a>, wid <a href="builtin.html#name-int">int</a>, ok <a href="builtin.html#name-bool">bool</a>)</label><span id='parseArgNumber-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-parseArgNumber"><i>	<input type='checkbox' class="fold" id="parseArgNumber-fold-content"><label for="parseArgNumber-fold-content"> <a href="../use/fmt..parseArgNumber*6490c.html">func</a> <a href="../src/fmt/print.go.html#line-927">parseArgNumber</a>(format <a href="builtin.html#name-string">string</a>) (index <a href="builtin.html#name-int">int</a>, wid <a href="builtin.html#name-int">int</a>, ok <a href="builtin.html#name-bool">bool</a>)</label><span id='parseArgNumber-fold-content-docs' class="fold-docs">
 		parseArgNumber returns the value of the bracketed number, minus 1
 		(explicit argument numbers are one-indexed but we want zero-indexed).
 		The opening bracket is known to be present at format[0].
@@ -3115,103 +3244,103 @@
 		up to the closing paren, if present, and whether the number parsed
 		ok. The bytes to consume will be 1 if no closing paren is present.
 
-</span></i></div><div class="anchor value-res hidden" id="name-parsenum"><i>	<input type='checkbox' class="fold" id="parsenum-fold-content"><label for="parsenum-fold-content"> <a href="../use/fmt..parsenum.html">func</a> <a href="../src/fmt/print.go.html#line-306">parsenum</a>(s <a href="builtin.html#name-string">string</a>, start, end <a href="builtin.html#name-int">int</a>) (num <a href="builtin.html#name-int">int</a>, isnum <a href="builtin.html#name-bool">bool</a>, newi <a href="builtin.html#name-int">int</a>)</label><span id='parsenum-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-parsenum"><i>	<input type='checkbox' class="fold" id="parsenum-fold-content"><label for="parsenum-fold-content"> <a href="../use/fmt..parsenum*b04df.html">func</a> <a href="../src/fmt/print.go.html#line-306">parsenum</a>(s <a href="builtin.html#name-string">string</a>, start, end <a href="builtin.html#name-int">int</a>) (num <a href="builtin.html#name-int">int</a>, isnum <a href="builtin.html#name-bool">bool</a>, newi <a href="builtin.html#name-int">int</a>)</label><span id='parsenum-fold-content-docs' class="fold-docs">
 		parsenum converts ASCII to integer.  num is 0 (and isnum is false) if no number present.
 
-</span></i></div><div class="anchor value-res hidden" id="name-tooLarge"><i>	<input type='checkbox' class="fold" id="tooLarge-fold-content"><label for="tooLarge-fold-content"> <a href="../use/fmt..tooLarge.html">func</a> <a href="../src/fmt/print.go.html#line-300">tooLarge</a>(x <a href="builtin.html#name-int">int</a>) <a href="builtin.html#name-bool">bool</a></label><span id='tooLarge-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-tooLarge"><i>	<input type='checkbox' class="fold" id="tooLarge-fold-content"><label for="tooLarge-fold-content"> <a href="../use/fmt..tooLarge*5d794.html">func</a> <a href="../src/fmt/print.go.html#line-300">tooLarge</a>(x <a href="builtin.html#name-int">int</a>) <a href="builtin.html#name-bool">bool</a></label><span id='tooLarge-fold-content-docs' class="fold-docs">
 		tooLarge reports whether the magnitude of the integer is
 		too large to be used as a formatting width or precision.
 
 </span></i></div></div>
-<div><span class="title value-res">Package-Level Variables<span class="title-stat"><i> (total 5, none are exported)</i></span></span>
+<div id="exported-variables"><span class="title">Package-Level Variables<span class="title-stat"><i> (total 5, none are exported)</i></span></span>
 
-	<input type='checkbox' class="showhide" id="unexported-variables-showhide"><i><label for="unexported-variables-showhide" class="show-inline">/* 5 unexporteds ... */</label><label for="unexported-variables-showhide" class="hide-inline">/* 5 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-boolError"><i>	<span class="nodocs">  <a href="../use/fmt..boolError.html">var</a> <a href="../src/fmt/scan.go.html#line-466">boolError</a> <a href="builtin.html#name-error">error</a></span></i></div><div class="anchor value-res hidden" id="name-complexError"><i>	<span class="nodocs">  <a href="../use/fmt..complexError.html">var</a> <a href="../src/fmt/scan.go.html#line-465">complexError</a> <a href="builtin.html#name-error">error</a></span></i></div><div class="anchor value-res hidden" id="name-ppFree"><i>	<span class="nodocs">  <a href="../use/fmt..ppFree.html">var</a> <a href="../src/fmt/print.go.html#line-131">ppFree</a> <a href="sync.html">sync</a>.<a href="sync.html#name-Pool">Pool</a></span></i></div><div class="anchor value-res hidden" id="name-space"><i>	<input type='checkbox' class="fold" id="space-fold-content"><label for="space-fold-content">  <a href="../use/fmt..space.html">var</a> <a href="../src/fmt/scan.go.html#line-267">space</a> [][2]<a href="builtin.html#name-uint16">uint16</a></label><span id='space-fold-content-docs' class="fold-docs">
+	<input type='checkbox' class="showhide" id="unexported-variables-showhide"><i><label for="unexported-variables-showhide" class="show-inline">/* 5 unexporteds ... */</label><label for="unexported-variables-showhide" class="hide-inline">/* 5 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-boolError"><i>	<span class="nodocs">  <a href="../use/fmt..boolError*b4347.html">var</a> <a href="../src/fmt/scan.go.html#line-466">boolError</a> <a href="builtin.html#name-error">error</a></span></i></div><div class="anchor value-res hidden" id="name-complexError"><i>	<span class="nodocs">  <a href="../use/fmt..complexError*d7e6e.html">var</a> <a href="../src/fmt/scan.go.html#line-465">complexError</a> <a href="builtin.html#name-error">error</a></span></i></div><div class="anchor value-res hidden" id="name-ppFree"><i>	<span class="nodocs">  <a href="../use/fmt..ppFree*f792d.html">var</a> <a href="../src/fmt/print.go.html#line-131">ppFree</a> <a href="sync.html">sync</a>.<a href="sync.html#name-Pool">Pool</a></span></i></div><div class="anchor value-res hidden" id="name-space"><i>	<input type='checkbox' class="fold" id="space-fold-content"><label for="space-fold-content">  <a href="../use/fmt..space*3f49d.html">var</a> <a href="../src/fmt/scan.go.html#line-267">space</a> [][2]<a href="builtin.html#name-uint16">uint16</a></label><span id='space-fold-content-docs' class="fold-docs">
 		space is a copy of the unicode.White_Space ranges,
 		to avoid depending on package unicode.
 
-</span></i></div><div class="anchor value-res hidden" id="name-ssFree"><i>	<span class="nodocs">  <a href="../use/fmt..ssFree.html">var</a> <a href="../src/fmt/scan.go.html#line-378">ssFree</a> <a href="sync.html">sync</a>.<a href="sync.html#name-Pool">Pool</a></span></i></div></div>
-<div><span class="title value-res">Package-Level Constants<span class="title-stat"><i> (total 30, none are exported)</i></span></span>
+</span></i></div><div class="anchor value-res hidden" id="name-ssFree"><i>	<span class="nodocs">  <a href="../use/fmt..ssFree*ec955.html">var</a> <a href="../src/fmt/scan.go.html#line-378">ssFree</a> <a href="sync.html">sync</a>.<a href="sync.html#name-Pool">Pool</a></span></i></div></div>
+<div id="exported-constants"><span class="title">Package-Level Constants<span class="title-stat"><i> (total 30, none are exported)</i></span></span>
 
-	<input type='checkbox' class="showhide" id="unexported-constants-showhide"><i><label for="unexported-constants-showhide" class="show-inline">/* 30 unexporteds ... */</label><label for="unexported-constants-showhide" class="hide-inline">/* 30 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-badIndexString"><i>	<input type='checkbox' class="fold" id="badIndexString-fold-content"><label for="badIndexString-fold-content"><a href="../use/fmt..badIndexString.html">const</a> <a href="../src/fmt/print.go.html#line-26">badIndexString</a> = "(BADINDEX)"</label><span id='badIndexString-fold-content-docs' class="fold-docs">
+	<input type='checkbox' class="showhide" id="unexported-constants-showhide"><i><label for="unexported-constants-showhide" class="show-inline">/* 30 unexporteds ... */</label><label for="unexported-constants-showhide" class="hide-inline">/* 30 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-badIndexString"><i>	<input type='checkbox' class="fold" id="badIndexString-fold-content"><label for="badIndexString-fold-content"><a href="../use/fmt..badIndexString*afe07.html">const</a> <a href="../src/fmt/print.go.html#line-26">badIndexString</a> = "(BADINDEX)"</label><span id='badIndexString-fold-content-docs' class="fold-docs">
 		Strings for use with buffer.WriteString.
 		This is less overhead than using buffer.Write with byte arrays.
 
-</span></i></div><div class="anchor value-res hidden" id="name-badPrecString"><i>	<input type='checkbox' class="fold" id="badPrecString-fold-content"><label for="badPrecString-fold-content"><a href="../use/fmt..badPrecString.html">const</a> <a href="../src/fmt/print.go.html#line-30">badPrecString</a> = "%!(BADPREC)"</label><span id='badPrecString-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-badPrecString"><i>	<input type='checkbox' class="fold" id="badPrecString-fold-content"><label for="badPrecString-fold-content"><a href="../use/fmt..badPrecString*30d55.html">const</a> <a href="../src/fmt/print.go.html#line-30">badPrecString</a> = "%!(BADPREC)"</label><span id='badPrecString-fold-content-docs' class="fold-docs">
 		Strings for use with buffer.WriteString.
 		This is less overhead than using buffer.Write with byte arrays.
 
-</span></i></div><div class="anchor value-res hidden" id="name-badWidthString"><i>	<input type='checkbox' class="fold" id="badWidthString-fold-content"><label for="badWidthString-fold-content"><a href="../use/fmt..badWidthString.html">const</a> <a href="../src/fmt/print.go.html#line-29">badWidthString</a> = "%!(BADWIDTH)"</label><span id='badWidthString-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-badWidthString"><i>	<input type='checkbox' class="fold" id="badWidthString-fold-content"><label for="badWidthString-fold-content"><a href="../use/fmt..badWidthString*5d541.html">const</a> <a href="../src/fmt/print.go.html#line-29">badWidthString</a> = "%!(BADWIDTH)"</label><span id='badWidthString-fold-content-docs' class="fold-docs">
 		Strings for use with buffer.WriteString.
 		This is less overhead than using buffer.Write with byte arrays.
 
-</span></i></div><div class="anchor value-res hidden" id="name-binaryDigits"><i>	<input type='checkbox' class="fold" id="binaryDigits-fold-content"><label for="binaryDigits-fold-content"><a href="../use/fmt..binaryDigits.html">const</a> <a href="../src/fmt/scan.go.html#line-559">binaryDigits</a> = "01"</label><span id='binaryDigits-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-binaryDigits"><i>	<input type='checkbox' class="fold" id="binaryDigits-fold-content"><label for="binaryDigits-fold-content"><a href="../use/fmt..binaryDigits*1d704.html">const</a> <a href="../src/fmt/scan.go.html#line-559">binaryDigits</a> = "01"</label><span id='binaryDigits-fold-content-docs' class="fold-docs">
 		Numerical elements
 
-</span></i></div><div class="anchor value-res hidden" id="name-commaSpaceString"><i>	<input type='checkbox' class="fold" id="commaSpaceString-fold-content"><label for="commaSpaceString-fold-content"><a href="../use/fmt..commaSpaceString.html">const</a> <a href="../src/fmt/print.go.html#line-19">commaSpaceString</a> = ", "</label><span id='commaSpaceString-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-commaSpaceString"><i>	<input type='checkbox' class="fold" id="commaSpaceString-fold-content"><label for="commaSpaceString-fold-content"><a href="../use/fmt..commaSpaceString*f4532.html">const</a> <a href="../src/fmt/print.go.html#line-19">commaSpaceString</a> = ", "</label><span id='commaSpaceString-fold-content-docs' class="fold-docs">
 		Strings for use with buffer.WriteString.
 		This is less overhead than using buffer.Write with byte arrays.
 
-</span></i></div><div class="anchor value-res hidden" id="name-decimalDigits"><i>	<input type='checkbox' class="fold" id="decimalDigits-fold-content"><label for="decimalDigits-fold-content"><a href="../use/fmt..decimalDigits.html">const</a> <a href="../src/fmt/scan.go.html#line-561">decimalDigits</a> = "0123456789"</label><span id='decimalDigits-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-decimalDigits"><i>	<input type='checkbox' class="fold" id="decimalDigits-fold-content"><label for="decimalDigits-fold-content"><a href="../use/fmt..decimalDigits*8a586.html">const</a> <a href="../src/fmt/scan.go.html#line-561">decimalDigits</a> = "0123456789"</label><span id='decimalDigits-fold-content-docs' class="fold-docs">
 		Numerical elements
 
-</span></i></div><div class="anchor value-res hidden" id="name-eof"><i>	<span class="nodocs"><a href="../use/fmt..eof.html">const</a> <a href="../src/fmt/scan.go.html#line-154">eof</a> = -1</span></i></div><div class="anchor value-res hidden" id="name-exponent"><i>	<input type='checkbox' class="fold" id="exponent-fold-content"><label for="exponent-fold-content"><a href="../use/fmt..exponent.html">const</a> <a href="../src/fmt/scan.go.html#line-565">exponent</a> = "eEpP"</label><span id='exponent-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-eof"><i>	<span class="nodocs"><a href="../use/fmt..eof*22988.html">const</a> <a href="../src/fmt/scan.go.html#line-154">eof</a> = -1</span></i></div><div class="anchor value-res hidden" id="name-exponent"><i>	<input type='checkbox' class="fold" id="exponent-fold-content"><label for="exponent-fold-content"><a href="../use/fmt..exponent*27189.html">const</a> <a href="../src/fmt/scan.go.html#line-565">exponent</a> = "eEpP"</label><span id='exponent-fold-content-docs' class="fold-docs">
 		Numerical elements
 
-</span></i></div><div class="anchor value-res hidden" id="name-extraString"><i>	<input type='checkbox' class="fold" id="extraString-fold-content"><label for="extraString-fold-content"><a href="../use/fmt..extraString.html">const</a> <a href="../src/fmt/print.go.html#line-28">extraString</a> = "%!(EXTRA "</label><span id='extraString-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-extraString"><i>	<input type='checkbox' class="fold" id="extraString-fold-content"><label for="extraString-fold-content"><a href="../use/fmt..extraString*d0ce9.html">const</a> <a href="../src/fmt/print.go.html#line-28">extraString</a> = "%!(EXTRA "</label><span id='extraString-fold-content-docs' class="fold-docs">
 		Strings for use with buffer.WriteString.
 		This is less overhead than using buffer.Write with byte arrays.
 
-</span></i></div><div class="anchor value-res hidden" id="name-floatVerbs"><i>	<span class="nodocs"><a href="../use/fmt..floatVerbs.html">const</a> <a href="../src/fmt/scan.go.html#line-935">floatVerbs</a> = "beEfFgGv"</span></i></div><div class="anchor value-res hidden" id="name-hexadecimalDigits"><i>	<input type='checkbox' class="fold" id="hexadecimalDigits-fold-content"><label for="hexadecimalDigits-fold-content"><a href="../use/fmt..hexadecimalDigits.html">const</a> <a href="../src/fmt/scan.go.html#line-562">hexadecimalDigits</a> = "0123456789aAbBcCdDeEfF"</label><span id='hexadecimalDigits-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-floatVerbs"><i>	<span class="nodocs"><a href="../use/fmt..floatVerbs*73457.html">const</a> <a href="../src/fmt/scan.go.html#line-935">floatVerbs</a> = "beEfFgGv"</span></i></div><div class="anchor value-res hidden" id="name-hexadecimalDigits"><i>	<input type='checkbox' class="fold" id="hexadecimalDigits-fold-content"><label for="hexadecimalDigits-fold-content"><a href="../use/fmt..hexadecimalDigits*9ad4a.html">const</a> <a href="../src/fmt/scan.go.html#line-562">hexadecimalDigits</a> = "0123456789aAbBcCdDeEfF"</label><span id='hexadecimalDigits-fold-content-docs' class="fold-docs">
 		Numerical elements
 
-</span></i></div><div class="anchor value-res hidden" id="name-hugeWid"><i>	<span class="nodocs"><a href="../use/fmt..hugeWid.html">const</a> <a href="../src/fmt/scan.go.html#line-937">hugeWid</a> = 1073741824</span></i></div><div class="anchor value-res hidden" id="name-intBits"><i>	<span class="nodocs"><a href="../use/fmt..intBits.html">const</a> <a href="../src/fmt/scan.go.html#line-939">intBits</a> = 64</span></i></div><div class="anchor value-res hidden" id="name-invReflectString"><i>	<input type='checkbox' class="fold" id="invReflectString-fold-content"><label for="invReflectString-fold-content"><a href="../use/fmt..invReflectString.html">const</a> <a href="../src/fmt/print.go.html#line-32">invReflectString</a> = "<invalid reflect.Value>"</label><span id='invReflectString-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-hugeWid"><i>	<span class="nodocs"><a href="../use/fmt..hugeWid*3ea21.html">const</a> <a href="../src/fmt/scan.go.html#line-937">hugeWid</a> = 1073741824</span></i></div><div class="anchor value-res hidden" id="name-intBits"><i>	<span class="nodocs"><a href="../use/fmt..intBits*0084b.html">const</a> <a href="../src/fmt/scan.go.html#line-939">intBits</a> = 64</span></i></div><div class="anchor value-res hidden" id="name-invReflectString"><i>	<input type='checkbox' class="fold" id="invReflectString-fold-content"><label for="invReflectString-fold-content"><a href="../use/fmt..invReflectString*dbd49.html">const</a> <a href="../src/fmt/print.go.html#line-32">invReflectString</a> = "<invalid reflect.Value>"</label><span id='invReflectString-fold-content-docs' class="fold-docs">
 		Strings for use with buffer.WriteString.
 		This is less overhead than using buffer.Write with byte arrays.
 
-</span></i></div><div class="anchor value-res hidden" id="name-ldigits"><i>	<span class="nodocs"><a href="../use/fmt..ldigits.html">const</a> <a href="../src/fmt/format.go.html#line-13">ldigits</a> = "0123456789abcdefx"</span></i></div><div class="anchor value-res hidden" id="name-mapString"><i>	<input type='checkbox' class="fold" id="mapString-fold-content"><label for="mapString-fold-content"><a href="../use/fmt..mapString.html">const</a> <a href="../src/fmt/print.go.html#line-23">mapString</a> = "map["</label><span id='mapString-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-ldigits"><i>	<span class="nodocs"><a href="../use/fmt..ldigits*6f86b.html">const</a> <a href="../src/fmt/format.go.html#line-13">ldigits</a> = "0123456789abcdefx"</span></i></div><div class="anchor value-res hidden" id="name-mapString"><i>	<input type='checkbox' class="fold" id="mapString-fold-content"><label for="mapString-fold-content"><a href="../use/fmt..mapString*28c2f.html">const</a> <a href="../src/fmt/print.go.html#line-23">mapString</a> = "map["</label><span id='mapString-fold-content-docs' class="fold-docs">
 		Strings for use with buffer.WriteString.
 		This is less overhead than using buffer.Write with byte arrays.
 
-</span></i></div><div class="anchor value-res hidden" id="name-missingString"><i>	<input type='checkbox' class="fold" id="missingString-fold-content"><label for="missingString-fold-content"><a href="../use/fmt..missingString.html">const</a> <a href="../src/fmt/print.go.html#line-25">missingString</a> = "(MISSING)"</label><span id='missingString-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-missingString"><i>	<input type='checkbox' class="fold" id="missingString-fold-content"><label for="missingString-fold-content"><a href="../use/fmt..missingString*0664d.html">const</a> <a href="../src/fmt/print.go.html#line-25">missingString</a> = "(MISSING)"</label><span id='missingString-fold-content-docs' class="fold-docs">
 		Strings for use with buffer.WriteString.
 		This is less overhead than using buffer.Write with byte arrays.
 
-</span></i></div><div class="anchor value-res hidden" id="name-nilAngleString"><i>	<input type='checkbox' class="fold" id="nilAngleString-fold-content"><label for="nilAngleString-fold-content"><a href="../use/fmt..nilAngleString.html">const</a> <a href="../src/fmt/print.go.html#line-20">nilAngleString</a> = "<nil>"</label><span id='nilAngleString-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-nilAngleString"><i>	<input type='checkbox' class="fold" id="nilAngleString-fold-content"><label for="nilAngleString-fold-content"><a href="../use/fmt..nilAngleString*22e5c.html">const</a> <a href="../src/fmt/print.go.html#line-20">nilAngleString</a> = "<nil>"</label><span id='nilAngleString-fold-content-docs' class="fold-docs">
 		Strings for use with buffer.WriteString.
 		This is less overhead than using buffer.Write with byte arrays.
 
-</span></i></div><div class="anchor value-res hidden" id="name-nilParenString"><i>	<input type='checkbox' class="fold" id="nilParenString-fold-content"><label for="nilParenString-fold-content"><a href="../use/fmt..nilParenString.html">const</a> <a href="../src/fmt/print.go.html#line-21">nilParenString</a> = "(nil)"</label><span id='nilParenString-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-nilParenString"><i>	<input type='checkbox' class="fold" id="nilParenString-fold-content"><label for="nilParenString-fold-content"><a href="../use/fmt..nilParenString*6e466.html">const</a> <a href="../src/fmt/print.go.html#line-21">nilParenString</a> = "(nil)"</label><span id='nilParenString-fold-content-docs' class="fold-docs">
 		Strings for use with buffer.WriteString.
 		This is less overhead than using buffer.Write with byte arrays.
 
-</span></i></div><div class="anchor value-res hidden" id="name-nilString"><i>	<input type='checkbox' class="fold" id="nilString-fold-content"><label for="nilString-fold-content"><a href="../use/fmt..nilString.html">const</a> <a href="../src/fmt/print.go.html#line-22">nilString</a> = "nil"</label><span id='nilString-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-nilString"><i>	<input type='checkbox' class="fold" id="nilString-fold-content"><label for="nilString-fold-content"><a href="../use/fmt..nilString*f3e59.html">const</a> <a href="../src/fmt/print.go.html#line-22">nilString</a> = "nil"</label><span id='nilString-fold-content-docs' class="fold-docs">
 		Strings for use with buffer.WriteString.
 		This is less overhead than using buffer.Write with byte arrays.
 
-</span></i></div><div class="anchor value-res hidden" id="name-noVerbString"><i>	<input type='checkbox' class="fold" id="noVerbString-fold-content"><label for="noVerbString-fold-content"><a href="../use/fmt..noVerbString.html">const</a> <a href="../src/fmt/print.go.html#line-31">noVerbString</a> = "%!(NOVERB)"</label><span id='noVerbString-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-noVerbString"><i>	<input type='checkbox' class="fold" id="noVerbString-fold-content"><label for="noVerbString-fold-content"><a href="../use/fmt..noVerbString*b6b9d.html">const</a> <a href="../src/fmt/print.go.html#line-31">noVerbString</a> = "%!(NOVERB)"</label><span id='noVerbString-fold-content-docs' class="fold-docs">
 		Strings for use with buffer.WriteString.
 		This is less overhead than using buffer.Write with byte arrays.
 
-</span></i></div><div class="anchor value-res hidden" id="name-octalDigits"><i>	<input type='checkbox' class="fold" id="octalDigits-fold-content"><label for="octalDigits-fold-content"><a href="../use/fmt..octalDigits.html">const</a> <a href="../src/fmt/scan.go.html#line-560">octalDigits</a> = "01234567"</label><span id='octalDigits-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-octalDigits"><i>	<input type='checkbox' class="fold" id="octalDigits-fold-content"><label for="octalDigits-fold-content"><a href="../use/fmt..octalDigits*33037.html">const</a> <a href="../src/fmt/scan.go.html#line-560">octalDigits</a> = "01234567"</label><span id='octalDigits-fold-content-docs' class="fold-docs">
 		Numerical elements
 
-</span></i></div><div class="anchor value-res hidden" id="name-panicString"><i>	<input type='checkbox' class="fold" id="panicString-fold-content"><label for="panicString-fold-content"><a href="../use/fmt..panicString.html">const</a> <a href="../src/fmt/print.go.html#line-27">panicString</a> = "(PANIC="</label><span id='panicString-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-panicString"><i>	<input type='checkbox' class="fold" id="panicString-fold-content"><label for="panicString-fold-content"><a href="../use/fmt..panicString*62994.html">const</a> <a href="../src/fmt/print.go.html#line-27">panicString</a> = "(PANIC="</label><span id='panicString-fold-content-docs' class="fold-docs">
 		Strings for use with buffer.WriteString.
 		This is less overhead than using buffer.Write with byte arrays.
 
-</span></i></div><div class="anchor value-res hidden" id="name-percentBangString"><i>	<input type='checkbox' class="fold" id="percentBangString-fold-content"><label for="percentBangString-fold-content"><a href="../use/fmt..percentBangString.html">const</a> <a href="../src/fmt/print.go.html#line-24">percentBangString</a> = "%!"</label><span id='percentBangString-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-percentBangString"><i>	<input type='checkbox' class="fold" id="percentBangString-fold-content"><label for="percentBangString-fold-content"><a href="../use/fmt..percentBangString*57347.html">const</a> <a href="../src/fmt/print.go.html#line-24">percentBangString</a> = "%!"</label><span id='percentBangString-fold-content-docs' class="fold-docs">
 		Strings for use with buffer.WriteString.
 		This is less overhead than using buffer.Write with byte arrays.
 
-</span></i></div><div class="anchor value-res hidden" id="name-period"><i>	<input type='checkbox' class="fold" id="period-fold-content"><label for="period-fold-content"><a href="../use/fmt..period.html">const</a> <a href="../src/fmt/scan.go.html#line-564">period</a> = "."</label><span id='period-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-period"><i>	<input type='checkbox' class="fold" id="period-fold-content"><label for="period-fold-content"><a href="../use/fmt..period*514cb.html">const</a> <a href="../src/fmt/scan.go.html#line-564">period</a> = "."</label><span id='period-fold-content-docs' class="fold-docs">
 		Numerical elements
 
-</span></i></div><div class="anchor value-res hidden" id="name-sign"><i>	<input type='checkbox' class="fold" id="sign-fold-content"><label for="sign-fold-content"><a href="../use/fmt..sign.html">const</a> <a href="../src/fmt/scan.go.html#line-563">sign</a> = "+-"</label><span id='sign-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-sign"><i>	<input type='checkbox' class="fold" id="sign-fold-content"><label for="sign-fold-content"><a href="../use/fmt..sign*0b6f3.html">const</a> <a href="../src/fmt/scan.go.html#line-563">sign</a> = "+-"</label><span id='sign-fold-content-docs' class="fold-docs">
 		Numerical elements
 
-</span></i></div><div class="anchor value-res hidden" id="name-signed"><i>	<span class="nodocs"><a href="../use/fmt..signed.html">const</a> <a href="../src/fmt/format.go.html#line-18">signed</a> = true</span></i></div><div class="anchor value-res hidden" id="name-udigits"><i>	<span class="nodocs"><a href="../use/fmt..udigits.html">const</a> <a href="../src/fmt/format.go.html#line-14">udigits</a> = "0123456789ABCDEFX"</span></i></div><div class="anchor value-res hidden" id="name-uintptrBits"><i>	<span class="nodocs"><a href="../use/fmt..uintptrBits.html">const</a> <a href="../src/fmt/scan.go.html#line-940">uintptrBits</a> = 64</span></i></div><div class="anchor value-res hidden" id="name-unsigned"><i>	<span class="nodocs"><a href="../use/fmt..unsigned.html">const</a> <a href="../src/fmt/format.go.html#line-19">unsigned</a> = false</span></i></div></div></code></pre><pre id="footer">
+</span></i></div><div class="anchor value-res hidden" id="name-signed"><i>	<span class="nodocs"><a href="../use/fmt..signed*4a3cd.html">const</a> <a href="../src/fmt/format.go.html#line-18">signed</a> = true</span></i></div><div class="anchor value-res hidden" id="name-udigits"><i>	<span class="nodocs"><a href="../use/fmt..udigits*56d2e.html">const</a> <a href="../src/fmt/format.go.html#line-14">udigits</a> = "0123456789ABCDEFX"</span></i></div><div class="anchor value-res hidden" id="name-uintptrBits"><i>	<span class="nodocs"><a href="../use/fmt..uintptrBits*e45af.html">const</a> <a href="../src/fmt/scan.go.html#line-940">uintptrBits</a> = 64</span></i></div><div class="anchor value-res hidden" id="name-unsigned"><i>	<span class="nodocs"><a href="../use/fmt..unsigned*ceffe.html">const</a> <a href="../src/fmt/format.go.html#line-19">unsigned</a> = false</span></i></div></div></code></pre><pre id="footer">
 <table><tr><td><img src="../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

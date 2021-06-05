@@ -5,20 +5,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>References: github.com/gotd/td/internal/crypto.AuthKey</title>
-<link href="../../../../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../../../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre><code><span style="font-size:x-large;">type <b><a href="../../../../../pkg/github.com/gotd/td/internal/crypto.html">github.com/gotd/td/internal/crypto</a>.<a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-48">AuthKey</a></b></span>
 
-<span class="title">34 uses</span>
+<span class="title">22 uses</span>
 
 	github.com/gotd/td/internal/crypto (current package)
 		<a href="../../../../../src/github.com/gotd/td/internal/crypto/cipher_decrypt.go.html#line-13">cipher_decrypt.go#L13</a>: func (c Cipher) DecryptFromBuffer(k <b>AuthKey</b>, buf *bin.Buffer) (*EncryptedMessageData, error) {
-		<a href="../../../../../src/github.com/gotd/td/internal/crypto/cipher_decrypt.go.html#line-23" class="path-duplicate">cipher_decrypt.go</a><a href="../../../../../src/github.com/gotd/td/internal/crypto/cipher_decrypt.go.html#line-23">#L23</a>: func (c Cipher) Decrypt(k <b>AuthKey</b>, encrypted *EncryptedMessage) (*EncryptedMessageData, error) {
-		<a href="../../../../../src/github.com/gotd/td/internal/crypto/cipher_decrypt.go.html#line-61" class="path-duplicate">cipher_decrypt.go</a><a href="../../../../../src/github.com/gotd/td/internal/crypto/cipher_decrypt.go.html#line-61">#L61</a>: func (c Cipher) DecryptMessage(k <b>AuthKey</b>, encrypted *EncryptedMessage) ([]byte, error) {
-		<a href="../../../../../src/github.com/gotd/td/internal/crypto/cipher_encrypt.go.html#line-14">cipher_encrypt.go#L14</a>: func (c Cipher) EncryptMessage(k <b>AuthKey</b>, plaintext []byte) (*EncryptedMessage, error) {
-		<a href="../../../../../src/github.com/gotd/td/internal/crypto/cipher_encrypt.go.html#line-38" class="path-duplicate">cipher_encrypt.go</a><a href="../../../../../src/github.com/gotd/td/internal/crypto/cipher_encrypt.go.html#line-38">#L38</a>: func (c Cipher) Encrypt(key <b>AuthKey</b>, data EncryptedMessageData, b *bin.Buffer) error {
+		<a href="../../../../../src/github.com/gotd/td/internal/crypto/cipher_decrypt.go.html#line-25" class="path-duplicate">cipher_decrypt.go</a><a href="../../../../../src/github.com/gotd/td/internal/crypto/cipher_decrypt.go.html#line-25">#L25</a>: func (c Cipher) Decrypt(k <b>AuthKey</b>, encrypted *EncryptedMessage) (*EncryptedMessageData, error) {
+		<a href="../../../../../src/github.com/gotd/td/internal/crypto/cipher_decrypt.go.html#line-65" class="path-duplicate">cipher_decrypt.go</a><a href="../../../../../src/github.com/gotd/td/internal/crypto/cipher_decrypt.go.html#line-65">#L65</a>: func (c Cipher) decryptMessage(k <b>AuthKey</b>, encrypted *EncryptedMessage) ([]byte, error) {
+		<a href="../../../../../src/github.com/gotd/td/internal/crypto/cipher_encrypt.go.html#line-15">cipher_encrypt.go#L15</a>: func (c Cipher) encryptMessage(k <b>AuthKey</b>, plaintext *bin.Buffer) (*EncryptedMessage, error) {
+		<a href="../../../../../src/github.com/gotd/td/internal/crypto/cipher_encrypt.go.html#line-39" class="path-duplicate">cipher_encrypt.go</a><a href="../../../../../src/github.com/gotd/td/internal/crypto/cipher_encrypt.go.html#line-39">#L39</a>: func (c Cipher) Encrypt(key <b>AuthKey</b>, data EncryptedMessageData, b *bin.Buffer) error {
 		<a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-40">key.go#L40</a>: func (k Key) WithID() <b>AuthKey</b> {
 		<a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-41" class="path-duplicate">key.go</a><a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-41">#L41</a>: 	return <b>AuthKey</b>{
 		<a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-48" class="path-duplicate">key.go</a><a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-48">#L48</a>: type <b>AuthKey</b> struct {
@@ -32,9 +32,9 @@
 		<a href="../../../../../src/github.com/gotd/td/internal/exchange/server.go.html#line-24">server.go#L24</a>: 	Key        crypto.<b>AuthKey</b>
 
 	<a href="../../../../../pkg/github.com/gotd/td/internal/mtproto.html">github.com/gotd/td/internal/mtproto</a>
-		<a href="../../../../../src/github.com/gotd/td/internal/mtproto/conn.go.html#line-38">conn.go#L38</a>: 	DecryptFromBuffer(k crypto.<b>AuthKey</b>, buf *bin.Buffer) (*crypto.EncryptedMessageData, error)
-		<a href="../../../../../src/github.com/gotd/td/internal/mtproto/conn.go.html#line-39" class="path-duplicate">conn.go</a><a href="../../../../../src/github.com/gotd/td/internal/mtproto/conn.go.html#line-39">#L39</a>: 	Encrypt(key crypto.<b>AuthKey</b>, data crypto.EncryptedMessageData, b *bin.Buffer) error
-		<a href="../../../../../src/github.com/gotd/td/internal/mtproto/conn.go.html#line-65" class="path-duplicate">conn.go</a><a href="../../../../../src/github.com/gotd/td/internal/mtproto/conn.go.html#line-65">#L65</a>: 	authKey    crypto.<b>AuthKey</b>
+		<a href="../../../../../src/github.com/gotd/td/internal/mtproto/conn.go.html#line-43">conn.go#L43</a>: 	DecryptFromBuffer(k crypto.<b>AuthKey</b>, buf *bin.Buffer) (*crypto.EncryptedMessageData, error)
+		<a href="../../../../../src/github.com/gotd/td/internal/mtproto/conn.go.html#line-44" class="path-duplicate">conn.go</a><a href="../../../../../src/github.com/gotd/td/internal/mtproto/conn.go.html#line-44">#L44</a>: 	Encrypt(key crypto.<b>AuthKey</b>, data crypto.EncryptedMessageData, b *bin.Buffer) error
+		<a href="../../../../../src/github.com/gotd/td/internal/mtproto/conn.go.html#line-70" class="path-duplicate">conn.go</a><a href="../../../../../src/github.com/gotd/td/internal/mtproto/conn.go.html#line-70">#L70</a>: 	authKey    crypto.<b>AuthKey</b>
 		<a href="../../../../../src/github.com/gotd/td/internal/mtproto/options.go.html#line-62">options.go#L62</a>: 	Key crypto.<b>AuthKey</b>
 		<a href="../../../../../src/github.com/gotd/td/internal/mtproto/session.go.html#line-8">session.go#L8</a>: 	Key  crypto.<b>AuthKey</b>
 
@@ -43,24 +43,10 @@
 		<a href="../../../../../src/github.com/gotd/td/internal/pool/session.go.html#line-41" class="path-duplicate">session.go</a><a href="../../../../../src/github.com/gotd/td/internal/pool/session.go.html#line-41">#L41</a>: 	s.data.AuthKey = crypto.<b>AuthKey</b>{}
 
 	<a href="../../../../../pkg/github.com/gotd/td/telegram.html">github.com/gotd/td/telegram</a>
-		<a href="../../../../../src/github.com/gotd/td/telegram/client.go.html#line-239">client.go#L239</a>: 	var key crypto.<b>AuthKey</b>
-
-	<a href="../../../../../pkg/github.com/gotd/td/telegram/internal/tgtest.html">github.com/gotd/td/telegram/internal/tgtest</a>
-		<a href="../../../../../src/github.com/gotd/td/telegram/internal/tgtest/conns.go.html#line-25">conns.go#L25</a>: 	sessions    map[[8]byte]crypto.<b>AuthKey</b>
-		<a href="../../../../../src/github.com/gotd/td/telegram/internal/tgtest/conns.go.html#line-35" class="path-duplicate">conns.go</a><a href="../../../../../src/github.com/gotd/td/telegram/internal/tgtest/conns.go.html#line-35">#L35</a>: 		sessions: map[[8]byte]crypto.<b>AuthKey</b>{},
-		<a href="../../../../../src/github.com/gotd/td/telegram/internal/tgtest/conns.go.html#line-39" class="path-duplicate">conns.go</a><a href="../../../../../src/github.com/gotd/td/telegram/internal/tgtest/conns.go.html#line-39">#L39</a>: func (c *users) addConnection(key crypto.<b>AuthKey</b>, conn *connection) {
-		<a href="../../../../../src/github.com/gotd/td/telegram/internal/tgtest/conns.go.html#line-45" class="path-duplicate">conns.go</a><a href="../../../../../src/github.com/gotd/td/telegram/internal/tgtest/conns.go.html#line-45">#L45</a>: func (c *users) getConnection(key crypto.<b>AuthKey</b>) (conn *connection, ok bool) {
-		<a href="../../../../../src/github.com/gotd/td/telegram/internal/tgtest/conns.go.html#line-53" class="path-duplicate">conns.go</a><a href="../../../../../src/github.com/gotd/td/telegram/internal/tgtest/conns.go.html#line-53">#L53</a>: func (c *users) deleteConnection(key crypto.<b>AuthKey</b>) {
-		<a href="../../../../../src/github.com/gotd/td/telegram/internal/tgtest/conns.go.html#line-63" class="path-duplicate">conns.go</a><a href="../../../../../src/github.com/gotd/td/telegram/internal/tgtest/conns.go.html#line-63">#L63</a>: func (c *users) addSession(key crypto.<b>AuthKey</b>) {
-		<a href="../../../../../src/github.com/gotd/td/telegram/internal/tgtest/conns.go.html#line-69" class="path-duplicate">conns.go</a><a href="../../../../../src/github.com/gotd/td/telegram/internal/tgtest/conns.go.html#line-69">#L69</a>: func (c *users) getSession(k [8]byte) (s crypto.<b>AuthKey</b>, ok bool) {
-		<a href="../../../../../src/github.com/gotd/td/telegram/internal/tgtest/exchange.go.html#line-11">exchange.go#L11</a>: func (s *Server) exchange(ctx context.Context, conn transport.Conn) (crypto.<b>AuthKey</b>, error) {
-		<a href="../../../../../src/github.com/gotd/td/telegram/internal/tgtest/exchange.go.html#line-18" class="path-duplicate">exchange.go</a><a href="../../../../../src/github.com/gotd/td/telegram/internal/tgtest/exchange.go.html#line-18">#L18</a>: 		return crypto.<b>AuthKey</b>{}, err
-		<a href="../../../../../src/github.com/gotd/td/telegram/internal/tgtest/loop.go.html#line-20">loop.go#L20</a>: 	crypto.<b>AuthKey</b>
-		<a href="../../../../../src/github.com/gotd/td/telegram/internal/tgtest/loop.go.html#line-137" class="path-duplicate">loop.go</a><a href="../../../../../src/github.com/gotd/td/telegram/internal/tgtest/loop.go.html#line-137">#L137</a>: 	var k crypto.<b>AuthKey</b>
-		<a href="../../../../../src/github.com/gotd/td/telegram/internal/tgtest/server.go.html#line-49">server.go#L49</a>: func (s *Server) AddSession(key crypto.<b>AuthKey</b>) {
+		<a href="../../../../../src/github.com/gotd/td/telegram/client.go.html#line-264">client.go#L264</a>: 	var key crypto.<b>AuthKey</b>
 </code></pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

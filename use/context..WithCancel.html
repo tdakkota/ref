@@ -5,20 +5,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>References: context.WithCancel</title>
-<link href="../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre><code><span style="font-size:x-large;">func <b><a href="../pkg/context.html">context</a>.<a href="../src/context/context.go.html#line-232">WithCancel</a></b></span>
 
-<span class="title">21 uses</span>
+<span class="title">25 uses</span>
 
 	context (current package)
 		<a href="../src/context/context.go.html#line-232">context.go#L232</a>: func <b>WithCancel</b>(parent Context) (ctx Context, cancel CancelFunc) {
 		<a href="../src/context/context.go.html#line-436" class="path-duplicate">context.go</a><a href="../src/context/context.go.html#line-436">#L436</a>: 		return <b>WithCancel</b>(parent)
 
 	<a href="../pkg/github.com/gotd/td/internal/mtproto.html">github.com/gotd/td/internal/mtproto</a>
-		<a href="../src/github.com/gotd/td/internal/mtproto/conn.go.html#line-182">conn.go#L182</a>: 	ctx, cancel := context.<b>WithCancel</b>(ctx)
+		<a href="../src/github.com/gotd/td/internal/mtproto/conn.go.html#line-185">conn.go#L185</a>: 	ctx, cancel := context.<b>WithCancel</b>(ctx)
 
 	<a href="../pkg/github.com/gotd/td/internal/pool.html">github.com/gotd/td/internal/pool</a>
 		<a href="../src/github.com/gotd/td/internal/pool/pool.go.html#line-63">pool.go#L63</a>: 	ctx, cancel := context.<b>WithCancel</b>(ctx)
@@ -33,13 +33,15 @@
 		<a href="../src/github.com/gotd/td/internal/tdsync/supervisor.go.html#line-23">supervisor.go#L23</a>: 	ctx, cancel := context.<b>WithCancel</b>(parent)
 
 	<a href="../pkg/github.com/gotd/td/telegram.html">github.com/gotd/td/telegram</a>
-		<a href="../src/github.com/gotd/td/telegram/client.go.html#line-145">client.go#L145</a>: 	clientCtx, clientCancel := context.<b>WithCancel</b>(context.Background())
+		<a href="../src/github.com/gotd/td/telegram/client.go.html#line-164">client.go#L164</a>: 	clientCtx, clientCancel := context.<b>WithCancel</b>(context.Background())
+
+	<a href="../pkg/github.com/gotd/td/telegram/dcs.html">github.com/gotd/td/telegram/dcs</a>
+		<a href="../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-105">plain.go#L105</a>: 	dialCtx, dialCancel := context.<b>WithCancel</b>(ctx)
+		<a href="../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-36">wsconn.go#L36</a>: 	nc.writeContext, cancel = context.<b>WithCancel</b>(ctx)
+		<a href="../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-42" class="path-duplicate">wsconn.go</a><a href="../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-42">#L42</a>: 	nc.readContext, cancel = context.<b>WithCancel</b>(ctx)
 
 	<a href="../pkg/golang.org/x/sync/errgroup.html">golang.org/x/sync/errgroup</a>
 		<a href="../src/golang.org/x/sync/errgroup/errgroup.go.html#line-33">errgroup.go#L33</a>: 	ctx, cancel := context.<b>WithCancel</b>(ctx)
-
-	<a href="../pkg/golang.org/x/tools/go/packages.html">golang.org/x/tools/go/packages</a>
-		<a href="../src/golang.org/x/tools/go/packages/golist.go.html#line-137">golist.go#L137</a>: 	ctx, cancel := context.<b>WithCancel</b>(parentCtx)
 
 	<a href="../pkg/net.html">net</a>
 		<a href="../src/net/dial.go.html#line-382">dial.go#L382</a>: 		subCtx, cancel := context.<b>WithCancel</b>(ctx)
@@ -53,11 +55,13 @@
 		<a href="../src/net/http/server.go.html#line-1024">server.go#L1024</a>: 	ctx, cancelCtx := context.<b>WithCancel</b>(ctx)
 		<a href="../src/net/http/server.go.html#line-1869" class="path-duplicate">server.go</a><a href="../src/net/http/server.go.html#line-1869">#L1869</a>: 	ctx, cancelCtx := context.<b>WithCancel</b>(ctx)
 
-	<a href="../pkg/os/signal.html">os/signal</a>
-		<a href="../src/os/signal/signal.go.html#line-278">signal.go#L278</a>: 	ctx, cancel := context.<b>WithCancel</b>(parent)
+	<a href="../pkg/nhooyr.io/websocket.html">nhooyr.io/websocket</a>
+		<a href="../src/nhooyr.io/websocket/netconn.go.html#line-47">netconn.go#L47</a>: 	nc.writeContext, cancel = context.<b>WithCancel</b>(ctx)
+		<a href="../src/nhooyr.io/websocket/netconn.go.html#line-53" class="path-duplicate">netconn.go</a><a href="../src/nhooyr.io/websocket/netconn.go.html#line-53">#L53</a>: 	nc.readContext, cancel = context.<b>WithCancel</b>(ctx)
+		<a href="../src/nhooyr.io/websocket/read.go.html#line-57">read.go#L57</a>: 	ctx, cancel := context.<b>WithCancel</b>(ctx)
 </code></pre><pre id="footer">
 <table><tr><td><img src="../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

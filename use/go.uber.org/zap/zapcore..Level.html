@@ -5,13 +5,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>References: go.uber.org/zap/zapcore.Level</title>
-<link href="../../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre><code><span style="font-size:x-large;">type <b><a href="../../../pkg/go.uber.org/zap/zapcore.html">go.uber.org/zap/zapcore</a>.<a href="../../../src/go.uber.org/zap/zapcore/level.go.html#line-32">Level</a></b></span>
 
-<span class="title">43 uses</span>
+<span class="title">48 uses</span>
 
 	go.uber.org/zap/zapcore (current package)
 		<a href="../../../src/go.uber.org/zap/zapcore/core.go.html#line-51">core.go#L51</a>: func (nopCore) Enabled(<b>Level</b>) bool                            { return false }
@@ -45,7 +45,12 @@
 		<a href="../../../src/go.uber.org/zap/global.go.html#line-118" class="path-duplicate">global.go</a><a href="../../../src/go.uber.org/zap/global.go.html#line-118">#L118</a>: func RedirectStdLogAt(l *Logger, level zapcore.<b>Level</b>) (func(), error) {
 		<a href="../../../src/go.uber.org/zap/global.go.html#line-122" class="path-duplicate">global.go</a><a href="../../../src/go.uber.org/zap/global.go.html#line-122">#L122</a>: func redirectStdLogAt(l *Logger, level zapcore.<b>Level</b>) (func(), error) {
 		<a href="../../../src/go.uber.org/zap/global.go.html#line-140" class="path-duplicate">global.go</a><a href="../../../src/go.uber.org/zap/global.go.html#line-140">#L140</a>: func levelToFunc(logger *Logger, lvl zapcore.<b>Level</b>) (func(string, ...Field), error) {
-		<a href="../../../src/go.uber.org/zap/http_handler.go.html#line-44">http_handler.go#L44</a>: 		Level *zapcore.<b>Level</b> `json:"level"`
+		<a href="../../../src/go.uber.org/zap/http_handler.go.html#line-75">http_handler.go#L75</a>: 		Level zapcore.<b>Level</b> `json:"level"`
+		<a href="../../../src/go.uber.org/zap/http_handler.go.html#line-101" class="path-duplicate">http_handler.go</a><a href="../../../src/go.uber.org/zap/http_handler.go.html#line-101">#L101</a>: func decodePutRequest(contentType string, r *http.Request) (zapcore.<b>Level</b>, error) {
+		<a href="../../../src/go.uber.org/zap/http_handler.go.html#line-108" class="path-duplicate">http_handler.go</a><a href="../../../src/go.uber.org/zap/http_handler.go.html#line-108">#L108</a>: func decodePutURL(r *http.Request) (zapcore.<b>Level</b>, error) {
+		<a href="../../../src/go.uber.org/zap/http_handler.go.html#line-113" class="path-duplicate">http_handler.go</a><a href="../../../src/go.uber.org/zap/http_handler.go.html#line-113">#L113</a>: 	var l zapcore.<b>Level</b>
+		<a href="../../../src/go.uber.org/zap/http_handler.go.html#line-120" class="path-duplicate">http_handler.go</a><a href="../../../src/go.uber.org/zap/http_handler.go.html#line-120">#L120</a>: func decodePutJSON(body io.Reader) (zapcore.<b>Level</b>, error) {
+		<a href="../../../src/go.uber.org/zap/http_handler.go.html#line-122" class="path-duplicate">http_handler.go</a><a href="../../../src/go.uber.org/zap/http_handler.go.html#line-122">#L122</a>: 		Level *zapcore.<b>Level</b> `json:"level"`
 		<a href="../../../src/go.uber.org/zap/level.go.html#line-55">level.go#L55</a>: type LevelEnablerFunc func(zapcore.<b>Level</b>) bool
 		<a href="../../../src/go.uber.org/zap/level.go.html#line-58" class="path-duplicate">level.go</a><a href="../../../src/go.uber.org/zap/level.go.html#line-58">#L58</a>: func (f LevelEnablerFunc) Enabled(lvl zapcore.<b>Level</b>) bool { return f(lvl) }
 		<a href="../../../src/go.uber.org/zap/level.go.html#line-83" class="path-duplicate">level.go</a><a href="../../../src/go.uber.org/zap/level.go.html#line-83">#L83</a>: func NewAtomicLevelAt(l zapcore.<b>Level</b>) AtomicLevel {
@@ -54,12 +59,12 @@
 		<a href="../../../src/go.uber.org/zap/level.go.html#line-97" class="path-duplicate">level.go</a><a href="../../../src/go.uber.org/zap/level.go.html#line-97">#L97</a>: 	return zapcore.<b>Level</b>(int8(lvl.l.Load()))
 		<a href="../../../src/go.uber.org/zap/level.go.html#line-101" class="path-duplicate">level.go</a><a href="../../../src/go.uber.org/zap/level.go.html#line-101">#L101</a>: func (lvl AtomicLevel) SetLevel(l zapcore.<b>Level</b>) {
 		<a href="../../../src/go.uber.org/zap/level.go.html#line-118" class="path-duplicate">level.go</a><a href="../../../src/go.uber.org/zap/level.go.html#line-118">#L118</a>: 	var l zapcore.<b>Level</b>
-		<a href="../../../src/go.uber.org/zap/logger.go.html#line-172">logger.go#L172</a>: func (log *Logger) Check(lvl zapcore.<b>Level</b>, msg string) *zapcore.CheckedEntry {
-		<a href="../../../src/go.uber.org/zap/logger.go.html#line-257" class="path-duplicate">logger.go</a><a href="../../../src/go.uber.org/zap/logger.go.html#line-257">#L257</a>: func (log *Logger) check(lvl zapcore.<b>Level</b>, msg string) *zapcore.CheckedEntry {
+		<a href="../../../src/go.uber.org/zap/logger.go.html#line-173">logger.go#L173</a>: func (log *Logger) Check(lvl zapcore.<b>Level</b>, msg string) *zapcore.CheckedEntry {
+		<a href="../../../src/go.uber.org/zap/logger.go.html#line-258" class="path-duplicate">logger.go</a><a href="../../../src/go.uber.org/zap/logger.go.html#line-258">#L258</a>: func (log *Logger) check(lvl zapcore.<b>Level</b>, msg string) *zapcore.CheckedEntry {
 		<a href="../../../src/go.uber.org/zap/sugar.go.html#line-218">sugar.go#L218</a>: func (s *SugaredLogger) log(lvl zapcore.<b>Level</b>, template string, fmtArgs []interface{}, context []interface{}) {
 </code></pre><pre id="footer">
 <table><tr><td><img src="../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

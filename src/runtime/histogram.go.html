@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: histogram.go in package runtime</title>
-<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -130,18 +130,18 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-70"><code><span class="comment">// for concurrent use. It is also safe to read all the values</span></code></span>
 <span class="codeline" id="line-71"><code><span class="comment">// atomically.</span></code></span>
 <span class="codeline" id="line-72"><code><span class="keyword">type</span> <a href="../../pkg/runtime.html#name-timeHistogram" class="ident">timeHistogram</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-73"><code>	<a href="../../use/runtime..timeHistogram.counts.html" class="ident">counts</a> [<a href="#line-56" class="ident">timeHistNumSuperBuckets</a> * <a href="#line-55" class="ident">timeHistNumSubBuckets</a>]<a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a></code></span>
+<span class="codeline" id="line-73"><code>	<a href="../../use/runtime..timeHistogram*5caba.counts*cdd93.html" class="ident">counts</a> [<a href="#line-56" class="ident">timeHistNumSuperBuckets</a> * <a href="#line-55" class="ident">timeHistNumSubBuckets</a>]<a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a></code></span>
 <span class="codeline" id="line-74"><code></code></span>
 <span class="codeline" id="line-75"><code>	<span class="comment">// underflow counts all the times we got a negative duration</span></code></span>
 <span class="codeline" id="line-76"><code><span class="comment">	// sample. Because of how time works on some platforms, it's</span></code></span>
 <span class="codeline" id="line-77"><code><span class="comment">	// possible to measure negative durations. We could ignore them,</span></code></span>
 <span class="codeline" id="line-78"><code><span class="comment">	// but we record them anyway because it's better to have some</span></code></span>
 <span class="codeline" id="line-79"><code><span class="comment">	// signal that it's happening than just missing samples.</span></code></span>
-<span class="codeline" id="line-80"><code>	<a href="../../use/runtime..timeHistogram.underflow.html" class="ident">underflow</a> <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a></code></span>
+<span class="codeline" id="line-80"><code>	<a href="../../use/runtime..timeHistogram*5caba.underflow*9a864.html" class="ident">underflow</a> <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a></code></span>
 <span class="codeline" id="line-81"><code>}</code></span>
 <span class="codeline" id="line-82"><code></code></span>
 <span class="codeline" id="line-83"><code><span class="comment">// record adds the given duration to the distribution.</span></code></span>
-<span class="codeline" id="line-84"><code><span class="keyword">func</span> (<label for="r0" class="ident">h</label> *<a href="#line-72" class="ident">timeHistogram</a>) <label for="r1" class="ident"><a href="../../use/runtime..timeHistogram.record.html" class="ident">record</a></label>(<label for="r2" class="ident">duration</label> <a href="../../pkg/builtin.html#name-int64" class="ident">int64</a>) {</code></span>
+<span class="codeline" id="line-84"><code><span class="keyword">func</span> (<label for="r0" class="ident">h</label> *<a href="#line-72" class="ident">timeHistogram</a>) <label for="r1" class="ident"><a href="../../use/runtime..timeHistogram*5caba.record*70ce8.html" class="ident">record</a></label>(<label for="r2" class="ident">duration</label> <a href="../../pkg/builtin.html#name-int64" class="ident">int64</a>) {</code></span>
 <span class="codeline" id="line-85"><code>	<span class="keyword">if</span> <label for="r2" class="ident">duration</label> &lt; <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-86"><code>		<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-54" class="ident">Xadd64</a>(&amp;<label for="r0" class="ident">h</label>.<a href="#line-80" class="ident">underflow</a>, <span class="lit-number">1</span>)</code></span>
 <span class="codeline" id="line-87"><code>		<span class="keyword">return</span></code></span>
@@ -232,7 +232,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-172"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

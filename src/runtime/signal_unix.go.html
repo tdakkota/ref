@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: signal_unix.go in package runtime</title>
-<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -333,8 +333,8 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-17"><code><span class="comment">// The sigtable array is indexed by a system signal number to get the flags</span></code></span>
 <span class="codeline" id="line-18"><code><span class="comment">// and printable name of each signal.</span></code></span>
 <span class="codeline" id="line-19"><code><span class="keyword">type</span> <a href="../../pkg/runtime.html#name-sigTabT" class="ident">sigTabT</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-20"><code>	<a href="../../use/runtime..sigTabT.flags.html" class="ident">flags</a> <a href="../../pkg/builtin.html#name-int32" class="ident">int32</a></code></span>
-<span class="codeline" id="line-21"><code>	<a href="../../use/runtime..sigTabT.name.html" class="ident">name</a>  <a href="../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-20"><code>	<a href="../../use/runtime..sigTabT*fbf48.flags*2934f.html" class="ident">flags</a> <a href="../../pkg/builtin.html#name-int32" class="ident">int32</a></code></span>
+<span class="codeline" id="line-21"><code>	<a href="../../use/runtime..sigTabT*fbf48.name*82a35.html" class="ident">name</a>  <a href="../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
 <span class="codeline" id="line-22"><code>}</code></span>
 <span class="codeline" id="line-23"><code></code></span>
 <span class="codeline" id="line-24"><code><span class="comment">//go:linkname os_sigpipe os.sigpipe</span></code></span>
@@ -432,13 +432,13 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-116"><code></code></span>
 <span class="codeline" id="line-117"><code>	<span class="comment">// For c-archive/c-shared this is called by libpreinit with</span></code></span>
 <span class="codeline" id="line-118"><code><span class="comment">	// preinit == true.</span></code></span>
-<span class="codeline" id="line-119"><code>	<span class="keyword">if</span> (<a href="runtime2.go.html#line-1104" class="ident">isarchive</a> || <a href="runtime2.go.html#line-1103" class="ident">islibrary</a>) &amp;&amp; !<label for="r5" class="ident">preinit</label> {</code></span>
+<span class="codeline" id="line-119"><code>	<span class="keyword">if</span> (<a href="runtime2.go.html#line-1107" class="ident">isarchive</a> || <a href="runtime2.go.html#line-1106" class="ident">islibrary</a>) &amp;&amp; !<label for="r5" class="ident">preinit</label> {</code></span>
 <span class="codeline" id="line-120"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-121"><code>	}</code></span>
 <span class="codeline" id="line-122"><code></code></span>
 <span class="codeline" id="line-123"><code>	<span class="keyword">for</span> <label for="r6" class="ident">i</label> := <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<span class="lit-number">0</span>); <label for="r6" class="ident">i</label> &lt; <a href="os_linux_generic.go.html#line-17" class="ident">_NSIG</a>; <label for="r6" class="ident">i</label>++ {</code></span>
 <span class="codeline" id="line-124"><code>		<label for="r7" class="ident">t</label> := &amp;<a href="sigtab_linux_generic.go.html#line-13" class="ident">sigtable</a>[<label for="r6" class="ident">i</label>]</code></span>
-<span class="codeline" id="line-125"><code>		<span class="keyword">if</span> <label for="r7" class="ident">t</label>.<a href="#line-20" class="ident">flags</a> == <span class="lit-number">0</span> || <label for="r7" class="ident">t</label>.<a href="#line-20" class="ident">flags</a>&amp;<a href="runtime2.go.html#line-814" class="ident">_SigDefault</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-125"><code>		<span class="keyword">if</span> <label for="r7" class="ident">t</label>.<a href="#line-20" class="ident">flags</a> == <span class="lit-number">0</span> || <label for="r7" class="ident">t</label>.<a href="#line-20" class="ident">flags</a>&amp;<a href="runtime2.go.html#line-817" class="ident">_SigDefault</a> != <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-126"><code>			<span class="keyword">continue</span></code></span>
 <span class="codeline" id="line-127"><code>		}</code></span>
 <span class="codeline" id="line-128"><code></code></span>
@@ -476,13 +476,13 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-160"><code>	}</code></span>
 <span class="codeline" id="line-161"><code></code></span>
 <span class="codeline" id="line-162"><code>	<label for="r10" class="ident">t</label> := &amp;<a href="sigtab_linux_generic.go.html#line-13" class="ident">sigtable</a>[<label for="r9" class="ident">sig</label>]</code></span>
-<span class="codeline" id="line-163"><code>	<span class="keyword">if</span> <label for="r10" class="ident">t</label>.<a href="#line-20" class="ident">flags</a>&amp;<a href="runtime2.go.html#line-816" class="ident">_SigSetStack</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-163"><code>	<span class="keyword">if</span> <label for="r10" class="ident">t</label>.<a href="#line-20" class="ident">flags</a>&amp;<a href="runtime2.go.html#line-819" class="ident">_SigSetStack</a> != <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-164"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
 <span class="codeline" id="line-165"><code>	}</code></span>
 <span class="codeline" id="line-166"><code></code></span>
 <span class="codeline" id="line-167"><code>	<span class="comment">// When built using c-archive or c-shared, only install signal</span></code></span>
 <span class="codeline" id="line-168"><code><span class="comment">	// handlers for synchronous signals and SIGPIPE.</span></code></span>
-<span class="codeline" id="line-169"><code>	<span class="keyword">if</span> (<a href="runtime2.go.html#line-1104" class="ident">isarchive</a> || <a href="runtime2.go.html#line-1103" class="ident">islibrary</a>) &amp;&amp; <label for="r10" class="ident">t</label>.<a href="#line-20" class="ident">flags</a>&amp;<a href="runtime2.go.html#line-813" class="ident">_SigPanic</a> == <span class="lit-number">0</span> &amp;&amp; <label for="r9" class="ident">sig</label> != <a href="defs_linux_amd64.go.html#line-43" class="ident">_SIGPIPE</a> {</code></span>
+<span class="codeline" id="line-169"><code>	<span class="keyword">if</span> (<a href="runtime2.go.html#line-1107" class="ident">isarchive</a> || <a href="runtime2.go.html#line-1106" class="ident">islibrary</a>) &amp;&amp; <label for="r10" class="ident">t</label>.<a href="#line-20" class="ident">flags</a>&amp;<a href="runtime2.go.html#line-816" class="ident">_SigPanic</a> == <span class="lit-number">0</span> &amp;&amp; <label for="r9" class="ident">sig</label> != <a href="defs_linux_amd64.go.html#line-43" class="ident">_SIGPIPE</a> {</code></span>
 <span class="codeline" id="line-170"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
 <span class="codeline" id="line-171"><code>	}</code></span>
 <span class="codeline" id="line-172"><code></code></span>
@@ -503,7 +503,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-187"><code>	}</code></span>
 <span class="codeline" id="line-188"><code></code></span>
 <span class="codeline" id="line-189"><code>	<label for="r13" class="ident">t</label> := &amp;<a href="sigtab_linux_generic.go.html#line-13" class="ident">sigtable</a>[<label for="r12" class="ident">sig</label>]</code></span>
-<span class="codeline" id="line-190"><code>	<span class="keyword">if</span> <label for="r13" class="ident">t</label>.<a href="#line-20" class="ident">flags</a>&amp;<a href="runtime2.go.html#line-810" class="ident">_SigNotify</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-190"><code>	<span class="keyword">if</span> <label for="r13" class="ident">t</label>.<a href="#line-20" class="ident">flags</a>&amp;<a href="runtime2.go.html#line-813" class="ident">_SigNotify</a> != <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-191"><code>		<a href="#line-865" class="ident">ensureSigM</a>()</code></span>
 <span class="codeline" id="line-192"><code>		<a href="#line-92" class="ident">enableSigChan</a> &lt;- <label for="r12" class="ident">sig</label></code></span>
 <span class="codeline" id="line-193"><code>		&lt;-<a href="#line-93" class="ident">maskUpdatedChan</a></code></span>
@@ -528,7 +528,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-212"><code>	}</code></span>
 <span class="codeline" id="line-213"><code></code></span>
 <span class="codeline" id="line-214"><code>	<label for="r16" class="ident">t</label> := &amp;<a href="sigtab_linux_generic.go.html#line-13" class="ident">sigtable</a>[<label for="r15" class="ident">sig</label>]</code></span>
-<span class="codeline" id="line-215"><code>	<span class="keyword">if</span> <label for="r16" class="ident">t</label>.<a href="#line-20" class="ident">flags</a>&amp;<a href="runtime2.go.html#line-810" class="ident">_SigNotify</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-215"><code>	<span class="keyword">if</span> <label for="r16" class="ident">t</label>.<a href="#line-20" class="ident">flags</a>&amp;<a href="runtime2.go.html#line-813" class="ident">_SigNotify</a> != <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-216"><code>		<a href="#line-865" class="ident">ensureSigM</a>()</code></span>
 <span class="codeline" id="line-217"><code>		<a href="#line-91" class="ident">disableSigChan</a> &lt;- <label for="r15" class="ident">sig</label></code></span>
 <span class="codeline" id="line-218"><code>		&lt;-<a href="#line-93" class="ident">maskUpdatedChan</a></code></span>
@@ -557,7 +557,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-241"><code>	}</code></span>
 <span class="codeline" id="line-242"><code></code></span>
 <span class="codeline" id="line-243"><code>	<label for="r19" class="ident">t</label> := &amp;<a href="sigtab_linux_generic.go.html#line-13" class="ident">sigtable</a>[<label for="r18" class="ident">sig</label>]</code></span>
-<span class="codeline" id="line-244"><code>	<span class="keyword">if</span> <label for="r19" class="ident">t</label>.<a href="#line-20" class="ident">flags</a>&amp;<a href="runtime2.go.html#line-810" class="ident">_SigNotify</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-244"><code>	<span class="keyword">if</span> <label for="r19" class="ident">t</label>.<a href="#line-20" class="ident">flags</a>&amp;<a href="runtime2.go.html#line-813" class="ident">_SigNotify</a> != <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-245"><code>		<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-95" class="ident">Store</a>(&amp;<a href="#line-86" class="ident">handlingSig</a>[<label for="r18" class="ident">sig</label>], <span class="lit-number">0</span>)</code></span>
 <span class="codeline" id="line-246"><code>		<a href="os_linux.go.html#line-419" class="ident">setsig</a>(<label for="r18" class="ident">sig</label>, <a href="#line-38" class="ident">_SIG_IGN</a>)</code></span>
 <span class="codeline" id="line-247"><code>	}</code></span>
@@ -649,11 +649,11 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-333"><code>	}</code></span>
 <span class="codeline" id="line-334"><code></code></span>
 <span class="codeline" id="line-335"><code>	<span class="comment">// Acknowledge the preemption.</span></code></span>
-<span class="codeline" id="line-336"><code>	<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-51" class="ident">Xadd</a>(&amp;<label for="r30" class="ident">gp</label>.<a href="runtime2.go.html#line-418" class="ident">m</a>.<a href="runtime2.go.html#line-561" class="ident">preemptGen</a>, <span class="lit-number">1</span>)</code></span>
-<span class="codeline" id="line-337"><code>	<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-95" class="ident">Store</a>(&amp;<label for="r30" class="ident">gp</label>.<a href="runtime2.go.html#line-418" class="ident">m</a>.<a href="runtime2.go.html#line-565" class="ident">signalPending</a>, <span class="lit-number">0</span>)</code></span>
+<span class="codeline" id="line-336"><code>	<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-51" class="ident">Xadd</a>(&amp;<label for="r30" class="ident">gp</label>.<a href="runtime2.go.html#line-418" class="ident">m</a>.<a href="runtime2.go.html#line-564" class="ident">preemptGen</a>, <span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-337"><code>	<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-95" class="ident">Store</a>(&amp;<label for="r30" class="ident">gp</label>.<a href="runtime2.go.html#line-418" class="ident">m</a>.<a href="runtime2.go.html#line-568" class="ident">signalPending</a>, <span class="lit-number">0</span>)</code></span>
 <span class="codeline" id="line-338"><code></code></span>
 <span class="codeline" id="line-339"><code>	<span class="keyword">if</span> <a href="extern.go.html#line-253" class="ident">GOOS</a> == <span class="lit-string">"darwin"</span> || <a href="extern.go.html#line-253" class="ident">GOOS</a> == <span class="lit-string">"ios"</span> {</code></span>
-<span class="codeline" id="line-340"><code>		<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-51" class="ident">Xadd</a>(&amp;<a href="proc.go.html#line-3919" class="ident">pendingPreemptSignals</a>, -<span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-340"><code>		<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-51" class="ident">Xadd</a>(&amp;<a href="proc.go.html#line-3963" class="ident">pendingPreemptSignals</a>, -<span class="lit-number">1</span>)</code></span>
 <span class="codeline" id="line-341"><code>	}</code></span>
 <span class="codeline" id="line-342"><code>}</code></span>
 <span class="codeline" id="line-343"><code></code></span>
@@ -669,12 +669,12 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-353"><code>	<span class="comment">// On Darwin, don't try to preempt threads during exec.</span></code></span>
 <span class="codeline" id="line-354"><code><span class="comment">	// Issue #41702.</span></code></span>
 <span class="codeline" id="line-355"><code>	<span class="keyword">if</span> <a href="extern.go.html#line-253" class="ident">GOOS</a> == <span class="lit-string">"darwin"</span> || <a href="extern.go.html#line-253" class="ident">GOOS</a> == <span class="lit-string">"ios"</span> {</code></span>
-<span class="codeline" id="line-356"><code>		<a href="proc.go.html#line-2044" class="ident">execLock</a>.<a href="rwmutex.go.html#line-33" class="ident">rlock</a>()</code></span>
+<span class="codeline" id="line-356"><code>		<a href="proc.go.html#line-2064" class="ident">execLock</a>.<a href="rwmutex.go.html#line-33" class="ident">rlock</a>()</code></span>
 <span class="codeline" id="line-357"><code>	}</code></span>
 <span class="codeline" id="line-358"><code></code></span>
-<span class="codeline" id="line-359"><code>	<span class="keyword">if</span> <a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/stubs.go.html#line-12" class="ident">Cas</a>(&amp;<label for="r35" class="ident">mp</label>.<a href="runtime2.go.html#line-565" class="ident">signalPending</a>, <span class="lit-number">0</span>, <span class="lit-number">1</span>) {</code></span>
+<span class="codeline" id="line-359"><code>	<span class="keyword">if</span> <a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/stubs.go.html#line-12" class="ident">Cas</a>(&amp;<label for="r35" class="ident">mp</label>.<a href="runtime2.go.html#line-568" class="ident">signalPending</a>, <span class="lit-number">0</span>, <span class="lit-number">1</span>) {</code></span>
 <span class="codeline" id="line-360"><code>		<span class="keyword">if</span> <a href="extern.go.html#line-253" class="ident">GOOS</a> == <span class="lit-string">"darwin"</span> || <a href="extern.go.html#line-253" class="ident">GOOS</a> == <span class="lit-string">"ios"</span> {</code></span>
-<span class="codeline" id="line-361"><code>			<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-51" class="ident">Xadd</a>(&amp;<a href="proc.go.html#line-3919" class="ident">pendingPreemptSignals</a>, <span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-361"><code>			<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-51" class="ident">Xadd</a>(&amp;<a href="proc.go.html#line-3963" class="ident">pendingPreemptSignals</a>, <span class="lit-number">1</span>)</code></span>
 <span class="codeline" id="line-362"><code>		}</code></span>
 <span class="codeline" id="line-363"><code></code></span>
 <span class="codeline" id="line-364"><code>		<span class="comment">// If multiple threads are preempting the same M, it may send many</span></code></span>
@@ -686,7 +686,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-370"><code>	}</code></span>
 <span class="codeline" id="line-371"><code></code></span>
 <span class="codeline" id="line-372"><code>	<span class="keyword">if</span> <a href="extern.go.html#line-253" class="ident">GOOS</a> == <span class="lit-string">"darwin"</span> || <a href="extern.go.html#line-253" class="ident">GOOS</a> == <span class="lit-string">"ios"</span> {</code></span>
-<span class="codeline" id="line-373"><code>		<a href="proc.go.html#line-2044" class="ident">execLock</a>.<a href="rwmutex.go.html#line-62" class="ident">runlock</a>()</code></span>
+<span class="codeline" id="line-373"><code>		<a href="proc.go.html#line-2064" class="ident">execLock</a>.<a href="rwmutex.go.html#line-62" class="ident">runlock</a>()</code></span>
 <span class="codeline" id="line-374"><code>	}</code></span>
 <span class="codeline" id="line-375"><code>}</code></span>
 <span class="codeline" id="line-376"><code></code></span>
@@ -737,7 +737,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-421"><code>	<a href="stubs.go.html#line-175" class="ident">setg</a>(<label for="r46" class="ident">g</label>)</code></span>
 <span class="codeline" id="line-422"><code>	<span class="keyword">if</span> <label for="r46" class="ident">g</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-423"><code>		<span class="keyword">if</span> <label for="r42" class="ident">sig</label> == <a href="defs_linux_amd64.go.html#line-56" class="ident">_SIGPROF</a> {</code></span>
-<span class="codeline" id="line-424"><code>			<a href="proc.go.html#line-4567" class="ident">sigprofNonGoPC</a>(<label for="r45" class="ident">c</label>.<a href="signal_amd64.go.html#line-41" class="ident">sigpc</a>())</code></span>
+<span class="codeline" id="line-424"><code>			<a href="proc.go.html#line-4611" class="ident">sigprofNonGoPC</a>(<label for="r45" class="ident">c</label>.<a href="signal_amd64.go.html#line-41" class="ident">sigpc</a>())</code></span>
 <span class="codeline" id="line-425"><code>			<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-426"><code>		}</code></span>
 <span class="codeline" id="line-427"><code>		<span class="keyword">if</span> <label for="r42" class="ident">sig</label> == <a href="#line-71" class="ident">sigPreempt</a> &amp;&amp; <a href="#line-344" class="ident">preemptMSupported</a> &amp;&amp; <a href="runtime1.go.html#line-302" class="ident">debug</a>.<a href="runtime1.go.html#line-318" class="ident">asyncpreemptoff</a> == <span class="lit-number">0</span> {</code></span>
@@ -749,7 +749,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-433"><code><span class="comment">			// The default behavior for sigPreempt is to ignore</span></code></span>
 <span class="codeline" id="line-434"><code><span class="comment">			// the signal, so badsignal will be a no-op anyway.</span></code></span>
 <span class="codeline" id="line-435"><code>			<span class="keyword">if</span> <a href="extern.go.html#line-253" class="ident">GOOS</a> == <span class="lit-string">"darwin"</span> || <a href="extern.go.html#line-253" class="ident">GOOS</a> == <span class="lit-string">"ios"</span> {</code></span>
-<span class="codeline" id="line-436"><code>				<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-51" class="ident">Xadd</a>(&amp;<a href="proc.go.html#line-3919" class="ident">pendingPreemptSignals</a>, -<span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-436"><code>				<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-51" class="ident">Xadd</a>(&amp;<a href="proc.go.html#line-3963" class="ident">pendingPreemptSignals</a>, -<span class="lit-number">1</span>)</code></span>
 <span class="codeline" id="line-437"><code>			}</code></span>
 <span class="codeline" id="line-438"><code>			<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-439"><code>		}</code></span>
@@ -818,13 +818,13 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-502"><code></code></span>
 <span class="codeline" id="line-503"><code>	<span class="comment">// sp is not within gsignal stack, g0 stack, or sigaltstack. Bad.</span></code></span>
 <span class="codeline" id="line-504"><code>	<a href="stubs.go.html#line-175" class="ident">setg</a>(<a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
-<span class="codeline" id="line-505"><code>	<a href="proc.go.html#line-1807" class="ident">needm</a>()</code></span>
+<span class="codeline" id="line-505"><code>	<a href="proc.go.html#line-1827" class="ident">needm</a>()</code></span>
 <span class="codeline" id="line-506"><code>	<span class="keyword">if</span> <label for="r54" class="ident">st</label>.<a href="defs_linux_amd64.go.html#line-210" class="ident">ss_flags</a>&amp;<a href="os_linux_generic.go.html#line-16" class="ident">_SS_DISABLE</a> != <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-507"><code>		<a href="#line-908" class="ident">noSignalStack</a>(<label for="r50" class="ident">sig</label>)</code></span>
 <span class="codeline" id="line-508"><code>	} <span class="keyword">else</span> {</code></span>
 <span class="codeline" id="line-509"><code>		<a href="#line-916" class="ident">sigNotOnStack</a>(<label for="r50" class="ident">sig</label>)</code></span>
 <span class="codeline" id="line-510"><code>	}</code></span>
-<span class="codeline" id="line-511"><code>	<a href="proc.go.html#line-1962" class="ident">dropm</a>()</code></span>
+<span class="codeline" id="line-511"><code>	<a href="proc.go.html#line-1982" class="ident">dropm</a>()</code></span>
 <span class="codeline" id="line-512"><code>	<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
 <span class="codeline" id="line-513"><code>}</code></span>
 <span class="codeline" id="line-514"><code></code></span>
@@ -854,7 +854,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-538"><code>	<label for="r63" class="ident">c</label> := &amp;<a href="signal_linux_amd64.go.html#line-12" class="ident">sigctxt</a>{<label for="r59" class="ident">info</label>, <label for="r60" class="ident">ctxt</label>}</code></span>
 <span class="codeline" id="line-539"><code></code></span>
 <span class="codeline" id="line-540"><code>	<span class="keyword">if</span> <label for="r58" class="ident">sig</label> == <a href="defs_linux_amd64.go.html#line-56" class="ident">_SIGPROF</a> {</code></span>
-<span class="codeline" id="line-541"><code>		<a href="proc.go.html#line-4372" class="ident">sigprof</a>(<label for="r63" class="ident">c</label>.<a href="signal_amd64.go.html#line-41" class="ident">sigpc</a>(), <label for="r63" class="ident">c</label>.<a href="signal_amd64.go.html#line-43" class="ident">sigsp</a>(), <label for="r63" class="ident">c</label>.<a href="signal_amd64.go.html#line-44" class="ident">siglr</a>(), <label for="r61" class="ident">gp</label>, <label for="r62" class="ident">_g_</label>.<a href="runtime2.go.html#line-418" class="ident">m</a>)</code></span>
+<span class="codeline" id="line-541"><code>		<a href="proc.go.html#line-4416" class="ident">sigprof</a>(<label for="r63" class="ident">c</label>.<a href="signal_amd64.go.html#line-41" class="ident">sigpc</a>(), <label for="r63" class="ident">c</label>.<a href="signal_amd64.go.html#line-43" class="ident">sigsp</a>(), <label for="r63" class="ident">c</label>.<a href="signal_amd64.go.html#line-44" class="ident">siglr</a>(), <label for="r61" class="ident">gp</label>, <label for="r62" class="ident">_g_</label>.<a href="runtime2.go.html#line-418" class="ident">m</a>)</code></span>
 <span class="codeline" id="line-542"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-543"><code>	}</code></span>
 <span class="codeline" id="line-544"><code></code></span>
@@ -874,21 +874,21 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-558"><code><span class="comment">		// still let it through to the application.</span></code></span>
 <span class="codeline" id="line-559"><code>	}</code></span>
 <span class="codeline" id="line-560"><code></code></span>
-<span class="codeline" id="line-561"><code>	<label for="r64" class="ident">flags</label> := <a href="../../pkg/builtin.html#name-int32" class="ident">int32</a>(<a href="runtime2.go.html#line-812" class="ident">_SigThrow</a>)</code></span>
+<span class="codeline" id="line-561"><code>	<label for="r64" class="ident">flags</label> := <a href="../../pkg/builtin.html#name-int32" class="ident">int32</a>(<a href="runtime2.go.html#line-815" class="ident">_SigThrow</a>)</code></span>
 <span class="codeline" id="line-562"><code>	<span class="keyword">if</span> <label for="r58" class="ident">sig</label> &lt; <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<a href="sigtab_linux_generic.go.html#line-13" class="ident">sigtable</a>)) {</code></span>
 <span class="codeline" id="line-563"><code>		<label for="r64" class="ident">flags</label> = <a href="sigtab_linux_generic.go.html#line-13" class="ident">sigtable</a>[<label for="r58" class="ident">sig</label>].<a href="#line-20" class="ident">flags</a></code></span>
 <span class="codeline" id="line-564"><code>	}</code></span>
-<span class="codeline" id="line-565"><code>	<span class="keyword">if</span> <label for="r63" class="ident">c</label>.<a href="signal_linux_amd64.go.html#line-48" class="ident">sigcode</a>() != <a href="os_linux_generic.go.html#line-18" class="ident">_SI_USER</a> &amp;&amp; <label for="r64" class="ident">flags</label>&amp;<a href="runtime2.go.html#line-813" class="ident">_SigPanic</a> != <span class="lit-number">0</span> &amp;&amp; <label for="r61" class="ident">gp</label>.<a href="runtime2.go.html#line-442" class="ident">throwsplit</a> {</code></span>
+<span class="codeline" id="line-565"><code>	<span class="keyword">if</span> <label for="r63" class="ident">c</label>.<a href="signal_linux_amd64.go.html#line-48" class="ident">sigcode</a>() != <a href="os_linux_generic.go.html#line-18" class="ident">_SI_USER</a> &amp;&amp; <label for="r64" class="ident">flags</label>&amp;<a href="runtime2.go.html#line-816" class="ident">_SigPanic</a> != <span class="lit-number">0</span> &amp;&amp; <label for="r61" class="ident">gp</label>.<a href="runtime2.go.html#line-442" class="ident">throwsplit</a> {</code></span>
 <span class="codeline" id="line-566"><code>		<span class="comment">// We can't safely sigpanic because it may grow the</span></code></span>
 <span class="codeline" id="line-567"><code><span class="comment">		// stack. Abort in the signal handler instead.</span></code></span>
-<span class="codeline" id="line-568"><code>		<label for="r64" class="ident">flags</label> = <a href="runtime2.go.html#line-812" class="ident">_SigThrow</a></code></span>
+<span class="codeline" id="line-568"><code>		<label for="r64" class="ident">flags</label> = <a href="runtime2.go.html#line-815" class="ident">_SigThrow</a></code></span>
 <span class="codeline" id="line-569"><code>	}</code></span>
 <span class="codeline" id="line-570"><code>	<span class="keyword">if</span> <a href="panic.go.html#line-1411" class="ident">isAbortPC</a>(<label for="r63" class="ident">c</label>.<a href="signal_amd64.go.html#line-41" class="ident">sigpc</a>()) {</code></span>
 <span class="codeline" id="line-571"><code>		<span class="comment">// On many architectures, the abort function just</span></code></span>
 <span class="codeline" id="line-572"><code><span class="comment">		// causes a memory fault. Don't turn that into a panic.</span></code></span>
-<span class="codeline" id="line-573"><code>		<label for="r64" class="ident">flags</label> = <a href="runtime2.go.html#line-812" class="ident">_SigThrow</a></code></span>
+<span class="codeline" id="line-573"><code>		<label for="r64" class="ident">flags</label> = <a href="runtime2.go.html#line-815" class="ident">_SigThrow</a></code></span>
 <span class="codeline" id="line-574"><code>	}</code></span>
-<span class="codeline" id="line-575"><code>	<span class="keyword">if</span> <label for="r63" class="ident">c</label>.<a href="signal_linux_amd64.go.html#line-48" class="ident">sigcode</a>() != <a href="os_linux_generic.go.html#line-18" class="ident">_SI_USER</a> &amp;&amp; <label for="r64" class="ident">flags</label>&amp;<a href="runtime2.go.html#line-813" class="ident">_SigPanic</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-575"><code>	<span class="keyword">if</span> <label for="r63" class="ident">c</label>.<a href="signal_linux_amd64.go.html#line-48" class="ident">sigcode</a>() != <a href="os_linux_generic.go.html#line-18" class="ident">_SI_USER</a> &amp;&amp; <label for="r64" class="ident">flags</label>&amp;<a href="runtime2.go.html#line-816" class="ident">_SigPanic</a> != <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-576"><code>		<span class="comment">// The signal is going to cause a panic.</span></code></span>
 <span class="codeline" id="line-577"><code><span class="comment">		// Arrange the stack so that it looks like the point</span></code></span>
 <span class="codeline" id="line-578"><code><span class="comment">		// where the signal occurred made a call to the</span></code></span>
@@ -906,7 +906,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-590"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-591"><code>	}</code></span>
 <span class="codeline" id="line-592"><code></code></span>
-<span class="codeline" id="line-593"><code>	<span class="keyword">if</span> <label for="r63" class="ident">c</label>.<a href="signal_linux_amd64.go.html#line-48" class="ident">sigcode</a>() == <a href="os_linux_generic.go.html#line-18" class="ident">_SI_USER</a> || <label for="r64" class="ident">flags</label>&amp;<a href="runtime2.go.html#line-810" class="ident">_SigNotify</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-593"><code>	<span class="keyword">if</span> <label for="r63" class="ident">c</label>.<a href="signal_linux_amd64.go.html#line-48" class="ident">sigcode</a>() == <a href="os_linux_generic.go.html#line-18" class="ident">_SI_USER</a> || <label for="r64" class="ident">flags</label>&amp;<a href="runtime2.go.html#line-813" class="ident">_SigNotify</a> != <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-594"><code>		<span class="keyword">if</span> <a href="sigqueue.go.html#line-72" class="ident">sigsend</a>(<label for="r58" class="ident">sig</label>) {</code></span>
 <span class="codeline" id="line-595"><code>			<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-596"><code>		}</code></span>
@@ -916,7 +916,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-600"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-601"><code>	}</code></span>
 <span class="codeline" id="line-602"><code></code></span>
-<span class="codeline" id="line-603"><code>	<span class="keyword">if</span> <label for="r64" class="ident">flags</label>&amp;<a href="runtime2.go.html#line-811" class="ident">_SigKill</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-603"><code>	<span class="keyword">if</span> <label for="r64" class="ident">flags</label>&amp;<a href="runtime2.go.html#line-814" class="ident">_SigKill</a> != <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-604"><code>		<a href="#line-764" class="ident">dieFromSignal</a>(<label for="r58" class="ident">sig</label>)</code></span>
 <span class="codeline" id="line-605"><code>	}</code></span>
 <span class="codeline" id="line-606"><code></code></span>
@@ -924,7 +924,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-608"><code><span class="comment">	// If we get here with _SigPanic, it means that the signal</span></code></span>
 <span class="codeline" id="line-609"><code><span class="comment">	// was sent to us by a program (c.sigcode() == _SI_USER);</span></code></span>
 <span class="codeline" id="line-610"><code><span class="comment">	// in that case, if we didn't handle it in sigsend, we exit now.</span></code></span>
-<span class="codeline" id="line-611"><code>	<span class="keyword">if</span> <label for="r64" class="ident">flags</label>&amp;(<a href="runtime2.go.html#line-812" class="ident">_SigThrow</a>|<a href="runtime2.go.html#line-813" class="ident">_SigPanic</a>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-611"><code>	<span class="keyword">if</span> <label for="r64" class="ident">flags</label>&amp;(<a href="runtime2.go.html#line-815" class="ident">_SigThrow</a>|<a href="runtime2.go.html#line-816" class="ident">_SigPanic</a>) == <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-612"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-613"><code>	}</code></span>
 <span class="codeline" id="line-614"><code></code></span>
@@ -989,7 +989,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-673"><code></code></span>
 <span class="codeline" id="line-674"><code>	<span class="keyword">if</span> <label for="r72" class="ident">docrash</label> {</code></span>
 <span class="codeline" id="line-675"><code>		<a href="#line-517" class="ident">crashing</a>++</code></span>
-<span class="codeline" id="line-676"><code>		<span class="keyword">if</span> <a href="#line-517" class="ident">crashing</a> &lt; <a href="proc.go.html#line-4353" class="ident">mcount</a>()-<a href="../../pkg/builtin.html#name-int32" class="ident">int32</a>(<a href="proc.go.html#line-1999" class="ident">extraMCount</a>) {</code></span>
+<span class="codeline" id="line-676"><code>		<span class="keyword">if</span> <a href="#line-517" class="ident">crashing</a> &lt; <a href="proc.go.html#line-4397" class="ident">mcount</a>()-<a href="../../pkg/builtin.html#name-int32" class="ident">int32</a>(<a href="proc.go.html#line-2019" class="ident">extraMCount</a>) {</code></span>
 <span class="codeline" id="line-677"><code>			<span class="comment">// There are other m's that need to dump their stacks.</span></code></span>
 <span class="codeline" id="line-678"><code><span class="comment">			// Relay SIGQUIT to the next m by sending it to the current process.</span></code></span>
 <span class="codeline" id="line-679"><code><span class="comment">			// All m's that have already received SIGQUIT have signal masks blocking</span></code></span>
@@ -1141,7 +1141,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-825"><code><span class="comment">	//</span></code></span>
 <span class="codeline" id="line-826"><code><span class="comment">	// On FreeBSD, the libthr sigaction code prevents</span></code></span>
 <span class="codeline" id="line-827"><code><span class="comment">	// this from working so we fall through to raise.</span></code></span>
-<span class="codeline" id="line-828"><code>	<span class="keyword">if</span> <a href="extern.go.html#line-253" class="ident">GOOS</a> != <span class="lit-string">"freebsd"</span> &amp;&amp; (<a href="runtime2.go.html#line-1104" class="ident">isarchive</a> || <a href="runtime2.go.html#line-1103" class="ident">islibrary</a>) &amp;&amp; <label for="r80" class="ident">handler</label> == <a href="#line-37" class="ident">_SIG_DFL</a> &amp;&amp; <label for="r79" class="ident">c</label>.<a href="signal_linux_amd64.go.html#line-48" class="ident">sigcode</a>() != <a href="os_linux_generic.go.html#line-18" class="ident">_SI_USER</a> {</code></span>
+<span class="codeline" id="line-828"><code>	<span class="keyword">if</span> <a href="extern.go.html#line-253" class="ident">GOOS</a> != <span class="lit-string">"freebsd"</span> &amp;&amp; (<a href="runtime2.go.html#line-1107" class="ident">isarchive</a> || <a href="runtime2.go.html#line-1106" class="ident">islibrary</a>) &amp;&amp; <label for="r80" class="ident">handler</label> == <a href="#line-37" class="ident">_SIG_DFL</a> &amp;&amp; <label for="r79" class="ident">c</label>.<a href="signal_linux_amd64.go.html#line-48" class="ident">sigcode</a>() != <a href="os_linux_generic.go.html#line-18" class="ident">_SI_USER</a> {</code></span>
 <span class="codeline" id="line-829"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-830"><code>	}</code></span>
 <span class="codeline" id="line-831"><code></code></span>
@@ -1188,8 +1188,8 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-872"><code>	<span class="keyword">go</span> <span class="keyword">func</span>() {</code></span>
 <span class="codeline" id="line-873"><code>		<span class="comment">// Signal masks are per-thread, so make sure this goroutine stays on one</span></code></span>
 <span class="codeline" id="line-874"><code><span class="comment">		// thread.</span></code></span>
-<span class="codeline" id="line-875"><code>		<a href="proc.go.html#line-4264" class="ident">LockOSThread</a>()</code></span>
-<span class="codeline" id="line-876"><code>		<span class="keyword">defer</span> <a href="proc.go.html#line-4316" class="ident">UnlockOSThread</a>()</code></span>
+<span class="codeline" id="line-875"><code>		<a href="proc.go.html#line-4308" class="ident">LockOSThread</a>()</code></span>
+<span class="codeline" id="line-876"><code>		<span class="keyword">defer</span> <a href="proc.go.html#line-4360" class="ident">UnlockOSThread</a>()</code></span>
 <span class="codeline" id="line-877"><code>		<span class="comment">// The sigBlocked mask contains the signals not active for os/signal,</span></code></span>
 <span class="codeline" id="line-878"><code><span class="comment">		// initially all signals except the essential. When signal.Notify()/Stop is called,</span></code></span>
 <span class="codeline" id="line-879"><code><span class="comment">		// sigenable/sigdisable in turn notify this thread to update its signal</span></code></span>
@@ -1260,13 +1260,13 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-944"><code>		<a href="stubs2.go.html#line-23" class="ident">exit</a>(<span class="lit-number">2</span>)</code></span>
 <span class="codeline" id="line-945"><code>		*(*<a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>)(<a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(<a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<span class="lit-number">123</span>))) = <span class="lit-number">2</span></code></span>
 <span class="codeline" id="line-946"><code>	}</code></span>
-<span class="codeline" id="line-947"><code>	<a href="proc.go.html#line-1807" class="ident">needm</a>()</code></span>
+<span class="codeline" id="line-947"><code>	<a href="proc.go.html#line-1827" class="ident">needm</a>()</code></span>
 <span class="codeline" id="line-948"><code>	<span class="keyword">if</span> !<a href="sigqueue.go.html#line-72" class="ident">sigsend</a>(<a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r94" class="ident">sig</label>)) {</code></span>
 <span class="codeline" id="line-949"><code>		<span class="comment">// A foreign thread received the signal sig, and the</span></code></span>
 <span class="codeline" id="line-950"><code><span class="comment">		// Go code does not want to handle it.</span></code></span>
 <span class="codeline" id="line-951"><code>		<a href="#line-794" class="ident">raisebadsignal</a>(<a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r94" class="ident">sig</label>), <label for="r95" class="ident">c</label>)</code></span>
 <span class="codeline" id="line-952"><code>	}</code></span>
-<span class="codeline" id="line-953"><code>	<a href="proc.go.html#line-1962" class="ident">dropm</a>()</code></span>
+<span class="codeline" id="line-953"><code>	<a href="proc.go.html#line-1982" class="ident">dropm</a>()</code></span>
 <span class="codeline" id="line-954"><code>}</code></span>
 <span class="codeline" id="line-955"><code></code></span>
 <span class="codeline" id="line-956"><code><span class="comment">//go:noescape</span></code></span>
@@ -1288,7 +1288,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-972"><code>	<span class="comment">// If we aren't handling the signal, forward it.</span></code></span>
 <span class="codeline" id="line-973"><code>	<span class="keyword">if</span> <a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-16" class="ident">Load</a>(&amp;<a href="#line-86" class="ident">handlingSig</a>[<label for="r103" class="ident">sig</label>]) == <span class="lit-number">0</span> || !<a href="#line-105" class="ident">signalsOK</a> {</code></span>
 <span class="codeline" id="line-974"><code>		<span class="comment">// If the signal is ignored, doing nothing is the same as forwarding.</span></code></span>
-<span class="codeline" id="line-975"><code>		<span class="keyword">if</span> <label for="r106" class="ident">fwdFn</label> == <a href="#line-38" class="ident">_SIG_IGN</a> || (<label for="r106" class="ident">fwdFn</label> == <a href="#line-37" class="ident">_SIG_DFL</a> &amp;&amp; <label for="r107" class="ident">flags</label>&amp;<a href="runtime2.go.html#line-818" class="ident">_SigIgn</a> != <span class="lit-number">0</span>) {</code></span>
+<span class="codeline" id="line-975"><code>		<span class="keyword">if</span> <label for="r106" class="ident">fwdFn</label> == <a href="#line-38" class="ident">_SIG_IGN</a> || (<label for="r106" class="ident">fwdFn</label> == <a href="#line-37" class="ident">_SIG_DFL</a> &amp;&amp; <label for="r107" class="ident">flags</label>&amp;<a href="runtime2.go.html#line-821" class="ident">_SigIgn</a> != <span class="lit-number">0</span>) {</code></span>
 <span class="codeline" id="line-976"><code>			<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
 <span class="codeline" id="line-977"><code>		}</code></span>
 <span class="codeline" id="line-978"><code>		<span class="comment">// We are not handling the signal and there is no other handler to forward to.</span></code></span>
@@ -1320,7 +1320,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-1004"><code><span class="comment">	// Unfortunately, user generated SIGPIPEs will also be forwarded, because si_code</span></code></span>
 <span class="codeline" id="line-1005"><code><span class="comment">	// is set to _SI_USER even for a SIGPIPE raised from a write to a closed socket</span></code></span>
 <span class="codeline" id="line-1006"><code><span class="comment">	// or pipe.</span></code></span>
-<span class="codeline" id="line-1007"><code>	<span class="keyword">if</span> (<label for="r108" class="ident">c</label>.<a href="signal_linux_amd64.go.html#line-48" class="ident">sigcode</a>() == <a href="os_linux_generic.go.html#line-18" class="ident">_SI_USER</a> || <label for="r107" class="ident">flags</label>&amp;<a href="runtime2.go.html#line-813" class="ident">_SigPanic</a> == <span class="lit-number">0</span>) &amp;&amp; <label for="r103" class="ident">sig</label> != <a href="defs_linux_amd64.go.html#line-43" class="ident">_SIGPIPE</a> {</code></span>
+<span class="codeline" id="line-1007"><code>	<span class="keyword">if</span> (<label for="r108" class="ident">c</label>.<a href="signal_linux_amd64.go.html#line-48" class="ident">sigcode</a>() == <a href="os_linux_generic.go.html#line-18" class="ident">_SI_USER</a> || <label for="r107" class="ident">flags</label>&amp;<a href="runtime2.go.html#line-816" class="ident">_SigPanic</a> == <span class="lit-number">0</span>) &amp;&amp; <label for="r103" class="ident">sig</label> != <a href="defs_linux_amd64.go.html#line-43" class="ident">_SIGPIPE</a> {</code></span>
 <span class="codeline" id="line-1008"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
 <span class="codeline" id="line-1009"><code>	}</code></span>
 <span class="codeline" id="line-1010"><code>	<span class="comment">// Determine if the signal occurred inside Go code. We test that:</span></code></span>
@@ -1473,22 +1473,22 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-1157"><code><span class="comment">// decide on the disposition of those signals.</span></code></span>
 <span class="codeline" id="line-1158"><code><span class="keyword">func</span> <label for="r128" class="ident"><a href="../../pkg/runtime.html#name-blockableSig" class="ident">blockableSig</a></label>(<label for="r129" class="ident">sig</label> <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>) <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
 <span class="codeline" id="line-1159"><code>	<label for="r130" class="ident">flags</label> := <a href="sigtab_linux_generic.go.html#line-13" class="ident">sigtable</a>[<label for="r129" class="ident">sig</label>].<a href="#line-20" class="ident">flags</a></code></span>
-<span class="codeline" id="line-1160"><code>	<span class="keyword">if</span> <label for="r130" class="ident">flags</label>&amp;<a href="runtime2.go.html#line-817" class="ident">_SigUnblock</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-1160"><code>	<span class="keyword">if</span> <label for="r130" class="ident">flags</label>&amp;<a href="runtime2.go.html#line-820" class="ident">_SigUnblock</a> != <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-1161"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
 <span class="codeline" id="line-1162"><code>	}</code></span>
-<span class="codeline" id="line-1163"><code>	<span class="keyword">if</span> <a href="runtime2.go.html#line-1104" class="ident">isarchive</a> || <a href="runtime2.go.html#line-1103" class="ident">islibrary</a> {</code></span>
+<span class="codeline" id="line-1163"><code>	<span class="keyword">if</span> <a href="runtime2.go.html#line-1107" class="ident">isarchive</a> || <a href="runtime2.go.html#line-1106" class="ident">islibrary</a> {</code></span>
 <span class="codeline" id="line-1164"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
 <span class="codeline" id="line-1165"><code>	}</code></span>
-<span class="codeline" id="line-1166"><code>	<span class="keyword">return</span> <label for="r130" class="ident">flags</label>&amp;(<a href="runtime2.go.html#line-811" class="ident">_SigKill</a>|<a href="runtime2.go.html#line-812" class="ident">_SigThrow</a>) == <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-1166"><code>	<span class="keyword">return</span> <label for="r130" class="ident">flags</label>&amp;(<a href="runtime2.go.html#line-814" class="ident">_SigKill</a>|<a href="runtime2.go.html#line-815" class="ident">_SigThrow</a>) == <span class="lit-number">0</span></code></span>
 <span class="codeline" id="line-1167"><code>}</code></span>
 <span class="codeline" id="line-1168"><code></code></span>
 <span class="codeline" id="line-1169"><code><span class="comment">// gsignalStack saves the fields of the gsignal stack changed by</span></code></span>
 <span class="codeline" id="line-1170"><code><span class="comment">// setGsignalStack.</span></code></span>
 <span class="codeline" id="line-1171"><code><span class="keyword">type</span> <a href="../../pkg/runtime.html#name-gsignalStack" class="ident">gsignalStack</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-1172"><code>	<a href="../../use/runtime..gsignalStack.stack.html" class="ident">stack</a>       <a href="runtime2.go.html#line-393" class="ident">stack</a></code></span>
-<span class="codeline" id="line-1173"><code>	<a href="../../use/runtime..gsignalStack.stackguard0.html" class="ident">stackguard0</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
-<span class="codeline" id="line-1174"><code>	<a href="../../use/runtime..gsignalStack.stackguard1.html" class="ident">stackguard1</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
-<span class="codeline" id="line-1175"><code>	<a href="../../use/runtime..gsignalStack.stktopsp.html" class="ident">stktopsp</a>    <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
+<span class="codeline" id="line-1172"><code>	<a href="../../use/runtime..gsignalStack*ae746.stack*6ee08.html" class="ident">stack</a>       <a href="runtime2.go.html#line-393" class="ident">stack</a></code></span>
+<span class="codeline" id="line-1173"><code>	<a href="../../use/runtime..gsignalStack*ae746.stackguard0*205fb.html" class="ident">stackguard0</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
+<span class="codeline" id="line-1174"><code>	<a href="../../use/runtime..gsignalStack*ae746.stackguard1*8855b.html" class="ident">stackguard1</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
+<span class="codeline" id="line-1175"><code>	<a href="../../use/runtime..gsignalStack*ae746.stktopsp*50250.html" class="ident">stktopsp</a>    <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
 <span class="codeline" id="line-1176"><code>}</code></span>
 <span class="codeline" id="line-1177"><code></code></span>
 <span class="codeline" id="line-1178"><code><span class="comment">// setGsignalStack sets the gsignal stack of the current m to an</span></code></span>
@@ -1548,7 +1548,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-1232"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

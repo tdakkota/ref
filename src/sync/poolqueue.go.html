@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: poolqueue.go in package sync</title>
-<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -173,7 +173,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-31"><code><span class="comment">	// The head index is stored in the most-significant bits so</span></code></span>
 <span class="codeline" id="line-32"><code><span class="comment">	// that we can atomically add to it and the overflow is</span></code></span>
 <span class="codeline" id="line-33"><code><span class="comment">	// harmless.</span></code></span>
-<span class="codeline" id="line-34"><code>	<a href="../../use/sync..poolDequeue.headTail.html" class="ident">headTail</a> <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a></code></span>
+<span class="codeline" id="line-34"><code>	<a href="../../use/sync..poolDequeue*40bdd.headTail*c286a.html" class="ident">headTail</a> <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a></code></span>
 <span class="codeline" id="line-35"><code></code></span>
 <span class="codeline" id="line-36"><code>	<span class="comment">// vals is a ring buffer of interface{} values stored in this</span></code></span>
 <span class="codeline" id="line-37"><code><span class="comment">	// dequeue. The size of this must be a power of 2.</span></code></span>
@@ -183,11 +183,11 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-41"><code><span class="comment">	// index has moved beyond it and typ has been set to nil. This</span></code></span>
 <span class="codeline" id="line-42"><code><span class="comment">	// is set to nil atomically by the consumer and read</span></code></span>
 <span class="codeline" id="line-43"><code><span class="comment">	// atomically by the producer.</span></code></span>
-<span class="codeline" id="line-44"><code>	<a href="../../use/sync..poolDequeue.vals.html" class="ident">vals</a> []<a href="#line-47" class="ident">eface</a></code></span>
+<span class="codeline" id="line-44"><code>	<a href="../../use/sync..poolDequeue*40bdd.vals*16210.html" class="ident">vals</a> []<a href="#line-47" class="ident">eface</a></code></span>
 <span class="codeline" id="line-45"><code>}</code></span>
 <span class="codeline" id="line-46"><code></code></span>
 <span class="codeline" id="line-47"><code><span class="keyword">type</span> <a href="../../pkg/sync.html#name-eface" class="ident">eface</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-48"><code>	<a href="../../use/sync..eface.typ.html" class="ident">typ</a>, <a href="../../use/sync..eface.val.html" class="ident">val</a> <a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a></code></span>
+<span class="codeline" id="line-48"><code>	<a href="../../use/sync..eface*8bf01.typ*5a553.html" class="ident">typ</a>, <a href="../../use/sync..eface*8bf01.val*97dfc.html" class="ident">val</a> <a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a></code></span>
 <span class="codeline" id="line-49"><code>}</code></span>
 <span class="codeline" id="line-50"><code></code></span>
 <span class="codeline" id="line-51"><code><span class="keyword">const</span> <a href="../../pkg/sync.html#name-dequeueBits" class="ident">dequeueBits</a> = <span class="lit-number">32</span></code></span>
@@ -204,14 +204,14 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-62"><code><span class="comment">// to represent nil.</span></code></span>
 <span class="codeline" id="line-63"><code><span class="keyword">type</span> <a href="../../pkg/sync.html#name-dequeueNil" class="ident">dequeueNil</a> *<span class="keyword">struct</span>{}</code></span>
 <span class="codeline" id="line-64"><code></code></span>
-<span class="codeline" id="line-65"><code><span class="keyword">func</span> (<label for="r0" class="ident">d</label> *<a href="#line-19" class="ident">poolDequeue</a>) <label for="r1" class="ident"><a href="../../use/sync..poolDequeue.unpack.html" class="ident">unpack</a></label>(<label for="r2" class="ident">ptrs</label> <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>) (<label for="r3" class="ident">head</label>, <label for="r4" class="ident">tail</label> <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>) {</code></span>
+<span class="codeline" id="line-65"><code><span class="keyword">func</span> (<label for="r0" class="ident">d</label> *<a href="#line-19" class="ident">poolDequeue</a>) <label for="r1" class="ident"><a href="../../use/sync..poolDequeue*40bdd.unpack*79a43.html" class="ident">unpack</a></label>(<label for="r2" class="ident">ptrs</label> <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>) (<label for="r3" class="ident">head</label>, <label for="r4" class="ident">tail</label> <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>) {</code></span>
 <span class="codeline" id="line-66"><code>	<span class="keyword">const</span> <label for="r5" class="ident">mask</label> = <span class="lit-number">1</span>&lt;&lt;<a href="#line-51" class="ident">dequeueBits</a> - <span class="lit-number">1</span></code></span>
 <span class="codeline" id="line-67"><code>	<label for="r3" class="ident">head</label> = <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>((<label for="r2" class="ident">ptrs</label> &gt;&gt; <a href="#line-51" class="ident">dequeueBits</a>) &amp; <label for="r5" class="ident">mask</label>)</code></span>
 <span class="codeline" id="line-68"><code>	<label for="r4" class="ident">tail</label> = <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r2" class="ident">ptrs</label> &amp; <label for="r5" class="ident">mask</label>)</code></span>
 <span class="codeline" id="line-69"><code>	<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-70"><code>}</code></span>
 <span class="codeline" id="line-71"><code></code></span>
-<span class="codeline" id="line-72"><code><span class="keyword">func</span> (<label for="r6" class="ident">d</label> *<a href="#line-19" class="ident">poolDequeue</a>) <label for="r7" class="ident"><a href="../../use/sync..poolDequeue.pack.html" class="ident">pack</a></label>(<label for="r8" class="ident">head</label>, <label for="r9" class="ident">tail</label> <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>) <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a> {</code></span>
+<span class="codeline" id="line-72"><code><span class="keyword">func</span> (<label for="r6" class="ident">d</label> *<a href="#line-19" class="ident">poolDequeue</a>) <label for="r7" class="ident"><a href="../../use/sync..poolDequeue*40bdd.pack*4862f.html" class="ident">pack</a></label>(<label for="r8" class="ident">head</label>, <label for="r9" class="ident">tail</label> <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>) <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a> {</code></span>
 <span class="codeline" id="line-73"><code>	<span class="keyword">const</span> <label for="r10" class="ident">mask</label> = <span class="lit-number">1</span>&lt;&lt;<a href="#line-51" class="ident">dequeueBits</a> - <span class="lit-number">1</span></code></span>
 <span class="codeline" id="line-74"><code>	<span class="keyword">return</span> (<a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>(<label for="r8" class="ident">head</label>) &lt;&lt; <a href="#line-51" class="ident">dequeueBits</a>) |</code></span>
 <span class="codeline" id="line-75"><code>		<a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>(<label for="r9" class="ident">tail</label>&amp;<label for="r10" class="ident">mask</label>)</code></span>
@@ -219,7 +219,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-77"><code></code></span>
 <span class="codeline" id="line-78"><code><span class="comment">// pushHead adds val at the head of the queue. It returns false if the</span></code></span>
 <span class="codeline" id="line-79"><code><span class="comment">// queue is full. It must only be called by a single producer.</span></code></span>
-<span class="codeline" id="line-80"><code><span class="keyword">func</span> (<label for="r11" class="ident">d</label> *<a href="#line-19" class="ident">poolDequeue</a>) <label for="r12" class="ident"><a href="../../use/sync..poolDequeue.pushHead.html" class="ident">pushHead</a></label>(<label for="r13" class="ident">val</label> <span class="keyword">interface</span>{}) <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-80"><code><span class="keyword">func</span> (<label for="r11" class="ident">d</label> *<a href="#line-19" class="ident">poolDequeue</a>) <label for="r12" class="ident"><a href="../../use/sync..poolDequeue*40bdd.pushHead*c5685.html" class="ident">pushHead</a></label>(<label for="r13" class="ident">val</label> <span class="keyword">interface</span>{}) <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
 <span class="codeline" id="line-81"><code>	<label for="r14" class="ident">ptrs</label> := <a href="../../pkg/sync/atomic.html" class="ident i0">atomic</a>.<a href="atomic/doc.go.html#line-120" class="ident">LoadUint64</a>(&amp;<label for="r11" class="ident">d</label>.<a href="#line-34" class="ident">headTail</a>)</code></span>
 <span class="codeline" id="line-82"><code>	<label for="r15" class="ident">head</label>, <label for="r16" class="ident">tail</label> := <label for="r11" class="ident">d</label>.<a href="#line-65" class="ident">unpack</a>(<label for="r14" class="ident">ptrs</label>)</code></span>
 <span class="codeline" id="line-83"><code>	<span class="keyword">if</span> (<label for="r16" class="ident">tail</label>+<a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r11" class="ident">d</label>.<a href="#line-44" class="ident">vals</a>)))&amp;(<span class="lit-number">1</span>&lt;&lt;<a href="#line-51" class="ident">dequeueBits</a>-<span class="lit-number">1</span>) == <label for="r15" class="ident">head</label> {</code></span>
@@ -251,7 +251,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-109"><code><span class="comment">// popHead removes and returns the element at the head of the queue.</span></code></span>
 <span class="codeline" id="line-110"><code><span class="comment">// It returns false if the queue is empty. It must only be called by a</span></code></span>
 <span class="codeline" id="line-111"><code><span class="comment">// single producer.</span></code></span>
-<span class="codeline" id="line-112"><code><span class="keyword">func</span> (<label for="r19" class="ident">d</label> *<a href="#line-19" class="ident">poolDequeue</a>) <label for="r20" class="ident"><a href="../../use/sync..poolDequeue.popHead.html" class="ident">popHead</a></label>() (<span class="keyword">interface</span>{}, <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
+<span class="codeline" id="line-112"><code><span class="keyword">func</span> (<label for="r19" class="ident">d</label> *<a href="#line-19" class="ident">poolDequeue</a>) <label for="r20" class="ident"><a href="../../use/sync..poolDequeue*40bdd.popHead*ec3d3.html" class="ident">popHead</a></label>() (<span class="keyword">interface</span>{}, <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
 <span class="codeline" id="line-113"><code>	<span class="keyword">var</span> <label for="r21" class="ident">slot</label> *<a href="#line-47" class="ident">eface</a></code></span>
 <span class="codeline" id="line-114"><code>	<span class="keyword">for</span> {</code></span>
 <span class="codeline" id="line-115"><code>		<label for="r22" class="ident">ptrs</label> := <a href="../../pkg/sync/atomic.html" class="ident i0">atomic</a>.<a href="atomic/doc.go.html#line-120" class="ident">LoadUint64</a>(&amp;<label for="r19" class="ident">d</label>.<a href="#line-34" class="ident">headTail</a>)</code></span>
@@ -286,7 +286,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-144"><code><span class="comment">// popTail removes and returns the element at the tail of the queue.</span></code></span>
 <span class="codeline" id="line-145"><code><span class="comment">// It returns false if the queue is empty. It may be called by any</span></code></span>
 <span class="codeline" id="line-146"><code><span class="comment">// number of consumers.</span></code></span>
-<span class="codeline" id="line-147"><code><span class="keyword">func</span> (<label for="r27" class="ident">d</label> *<a href="#line-19" class="ident">poolDequeue</a>) <label for="r28" class="ident"><a href="../../use/sync..poolDequeue.popTail.html" class="ident">popTail</a></label>() (<span class="keyword">interface</span>{}, <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
+<span class="codeline" id="line-147"><code><span class="keyword">func</span> (<label for="r27" class="ident">d</label> *<a href="#line-19" class="ident">poolDequeue</a>) <label for="r28" class="ident"><a href="../../use/sync..poolDequeue*40bdd.popTail*770d9.html" class="ident">popTail</a></label>() (<span class="keyword">interface</span>{}, <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
 <span class="codeline" id="line-148"><code>	<span class="keyword">var</span> <label for="r29" class="ident">slot</label> *<a href="#line-47" class="ident">eface</a></code></span>
 <span class="codeline" id="line-149"><code>	<span class="keyword">for</span> {</code></span>
 <span class="codeline" id="line-150"><code>		<label for="r30" class="ident">ptrs</label> := <a href="../../pkg/sync/atomic.html" class="ident i0">atomic</a>.<a href="atomic/doc.go.html#line-120" class="ident">LoadUint64</a>(&amp;<label for="r27" class="ident">d</label>.<a href="#line-34" class="ident">headTail</a>)</code></span>
@@ -336,11 +336,11 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-194"><code><span class="keyword">type</span> <a href="../../pkg/sync.html#name-poolChain" class="ident">poolChain</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-195"><code>	<span class="comment">// head is the poolDequeue to push to. This is only accessed</span></code></span>
 <span class="codeline" id="line-196"><code><span class="comment">	// by the producer, so doesn't need to be synchronized.</span></code></span>
-<span class="codeline" id="line-197"><code>	<a href="../../use/sync..poolChain.head.html" class="ident">head</a> *<a href="#line-204" class="ident">poolChainElt</a></code></span>
+<span class="codeline" id="line-197"><code>	<a href="../../use/sync..poolChain*bfff3.head*9f2e6.html" class="ident">head</a> *<a href="#line-204" class="ident">poolChainElt</a></code></span>
 <span class="codeline" id="line-198"><code></code></span>
 <span class="codeline" id="line-199"><code>	<span class="comment">// tail is the poolDequeue to popTail from. This is accessed</span></code></span>
 <span class="codeline" id="line-200"><code><span class="comment">	// by consumers, so reads and writes must be atomic.</span></code></span>
-<span class="codeline" id="line-201"><code>	<a href="../../use/sync..poolChain.tail.html" class="ident">tail</a> *<a href="#line-204" class="ident">poolChainElt</a></code></span>
+<span class="codeline" id="line-201"><code>	<a href="../../use/sync..poolChain*bfff3.tail*0c62f.html" class="ident">tail</a> *<a href="#line-204" class="ident">poolChainElt</a></code></span>
 <span class="codeline" id="line-202"><code>}</code></span>
 <span class="codeline" id="line-203"><code></code></span>
 <span class="codeline" id="line-204"><code><span class="keyword">type</span> <a href="../../pkg/sync.html#name-poolChainElt" class="ident">poolChainElt</a> <span class="keyword">struct</span> {</code></span>
@@ -356,7 +356,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-214"><code><span class="comment">	// prev is written atomically by the consumer and read</span></code></span>
 <span class="codeline" id="line-215"><code><span class="comment">	// atomically by the producer. It only transitions from</span></code></span>
 <span class="codeline" id="line-216"><code><span class="comment">	// non-nil to nil.</span></code></span>
-<span class="codeline" id="line-217"><code>	<a href="../../use/sync..poolChainElt.next.html" class="ident">next</a>, <a href="../../use/sync..poolChainElt.prev.html" class="ident">prev</a> *<a href="#line-204" class="ident">poolChainElt</a></code></span>
+<span class="codeline" id="line-217"><code>	<a href="../../use/sync..poolChainElt*6599f.next*c6c1c.html" class="ident">next</a>, <a href="../../use/sync..poolChainElt*6599f.prev*84fd9.html" class="ident">prev</a> *<a href="#line-204" class="ident">poolChainElt</a></code></span>
 <span class="codeline" id="line-218"><code>}</code></span>
 <span class="codeline" id="line-219"><code></code></span>
 <span class="codeline" id="line-220"><code><span class="keyword">func</span> <label for="r35" class="ident"><a href="../../pkg/sync.html#name-storePoolChainElt" class="ident">storePoolChainElt</a></label>(<label for="r36" class="ident">pp</label> **<a href="#line-204" class="ident">poolChainElt</a>, <label for="r37" class="ident">v</label> *<a href="#line-204" class="ident">poolChainElt</a>) {</code></span>
@@ -367,7 +367,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-225"><code>	<span class="keyword">return</span> (*<a href="#line-204" class="ident">poolChainElt</a>)(<a href="../../pkg/sync/atomic.html" class="ident i0">atomic</a>.<a href="atomic/doc.go.html#line-126" class="ident">LoadPointer</a>((*<a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>)(<a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(<label for="r39" class="ident">pp</label>))))</code></span>
 <span class="codeline" id="line-226"><code>}</code></span>
 <span class="codeline" id="line-227"><code></code></span>
-<span class="codeline" id="line-228"><code><span class="keyword">func</span> (<label for="r40" class="ident">c</label> *<a href="#line-194" class="ident">poolChain</a>) <label for="r41" class="ident"><a href="../../use/sync..poolChain.pushHead.html" class="ident">pushHead</a></label>(<label for="r42" class="ident">val</label> <span class="keyword">interface</span>{}) {</code></span>
+<span class="codeline" id="line-228"><code><span class="keyword">func</span> (<label for="r40" class="ident">c</label> *<a href="#line-194" class="ident">poolChain</a>) <label for="r41" class="ident"><a href="../../use/sync..poolChain*bfff3.pushHead*c5685.html" class="ident">pushHead</a></label>(<label for="r42" class="ident">val</label> <span class="keyword">interface</span>{}) {</code></span>
 <span class="codeline" id="line-229"><code>	<label for="r43" class="ident">d</label> := <label for="r40" class="ident">c</label>.<a href="#line-197" class="ident">head</a></code></span>
 <span class="codeline" id="line-230"><code>	<span class="keyword">if</span> <label for="r43" class="ident">d</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-231"><code>		<span class="comment">// Initialize the chain.</span></code></span>
@@ -397,7 +397,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-255"><code>	<label for="r46" class="ident">d2</label>.<a href="#line-80" class="ident">pushHead</a>(<label for="r42" class="ident">val</label>)</code></span>
 <span class="codeline" id="line-256"><code>}</code></span>
 <span class="codeline" id="line-257"><code></code></span>
-<span class="codeline" id="line-258"><code><span class="keyword">func</span> (<label for="r47" class="ident">c</label> *<a href="#line-194" class="ident">poolChain</a>) <label for="r48" class="ident"><a href="../../use/sync..poolChain.popHead.html" class="ident">popHead</a></label>() (<span class="keyword">interface</span>{}, <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
+<span class="codeline" id="line-258"><code><span class="keyword">func</span> (<label for="r47" class="ident">c</label> *<a href="#line-194" class="ident">poolChain</a>) <label for="r48" class="ident"><a href="../../use/sync..poolChain*bfff3.popHead*ec3d3.html" class="ident">popHead</a></label>() (<span class="keyword">interface</span>{}, <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
 <span class="codeline" id="line-259"><code>	<label for="r49" class="ident">d</label> := <label for="r47" class="ident">c</label>.<a href="#line-197" class="ident">head</a></code></span>
 <span class="codeline" id="line-260"><code>	<span class="keyword">for</span> <label for="r49" class="ident">d</label> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-261"><code>		<span class="keyword">if</span> <label for="r50" class="ident">val</label>, <label for="r51" class="ident">ok</label> := <label for="r49" class="ident">d</label>.<a href="#line-112" class="ident">popHead</a>(); <label for="r51" class="ident">ok</label> {</code></span>
@@ -410,7 +410,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-268"><code>	<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
 <span class="codeline" id="line-269"><code>}</code></span>
 <span class="codeline" id="line-270"><code></code></span>
-<span class="codeline" id="line-271"><code><span class="keyword">func</span> (<label for="r52" class="ident">c</label> *<a href="#line-194" class="ident">poolChain</a>) <label for="r53" class="ident"><a href="../../use/sync..poolChain.popTail.html" class="ident">popTail</a></label>() (<span class="keyword">interface</span>{}, <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
+<span class="codeline" id="line-271"><code><span class="keyword">func</span> (<label for="r52" class="ident">c</label> *<a href="#line-194" class="ident">poolChain</a>) <label for="r53" class="ident"><a href="../../use/sync..poolChain*bfff3.popTail*770d9.html" class="ident">popTail</a></label>() (<span class="keyword">interface</span>{}, <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
 <span class="codeline" id="line-272"><code>	<label for="r54" class="ident">d</label> := <a href="#line-224" class="ident">loadPoolChainElt</a>(&amp;<label for="r52" class="ident">c</label>.<a href="#line-201" class="ident">tail</a>)</code></span>
 <span class="codeline" id="line-273"><code>	<span class="keyword">if</span> <label for="r54" class="ident">d</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-274"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
@@ -451,7 +451,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-309"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

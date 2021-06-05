@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: buffer.go in package bytes</title>
-<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -290,9 +290,9 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-18"><code><span class="comment">// A Buffer is a variable-sized buffer of bytes with Read and Write methods.</span></code></span>
 <span class="codeline" id="line-19"><code><span class="comment">// The zero value for Buffer is an empty buffer ready to use.</span></code></span>
 <span class="codeline" id="line-20"><code><span class="keyword">type</span> <a href="../../pkg/bytes.html#name-Buffer" class="ident">Buffer</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-21"><code>	<a href="../../use/bytes..Buffer.buf.html" class="ident">buf</a>      []<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a> <span class="comment">// contents are the bytes buf[off : len(buf)]</span></code></span>
-<span class="codeline" id="line-22"><code>	<a href="../../use/bytes..Buffer.off.html" class="ident">off</a>      <a href="../../pkg/builtin.html#name-int" class="ident">int</a>    <span class="comment">// read at &amp;buf[off], write at &amp;buf[len(buf)]</span></code></span>
-<span class="codeline" id="line-23"><code>	<a href="../../use/bytes..Buffer.lastRead.html" class="ident">lastRead</a> <a href="#line-30" class="ident">readOp</a> <span class="comment">// last read operation, so that Unread* can work correctly.</span></code></span>
+<span class="codeline" id="line-21"><code>	<a href="../../use/bytes..Buffer.buf*3ef31.html" class="ident">buf</a>      []<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a> <span class="comment">// contents are the bytes buf[off : len(buf)]</span></code></span>
+<span class="codeline" id="line-22"><code>	<a href="../../use/bytes..Buffer.off*b4dc6.html" class="ident">off</a>      <a href="../../pkg/builtin.html#name-int" class="ident">int</a>    <span class="comment">// read at &amp;buf[off], write at &amp;buf[len(buf)]</span></code></span>
+<span class="codeline" id="line-23"><code>	<a href="../../use/bytes..Buffer.lastRead*2b28f.html" class="ident">lastRead</a> <a href="#line-30" class="ident">readOp</a> <span class="comment">// last read operation, so that Unread* can work correctly.</span></code></span>
 <span class="codeline" id="line-24"><code>}</code></span>
 <span class="codeline" id="line-25"><code></code></span>
 <span class="codeline" id="line-26"><code><span class="comment">// The readOp constants describe the last action performed on</span></code></span>
@@ -338,7 +338,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-66"><code>}</code></span>
 <span class="codeline" id="line-67"><code></code></span>
 <span class="codeline" id="line-68"><code><span class="comment">// empty reports whether the unread portion of the buffer is empty.</span></code></span>
-<span class="codeline" id="line-69"><code><span class="keyword">func</span> (<label for="r4" class="ident">b</label> *<a href="#line-20" class="ident">Buffer</a>) <label for="r5" class="ident"><a href="../../use/bytes..Buffer.empty.html" class="ident">empty</a></label>() <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> { <span class="keyword">return</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r4" class="ident">b</label>.<a href="#line-21" class="ident">buf</a>) &lt;= <label for="r4" class="ident">b</label>.<a href="#line-22" class="ident">off</a> }</code></span>
+<span class="codeline" id="line-69"><code><span class="keyword">func</span> (<label for="r4" class="ident">b</label> *<a href="#line-20" class="ident">Buffer</a>) <label for="r5" class="ident"><a href="../../use/bytes..Buffer.empty*2e1cf.html" class="ident">empty</a></label>() <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> { <span class="keyword">return</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r4" class="ident">b</label>.<a href="#line-21" class="ident">buf</a>) &lt;= <label for="r4" class="ident">b</label>.<a href="#line-22" class="ident">off</a> }</code></span>
 <span class="codeline" id="line-70"><code></code></span>
 <span class="codeline" id="line-71"><code><span class="comment">// Len returns the number of bytes of the unread portion of the buffer;</span></code></span>
 <span class="codeline" id="line-72"><code><span class="comment">// b.Len() == len(b.Bytes()).</span></code></span>
@@ -375,7 +375,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-103"><code><span class="comment">// tryGrowByReslice is a inlineable version of grow for the fast-case where the</span></code></span>
 <span class="codeline" id="line-104"><code><span class="comment">// internal buffer only needs to be resliced.</span></code></span>
 <span class="codeline" id="line-105"><code><span class="comment">// It returns the index where bytes should be written and whether it succeeded.</span></code></span>
-<span class="codeline" id="line-106"><code><span class="keyword">func</span> (<label for="r15" class="ident">b</label> *<a href="#line-20" class="ident">Buffer</a>) <label for="r16" class="ident"><a href="../../use/bytes..Buffer.tryGrowByReslice.html" class="ident">tryGrowByReslice</a></label>(<label for="r17" class="ident">n</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>) (<a href="../../pkg/builtin.html#name-int" class="ident">int</a>, <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
+<span class="codeline" id="line-106"><code><span class="keyword">func</span> (<label for="r15" class="ident">b</label> *<a href="#line-20" class="ident">Buffer</a>) <label for="r16" class="ident"><a href="../../use/bytes..Buffer.tryGrowByReslice*07b74.html" class="ident">tryGrowByReslice</a></label>(<label for="r17" class="ident">n</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>) (<a href="../../pkg/builtin.html#name-int" class="ident">int</a>, <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
 <span class="codeline" id="line-107"><code>	<span class="keyword">if</span> <label for="r18" class="ident">l</label> := <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r15" class="ident">b</label>.<a href="#line-21" class="ident">buf</a>); <label for="r17" class="ident">n</label> &lt;= <a href="../../pkg/builtin.html#name-cap" class="ident">cap</a>(<label for="r15" class="ident">b</label>.<a href="#line-21" class="ident">buf</a>)-<label for="r18" class="ident">l</label> {</code></span>
 <span class="codeline" id="line-108"><code>		<label for="r15" class="ident">b</label>.<a href="#line-21" class="ident">buf</a> = <label for="r15" class="ident">b</label>.<a href="#line-21" class="ident">buf</a>[:<label for="r18" class="ident">l</label>+<label for="r17" class="ident">n</label>]</code></span>
 <span class="codeline" id="line-109"><code>		<span class="keyword">return</span> <label for="r18" class="ident">l</label>, <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
@@ -386,7 +386,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-114"><code><span class="comment">// grow grows the buffer to guarantee space for n more bytes.</span></code></span>
 <span class="codeline" id="line-115"><code><span class="comment">// It returns the index where bytes should be written.</span></code></span>
 <span class="codeline" id="line-116"><code><span class="comment">// If the buffer can't grow it will panic with ErrTooLarge.</span></code></span>
-<span class="codeline" id="line-117"><code><span class="keyword">func</span> (<label for="r19" class="ident">b</label> *<a href="#line-20" class="ident">Buffer</a>) <label for="r20" class="ident"><a href="../../use/bytes..Buffer.grow.html" class="ident">grow</a></label>(<label for="r21" class="ident">n</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../pkg/builtin.html#name-int" class="ident">int</a> {</code></span>
+<span class="codeline" id="line-117"><code><span class="keyword">func</span> (<label for="r19" class="ident">b</label> *<a href="#line-20" class="ident">Buffer</a>) <label for="r20" class="ident"><a href="../../use/bytes..Buffer.grow*adca5.html" class="ident">grow</a></label>(<label for="r21" class="ident">n</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../pkg/builtin.html#name-int" class="ident">int</a> {</code></span>
 <span class="codeline" id="line-118"><code>	<label for="r22" class="ident">m</label> := <label for="r19" class="ident">b</label>.<a href="#line-73" class="ident">Len</a>()</code></span>
 <span class="codeline" id="line-119"><code>	<span class="comment">// If buffer is empty, reset to recover space.</span></code></span>
 <span class="codeline" id="line-120"><code>	<span class="keyword">if</span> <label for="r22" class="ident">m</label> == <span class="lit-number">0</span> &amp;&amp; <label for="r19" class="ident">b</label>.<a href="#line-22" class="ident">off</a> != <span class="lit-number">0</span> {</code></span>
@@ -686,7 +686,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-414"><code>}</code></span>
 <span class="codeline" id="line-415"><code></code></span>
 <span class="codeline" id="line-416"><code><span class="comment">// readSlice is like ReadBytes but returns a reference to internal buffer data.</span></code></span>
-<span class="codeline" id="line-417"><code><span class="keyword">func</span> (<label for="r105" class="ident">b</label> *<a href="#line-20" class="ident">Buffer</a>) <label for="r106" class="ident"><a href="../../use/bytes..Buffer.readSlice.html" class="ident">readSlice</a></label>(<label for="r107" class="ident">delim</label> <a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>) (<label for="r108" class="ident">line</label> []<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r109" class="ident">err</label> <a href="../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-417"><code><span class="keyword">func</span> (<label for="r105" class="ident">b</label> *<a href="#line-20" class="ident">Buffer</a>) <label for="r106" class="ident"><a href="../../use/bytes..Buffer.readSlice*6112a.html" class="ident">readSlice</a></label>(<label for="r107" class="ident">delim</label> <a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>) (<label for="r108" class="ident">line</label> []<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r109" class="ident">err</label> <a href="../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
 <span class="codeline" id="line-418"><code>	<label for="r110" class="ident">i</label> := <a href="bytes.go.html#line-90" class="ident">IndexByte</a>(<label for="r105" class="ident">b</label>.<a href="#line-21" class="ident">buf</a>[<label for="r105" class="ident">b</label>.<a href="#line-22" class="ident">off</a>:], <label for="r107" class="ident">delim</label>)</code></span>
 <span class="codeline" id="line-419"><code>	<label for="r111" class="ident">end</label> := <label for="r105" class="ident">b</label>.<a href="#line-22" class="ident">off</a> + <label for="r110" class="ident">i</label> + <span class="lit-number">1</span></code></span>
 <span class="codeline" id="line-420"><code>	<span class="keyword">if</span> <label for="r110" class="ident">i</label> &lt; <span class="lit-number">0</span> {</code></span>
@@ -732,7 +732,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-460"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

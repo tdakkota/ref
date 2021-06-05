@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: value.go in package reflect</title>
-<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -1598,11 +1598,11 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-36"><code><span class="comment">// they represent.</span></code></span>
 <span class="codeline" id="line-37"><code><span class="keyword">type</span> <a href="../../pkg/reflect.html#name-Value" class="ident">Value</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-38"><code>	<span class="comment">// typ holds the type of the value represented by a Value.</span></code></span>
-<span class="codeline" id="line-39"><code>	<a href="../../use/reflect..Value.typ.html" class="ident">typ</a> *<a href="type.go.html#line-305" class="ident">rtype</a></code></span>
+<span class="codeline" id="line-39"><code>	<a href="../../use/reflect..Value.typ*5a553.html" class="ident">typ</a> *<a href="type.go.html#line-305" class="ident">rtype</a></code></span>
 <span class="codeline" id="line-40"><code></code></span>
 <span class="codeline" id="line-41"><code>	<span class="comment">// Pointer-valued data or, if flagIndir is set, pointer to data.</span></code></span>
 <span class="codeline" id="line-42"><code><span class="comment">	// Valid when either flagIndir is set or typ.pointers() is true.</span></code></span>
-<span class="codeline" id="line-43"><code>	<a href="../../use/reflect..Value.ptr.html" class="ident">ptr</a> <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a></code></span>
+<span class="codeline" id="line-43"><code>	<a href="../../use/reflect..Value.ptr*83dbe.html" class="ident">ptr</a> <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a></code></span>
 <span class="codeline" id="line-44"><code></code></span>
 <span class="codeline" id="line-45"><code>	<span class="comment">// flag holds metadata about the value.</span></code></span>
 <span class="codeline" id="line-46"><code><span class="comment">	// The lowest bits are flag bits:</span></code></span>
@@ -1639,11 +1639,11 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-77"><code>	<a href="../../pkg/reflect.html#name-flagRO" class="ident">flagRO</a>          <a href="#line-66" class="ident">flag</a> = <a href="#line-71" class="ident">flagStickyRO</a> | <a href="#line-72" class="ident">flagEmbedRO</a></code></span>
 <span class="codeline" id="line-78"><code>)</code></span>
 <span class="codeline" id="line-79"><code></code></span>
-<span class="codeline" id="line-80"><code><span class="keyword">func</span> (<label for="r0" class="ident">f</label> <a href="#line-66" class="ident">flag</a>) <label for="r1" class="ident"><a href="../../use/reflect..flag.kind.html" class="ident">kind</a></label>() <a href="type.go.html#line-232" class="ident">Kind</a> {</code></span>
+<span class="codeline" id="line-80"><code><span class="keyword">func</span> (<label for="r0" class="ident">f</label> <a href="#line-66" class="ident">flag</a>) <label for="r1" class="ident"><a href="../../use/reflect..flag*807d0.kind*0b27c.html" class="ident">kind</a></label>() <a href="type.go.html#line-232" class="ident">Kind</a> {</code></span>
 <span class="codeline" id="line-81"><code>	<span class="keyword">return</span> <a href="type.go.html#line-232" class="ident">Kind</a>(<label for="r0" class="ident">f</label> &amp; <a href="#line-70" class="ident">flagKindMask</a>)</code></span>
 <span class="codeline" id="line-82"><code>}</code></span>
 <span class="codeline" id="line-83"><code></code></span>
-<span class="codeline" id="line-84"><code><span class="keyword">func</span> (<label for="r2" class="ident">f</label> <a href="#line-66" class="ident">flag</a>) <label for="r3" class="ident"><a href="../../use/reflect..flag.ro.html" class="ident">ro</a></label>() <a href="#line-66" class="ident">flag</a> {</code></span>
+<span class="codeline" id="line-84"><code><span class="keyword">func</span> (<label for="r2" class="ident">f</label> <a href="#line-66" class="ident">flag</a>) <label for="r3" class="ident"><a href="../../use/reflect..flag*807d0.ro*7ef9e.html" class="ident">ro</a></label>() <a href="#line-66" class="ident">flag</a> {</code></span>
 <span class="codeline" id="line-85"><code>	<span class="keyword">if</span> <label for="r2" class="ident">f</label>&amp;<a href="#line-77" class="ident">flagRO</a> != <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-86"><code>		<span class="keyword">return</span> <a href="#line-71" class="ident">flagStickyRO</a></code></span>
 <span class="codeline" id="line-87"><code>	}</code></span>
@@ -1653,7 +1653,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-91"><code><span class="comment">// pointer returns the underlying pointer represented by v.</span></code></span>
 <span class="codeline" id="line-92"><code><span class="comment">// v.Kind() must be Ptr, Map, Chan, Func, or UnsafePointer</span></code></span>
 <span class="codeline" id="line-93"><code><span class="comment">// if v.Kind() == Ptr, the base type must not be go:notinheap.</span></code></span>
-<span class="codeline" id="line-94"><code><span class="keyword">func</span> (<label for="r4" class="ident">v</label> <a href="#line-37" class="ident">Value</a>) <label for="r5" class="ident"><a href="../../use/reflect..Value.pointer.html" class="ident">pointer</a></label>() <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a> {</code></span>
+<span class="codeline" id="line-94"><code><span class="keyword">func</span> (<label for="r4" class="ident">v</label> <a href="#line-37" class="ident">Value</a>) <label for="r5" class="ident"><a href="../../use/reflect..Value.pointer*1cdf9.html" class="ident">pointer</a></label>() <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a> {</code></span>
 <span class="codeline" id="line-95"><code>	<span class="keyword">if</span> <label for="r4" class="ident">v</label>.<a href="#line-39" class="ident">typ</a>.<a href="type.go.html#line-306" class="ident">size</a> != <a href="#line-14" class="ident">ptrSize</a> || !<label for="r4" class="ident">v</label>.<a href="#line-39" class="ident">typ</a>.<a href="type.go.html#line-782" class="ident">pointers</a>() {</code></span>
 <span class="codeline" id="line-96"><code>		<a href="../../pkg/builtin.html#name-panic" class="ident">panic</a>(<span class="lit-string">"can't call pointer on a non-pointer Value"</span>)</code></span>
 <span class="codeline" id="line-97"><code>	}</code></span>
@@ -1734,41 +1734,41 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-172"><code><span class="comment">// assumed to be two stack frames above.</span></code></span>
 <span class="codeline" id="line-173"><code><span class="keyword">func</span> <label for="r20" class="ident"><a href="../../pkg/reflect.html#name-methodName" class="ident">methodName</a></label>() <a href="../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
 <span class="codeline" id="line-174"><code>	<label for="r21" class="ident">pc</label>, <label for="r22" class="ident">_</label>, <label for="r23" class="ident">_</label>, <label for="r24" class="ident">_</label> := <a href="../../pkg/runtime.html" class="ident i2">runtime</a>.<a href="../runtime/extern.go.html#line-199" class="ident">Caller</a>(<span class="lit-number">2</span>)</code></span>
-<span class="codeline" id="line-175"><code>	<label for="r25" class="ident">f</label> := <a href="../../pkg/runtime.html" class="ident i2">runtime</a>.<a href="../runtime/symtab.go.html#line-582" class="ident">FuncForPC</a>(<label for="r21" class="ident">pc</label>)</code></span>
+<span class="codeline" id="line-175"><code>	<label for="r25" class="ident">f</label> := <a href="../../pkg/runtime.html" class="ident i2">runtime</a>.<a href="../runtime/symtab.go.html#line-586" class="ident">FuncForPC</a>(<label for="r21" class="ident">pc</label>)</code></span>
 <span class="codeline" id="line-176"><code>	<span class="keyword">if</span> <label for="r25" class="ident">f</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-177"><code>		<span class="keyword">return</span> <span class="lit-string">"unknown method"</span></code></span>
 <span class="codeline" id="line-178"><code>	}</code></span>
-<span class="codeline" id="line-179"><code>	<span class="keyword">return</span> <label for="r25" class="ident">f</label>.<a href="../runtime/symtab.go.html#line-609" class="ident">Name</a>()</code></span>
+<span class="codeline" id="line-179"><code>	<span class="keyword">return</span> <label for="r25" class="ident">f</label>.<a href="../runtime/symtab.go.html#line-613" class="ident">Name</a>()</code></span>
 <span class="codeline" id="line-180"><code>}</code></span>
 <span class="codeline" id="line-181"><code></code></span>
 <span class="codeline" id="line-182"><code><span class="comment">// methodNameSkip is like methodName, but skips another stack frame.</span></code></span>
 <span class="codeline" id="line-183"><code><span class="comment">// This is a separate function so that reflect.flag.mustBe will be inlined.</span></code></span>
 <span class="codeline" id="line-184"><code><span class="keyword">func</span> <label for="r26" class="ident"><a href="../../pkg/reflect.html#name-methodNameSkip" class="ident">methodNameSkip</a></label>() <a href="../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
 <span class="codeline" id="line-185"><code>	<label for="r27" class="ident">pc</label>, <label for="r28" class="ident">_</label>, <label for="r29" class="ident">_</label>, <label for="r30" class="ident">_</label> := <a href="../../pkg/runtime.html" class="ident i2">runtime</a>.<a href="../runtime/extern.go.html#line-199" class="ident">Caller</a>(<span class="lit-number">3</span>)</code></span>
-<span class="codeline" id="line-186"><code>	<label for="r31" class="ident">f</label> := <a href="../../pkg/runtime.html" class="ident i2">runtime</a>.<a href="../runtime/symtab.go.html#line-582" class="ident">FuncForPC</a>(<label for="r27" class="ident">pc</label>)</code></span>
+<span class="codeline" id="line-186"><code>	<label for="r31" class="ident">f</label> := <a href="../../pkg/runtime.html" class="ident i2">runtime</a>.<a href="../runtime/symtab.go.html#line-586" class="ident">FuncForPC</a>(<label for="r27" class="ident">pc</label>)</code></span>
 <span class="codeline" id="line-187"><code>	<span class="keyword">if</span> <label for="r31" class="ident">f</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-188"><code>		<span class="keyword">return</span> <span class="lit-string">"unknown method"</span></code></span>
 <span class="codeline" id="line-189"><code>	}</code></span>
-<span class="codeline" id="line-190"><code>	<span class="keyword">return</span> <label for="r31" class="ident">f</label>.<a href="../runtime/symtab.go.html#line-609" class="ident">Name</a>()</code></span>
+<span class="codeline" id="line-190"><code>	<span class="keyword">return</span> <label for="r31" class="ident">f</label>.<a href="../runtime/symtab.go.html#line-613" class="ident">Name</a>()</code></span>
 <span class="codeline" id="line-191"><code>}</code></span>
 <span class="codeline" id="line-192"><code></code></span>
 <span class="codeline" id="line-193"><code><span class="comment">// emptyInterface is the header for an interface{} value.</span></code></span>
 <span class="codeline" id="line-194"><code><span class="keyword">type</span> <a href="../../pkg/reflect.html#name-emptyInterface" class="ident">emptyInterface</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-195"><code>	<a href="../../use/reflect..emptyInterface.typ.html" class="ident">typ</a>  *<a href="type.go.html#line-305" class="ident">rtype</a></code></span>
-<span class="codeline" id="line-196"><code>	<a href="../../use/reflect..emptyInterface.word.html" class="ident">word</a> <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a></code></span>
+<span class="codeline" id="line-195"><code>	<a href="../../use/reflect..emptyInterface*8e5a7.typ*5a553.html" class="ident">typ</a>  *<a href="type.go.html#line-305" class="ident">rtype</a></code></span>
+<span class="codeline" id="line-196"><code>	<a href="../../use/reflect..emptyInterface*8e5a7.word*98c1e.html" class="ident">word</a> <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a></code></span>
 <span class="codeline" id="line-197"><code>}</code></span>
 <span class="codeline" id="line-198"><code></code></span>
 <span class="codeline" id="line-199"><code><span class="comment">// nonEmptyInterface is the header for an interface value with methods.</span></code></span>
 <span class="codeline" id="line-200"><code><span class="keyword">type</span> <a href="../../pkg/reflect.html#name-nonEmptyInterface" class="ident">nonEmptyInterface</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-201"><code>	<span class="comment">// see ../runtime/iface.go:/Itab</span></code></span>
-<span class="codeline" id="line-202"><code>	<a href="../../use/reflect..nonEmptyInterface.itab.html" class="ident">itab</a> *<span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-202"><code>	<a href="../../use/reflect..nonEmptyInterface*a7740.itab*f636c.html" class="ident">itab</a> *<span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-203"><code>		ityp *<a href="type.go.html#line-305" class="ident">rtype</a> <span class="comment">// static interface type</span></code></span>
 <span class="codeline" id="line-204"><code>		typ  *<a href="type.go.html#line-305" class="ident">rtype</a> <span class="comment">// dynamic concrete type</span></code></span>
 <span class="codeline" id="line-205"><code>		hash <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// copy of typ.hash</span></code></span>
 <span class="codeline" id="line-206"><code>		_    [<span class="lit-number">4</span>]<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
 <span class="codeline" id="line-207"><code>		fun  [<span class="lit-number">100000</span>]<a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a> <span class="comment">// method table</span></code></span>
 <span class="codeline" id="line-208"><code>	}</code></span>
-<span class="codeline" id="line-209"><code>	<a href="../../use/reflect..nonEmptyInterface.word.html" class="ident">word</a> <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a></code></span>
+<span class="codeline" id="line-209"><code>	<a href="../../use/reflect..nonEmptyInterface*a7740.word*98c1e.html" class="ident">word</a> <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a></code></span>
 <span class="codeline" id="line-210"><code>}</code></span>
 <span class="codeline" id="line-211"><code></code></span>
 <span class="codeline" id="line-212"><code><span class="comment">// mustBe panics if f's kind is not expected.</span></code></span>
@@ -1777,7 +1777,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-215"><code><span class="comment">// the very clear v.mustBe(Bool) and have it compile into</span></code></span>
 <span class="codeline" id="line-216"><code><span class="comment">// v.flag.mustBe(Bool), which will only bother to copy the</span></code></span>
 <span class="codeline" id="line-217"><code><span class="comment">// single important word for the receiver.</span></code></span>
-<span class="codeline" id="line-218"><code><span class="keyword">func</span> (<label for="r32" class="ident">f</label> <a href="#line-66" class="ident">flag</a>) <label for="r33" class="ident"><a href="../../use/reflect..flag.mustBe.html" class="ident">mustBe</a></label>(<label for="r34" class="ident">expected</label> <a href="type.go.html#line-232" class="ident">Kind</a>) {</code></span>
+<span class="codeline" id="line-218"><code><span class="keyword">func</span> (<label for="r32" class="ident">f</label> <a href="#line-66" class="ident">flag</a>) <label for="r33" class="ident"><a href="../../use/reflect..flag*807d0.mustBe*4a310.html" class="ident">mustBe</a></label>(<label for="r34" class="ident">expected</label> <a href="type.go.html#line-232" class="ident">Kind</a>) {</code></span>
 <span class="codeline" id="line-219"><code>	<span class="comment">// TODO(mvdan): use f.kind() again once mid-stack inlining gets better</span></code></span>
 <span class="codeline" id="line-220"><code>	<span class="keyword">if</span> <a href="type.go.html#line-232" class="ident">Kind</a>(<label for="r32" class="ident">f</label>&amp;<a href="#line-70" class="ident">flagKindMask</a>) != <label for="r34" class="ident">expected</label> {</code></span>
 <span class="codeline" id="line-221"><code>		<a href="../../pkg/builtin.html#name-panic" class="ident">panic</a>(&amp;<a href="#line-159" class="ident">ValueError</a>{<a href="#line-173" class="ident">methodName</a>(), <label for="r32" class="ident">f</label>.<a href="#line-80" class="ident">kind</a>()})</code></span>
@@ -1786,13 +1786,13 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-224"><code></code></span>
 <span class="codeline" id="line-225"><code><span class="comment">// mustBeExported panics if f records that the value was obtained using</span></code></span>
 <span class="codeline" id="line-226"><code><span class="comment">// an unexported field.</span></code></span>
-<span class="codeline" id="line-227"><code><span class="keyword">func</span> (<label for="r35" class="ident">f</label> <a href="#line-66" class="ident">flag</a>) <label for="r36" class="ident"><a href="../../use/reflect..flag.mustBeExported.html" class="ident">mustBeExported</a></label>() {</code></span>
+<span class="codeline" id="line-227"><code><span class="keyword">func</span> (<label for="r35" class="ident">f</label> <a href="#line-66" class="ident">flag</a>) <label for="r36" class="ident"><a href="../../use/reflect..flag*807d0.mustBeExported*8861e.html" class="ident">mustBeExported</a></label>() {</code></span>
 <span class="codeline" id="line-228"><code>	<span class="keyword">if</span> <label for="r35" class="ident">f</label> == <span class="lit-number">0</span> || <label for="r35" class="ident">f</label>&amp;<a href="#line-77" class="ident">flagRO</a> != <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-229"><code>		<label for="r35" class="ident">f</label>.<a href="#line-233" class="ident">mustBeExportedSlow</a>()</code></span>
 <span class="codeline" id="line-230"><code>	}</code></span>
 <span class="codeline" id="line-231"><code>}</code></span>
 <span class="codeline" id="line-232"><code></code></span>
-<span class="codeline" id="line-233"><code><span class="keyword">func</span> (<label for="r37" class="ident">f</label> <a href="#line-66" class="ident">flag</a>) <label for="r38" class="ident"><a href="../../use/reflect..flag.mustBeExportedSlow.html" class="ident">mustBeExportedSlow</a></label>() {</code></span>
+<span class="codeline" id="line-233"><code><span class="keyword">func</span> (<label for="r37" class="ident">f</label> <a href="#line-66" class="ident">flag</a>) <label for="r38" class="ident"><a href="../../use/reflect..flag*807d0.mustBeExportedSlow*77670.html" class="ident">mustBeExportedSlow</a></label>() {</code></span>
 <span class="codeline" id="line-234"><code>	<span class="keyword">if</span> <label for="r37" class="ident">f</label> == <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-235"><code>		<a href="../../pkg/builtin.html#name-panic" class="ident">panic</a>(&amp;<a href="#line-159" class="ident">ValueError</a>{<a href="#line-184" class="ident">methodNameSkip</a>(), <a href="type.go.html#line-235" class="ident">Invalid</a>})</code></span>
 <span class="codeline" id="line-236"><code>	}</code></span>
@@ -1804,13 +1804,13 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-242"><code><span class="comment">// mustBeAssignable panics if f records that the value is not assignable,</span></code></span>
 <span class="codeline" id="line-243"><code><span class="comment">// which is to say that either it was obtained using an unexported field</span></code></span>
 <span class="codeline" id="line-244"><code><span class="comment">// or it is not addressable.</span></code></span>
-<span class="codeline" id="line-245"><code><span class="keyword">func</span> (<label for="r39" class="ident">f</label> <a href="#line-66" class="ident">flag</a>) <label for="r40" class="ident"><a href="../../use/reflect..flag.mustBeAssignable.html" class="ident">mustBeAssignable</a></label>() {</code></span>
+<span class="codeline" id="line-245"><code><span class="keyword">func</span> (<label for="r39" class="ident">f</label> <a href="#line-66" class="ident">flag</a>) <label for="r40" class="ident"><a href="../../use/reflect..flag*807d0.mustBeAssignable*a8750.html" class="ident">mustBeAssignable</a></label>() {</code></span>
 <span class="codeline" id="line-246"><code>	<span class="keyword">if</span> <label for="r39" class="ident">f</label>&amp;<a href="#line-77" class="ident">flagRO</a> != <span class="lit-number">0</span> || <label for="r39" class="ident">f</label>&amp;<a href="#line-74" class="ident">flagAddr</a> == <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-247"><code>		<label for="r39" class="ident">f</label>.<a href="#line-251" class="ident">mustBeAssignableSlow</a>()</code></span>
 <span class="codeline" id="line-248"><code>	}</code></span>
 <span class="codeline" id="line-249"><code>}</code></span>
 <span class="codeline" id="line-250"><code></code></span>
-<span class="codeline" id="line-251"><code><span class="keyword">func</span> (<label for="r41" class="ident">f</label> <a href="#line-66" class="ident">flag</a>) <label for="r42" class="ident"><a href="../../use/reflect..flag.mustBeAssignableSlow.html" class="ident">mustBeAssignableSlow</a></label>() {</code></span>
+<span class="codeline" id="line-251"><code><span class="keyword">func</span> (<label for="r41" class="ident">f</label> <a href="#line-66" class="ident">flag</a>) <label for="r42" class="ident"><a href="../../use/reflect..flag*807d0.mustBeAssignableSlow*0019b.html" class="ident">mustBeAssignableSlow</a></label>() {</code></span>
 <span class="codeline" id="line-252"><code>	<span class="keyword">if</span> <label for="r41" class="ident">f</label> == <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-253"><code>		<a href="../../pkg/builtin.html#name-panic" class="ident">panic</a>(&amp;<a href="#line-159" class="ident">ValueError</a>{<a href="#line-184" class="ident">methodNameSkip</a>(), <a href="type.go.html#line-235" class="ident">Invalid</a>})</code></span>
 <span class="codeline" id="line-254"><code>	}</code></span>
@@ -1858,7 +1858,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-296"><code></code></span>
 <span class="codeline" id="line-297"><code><span class="comment">// runes returns v's underlying value.</span></code></span>
 <span class="codeline" id="line-298"><code><span class="comment">// It panics if v's underlying value is not a slice of runes (int32s).</span></code></span>
-<span class="codeline" id="line-299"><code><span class="keyword">func</span> (<label for="r50" class="ident">v</label> <a href="#line-37" class="ident">Value</a>) <label for="r51" class="ident"><a href="../../use/reflect..Value.runes.html" class="ident">runes</a></label>() []<a href="../../pkg/builtin.html#name-rune" class="ident">rune</a> {</code></span>
+<span class="codeline" id="line-299"><code><span class="keyword">func</span> (<label for="r50" class="ident">v</label> <a href="#line-37" class="ident">Value</a>) <label for="r51" class="ident"><a href="../../use/reflect..Value.runes*b4f0a.html" class="ident">runes</a></label>() []<a href="../../pkg/builtin.html#name-rune" class="ident">rune</a> {</code></span>
 <span class="codeline" id="line-300"><code>	<label for="r50" class="ident">v</label>.<a href="#line-218" class="ident">mustBe</a>(<a href="type.go.html#line-258" class="ident">Slice</a>)</code></span>
 <span class="codeline" id="line-301"><code>	<span class="keyword">if</span> <label for="r50" class="ident">v</label>.<a href="#line-39" class="ident">typ</a>.<a href="type.go.html#line-897" class="ident">Elem</a>().<a href="type.go.html#line-100" class="ident">Kind</a>() != <a href="type.go.html#line-240" class="ident">Int32</a> {</code></span>
 <span class="codeline" id="line-302"><code>		<a href="../../pkg/builtin.html#name-panic" class="ident">panic</a>(<span class="lit-string">"reflect.Value.Bytes of non-rune slice"</span>)</code></span>
@@ -1914,7 +1914,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-352"><code></code></span>
 <span class="codeline" id="line-353"><code><span class="keyword">var</span> <a href="../../pkg/reflect.html#name-callGC" class="ident">callGC</a> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// for testing; see TestCallMethodJump</span></code></span>
 <span class="codeline" id="line-354"><code></code></span>
-<span class="codeline" id="line-355"><code><span class="keyword">func</span> (<label for="r62" class="ident">v</label> <a href="#line-37" class="ident">Value</a>) <label for="r63" class="ident"><a href="../../use/reflect..Value.call.html" class="ident">call</a></label>(<label for="r64" class="ident">op</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r65" class="ident">in</label> []<a href="#line-37" class="ident">Value</a>) []<a href="#line-37" class="ident">Value</a> {</code></span>
+<span class="codeline" id="line-355"><code><span class="keyword">func</span> (<label for="r62" class="ident">v</label> <a href="#line-37" class="ident">Value</a>) <label for="r63" class="ident"><a href="../../use/reflect..Value.call*7edb3.html" class="ident">call</a></label>(<label for="r64" class="ident">op</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r65" class="ident">in</label> []<a href="#line-37" class="ident">Value</a>) []<a href="#line-37" class="ident">Value</a> {</code></span>
 <span class="codeline" id="line-356"><code>	<span class="comment">// Get function pointer, type.</span></code></span>
 <span class="codeline" id="line-357"><code>	<label for="r66" class="ident">t</label> := (*<a href="type.go.html#line-376" class="ident">funcType</a>)(<a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(<label for="r62" class="ident">v</label>.<a href="#line-39" class="ident">typ</a>))</code></span>
 <span class="codeline" id="line-358"><code>	<span class="keyword">var</span> (</code></span>
@@ -2322,9 +2322,9 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-760"><code><span class="comment">// funcName returns the name of f, for use in error messages.</span></code></span>
 <span class="codeline" id="line-761"><code><span class="keyword">func</span> <label for="r160" class="ident"><a href="../../pkg/reflect.html#name-funcName" class="ident">funcName</a></label>(<label for="r161" class="ident">f</label> <span class="keyword">func</span>([]<a href="#line-37" class="ident">Value</a>) []<a href="#line-37" class="ident">Value</a>) <a href="../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
 <span class="codeline" id="line-762"><code>	<label for="r162" class="ident">pc</label> := *(*<a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>)(<a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(&amp;<label for="r161" class="ident">f</label>))</code></span>
-<span class="codeline" id="line-763"><code>	<label for="r163" class="ident">rf</label> := <a href="../../pkg/runtime.html" class="ident i2">runtime</a>.<a href="../runtime/symtab.go.html#line-582" class="ident">FuncForPC</a>(<label for="r162" class="ident">pc</label>)</code></span>
+<span class="codeline" id="line-763"><code>	<label for="r163" class="ident">rf</label> := <a href="../../pkg/runtime.html" class="ident i2">runtime</a>.<a href="../runtime/symtab.go.html#line-586" class="ident">FuncForPC</a>(<label for="r162" class="ident">pc</label>)</code></span>
 <span class="codeline" id="line-764"><code>	<span class="keyword">if</span> <label for="r163" class="ident">rf</label> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-765"><code>		<span class="keyword">return</span> <label for="r163" class="ident">rf</label>.<a href="../runtime/symtab.go.html#line-609" class="ident">Name</a>()</code></span>
+<span class="codeline" id="line-765"><code>		<span class="keyword">return</span> <label for="r163" class="ident">rf</label>.<a href="../runtime/symtab.go.html#line-613" class="ident">Name</a>()</code></span>
 <span class="codeline" id="line-766"><code>	}</code></span>
 <span class="codeline" id="line-767"><code>	<span class="keyword">return</span> <span class="lit-string">"closure"</span></code></span>
 <span class="codeline" id="line-768"><code>}</code></span>
@@ -2794,8 +2794,8 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-1232"><code><span class="comment">// A MapIter is an iterator for ranging over a map.</span></code></span>
 <span class="codeline" id="line-1233"><code><span class="comment">// See Value.MapRange.</span></code></span>
 <span class="codeline" id="line-1234"><code><span class="keyword">type</span> <a href="../../pkg/reflect.html#name-MapIter" class="ident">MapIter</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-1235"><code>	<a href="../../use/reflect..MapIter.m.html" class="ident">m</a>  <a href="#line-37" class="ident">Value</a></code></span>
-<span class="codeline" id="line-1236"><code>	<a href="../../use/reflect..MapIter.it.html" class="ident">it</a> <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a></code></span>
+<span class="codeline" id="line-1235"><code>	<a href="../../use/reflect..MapIter.m*62c66.html" class="ident">m</a>  <a href="#line-37" class="ident">Value</a></code></span>
+<span class="codeline" id="line-1236"><code>	<a href="../../use/reflect..MapIter.it*2ad8a.html" class="ident">it</a> <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a></code></span>
 <span class="codeline" id="line-1237"><code>}</code></span>
 <span class="codeline" id="line-1238"><code></code></span>
 <span class="codeline" id="line-1239"><code><span class="comment">// Key returns the key of the iterator's current map entry.</span></code></span>
@@ -3064,7 +3064,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-1502"><code></code></span>
 <span class="codeline" id="line-1503"><code><span class="comment">// internal recv, possibly non-blocking (nb).</span></code></span>
 <span class="codeline" id="line-1504"><code><span class="comment">// v is known to be a channel.</span></code></span>
-<span class="codeline" id="line-1505"><code><span class="keyword">func</span> (<label for="r337" class="ident">v</label> <a href="#line-37" class="ident">Value</a>) <label for="r338" class="ident"><a href="../../use/reflect..Value.recv.html" class="ident">recv</a></label>(<label for="r339" class="ident">nb</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) (<label for="r340" class="ident">val</label> <a href="#line-37" class="ident">Value</a>, <label for="r341" class="ident">ok</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
+<span class="codeline" id="line-1505"><code><span class="keyword">func</span> (<label for="r337" class="ident">v</label> <a href="#line-37" class="ident">Value</a>) <label for="r338" class="ident"><a href="../../use/reflect..Value.recv*16623.html" class="ident">recv</a></label>(<label for="r339" class="ident">nb</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) (<label for="r340" class="ident">val</label> <a href="#line-37" class="ident">Value</a>, <label for="r341" class="ident">ok</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
 <span class="codeline" id="line-1506"><code>	<label for="r342" class="ident">tt</label> := (*<a href="type.go.html#line-359" class="ident">chanType</a>)(<a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(<label for="r337" class="ident">v</label>.<a href="#line-39" class="ident">typ</a>))</code></span>
 <span class="codeline" id="line-1507"><code>	<span class="keyword">if</span> <a href="type.go.html#line-342" class="ident">ChanDir</a>(<label for="r342" class="ident">tt</label>.<a href="type.go.html#line-362" class="ident">dir</a>)&amp;<a href="type.go.html#line-345" class="ident">RecvDir</a> == <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-1508"><code>		<a href="../../pkg/builtin.html#name-panic" class="ident">panic</a>(<span class="lit-string">"reflect: recv on send-only channel"</span>)</code></span>
@@ -3097,7 +3097,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-1535"><code></code></span>
 <span class="codeline" id="line-1536"><code><span class="comment">// internal send, possibly non-blocking.</span></code></span>
 <span class="codeline" id="line-1537"><code><span class="comment">// v is known to be a channel.</span></code></span>
-<span class="codeline" id="line-1538"><code><span class="keyword">func</span> (<label for="r349" class="ident">v</label> <a href="#line-37" class="ident">Value</a>) <label for="r350" class="ident"><a href="../../use/reflect..Value.send.html" class="ident">send</a></label>(<label for="r351" class="ident">x</label> <a href="#line-37" class="ident">Value</a>, <label for="r352" class="ident">nb</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) (<label for="r353" class="ident">selected</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
+<span class="codeline" id="line-1538"><code><span class="keyword">func</span> (<label for="r349" class="ident">v</label> <a href="#line-37" class="ident">Value</a>) <label for="r350" class="ident"><a href="../../use/reflect..Value.send*27ce1.html" class="ident">send</a></label>(<label for="r351" class="ident">x</label> <a href="#line-37" class="ident">Value</a>, <label for="r352" class="ident">nb</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) (<label for="r353" class="ident">selected</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
 <span class="codeline" id="line-1539"><code>	<label for="r354" class="ident">tt</label> := (*<a href="type.go.html#line-359" class="ident">chanType</a>)(<a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(<label for="r349" class="ident">v</label>.<a href="#line-39" class="ident">typ</a>))</code></span>
 <span class="codeline" id="line-1540"><code>	<span class="keyword">if</span> <a href="type.go.html#line-342" class="ident">ChanDir</a>(<label for="r354" class="ident">tt</label>.<a href="type.go.html#line-362" class="ident">dir</a>)&amp;<a href="type.go.html#line-346" class="ident">SendDir</a> == <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-1541"><code>		<a href="../../pkg/builtin.html#name-panic" class="ident">panic</a>(<span class="lit-string">"reflect: send on recv-only channel"</span>)</code></span>
@@ -3156,7 +3156,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-1594"><code></code></span>
 <span class="codeline" id="line-1595"><code><span class="comment">// setRunes sets v's underlying value.</span></code></span>
 <span class="codeline" id="line-1596"><code><span class="comment">// It panics if v's underlying value is not a slice of runes (int32s).</span></code></span>
-<span class="codeline" id="line-1597"><code><span class="keyword">func</span> (<label for="r366" class="ident">v</label> <a href="#line-37" class="ident">Value</a>) <label for="r367" class="ident"><a href="../../use/reflect..Value.setRunes.html" class="ident">setRunes</a></label>(<label for="r368" class="ident">x</label> []<a href="../../pkg/builtin.html#name-rune" class="ident">rune</a>) {</code></span>
+<span class="codeline" id="line-1597"><code><span class="keyword">func</span> (<label for="r366" class="ident">v</label> <a href="#line-37" class="ident">Value</a>) <label for="r367" class="ident"><a href="../../use/reflect..Value.setRunes*0a5a4.html" class="ident">setRunes</a></label>(<label for="r368" class="ident">x</label> []<a href="../../pkg/builtin.html#name-rune" class="ident">rune</a>) {</code></span>
 <span class="codeline" id="line-1598"><code>	<label for="r366" class="ident">v</label>.<a href="#line-245" class="ident">mustBeAssignable</a>()</code></span>
 <span class="codeline" id="line-1599"><code>	<label for="r366" class="ident">v</label>.<a href="#line-218" class="ident">mustBe</a>(<a href="type.go.html#line-258" class="ident">Slice</a>)</code></span>
 <span class="codeline" id="line-1600"><code>	<span class="keyword">if</span> <label for="r366" class="ident">v</label>.<a href="#line-39" class="ident">typ</a>.<a href="type.go.html#line-897" class="ident">Elem</a>().<a href="type.go.html#line-100" class="ident">Kind</a>() != <a href="type.go.html#line-240" class="ident">Int32</a> {</code></span>
@@ -3686,10 +3686,10 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-2124"><code><span class="comment">// A runtimeSelect is a single case passed to rselect.</span></code></span>
 <span class="codeline" id="line-2125"><code><span class="comment">// This must match ../runtime/select.go:/runtimeSelect</span></code></span>
 <span class="codeline" id="line-2126"><code><span class="keyword">type</span> <a href="../../pkg/reflect.html#name-runtimeSelect" class="ident">runtimeSelect</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-2127"><code>	<a href="../../use/reflect..runtimeSelect.dir.html" class="ident">dir</a> <a href="#line-2141" class="ident">SelectDir</a>      <span class="comment">// SelectSend, SelectRecv or SelectDefault</span></code></span>
-<span class="codeline" id="line-2128"><code>	<a href="../../use/reflect..runtimeSelect.typ.html" class="ident">typ</a> *<a href="type.go.html#line-305" class="ident">rtype</a>         <span class="comment">// channel type</span></code></span>
-<span class="codeline" id="line-2129"><code>	<a href="../../use/reflect..runtimeSelect.ch.html" class="ident">ch</a>  <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a> <span class="comment">// channel</span></code></span>
-<span class="codeline" id="line-2130"><code>	<a href="../../use/reflect..runtimeSelect.val.html" class="ident">val</a> <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a> <span class="comment">// ptr to data (SendDir) or ptr to receive buffer (RecvDir)</span></code></span>
+<span class="codeline" id="line-2127"><code>	<a href="../../use/reflect..runtimeSelect*817b0.dir*2b64c.html" class="ident">dir</a> <a href="#line-2141" class="ident">SelectDir</a>      <span class="comment">// SelectSend, SelectRecv or SelectDefault</span></code></span>
+<span class="codeline" id="line-2128"><code>	<a href="../../use/reflect..runtimeSelect*817b0.typ*5a553.html" class="ident">typ</a> *<a href="type.go.html#line-305" class="ident">rtype</a>         <span class="comment">// channel type</span></code></span>
+<span class="codeline" id="line-2129"><code>	<a href="../../use/reflect..runtimeSelect*817b0.ch*34367.html" class="ident">ch</a>  <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a> <span class="comment">// channel</span></code></span>
+<span class="codeline" id="line-2130"><code>	<a href="../../use/reflect..runtimeSelect*817b0.val*97dfc.html" class="ident">val</a> <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a> <span class="comment">// ptr to data (SendDir) or ptr to receive buffer (RecvDir)</span></code></span>
 <span class="codeline" id="line-2131"><code>}</code></span>
 <span class="codeline" id="line-2132"><code></code></span>
 <span class="codeline" id="line-2133"><code><span class="comment">// rselect runs a select. It returns the index of the chosen case.</span></code></span>
@@ -3977,7 +3977,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-2415"><code><span class="comment">// It panics if v is not assignable to typ.</span></code></span>
 <span class="codeline" id="line-2416"><code><span class="comment">// For a conversion to an interface type, target is a suggested scratch space to use.</span></code></span>
 <span class="codeline" id="line-2417"><code><span class="comment">// target must be initialized memory (or nil).</span></code></span>
-<span class="codeline" id="line-2418"><code><span class="keyword">func</span> (<label for="r558" class="ident">v</label> <a href="#line-37" class="ident">Value</a>) <label for="r559" class="ident"><a href="../../use/reflect..Value.assignTo.html" class="ident">assignTo</a></label>(<label for="r560" class="ident">context</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r561" class="ident">dst</label> *<a href="type.go.html#line-305" class="ident">rtype</a>, <label for="r562" class="ident">target</label> <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>) <a href="#line-37" class="ident">Value</a> {</code></span>
+<span class="codeline" id="line-2418"><code><span class="keyword">func</span> (<label for="r558" class="ident">v</label> <a href="#line-37" class="ident">Value</a>) <label for="r559" class="ident"><a href="../../use/reflect..Value.assignTo*01197.html" class="ident">assignTo</a></label>(<label for="r560" class="ident">context</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r561" class="ident">dst</label> *<a href="type.go.html#line-305" class="ident">rtype</a>, <label for="r562" class="ident">target</label> <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>) <a href="#line-37" class="ident">Value</a> {</code></span>
 <span class="codeline" id="line-2419"><code>	<span class="keyword">if</span> <label for="r558" class="ident">v</label>.<a href="#line-57" class="ident">flag</a>&amp;<a href="#line-75" class="ident">flagMethod</a> != <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-2420"><code>		<label for="r558" class="ident">v</label> = <a href="makefunc.go.html#line-95" class="ident">makeMethodValue</a>(<label for="r560" class="ident">context</label>, <label for="r558" class="ident">v</label>)</code></span>
 <span class="codeline" id="line-2421"><code>	}</code></span>
@@ -4420,7 +4420,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-2858"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

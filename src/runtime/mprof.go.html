@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: mprof.go in package runtime</title>
-<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -470,12 +470,12 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-46"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-47"><code><span class="comment">//go:notinheap</span></code></span>
 <span class="codeline" id="line-48"><code><span class="keyword">type</span> <a href="../../pkg/runtime.html#name-bucket" class="ident">bucket</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-49"><code>	<a href="../../use/runtime..bucket.next.html" class="ident">next</a>    *<a href="#line-48" class="ident">bucket</a></code></span>
-<span class="codeline" id="line-50"><code>	<a href="../../use/runtime..bucket.allnext.html" class="ident">allnext</a> *<a href="#line-48" class="ident">bucket</a></code></span>
-<span class="codeline" id="line-51"><code>	<a href="../../use/runtime..bucket.typ.html" class="ident">typ</a>     <a href="#line-34" class="ident">bucketType</a> <span class="comment">// memBucket or blockBucket (includes mutexProfile)</span></code></span>
-<span class="codeline" id="line-52"><code>	<a href="../../use/runtime..bucket.hash.html" class="ident">hash</a>    <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
-<span class="codeline" id="line-53"><code>	<a href="../../use/runtime..bucket.size.html" class="ident">size</a>    <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
-<span class="codeline" id="line-54"><code>	<a href="../../use/runtime..bucket.nstk.html" class="ident">nstk</a>    <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
+<span class="codeline" id="line-49"><code>	<a href="../../use/runtime..bucket*c5879.next*c6c1c.html" class="ident">next</a>    *<a href="#line-48" class="ident">bucket</a></code></span>
+<span class="codeline" id="line-50"><code>	<a href="../../use/runtime..bucket*c5879.allnext*88b47.html" class="ident">allnext</a> *<a href="#line-48" class="ident">bucket</a></code></span>
+<span class="codeline" id="line-51"><code>	<a href="../../use/runtime..bucket*c5879.typ*5a553.html" class="ident">typ</a>     <a href="#line-34" class="ident">bucketType</a> <span class="comment">// memBucket or blockBucket (includes mutexProfile)</span></code></span>
+<span class="codeline" id="line-52"><code>	<a href="../../use/runtime..bucket*c5879.hash*d04b9.html" class="ident">hash</a>    <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
+<span class="codeline" id="line-53"><code>	<a href="../../use/runtime..bucket*c5879.size*ccdcb.html" class="ident">size</a>    <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
+<span class="codeline" id="line-54"><code>	<a href="../../use/runtime..bucket*c5879.nstk*13139.html" class="ident">nstk</a>    <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
 <span class="codeline" id="line-55"><code>}</code></span>
 <span class="codeline" id="line-56"><code></code></span>
 <span class="codeline" id="line-57"><code><span class="comment">// A memRecord is the bucket data for a bucket of type memProfile,</span></code></span>
@@ -525,7 +525,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-101"><code></code></span>
 <span class="codeline" id="line-102"><code>	<span class="comment">// active is the currently published profile. A profiling</span></code></span>
 <span class="codeline" id="line-103"><code><span class="comment">	// cycle can be accumulated into active once its complete.</span></code></span>
-<span class="codeline" id="line-104"><code>	<a href="../../use/runtime..memRecord.active.html" class="ident">active</a> <a href="#line-120" class="ident">memRecordCycle</a></code></span>
+<span class="codeline" id="line-104"><code>	<a href="../../use/runtime..memRecord*778e6.active*96879.html" class="ident">active</a> <a href="#line-120" class="ident">memRecordCycle</a></code></span>
 <span class="codeline" id="line-105"><code></code></span>
 <span class="codeline" id="line-106"><code>	<span class="comment">// future records the profile events we're counting for cycles</span></code></span>
 <span class="codeline" id="line-107"><code><span class="comment">	// that have not yet been published. This is ring buffer</span></code></span>
@@ -537,17 +537,17 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-113"><code><span class="comment">	// We store cycle C here because there's a window between when</span></code></span>
 <span class="codeline" id="line-114"><code><span class="comment">	// C becomes the active cycle and when we've flushed it to</span></code></span>
 <span class="codeline" id="line-115"><code><span class="comment">	// active.</span></code></span>
-<span class="codeline" id="line-116"><code>	<a href="../../use/runtime..memRecord.future.html" class="ident">future</a> [<span class="lit-number">3</span>]<a href="#line-120" class="ident">memRecordCycle</a></code></span>
+<span class="codeline" id="line-116"><code>	<a href="../../use/runtime..memRecord*778e6.future*ebb3d.html" class="ident">future</a> [<span class="lit-number">3</span>]<a href="#line-120" class="ident">memRecordCycle</a></code></span>
 <span class="codeline" id="line-117"><code>}</code></span>
 <span class="codeline" id="line-118"><code></code></span>
 <span class="codeline" id="line-119"><code><span class="comment">// memRecordCycle</span></code></span>
 <span class="codeline" id="line-120"><code><span class="keyword">type</span> <a href="../../pkg/runtime.html#name-memRecordCycle" class="ident">memRecordCycle</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-121"><code>	<a href="../../use/runtime..memRecordCycle.allocs.html" class="ident">allocs</a>, <a href="../../use/runtime..memRecordCycle.frees.html" class="ident">frees</a>           <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
-<span class="codeline" id="line-122"><code>	<a href="../../use/runtime..memRecordCycle.alloc_bytes.html" class="ident">alloc_bytes</a>, <a href="../../use/runtime..memRecordCycle.free_bytes.html" class="ident">free_bytes</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
+<span class="codeline" id="line-121"><code>	<a href="../../use/runtime..memRecordCycle*41aaf.allocs*ef8c4.html" class="ident">allocs</a>, <a href="../../use/runtime..memRecordCycle*41aaf.frees*114fa.html" class="ident">frees</a>           <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
+<span class="codeline" id="line-122"><code>	<a href="../../use/runtime..memRecordCycle*41aaf.alloc_bytes*c2455.html" class="ident">alloc_bytes</a>, <a href="../../use/runtime..memRecordCycle*41aaf.free_bytes*10a51.html" class="ident">free_bytes</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
 <span class="codeline" id="line-123"><code>}</code></span>
 <span class="codeline" id="line-124"><code></code></span>
 <span class="codeline" id="line-125"><code><span class="comment">// add accumulates b into a. It does not zero b.</span></code></span>
-<span class="codeline" id="line-126"><code><span class="keyword">func</span> (<label for="r0" class="ident">a</label> *<a href="#line-120" class="ident">memRecordCycle</a>) <label for="r1" class="ident"><a href="../../use/runtime..memRecordCycle.add.html" class="ident">add</a></label>(<label for="r2" class="ident">b</label> *<a href="#line-120" class="ident">memRecordCycle</a>) {</code></span>
+<span class="codeline" id="line-126"><code><span class="keyword">func</span> (<label for="r0" class="ident">a</label> *<a href="#line-120" class="ident">memRecordCycle</a>) <label for="r1" class="ident"><a href="../../use/runtime..memRecordCycle*41aaf.add*7e9e5.html" class="ident">add</a></label>(<label for="r2" class="ident">b</label> *<a href="#line-120" class="ident">memRecordCycle</a>) {</code></span>
 <span class="codeline" id="line-127"><code>	<label for="r0" class="ident">a</label>.<a href="#line-121" class="ident">allocs</a> += <label for="r2" class="ident">b</label>.<a href="#line-121" class="ident">allocs</a></code></span>
 <span class="codeline" id="line-128"><code>	<label for="r0" class="ident">a</label>.<a href="#line-121" class="ident">frees</a> += <label for="r2" class="ident">b</label>.<a href="#line-121" class="ident">frees</a></code></span>
 <span class="codeline" id="line-129"><code>	<label for="r0" class="ident">a</label>.<a href="#line-122" class="ident">alloc_bytes</a> += <label for="r2" class="ident">b</label>.<a href="#line-122" class="ident">alloc_bytes</a></code></span>
@@ -557,8 +557,8 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-133"><code><span class="comment">// A blockRecord is the bucket data for a bucket of type blockProfile,</span></code></span>
 <span class="codeline" id="line-134"><code><span class="comment">// which is used in blocking and mutex profiles.</span></code></span>
 <span class="codeline" id="line-135"><code><span class="keyword">type</span> <a href="../../pkg/runtime.html#name-blockRecord" class="ident">blockRecord</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-136"><code>	<a href="../../use/runtime..blockRecord.count.html" class="ident">count</a>  <a href="../../pkg/builtin.html#name-int64" class="ident">int64</a></code></span>
-<span class="codeline" id="line-137"><code>	<a href="../../use/runtime..blockRecord.cycles.html" class="ident">cycles</a> <a href="../../pkg/builtin.html#name-int64" class="ident">int64</a></code></span>
+<span class="codeline" id="line-136"><code>	<a href="../../use/runtime..blockRecord*77cb8.count*6c354.html" class="ident">count</a>  <a href="../../pkg/builtin.html#name-int64" class="ident">int64</a></code></span>
+<span class="codeline" id="line-137"><code>	<a href="../../use/runtime..blockRecord*77cb8.cycles*443ff.html" class="ident">cycles</a> <a href="../../pkg/builtin.html#name-int64" class="ident">int64</a></code></span>
 <span class="codeline" id="line-138"><code>}</code></span>
 <span class="codeline" id="line-139"><code></code></span>
 <span class="codeline" id="line-140"><code><span class="keyword">var</span> (</code></span>
@@ -602,13 +602,13 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-178"><code>}</code></span>
 <span class="codeline" id="line-179"><code></code></span>
 <span class="codeline" id="line-180"><code><span class="comment">// stk returns the slice in b holding the stack.</span></code></span>
-<span class="codeline" id="line-181"><code><span class="keyword">func</span> (<label for="r8" class="ident">b</label> *<a href="#line-48" class="ident">bucket</a>) <label for="r9" class="ident"><a href="../../use/runtime..bucket.stk.html" class="ident">stk</a></label>() []<a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> {</code></span>
+<span class="codeline" id="line-181"><code><span class="keyword">func</span> (<label for="r8" class="ident">b</label> *<a href="#line-48" class="ident">bucket</a>) <label for="r9" class="ident"><a href="../../use/runtime..bucket*c5879.stk*9b178.html" class="ident">stk</a></label>() []<a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> {</code></span>
 <span class="codeline" id="line-182"><code>	<label for="r10" class="ident">stk</label> := (*[<a href="#line-31" class="ident">maxStack</a>]<a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>)(<a href="stubs.go.html#line-11" class="ident">add</a>(<a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(<label for="r8" class="ident">b</label>), <a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Sizeof" class="ident">Sizeof</a>(*<label for="r8" class="ident">b</label>)))</code></span>
 <span class="codeline" id="line-183"><code>	<span class="keyword">return</span> <label for="r10" class="ident">stk</label>[:<label for="r8" class="ident">b</label>.<a href="#line-54" class="ident">nstk</a>:<label for="r8" class="ident">b</label>.<a href="#line-54" class="ident">nstk</a>]</code></span>
 <span class="codeline" id="line-184"><code>}</code></span>
 <span class="codeline" id="line-185"><code></code></span>
 <span class="codeline" id="line-186"><code><span class="comment">// mp returns the memRecord associated with the memProfile bucket b.</span></code></span>
-<span class="codeline" id="line-187"><code><span class="keyword">func</span> (<label for="r11" class="ident">b</label> *<a href="#line-48" class="ident">bucket</a>) <label for="r12" class="ident"><a href="../../use/runtime..bucket.mp.html" class="ident">mp</a></label>() *<a href="#line-59" class="ident">memRecord</a> {</code></span>
+<span class="codeline" id="line-187"><code><span class="keyword">func</span> (<label for="r11" class="ident">b</label> *<a href="#line-48" class="ident">bucket</a>) <label for="r12" class="ident"><a href="../../use/runtime..bucket*c5879.mp*68dbf.html" class="ident">mp</a></label>() *<a href="#line-59" class="ident">memRecord</a> {</code></span>
 <span class="codeline" id="line-188"><code>	<span class="keyword">if</span> <label for="r11" class="ident">b</label>.<a href="#line-51" class="ident">typ</a> != <a href="#line-23" class="ident">memProfile</a> {</code></span>
 <span class="codeline" id="line-189"><code>		<a href="panic.go.html#line-1107" class="ident">throw</a>(<span class="lit-string">"bad use of bucket.mp"</span>)</code></span>
 <span class="codeline" id="line-190"><code>	}</code></span>
@@ -617,7 +617,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-193"><code>}</code></span>
 <span class="codeline" id="line-194"><code></code></span>
 <span class="codeline" id="line-195"><code><span class="comment">// bp returns the blockRecord associated with the blockProfile bucket b.</span></code></span>
-<span class="codeline" id="line-196"><code><span class="keyword">func</span> (<label for="r14" class="ident">b</label> *<a href="#line-48" class="ident">bucket</a>) <label for="r15" class="ident"><a href="../../use/runtime..bucket.bp.html" class="ident">bp</a></label>() *<a href="#line-135" class="ident">blockRecord</a> {</code></span>
+<span class="codeline" id="line-196"><code><span class="keyword">func</span> (<label for="r14" class="ident">b</label> *<a href="#line-48" class="ident">bucket</a>) <label for="r15" class="ident"><a href="../../use/runtime..bucket*c5879.bp*226a1.html" class="ident">bp</a></label>() *<a href="#line-135" class="ident">blockRecord</a> {</code></span>
 <span class="codeline" id="line-197"><code>	<span class="keyword">if</span> <label for="r14" class="ident">b</label>.<a href="#line-51" class="ident">typ</a> != <a href="#line-24" class="ident">blockProfile</a> &amp;&amp; <label for="r14" class="ident">b</label>.<a href="#line-51" class="ident">typ</a> != <a href="#line-25" class="ident">mutexProfile</a> {</code></span>
 <span class="codeline" id="line-198"><code>		<a href="panic.go.html#line-1107" class="ident">throw</a>(<span class="lit-string">"bad use of bucket.bp"</span>)</code></span>
 <span class="codeline" id="line-199"><code>	}</code></span>
@@ -1120,7 +1120,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-696"><code><span class="comment">// Most clients should use the runtime/pprof package instead</span></code></span>
 <span class="codeline" id="line-697"><code><span class="comment">// of calling ThreadCreateProfile directly.</span></code></span>
 <span class="codeline" id="line-698"><code><span class="keyword">func</span> <label for="r137" class="ident"><a href="../../pkg/runtime.html#name-ThreadCreateProfile" class="ident">ThreadCreateProfile</a></label>(<label for="r138" class="ident">p</label> []<a href="#line-464" class="ident">StackRecord</a>) (<label for="r139" class="ident">n</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r140" class="ident">ok</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
-<span class="codeline" id="line-699"><code>	<label for="r141" class="ident">first</label> := (*<a href="runtime2.go.html#line-486" class="ident">m</a>)(<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-22" class="ident">Loadp</a>(<a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(&amp;<a href="runtime2.go.html#line-1055" class="ident">allm</a>)))</code></span>
+<span class="codeline" id="line-699"><code>	<label for="r141" class="ident">first</label> := (*<a href="runtime2.go.html#line-486" class="ident">m</a>)(<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-22" class="ident">Loadp</a>(<a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(&amp;<a href="runtime2.go.html#line-1058" class="ident">allm</a>)))</code></span>
 <span class="codeline" id="line-700"><code>	<span class="keyword">for</span> <label for="r142" class="ident">mp</label> := <label for="r141" class="ident">first</label>; <label for="r142" class="ident">mp</label> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>; <label for="r142" class="ident">mp</label> = <label for="r142" class="ident">mp</label>.<a href="runtime2.go.html#line-525" class="ident">alllink</a> {</code></span>
 <span class="codeline" id="line-701"><code>		<label for="r139" class="ident">n</label>++</code></span>
 <span class="codeline" id="line-702"><code>	}</code></span>
@@ -1317,7 +1317,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-893"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

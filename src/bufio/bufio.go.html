@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: bufio.go in package bufio</title>
-<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -409,12 +409,12 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-30"><code></code></span>
 <span class="codeline" id="line-31"><code><span class="comment">// Reader implements buffering for an io.Reader object.</span></code></span>
 <span class="codeline" id="line-32"><code><span class="keyword">type</span> <a href="../../pkg/bufio.html#name-Reader" class="ident">Reader</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-33"><code>	<a href="../../use/bufio..Reader.buf.html" class="ident">buf</a>          []<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
-<span class="codeline" id="line-34"><code>	<a href="../../use/bufio..Reader.rd.html" class="ident">rd</a>           <a href="../../pkg/io.html" class="ident i2">io</a>.<a href="../io/io.go.html#line-83" class="ident">Reader</a> <span class="comment">// reader provided by the client</span></code></span>
-<span class="codeline" id="line-35"><code>	<a href="../../use/bufio..Reader.r.html" class="ident">r</a>, <a href="../../use/bufio..Reader.w.html" class="ident">w</a>         <a href="../../pkg/builtin.html#name-int" class="ident">int</a>       <span class="comment">// buf read and write positions</span></code></span>
-<span class="codeline" id="line-36"><code>	<a href="../../use/bufio..Reader.err.html" class="ident">err</a>          <a href="../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
-<span class="codeline" id="line-37"><code>	<a href="../../use/bufio..Reader.lastByte.html" class="ident">lastByte</a>     <a href="../../pkg/builtin.html#name-int" class="ident">int</a> <span class="comment">// last byte read for UnreadByte; -1 means invalid</span></code></span>
-<span class="codeline" id="line-38"><code>	<a href="../../use/bufio..Reader.lastRuneSize.html" class="ident">lastRuneSize</a> <a href="../../pkg/builtin.html#name-int" class="ident">int</a> <span class="comment">// size of last rune read for UnreadRune; -1 means invalid</span></code></span>
+<span class="codeline" id="line-33"><code>	<a href="../../use/bufio..Reader.buf*3ef31.html" class="ident">buf</a>          []<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-34"><code>	<a href="../../use/bufio..Reader.rd*4573a.html" class="ident">rd</a>           <a href="../../pkg/io.html" class="ident i2">io</a>.<a href="../io/io.go.html#line-83" class="ident">Reader</a> <span class="comment">// reader provided by the client</span></code></span>
+<span class="codeline" id="line-35"><code>	<a href="../../use/bufio..Reader.r*45434.html" class="ident">r</a>, <a href="../../use/bufio..Reader.w*50e72.html" class="ident">w</a>         <a href="../../pkg/builtin.html#name-int" class="ident">int</a>       <span class="comment">// buf read and write positions</span></code></span>
+<span class="codeline" id="line-36"><code>	<a href="../../use/bufio..Reader.err*d9eb2.html" class="ident">err</a>          <a href="../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-37"><code>	<a href="../../use/bufio..Reader.lastByte*ef3af.html" class="ident">lastByte</a>     <a href="../../pkg/builtin.html#name-int" class="ident">int</a> <span class="comment">// last byte read for UnreadByte; -1 means invalid</span></code></span>
+<span class="codeline" id="line-38"><code>	<a href="../../use/bufio..Reader.lastRuneSize*5ae36.html" class="ident">lastRuneSize</a> <a href="../../pkg/builtin.html#name-int" class="ident">int</a> <span class="comment">// size of last rune read for UnreadRune; -1 means invalid</span></code></span>
 <span class="codeline" id="line-39"><code>}</code></span>
 <span class="codeline" id="line-40"><code></code></span>
 <span class="codeline" id="line-41"><code><span class="keyword">const</span> <a href="../../pkg/bufio.html#name-minReadBufferSize" class="ident">minReadBufferSize</a> = <span class="lit-number">16</span></code></span>
@@ -451,7 +451,7 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-72"><code>	<label for="r10" class="ident">b</label>.<a href="#line-75" class="ident">reset</a>(<label for="r10" class="ident">b</label>.<a href="#line-33" class="ident">buf</a>, <label for="r12" class="ident">r</label>)</code></span>
 <span class="codeline" id="line-73"><code>}</code></span>
 <span class="codeline" id="line-74"><code></code></span>
-<span class="codeline" id="line-75"><code><span class="keyword">func</span> (<label for="r13" class="ident">b</label> *<a href="#line-32" class="ident">Reader</a>) <label for="r14" class="ident"><a href="../../use/bufio..Reader.reset.html" class="ident">reset</a></label>(<label for="r15" class="ident">buf</label> []<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r16" class="ident">r</label> <a href="../../pkg/io.html" class="ident i2">io</a>.<a href="../io/io.go.html#line-83" class="ident">Reader</a>) {</code></span>
+<span class="codeline" id="line-75"><code><span class="keyword">func</span> (<label for="r13" class="ident">b</label> *<a href="#line-32" class="ident">Reader</a>) <label for="r14" class="ident"><a href="../../use/bufio..Reader.reset*01be3.html" class="ident">reset</a></label>(<label for="r15" class="ident">buf</label> []<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r16" class="ident">r</label> <a href="../../pkg/io.html" class="ident i2">io</a>.<a href="../io/io.go.html#line-83" class="ident">Reader</a>) {</code></span>
 <span class="codeline" id="line-76"><code>	*<label for="r13" class="ident">b</label> = <a href="#line-32" class="ident">Reader</a>{</code></span>
 <span class="codeline" id="line-77"><code>		<a href="#line-33" class="ident">buf</a>:          <label for="r15" class="ident">buf</label>,</code></span>
 <span class="codeline" id="line-78"><code>		<a href="#line-34" class="ident">rd</a>:           <label for="r16" class="ident">r</label>,</code></span>
@@ -463,7 +463,7 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-84"><code><span class="keyword">var</span> <a href="../../pkg/bufio.html#name-errNegativeRead" class="ident">errNegativeRead</a> = <a href="../../pkg/errors.html" class="ident i1">errors</a>.<a href="../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"bufio: reader returned negative count from Read"</span>)</code></span>
 <span class="codeline" id="line-85"><code></code></span>
 <span class="codeline" id="line-86"><code><span class="comment">// fill reads a new chunk into the buffer.</span></code></span>
-<span class="codeline" id="line-87"><code><span class="keyword">func</span> (<label for="r17" class="ident">b</label> *<a href="#line-32" class="ident">Reader</a>) <label for="r18" class="ident"><a href="../../use/bufio..Reader.fill.html" class="ident">fill</a></label>() {</code></span>
+<span class="codeline" id="line-87"><code><span class="keyword">func</span> (<label for="r17" class="ident">b</label> *<a href="#line-32" class="ident">Reader</a>) <label for="r18" class="ident"><a href="../../use/bufio..Reader.fill*dcd32.html" class="ident">fill</a></label>() {</code></span>
 <span class="codeline" id="line-88"><code>	<span class="comment">// Slide existing data to beginning.</span></code></span>
 <span class="codeline" id="line-89"><code>	<span class="keyword">if</span> <label for="r17" class="ident">b</label>.<a href="#line-35" class="ident">r</a> &gt; <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-90"><code>		<a href="../../pkg/builtin.html#name-copy" class="ident">copy</a>(<label for="r17" class="ident">b</label>.<a href="#line-33" class="ident">buf</a>, <label for="r17" class="ident">b</label>.<a href="#line-33" class="ident">buf</a>[<label for="r17" class="ident">b</label>.<a href="#line-35" class="ident">r</a>:<label for="r17" class="ident">b</label>.<a href="#line-35" class="ident">w</a>])</code></span>
@@ -493,7 +493,7 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-114"><code>	<label for="r17" class="ident">b</label>.<a href="#line-36" class="ident">err</a> = <a href="../../pkg/io.html" class="ident i2">io</a>.<a href="../io/io.go.html#line-53" class="ident">ErrNoProgress</a></code></span>
 <span class="codeline" id="line-115"><code>}</code></span>
 <span class="codeline" id="line-116"><code></code></span>
-<span class="codeline" id="line-117"><code><span class="keyword">func</span> (<label for="r22" class="ident">b</label> *<a href="#line-32" class="ident">Reader</a>) <label for="r23" class="ident"><a href="../../use/bufio..Reader.readErr.html" class="ident">readErr</a></label>() <a href="../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-117"><code><span class="keyword">func</span> (<label for="r22" class="ident">b</label> *<a href="#line-32" class="ident">Reader</a>) <label for="r23" class="ident"><a href="../../use/bufio..Reader.readErr*9102d.html" class="ident">readErr</a></label>() <a href="../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
 <span class="codeline" id="line-118"><code>	<label for="r24" class="ident">err</label> := <label for="r22" class="ident">b</label>.<a href="#line-36" class="ident">err</a></code></span>
 <span class="codeline" id="line-119"><code>	<label for="r22" class="ident">b</label>.<a href="#line-36" class="ident">err</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-120"><code>	<span class="keyword">return</span> <label for="r24" class="ident">err</label></code></span>
@@ -806,7 +806,7 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-427"><code><span class="comment">// `bytes.Join(append(fullBuffers, finalFragment), nil)`, which has a</span></code></span>
 <span class="codeline" id="line-428"><code><span class="comment">// length of `totalLen`. The result is structured in this way to allow callers</span></code></span>
 <span class="codeline" id="line-429"><code><span class="comment">// to minimize allocations and copies.</span></code></span>
-<span class="codeline" id="line-430"><code><span class="keyword">func</span> (<label for="r70" class="ident">b</label> *<a href="#line-32" class="ident">Reader</a>) <label for="r71" class="ident"><a href="../../use/bufio..Reader.collectFragments.html" class="ident">collectFragments</a></label>(<label for="r72" class="ident">delim</label> <a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>) (<label for="r73" class="ident">fullBuffers</label> [][]<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r74" class="ident">finalFragment</label> []<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r75" class="ident">totalLen</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r76" class="ident">err</label> <a href="../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-430"><code><span class="keyword">func</span> (<label for="r70" class="ident">b</label> *<a href="#line-32" class="ident">Reader</a>) <label for="r71" class="ident"><a href="../../use/bufio..Reader.collectFragments*beacc.html" class="ident">collectFragments</a></label>(<label for="r72" class="ident">delim</label> <a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>) (<label for="r73" class="ident">fullBuffers</label> [][]<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r74" class="ident">finalFragment</label> []<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r75" class="ident">totalLen</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r76" class="ident">err</label> <a href="../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
 <span class="codeline" id="line-431"><code>	<span class="keyword">var</span> <label for="r77" class="ident">frag</label> []<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
 <span class="codeline" id="line-432"><code>	<span class="comment">// Use ReadSlice to look for delim, accumulating full buffers.</span></code></span>
 <span class="codeline" id="line-433"><code>	<span class="keyword">for</span> {</code></span>
@@ -917,7 +917,7 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-538"><code><span class="keyword">var</span> <a href="../../pkg/bufio.html#name-errNegativeWrite" class="ident">errNegativeWrite</a> = <a href="../../pkg/errors.html" class="ident i1">errors</a>.<a href="../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"bufio: writer returned negative count from Write"</span>)</code></span>
 <span class="codeline" id="line-539"><code></code></span>
 <span class="codeline" id="line-540"><code><span class="comment">// writeBuf writes the Reader's buffer to the writer.</span></code></span>
-<span class="codeline" id="line-541"><code><span class="keyword">func</span> (<label for="r114" class="ident">b</label> *<a href="#line-32" class="ident">Reader</a>) <label for="r115" class="ident"><a href="../../use/bufio..Reader.writeBuf.html" class="ident">writeBuf</a></label>(<label for="r116" class="ident">w</label> <a href="../../pkg/io.html" class="ident i2">io</a>.<a href="../io/io.go.html#line-96" class="ident">Writer</a>) (<a href="../../pkg/builtin.html#name-int64" class="ident">int64</a>, <a href="../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-541"><code><span class="keyword">func</span> (<label for="r114" class="ident">b</label> *<a href="#line-32" class="ident">Reader</a>) <label for="r115" class="ident"><a href="../../use/bufio..Reader.writeBuf*d60dd.html" class="ident">writeBuf</a></label>(<label for="r116" class="ident">w</label> <a href="../../pkg/io.html" class="ident i2">io</a>.<a href="../io/io.go.html#line-96" class="ident">Writer</a>) (<a href="../../pkg/builtin.html#name-int64" class="ident">int64</a>, <a href="../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
 <span class="codeline" id="line-542"><code>	<label for="r117" class="ident">n</label>, <label for="r118" class="ident">err</label> := <label for="r116" class="ident">w</label>.<a href="../io/io.go.html#line-97" class="ident">Write</a>(<label for="r114" class="ident">b</label>.<a href="#line-33" class="ident">buf</a>[<label for="r114" class="ident">b</label>.<a href="#line-35" class="ident">r</a>:<label for="r114" class="ident">b</label>.<a href="#line-35" class="ident">w</a>])</code></span>
 <span class="codeline" id="line-543"><code>	<span class="keyword">if</span> <label for="r117" class="ident">n</label> &lt; <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-544"><code>		<a href="../../pkg/builtin.html#name-panic" class="ident">panic</a>(<a href="#line-538" class="ident">errNegativeWrite</a>)</code></span>
@@ -935,10 +935,10 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-556"><code><span class="comment">// Flush method to guarantee all data has been forwarded to</span></code></span>
 <span class="codeline" id="line-557"><code><span class="comment">// the underlying io.Writer.</span></code></span>
 <span class="codeline" id="line-558"><code><span class="keyword">type</span> <a href="../../pkg/bufio.html#name-Writer" class="ident">Writer</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-559"><code>	<a href="../../use/bufio..Writer.err.html" class="ident">err</a> <a href="../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
-<span class="codeline" id="line-560"><code>	<a href="../../use/bufio..Writer.buf.html" class="ident">buf</a> []<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
-<span class="codeline" id="line-561"><code>	<a href="../../use/bufio..Writer.n.html" class="ident">n</a>   <a href="../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
-<span class="codeline" id="line-562"><code>	<a href="../../use/bufio..Writer.wr.html" class="ident">wr</a>  <a href="../../pkg/io.html" class="ident i2">io</a>.<a href="../io/io.go.html#line-96" class="ident">Writer</a></code></span>
+<span class="codeline" id="line-559"><code>	<a href="../../use/bufio..Writer.err*d9eb2.html" class="ident">err</a> <a href="../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-560"><code>	<a href="../../use/bufio..Writer.buf*3ef31.html" class="ident">buf</a> []<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-561"><code>	<a href="../../use/bufio..Writer.n*1b16b.html" class="ident">n</a>   <a href="../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-562"><code>	<a href="../../use/bufio..Writer.wr*bc3fa.html" class="ident">wr</a>  <a href="../../pkg/io.html" class="ident i2">io</a>.<a href="../io/io.go.html#line-96" class="ident">Writer</a></code></span>
 <span class="codeline" id="line-563"><code>}</code></span>
 <span class="codeline" id="line-564"><code></code></span>
 <span class="codeline" id="line-565"><code><span class="comment">// NewWriterSize returns a new Writer whose buffer has at least the specified</span></code></span>
@@ -1161,7 +1161,7 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-782"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: mgcsweep.go in package runtime</title>
-<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -239,13 +239,13 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-33"><code></code></span>
 <span class="codeline" id="line-34"><code><span class="comment">// State of background sweep.</span></code></span>
 <span class="codeline" id="line-35"><code><span class="keyword">type</span> <a href="../../pkg/runtime.html#name-sweepdata" class="ident">sweepdata</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-36"><code>	<a href="../../use/runtime..sweepdata.lock.html" class="ident">lock</a>    <a href="runtime2.go.html#line-162" class="ident">mutex</a></code></span>
-<span class="codeline" id="line-37"><code>	<a href="../../use/runtime..sweepdata.g.html" class="ident">g</a>       *<a href="runtime2.go.html#line-404" class="ident">g</a></code></span>
-<span class="codeline" id="line-38"><code>	<a href="../../use/runtime..sweepdata.parked.html" class="ident">parked</a>  <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
-<span class="codeline" id="line-39"><code>	<a href="../../use/runtime..sweepdata.started.html" class="ident">started</a> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-36"><code>	<a href="../../use/runtime..sweepdata*57b41.lock*0c030.html" class="ident">lock</a>    <a href="runtime2.go.html#line-162" class="ident">mutex</a></code></span>
+<span class="codeline" id="line-37"><code>	<a href="../../use/runtime..sweepdata*57b41.g*cd0aa.html" class="ident">g</a>       *<a href="runtime2.go.html#line-404" class="ident">g</a></code></span>
+<span class="codeline" id="line-38"><code>	<a href="../../use/runtime..sweepdata*57b41.parked*bbe7d.html" class="ident">parked</a>  <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-39"><code>	<a href="../../use/runtime..sweepdata*57b41.started*03494.html" class="ident">started</a> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
 <span class="codeline" id="line-40"><code></code></span>
-<span class="codeline" id="line-41"><code>	<a href="../../use/runtime..sweepdata.nbgsweep.html" class="ident">nbgsweep</a>    <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
-<span class="codeline" id="line-42"><code>	<a href="../../use/runtime..sweepdata.npausesweep.html" class="ident">npausesweep</a> <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
+<span class="codeline" id="line-41"><code>	<a href="../../use/runtime..sweepdata*57b41.nbgsweep*b2cda.html" class="ident">nbgsweep</a>    <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
+<span class="codeline" id="line-42"><code>	<a href="../../use/runtime..sweepdata*57b41.npausesweep*1602f.html" class="ident">npausesweep</a> <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
 <span class="codeline" id="line-43"><code></code></span>
 <span class="codeline" id="line-44"><code>	<span class="comment">// centralIndex is the current unswept span class.</span></code></span>
 <span class="codeline" id="line-45"><code><span class="comment">	// It represents an index into the mcentral span</span></code></span>
@@ -254,7 +254,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-48"><code><span class="comment">	//</span></code></span>
 <span class="codeline" id="line-49"><code><span class="comment">	// Reset at mark termination.</span></code></span>
 <span class="codeline" id="line-50"><code><span class="comment">	// Used by mheap.nextSpanForSweep.</span></code></span>
-<span class="codeline" id="line-51"><code>	<a href="../../use/runtime..sweepdata.centralIndex.html" class="ident">centralIndex</a> <a href="#line-56" class="ident">sweepClass</a></code></span>
+<span class="codeline" id="line-51"><code>	<a href="../../use/runtime..sweepdata*57b41.centralIndex*1a53c.html" class="ident">centralIndex</a> <a href="#line-56" class="ident">sweepClass</a></code></span>
 <span class="codeline" id="line-52"><code>}</code></span>
 <span class="codeline" id="line-53"><code></code></span>
 <span class="codeline" id="line-54"><code><span class="comment">// sweepClass is a spanClass and one bit to represent whether we're currently</span></code></span>
@@ -266,11 +266,11 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-60"><code>	<a href="../../pkg/runtime.html#name-sweepClassDone" class="ident">sweepClassDone</a>  <a href="#line-56" class="ident">sweepClass</a> = <a href="#line-56" class="ident">sweepClass</a>(^<a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<span class="lit-number">0</span>))</code></span>
 <span class="codeline" id="line-61"><code>)</code></span>
 <span class="codeline" id="line-62"><code></code></span>
-<span class="codeline" id="line-63"><code><span class="keyword">func</span> (<label for="r0" class="ident">s</label> *<a href="#line-56" class="ident">sweepClass</a>) <label for="r1" class="ident"><a href="../../use/runtime..sweepClass.load.html" class="ident">load</a></label>() <a href="#line-56" class="ident">sweepClass</a> {</code></span>
+<span class="codeline" id="line-63"><code><span class="keyword">func</span> (<label for="r0" class="ident">s</label> *<a href="#line-56" class="ident">sweepClass</a>) <label for="r1" class="ident"><a href="../../use/runtime..sweepClass*64302.load*0cf67.html" class="ident">load</a></label>() <a href="#line-56" class="ident">sweepClass</a> {</code></span>
 <span class="codeline" id="line-64"><code>	<span class="keyword">return</span> <a href="#line-56" class="ident">sweepClass</a>(<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-16" class="ident">Load</a>((*<a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>)(<label for="r0" class="ident">s</label>)))</code></span>
 <span class="codeline" id="line-65"><code>}</code></span>
 <span class="codeline" id="line-66"><code></code></span>
-<span class="codeline" id="line-67"><code><span class="keyword">func</span> (<label for="r2" class="ident">s</label> *<a href="#line-56" class="ident">sweepClass</a>) <label for="r3" class="ident"><a href="../../use/runtime..sweepClass.update.html" class="ident">update</a></label>(<label for="r4" class="ident">sNew</label> <a href="#line-56" class="ident">sweepClass</a>) {</code></span>
+<span class="codeline" id="line-67"><code><span class="keyword">func</span> (<label for="r2" class="ident">s</label> *<a href="#line-56" class="ident">sweepClass</a>) <label for="r3" class="ident"><a href="../../use/runtime..sweepClass*64302.update*29370.html" class="ident">update</a></label>(<label for="r4" class="ident">sNew</label> <a href="#line-56" class="ident">sweepClass</a>) {</code></span>
 <span class="codeline" id="line-68"><code>	<span class="comment">// Only update *s if its current value is less than sNew,</span></code></span>
 <span class="codeline" id="line-69"><code><span class="comment">	// since *s increases monotonically.</span></code></span>
 <span class="codeline" id="line-70"><code>	<label for="r5" class="ident">sOld</label> := <label for="r2" class="ident">s</label>.<a href="#line-63" class="ident">load</a>()</code></span>
@@ -284,7 +284,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-78"><code><span class="comment">	// like RISC-V however have native support for an atomic max.</span></code></span>
 <span class="codeline" id="line-79"><code>}</code></span>
 <span class="codeline" id="line-80"><code></code></span>
-<span class="codeline" id="line-81"><code><span class="keyword">func</span> (<label for="r6" class="ident">s</label> *<a href="#line-56" class="ident">sweepClass</a>) <label for="r7" class="ident"><a href="../../use/runtime..sweepClass.clear.html" class="ident">clear</a></label>() {</code></span>
+<span class="codeline" id="line-81"><code><span class="keyword">func</span> (<label for="r6" class="ident">s</label> *<a href="#line-56" class="ident">sweepClass</a>) <label for="r7" class="ident"><a href="../../use/runtime..sweepClass*64302.clear*913a4.html" class="ident">clear</a></label>() {</code></span>
 <span class="codeline" id="line-82"><code>	<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-95" class="ident">Store</a>((*<a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>)(<label for="r6" class="ident">s</label>), <span class="lit-number">0</span>)</code></span>
 <span class="codeline" id="line-83"><code>}</code></span>
 <span class="codeline" id="line-84"><code></code></span>
@@ -292,14 +292,14 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-86"><code><span class="comment">// whether we're interested in the full or partial</span></code></span>
 <span class="codeline" id="line-87"><code><span class="comment">// unswept lists for that class, indicated as a boolean</span></code></span>
 <span class="codeline" id="line-88"><code><span class="comment">// (true means "full").</span></code></span>
-<span class="codeline" id="line-89"><code><span class="keyword">func</span> (<label for="r8" class="ident">s</label> <a href="#line-56" class="ident">sweepClass</a>) <label for="r9" class="ident"><a href="../../use/runtime..sweepClass.split.html" class="ident">split</a></label>() (<label for="r10" class="ident">spc</label> <a href="mheap.go.html#line-532" class="ident">spanClass</a>, <label for="r11" class="ident">full</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
+<span class="codeline" id="line-89"><code><span class="keyword">func</span> (<label for="r8" class="ident">s</label> <a href="#line-56" class="ident">sweepClass</a>) <label for="r9" class="ident"><a href="../../use/runtime..sweepClass*64302.split*ad1a6.html" class="ident">split</a></label>() (<label for="r10" class="ident">spc</label> <a href="mheap.go.html#line-532" class="ident">spanClass</a>, <label for="r11" class="ident">full</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
 <span class="codeline" id="line-90"><code>	<span class="keyword">return</span> <a href="mheap.go.html#line-532" class="ident">spanClass</a>(<label for="r8" class="ident">s</label> &gt;&gt; <span class="lit-number">1</span>), <label for="r8" class="ident">s</label>&amp;<span class="lit-number">1</span> == <span class="lit-number">0</span></code></span>
 <span class="codeline" id="line-91"><code>}</code></span>
 <span class="codeline" id="line-92"><code></code></span>
 <span class="codeline" id="line-93"><code><span class="comment">// nextSpanForSweep finds and pops the next span for sweeping from the</span></code></span>
 <span class="codeline" id="line-94"><code><span class="comment">// central sweep buffers. It returns ownership of the span to the caller.</span></code></span>
 <span class="codeline" id="line-95"><code><span class="comment">// Returns nil if no such span exists.</span></code></span>
-<span class="codeline" id="line-96"><code><span class="keyword">func</span> (<label for="r12" class="ident">h</label> *<a href="mheap.go.html#line-62" class="ident">mheap</a>) <label for="r13" class="ident"><a href="../../use/runtime..mheap.nextSpanForSweep.html" class="ident">nextSpanForSweep</a></label>() *<a href="mheap.go.html#line-382" class="ident">mspan</a> {</code></span>
+<span class="codeline" id="line-96"><code><span class="keyword">func</span> (<label for="r12" class="ident">h</label> *<a href="mheap.go.html#line-62" class="ident">mheap</a>) <label for="r13" class="ident"><a href="../../use/runtime..mheap*d82e8.nextSpanForSweep*44e05.html" class="ident">nextSpanForSweep</a></label>() *<a href="mheap.go.html#line-382" class="ident">mspan</a> {</code></span>
 <span class="codeline" id="line-97"><code>	<label for="r14" class="ident">sg</label> := <label for="r12" class="ident">h</label>.<a href="mheap.go.html#line-67" class="ident">sweepgen</a></code></span>
 <span class="codeline" id="line-98"><code>	<span class="keyword">for</span> <label for="r15" class="ident">sc</label> := <a href="#line-32" class="ident">sweep</a>.<a href="#line-51" class="ident">centralIndex</a>.<a href="#line-63" class="ident">load</a>(); <label for="r15" class="ident">sc</label> &lt; <a href="#line-59" class="ident">numSweepClasses</a>; <label for="r15" class="ident">sc</label>++ {</code></span>
 <span class="codeline" id="line-99"><code>		<label for="r16" class="ident">spc</label>, <label for="r17" class="ident">full</label> := <label for="r15" class="ident">sc</label>.<a href="#line-89" class="ident">split</a>()</code></span>
@@ -366,7 +366,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-160"><code>	<a href="lock_futex.go.html#line-46" class="ident">lock</a>(&amp;<a href="#line-32" class="ident">sweep</a>.<a href="#line-36" class="ident">lock</a>)</code></span>
 <span class="codeline" id="line-161"><code>	<a href="#line-32" class="ident">sweep</a>.<a href="#line-38" class="ident">parked</a> = <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
 <span class="codeline" id="line-162"><code>	<label for="r25" class="ident">c</label> &lt;- <span class="lit-number">1</span></code></span>
-<span class="codeline" id="line-163"><code>	<a href="proc.go.html#line-341" class="ident">goparkunlock</a>(&amp;<a href="#line-32" class="ident">sweep</a>.<a href="#line-36" class="ident">lock</a>, <a href="runtime2.go.html#line-1000" class="ident">waitReasonGCSweepWait</a>, <a href="trace.go.html#line-43" class="ident">traceEvGoBlock</a>, <span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-163"><code>	<a href="proc.go.html#line-341" class="ident">goparkunlock</a>(&amp;<a href="#line-32" class="ident">sweep</a>.<a href="#line-36" class="ident">lock</a>, <a href="runtime2.go.html#line-1003" class="ident">waitReasonGCSweepWait</a>, <a href="trace.go.html#line-43" class="ident">traceEvGoBlock</a>, <span class="lit-number">1</span>)</code></span>
 <span class="codeline" id="line-164"><code></code></span>
 <span class="codeline" id="line-165"><code>	<span class="keyword">for</span> {</code></span>
 <span class="codeline" id="line-166"><code>		<span class="keyword">for</span> <a href="#line-188" class="ident">sweepone</a>() != ^<a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<span class="lit-number">0</span>) {</code></span>
@@ -385,7 +385,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-179"><code>			<span class="keyword">continue</span></code></span>
 <span class="codeline" id="line-180"><code>		}</code></span>
 <span class="codeline" id="line-181"><code>		<a href="#line-32" class="ident">sweep</a>.<a href="#line-38" class="ident">parked</a> = <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-182"><code>		<a href="proc.go.html#line-341" class="ident">goparkunlock</a>(&amp;<a href="#line-32" class="ident">sweep</a>.<a href="#line-36" class="ident">lock</a>, <a href="runtime2.go.html#line-1000" class="ident">waitReasonGCSweepWait</a>, <a href="trace.go.html#line-43" class="ident">traceEvGoBlock</a>, <span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-182"><code>		<a href="proc.go.html#line-341" class="ident">goparkunlock</a>(&amp;<a href="#line-32" class="ident">sweep</a>.<a href="#line-36" class="ident">lock</a>, <a href="runtime2.go.html#line-1003" class="ident">waitReasonGCSweepWait</a>, <a href="trace.go.html#line-43" class="ident">traceEvGoBlock</a>, <span class="lit-number">1</span>)</code></span>
 <span class="codeline" id="line-183"><code>	}</code></span>
 <span class="codeline" id="line-184"><code>}</code></span>
 <span class="codeline" id="line-185"><code></code></span>
@@ -489,7 +489,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-283"><code></code></span>
 <span class="codeline" id="line-284"><code><span class="comment">// Returns only when span s has been swept.</span></code></span>
 <span class="codeline" id="line-285"><code><span class="comment">//go:nowritebarrier</span></code></span>
-<span class="codeline" id="line-286"><code><span class="keyword">func</span> (<label for="r34" class="ident">s</label> *<a href="mheap.go.html#line-382" class="ident">mspan</a>) <label for="r35" class="ident"><a href="../../use/runtime..mspan.ensureSwept.html" class="ident">ensureSwept</a></label>() {</code></span>
+<span class="codeline" id="line-286"><code><span class="keyword">func</span> (<label for="r34" class="ident">s</label> *<a href="mheap.go.html#line-382" class="ident">mspan</a>) <label for="r35" class="ident"><a href="../../use/runtime..mspan*6f34b.ensureSwept*65a76.html" class="ident">ensureSwept</a></label>() {</code></span>
 <span class="codeline" id="line-287"><code>	<span class="comment">// Caller must disable preemption.</span></code></span>
 <span class="codeline" id="line-288"><code><span class="comment">	// Otherwise when this function returns the span can become unswept again</span></code></span>
 <span class="codeline" id="line-289"><code><span class="comment">	// (if GC is triggered on another goroutine).</span></code></span>
@@ -523,7 +523,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-317"><code><span class="comment">// Returns true if the span was returned to heap.</span></code></span>
 <span class="codeline" id="line-318"><code><span class="comment">// If preserve=true, don't return it to heap nor relink in mcentral lists;</span></code></span>
 <span class="codeline" id="line-319"><code><span class="comment">// caller takes care of it.</span></code></span>
-<span class="codeline" id="line-320"><code><span class="keyword">func</span> (<label for="r40" class="ident">s</label> *<a href="mheap.go.html#line-382" class="ident">mspan</a>) <label for="r41" class="ident"><a href="../../use/runtime..mspan.sweep.html" class="ident">sweep</a></label>(<label for="r42" class="ident">preserve</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-320"><code><span class="keyword">func</span> (<label for="r40" class="ident">s</label> *<a href="mheap.go.html#line-382" class="ident">mspan</a>) <label for="r41" class="ident"><a href="../../use/runtime..mspan*6f34b.sweep*dfd33.html" class="ident">sweep</a></label>(<label for="r42" class="ident">preserve</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
 <span class="codeline" id="line-321"><code>	<span class="comment">// It's critical that we enter this function with preemption disabled,</span></code></span>
 <span class="codeline" id="line-322"><code><span class="comment">	// GC must not start while we are in the middle of this function.</span></code></span>
 <span class="codeline" id="line-323"><code>	<label for="r43" class="ident">_g_</label> := <a href="stubs.go.html#line-18" class="ident">getg</a>()</code></span>
@@ -668,7 +668,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-462"><code>	<label for="r40" class="ident">s</label>.<a href="mheap.go.html#line-456" class="ident">allocCount</a> = <label for="r65" class="ident">nalloc</label></code></span>
 <span class="codeline" id="line-463"><code>	<label for="r40" class="ident">s</label>.<a href="mheap.go.html#line-407" class="ident">freeindex</a> = <span class="lit-number">0</span> <span class="comment">// reset allocation index to start of span.</span></code></span>
 <span class="codeline" id="line-464"><code>	<span class="keyword">if</span> <a href="trace.go.html#line-109" class="ident">trace</a>.<a href="trace.go.html#line-112" class="ident">enabled</a> {</code></span>
-<span class="codeline" id="line-465"><code>		<a href="stubs.go.html#line-18" class="ident">getg</a>().<a href="runtime2.go.html#line-418" class="ident">m</a>.<a href="runtime2.go.html#line-500" class="ident">p</a>.<a href="runtime2.go.html#line-283" class="ident">ptr</a>().<a href="runtime2.go.html#line-638" class="ident">traceReclaimed</a> += <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<label for="r66" class="ident">nfreed</label>) * <label for="r40" class="ident">s</label>.<a href="mheap.go.html#line-462" class="ident">elemsize</a></code></span>
+<span class="codeline" id="line-465"><code>		<a href="stubs.go.html#line-18" class="ident">getg</a>().<a href="runtime2.go.html#line-418" class="ident">m</a>.<a href="runtime2.go.html#line-500" class="ident">p</a>.<a href="runtime2.go.html#line-283" class="ident">ptr</a>().<a href="runtime2.go.html#line-641" class="ident">traceReclaimed</a> += <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<label for="r66" class="ident">nfreed</label>) * <label for="r40" class="ident">s</label>.<a href="mheap.go.html#line-462" class="ident">elemsize</a></code></span>
 <span class="codeline" id="line-466"><code>	}</code></span>
 <span class="codeline" id="line-467"><code></code></span>
 <span class="codeline" id="line-468"><code>	<span class="comment">// gcmarkBits becomes the allocBits.</span></code></span>
@@ -783,7 +783,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-577"><code><span class="comment">// 3. The GC two cycles ago missed a pointer and freed a live object,</span></code></span>
 <span class="codeline" id="line-578"><code><span class="comment">// but it was still live in the last cycle, so this GC cycle found a</span></code></span>
 <span class="codeline" id="line-579"><code><span class="comment">// pointer to that object and marked it.</span></code></span>
-<span class="codeline" id="line-580"><code><span class="keyword">func</span> (<label for="r70" class="ident">s</label> *<a href="mheap.go.html#line-382" class="ident">mspan</a>) <label for="r71" class="ident"><a href="../../use/runtime..mspan.reportZombies.html" class="ident">reportZombies</a></label>() {</code></span>
+<span class="codeline" id="line-580"><code><span class="keyword">func</span> (<label for="r70" class="ident">s</label> *<a href="mheap.go.html#line-382" class="ident">mspan</a>) <label for="r71" class="ident"><a href="../../use/runtime..mspan*6f34b.reportZombies*63dae.html" class="ident">reportZombies</a></label>() {</code></span>
 <span class="codeline" id="line-581"><code>	<a href="print.go.html#line-66" class="ident">printlock</a>()</code></span>
 <span class="codeline" id="line-582"><code>	<a href="../../pkg/builtin.html#name-print" class="ident">print</a>(<span class="lit-string">"runtime: marked free object in span "</span>, <label for="r70" class="ident">s</label>, <span class="lit-string">", elemsize="</span>, <label for="r70" class="ident">s</label>.<a href="mheap.go.html#line-462" class="ident">elemsize</a>, <span class="lit-string">" freeindex="</span>, <label for="r70" class="ident">s</label>.<a href="mheap.go.html#line-407" class="ident">freeindex</a>, <span class="lit-string">" (bad use of unsafe.Pointer? try -d=checkptr)\n"</span>)</code></span>
 <span class="codeline" id="line-583"><code>	<label for="r72" class="ident">mbits</label> := <label for="r70" class="ident">s</label>.<a href="mbitmap.go.html#line-252" class="ident">markBitsForBase</a>()</code></span>
@@ -879,7 +879,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-673"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

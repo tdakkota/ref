@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: fd_unix.go in package internal/poll</title>
-<link href="../../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -340,22 +340,22 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-16"><code><span class="comment">// field of a larger type representing a network connection or OS file.</span></code></span>
 <span class="codeline" id="line-17"><code><span class="keyword">type</span> <a href="../../../pkg/internal/poll.html#name-FD" class="ident">FD</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-18"><code>	<span class="comment">// Lock sysfd and serialize access to Read and Write methods.</span></code></span>
-<span class="codeline" id="line-19"><code>	<a href="../../../use/internal/poll..FD.fdmu.html" class="ident">fdmu</a> <a href="fd_mutex.go.html#line-12" class="ident">fdMutex</a></code></span>
+<span class="codeline" id="line-19"><code>	<a href="../../../use/internal/poll..FD.fdmu*a8896.html" class="ident">fdmu</a> <a href="fd_mutex.go.html#line-12" class="ident">fdMutex</a></code></span>
 <span class="codeline" id="line-20"><code></code></span>
 <span class="codeline" id="line-21"><code>	<span class="comment">// System file descriptor. Immutable until Close.</span></code></span>
 <span class="codeline" id="line-22"><code>	<a href="../../../use/internal/poll..FD.Sysfd.html" class="ident">Sysfd</a> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
 <span class="codeline" id="line-23"><code></code></span>
 <span class="codeline" id="line-24"><code>	<span class="comment">// I/O poller.</span></code></span>
-<span class="codeline" id="line-25"><code>	<a href="../../../use/internal/poll..FD.pd.html" class="ident">pd</a> <a href="fd_poll_runtime.go.html#line-31" class="ident">pollDesc</a></code></span>
+<span class="codeline" id="line-25"><code>	<a href="../../../use/internal/poll..FD.pd*8d1a9.html" class="ident">pd</a> <a href="fd_poll_runtime.go.html#line-31" class="ident">pollDesc</a></code></span>
 <span class="codeline" id="line-26"><code></code></span>
 <span class="codeline" id="line-27"><code>	<span class="comment">// Writev cache.</span></code></span>
-<span class="codeline" id="line-28"><code>	<a href="../../../use/internal/poll..FD.iovecs.html" class="ident">iovecs</a> *[]<a href="../../../pkg/syscall.html" class="ident i2">syscall</a>.<a href="../../syscall/ztypes_linux_amd64.go.html#line-211" class="ident">Iovec</a></code></span>
+<span class="codeline" id="line-28"><code>	<a href="../../../use/internal/poll..FD.iovecs*a232e.html" class="ident">iovecs</a> *[]<a href="../../../pkg/syscall.html" class="ident i2">syscall</a>.<a href="../../syscall/ztypes_linux_amd64.go.html#line-211" class="ident">Iovec</a></code></span>
 <span class="codeline" id="line-29"><code></code></span>
 <span class="codeline" id="line-30"><code>	<span class="comment">// Semaphore signaled when file is closed.</span></code></span>
-<span class="codeline" id="line-31"><code>	<a href="../../../use/internal/poll..FD.csema.html" class="ident">csema</a> <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
+<span class="codeline" id="line-31"><code>	<a href="../../../use/internal/poll..FD.csema*068eb.html" class="ident">csema</a> <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
 <span class="codeline" id="line-32"><code></code></span>
 <span class="codeline" id="line-33"><code>	<span class="comment">// Non-zero if this file has been set to blocking mode.</span></code></span>
-<span class="codeline" id="line-34"><code>	<a href="../../../use/internal/poll..FD.isBlocking.html" class="ident">isBlocking</a> <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
+<span class="codeline" id="line-34"><code>	<a href="../../../use/internal/poll..FD.isBlocking*dc9af.html" class="ident">isBlocking</a> <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
 <span class="codeline" id="line-35"><code></code></span>
 <span class="codeline" id="line-36"><code>	<span class="comment">// Whether this is a streaming descriptor, as opposed to a</span></code></span>
 <span class="codeline" id="line-37"><code><span class="comment">	// packet-based descriptor like a UDP socket. Immutable.</span></code></span>
@@ -366,7 +366,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-42"><code>	<a href="../../../use/internal/poll..FD.ZeroReadIsEOF.html" class="ident">ZeroReadIsEOF</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
 <span class="codeline" id="line-43"><code></code></span>
 <span class="codeline" id="line-44"><code>	<span class="comment">// Whether this is a file rather than a network socket.</span></code></span>
-<span class="codeline" id="line-45"><code>	<a href="../../../use/internal/poll..FD.isFile.html" class="ident">isFile</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-45"><code>	<a href="../../../use/internal/poll..FD.isFile*74436.html" class="ident">isFile</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
 <span class="codeline" id="line-46"><code>}</code></span>
 <span class="codeline" id="line-47"><code></code></span>
 <span class="codeline" id="line-48"><code><span class="comment">// Init initializes the FD. The Sysfd field should already be set.</span></code></span>
@@ -394,7 +394,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-70"><code></code></span>
 <span class="codeline" id="line-71"><code><span class="comment">// Destroy closes the file descriptor. This is called when there are</span></code></span>
 <span class="codeline" id="line-72"><code><span class="comment">// no remaining references.</span></code></span>
-<span class="codeline" id="line-73"><code><span class="keyword">func</span> (<label for="r5" class="ident">fd</label> *<a href="#line-17" class="ident">FD</a>) <label for="r6" class="ident"><a href="../../../use/internal/poll..FD.destroy.html" class="ident">destroy</a></label>() <a href="../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-73"><code><span class="keyword">func</span> (<label for="r5" class="ident">fd</label> *<a href="#line-17" class="ident">FD</a>) <label for="r6" class="ident"><a href="../../../use/internal/poll..FD.destroy*6f61e.html" class="ident">destroy</a></label>() <a href="../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
 <span class="codeline" id="line-74"><code>	<span class="comment">// Poller may want to unregister fd in readiness notification mechanism,</span></code></span>
 <span class="codeline" id="line-75"><code><span class="comment">	// so this must be executed before CloseFunc.</span></code></span>
 <span class="codeline" id="line-76"><code>	<label for="r5" class="ident">fd</label>.<a href="#line-25" class="ident">pd</a>.<a href="fd_poll_runtime.go.html#line-51" class="ident">close</a>()</code></span>
@@ -910,7 +910,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-586"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

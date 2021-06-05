@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Package: github.com/cenkalti/backoff/v4</title>
-<link href="../../../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="package-details"><code><span style="font-size:xx-large;">package <b>backoff</b></span>
@@ -15,10 +15,11 @@
 	<a href="../../../../index.html#pkg-github.com/cenkalti/backoff/v4">github.com/cenkalti/backoff/v4</a><i> (on <a href="https://pkg.go.dev/github.com/cenkalti/backoff/v4" target="_blank">go.dev</a>)</i>
 
 <span class="title">Dependency Relation</span>
-	imports <a href="../../../../dep/github.com/cenkalti/backoff/v4.html">5 packages</a>, and imported by <a href="../../../../dep/github.com/cenkalti/backoff/v4.html#imported-by">4 packages</a>
+	imports <a href="../../../../dep/github.com/cenkalti/backoff/v4.html">5 packages</a>, and imported by <a href="../../../../dep/github.com/cenkalti/backoff/v4.html#imported-by">2 packages</a>
 
-<div><span class="title">Involved Source Files</span>
-	<input type='checkbox' class="fold" id="file-0-fold-content"><label for="file-0-fold-content">   <a href="../../../../src/github.com/cenkalti/backoff/v4/backoff.go.html#doc">d➜</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/backoff.go.html">backoff.go</a></label><span id='file-0-fold-content-items' class="fold-items">
+<div id="files"><span class="title">Involved Source Files</span>
+
+	<input type='checkbox' checked class="fold" id="file-0-fold-content"><label for="file-0-fold-content">   <a href="../../../../src/github.com/cenkalti/backoff/v4/backoff.go.html#doc">d➜</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/backoff.go.html">backoff.go</a></label><span id='file-0-fold-content-items' class="fold-items">
 		Package backoff implements backoff algorithms for retrying operations.
 
 		Use Retry function for retrying operations that may fail.
@@ -36,9 +37,73 @@
 	<span class="nodocs">      <a href="../../../../src/github.com/cenkalti/backoff/v4/ticker.go.html">ticker.go</a></span>
 	<span class="nodocs">      <a href="../../../../src/github.com/cenkalti/backoff/v4/timer.go.html">timer.go</a></span>
 	<span class="nodocs">      <a href="../../../../src/github.com/cenkalti/backoff/v4/tries.go.html">tries.go</a></span></div>
-<span class="title type-res">Package-Level Type Names<span class="title-stat"><i> (total 16, in which 12 are exported)</i></span></span>
+<div id="examples"><span class="title">Code Examples</span>
 
-<div id="exported-types-buttons" class="js-on">	/* sort exporteds by: <label id="sort-types-by-alphabet" class="button">alphabet</label> | <label id="sort-types-by-popularity" class="button">popularity</label> */</div><div id="exported-types"><div class="anchor type-res" id="name-BackOff" data-popularity="1765">	<input type='checkbox' class="fold" id="BackOff-fold-content"><label for="BackOff-fold-content"> <a href="../../../../use/github.com/cenkalti/backoff/v4..BackOff.html">type</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/backoff.go.html#line-16">BackOff</a> <b><i>(interface)</i></b></label><span id='BackOff-fold-content-docs' class="fold-docs">
+	<input type='checkbox' class="fold" id="example-0-fold-content"><label for="example-0-fold-content">Retry</label><span id='example-0-fold-content-items' class="fold-items">
+	  {
+	  
+	  	operation := func() error {
+	  		return nil
+	  	}
+	  
+	  	err := Retry(operation, NewExponentialBackOff())
+	  	if err != nil {
+	  
+	  		return
+	  	}
+	  
+	  }
+</span>
+	<input type='checkbox' class="fold" id="example-1-fold-content"><label for="example-1-fold-content">RetryContext</label><span id='example-1-fold-content-items' class="fold-items">
+	  {
+	  
+	  	ctx := context.Background()
+	  
+	  	operation := func() error {
+	  		return nil
+	  	}
+	  
+	  	b := WithContext(NewExponentialBackOff(), ctx)
+	  
+	  	err := Retry(operation, b)
+	  	if err != nil {
+	  
+	  		return
+	  	}
+	  
+	  }
+</span>
+	<input type='checkbox' class="fold" id="example-2-fold-content"><label for="example-2-fold-content">Ticker</label><span id='example-2-fold-content-items' class="fold-items">
+	  {
+	  
+	  	operation := func() error {
+	  		return nil
+	  	}
+	  
+	  	ticker := NewTicker(NewExponentialBackOff())
+	  
+	  	var err error
+	  
+	  	for range ticker.C {
+	  		if err = operation(); err != nil {
+	  			log.Println(err, "will retry...")
+	  			continue
+	  		}
+	  
+	  		ticker.Stop()
+	  		break
+	  	}
+	  
+	  	if err != nil {
+	  
+	  		return
+	  	}
+	  
+	  }</span>
+</div>
+<div id="exported-types"><span class="title">Package-Level Type Names<span class="title-stat"><i> (total 16, in which 12 are exported)</i></span></span>
+
+<div id="exported-types-buttons" class="js-on">	/* sort exporteds by: <label id="sort-types-by-alphabet" class="button">alphabet</label> | <label id="sort-types-by-popularity" class="button">popularity</label> */</div><div class="anchor type-res" id="name-BackOff" data-popularity="1765">	<input type='checkbox' class="fold" id="BackOff-fold-content"><label for="BackOff-fold-content"> <a href="../../../../use/github.com/cenkalti/backoff/v4..BackOff.html">type</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/backoff.go.html#line-16">BackOff</a> <b><i>(interface)</i></b></label><span id='BackOff-fold-content-docs' class="fold-docs">
 		BackOff is a backoff policy for retrying an operation.
 
 		<input type='checkbox' class="fold" id="BackOff-fold-methods"><label for="BackOff-fold-methods">Methods (<i>total 2, both are exported</i>)</label><span id='BackOff-fold-methods-items' class="fold-items"><span>
@@ -113,20 +178,16 @@
 		<input type='checkbox' class="fold" id="BackOffContext-fold-results"><label for="BackOffContext-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='BackOffContext-fold-results-items' class="fold-items"><span>
 			func <a href="#name-WithContext">WithContext</a>(b <a href="#name-BackOff">BackOff</a>, ctx <a href="../../../context.html">context</a>.<a href="../../../context.html#name-Context">Context</a>) <b>BackOffContext</b></span></span>
 
-</span></div><div class="anchor type-res" id="name-Clock" data-popularity="1250">	<input type='checkbox' class="fold" id="Clock-fold-content"><label for="Clock-fold-content"> <a href="../../../../use/github.com/cenkalti/backoff/v4..Clock.html">type</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/exponential.go.html#line-70">Clock</a> <b><i>(interface)</i></b></label><span id='Clock-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res" id="name-Clock" data-popularity="650">	<input type='checkbox' class="fold" id="Clock-fold-content"><label for="Clock-fold-content"> <a href="../../../../use/github.com/cenkalti/backoff/v4..Clock.html">type</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/exponential.go.html#line-70">Clock</a> <b><i>(interface)</i></b></label><span id='Clock-fold-content-docs' class="fold-docs">
 		Clock is an interface that returns current time for BackOff.
 
 		<input type='checkbox' class="fold" id="Clock-fold-methods"><label for="Clock-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='Clock-fold-methods-items' class="fold-items"><span>
 			<span class="nodocs">( T) <a href="../../../../src/github.com/cenkalti/backoff/v4/exponential.go.html#line-71">Now</a>() <a href="../../../time.html">time</a>.<a href="../../../time.html#name-Time">Time</a></span></span></span>
-		<input type='checkbox' class="fold" id="Clock-fold-impledby"><label for="Clock-fold-impledby">Implemented By (<i>at least 8, in which 5 are exported</i>)</label><span id='Clock-fold-impledby-items' class="fold-items"><span>
-			 github.com/andres-erbsen/clock.<a href="../../andres-erbsen/clock.html#name-Clock">Clock</a> <i>(interface)</i></span><span>
-			*github.com/andres-erbsen/clock.<a href="../../andres-erbsen/clock.html#name-Mock">Mock</a></span><span>
+		<input type='checkbox' class="fold" id="Clock-fold-impledby"><label for="Clock-fold-impledby">Implemented By (<i>at least 4, in which 2 are exported</i>)</label><span id='Clock-fold-impledby-items' class="fold-items"><span>
 			*github.com/gotd/neo.<a href="../../gotd/neo.html#name-Time">Time</a></span><span>
-			 github.com/gotd/td/clock.<a href="../../gotd/td/clock.html#name-Clock">Clock</a> <i>(interface)</i></span><span>
-			 go.uber.org/ratelimit.<a href="../../../go.uber.org/ratelimit.html#name-Clock">Clock</a> <i>(interface)</i></span>
-			<input type='checkbox' class="showhide" id="Clock-showhide-impedBys"><i><label for="Clock-showhide-impedBys" class="show-inline">/* 3+ unexporteds ... */</label><label for="Clock-showhide-impedBys" class="hide-inline">/* 3+ unexporteds: */</label></i><span class="hidden"><i>
+			 github.com/gotd/td/clock.<a href="../../gotd/td/clock.html#name-Clock">Clock</a> <i>(interface)</i></span>
+			<input type='checkbox' class="showhide" id="Clock-showhide-impedBys"><i><label for="Clock-showhide-impedBys" class="show-inline">/* 2+ unexporteds ... */</label><label for="Clock-showhide-impedBys" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
 			 <a href="#name-systemClock">systemClock</a></i></span><span class="hidden"><i>
-			*github.com/andres-erbsen/clock.<a href="../../andres-erbsen/clock.html#name-clock">clock</a></i></span><span class="hidden"><i>
 			 github.com/gotd/td/clock.<a href="../../gotd/td/clock.html#name-systemClock">systemClock</a></i></span></span>
 
 </span></div><div class="anchor type-res" id="name-ConstantBackOff" data-popularity="225">	<input type='checkbox' class="fold" id="ConstantBackOff-fold-content"><label for="ConstantBackOff-fold-content"> <a href="../../../../use/github.com/cenkalti/backoff/v4..ConstantBackOff.html">type</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/backoff.go.html#line-57">ConstantBackOff</a> <i>(struct)</i></label><span id='ConstantBackOff-fold-content-docs' class="fold-docs">
@@ -250,15 +311,15 @@
 			func <a href="#name-RetryNotify">RetryNotify</a>(operation <b>Operation</b>, b <a href="#name-BackOff">BackOff</a>, notify <a href="#name-Notify">Notify</a>) <a href="../../../builtin.html#name-error">error</a></span><span>
 			func <a href="#name-RetryNotifyWithTimer">RetryNotifyWithTimer</a>(operation <b>Operation</b>, b <a href="#name-BackOff">BackOff</a>, notify <a href="#name-Notify">Notify</a>, t <a href="#name-Timer">Timer</a>) <a href="../../../builtin.html#name-error">error</a></span></span>
 
-</span></div><div class="anchor type-res" id="name-PermanentError" data-popularity="250">	<input type='checkbox' class="fold" id="PermanentError-fold-content"><label for="PermanentError-fold-content"> <a href="../../../../use/github.com/cenkalti/backoff/v4..PermanentError.html">type</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/retry.go.html#line-83">PermanentError</a> <i>(struct)</i></label><span id='PermanentError-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res" id="name-PermanentError" data-popularity="250">	<input type='checkbox' class="fold" id="PermanentError-fold-content"><label for="PermanentError-fold-content"> <a href="../../../../use/github.com/cenkalti/backoff/v4..PermanentError.html">type</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/retry.go.html#line-87">PermanentError</a> <i>(struct)</i></label><span id='PermanentError-fold-content-docs' class="fold-docs">
 		PermanentError signals that the operation should not be retried.
 
 		<input type='checkbox' class="fold" id="PermanentError-fold-fields"><label for="PermanentError-fold-fields">Fields (<i>only one, which is exported</i>)</label><span id='PermanentError-fold-fields-items' class="fold-items"><span>
-			<span class="nodocs"><a href="../../../../src/github.com/cenkalti/backoff/v4/retry.go.html#line-84">Err</a> <i><a href="../../../builtin.html#name-error">error</a></i></span></span></span>
+			<span class="nodocs"><a href="../../../../src/github.com/cenkalti/backoff/v4/retry.go.html#line-88">Err</a> <i><a href="../../../builtin.html#name-error">error</a></i></span></span></span>
 		<input type='checkbox' class="fold" id="PermanentError-fold-methods"><label for="PermanentError-fold-methods">Methods (<i>total 3, all are exported</i>)</label><span id='PermanentError-fold-methods-items' class="fold-items"><span>
-			<span class="nodocs">(*T) <a href="../../../../src/github.com/cenkalti/backoff/v4/retry.go.html#line-87">Error</a>() <a href="../../../builtin.html#name-string">string</a></span></span><span>
-			<span class="nodocs">(*T) <a href="../../../../src/github.com/cenkalti/backoff/v4/retry.go.html#line-95">Is</a>(target <a href="../../../builtin.html#name-error">error</a>) <a href="../../../builtin.html#name-bool">bool</a></span></span><span>
-			<span class="nodocs">(*T) <a href="../../../../src/github.com/cenkalti/backoff/v4/retry.go.html#line-91">Unwrap</a>() <a href="../../../builtin.html#name-error">error</a></span></span></span>
+			<span class="nodocs">(*T) <a href="../../../../src/github.com/cenkalti/backoff/v4/retry.go.html#line-91">Error</a>() <a href="../../../builtin.html#name-string">string</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../../../src/github.com/cenkalti/backoff/v4/retry.go.html#line-99">Is</a>(target <a href="../../../builtin.html#name-error">error</a>) <a href="../../../builtin.html#name-bool">bool</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../../../src/github.com/cenkalti/backoff/v4/retry.go.html#line-95">Unwrap</a>() <a href="../../../builtin.html#name-error">error</a></span></span></span>
 		<input type='checkbox' class="fold" id="PermanentError-fold-impls"><label for="PermanentError-fold-impls">Implements (<i>at least 2, both are exported</i>)</label><span id='PermanentError-fold-impls-items' class="fold-items"><span>
 			*T : <a href="../../../builtin.html#name-error">error</a></span><span>
 			*T : golang.org/x/xerrors.<a href="../../../golang.org/x/xerrors.html#name-Wrapper">Wrapper</a></span></span>
@@ -322,7 +383,7 @@
 		<input type='checkbox' class="fold" id="ZeroBackOff-fold-impls"><label for="ZeroBackOff-fold-impls">Implements (<i>at least one exported</i>)</label><span id='ZeroBackOff-fold-impls-items' class="fold-items"><span>
 			*T : <a href="#name-BackOff">BackOff</a></span></span>
 
-</span></div></div><div>	<input type='checkbox' class="showhide" id="unexported-typenames-showhide"><i><label for="unexported-typenames-showhide" class="show-inline">/* 4 unexporteds ... */</label><label for="unexported-typenames-showhide" class="hide-inline">/* 4 unexporteds: */</label></i><div class="anchor type-res hidden" id="name-backOffContext" data-popularity="250">	<input type='checkbox' class="fold" id="backOffContext-fold-content"><label for="backOffContext-fold-content"> <a href="../../../../use/github.com/cenkalti/backoff/v4..backOffContext.html">type</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/context.go.html#line-15">backOffContext</a> <i>(struct)</i></label><span id='backOffContext-fold-content-docs' class="fold-docs">
+</span></div></div><div>	<input type='checkbox' class="showhide" id="unexported-typenames-showhide"><i><label for="unexported-typenames-showhide" class="show-inline">/* 4 unexporteds ... */</label><label for="unexported-typenames-showhide" class="hide-inline">/* 4 unexporteds: */</label></i><div class="anchor type-res hidden" id="name-backOffContext" data-popularity="250">	<input type='checkbox' class="fold" id="backOffContext-fold-content"><label for="backOffContext-fold-content"> <a href="../../../../use/github.com/cenkalti/backoff/v4..backOffContext*5b332.html">type</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/context.go.html#line-15">backOffContext</a> <i>(struct)</i></label><span id='backOffContext-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="backOffContext-fold-fields"><label for="backOffContext-fold-fields">Fields (<i>total 2, in which 1 are exported</i>)</label><span id='backOffContext-fold-fields-items' class="fold-items"><span>
 			<span class="nodocs"><a href="../../../../src/github.com/cenkalti/backoff/v4/context.go.html#line-16">BackOff</a> <i><a href="#name-BackOff">BackOff</a></i></span></span>
@@ -338,7 +399,7 @@
 			*T : <a href="#name-BackOff">BackOff</a></span><span>
 			*T : <a href="#name-BackOffContext">BackOffContext</a></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-backOffTries" data-popularity="150">	<input type='checkbox' class="fold" id="backOffTries-fold-content"><label for="backOffTries-fold-content"> <a href="../../../../use/github.com/cenkalti/backoff/v4..backOffTries.html">type</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/tries.go.html#line-16">backOffTries</a> <i>(struct)</i></label><span id='backOffTries-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-backOffTries" data-popularity="150">	<input type='checkbox' class="fold" id="backOffTries-fold-content"><label for="backOffTries-fold-content"> <a href="../../../../use/github.com/cenkalti/backoff/v4..backOffTries*a3921.html">type</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/tries.go.html#line-16">backOffTries</a> <i>(struct)</i></label><span id='backOffTries-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="backOffTries-fold-fields"><label for="backOffTries-fold-fields">Fields (<i>total 3, none are exported</i>)</label><span id='backOffTries-fold-fields-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="backOffTries-showhide-fields"><i><label for="backOffTries-showhide-fields" class="show-inline">/* 3 unexporteds ... */</label><label for="backOffTries-showhide-fields" class="hide-inline">/* 3 unexporteds: */</label></i><span class="hidden"><i>
@@ -351,7 +412,7 @@
 		<input type='checkbox' class="fold" id="backOffTries-fold-impls"><label for="backOffTries-fold-impls">Implements (<i>at least one exported</i>)</label><span id='backOffTries-fold-impls-items' class="fold-items"><span>
 			*T : <a href="#name-BackOff">BackOff</a></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-defaultTimer" data-popularity="200">	<input type='checkbox' class="fold" id="defaultTimer-fold-content"><label for="defaultTimer-fold-content"> <a href="../../../../use/github.com/cenkalti/backoff/v4..defaultTimer.html">type</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/timer.go.html#line-12">defaultTimer</a> <i>(struct)</i></label><span id='defaultTimer-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-defaultTimer" data-popularity="200">	<input type='checkbox' class="fold" id="defaultTimer-fold-content"><label for="defaultTimer-fold-content"> <a href="../../../../use/github.com/cenkalti/backoff/v4..defaultTimer*c7f34.html">type</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/timer.go.html#line-12">defaultTimer</a> <i>(struct)</i></label><span id='defaultTimer-fold-content-docs' class="fold-docs">
 		defaultTimer implements Timer interface using time.Timer
 
 		<input type='checkbox' class="fold" id="defaultTimer-fold-fields"><label for="defaultTimer-fold-fields">Fields (<i>only one, which is unexported</i>)</label><span id='defaultTimer-fold-fields-items' class="fold-items">
@@ -370,7 +431,7 @@
 		<input type='checkbox' class="fold" id="defaultTimer-fold-impls"><label for="defaultTimer-fold-impls">Implements (<i>at least one exported</i>)</label><span id='defaultTimer-fold-impls-items' class="fold-items"><span>
 			*T : <a href="#name-Timer">Timer</a></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-systemClock" data-popularity="105">	<input type='checkbox' class="fold" id="systemClock-fold-content"><label for="systemClock-fold-content"> <a href="../../../../use/github.com/cenkalti/backoff/v4..systemClock.html">type</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/exponential.go.html#line-98">systemClock</a> <i>(struct)</i></label><span id='systemClock-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-systemClock" data-popularity="105">	<input type='checkbox' class="fold" id="systemClock-fold-content"><label for="systemClock-fold-content"> <a href="../../../../use/github.com/cenkalti/backoff/v4..systemClock*a4d8f.html">type</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/exponential.go.html#line-98">systemClock</a> <i>(struct)</i></label><span id='systemClock-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="systemClock-fold-methods"><label for="systemClock-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='systemClock-fold-methods-items' class="fold-items"><span>
 			<span class="nodocs">( T) <a href="../../../../src/github.com/cenkalti/backoff/v4/exponential.go.html#line-100">Now</a>() <a href="../../../time.html">time</a>.<a href="../../../time.html#name-Time">Time</a></span></span></span>
@@ -380,7 +441,7 @@
 			  var <a href="#name-SystemClock">SystemClock</a></span></span>
 
 </span></div></div>
-<div><span class="title value-res">Package-Level Functions<span class="title-stat"><i> (total 12, in which 10 are exported)</i></span></span>
+<div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 12, in which 10 are exported)</i></span></span>
 
 <div class="anchor value-res" id="name-NewConstantBackOff">	<span class="nodocs"> <a href="../../../../use/github.com/cenkalti/backoff/v4..NewConstantBackOff.html">func</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/backoff.go.html#line-64">NewConstantBackOff</a>(d <a href="../../../time.html">time</a>.<a href="../../../time.html#name-Duration">Duration</a>) *<a href="#name-ConstantBackOff">ConstantBackOff</a></span></div><div class="anchor value-res" id="name-NewExponentialBackOff">	<input type='checkbox' class="fold" id="NewExponentialBackOff-fold-content"><label for="NewExponentialBackOff-fold-content"> <a href="../../../../use/github.com/cenkalti/backoff/v4..NewExponentialBackOff.html">func</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/exponential.go.html#line-84">NewExponentialBackOff</a>() *<a href="#name-ExponentialBackOff">ExponentialBackOff</a></label><span id='NewExponentialBackOff-fold-content-docs' class="fold-docs">
 		NewExponentialBackOff creates an instance of ExponentialBackOff using default values.
@@ -397,7 +458,7 @@
 		NewTickerWithTimer returns a new Ticker with a custom timer.
 		A default timer that uses system timer is used when nil is passed.
 
-</span></div><div class="anchor value-res" id="name-Permanent">	<input type='checkbox' class="fold" id="Permanent-fold-content"><label for="Permanent-fold-content"> <a href="../../../../use/github.com/cenkalti/backoff/v4..Permanent.html">func</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/retry.go.html#line-101">Permanent</a>(err <a href="../../../builtin.html#name-error">error</a>) <a href="../../../builtin.html#name-error">error</a></label><span id='Permanent-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor value-res" id="name-Permanent">	<input type='checkbox' class="fold" id="Permanent-fold-content"><label for="Permanent-fold-content"> <a href="../../../../use/github.com/cenkalti/backoff/v4..Permanent.html">func</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/retry.go.html#line-105">Permanent</a>(err <a href="../../../builtin.html#name-error">error</a>) <a href="../../../builtin.html#name-error">error</a></label><span id='Permanent-fold-content-docs' class="fold-docs">
 		Permanent wraps the given err in a *PermanentError.
 
 </span></div><div class="anchor value-res" id="name-Retry">	<input type='checkbox' class="fold" id="Retry-fold-content"><label for="Retry-fold-content"> <a href="../../../../use/github.com/cenkalti/backoff/v4..Retry.html">func</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/retry.go.html#line-27">Retry</a>(o <a href="#name-Operation">Operation</a>, b <a href="#name-BackOff">BackOff</a>) <a href="../../../builtin.html#name-error">error</a></label><span id='Retry-fold-content-docs' class="fold-docs">
@@ -431,18 +492,18 @@
 
 		Note: Implementation is not thread-safe.
 
-</span></div>	<input type='checkbox' class="showhide" id="unexported-functions-showhide"><i><label for="unexported-functions-showhide" class="show-inline">/* 2 unexporteds ... */</label><label for="unexported-functions-showhide" class="hide-inline">/* 2 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-getContext"><i>	<span class="nodocs"> <a href="../../../../use/github.com/cenkalti/backoff/v4..getContext.html">func</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/context.go.html#line-41">getContext</a>(b <a href="#name-BackOff">BackOff</a>) <a href="../../../context.html">context</a>.<a href="../../../context.html#name-Context">Context</a></span></i></div><div class="anchor value-res hidden" id="name-getRandomValueFromInterval"><i>	<input type='checkbox' class="fold" id="getRandomValueFromInterval-fold-content"><label for="getRandomValueFromInterval-fold-content"> <a href="../../../../use/github.com/cenkalti/backoff/v4..getRandomValueFromInterval.html">func</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/exponential.go.html#line-149">getRandomValueFromInterval</a>(randomizationFactor, random <a href="../../../builtin.html#name-float64">float64</a>, currentInterval <a href="../../../time.html">time</a>.<a href="../../../time.html#name-Duration">Duration</a>) <a href="../../../time.html">time</a>.<a href="../../../time.html#name-Duration">Duration</a></label><span id='getRandomValueFromInterval-fold-content-docs' class="fold-docs">
+</span></div>	<input type='checkbox' class="showhide" id="unexported-functions-showhide"><i><label for="unexported-functions-showhide" class="show-inline">/* 2 unexporteds ... */</label><label for="unexported-functions-showhide" class="hide-inline">/* 2 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-getContext"><i>	<span class="nodocs"> <a href="../../../../use/github.com/cenkalti/backoff/v4..getContext*cf3a2.html">func</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/context.go.html#line-41">getContext</a>(b <a href="#name-BackOff">BackOff</a>) <a href="../../../context.html">context</a>.<a href="../../../context.html#name-Context">Context</a></span></i></div><div class="anchor value-res hidden" id="name-getRandomValueFromInterval"><i>	<input type='checkbox' class="fold" id="getRandomValueFromInterval-fold-content"><label for="getRandomValueFromInterval-fold-content"> <a href="../../../../use/github.com/cenkalti/backoff/v4..getRandomValueFromInterval*fd245.html">func</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/exponential.go.html#line-149">getRandomValueFromInterval</a>(randomizationFactor, random <a href="../../../builtin.html#name-float64">float64</a>, currentInterval <a href="../../../time.html">time</a>.<a href="../../../time.html#name-Duration">Duration</a>) <a href="../../../time.html">time</a>.<a href="../../../time.html#name-Duration">Duration</a></label><span id='getRandomValueFromInterval-fold-content-docs' class="fold-docs">
 		Returns a random value from the following interval:
 			[currentInterval - randomizationFactor * currentInterval, currentInterval + randomizationFactor * currentInterval].
 
 </span></i></div></div>
-<div><span class="title value-res">Package-Level Variables<span class="title-stat"><i> (only one, which is exported)</i></span></span>
+<div id="exported-variables"><span class="title">Package-Level Variables<span class="title-stat"><i> (only one, which is exported)</i></span></span>
 
 <div class="anchor value-res" id="name-SystemClock">	<input type='checkbox' class="fold" id="SystemClock-fold-content"><label for="SystemClock-fold-content">  <a href="../../../../use/github.com/cenkalti/backoff/v4..SystemClock.html">var</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/exponential.go.html#line-105">SystemClock</a> <a href="#name-systemClock">systemClock</a></label><span id='SystemClock-fold-content-docs' class="fold-docs">
 		SystemClock implements Clock interface that uses time.Now().
 
 </span></div></div>
-<div><span class="title value-res">Package-Level Constants<span class="title-stat"><i> (total 6, all are exported)</i></span></span>
+<div id="exported-constants"><span class="title">Package-Level Constants<span class="title-stat"><i> (total 6, all are exported)</i></span></span>
 
 <div class="anchor value-res" id="name-DefaultInitialInterval">	<input type='checkbox' class="fold" id="DefaultInitialInterval-fold-content"><label for="DefaultInitialInterval-fold-content"><a href="../../../../use/github.com/cenkalti/backoff/v4..DefaultInitialInterval.html">const</a> <a href="../../../../src/github.com/cenkalti/backoff/v4/exponential.go.html#line-76">DefaultInitialInterval</a> <a href="../../../time.html">time</a>.<a href="../../../time.html#name-Duration">Duration</a> = 500000000</label><span id='DefaultInitialInterval-fold-content-docs' class="fold-docs">
 		Default values for ExponentialBackOff.
@@ -464,7 +525,7 @@
 
 </span></div></div></code></pre><pre id="footer">
 <table><tr><td><img src="../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

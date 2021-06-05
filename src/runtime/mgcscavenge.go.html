@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: mgcscavenge.go in package runtime</title>
-<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -466,9 +466,9 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-210"><code><span class="comment">		// the current P's runnext slot, which is desireable to prevent</span></code></span>
 <span class="codeline" id="line-211"><code><span class="comment">		// the scavenger from interfering with user goroutine scheduling</span></code></span>
 <span class="codeline" id="line-212"><code><span class="comment">		// too much.</span></code></span>
-<span class="codeline" id="line-213"><code>		<span class="keyword">var</span> <label for="r7" class="ident">list</label> <a href="proc.go.html#line-6023" class="ident">gList</a></code></span>
-<span class="codeline" id="line-214"><code>		<label for="r7" class="ident">list</label>.<a href="proc.go.html#line-6033" class="ident">push</a>(<a href="#line-161" class="ident">scavenge</a>.<a href="#line-163" class="ident">g</a>)</code></span>
-<span class="codeline" id="line-215"><code>		<a href="proc.go.html#line-2987" class="ident">injectglist</a>(&amp;<label for="r7" class="ident">list</label>)</code></span>
+<span class="codeline" id="line-213"><code>		<span class="keyword">var</span> <label for="r7" class="ident">list</label> <a href="proc.go.html#line-6067" class="ident">gList</a></code></span>
+<span class="codeline" id="line-214"><code>		<label for="r7" class="ident">list</label>.<a href="proc.go.html#line-6077" class="ident">push</a>(<a href="#line-161" class="ident">scavenge</a>.<a href="#line-163" class="ident">g</a>)</code></span>
+<span class="codeline" id="line-215"><code>		<a href="proc.go.html#line-3031" class="ident">injectglist</a>(&amp;<label for="r7" class="ident">list</label>)</code></span>
 <span class="codeline" id="line-216"><code>	}</code></span>
 <span class="codeline" id="line-217"><code>	<a href="lock_futex.go.html#line-110" class="ident">unlock</a>(&amp;<a href="#line-161" class="ident">scavenge</a>.<a href="#line-162" class="ident">lock</a>)</code></span>
 <span class="codeline" id="line-218"><code>}</code></span>
@@ -494,7 +494,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-238"><code></code></span>
 <span class="codeline" id="line-239"><code>	<span class="comment">// Mark ourself as asleep and go to sleep.</span></code></span>
 <span class="codeline" id="line-240"><code>	<a href="#line-161" class="ident">scavenge</a>.<a href="#line-164" class="ident">parked</a> = <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-241"><code>	<a href="proc.go.html#line-341" class="ident">goparkunlock</a>(&amp;<a href="#line-161" class="ident">scavenge</a>.<a href="#line-162" class="ident">lock</a>, <a href="runtime2.go.html#line-1007" class="ident">waitReasonSleep</a>, <a href="trace.go.html#line-42" class="ident">traceEvGoSleep</a>, <span class="lit-number">2</span>)</code></span>
+<span class="codeline" id="line-241"><code>	<a href="proc.go.html#line-341" class="ident">goparkunlock</a>(&amp;<a href="#line-161" class="ident">scavenge</a>.<a href="#line-162" class="ident">lock</a>, <a href="runtime2.go.html#line-1010" class="ident">waitReasonSleep</a>, <a href="trace.go.html#line-42" class="ident">traceEvGoSleep</a>, <span class="lit-number">2</span>)</code></span>
 <span class="codeline" id="line-242"><code></code></span>
 <span class="codeline" id="line-243"><code>	<span class="comment">// Return how long we actually slept for.</span></code></span>
 <span class="codeline" id="line-244"><code>	<span class="keyword">return</span> <a href="time_nofake.go.html#line-18" class="ident">nanotime</a>() - <label for="r10" class="ident">start</label></code></span>
@@ -518,7 +518,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-262"><code>	}</code></span>
 <span class="codeline" id="line-263"><code></code></span>
 <span class="codeline" id="line-264"><code>	<label for="r12" class="ident">c</label> &lt;- <span class="lit-number">1</span></code></span>
-<span class="codeline" id="line-265"><code>	<a href="proc.go.html#line-341" class="ident">goparkunlock</a>(&amp;<a href="#line-161" class="ident">scavenge</a>.<a href="#line-162" class="ident">lock</a>, <a href="runtime2.go.html#line-1001" class="ident">waitReasonGCScavengeWait</a>, <a href="trace.go.html#line-43" class="ident">traceEvGoBlock</a>, <span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-265"><code>	<a href="proc.go.html#line-341" class="ident">goparkunlock</a>(&amp;<a href="#line-161" class="ident">scavenge</a>.<a href="#line-162" class="ident">lock</a>, <a href="runtime2.go.html#line-1004" class="ident">waitReasonGCScavengeWait</a>, <a href="trace.go.html#line-43" class="ident">traceEvGoBlock</a>, <span class="lit-number">1</span>)</code></span>
 <span class="codeline" id="line-266"><code></code></span>
 <span class="codeline" id="line-267"><code>	<span class="comment">// Exponentially-weighted moving average of the fraction of time this</span></code></span>
 <span class="codeline" id="line-268"><code><span class="comment">	// goroutine spends scavenging (that is, percent of a single CPU).</span></code></span>
@@ -567,7 +567,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-311"><code>		<span class="keyword">if</span> <label for="r17" class="ident">released</label> == <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-312"><code>			<a href="lock_futex.go.html#line-46" class="ident">lock</a>(&amp;<a href="#line-161" class="ident">scavenge</a>.<a href="#line-162" class="ident">lock</a>)</code></span>
 <span class="codeline" id="line-313"><code>			<a href="#line-161" class="ident">scavenge</a>.<a href="#line-164" class="ident">parked</a> = <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-314"><code>			<a href="proc.go.html#line-341" class="ident">goparkunlock</a>(&amp;<a href="#line-161" class="ident">scavenge</a>.<a href="#line-162" class="ident">lock</a>, <a href="runtime2.go.html#line-1001" class="ident">waitReasonGCScavengeWait</a>, <a href="trace.go.html#line-43" class="ident">traceEvGoBlock</a>, <span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-314"><code>			<a href="proc.go.html#line-341" class="ident">goparkunlock</a>(&amp;<a href="#line-161" class="ident">scavenge</a>.<a href="#line-162" class="ident">lock</a>, <a href="runtime2.go.html#line-1004" class="ident">waitReasonGCScavengeWait</a>, <a href="trace.go.html#line-43" class="ident">traceEvGoBlock</a>, <span class="lit-number">1</span>)</code></span>
 <span class="codeline" id="line-315"><code>			<span class="keyword">continue</span></code></span>
 <span class="codeline" id="line-316"><code>		}</code></span>
 <span class="codeline" id="line-317"><code></code></span>
@@ -652,7 +652,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-396"><code><span class="comment">// Must run on the system stack because p.mheapLock must be held.</span></code></span>
 <span class="codeline" id="line-397"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-398"><code><span class="comment">//go:systemstack</span></code></span>
-<span class="codeline" id="line-399"><code><span class="keyword">func</span> (<label for="r30" class="ident">p</label> *<a href="mpagealloc.go.html#line-175" class="ident">pageAlloc</a>) <label for="r31" class="ident"><a href="../../use/runtime..pageAlloc.scavenge.html" class="ident">scavenge</a></label>(<label for="r32" class="ident">nbytes</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>, <label for="r33" class="ident">mayUnlock</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> {</code></span>
+<span class="codeline" id="line-399"><code><span class="keyword">func</span> (<label for="r30" class="ident">p</label> *<a href="mpagealloc.go.html#line-175" class="ident">pageAlloc</a>) <label for="r31" class="ident"><a href="../../use/runtime..pageAlloc*9ee3f.scavenge*8f781.html" class="ident">scavenge</a></label>(<label for="r32" class="ident">nbytes</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>, <label for="r33" class="ident">mayUnlock</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> {</code></span>
 <span class="codeline" id="line-400"><code>	<a href="lockrank_off.go.html#line-43" class="ident">assertLockHeld</a>(<label for="r30" class="ident">p</label>.<a href="mpagealloc.go.html#line-292" class="ident">mheapLock</a>)</code></span>
 <span class="codeline" id="line-401"><code></code></span>
 <span class="codeline" id="line-402"><code>	<span class="keyword">var</span> (</code></span>
@@ -703,7 +703,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-447"><code><span class="comment">// Must run on the system stack because p.mheapLock must be held.</span></code></span>
 <span class="codeline" id="line-448"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-449"><code><span class="comment">//go:systemstack</span></code></span>
-<span class="codeline" id="line-450"><code><span class="keyword">func</span> (<label for="r43" class="ident">p</label> *<a href="mpagealloc.go.html#line-175" class="ident">pageAlloc</a>) <label for="r44" class="ident"><a href="../../use/runtime..pageAlloc.scavengeStartGen.html" class="ident">scavengeStartGen</a></label>() {</code></span>
+<span class="codeline" id="line-450"><code><span class="keyword">func</span> (<label for="r43" class="ident">p</label> *<a href="mpagealloc.go.html#line-175" class="ident">pageAlloc</a>) <label for="r44" class="ident"><a href="../../use/runtime..pageAlloc*9ee3f.scavengeStartGen*c65de.html" class="ident">scavengeStartGen</a></label>() {</code></span>
 <span class="codeline" id="line-451"><code>	<a href="lockrank_off.go.html#line-43" class="ident">assertLockHeld</a>(<label for="r43" class="ident">p</label>.<a href="mpagealloc.go.html#line-292" class="ident">mheapLock</a>)</code></span>
 <span class="codeline" id="line-452"><code></code></span>
 <span class="codeline" id="line-453"><code>	<span class="keyword">if</span> <a href="runtime1.go.html#line-302" class="ident">debug</a>.<a href="runtime1.go.html#line-314" class="ident">scavtrace</a> &gt; <span class="lit-number">0</span> {</code></span>
@@ -754,7 +754,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-498"><code><span class="comment">// Must run on the system stack because p.mheapLock must be held.</span></code></span>
 <span class="codeline" id="line-499"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-500"><code><span class="comment">//go:systemstack</span></code></span>
-<span class="codeline" id="line-501"><code><span class="keyword">func</span> (<label for="r46" class="ident">p</label> *<a href="mpagealloc.go.html#line-175" class="ident">pageAlloc</a>) <label for="r47" class="ident"><a href="../../use/runtime..pageAlloc.scavengeReserve.html" class="ident">scavengeReserve</a></label>() (<a href="mranges.go.html#line-20" class="ident">addrRange</a>, <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>) {</code></span>
+<span class="codeline" id="line-501"><code><span class="keyword">func</span> (<label for="r46" class="ident">p</label> *<a href="mpagealloc.go.html#line-175" class="ident">pageAlloc</a>) <label for="r47" class="ident"><a href="../../use/runtime..pageAlloc*9ee3f.scavengeReserve*8d2c3.html" class="ident">scavengeReserve</a></label>() (<a href="mranges.go.html#line-20" class="ident">addrRange</a>, <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>) {</code></span>
 <span class="codeline" id="line-502"><code>	<a href="lockrank_off.go.html#line-43" class="ident">assertLockHeld</a>(<label for="r46" class="ident">p</label>.<a href="mpagealloc.go.html#line-292" class="ident">mheapLock</a>)</code></span>
 <span class="codeline" id="line-503"><code></code></span>
 <span class="codeline" id="line-504"><code>	<span class="comment">// Start by reserving the minimum.</span></code></span>
@@ -786,7 +786,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-530"><code><span class="comment">// Must run on the system stack because p.mheapLock must be held.</span></code></span>
 <span class="codeline" id="line-531"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-532"><code><span class="comment">//go:systemstack</span></code></span>
-<span class="codeline" id="line-533"><code><span class="keyword">func</span> (<label for="r50" class="ident">p</label> *<a href="mpagealloc.go.html#line-175" class="ident">pageAlloc</a>) <label for="r51" class="ident"><a href="../../use/runtime..pageAlloc.scavengeUnreserve.html" class="ident">scavengeUnreserve</a></label>(<label for="r52" class="ident">r</label> <a href="mranges.go.html#line-20" class="ident">addrRange</a>, <label for="r53" class="ident">gen</label> <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>) {</code></span>
+<span class="codeline" id="line-533"><code><span class="keyword">func</span> (<label for="r50" class="ident">p</label> *<a href="mpagealloc.go.html#line-175" class="ident">pageAlloc</a>) <label for="r51" class="ident"><a href="../../use/runtime..pageAlloc*9ee3f.scavengeUnreserve*fbeac.html" class="ident">scavengeUnreserve</a></label>(<label for="r52" class="ident">r</label> <a href="mranges.go.html#line-20" class="ident">addrRange</a>, <label for="r53" class="ident">gen</label> <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>) {</code></span>
 <span class="codeline" id="line-534"><code>	<a href="lockrank_off.go.html#line-43" class="ident">assertLockHeld</a>(<label for="r50" class="ident">p</label>.<a href="mpagealloc.go.html#line-292" class="ident">mheapLock</a>)</code></span>
 <span class="codeline" id="line-535"><code></code></span>
 <span class="codeline" id="line-536"><code>	<span class="keyword">if</span> <label for="r52" class="ident">r</label>.<a href="mranges.go.html#line-41" class="ident">size</a>() == <span class="lit-number">0</span> || <label for="r53" class="ident">gen</label> != <label for="r50" class="ident">p</label>.<a href="mpagealloc.go.html#line-266" class="ident">scav</a>.<a href="mpagealloc.go.html#line-272" class="ident">gen</a> {</code></span>
@@ -815,7 +815,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-559"><code><span class="comment">// Must run on the system stack because p.mheapLock must be held.</span></code></span>
 <span class="codeline" id="line-560"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-561"><code><span class="comment">//go:systemstack</span></code></span>
-<span class="codeline" id="line-562"><code><span class="keyword">func</span> (<label for="r54" class="ident">p</label> *<a href="mpagealloc.go.html#line-175" class="ident">pageAlloc</a>) <label for="r55" class="ident"><a href="../../use/runtime..pageAlloc.scavengeOne.html" class="ident">scavengeOne</a></label>(<label for="r56" class="ident">work</label> <a href="mranges.go.html#line-20" class="ident">addrRange</a>, <label for="r57" class="ident">max</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>, <label for="r58" class="ident">mayUnlock</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) (<a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>, <a href="mranges.go.html#line-20" class="ident">addrRange</a>) {</code></span>
+<span class="codeline" id="line-562"><code><span class="keyword">func</span> (<label for="r54" class="ident">p</label> *<a href="mpagealloc.go.html#line-175" class="ident">pageAlloc</a>) <label for="r55" class="ident"><a href="../../use/runtime..pageAlloc*9ee3f.scavengeOne*a2883.html" class="ident">scavengeOne</a></label>(<label for="r56" class="ident">work</label> <a href="mranges.go.html#line-20" class="ident">addrRange</a>, <label for="r57" class="ident">max</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>, <label for="r58" class="ident">mayUnlock</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) (<a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>, <a href="mranges.go.html#line-20" class="ident">addrRange</a>) {</code></span>
 <span class="codeline" id="line-563"><code>	<a href="lockrank_off.go.html#line-43" class="ident">assertLockHeld</a>(<label for="r54" class="ident">p</label>.<a href="mpagealloc.go.html#line-292" class="ident">mheapLock</a>)</code></span>
 <span class="codeline" id="line-564"><code></code></span>
 <span class="codeline" id="line-565"><code>	<span class="comment">// Defensively check if we've received an empty address range.</span></code></span>
@@ -963,7 +963,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-707"><code><span class="comment">// Returns the base address of the scavenged region.</span></code></span>
 <span class="codeline" id="line-708"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-709"><code><span class="comment">// p.mheapLock must be held.</span></code></span>
-<span class="codeline" id="line-710"><code><span class="keyword">func</span> (<label for="r76" class="ident">p</label> *<a href="mpagealloc.go.html#line-175" class="ident">pageAlloc</a>) <label for="r77" class="ident"><a href="../../use/runtime..pageAlloc.scavengeRangeLocked.html" class="ident">scavengeRangeLocked</a></label>(<label for="r78" class="ident">ci</label> <a href="mpagealloc.go.html#line-97" class="ident">chunkIdx</a>, <label for="r79" class="ident">base</label>, <label for="r80" class="ident">npages</label> <a href="../../pkg/builtin.html#name-uint" class="ident">uint</a>) <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> {</code></span>
+<span class="codeline" id="line-710"><code><span class="keyword">func</span> (<label for="r76" class="ident">p</label> *<a href="mpagealloc.go.html#line-175" class="ident">pageAlloc</a>) <label for="r77" class="ident"><a href="../../use/runtime..pageAlloc*9ee3f.scavengeRangeLocked*4af23.html" class="ident">scavengeRangeLocked</a></label>(<label for="r78" class="ident">ci</label> <a href="mpagealloc.go.html#line-97" class="ident">chunkIdx</a>, <label for="r79" class="ident">base</label>, <label for="r80" class="ident">npages</label> <a href="../../pkg/builtin.html#name-uint" class="ident">uint</a>) <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> {</code></span>
 <span class="codeline" id="line-711"><code>	<a href="lockrank_off.go.html#line-43" class="ident">assertLockHeld</a>(<label for="r76" class="ident">p</label>.<a href="mpagealloc.go.html#line-292" class="ident">mheapLock</a>)</code></span>
 <span class="codeline" id="line-712"><code></code></span>
 <span class="codeline" id="line-713"><code>	<label for="r76" class="ident">p</label>.<a href="mpagealloc.go.html#line-343" class="ident">chunkOf</a>(<label for="r78" class="ident">ci</label>).<a href="mpallocbits.go.html#line-411" class="ident">scavenged</a>.<a href="mpallocbits.go.html#line-30" class="ident">setRange</a>(<label for="r79" class="ident">base</label>, <label for="r80" class="ident">npages</label>)</code></span>
@@ -1061,7 +1061,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-805"><code><span class="comment">// pallocData.</span></code></span>
 <span class="codeline" id="line-806"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-807"><code><span class="comment">// min must be a non-zero power of 2 &lt;= maxPagesPerPhysPage.</span></code></span>
-<span class="codeline" id="line-808"><code><span class="keyword">func</span> (<label for="r91" class="ident">m</label> *<a href="mpallocbits.go.html#line-409" class="ident">pallocData</a>) <label for="r92" class="ident"><a href="../../use/runtime..pallocData.hasScavengeCandidate.html" class="ident">hasScavengeCandidate</a></label>(<label for="r93" class="ident">min</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-808"><code><span class="keyword">func</span> (<label for="r91" class="ident">m</label> *<a href="mpallocbits.go.html#line-409" class="ident">pallocData</a>) <label for="r92" class="ident"><a href="../../use/runtime..pallocData*785d1.hasScavengeCandidate*ce771.html" class="ident">hasScavengeCandidate</a></label>(<label for="r93" class="ident">min</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
 <span class="codeline" id="line-809"><code>	<span class="keyword">if</span> <label for="r93" class="ident">min</label>&amp;(<label for="r93" class="ident">min</label>-<span class="lit-number">1</span>) != <span class="lit-number">0</span> || <label for="r93" class="ident">min</label> == <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-810"><code>		<a href="../../pkg/builtin.html#name-print" class="ident">print</a>(<span class="lit-string">"runtime: min = "</span>, <label for="r93" class="ident">min</label>, <span class="lit-string">"\n"</span>)</code></span>
 <span class="codeline" id="line-811"><code>		<a href="panic.go.html#line-1107" class="ident">throw</a>(<span class="lit-string">"min must be a non-zero power of 2"</span>)</code></span>
@@ -1108,7 +1108,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-852"><code><span class="comment">// will round up). That is, even if max is small, the returned size is not guaranteed</span></code></span>
 <span class="codeline" id="line-853"><code><span class="comment">// to be equal to max. max is allowed to be less than min, in which case it is as if</span></code></span>
 <span class="codeline" id="line-854"><code><span class="comment">// max == min.</span></code></span>
-<span class="codeline" id="line-855"><code><span class="keyword">func</span> (<label for="r96" class="ident">m</label> *<a href="mpallocbits.go.html#line-409" class="ident">pallocData</a>) <label for="r97" class="ident"><a href="../../use/runtime..pallocData.findScavengeCandidate.html" class="ident">findScavengeCandidate</a></label>(<label for="r98" class="ident">searchIdx</label> <a href="../../pkg/builtin.html#name-uint" class="ident">uint</a>, <label for="r99" class="ident">min</label>, <label for="r100" class="ident">max</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) (<a href="../../pkg/builtin.html#name-uint" class="ident">uint</a>, <a href="../../pkg/builtin.html#name-uint" class="ident">uint</a>) {</code></span>
+<span class="codeline" id="line-855"><code><span class="keyword">func</span> (<label for="r96" class="ident">m</label> *<a href="mpallocbits.go.html#line-409" class="ident">pallocData</a>) <label for="r97" class="ident"><a href="../../use/runtime..pallocData*785d1.findScavengeCandidate*f8c57.html" class="ident">findScavengeCandidate</a></label>(<label for="r98" class="ident">searchIdx</label> <a href="../../pkg/builtin.html#name-uint" class="ident">uint</a>, <label for="r99" class="ident">min</label>, <label for="r100" class="ident">max</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) (<a href="../../pkg/builtin.html#name-uint" class="ident">uint</a>, <a href="../../pkg/builtin.html#name-uint" class="ident">uint</a>) {</code></span>
 <span class="codeline" id="line-856"><code>	<span class="keyword">if</span> <label for="r99" class="ident">min</label>&amp;(<label for="r99" class="ident">min</label>-<span class="lit-number">1</span>) != <span class="lit-number">0</span> || <label for="r99" class="ident">min</label> == <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-857"><code>		<a href="../../pkg/builtin.html#name-print" class="ident">print</a>(<span class="lit-string">"runtime: min = "</span>, <label for="r99" class="ident">min</label>, <span class="lit-string">"\n"</span>)</code></span>
 <span class="codeline" id="line-858"><code>		<a href="panic.go.html#line-1107" class="ident">throw</a>(<span class="lit-string">"min must be a non-zero power of 2"</span>)</code></span>
@@ -1209,7 +1209,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-953"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: builder.go in package strings</title>
-<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -107,8 +107,8 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-13"><code><span class="comment">// It minimizes memory copying. The zero value is ready to use.</span></code></span>
 <span class="codeline" id="line-14"><code><span class="comment">// Do not copy a non-zero Builder.</span></code></span>
 <span class="codeline" id="line-15"><code><span class="keyword">type</span> <a href="../../pkg/strings.html#name-Builder" class="ident">Builder</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-16"><code>	<a href="../../use/strings..Builder.addr.html" class="ident">addr</a> *<a href="#line-15" class="ident">Builder</a> <span class="comment">// of receiver, to detect copies by value</span></code></span>
-<span class="codeline" id="line-17"><code>	<a href="../../use/strings..Builder.buf.html" class="ident">buf</a>  []<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-16"><code>	<a href="../../use/strings..Builder.addr*a2593.html" class="ident">addr</a> *<a href="#line-15" class="ident">Builder</a> <span class="comment">// of receiver, to detect copies by value</span></code></span>
+<span class="codeline" id="line-17"><code>	<a href="../../use/strings..Builder.buf*3ef31.html" class="ident">buf</a>  []<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
 <span class="codeline" id="line-18"><code>}</code></span>
 <span class="codeline" id="line-19"><code></code></span>
 <span class="codeline" id="line-20"><code><span class="comment">// noescape hides a pointer from escape analysis.  noescape is</span></code></span>
@@ -124,7 +124,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-30"><code>	<span class="keyword">return</span> <a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(<label for="r2" class="ident">x</label> ^ <span class="lit-number">0</span>)</code></span>
 <span class="codeline" id="line-31"><code>}</code></span>
 <span class="codeline" id="line-32"><code></code></span>
-<span class="codeline" id="line-33"><code><span class="keyword">func</span> (<label for="r3" class="ident">b</label> *<a href="#line-15" class="ident">Builder</a>) <label for="r4" class="ident"><a href="../../use/strings..Builder.copyCheck.html" class="ident">copyCheck</a></label>() {</code></span>
+<span class="codeline" id="line-33"><code><span class="keyword">func</span> (<label for="r3" class="ident">b</label> *<a href="#line-15" class="ident">Builder</a>) <label for="r4" class="ident"><a href="../../use/strings..Builder.copyCheck*d1bea.html" class="ident">copyCheck</a></label>() {</code></span>
 <span class="codeline" id="line-34"><code>	<span class="keyword">if</span> <label for="r3" class="ident">b</label>.<a href="#line-16" class="ident">addr</a> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-35"><code>		<span class="comment">// This hack works around a failing of Go's escape analysis</span></code></span>
 <span class="codeline" id="line-36"><code><span class="comment">		// that was causing b to escape and be heap allocated.</span></code></span>
@@ -158,7 +158,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-64"><code></code></span>
 <span class="codeline" id="line-65"><code><span class="comment">// grow copies the buffer to a new, larger buffer so that there are at least n</span></code></span>
 <span class="codeline" id="line-66"><code><span class="comment">// bytes of capacity beyond len(b.buf).</span></code></span>
-<span class="codeline" id="line-67"><code><span class="keyword">func</span> (<label for="r13" class="ident">b</label> *<a href="#line-15" class="ident">Builder</a>) <label for="r14" class="ident"><a href="../../use/strings..Builder.grow.html" class="ident">grow</a></label>(<label for="r15" class="ident">n</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>) {</code></span>
+<span class="codeline" id="line-67"><code><span class="keyword">func</span> (<label for="r13" class="ident">b</label> *<a href="#line-15" class="ident">Builder</a>) <label for="r14" class="ident"><a href="../../use/strings..Builder.grow*adca5.html" class="ident">grow</a></label>(<label for="r15" class="ident">n</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>) {</code></span>
 <span class="codeline" id="line-68"><code>	<label for="r16" class="ident">buf</label> := <a href="../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r13" class="ident">b</label>.<a href="#line-17" class="ident">buf</a>), <span class="lit-number">2</span>*<a href="../../pkg/builtin.html#name-cap" class="ident">cap</a>(<label for="r13" class="ident">b</label>.<a href="#line-17" class="ident">buf</a>)+<label for="r15" class="ident">n</label>)</code></span>
 <span class="codeline" id="line-69"><code>	<a href="../../pkg/builtin.html#name-copy" class="ident">copy</a>(<label for="r16" class="ident">buf</label>, <label for="r13" class="ident">b</label>.<a href="#line-17" class="ident">buf</a>)</code></span>
 <span class="codeline" id="line-70"><code>	<label for="r13" class="ident">b</label>.<a href="#line-17" class="ident">buf</a> = <label for="r16" class="ident">buf</label></code></span>
@@ -219,7 +219,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-125"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

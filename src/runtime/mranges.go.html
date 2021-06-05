@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: mranges.go in package runtime</title>
-<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -213,7 +213,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-23"><code><span class="comment">	// These are address over an offset view of the address space on</span></code></span>
 <span class="codeline" id="line-24"><code><span class="comment">	// platforms with a segmented address space, that is, on platforms</span></code></span>
 <span class="codeline" id="line-25"><code><span class="comment">	// where arenaBaseOffset != 0.</span></code></span>
-<span class="codeline" id="line-26"><code>	<a href="../../use/runtime..addrRange.base.html" class="ident">base</a>, <a href="../../use/runtime..addrRange.limit.html" class="ident">limit</a> <a href="#line-98" class="ident">offAddr</a></code></span>
+<span class="codeline" id="line-26"><code>	<a href="../../use/runtime..addrRange*edb4f.base*cae66.html" class="ident">base</a>, <a href="../../use/runtime..addrRange*edb4f.limit*55ea0.html" class="ident">limit</a> <a href="#line-98" class="ident">offAddr</a></code></span>
 <span class="codeline" id="line-27"><code>}</code></span>
 <span class="codeline" id="line-28"><code></code></span>
 <span class="codeline" id="line-29"><code><span class="comment">// makeAddrRange creates a new address range from two virtual addresses.</span></code></span>
@@ -228,7 +228,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-38"><code>}</code></span>
 <span class="codeline" id="line-39"><code></code></span>
 <span class="codeline" id="line-40"><code><span class="comment">// size returns the size of the range represented in bytes.</span></code></span>
-<span class="codeline" id="line-41"><code><span class="keyword">func</span> (<label for="r4" class="ident">a</label> <a href="#line-20" class="ident">addrRange</a>) <label for="r5" class="ident"><a href="../../use/runtime..addrRange.size.html" class="ident">size</a></label>() <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> {</code></span>
+<span class="codeline" id="line-41"><code><span class="keyword">func</span> (<label for="r4" class="ident">a</label> <a href="#line-20" class="ident">addrRange</a>) <label for="r5" class="ident"><a href="../../use/runtime..addrRange*edb4f.size*ccdcb.html" class="ident">size</a></label>() <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> {</code></span>
 <span class="codeline" id="line-42"><code>	<span class="keyword">if</span> !<label for="r4" class="ident">a</label>.<a href="#line-26" class="ident">base</a>.<a href="#line-122" class="ident">lessThan</a>(<label for="r4" class="ident">a</label>.<a href="#line-26" class="ident">limit</a>) {</code></span>
 <span class="codeline" id="line-43"><code>		<span class="keyword">return</span> <span class="lit-number">0</span></code></span>
 <span class="codeline" id="line-44"><code>	}</code></span>
@@ -238,7 +238,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-48"><code>}</code></span>
 <span class="codeline" id="line-49"><code></code></span>
 <span class="codeline" id="line-50"><code><span class="comment">// contains returns whether or not the range contains a given address.</span></code></span>
-<span class="codeline" id="line-51"><code><span class="keyword">func</span> (<label for="r6" class="ident">a</label> <a href="#line-20" class="ident">addrRange</a>) <label for="r7" class="ident"><a href="../../use/runtime..addrRange.contains.html" class="ident">contains</a></label>(<label for="r8" class="ident">addr</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-51"><code><span class="keyword">func</span> (<label for="r6" class="ident">a</label> <a href="#line-20" class="ident">addrRange</a>) <label for="r7" class="ident"><a href="../../use/runtime..addrRange*edb4f.contains*beeb2.html" class="ident">contains</a></label>(<label for="r8" class="ident">addr</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
 <span class="codeline" id="line-52"><code>	<span class="keyword">return</span> <label for="r6" class="ident">a</label>.<a href="#line-26" class="ident">base</a>.<a href="#line-128" class="ident">lessEqual</a>(<a href="#line-98" class="ident">offAddr</a>{<label for="r8" class="ident">addr</label>}) &amp;&amp; (<a href="#line-98" class="ident">offAddr</a>{<label for="r8" class="ident">addr</label>}).<a href="#line-122" class="ident">lessThan</a>(<label for="r6" class="ident">a</label>.<a href="#line-26" class="ident">limit</a>)</code></span>
 <span class="codeline" id="line-53"><code>}</code></span>
 <span class="codeline" id="line-54"><code></code></span>
@@ -246,7 +246,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-56"><code><span class="comment">// from, then returns the new range. subtract assumes that a and b</span></code></span>
 <span class="codeline" id="line-57"><code><span class="comment">// either don't overlap at all, only overlap on one side, or are equal.</span></code></span>
 <span class="codeline" id="line-58"><code><span class="comment">// If b is strictly contained in a, thus forcing a split, it will throw.</span></code></span>
-<span class="codeline" id="line-59"><code><span class="keyword">func</span> (<label for="r9" class="ident">a</label> <a href="#line-20" class="ident">addrRange</a>) <label for="r10" class="ident"><a href="../../use/runtime..addrRange.subtract.html" class="ident">subtract</a></label>(<label for="r11" class="ident">b</label> <a href="#line-20" class="ident">addrRange</a>) <a href="#line-20" class="ident">addrRange</a> {</code></span>
+<span class="codeline" id="line-59"><code><span class="keyword">func</span> (<label for="r9" class="ident">a</label> <a href="#line-20" class="ident">addrRange</a>) <label for="r10" class="ident"><a href="../../use/runtime..addrRange*edb4f.subtract*1cc62.html" class="ident">subtract</a></label>(<label for="r11" class="ident">b</label> <a href="#line-20" class="ident">addrRange</a>) <a href="#line-20" class="ident">addrRange</a> {</code></span>
 <span class="codeline" id="line-60"><code>	<span class="keyword">if</span> <label for="r11" class="ident">b</label>.<a href="#line-26" class="ident">base</a>.<a href="#line-128" class="ident">lessEqual</a>(<label for="r9" class="ident">a</label>.<a href="#line-26" class="ident">base</a>) &amp;&amp; <label for="r9" class="ident">a</label>.<a href="#line-26" class="ident">limit</a>.<a href="#line-128" class="ident">lessEqual</a>(<label for="r11" class="ident">b</label>.<a href="#line-26" class="ident">limit</a>) {</code></span>
 <span class="codeline" id="line-61"><code>		<span class="keyword">return</span> <a href="#line-20" class="ident">addrRange</a>{}</code></span>
 <span class="codeline" id="line-62"><code>	} <span class="keyword">else</span> <span class="keyword">if</span> <label for="r9" class="ident">a</label>.<a href="#line-26" class="ident">base</a>.<a href="#line-122" class="ident">lessThan</a>(<label for="r11" class="ident">b</label>.<a href="#line-26" class="ident">base</a>) &amp;&amp; <label for="r11" class="ident">b</label>.<a href="#line-26" class="ident">limit</a>.<a href="#line-122" class="ident">lessThan</a>(<label for="r9" class="ident">a</label>.<a href="#line-26" class="ident">limit</a>) {</code></span>
@@ -261,7 +261,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-71"><code></code></span>
 <span class="codeline" id="line-72"><code><span class="comment">// removeGreaterEqual removes all addresses in a greater than or equal</span></code></span>
 <span class="codeline" id="line-73"><code><span class="comment">// to addr and returns the new range.</span></code></span>
-<span class="codeline" id="line-74"><code><span class="keyword">func</span> (<label for="r12" class="ident">a</label> <a href="#line-20" class="ident">addrRange</a>) <label for="r13" class="ident"><a href="../../use/runtime..addrRange.removeGreaterEqual.html" class="ident">removeGreaterEqual</a></label>(<label for="r14" class="ident">addr</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) <a href="#line-20" class="ident">addrRange</a> {</code></span>
+<span class="codeline" id="line-74"><code><span class="keyword">func</span> (<label for="r12" class="ident">a</label> <a href="#line-20" class="ident">addrRange</a>) <label for="r13" class="ident"><a href="../../use/runtime..addrRange*edb4f.removeGreaterEqual*8dfff.html" class="ident">removeGreaterEqual</a></label>(<label for="r14" class="ident">addr</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) <a href="#line-20" class="ident">addrRange</a> {</code></span>
 <span class="codeline" id="line-75"><code>	<span class="keyword">if</span> (<a href="#line-98" class="ident">offAddr</a>{<label for="r14" class="ident">addr</label>}).<a href="#line-128" class="ident">lessEqual</a>(<label for="r12" class="ident">a</label>.<a href="#line-26" class="ident">base</a>) {</code></span>
 <span class="codeline" id="line-76"><code>		<span class="keyword">return</span> <a href="#line-20" class="ident">addrRange</a>{}</code></span>
 <span class="codeline" id="line-77"><code>	}</code></span>
@@ -288,46 +288,46 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-98"><code><span class="keyword">type</span> <a href="../../pkg/runtime.html#name-offAddr" class="ident">offAddr</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-99"><code>	<span class="comment">// a is just the virtual address, but should never be used</span></code></span>
 <span class="codeline" id="line-100"><code><span class="comment">	// directly. Call addr() to get this value instead.</span></code></span>
-<span class="codeline" id="line-101"><code>	<a href="../../use/runtime..offAddr.a.html" class="ident">a</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
+<span class="codeline" id="line-101"><code>	<a href="../../use/runtime..offAddr*9d63e.a*ca978.html" class="ident">a</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
 <span class="codeline" id="line-102"><code>}</code></span>
 <span class="codeline" id="line-103"><code></code></span>
 <span class="codeline" id="line-104"><code><span class="comment">// add adds a uintptr offset to the offAddr.</span></code></span>
-<span class="codeline" id="line-105"><code><span class="keyword">func</span> (<label for="r15" class="ident">l</label> <a href="#line-98" class="ident">offAddr</a>) <label for="r16" class="ident"><a href="../../use/runtime..offAddr.add.html" class="ident">add</a></label>(<label for="r17" class="ident">bytes</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) <a href="#line-98" class="ident">offAddr</a> {</code></span>
+<span class="codeline" id="line-105"><code><span class="keyword">func</span> (<label for="r15" class="ident">l</label> <a href="#line-98" class="ident">offAddr</a>) <label for="r16" class="ident"><a href="../../use/runtime..offAddr*9d63e.add*7e9e5.html" class="ident">add</a></label>(<label for="r17" class="ident">bytes</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) <a href="#line-98" class="ident">offAddr</a> {</code></span>
 <span class="codeline" id="line-106"><code>	<span class="keyword">return</span> <a href="#line-98" class="ident">offAddr</a>{<a href="#line-101" class="ident">a</a>: <label for="r15" class="ident">l</label>.<a href="#line-101" class="ident">a</a> + <label for="r17" class="ident">bytes</label>}</code></span>
 <span class="codeline" id="line-107"><code>}</code></span>
 <span class="codeline" id="line-108"><code></code></span>
 <span class="codeline" id="line-109"><code><span class="comment">// sub subtracts a uintptr offset from the offAddr.</span></code></span>
-<span class="codeline" id="line-110"><code><span class="keyword">func</span> (<label for="r18" class="ident">l</label> <a href="#line-98" class="ident">offAddr</a>) <label for="r19" class="ident"><a href="../../use/runtime..offAddr.sub.html" class="ident">sub</a></label>(<label for="r20" class="ident">bytes</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) <a href="#line-98" class="ident">offAddr</a> {</code></span>
+<span class="codeline" id="line-110"><code><span class="keyword">func</span> (<label for="r18" class="ident">l</label> <a href="#line-98" class="ident">offAddr</a>) <label for="r19" class="ident"><a href="../../use/runtime..offAddr*9d63e.sub*ddc6e.html" class="ident">sub</a></label>(<label for="r20" class="ident">bytes</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) <a href="#line-98" class="ident">offAddr</a> {</code></span>
 <span class="codeline" id="line-111"><code>	<span class="keyword">return</span> <a href="#line-98" class="ident">offAddr</a>{<a href="#line-101" class="ident">a</a>: <label for="r18" class="ident">l</label>.<a href="#line-101" class="ident">a</a> - <label for="r20" class="ident">bytes</label>}</code></span>
 <span class="codeline" id="line-112"><code>}</code></span>
 <span class="codeline" id="line-113"><code></code></span>
 <span class="codeline" id="line-114"><code><span class="comment">// diff returns the amount of bytes in between the</span></code></span>
 <span class="codeline" id="line-115"><code><span class="comment">// two offAddrs.</span></code></span>
-<span class="codeline" id="line-116"><code><span class="keyword">func</span> (<label for="r21" class="ident">l1</label> <a href="#line-98" class="ident">offAddr</a>) <label for="r22" class="ident"><a href="../../use/runtime..offAddr.diff.html" class="ident">diff</a></label>(<label for="r23" class="ident">l2</label> <a href="#line-98" class="ident">offAddr</a>) <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> {</code></span>
+<span class="codeline" id="line-116"><code><span class="keyword">func</span> (<label for="r21" class="ident">l1</label> <a href="#line-98" class="ident">offAddr</a>) <label for="r22" class="ident"><a href="../../use/runtime..offAddr*9d63e.diff*df087.html" class="ident">diff</a></label>(<label for="r23" class="ident">l2</label> <a href="#line-98" class="ident">offAddr</a>) <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> {</code></span>
 <span class="codeline" id="line-117"><code>	<span class="keyword">return</span> <label for="r21" class="ident">l1</label>.<a href="#line-101" class="ident">a</a> - <label for="r23" class="ident">l2</label>.<a href="#line-101" class="ident">a</a></code></span>
 <span class="codeline" id="line-118"><code>}</code></span>
 <span class="codeline" id="line-119"><code></code></span>
 <span class="codeline" id="line-120"><code><span class="comment">// lessThan returns true if l1 is less than l2 in the offset</span></code></span>
 <span class="codeline" id="line-121"><code><span class="comment">// address space.</span></code></span>
-<span class="codeline" id="line-122"><code><span class="keyword">func</span> (<label for="r24" class="ident">l1</label> <a href="#line-98" class="ident">offAddr</a>) <label for="r25" class="ident"><a href="../../use/runtime..offAddr.lessThan.html" class="ident">lessThan</a></label>(<label for="r26" class="ident">l2</label> <a href="#line-98" class="ident">offAddr</a>) <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-122"><code><span class="keyword">func</span> (<label for="r24" class="ident">l1</label> <a href="#line-98" class="ident">offAddr</a>) <label for="r25" class="ident"><a href="../../use/runtime..offAddr*9d63e.lessThan*de126.html" class="ident">lessThan</a></label>(<label for="r26" class="ident">l2</label> <a href="#line-98" class="ident">offAddr</a>) <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
 <span class="codeline" id="line-123"><code>	<span class="keyword">return</span> (<label for="r24" class="ident">l1</label>.<a href="#line-101" class="ident">a</a> - <a href="malloc.go.html#line-305" class="ident">arenaBaseOffset</a>) &lt; (<label for="r26" class="ident">l2</label>.<a href="#line-101" class="ident">a</a> - <a href="malloc.go.html#line-305" class="ident">arenaBaseOffset</a>)</code></span>
 <span class="codeline" id="line-124"><code>}</code></span>
 <span class="codeline" id="line-125"><code></code></span>
 <span class="codeline" id="line-126"><code><span class="comment">// lessEqual returns true if l1 is less than or equal to l2 in</span></code></span>
 <span class="codeline" id="line-127"><code><span class="comment">// the offset address space.</span></code></span>
-<span class="codeline" id="line-128"><code><span class="keyword">func</span> (<label for="r27" class="ident">l1</label> <a href="#line-98" class="ident">offAddr</a>) <label for="r28" class="ident"><a href="../../use/runtime..offAddr.lessEqual.html" class="ident">lessEqual</a></label>(<label for="r29" class="ident">l2</label> <a href="#line-98" class="ident">offAddr</a>) <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-128"><code><span class="keyword">func</span> (<label for="r27" class="ident">l1</label> <a href="#line-98" class="ident">offAddr</a>) <label for="r28" class="ident"><a href="../../use/runtime..offAddr*9d63e.lessEqual*439b0.html" class="ident">lessEqual</a></label>(<label for="r29" class="ident">l2</label> <a href="#line-98" class="ident">offAddr</a>) <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
 <span class="codeline" id="line-129"><code>	<span class="keyword">return</span> (<label for="r27" class="ident">l1</label>.<a href="#line-101" class="ident">a</a> - <a href="malloc.go.html#line-305" class="ident">arenaBaseOffset</a>) &lt;= (<label for="r29" class="ident">l2</label>.<a href="#line-101" class="ident">a</a> - <a href="malloc.go.html#line-305" class="ident">arenaBaseOffset</a>)</code></span>
 <span class="codeline" id="line-130"><code>}</code></span>
 <span class="codeline" id="line-131"><code></code></span>
 <span class="codeline" id="line-132"><code><span class="comment">// equal returns true if the two offAddr values are equal.</span></code></span>
-<span class="codeline" id="line-133"><code><span class="keyword">func</span> (<label for="r30" class="ident">l1</label> <a href="#line-98" class="ident">offAddr</a>) <label for="r31" class="ident"><a href="../../use/runtime..offAddr.equal.html" class="ident">equal</a></label>(<label for="r32" class="ident">l2</label> <a href="#line-98" class="ident">offAddr</a>) <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-133"><code><span class="keyword">func</span> (<label for="r30" class="ident">l1</label> <a href="#line-98" class="ident">offAddr</a>) <label for="r31" class="ident"><a href="../../use/runtime..offAddr*9d63e.equal*f9d6c.html" class="ident">equal</a></label>(<label for="r32" class="ident">l2</label> <a href="#line-98" class="ident">offAddr</a>) <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
 <span class="codeline" id="line-134"><code>	<span class="comment">// No need to compare in the offset space, it</span></code></span>
 <span class="codeline" id="line-135"><code><span class="comment">	// means the same thing.</span></code></span>
 <span class="codeline" id="line-136"><code>	<span class="keyword">return</span> <label for="r30" class="ident">l1</label> == <label for="r32" class="ident">l2</label></code></span>
 <span class="codeline" id="line-137"><code>}</code></span>
 <span class="codeline" id="line-138"><code></code></span>
 <span class="codeline" id="line-139"><code><span class="comment">// addr returns the virtual address for this offset address.</span></code></span>
-<span class="codeline" id="line-140"><code><span class="keyword">func</span> (<label for="r33" class="ident">l</label> <a href="#line-98" class="ident">offAddr</a>) <label for="r34" class="ident"><a href="../../use/runtime..offAddr.addr.html" class="ident">addr</a></label>() <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> {</code></span>
+<span class="codeline" id="line-140"><code><span class="keyword">func</span> (<label for="r33" class="ident">l</label> <a href="#line-98" class="ident">offAddr</a>) <label for="r34" class="ident"><a href="../../use/runtime..offAddr*9d63e.addr*a2593.html" class="ident">addr</a></label>() <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> {</code></span>
 <span class="codeline" id="line-141"><code>	<span class="keyword">return</span> <label for="r33" class="ident">l</label>.<a href="#line-101" class="ident">a</a></code></span>
 <span class="codeline" id="line-142"><code>}</code></span>
 <span class="codeline" id="line-143"><code></code></span>
@@ -343,17 +343,17 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-153"><code><span class="comment">// addrRanges is not thread-safe.</span></code></span>
 <span class="codeline" id="line-154"><code><span class="keyword">type</span> <a href="../../pkg/runtime.html#name-addrRanges" class="ident">addrRanges</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-155"><code>	<span class="comment">// ranges is a slice of ranges sorted by base.</span></code></span>
-<span class="codeline" id="line-156"><code>	<a href="../../use/runtime..addrRanges.ranges.html" class="ident">ranges</a> []<a href="#line-20" class="ident">addrRange</a></code></span>
+<span class="codeline" id="line-156"><code>	<a href="../../use/runtime..addrRanges*77476.ranges*47da8.html" class="ident">ranges</a> []<a href="#line-20" class="ident">addrRange</a></code></span>
 <span class="codeline" id="line-157"><code></code></span>
 <span class="codeline" id="line-158"><code>	<span class="comment">// totalBytes is the total amount of address space in bytes counted by</span></code></span>
 <span class="codeline" id="line-159"><code><span class="comment">	// this addrRanges.</span></code></span>
-<span class="codeline" id="line-160"><code>	<a href="../../use/runtime..addrRanges.totalBytes.html" class="ident">totalBytes</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
+<span class="codeline" id="line-160"><code>	<a href="../../use/runtime..addrRanges*77476.totalBytes*bb5c6.html" class="ident">totalBytes</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
 <span class="codeline" id="line-161"><code></code></span>
 <span class="codeline" id="line-162"><code>	<span class="comment">// sysStat is the stat to track allocations by this type</span></code></span>
-<span class="codeline" id="line-163"><code>	<a href="../../use/runtime..addrRanges.sysStat.html" class="ident">sysStat</a> *<a href="mstats.go.html#line-738" class="ident">sysMemStat</a></code></span>
+<span class="codeline" id="line-163"><code>	<a href="../../use/runtime..addrRanges*77476.sysStat*9af39.html" class="ident">sysStat</a> *<a href="mstats.go.html#line-738" class="ident">sysMemStat</a></code></span>
 <span class="codeline" id="line-164"><code>}</code></span>
 <span class="codeline" id="line-165"><code></code></span>
-<span class="codeline" id="line-166"><code><span class="keyword">func</span> (<label for="r35" class="ident">a</label> *<a href="#line-154" class="ident">addrRanges</a>) <label for="r36" class="ident"><a href="../../use/runtime..addrRanges.init.html" class="ident">init</a></label>(<label for="r37" class="ident">sysStat</label> *<a href="mstats.go.html#line-738" class="ident">sysMemStat</a>) {</code></span>
+<span class="codeline" id="line-166"><code><span class="keyword">func</span> (<label for="r35" class="ident">a</label> *<a href="#line-154" class="ident">addrRanges</a>) <label for="r36" class="ident"><a href="../../use/runtime..addrRanges*77476.init*bb540.html" class="ident">init</a></label>(<label for="r37" class="ident">sysStat</label> *<a href="mstats.go.html#line-738" class="ident">sysMemStat</a>) {</code></span>
 <span class="codeline" id="line-167"><code>	<label for="r38" class="ident">ranges</label> := (*<a href="slice.go.html#line-20" class="ident">notInHeapSlice</a>)(<a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(&amp;<label for="r35" class="ident">a</label>.<a href="#line-156" class="ident">ranges</a>))</code></span>
 <span class="codeline" id="line-168"><code>	<label for="r38" class="ident">ranges</label>.<a href="slice.go.html#line-22" class="ident">len</a> = <span class="lit-number">0</span></code></span>
 <span class="codeline" id="line-169"><code>	<label for="r38" class="ident">ranges</label>.<a href="slice.go.html#line-23" class="ident">cap</a> = <span class="lit-number">16</span></code></span>
@@ -364,7 +364,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-174"><code></code></span>
 <span class="codeline" id="line-175"><code><span class="comment">// findSucc returns the first index in a such that addr is</span></code></span>
 <span class="codeline" id="line-176"><code><span class="comment">// less than the base of the addrRange at that index.</span></code></span>
-<span class="codeline" id="line-177"><code><span class="keyword">func</span> (<label for="r39" class="ident">a</label> *<a href="#line-154" class="ident">addrRanges</a>) <label for="r40" class="ident"><a href="../../use/runtime..addrRanges.findSucc.html" class="ident">findSucc</a></label>(<label for="r41" class="ident">addr</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) <a href="../../pkg/builtin.html#name-int" class="ident">int</a> {</code></span>
+<span class="codeline" id="line-177"><code><span class="keyword">func</span> (<label for="r39" class="ident">a</label> *<a href="#line-154" class="ident">addrRanges</a>) <label for="r40" class="ident"><a href="../../use/runtime..addrRanges*77476.findSucc*b5447.html" class="ident">findSucc</a></label>(<label for="r41" class="ident">addr</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) <a href="../../pkg/builtin.html#name-int" class="ident">int</a> {</code></span>
 <span class="codeline" id="line-178"><code>	<label for="r42" class="ident">base</label> := <a href="#line-98" class="ident">offAddr</a>{<label for="r41" class="ident">addr</label>}</code></span>
 <span class="codeline" id="line-179"><code></code></span>
 <span class="codeline" id="line-180"><code>	<span class="comment">// Narrow down the search space via a binary search</span></code></span>
@@ -409,7 +409,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-219"><code><span class="comment">// then it returns addr. The second return value indicates whether</span></code></span>
 <span class="codeline" id="line-220"><code><span class="comment">// such an address exists for addr in a. That is, if addr is larger than</span></code></span>
 <span class="codeline" id="line-221"><code><span class="comment">// any address known to a, the second return value will be false.</span></code></span>
-<span class="codeline" id="line-222"><code><span class="keyword">func</span> (<label for="r48" class="ident">a</label> *<a href="#line-154" class="ident">addrRanges</a>) <label for="r49" class="ident"><a href="../../use/runtime..addrRanges.findAddrGreaterEqual.html" class="ident">findAddrGreaterEqual</a></label>(<label for="r50" class="ident">addr</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) (<a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>, <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
+<span class="codeline" id="line-222"><code><span class="keyword">func</span> (<label for="r48" class="ident">a</label> *<a href="#line-154" class="ident">addrRanges</a>) <label for="r49" class="ident"><a href="../../use/runtime..addrRanges*77476.findAddrGreaterEqual*7d1fa.html" class="ident">findAddrGreaterEqual</a></label>(<label for="r50" class="ident">addr</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) (<a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>, <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
 <span class="codeline" id="line-223"><code>	<label for="r51" class="ident">i</label> := <label for="r48" class="ident">a</label>.<a href="#line-177" class="ident">findSucc</a>(<label for="r50" class="ident">addr</label>)</code></span>
 <span class="codeline" id="line-224"><code>	<span class="keyword">if</span> <label for="r51" class="ident">i</label> == <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-225"><code>		<span class="keyword">return</span> <label for="r48" class="ident">a</label>.<a href="#line-156" class="ident">ranges</a>[<span class="lit-number">0</span>].<a href="#line-26" class="ident">base</a>.<a href="#line-140" class="ident">addr</a>(), <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
@@ -424,7 +424,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-234"><code>}</code></span>
 <span class="codeline" id="line-235"><code></code></span>
 <span class="codeline" id="line-236"><code><span class="comment">// contains returns true if a covers the address addr.</span></code></span>
-<span class="codeline" id="line-237"><code><span class="keyword">func</span> (<label for="r52" class="ident">a</label> *<a href="#line-154" class="ident">addrRanges</a>) <label for="r53" class="ident"><a href="../../use/runtime..addrRanges.contains.html" class="ident">contains</a></label>(<label for="r54" class="ident">addr</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-237"><code><span class="keyword">func</span> (<label for="r52" class="ident">a</label> *<a href="#line-154" class="ident">addrRanges</a>) <label for="r53" class="ident"><a href="../../use/runtime..addrRanges*77476.contains*beeb2.html" class="ident">contains</a></label>(<label for="r54" class="ident">addr</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
 <span class="codeline" id="line-238"><code>	<label for="r55" class="ident">i</label> := <label for="r52" class="ident">a</label>.<a href="#line-177" class="ident">findSucc</a>(<label for="r54" class="ident">addr</label>)</code></span>
 <span class="codeline" id="line-239"><code>	<span class="keyword">if</span> <label for="r55" class="ident">i</label> == <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-240"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
@@ -435,7 +435,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-245"><code><span class="comment">// add inserts a new address range to a.</span></code></span>
 <span class="codeline" id="line-246"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-247"><code><span class="comment">// r must not overlap with any address range in a and r.size() must be &gt; 0.</span></code></span>
-<span class="codeline" id="line-248"><code><span class="keyword">func</span> (<label for="r56" class="ident">a</label> *<a href="#line-154" class="ident">addrRanges</a>) <label for="r57" class="ident"><a href="../../use/runtime..addrRanges.add.html" class="ident">add</a></label>(<label for="r58" class="ident">r</label> <a href="#line-20" class="ident">addrRange</a>) {</code></span>
+<span class="codeline" id="line-248"><code><span class="keyword">func</span> (<label for="r56" class="ident">a</label> *<a href="#line-154" class="ident">addrRanges</a>) <label for="r57" class="ident"><a href="../../use/runtime..addrRanges*77476.add*7e9e5.html" class="ident">add</a></label>(<label for="r58" class="ident">r</label> <a href="#line-20" class="ident">addrRange</a>) {</code></span>
 <span class="codeline" id="line-249"><code>	<span class="comment">// The copies in this function are potentially expensive, but this data</span></code></span>
 <span class="codeline" id="line-250"><code><span class="comment">	// structure is meant to represent the Go heap. At worst, copying this</span></code></span>
 <span class="codeline" id="line-251"><code><span class="comment">	// would take ~160µs assuming a conservative copying rate of 25 GiB/s (the</span></code></span>
@@ -501,7 +501,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-311"><code><span class="comment">// removeLast removes and returns the highest-addressed contiguous range</span></code></span>
 <span class="codeline" id="line-312"><code><span class="comment">// of a, or the last nBytes of that range, whichever is smaller. If a is</span></code></span>
 <span class="codeline" id="line-313"><code><span class="comment">// empty, it returns an empty range.</span></code></span>
-<span class="codeline" id="line-314"><code><span class="keyword">func</span> (<label for="r64" class="ident">a</label> *<a href="#line-154" class="ident">addrRanges</a>) <label for="r65" class="ident"><a href="../../use/runtime..addrRanges.removeLast.html" class="ident">removeLast</a></label>(<label for="r66" class="ident">nBytes</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) <a href="#line-20" class="ident">addrRange</a> {</code></span>
+<span class="codeline" id="line-314"><code><span class="keyword">func</span> (<label for="r64" class="ident">a</label> *<a href="#line-154" class="ident">addrRanges</a>) <label for="r65" class="ident"><a href="../../use/runtime..addrRanges*77476.removeLast*02663.html" class="ident">removeLast</a></label>(<label for="r66" class="ident">nBytes</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) <a href="#line-20" class="ident">addrRange</a> {</code></span>
 <span class="codeline" id="line-315"><code>	<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r64" class="ident">a</label>.<a href="#line-156" class="ident">ranges</a>) == <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-316"><code>		<span class="keyword">return</span> <a href="#line-20" class="ident">addrRange</a>{}</code></span>
 <span class="codeline" id="line-317"><code>	}</code></span>
@@ -520,7 +520,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-330"><code></code></span>
 <span class="codeline" id="line-331"><code><span class="comment">// removeGreaterEqual removes the ranges of a which are above addr, and additionally</span></code></span>
 <span class="codeline" id="line-332"><code><span class="comment">// splits any range containing addr.</span></code></span>
-<span class="codeline" id="line-333"><code><span class="keyword">func</span> (<label for="r70" class="ident">a</label> *<a href="#line-154" class="ident">addrRanges</a>) <label for="r71" class="ident"><a href="../../use/runtime..addrRanges.removeGreaterEqual.html" class="ident">removeGreaterEqual</a></label>(<label for="r72" class="ident">addr</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) {</code></span>
+<span class="codeline" id="line-333"><code><span class="keyword">func</span> (<label for="r70" class="ident">a</label> *<a href="#line-154" class="ident">addrRanges</a>) <label for="r71" class="ident"><a href="../../use/runtime..addrRanges*77476.removeGreaterEqual*8dfff.html" class="ident">removeGreaterEqual</a></label>(<label for="r72" class="ident">addr</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) {</code></span>
 <span class="codeline" id="line-334"><code>	<label for="r73" class="ident">pivot</label> := <label for="r70" class="ident">a</label>.<a href="#line-177" class="ident">findSucc</a>(<label for="r72" class="ident">addr</label>)</code></span>
 <span class="codeline" id="line-335"><code>	<span class="keyword">if</span> <label for="r73" class="ident">pivot</label> == <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-336"><code>		<span class="comment">// addr is before all ranges in a.</span></code></span>
@@ -548,7 +548,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-358"><code></code></span>
 <span class="codeline" id="line-359"><code><span class="comment">// cloneInto makes a deep clone of a's state into b, re-using</span></code></span>
 <span class="codeline" id="line-360"><code><span class="comment">// b's ranges if able.</span></code></span>
-<span class="codeline" id="line-361"><code><span class="keyword">func</span> (<label for="r78" class="ident">a</label> *<a href="#line-154" class="ident">addrRanges</a>) <label for="r79" class="ident"><a href="../../use/runtime..addrRanges.cloneInto.html" class="ident">cloneInto</a></label>(<label for="r80" class="ident">b</label> *<a href="#line-154" class="ident">addrRanges</a>) {</code></span>
+<span class="codeline" id="line-361"><code><span class="keyword">func</span> (<label for="r78" class="ident">a</label> *<a href="#line-154" class="ident">addrRanges</a>) <label for="r79" class="ident"><a href="../../use/runtime..addrRanges*77476.cloneInto*ce9cc.html" class="ident">cloneInto</a></label>(<label for="r80" class="ident">b</label> *<a href="#line-154" class="ident">addrRanges</a>) {</code></span>
 <span class="codeline" id="line-362"><code>	<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r78" class="ident">a</label>.<a href="#line-156" class="ident">ranges</a>) &gt; <a href="../../pkg/builtin.html#name-cap" class="ident">cap</a>(<label for="r80" class="ident">b</label>.<a href="#line-156" class="ident">ranges</a>) {</code></span>
 <span class="codeline" id="line-363"><code>		<span class="comment">// Grow the array.</span></code></span>
 <span class="codeline" id="line-364"><code>		<label for="r81" class="ident">ranges</label> := (*<a href="slice.go.html#line-20" class="ident">notInHeapSlice</a>)(<a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(&amp;<label for="r80" class="ident">b</label>.<a href="#line-156" class="ident">ranges</a>))</code></span>
@@ -562,7 +562,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-372"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

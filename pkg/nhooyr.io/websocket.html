@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Package: nhooyr.io/websocket</title>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="package-details"><code><span style="font-size:xx-large;">package <b>websocket</b></span>
+
+<span class="title">Import Path</span>
+	<a href="../../index.html#pkg-nhooyr.io/websocket">nhooyr.io/websocket</a><i> (on <a href="https://pkg.go.dev/nhooyr.io/websocket" target="_blank">go.dev</a>)</i>
+
+<span class="title">Dependency Relation</span>
+	imports <a href="../../dep/nhooyr.io/websocket.html">28 packages</a>, and imported by <a href="../../dep/nhooyr.io/websocket.html#imported-by">one package</a>
+
+<div id="files"><span class="title">Involved Source Files</span>
+
+	<span class="nodocs">      <a href="../../src/nhooyr.io/websocket/accept.go.html">accept.go</a></span>
+	<span class="nodocs">      <a href="../../src/nhooyr.io/websocket/close.go.html">close.go</a></span>
+	<span class="nodocs">      <a href="../../src/nhooyr.io/websocket/close_notjs.go.html">close_notjs.go</a></span>
+	<span class="nodocs">      <a href="../../src/nhooyr.io/websocket/compress.go.html">compress.go</a></span>
+	<span class="nodocs">      <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html">compress_notjs.go</a></span>
+	<span class="nodocs">      <a href="../../src/nhooyr.io/websocket/conn.go.html">conn.go</a></span>
+	<span class="nodocs">      <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html">conn_notjs.go</a></span>
+	<span class="nodocs">      <a href="../../src/nhooyr.io/websocket/dial.go.html">dial.go</a></span>
+	<input type='checkbox' checked class="fold" id="file-8-fold-content"><label for="file-8-fold-content">   <a href="../../src/nhooyr.io/websocket/doc.go.html#doc">d➜</a> <a href="../../src/nhooyr.io/websocket/doc.go.html">doc.go</a></label><span id='file-8-fold-content-items' class="fold-items">
+		Package websocket implements the RFC 6455 WebSocket protocol.
+
+		https://tools.ietf.org/html/rfc6455
+
+		Use Dial to dial a WebSocket server.
+
+		Use Accept to accept a WebSocket client.
+
+		Conn represents the resulting WebSocket connection.
+
+		The examples are the best way to understand how to correctly use the library.
+
+		The wsjson and wspb subpackages contain helpers for JSON and protobuf messages.
+
+		More documentation at https://nhooyr.io/websocket.
+
+		Wasm
+
+		The client side supports compiling to Wasm.
+		It wraps the WebSocket browser API.
+
+		See https://developer.mozilla.org/en-US/docs/Web/API/WebSocket
+
+		Some important caveats to be aware of:
+
+		 - Accept always errors out
+		 - Conn.Ping is no-op
+		 - HTTPClient, HTTPHeader and CompressionMode in DialOptions are no-op
+		 - *http.Response from Dial is &amp;http.Response{} with a 101 status code on success
+</span>
+	<span class="nodocs">      <a href="../../src/nhooyr.io/websocket/frame.go.html">frame.go</a></span>
+	<span class="nodocs">      <a href="../../src/nhooyr.io/websocket/netconn.go.html">netconn.go</a></span>
+	<span class="nodocs">      <a href="../../src/nhooyr.io/websocket/read.go.html">read.go</a></span>
+	<span class="nodocs">      <a href="../../src/nhooyr.io/websocket/stringer.go.html">stringer.go</a></span>
+	<span class="nodocs">      <a href="../../src/nhooyr.io/websocket/write.go.html">write.go</a></span></div>
+<div id="examples"><span class="title">Code Examples</span>
+
+	<input type='checkbox' class="fold" id="example-0-fold-content"><label for="example-0-fold-content">Accept</label><span id='example-0-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"context"
+			"log"
+			"net/http"
+			"nhooyr.io/websocket"
+			"nhooyr.io/websocket/wsjson"
+			"time"
+		)
+		
+		func main() {
+			// This handler accepts a WebSocket connection, reads a single JSON
+			// message from the client and then closes the connection.
+		
+			fn := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				c, err := websocket.Accept(w, r, nil)
+				if err != nil {
+					log.Println(err)
+					return
+				}
+				defer c.Close(websocket.StatusInternalError, "the sky is falling")
+		
+				ctx, cancel := context.WithTimeout(r.Context(), time.Second*10)
+				defer cancel()
+		
+				var v interface{}
+				err = wsjson.Read(ctx, c, &v)
+				if err != nil {
+					log.Println(err)
+					return
+				}
+		
+				c.Close(websocket.StatusNormalClosure, "")
+			})
+		
+			err := http.ListenAndServe("localhost:8080", fn)
+			log.Fatal(err)
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-1-fold-content"><label for="example-1-fold-content">CloseStatus</label><span id='example-1-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"context"
+			"log"
+			"nhooyr.io/websocket"
+			"time"
+		)
+		
+		func main() {
+			// Dials a server and then expects to be disconnected with status code
+			// websocket.StatusNormalClosure.
+		
+			ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+			defer cancel()
+		
+			c, _, err := websocket.Dial(ctx, "ws://localhost:8080", nil)
+			if err != nil {
+				log.Fatal(err)
+			}
+			defer c.Close(websocket.StatusInternalError, "the sky is falling")
+		
+			_, _, err = c.Reader(ctx)
+			if websocket.CloseStatus(err) != websocket.StatusNormalClosure {
+				log.Fatalf("expected to be disconnected with StatusNormalClosure but got: %v", err)
+			}
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-2-fold-content"><label for="example-2-fold-content">Dial</label><span id='example-2-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"context"
+			"log"
+			"nhooyr.io/websocket"
+			"nhooyr.io/websocket/wsjson"
+			"time"
+		)
+		
+		func main() {
+			// Dials a server, writes a single JSON message and then
+			// closes the connection.
+		
+			ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+			defer cancel()
+		
+			c, _, err := websocket.Dial(ctx, "ws://localhost:8080", nil)
+			if err != nil {
+				log.Fatal(err)
+			}
+			defer c.Close(websocket.StatusInternalError, "the sky is falling")
+		
+			err = wsjson.Write(ctx, c, "hi")
+			if err != nil {
+				log.Fatal(err)
+			}
+		
+			c.Close(websocket.StatusNormalClosure, "")
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-3-fold-content"><label for="example-3-fold-content">_crossOrigin</label><span id='example-3-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"log"
+			"net/http"
+			"nhooyr.io/websocket"
+		)
+		
+		func main() {
+			// This handler demonstrates how to safely accept cross origin WebSockets
+			// from the origin example.com.
+			fn := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				c, err := websocket.Accept(w, r, &websocket.AcceptOptions{
+					OriginPatterns: []string{"example.com"},
+				})
+				if err != nil {
+					log.Println(err)
+					return
+				}
+				c.Close(websocket.StatusNormalClosure, "cross origin WebSocket accepted")
+			})
+		
+			err := http.ListenAndServe("localhost:8080", fn)
+			log.Fatal(err)
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-4-fold-content"><label for="example-4-fold-content">_echo</label><span id='example-4-fold-content-items' class="fold-items">
+		package main
+		
+		import ()
+		
+		func main() {
+			// https://github.com/nhooyr/websocket/tree/master/examples/echo
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-5-fold-content"><label for="example-5-fold-content">_fullStackChat</label><span id='example-5-fold-content-items' class="fold-items">
+		package main
+		
+		import ()
+		
+		func main() {
+			// https://github.com/nhooyr/websocket/tree/master/examples/chat
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-6-fold-content"><label for="example-6-fold-content">_writeOnly</label><span id='example-6-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"context"
+			"log"
+			"net/http"
+			"nhooyr.io/websocket"
+			"nhooyr.io/websocket/wsjson"
+			"time"
+		)
+		
+		func main() {
+			// This handler demonstrates how to correctly handle a write only WebSocket connection.
+			// i.e you only expect to write messages and do not expect to read any messages.
+			fn := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				c, err := websocket.Accept(w, r, nil)
+				if err != nil {
+					log.Println(err)
+					return
+				}
+				defer c.Close(websocket.StatusInternalError, "the sky is falling")
+		
+				ctx, cancel := context.WithTimeout(r.Context(), time.Minute*10)
+				defer cancel()
+		
+				ctx = c.CloseRead(ctx)
+		
+				t := time.NewTicker(time.Second * 30)
+				defer t.Stop()
+		
+				for {
+					select {
+					case <-ctx.Done():
+						c.Close(websocket.StatusNormalClosure, "")
+						return
+					case <-t.C:
+						err = wsjson.Write(ctx, c, "hi")
+						if err != nil {
+							log.Println(err)
+							return
+						}
+					}
+				}
+			})
+		
+			err := http.ListenAndServe("localhost:8080", fn)
+			log.Fatal(err)
+		}
+</span>
+</div>
+<div id="exported-types"><span class="title">Package-Level Type Names<span class="title-stat"><i> (total 23, in which 7 are exported)</i></span></span>
+
+<div id="exported-types-buttons" class="js-on">	/* sort exporteds by: <label id="sort-types-by-alphabet" class="button">alphabet</label> | <label id="sort-types-by-popularity" class="button">popularity</label> */</div><div class="anchor type-res" id="name-AcceptOptions" data-popularity="70">	<input type='checkbox' class="fold" id="AcceptOptions-fold-content"><label for="AcceptOptions-fold-content"> <a href="../../use/nhooyr.io/websocket..AcceptOptions.html">type</a> <a href="../../src/nhooyr.io/websocket/accept.go.html#line-23">AcceptOptions</a> <i>(struct)</i></label><span id='AcceptOptions-fold-content-docs' class="fold-docs">
+		AcceptOptions represents Accept's options.
+
+		<input type='checkbox' class="fold" id="AcceptOptions-fold-fields"><label for="AcceptOptions-fold-fields">Fields (<i>total 5, all are exported</i>)</label><span id='AcceptOptions-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="AcceptOptions-fold-field-CompressionMode"><label for="AcceptOptions-fold-field-CompressionMode"><a href="../../src/nhooyr.io/websocket/accept.go.html#line-57">CompressionMode</a> <i><a href="#name-CompressionMode">CompressionMode</a></i></label><span id='AcceptOptions-fold-field-CompressionMode-docs' class="fold-docs">
+				CompressionMode controls the compression mode.
+				Defaults to CompressionNoContextTakeover.
+
+				See docs on CompressionMode for details.
+</span></span><span>
+			<input type='checkbox' class="fold" id="AcceptOptions-fold-field-CompressionThreshold"><label for="AcceptOptions-fold-field-CompressionThreshold"><a href="../../src/nhooyr.io/websocket/accept.go.html#line-63">CompressionThreshold</a> <i><a href="../builtin.html#name-int">int</a></i></label><span id='AcceptOptions-fold-field-CompressionThreshold-docs' class="fold-docs">
+				CompressionThreshold controls the minimum size of a message before compression is applied.
+
+				Defaults to 512 bytes for CompressionNoContextTakeover and 128 bytes
+				for CompressionContextTakeover.
+</span></span><span>
+			<input type='checkbox' class="fold" id="AcceptOptions-fold-field-InsecureSkipVerify"><label for="AcceptOptions-fold-field-InsecureSkipVerify"><a href="../../src/nhooyr.io/websocket/accept.go.html#line-32">InsecureSkipVerify</a> <i><a href="../builtin.html#name-bool">bool</a></i></label><span id='AcceptOptions-fold-field-InsecureSkipVerify-docs' class="fold-docs">
+				InsecureSkipVerify is used to disable Accept's origin verification behaviour.
+
+				You probably want to use OriginPatterns instead.
+</span></span><span>
+			<input type='checkbox' class="fold" id="AcceptOptions-fold-field-OriginPatterns"><label for="AcceptOptions-fold-field-OriginPatterns"><a href="../../src/nhooyr.io/websocket/accept.go.html#line-51">OriginPatterns</a> <i>[]<a href="../builtin.html#name-string">string</a></i></label><span id='AcceptOptions-fold-field-OriginPatterns-docs' class="fold-docs">
+				OriginPatterns lists the host patterns for authorized origins.
+				The request host is always authorized.
+				Use this to enable cross origin WebSockets.
+
+				i.e javascript running on example.com wants to access a WebSocket server at chat.example.com.
+				In such a case, example.com is the origin and chat.example.com is the request host.
+				One would set this field to []string{"example.com"} to authorize example.com to connect.
+
+				Each pattern is matched case insensitively against the request origin host
+				with filepath.Match.
+				See https://golang.org/pkg/path/filepath/#Match
+
+				Please ensure you understand the ramifications of enabling this.
+				If used incorrectly your WebSocket server will be open to CSRF attacks.
+
+				Do not use * as a pattern to allow any origin, prefer to use InsecureSkipVerify instead
+				to bring attention to the danger of such a setting.
+</span></span><span>
+			<input type='checkbox' class="fold" id="AcceptOptions-fold-field-Subprotocols"><label for="AcceptOptions-fold-field-Subprotocols"><a href="../../src/nhooyr.io/websocket/accept.go.html#line-27">Subprotocols</a> <i>[]<a href="../builtin.html#name-string">string</a></i></label><span id='AcceptOptions-fold-field-Subprotocols-docs' class="fold-docs">
+				Subprotocols lists the WebSocket subprotocols that Accept will negotiate with the client.
+				The empty subprotocol will always be negotiated as per RFC 6455. If you would like to
+				reject it, close the connection when c.Subprotocol() == "".
+</span></span></span>
+		<input type='checkbox' class="fold" id="AcceptOptions-fold-params"><label for="AcceptOptions-fold-params">As Inputs Of (<i>at least 2, in which 1 are exported</i>)</label><span id='AcceptOptions-fold-params-items' class="fold-items"><span>
+			func <a href="#name-Accept">Accept</a>(w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, r *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Request">Request</a>, opts *<b>AcceptOptions</b>) (*<a href="#name-Conn">Conn</a>, <a href="../builtin.html#name-error">error</a>)</span>
+			<input type='checkbox' class="showhide" id="AcceptOptions-showhide-outputofs"><i><label for="AcceptOptions-showhide-outputofs" class="show-inline">/* at least one unexported ... */</label><label for="AcceptOptions-showhide-outputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
+			func <a href="#name-accept">accept</a>(w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, r *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Request">Request</a>, opts *<b>AcceptOptions</b>) (_ *<a href="#name-Conn">Conn</a>, err <a href="../builtin.html#name-error">error</a>)</i></span></span>
+
+</span></div><div class="anchor type-res" id="name-CloseError" data-popularity="275">	<input type='checkbox' class="fold" id="CloseError-fold-content"><label for="CloseError-fold-content"> <a href="../../use/nhooyr.io/websocket..CloseError.html">type</a> <a href="../../src/nhooyr.io/websocket/close.go.html#line-57">CloseError</a> <i>(struct)</i></label><span id='CloseError-fold-content-docs' class="fold-docs">
+		CloseError is returned when the connection is closed with a status and reason.
+
+		Use Go 1.13's errors.As to check for this error.
+		Also see the CloseStatus helper.
+
+		<input type='checkbox' class="fold" id="CloseError-fold-fields"><label for="CloseError-fold-fields">Fields (<i>total 2, both are exported</i>)</label><span id='CloseError-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/close.go.html#line-58">Code</a> <i><a href="#name-StatusCode">StatusCode</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/close.go.html#line-59">Reason</a> <i><a href="../builtin.html#name-string">string</a></i></span></span></span>
+		<input type='checkbox' class="fold" id="CloseError-fold-methods"><label for="CloseError-fold-methods">Methods (<i>total 3, in which 1 are exported</i>)</label><span id='CloseError-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/close.go.html#line-62">Error</a>() <a href="../builtin.html#name-string">string</a></span></span>
+			<input type='checkbox' class="showhide" id="CloseError-showhide-methods"><i><label for="CloseError-showhide-methods" class="show-inline">/* 2 unexporteds ... */</label><label for="CloseError-showhide-methods" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-163">bytes</a>() ([]<a href="../builtin.html#name-byte">byte</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-177">bytesErr</a>() ([]<a href="../builtin.html#name-byte">byte</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span></span>
+		<input type='checkbox' class="fold" id="CloseError-fold-impls"><label for="CloseError-fold-impls">Implements (<i>at least one exported</i>)</label><span id='CloseError-fold-impls-items' class="fold-items"><span>
+			 T : <a href="../builtin.html#name-error">error</a></span></span>
+		<input type='checkbox' class="fold" id="CloseError-fold-results"><label for="CloseError-fold-results">As Outputs Of (<i>at least one unexported</i>)</label><span id='CloseError-fold-results-items' class="fold-items">
+			<input type='checkbox' class="showhide" id="CloseError-showhide-inputofs"><i><label for="CloseError-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="CloseError-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
+			func <a href="#name-parseClosePayload">parseClosePayload</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<b>CloseError</b>, <a href="../builtin.html#name-error">error</a>)</i></span></span>
+
+</span></div><div class="anchor type-res" id="name-CompressionMode" data-popularity="170">	<input type='checkbox' class="fold" id="CompressionMode-fold-content"><label for="CompressionMode-fold-content"> <a href="../../use/nhooyr.io/websocket..CompressionMode.html">type</a> <a href="../../src/nhooyr.io/websocket/compress.go.html#line-11">CompressionMode</a> <a href="../builtin.html#name-int">int</a> <i>(basic type)</i></label><span id='CompressionMode-fold-content-docs' class="fold-docs">
+		CompressionMode represents the modes available to the deflate extension.
+		See https://tools.ietf.org/html/rfc7692
+
+		A compatibility layer is implemented for the older deflate-frame extension used
+		by safari. See https://tools.ietf.org/html/draft-tyoshino-hybi-websocket-perframe-deflate-06
+		It will work the same in every way except that we cannot signal to the peer we
+		want to use no context takeover on our side, we can only signal that they should.
+		It is however currently disabled due to Safari bugs. See https://github.com/nhooyr/websocket/issues/218
+
+		<input type='checkbox' class="fold" id="CompressionMode-fold-methods"><label for="CompressionMode-fold-methods">Methods (<i>only one, which is unexported</i>)</label><span id='CompressionMode-fold-methods-items' class="fold-items">
+			<input type='checkbox' class="showhide" id="CompressionMode-showhide-methods"><i><label for="CompressionMode-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="CompressionMode-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
+			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-13">opts</a>() *<a href="#name-compressionOptions">compressionOptions</a></span></i></span></span>
+		<input type='checkbox' class="fold" id="CompressionMode-fold-params"><label for="CompressionMode-fold-params">As Inputs Of (<i>at least 3, none are exported</i>)</label><span id='CompressionMode-fold-params-items' class="fold-items">
+			<input type='checkbox' class="showhide" id="CompressionMode-showhide-outputofs"><i><label for="CompressionMode-showhide-outputofs" class="show-inline">/* 3+ unexporteds ... */</label><label for="CompressionMode-showhide-outputofs" class="hide-inline">/* 3+ unexporteds: */</label></i><span class="hidden"><i>
+			func <a href="#name-acceptCompression">acceptCompression</a>(r *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Request">Request</a>, w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, mode <b>CompressionMode</b>) (*<a href="#name-compressionOptions">compressionOptions</a>, <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
+			func <a href="#name-acceptDeflate">acceptDeflate</a>(w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, ext <a href="#name-websocketExtension">websocketExtension</a>, mode <b>CompressionMode</b>) (*<a href="#name-compressionOptions">compressionOptions</a>, <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
+			func <a href="#name-acceptWebkitDeflate">acceptWebkitDeflate</a>(w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, ext <a href="#name-websocketExtension">websocketExtension</a>, mode <b>CompressionMode</b>) (*<a href="#name-compressionOptions">compressionOptions</a>, <a href="../builtin.html#name-error">error</a>)</i></span></span>
+		<input type='checkbox' class="fold" id="CompressionMode-fold-values"><label for="CompressionMode-fold-values">As Types Of (<i>total 3, all are exported</i>)</label><span id='CompressionMode-fold-values-items' class="fold-items"><span>
+			const <a href="#name-CompressionContextTakeover">CompressionContextTakeover</a></span><span>
+			const <a href="#name-CompressionDisabled">CompressionDisabled</a></span><span>
+			const <a href="#name-CompressionNoContextTakeover">CompressionNoContextTakeover</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-Conn" data-popularity="2135">	<input type='checkbox' class="fold" id="Conn-fold-content"><label for="Conn-fold-content"> <a href="../../use/nhooyr.io/websocket..Conn.html">type</a> <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-28">Conn</a> <i>(struct)</i></label><span id='Conn-fold-content-docs' class="fold-docs">
+		Conn represents a WebSocket connection.
+		All methods may be called concurrently except for Reader and Read.
+
+		You must always read from the connection. Otherwise control
+		frames will not be handled. See Reader and CloseRead.
+
+		Be sure to call Close on the connection when you
+		are finished with it to release associated resources.
+
+		On any error from any method, the connection is closed
+		with an appropriate reason.
+
+		<input type='checkbox' class="fold" id="Conn-fold-fields"><label for="Conn-fold-fields">Fields (<i>total 26, none are exported</i>)</label><span id='Conn-fold-fields-items' class="fold-items">
+			<input type='checkbox' class="showhide" id="Conn-showhide-fields"><i><label for="Conn-showhide-fields" class="show-inline">/* 26 unexporteds ... */</label><label for="Conn-showhide-fields" class="hide-inline">/* 26 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-61">activePings</a> <i>map[<a href="../builtin.html#name-string">string</a>]chan&lt;- struct{}</i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-60">activePingsMu</a> <i><a href="../sync.html">sync</a>.<a href="../sync.html#name-Mutex">Mutex</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-34">br</a> <i>*<a href="../bufio.html">bufio</a>.<a href="../bufio.html#name-Reader">Reader</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-35">bw</a> <i>*<a href="../bufio.html">bufio</a>.<a href="../bufio.html#name-Writer">Writer</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-31">client</a> <i><a href="../builtin.html#name-bool">bool</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-56">closeErr</a> <i><a href="../builtin.html#name-error">error</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-55">closeMu</a> <i><a href="../sync.html">sync</a>.<a href="../sync.html#name-Mutex">Mutex</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-54">closed</a> <i>chan struct{}</i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-32">copts</a> <i>*<a href="#name-compressionOptions">compressionOptions</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-33">flateThreshold</a> <i><a href="../builtin.html#name-int">int</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-44">msgReader</a> <i>*<a href="#name-msgReader">msgReader</a></i></span></i></span><span class="hidden"><i>
+			<input type='checkbox' class="fold" id="Conn-fold-field-msgWriterState"><label for="Conn-fold-field-msgWriterState"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-48">msgWriterState</a> <i>*<a href="#name-msgWriterState">msgWriterState</a></i></label><span id='Conn-fold-field-msgWriterState-docs' class="fold-docs">
+				Write state.
+</span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-59">pingCounter</a> <i><a href="../builtin.html#name-int32">int32</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-45">readCloseFrameErr</a> <i><a href="../builtin.html#name-error">error</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-43">readControlBuf</a> <i>[125]<a href="../builtin.html#name-byte">byte</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-42">readHeaderBuf</a> <i>[8]<a href="../builtin.html#name-byte">byte</a></i></span></i></span><span class="hidden"><i>
+			<input type='checkbox' class="fold" id="Conn-fold-field-readMu"><label for="Conn-fold-field-readMu"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-41">readMu</a> <i>*<a href="#name-mu">mu</a></i></label><span id='Conn-fold-field-readMu-docs' class="fold-docs">
+				Read state.
+</span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-37">readTimeout</a> <i>chan <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-30">rwc</a> <i><a href="../io.html">io</a>.<a href="../io.html#name-ReadWriteCloser">ReadWriteCloser</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-29">subprotocol</a> <i><a href="../builtin.html#name-string">string</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-50">writeBuf</a> <i>[]<a href="../builtin.html#name-byte">byte</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-49">writeFrameMu</a> <i>*<a href="#name-mu">mu</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-52">writeHeader</a> <i><a href="#name-header">header</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-51">writeHeaderBuf</a> <i>[8]<a href="../builtin.html#name-byte">byte</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-38">writeTimeout</a> <i>chan <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-57">wroteClose</a> <i><a href="../builtin.html#name-bool">bool</a></i></span></i></span></span>
+		<input type='checkbox' class="fold" id="Conn-fold-methods"><label for="Conn-fold-methods">Methods (<i>total 31, in which 9 are exported</i>)</label><span id='Conn-fold-methods-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Conn-fold-method-Close"><label for="Conn-fold-method-Close">(*T) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-30">Close</a>(code <a href="#name-StatusCode">StatusCode</a>, reason <a href="../builtin.html#name-string">string</a>) <a href="../builtin.html#name-error">error</a></label><span id='Conn-fold-method-Close-docs' class="fold-docs">
+				Close performs the WebSocket close handshake with the given status code and reason.
+
+				It will write a WebSocket close frame with a timeout of 5s and then wait 5s for
+				the peer to send a close frame.
+				All data messages received from the peer during the close handshake will be discarded.
+
+				The connection can only be closed once. Additional calls to Close
+				are no-ops.
+
+				The maximum length of reason must be 125 bytes. Avoid
+				sending a dynamic reason.
+
+				Close will unblock all goroutines interacting with the connection once
+				complete.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Conn-fold-method-CloseRead"><label for="Conn-fold-method-CloseRead">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-56">CloseRead</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a></label><span id='Conn-fold-method-CloseRead-docs' class="fold-docs">
+				CloseRead starts a goroutine to read from the connection until it is closed
+				or a data message is received.
+
+				Once CloseRead is called you cannot read any messages from the connection.
+				The returned context will be cancelled when the connection is closed.
+
+				If a data message is received, the connection will be closed with StatusPolicyViolation.
+
+				Call CloseRead when you do not expect to read any more messages.
+				Since it actively reads from the connection, it will ensure that ping, pong and close
+				frames are responded to. This means c.Ping and c.Close will still work as expected.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Conn-fold-method-Ping"><label for="Conn-fold-method-Ping">(*T) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-181">Ping</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) <a href="../builtin.html#name-error">error</a></label><span id='Conn-fold-method-Ping-docs' class="fold-docs">
+				Ping sends a ping to the peer and waits for a pong.
+				Use this to measure latency or ensure the peer is responsive.
+				Ping must be called concurrently with Reader as it does
+				not read from the connection but instead waits for a Reader call
+				to read the pong.
+
+				TCP Keepalives should suffice for most use cases.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Conn-fold-method-Read"><label for="Conn-fold-method-Read">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-35">Read</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (<a href="#name-MessageType">MessageType</a>, []<a href="../builtin.html#name-byte">byte</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Conn-fold-method-Read-docs' class="fold-docs">
+				Read is a convenience method around Reader to read a single message
+				from the connection.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Conn-fold-method-Reader"><label for="Conn-fold-method-Reader">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-29">Reader</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (<a href="#name-MessageType">MessageType</a>, <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Conn-fold-method-Reader-docs' class="fold-docs">
+				Reader reads from the connection until until there is a WebSocket
+				data message to be read. It will handle ping, pong and close frames as appropriate.
+
+				It returns the type of the message and an io.Reader to read it.
+				The passed context will also bound the reader.
+				Ensure you read to EOF otherwise the connection will hang.
+
+				Call CloseRead if you do not expect any data messages from the peer.
+
+				Only one Reader may be open at a time.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Conn-fold-method-SetReadLimit"><label for="Conn-fold-method-SetReadLimit">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-72">SetReadLimit</a>(n <a href="../builtin.html#name-int64">int64</a>)</label><span id='Conn-fold-method-SetReadLimit-docs' class="fold-docs">
+				SetReadLimit sets the max number of bytes to read for a single message.
+				It applies to the Reader and Read methods.
+
+				By default, the connection has a message read limit of 32768 bytes.
+
+				When the limit is hit, the connection will be closed with StatusMessageTooBig.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Conn-fold-method-Subprotocol"><label for="Conn-fold-method-Subprotocol">(*T) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-121">Subprotocol</a>() <a href="../builtin.html#name-string">string</a></label><span id='Conn-fold-method-Subprotocol-docs' class="fold-docs">
+				Subprotocol returns the negotiated subprotocol.
+				An empty string means the default protocol.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Conn-fold-method-Write"><label for="Conn-fold-method-Write">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-41">Write</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, typ <a href="#name-MessageType">MessageType</a>, p []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-error">error</a></label><span id='Conn-fold-method-Write-docs' class="fold-docs">
+				Write writes a message to the connection.
+
+				See the Writer method if you want to stream a message.
+
+				If compression is disabled or the threshold is not met, then it
+				will write the message in a single frame.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Conn-fold-method-Writer"><label for="Conn-fold-method-Writer">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-27">Writer</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, typ <a href="#name-MessageType">MessageType</a>) (<a href="../io.html">io</a>.<a href="../io.html#name-WriteCloser">WriteCloser</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Conn-fold-method-Writer-docs' class="fold-docs">
+				Writer returns a writer bounded by the context that will write
+				a WebSocket message of type dataType to the connection.
+
+				You must close the writer once you have written the entire message.
+
+				Only one writer can be open at a time, multiple calls will block until the previous writer
+				is closed.
+</span></span>
+			<input type='checkbox' class="showhide" id="Conn-showhide-methods"><i><label for="Conn-showhide-methods" class="show-inline">/* 22 unexporteds ... */</label><label for="Conn-showhide-methods" class="hide-inline">/* 22 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-125">close</a>(err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-34">closeHandshake</a>(code <a href="#name-StatusCode">StatusCode</a>, reason <a href="../builtin.html#name-string">string</a>) (err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-170">flate</a>() <a href="../builtin.html#name-bool">bool</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-240">handleControl</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, h <a href="#name-header">header</a>) (err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-204">isClosed</a>() <a href="../builtin.html#name-bool">bool</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-191">ping</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, p <a href="../builtin.html#name-string">string</a>) <a href="../builtin.html#name-error">error</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-181">readFrameHeader</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (<a href="#name-header">header</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-210">readFramePayload</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-144">readLoop</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (<a href="#name-header">header</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-132">readRSV1Illegal</a>(h <a href="#name-header">header</a>) <a href="../builtin.html#name-bool">bool</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-300">reader</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (_ <a href="#name-MessageType">MessageType</a>, _ <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>, err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-192">setCloseErr</a>(err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-198">setCloseErrLocked</a>(err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-148">timeoutLoop</a>()</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-91">waitCloseHandshake</a>() <a href="../builtin.html#name-error">error</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-121">write</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, typ <a href="#name-MessageType">MessageType</a>, p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-53">writeClose</a>(code <a href="#name-StatusCode">StatusCode</a>, reason <a href="../builtin.html#name-string">string</a>) <a href="../builtin.html#name-error">error</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-232">writeControl</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, opcode <a href="#name-opcode">opcode</a>, p []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-error">error</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-393">writeError</a>(code <a href="#name-StatusCode">StatusCode</a>, err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<input type='checkbox' class="fold" id="Conn-fold-method-writeFrame"><label for="Conn-fold-method-writeFrame">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-244">writeFrame</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, fin <a href="../builtin.html#name-bool">bool</a>, flate <a href="../builtin.html#name-bool">bool</a>, opcode <a href="#name-opcode">opcode</a>, p []<a href="../builtin.html#name-byte">byte</a>) (_ <a href="../builtin.html#name-int">int</a>, err <a href="../builtin.html#name-error">error</a>)</label><span id='Conn-fold-method-writeFrame-docs' class="fold-docs">
+				frame handles all writes to the connection.
+</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-331">writeFramePayload</a>(p []<a href="../builtin.html#name-byte">byte</a>) (n <a href="../builtin.html#name-int">int</a>, err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-110">writer</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, typ <a href="#name-MessageType">MessageType</a>) (<a href="../io.html">io</a>.<a href="../io.html#name-WriteCloser">WriteCloser</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span></span>
+		<input type='checkbox' class="fold" id="Conn-fold-results"><label for="Conn-fold-results">As Outputs Of (<i>at least 5, in which 2 are exported</i>)</label><span id='Conn-fold-results-items' class="fold-items"><span>
+			func <a href="#name-Accept">Accept</a>(w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, r *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Request">Request</a>, opts *<a href="#name-AcceptOptions">AcceptOptions</a>) (*<b>Conn</b>, <a href="../builtin.html#name-error">error</a>)</span><span>
+			func <a href="#name-Dial">Dial</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, u <a href="../builtin.html#name-string">string</a>, opts *<a href="#name-DialOptions">DialOptions</a>) (*<b>Conn</b>, *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Response">Response</a>, <a href="../builtin.html#name-error">error</a>)</span>
+			<input type='checkbox' class="showhide" id="Conn-showhide-inputofs"><i><label for="Conn-showhide-inputofs" class="show-inline">/* 3+ unexporteds ... */</label><label for="Conn-showhide-inputofs" class="hide-inline">/* 3+ unexporteds: */</label></i><span class="hidden"><i>
+			func <a href="#name-accept">accept</a>(w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, r *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Request">Request</a>, opts *<a href="#name-AcceptOptions">AcceptOptions</a>) (_ *<b>Conn</b>, err <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
+			func <a href="#name-dial">dial</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, urls <a href="../builtin.html#name-string">string</a>, opts *<a href="#name-DialOptions">DialOptions</a>, rand <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>) (_ *<b>Conn</b>, _ *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Response">Response</a>, err <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
+			func <a href="#name-newConn">newConn</a>(cfg <a href="#name-connConfig">connConfig</a>) *<b>Conn</b></i></span></span>
+		<input type='checkbox' class="fold" id="Conn-fold-params"><label for="Conn-fold-params">As Inputs Of (<i>at least 6, in which 1 are exported</i>)</label><span id='Conn-fold-params-items' class="fold-items"><span>
+			func <a href="#name-NetConn">NetConn</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, c *<b>Conn</b>, msgType <a href="#name-MessageType">MessageType</a>) <a href="../net.html">net</a>.<a href="../net.html#name-Conn">Conn</a></span>
+			<input type='checkbox' class="showhide" id="Conn-showhide-outputofs"><i><label for="Conn-showhide-outputofs" class="show-inline">/* 5+ unexporteds ... */</label><label for="Conn-showhide-outputofs" class="hide-inline">/* 5+ unexporteds: */</label></i><span class="hidden"><i>
+			func <a href="#name-newLimitReader">newLimitReader</a>(c *<b>Conn</b>, r <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>, limit <a href="../builtin.html#name-int64">int64</a>) *<a href="#name-limitReader">limitReader</a></i></span><span class="hidden"><i>
+			func <a href="#name-newMsgReader">newMsgReader</a>(c *<b>Conn</b>) *<a href="#name-msgReader">msgReader</a></i></span><span class="hidden"><i>
+			func <a href="#name-newMsgWriterState">newMsgWriterState</a>(c *<b>Conn</b>) *<a href="#name-msgWriterState">msgWriterState</a></i></span><span class="hidden"><i>
+			func <a href="#name-newMu">newMu</a>(c *<b>Conn</b>) *<a href="#name-mu">mu</a></i></span><span class="hidden"><i>
+			func github.com/gotd/td/telegram/dcs.<a href="../github.com/gotd/td/telegram/dcs.html#name-netConn">netConn</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, c *<b>Conn</b>) <a href="../net.html">net</a>.<a href="../net.html#name-Conn">Conn</a></i></span></span>
+
+</span></div><div class="anchor type-res" id="name-DialOptions" data-popularity="140">	<input type='checkbox' class="fold" id="DialOptions-fold-content"><label for="DialOptions-fold-content"> <a href="../../use/nhooyr.io/websocket..DialOptions.html">type</a> <a href="../../src/nhooyr.io/websocket/dial.go.html#line-24">DialOptions</a> <i>(struct)</i></label><span id='DialOptions-fold-content-docs' class="fold-docs">
+		DialOptions represents Dial's options.
+
+		<input type='checkbox' class="fold" id="DialOptions-fold-fields"><label for="DialOptions-fold-fields">Fields (<i>total 5, all are exported</i>)</label><span id='DialOptions-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="DialOptions-fold-field-CompressionMode"><label for="DialOptions-fold-field-CompressionMode"><a href="../../src/nhooyr.io/websocket/dial.go.html#line-40">CompressionMode</a> <i><a href="#name-CompressionMode">CompressionMode</a></i></label><span id='DialOptions-fold-field-CompressionMode-docs' class="fold-docs">
+				CompressionMode controls the compression mode.
+				Defaults to CompressionNoContextTakeover.
+
+				See docs on CompressionMode for details.
+</span></span><span>
+			<input type='checkbox' class="fold" id="DialOptions-fold-field-CompressionThreshold"><label for="DialOptions-fold-field-CompressionThreshold"><a href="../../src/nhooyr.io/websocket/dial.go.html#line-46">CompressionThreshold</a> <i><a href="../builtin.html#name-int">int</a></i></label><span id='DialOptions-fold-field-CompressionThreshold-docs' class="fold-docs">
+				CompressionThreshold controls the minimum size of a message before compression is applied.
+
+				Defaults to 512 bytes for CompressionNoContextTakeover and 128 bytes
+				for CompressionContextTakeover.
+</span></span><span>
+			<input type='checkbox' class="fold" id="DialOptions-fold-field-HTTPClient"><label for="DialOptions-fold-field-HTTPClient"><a href="../../src/nhooyr.io/websocket/dial.go.html#line-28">HTTPClient</a> <i>*<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Client">Client</a></i></label><span id='DialOptions-fold-field-HTTPClient-docs' class="fold-docs">
+				HTTPClient is used for the connection.
+				Its Transport must return writable bodies for WebSocket handshakes.
+				http.Transport does beginning with Go 1.12.
+</span></span><span>
+			<input type='checkbox' class="fold" id="DialOptions-fold-field-HTTPHeader"><label for="DialOptions-fold-field-HTTPHeader"><a href="../../src/nhooyr.io/websocket/dial.go.html#line-31">HTTPHeader</a> <i><a href="../net/http.html">http</a>.<a href="../net/http.html#name-Header">Header</a></i></label><span id='DialOptions-fold-field-HTTPHeader-docs' class="fold-docs">
+				HTTPHeader specifies the HTTP headers included in the handshake request.
+</span></span><span>
+			<input type='checkbox' class="fold" id="DialOptions-fold-field-Subprotocols"><label for="DialOptions-fold-field-Subprotocols"><a href="../../src/nhooyr.io/websocket/dial.go.html#line-34">Subprotocols</a> <i>[]<a href="../builtin.html#name-string">string</a></i></label><span id='DialOptions-fold-field-Subprotocols-docs' class="fold-docs">
+				Subprotocols lists the WebSocket subprotocols to negotiate with the server.
+</span></span></span>
+		<input type='checkbox' class="fold" id="DialOptions-fold-params"><label for="DialOptions-fold-params">As Inputs Of (<i>at least 4, in which 1 are exported</i>)</label><span id='DialOptions-fold-params-items' class="fold-items"><span>
+			func <a href="#name-Dial">Dial</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, u <a href="../builtin.html#name-string">string</a>, opts *<b>DialOptions</b>) (*<a href="#name-Conn">Conn</a>, *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Response">Response</a>, <a href="../builtin.html#name-error">error</a>)</span>
+			<input type='checkbox' class="showhide" id="DialOptions-showhide-outputofs"><i><label for="DialOptions-showhide-outputofs" class="show-inline">/* 3+ unexporteds ... */</label><label for="DialOptions-showhide-outputofs" class="hide-inline">/* 3+ unexporteds: */</label></i><span class="hidden"><i>
+			func <a href="#name-dial">dial</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, urls <a href="../builtin.html#name-string">string</a>, opts *<b>DialOptions</b>, rand <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>) (_ *<a href="#name-Conn">Conn</a>, _ *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Response">Response</a>, err <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
+			func <a href="#name-handshakeRequest">handshakeRequest</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, urls <a href="../builtin.html#name-string">string</a>, opts *<b>DialOptions</b>, copts *<a href="#name-compressionOptions">compressionOptions</a>, secWebSocketKey <a href="../builtin.html#name-string">string</a>) (*<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Response">Response</a>, <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
+			func <a href="#name-verifyServerResponse">verifyServerResponse</a>(opts *<b>DialOptions</b>, copts *<a href="#name-compressionOptions">compressionOptions</a>, secWebSocketKey <a href="../builtin.html#name-string">string</a>, resp *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Response">Response</a>) (*<a href="#name-compressionOptions">compressionOptions</a>, <a href="../builtin.html#name-error">error</a>)</i></span></span>
+
+</span></div><div class="anchor type-res" id="name-MessageType" data-popularity="610">	<input type='checkbox' class="fold" id="MessageType-fold-content"><label for="MessageType-fold-content"> <a href="../../use/nhooyr.io/websocket..MessageType.html">type</a> <a href="../../src/nhooyr.io/websocket/conn.go.html#line-5">MessageType</a> <a href="../builtin.html#name-int">int</a> <i>(basic type)</i></label><span id='MessageType-fold-content-docs' class="fold-docs">
+		MessageType represents the type of a WebSocket message.
+		See https://tools.ietf.org/html/rfc6455#section-5.6
+
+		<input type='checkbox' class="fold" id="MessageType-fold-methods"><label for="MessageType-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='MessageType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/stringer.go.html#line-52">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="MessageType-fold-impls"><label for="MessageType-fold-impls">Implements (<i>at least 3, in which 1 are exported</i>)</label><span id='MessageType-fold-impls-items' class="fold-items"><span>
+			 T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span>
+			<input type='checkbox' class="showhide" id="MessageType-showhide-impls"><i><label for="MessageType-showhide-impls" class="show-inline">/* 2+ unexporteds ... */</label><label for="MessageType-showhide-impls" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
+			 T : context.<a href="../context.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
+			 T : runtime.<a href="../runtime.html#name-stringer">stringer</a></i></span></span>
+		<input type='checkbox' class="fold" id="MessageType-fold-results"><label for="MessageType-fold-results">As Outputs Of (<i>at least 3, in which 2 are exported</i>)</label><span id='MessageType-fold-results-items' class="fold-items"><span>
+			func (*<a href="#name-Conn">Conn</a>).<a href="../../src/nhooyr.io/websocket/read.go.html#line-35">Read</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (<b>MessageType</b>, []<a href="../builtin.html#name-byte">byte</a>, <a href="../builtin.html#name-error">error</a>)</span><span>
+			func (*<a href="#name-Conn">Conn</a>).<a href="../../src/nhooyr.io/websocket/read.go.html#line-29">Reader</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (<b>MessageType</b>, <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>, <a href="../builtin.html#name-error">error</a>)</span>
+			<input type='checkbox' class="showhide" id="MessageType-showhide-inputofs"><i><label for="MessageType-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="MessageType-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
+			func (*<a href="#name-Conn">Conn</a>).<a href="../../src/nhooyr.io/websocket/read.go.html#line-300">reader</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (_ <b>MessageType</b>, _ <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>, err <a href="../builtin.html#name-error">error</a>)</i></span></span>
+		<input type='checkbox' class="fold" id="MessageType-fold-params"><label for="MessageType-fold-params">As Inputs Of (<i>at least 5, in which 3 are exported</i>)</label><span id='MessageType-fold-params-items' class="fold-items"><span>
+			func <a href="#name-NetConn">NetConn</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, c *<a href="#name-Conn">Conn</a>, msgType <b>MessageType</b>) <a href="../net.html">net</a>.<a href="../net.html#name-Conn">Conn</a></span><span>
+			func (*<a href="#name-Conn">Conn</a>).<a href="../../src/nhooyr.io/websocket/write.go.html#line-41">Write</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, typ <b>MessageType</b>, p []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-error">error</a></span><span>
+			func (*<a href="#name-Conn">Conn</a>).<a href="../../src/nhooyr.io/websocket/write.go.html#line-27">Writer</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, typ <b>MessageType</b>) (<a href="../io.html">io</a>.<a href="../io.html#name-WriteCloser">WriteCloser</a>, <a href="../builtin.html#name-error">error</a>)</span>
+			<input type='checkbox' class="showhide" id="MessageType-showhide-outputofs"><i><label for="MessageType-showhide-outputofs" class="show-inline">/* 2+ unexporteds ... */</label><label for="MessageType-showhide-outputofs" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
+			func (*<a href="#name-Conn">Conn</a>).<a href="../../src/nhooyr.io/websocket/write.go.html#line-121">write</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, typ <b>MessageType</b>, p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
+			func (*<a href="#name-Conn">Conn</a>).<a href="../../src/nhooyr.io/websocket/write.go.html#line-110">writer</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, typ <b>MessageType</b>) (<a href="../io.html">io</a>.<a href="../io.html#name-WriteCloser">WriteCloser</a>, <a href="../builtin.html#name-error">error</a>)</i></span></span>
+		<input type='checkbox' class="fold" id="MessageType-fold-values"><label for="MessageType-fold-values">As Types Of (<i>total 2, both are exported</i>)</label><span id='MessageType-fold-values-items' class="fold-items"><span>
+			const <a href="#name-MessageBinary">MessageBinary</a></span><span>
+			const <a href="#name-MessageText">MessageText</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-StatusCode" data-popularity="465">	<input type='checkbox' class="fold" id="StatusCode-fold-content"><label for="StatusCode-fold-content"> <a href="../../use/nhooyr.io/websocket..StatusCode.html">type</a> <a href="../../src/nhooyr.io/websocket/close.go.html#line-10">StatusCode</a> <a href="../builtin.html#name-int">int</a> <i>(basic type)</i></label><span id='StatusCode-fold-content-docs' class="fold-docs">
+		StatusCode represents a WebSocket status code.
+		https://tools.ietf.org/html/rfc6455#section-7.4
+
+		<input type='checkbox' class="fold" id="StatusCode-fold-methods"><label for="StatusCode-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='StatusCode-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/stringer.go.html#line-85">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="StatusCode-fold-impls"><label for="StatusCode-fold-impls">Implements (<i>at least 3, in which 1 are exported</i>)</label><span id='StatusCode-fold-impls-items' class="fold-items"><span>
+			 T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span>
+			<input type='checkbox' class="showhide" id="StatusCode-showhide-impls"><i><label for="StatusCode-showhide-impls" class="show-inline">/* 2+ unexporteds ... */</label><label for="StatusCode-showhide-impls" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
+			 T : context.<a href="../context.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
+			 T : runtime.<a href="../runtime.html#name-stringer">stringer</a></i></span></span>
+		<input type='checkbox' class="fold" id="StatusCode-fold-results"><label for="StatusCode-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='StatusCode-fold-results-items' class="fold-items"><span>
+			func <a href="#name-CloseStatus">CloseStatus</a>(err <a href="../builtin.html#name-error">error</a>) <b>StatusCode</b></span></span>
+		<input type='checkbox' class="fold" id="StatusCode-fold-params"><label for="StatusCode-fold-params">As Inputs Of (<i>at least 5, in which 1 are exported</i>)</label><span id='StatusCode-fold-params-items' class="fold-items"><span>
+			func (*<a href="#name-Conn">Conn</a>).<a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-30">Close</a>(code <b>StatusCode</b>, reason <a href="../builtin.html#name-string">string</a>) <a href="../builtin.html#name-error">error</a></span>
+			<input type='checkbox' class="showhide" id="StatusCode-showhide-outputofs"><i><label for="StatusCode-showhide-outputofs" class="show-inline">/* 4+ unexporteds ... */</label><label for="StatusCode-showhide-outputofs" class="hide-inline">/* 4+ unexporteds: */</label></i><span class="hidden"><i>
+			func <a href="#name-validWireCloseCode">validWireCloseCode</a>(code <b>StatusCode</b>) <a href="../builtin.html#name-bool">bool</a></i></span><span class="hidden"><i>
+			func (*<a href="#name-Conn">Conn</a>).<a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-34">closeHandshake</a>(code <b>StatusCode</b>, reason <a href="../builtin.html#name-string">string</a>) (err <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
+			func (*<a href="#name-Conn">Conn</a>).<a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-53">writeClose</a>(code <b>StatusCode</b>, reason <a href="../builtin.html#name-string">string</a>) <a href="../builtin.html#name-error">error</a></i></span><span class="hidden"><i>
+			func (*<a href="#name-Conn">Conn</a>).<a href="../../src/nhooyr.io/websocket/write.go.html#line-393">writeError</a>(code <b>StatusCode</b>, err <a href="../builtin.html#name-error">error</a>)</i></span></span>
+		<input type='checkbox' class="fold" id="StatusCode-fold-values"><label for="StatusCode-fold-values">As Types Of (<i>total 16, in which 15 are exported</i>)</label><span id='StatusCode-fold-values-items' class="fold-items"><span>
+			const <a href="#name-StatusAbnormalClosure">StatusAbnormalClosure</a></span><span>
+			const <a href="#name-StatusBadGateway">StatusBadGateway</a></span><span>
+			const <a href="#name-StatusGoingAway">StatusGoingAway</a></span><span>
+			const <a href="#name-StatusInternalError">StatusInternalError</a></span><span>
+			const <a href="#name-StatusInvalidFramePayloadData">StatusInvalidFramePayloadData</a></span><span>
+			const <a href="#name-StatusMandatoryExtension">StatusMandatoryExtension</a></span><span>
+			const <a href="#name-StatusMessageTooBig">StatusMessageTooBig</a></span><span>
+			const <a href="#name-StatusNormalClosure">StatusNormalClosure</a></span><span>
+			const <a href="#name-StatusNoStatusRcvd">StatusNoStatusRcvd</a></span><span>
+			const <a href="#name-StatusPolicyViolation">StatusPolicyViolation</a></span><span>
+			const <a href="#name-StatusProtocolError">StatusProtocolError</a></span><span>
+			const <a href="#name-StatusServiceRestart">StatusServiceRestart</a></span><span>
+			const <a href="#name-StatusTLSHandshake">StatusTLSHandshake</a></span><span>
+			const <a href="#name-StatusTryAgainLater">StatusTryAgainLater</a></span><span>
+			const <a href="#name-StatusUnsupportedData">StatusUnsupportedData</a></span>
+			<input type='checkbox' class="showhide" id="StatusCode-showhide-values"><i><label for="StatusCode-showhide-values" class="show-inline">/* one unexported ... */</label><label for="StatusCode-showhide-values" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
+			const <a href="#name-statusReserved">statusReserved</a></i></span></span>
+
+</span></div></div><div>	<input type='checkbox' class="showhide" id="unexported-typenames-showhide"><i><label for="unexported-typenames-showhide" class="show-inline">/* 16 unexporteds ... */</label><label for="unexported-typenames-showhide" class="hide-inline">/* 16 unexporteds: */</label></i><div class="anchor type-res hidden" id="name-compressionOptions" data-popularity="605">	<input type='checkbox' class="fold" id="compressionOptions-fold-content"><label for="compressionOptions-fold-content"> <a href="../../use/nhooyr.io/websocket..compressionOptions*ecbb9.html">type</a> <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-20">compressionOptions</a> <i>(struct)</i></label><span id='compressionOptions-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="compressionOptions-fold-fields"><label for="compressionOptions-fold-fields">Fields (<i>total 2, neither is exported</i>)</label><span id='compressionOptions-fold-fields-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="compressionOptions-showhide-fields"><i><label for="compressionOptions-showhide-fields" class="show-inline">/* 2 unexporteds ... */</label><label for="compressionOptions-showhide-fields" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-21">clientNoContextTakeover</a> <i><a href="../builtin.html#name-bool">bool</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-22">serverNoContextTakeover</a> <i><a href="../builtin.html#name-bool">bool</a></i></span></i></span></span>
+		<input type='checkbox' class="fold" id="compressionOptions-fold-methods"><label for="compressionOptions-fold-methods">Methods (<i>only one, which is unexported</i>)</label><span id='compressionOptions-fold-methods-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="compressionOptions-showhide-methods"><i><label for="compressionOptions-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="compressionOptions-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-25">setHeader</a>(h <a href="../net/http.html">http</a>.<a href="../net/http.html#name-Header">Header</a>)</span></i></span></span>
+		<input type='checkbox' class="fold" id="compressionOptions-fold-results"><label for="compressionOptions-fold-results">As Outputs Of (<i>at least 6, none are exported</i>)</label><span id='compressionOptions-fold-results-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="compressionOptions-showhide-inputofs"><i><label for="compressionOptions-showhide-inputofs" class="show-inline">/* 6+ unexporteds ... */</label><label for="compressionOptions-showhide-inputofs" class="hide-inline">/* 6+ unexporteds: */</label></i><span class="hidden"><i>
+			func <a href="#name-acceptCompression">acceptCompression</a>(r *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Request">Request</a>, w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, mode <a href="#name-CompressionMode">CompressionMode</a>) (*<b>compressionOptions</b>, <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
+			func <a href="#name-acceptDeflate">acceptDeflate</a>(w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, ext <a href="#name-websocketExtension">websocketExtension</a>, mode <a href="#name-CompressionMode">CompressionMode</a>) (*<b>compressionOptions</b>, <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
+			func <a href="#name-acceptWebkitDeflate">acceptWebkitDeflate</a>(w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, ext <a href="#name-websocketExtension">websocketExtension</a>, mode <a href="#name-CompressionMode">CompressionMode</a>) (*<b>compressionOptions</b>, <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
+			func <a href="#name-verifyServerExtensions">verifyServerExtensions</a>(copts *<b>compressionOptions</b>, h <a href="../net/http.html">http</a>.<a href="../net/http.html#name-Header">Header</a>) (*<b>compressionOptions</b>, <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
+			func <a href="#name-verifyServerResponse">verifyServerResponse</a>(opts *<a href="#name-DialOptions">DialOptions</a>, copts *<b>compressionOptions</b>, secWebSocketKey <a href="../builtin.html#name-string">string</a>, resp *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Response">Response</a>) (*<b>compressionOptions</b>, <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
+			func <a href="#name-CompressionMode">CompressionMode</a>.<a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-13">opts</a>() *<b>compressionOptions</b></i></span></span>
+		<input type='checkbox' class="fold" id="compressionOptions-fold-params"><label for="compressionOptions-fold-params">As Inputs Of (<i>at least 3, none are exported</i>)</label><span id='compressionOptions-fold-params-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="compressionOptions-showhide-outputofs"><i><label for="compressionOptions-showhide-outputofs" class="show-inline">/* 3+ unexporteds ... */</label><label for="compressionOptions-showhide-outputofs" class="hide-inline">/* 3+ unexporteds: */</label></i><span class="hidden"><i>
+			func <a href="#name-handshakeRequest">handshakeRequest</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, urls <a href="../builtin.html#name-string">string</a>, opts *<a href="#name-DialOptions">DialOptions</a>, copts *<b>compressionOptions</b>, secWebSocketKey <a href="../builtin.html#name-string">string</a>) (*<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Response">Response</a>, <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
+			func <a href="#name-verifyServerExtensions">verifyServerExtensions</a>(copts *<b>compressionOptions</b>, h <a href="../net/http.html">http</a>.<a href="../net/http.html#name-Header">Header</a>) (*<b>compressionOptions</b>, <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
+			func <a href="#name-verifyServerResponse">verifyServerResponse</a>(opts *<a href="#name-DialOptions">DialOptions</a>, copts *<b>compressionOptions</b>, secWebSocketKey <a href="../builtin.html#name-string">string</a>, resp *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Response">Response</a>) (*<b>compressionOptions</b>, <a href="../builtin.html#name-error">error</a>)</i></span></span>
+
+</span></div><div class="anchor type-res hidden" id="name-connConfig" data-popularity="35">	<input type='checkbox' class="fold" id="connConfig-fold-content"><label for="connConfig-fold-content"> <a href="../../use/nhooyr.io/websocket..connConfig*ff741.html">type</a> <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-64">connConfig</a> <i>(struct)</i></label><span id='connConfig-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="connConfig-fold-fields"><label for="connConfig-fold-fields">Fields (<i>total 7, none are exported</i>)</label><span id='connConfig-fold-fields-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="connConfig-showhide-fields"><i><label for="connConfig-showhide-fields" class="show-inline">/* 7 unexporteds ... */</label><label for="connConfig-showhide-fields" class="hide-inline">/* 7 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-71">br</a> <i>*<a href="../bufio.html">bufio</a>.<a href="../bufio.html#name-Reader">Reader</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-72">bw</a> <i>*<a href="../bufio.html">bufio</a>.<a href="../bufio.html#name-Writer">Writer</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-67">client</a> <i><a href="../builtin.html#name-bool">bool</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-68">copts</a> <i>*<a href="#name-compressionOptions">compressionOptions</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-69">flateThreshold</a> <i><a href="../builtin.html#name-int">int</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-66">rwc</a> <i><a href="../io.html">io</a>.<a href="../io.html#name-ReadWriteCloser">ReadWriteCloser</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-65">subprotocol</a> <i><a href="../builtin.html#name-string">string</a></i></span></i></span></span>
+		<input type='checkbox' class="fold" id="connConfig-fold-params"><label for="connConfig-fold-params">As Inputs Of (<i>at least one unexported</i>)</label><span id='connConfig-fold-params-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="connConfig-showhide-outputofs"><i><label for="connConfig-showhide-outputofs" class="show-inline">/* at least one unexported ... */</label><label for="connConfig-showhide-outputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
+			func <a href="#name-newConn">newConn</a>(cfg <b>connConfig</b>) *<a href="#name-Conn">Conn</a></i></span></span>
+
+</span></div><div class="anchor type-res hidden" id="name-header" data-popularity="330">	<input type='checkbox' class="fold" id="header-fold-content"><label for="header-fold-content"> <a href="../../use/nhooyr.io/websocket..header*1e058.html">type</a> <a href="../../src/nhooyr.io/websocket/frame.go.html#line-36">header</a> <i>(struct)</i></label><span id='header-fold-content-docs' class="fold-docs">
+		header represents a WebSocket frame header.
+		See https://tools.ietf.org/html/rfc6455#section-5.2.
+
+		<input type='checkbox' class="fold" id="header-fold-fields"><label for="header-fold-fields">Fields (<i>total 8, none are exported</i>)</label><span id='header-fold-fields-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="header-showhide-fields"><i><label for="header-showhide-fields" class="show-inline">/* 8 unexporteds ... */</label><label for="header-showhide-fields" class="hide-inline">/* 8 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/frame.go.html#line-37">fin</a> <i><a href="../builtin.html#name-bool">bool</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/frame.go.html#line-46">maskKey</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/frame.go.html#line-45">masked</a> <i><a href="../builtin.html#name-bool">bool</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/frame.go.html#line-41">opcode</a> <i><a href="#name-opcode">opcode</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/frame.go.html#line-43">payloadLength</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/frame.go.html#line-38">rsv1</a> <i><a href="../builtin.html#name-bool">bool</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/frame.go.html#line-39">rsv2</a> <i><a href="../builtin.html#name-bool">bool</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/frame.go.html#line-40">rsv3</a> <i><a href="../builtin.html#name-bool">bool</a></i></span></i></span></span>
+		<input type='checkbox' class="fold" id="header-fold-results"><label for="header-fold-results">As Outputs Of (<i>at least 3, none are exported</i>)</label><span id='header-fold-results-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="header-showhide-inputofs"><i><label for="header-showhide-inputofs" class="show-inline">/* 3+ unexporteds ... */</label><label for="header-showhide-inputofs" class="hide-inline">/* 3+ unexporteds: */</label></i><span class="hidden"><i>
+			func <a href="#name-readFrameHeader">readFrameHeader</a>(r *<a href="../bufio.html">bufio</a>.<a href="../bufio.html#name-Reader">Reader</a>, readBuf []<a href="../builtin.html#name-byte">byte</a>) (h <b>header</b>, err <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
+			func (*<a href="#name-Conn">Conn</a>).<a href="../../src/nhooyr.io/websocket/read.go.html#line-181">readFrameHeader</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (<b>header</b>, <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
+			func (*<a href="#name-Conn">Conn</a>).<a href="../../src/nhooyr.io/websocket/read.go.html#line-144">readLoop</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (<b>header</b>, <a href="../builtin.html#name-error">error</a>)</i></span></span>
+		<input type='checkbox' class="fold" id="header-fold-params"><label for="header-fold-params">As Inputs Of (<i>at least 3, none are exported</i>)</label><span id='header-fold-params-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="header-showhide-outputofs"><i><label for="header-showhide-outputofs" class="show-inline">/* 3+ unexporteds ... */</label><label for="header-showhide-outputofs" class="hide-inline">/* 3+ unexporteds: */</label></i><span class="hidden"><i>
+			func <a href="#name-writeFrameHeader">writeFrameHeader</a>(h <b>header</b>, w *<a href="../bufio.html">bufio</a>.<a href="../bufio.html#name-Writer">Writer</a>, buf []<a href="../builtin.html#name-byte">byte</a>) (err <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
+			func (*<a href="#name-Conn">Conn</a>).<a href="../../src/nhooyr.io/websocket/read.go.html#line-240">handleControl</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, h <b>header</b>) (err <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
+			func (*<a href="#name-Conn">Conn</a>).<a href="../../src/nhooyr.io/websocket/read.go.html#line-132">readRSV1Illegal</a>(h <b>header</b>) <a href="../builtin.html#name-bool">bool</a></i></span></span>
+
+</span></div><div class="anchor type-res hidden" id="name-limitReader" data-popularity="225">	<input type='checkbox' class="fold" id="limitReader-fold-content"><label for="limitReader-fold-content"> <a href="../../use/nhooyr.io/websocket..limitReader*e84f9.html">type</a> <a href="../../src/nhooyr.io/websocket/read.go.html#line-434">limitReader</a> <i>(struct)</i></label><span id='limitReader-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="limitReader-fold-fields"><label for="limitReader-fold-fields">Fields (<i>total 4, none are exported</i>)</label><span id='limitReader-fold-fields-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="limitReader-showhide-fields"><i><label for="limitReader-showhide-fields" class="show-inline">/* 4 unexporteds ... */</label><label for="limitReader-showhide-fields" class="hide-inline">/* 4 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/read.go.html#line-435">c</a> <i>*<a href="#name-Conn">Conn</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/read.go.html#line-437">limit</a> <i><a href="websocket/internal/xsync.html">xsync</a>.<a href="websocket/internal/xsync.html#name-Int64">Int64</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/read.go.html#line-438">n</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/read.go.html#line-436">r</a> <i><a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a></i></span></i></span></span>
+		<input type='checkbox' class="fold" id="limitReader-fold-methods"><label for="limitReader-fold-methods">Methods (<i>total 2, in which 1 are exported</i>)</label><span id='limitReader-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-455">Read</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></span>
+			<input type='checkbox' checked class="showhide" id="limitReader-showhide-methods"><i><label for="limitReader-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="limitReader-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-450">reset</a>(r <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>)</span></i></span></span>
+		<input type='checkbox' class="fold" id="limitReader-fold-impls"><label for="limitReader-fold-impls">Implements (<i>at least one exported</i>)</label><span id='limitReader-fold-impls-items' class="fold-items"><span>
+			*T : io.<a href="../io.html#name-Reader">Reader</a></span></span>
+		<input type='checkbox' class="fold" id="limitReader-fold-results"><label for="limitReader-fold-results">As Outputs Of (<i>at least one unexported</i>)</label><span id='limitReader-fold-results-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="limitReader-showhide-inputofs"><i><label for="limitReader-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="limitReader-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
+			func <a href="#name-newLimitReader">newLimitReader</a>(c *<a href="#name-Conn">Conn</a>, r <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>, limit <a href="../builtin.html#name-int64">int64</a>) *<b>limitReader</b></i></span></span>
+
+</span></div><div class="anchor type-res hidden" id="name-msgReader" data-popularity="525">	<input type='checkbox' class="fold" id="msgReader-fold-content"><label for="msgReader-fold-content"> <a href="../../use/nhooyr.io/websocket..msgReader*fe0fa.html">type</a> <a href="../../src/nhooyr.io/websocket/read.go.html#line-331">msgReader</a> <i>(struct)</i></label><span id='msgReader-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="msgReader-fold-fields"><label for="msgReader-fold-fields">Fields (<i>total 12, none are exported</i>)</label><span id='msgReader-fold-fields-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="msgReader-showhide-fields"><i><label for="msgReader-showhide-fields" class="show-inline">/* 12 unexporteds ... */</label><label for="msgReader-showhide-fields" class="hide-inline">/* 12 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/read.go.html#line-332">c</a> <i>*<a href="#name-Conn">Conn</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/read.go.html#line-334">ctx</a> <i><a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/read.go.html#line-340">dict</a> <i><a href="#name-slidingWindow">slidingWindow</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/read.go.html#line-342">fin</a> <i><a href="../builtin.html#name-bool">bool</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/read.go.html#line-335">flate</a> <i><a href="../builtin.html#name-bool">bool</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/read.go.html#line-337">flateBufio</a> <i>*<a href="../bufio.html">bufio</a>.<a href="../bufio.html#name-Reader">Reader</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/read.go.html#line-336">flateReader</a> <i><a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/read.go.html#line-338">flateTail</a> <i><a href="../strings.html">strings</a>.<a href="../strings.html#name-Reader">Reader</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/read.go.html#line-339">limitReader</a> <i>*<a href="#name-limitReader">limitReader</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/read.go.html#line-344">maskKey</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/read.go.html#line-343">payloadLength</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></i></span><span class="hidden"><i>
+			<input type='checkbox' class="fold" id="msgReader-fold-field-readFunc"><label for="msgReader-fold-field-readFunc"><a href="../../src/nhooyr.io/websocket/read.go.html#line-347">readFunc</a> <i><a href="#name-readerFunc">readerFunc</a></i></label><span id='msgReader-fold-field-readFunc-docs' class="fold-docs">
+				readerFunc(mr.Read) to avoid continuous allocations.
+</span></i></span></span>
+		<input type='checkbox' class="fold" id="msgReader-fold-methods"><label for="msgReader-fold-methods">Methods (<i>total 8, in which 1 are exported</i>)</label><span id='msgReader-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-368">Read</a>(p []<a href="../builtin.html#name-byte">byte</a>) (n <a href="../builtin.html#name-int">int</a>, err <a href="../builtin.html#name-error">error</a>)</span></span>
+			<input type='checkbox' checked class="showhide" id="msgReader-showhide-methods"><i><label for="msgReader-showhide-methods" class="show-inline">/* 7 unexporteds ... */</label><label for="msgReader-showhide-methods" class="hide-inline">/* 7 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-111">close</a>()</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-125">flateContextTakeover</a>() <a href="../builtin.html#name-bool">bool</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-104">putFlateReader</a>()</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-391">read</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-350">reset</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, h <a href="#name-header">header</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-91">resetFlate</a>()</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-362">setFrame</a>(h <a href="#name-header">header</a>)</span></i></span></span>
+		<input type='checkbox' class="fold" id="msgReader-fold-impls"><label for="msgReader-fold-impls">Implements (<i>at least one exported</i>)</label><span id='msgReader-fold-impls-items' class="fold-items"><span>
+			*T : io.<a href="../io.html#name-Reader">Reader</a></span></span>
+		<input type='checkbox' class="fold" id="msgReader-fold-results"><label for="msgReader-fold-results">As Outputs Of (<i>at least one unexported</i>)</label><span id='msgReader-fold-results-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="msgReader-showhide-inputofs"><i><label for="msgReader-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="msgReader-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
+			func <a href="#name-newMsgReader">newMsgReader</a>(c *<a href="#name-Conn">Conn</a>) *<b>msgReader</b></i></span></span>
+
+</span></div><div class="anchor type-res hidden" id="name-msgWriter" data-popularity="250">	<input type='checkbox' class="fold" id="msgWriter-fold-content"><label for="msgWriter-fold-content"> <a href="../../use/nhooyr.io/websocket..msgWriter*72455.html">type</a> <a href="../../src/nhooyr.io/websocket/write.go.html#line-49">msgWriter</a> <i>(struct)</i></label><span id='msgWriter-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="msgWriter-fold-fields"><label for="msgWriter-fold-fields">Fields (<i>total 2, neither is exported</i>)</label><span id='msgWriter-fold-fields-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="msgWriter-showhide-fields"><i><label for="msgWriter-showhide-fields" class="show-inline">/* 2 unexporteds ... */</label><label for="msgWriter-showhide-fields" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/write.go.html#line-51">closed</a> <i><a href="../builtin.html#name-bool">bool</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/write.go.html#line-50">mw</a> <i>*<a href="#name-msgWriterState">msgWriterState</a></i></span></i></span></span>
+		<input type='checkbox' class="fold" id="msgWriter-fold-methods"><label for="msgWriter-fold-methods">Methods (<i>total 2, both are exported</i>)</label><span id='msgWriter-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-61">Close</a>() <a href="../builtin.html#name-error">error</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-54">Write</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></span></span>
+		<input type='checkbox' class="fold" id="msgWriter-fold-impls"><label for="msgWriter-fold-impls">Implements (<i>at least 3, all are exported</i>)</label><span id='msgWriter-fold-impls-items' class="fold-items"><span>
+			*T : io.<a href="../io.html#name-Closer">Closer</a></span><span>
+			*T : io.<a href="../io.html#name-WriteCloser">WriteCloser</a></span><span>
+			*T : io.<a href="../io.html#name-Writer">Writer</a></span></span>
+
+</span></div><div class="anchor type-res hidden" id="name-msgWriterState" data-popularity="575">	<input type='checkbox' class="fold" id="msgWriterState-fold-content"><label for="msgWriterState-fold-content"> <a href="../../use/nhooyr.io/websocket..msgWriterState*c44c2.html">type</a> <a href="../../src/nhooyr.io/websocket/write.go.html#line-69">msgWriterState</a> <i>(struct)</i></label><span id='msgWriterState-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="msgWriterState-fold-fields"><label for="msgWriterState-fold-fields">Fields (<i>total 8, none are exported</i>)</label><span id='msgWriterState-fold-fields-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="msgWriterState-showhide-fields"><i><label for="msgWriterState-showhide-fields" class="show-inline">/* 8 unexporteds ... */</label><label for="msgWriterState-showhide-fields" class="hide-inline">/* 8 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/write.go.html#line-70">c</a> <i>*<a href="#name-Conn">Conn</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/write.go.html#line-75">ctx</a> <i><a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/write.go.html#line-80">dict</a> <i><a href="#name-slidingWindow">slidingWindow</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/write.go.html#line-77">flate</a> <i><a href="../builtin.html#name-bool">bool</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/write.go.html#line-72">mu</a> <i>*<a href="#name-mu">mu</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/write.go.html#line-76">opcode</a> <i><a href="#name-opcode">opcode</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/write.go.html#line-79">trimWriter</a> <i>*<a href="#name-trimLastFourBytesWriter">trimLastFourBytesWriter</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/write.go.html#line-73">writeMu</a> <i>*<a href="#name-mu">mu</a></i></span></i></span></span>
+		<input type='checkbox' class="fold" id="msgWriterState-fold-methods"><label for="msgWriterState-fold-methods">Methods (<i>total 7, in which 2 are exported</i>)</label><span id='msgWriterState-fold-methods-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="msgWriterState-fold-method-Close"><label for="msgWriterState-fold-method-Close">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-201">Close</a>() (err <a href="../builtin.html#name-error">error</a>)</label><span id='msgWriterState-fold-method-Close-docs' class="fold-docs">
+				Close flushes the frame to the connection.
+</span></span><span>
+			<input type='checkbox' class="fold" id="msgWriterState-fold-method-Write"><label for="msgWriterState-fold-method-Write">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-157">Write</a>(p []<a href="../builtin.html#name-byte">byte</a>) (_ <a href="../builtin.html#name-int">int</a>, err <a href="../builtin.html#name-error">error</a>)</label><span id='msgWriterState-fold-method-Write-docs' class="fold-docs">
+				Write writes the given bytes to the WebSocket connection.
+</span></span>
+			<input type='checkbox' checked class="showhide" id="msgWriterState-showhide-methods"><i><label for="msgWriterState-showhide-methods" class="show-inline">/* 5 unexporteds ... */</label><label for="msgWriterState-showhide-methods" class="hide-inline">/* 5 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-222">close</a>()</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-92">ensureFlate</a>()</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-103">flateContextTakeover</a>() <a href="../builtin.html#name-bool">bool</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-141">reset</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, typ <a href="#name-MessageType">MessageType</a>) <a href="../builtin.html#name-error">error</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-191">write</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span></span>
+		<input type='checkbox' class="fold" id="msgWriterState-fold-impls"><label for="msgWriterState-fold-impls">Implements (<i>at least 3, all are exported</i>)</label><span id='msgWriterState-fold-impls-items' class="fold-items"><span>
+			*T : io.<a href="../io.html#name-Closer">Closer</a></span><span>
+			*T : io.<a href="../io.html#name-WriteCloser">WriteCloser</a></span><span>
+			*T : io.<a href="../io.html#name-Writer">Writer</a></span></span>
+		<input type='checkbox' class="fold" id="msgWriterState-fold-results"><label for="msgWriterState-fold-results">As Outputs Of (<i>at least one unexported</i>)</label><span id='msgWriterState-fold-results-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="msgWriterState-showhide-inputofs"><i><label for="msgWriterState-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="msgWriterState-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
+			func <a href="#name-newMsgWriterState">newMsgWriterState</a>(c *<a href="#name-Conn">Conn</a>) *<b>msgWriterState</b></i></span></span>
+
+</span></div><div class="anchor type-res hidden" id="name-mu" data-popularity="225">	<input type='checkbox' class="fold" id="mu-fold-content"><label for="mu-fold-content"> <a href="../../use/nhooyr.io/websocket..mu*19503.html">type</a> <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-221">mu</a> <i>(struct)</i></label><span id='mu-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="mu-fold-fields"><label for="mu-fold-fields">Fields (<i>total 2, neither is exported</i>)</label><span id='mu-fold-fields-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="mu-showhide-fields"><i><label for="mu-showhide-fields" class="show-inline">/* 2 unexporteds ... */</label><label for="mu-showhide-fields" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-222">c</a> <i>*<a href="#name-Conn">Conn</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-223">ch</a> <i>chan struct{}</i></span></i></span></span>
+		<input type='checkbox' class="fold" id="mu-fold-methods"><label for="mu-fold-methods">Methods (<i>total 3, none are exported</i>)</label><span id='mu-fold-methods-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="mu-showhide-methods"><i><label for="mu-showhide-methods" class="show-inline">/* 3 unexporteds ... */</label><label for="mu-showhide-methods" class="hide-inline">/* 3 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-233">forceLock</a>()</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-237">lock</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) <a href="../builtin.html#name-error">error</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-260">unlock</a>()</span></i></span></span>
+		<input type='checkbox' class="fold" id="mu-fold-results"><label for="mu-fold-results">As Outputs Of (<i>at least one unexported</i>)</label><span id='mu-fold-results-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="mu-showhide-inputofs"><i><label for="mu-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="mu-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
+			func <a href="#name-newMu">newMu</a>(c *<a href="#name-Conn">Conn</a>) *<b>mu</b></i></span></span>
+
+</span></div><div class="anchor type-res hidden" id="name-netConn" data-popularity="800">	<input type='checkbox' class="fold" id="netConn-fold-content"><label for="netConn-fold-content"> <a href="../../use/nhooyr.io/websocket..netConn*a3596.html">type</a> <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-62">netConn</a> <i>(struct)</i></label><span id='netConn-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="netConn-fold-fields"><label for="netConn-fold-fields">Fields (<i>total 9, none are exported</i>)</label><span id='netConn-fold-fields-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="netConn-showhide-fields"><i><label for="netConn-showhide-fields" class="show-inline">/* 9 unexporteds ... */</label><label for="netConn-showhide-fields" class="hide-inline">/* 9 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/netconn.go.html#line-63">c</a> <i>*<a href="#name-Conn">Conn</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/netconn.go.html#line-73">eofed</a> <i><a href="../builtin.html#name-bool">bool</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/netconn.go.html#line-64">msgType</a> <i><a href="#name-MessageType">MessageType</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/netconn.go.html#line-70">readContext</a> <i><a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/netconn.go.html#line-72">readMu</a> <i><a href="../sync.html">sync</a>.<a href="../sync.html#name-Mutex">Mutex</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/netconn.go.html#line-69">readTimer</a> <i>*<a href="../time.html">time</a>.<a href="../time.html#name-Timer">Timer</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/netconn.go.html#line-74">reader</a> <i><a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/netconn.go.html#line-67">writeContext</a> <i><a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/netconn.go.html#line-66">writeTimer</a> <i>*<a href="../time.html">time</a>.<a href="../time.html#name-Timer">Timer</a></i></span></i></span></span>
+		<input type='checkbox' class="fold" id="netConn-fold-methods"><label for="netConn-fold-methods">Methods (<i>total 8, all are exported</i>)</label><span id='netConn-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-79">Close</a>() <a href="../builtin.html#name-error">error</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-140">LocalAddr</a>() <a href="../net.html">net</a>.<a href="../net.html#name-Addr">Addr</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-91">Read</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-136">RemoteAddr</a>() <a href="../net.html">net</a>.<a href="../net.html#name-Addr">Addr</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-144">SetDeadline</a>(t <a href="../time.html">time</a>.<a href="../time.html#name-Time">Time</a>) <a href="../builtin.html#name-error">error</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-159">SetReadDeadline</a>(t <a href="../time.html">time</a>.<a href="../time.html#name-Time">Time</a>) <a href="../builtin.html#name-error">error</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-150">SetWriteDeadline</a>(t <a href="../time.html">time</a>.<a href="../time.html#name-Time">Time</a>) <a href="../builtin.html#name-error">error</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-83">Write</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></span></span>
+		<input type='checkbox' class="fold" id="netConn-fold-impls"><label for="netConn-fold-impls">Implements (<i>at least 8, all are exported</i>)</label><span id='netConn-fold-impls-items' class="fold-items"><span>
+			*T : io.<a href="../io.html#name-Closer">Closer</a></span><span>
+			*T : io.<a href="../io.html#name-ReadCloser">ReadCloser</a></span><span>
+			*T : io.<a href="../io.html#name-Reader">Reader</a></span><span>
+			*T : io.<a href="../io.html#name-ReadWriteCloser">ReadWriteCloser</a></span><span>
+			*T : io.<a href="../io.html#name-ReadWriter">ReadWriter</a></span><span>
+			*T : io.<a href="../io.html#name-WriteCloser">WriteCloser</a></span><span>
+			*T : io.<a href="../io.html#name-Writer">Writer</a></span><span>
+			*T : net.<a href="../net.html#name-Conn">Conn</a></span></span>
+
+</span></div><div class="anchor type-res hidden" id="name-opcode" data-popularity="285">	<input type='checkbox' class="fold" id="opcode-fold-content"><label for="opcode-fold-content"> <a href="../../use/nhooyr.io/websocket..opcode*5c14f.html">type</a> <a href="../../src/nhooyr.io/websocket/frame.go.html#line-15">opcode</a> <a href="../builtin.html#name-int">int</a> <i>(basic type)</i></label><span id='opcode-fold-content-docs' class="fold-docs">
+		opcode represents a WebSocket opcode.
+
+		<input type='checkbox' class="fold" id="opcode-fold-methods"><label for="opcode-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='opcode-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/stringer.go.html#line-29">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="opcode-fold-impls"><label for="opcode-fold-impls">Implements (<i>at least 3, in which 1 are exported</i>)</label><span id='opcode-fold-impls-items' class="fold-items"><span>
+			 T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span>
+			<input type='checkbox' checked class="showhide" id="opcode-showhide-impls"><i><label for="opcode-showhide-impls" class="show-inline">/* 2+ unexporteds ... */</label><label for="opcode-showhide-impls" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
+			 T : context.<a href="../context.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
+			 T : runtime.<a href="../runtime.html#name-stringer">stringer</a></i></span></span>
+		<input type='checkbox' class="fold" id="opcode-fold-params"><label for="opcode-fold-params">As Inputs Of (<i>at least 2, neither is exported</i>)</label><span id='opcode-fold-params-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="opcode-showhide-outputofs"><i><label for="opcode-showhide-outputofs" class="show-inline">/* 2+ unexporteds ... */</label><label for="opcode-showhide-outputofs" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
+			func (*<a href="#name-Conn">Conn</a>).<a href="../../src/nhooyr.io/websocket/write.go.html#line-232">writeControl</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, opcode <b>opcode</b>, p []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-error">error</a></i></span><span class="hidden"><i>
+			func (*<a href="#name-Conn">Conn</a>).<a href="../../src/nhooyr.io/websocket/write.go.html#line-244">writeFrame</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, fin <a href="../builtin.html#name-bool">bool</a>, flate <a href="../builtin.html#name-bool">bool</a>, opcode <b>opcode</b>, p []<a href="../builtin.html#name-byte">byte</a>) (_ <a href="../builtin.html#name-int">int</a>, err <a href="../builtin.html#name-error">error</a>)</i></span></span>
+		<input type='checkbox' class="fold" id="opcode-fold-values"><label for="opcode-fold-values">As Types Of (<i>total 6, none are exported</i>)</label><span id='opcode-fold-values-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="opcode-showhide-values"><i><label for="opcode-showhide-values" class="show-inline">/* 6 unexporteds ... */</label><label for="opcode-showhide-values" class="hide-inline">/* 6 unexporteds: */</label></i><span class="hidden"><i>
+			const <a href="#name-opBinary">opBinary</a></i></span><span class="hidden"><i>
+			const <a href="#name-opClose">opClose</a></i></span><span class="hidden"><i>
+			const <a href="#name-opContinuation">opContinuation</a></i></span><span class="hidden"><i>
+			const <a href="#name-opPing">opPing</a></i></span><span class="hidden"><i>
+			const <a href="#name-opPong">opPong</a></i></span><span class="hidden"><i>
+			const <a href="#name-opText">opText</a></i></span></span>
+
+</span></div><div class="anchor type-res hidden" id="name-readerFunc" data-popularity="100">	<input type='checkbox' class="fold" id="readerFunc-fold-content"><label for="readerFunc-fold-content"> <a href="../../use/nhooyr.io/websocket..readerFunc*cc987.html">type</a> <a href="../../src/nhooyr.io/websocket/read.go.html#line-470">readerFunc</a> <i>(func)</i></label><span id='readerFunc-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="readerFunc-fold-methods"><label for="readerFunc-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='readerFunc-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-472">Read</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></span></span>
+		<input type='checkbox' class="fold" id="readerFunc-fold-impls"><label for="readerFunc-fold-impls">Implements (<i>at least one exported</i>)</label><span id='readerFunc-fold-impls-items' class="fold-items"><span>
+			 T : io.<a href="../io.html#name-Reader">Reader</a></span></span>
+
+</span></div><div class="anchor type-res hidden" id="name-slidingWindow" data-popularity="150">	<input type='checkbox' class="fold" id="slidingWindow-fold-content"><label for="slidingWindow-fold-content"> <a href="../../use/nhooyr.io/websocket..slidingWindow*02df3.html">type</a> <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-111">slidingWindow</a> <i>(struct)</i></label><span id='slidingWindow-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="slidingWindow-fold-fields"><label for="slidingWindow-fold-fields">Fields (<i>only one, which is unexported</i>)</label><span id='slidingWindow-fold-fields-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="slidingWindow-showhide-fields"><i><label for="slidingWindow-showhide-fields" class="show-inline">/* one unexported ... */</label><label for="slidingWindow-showhide-fields" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-112">buf</a> <i>[]<a href="../builtin.html#name-byte">byte</a></i></span></i></span></span>
+		<input type='checkbox' class="fold" id="slidingWindow-fold-methods"><label for="slidingWindow-fold-methods">Methods (<i>total 3, none are exported</i>)</label><span id='slidingWindow-fold-methods-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="slidingWindow-showhide-methods"><i><label for="slidingWindow-showhide-methods" class="show-inline">/* 3 unexporteds ... */</label><label for="slidingWindow-showhide-methods" class="hide-inline">/* 3 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-153">close</a>()</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-135">init</a>(n <a href="../builtin.html#name-int">int</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-164">write</a>(p []<a href="../builtin.html#name-byte">byte</a>)</span></i></span></span>
+
+</span></div><div class="anchor type-res hidden" id="name-trimLastFourBytesWriter" data-popularity="150">	<input type='checkbox' class="fold" id="trimLastFourBytesWriter-fold-content"><label for="trimLastFourBytesWriter-fold-content"> <a href="../../use/nhooyr.io/websocket..trimLastFourBytesWriter*78a18.html">type</a> <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-43">trimLastFourBytesWriter</a> <i>(struct)</i></label><span id='trimLastFourBytesWriter-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="trimLastFourBytesWriter-fold-fields"><label for="trimLastFourBytesWriter-fold-fields">Fields (<i>total 2, neither is exported</i>)</label><span id='trimLastFourBytesWriter-fold-fields-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="trimLastFourBytesWriter-showhide-fields"><i><label for="trimLastFourBytesWriter-showhide-fields" class="show-inline">/* 2 unexporteds ... */</label><label for="trimLastFourBytesWriter-showhide-fields" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-45">tail</a> <i>[]<a href="../builtin.html#name-byte">byte</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-44">w</a> <i><a href="../io.html">io</a>.<a href="../io.html#name-Writer">Writer</a></i></span></i></span></span>
+		<input type='checkbox' class="fold" id="trimLastFourBytesWriter-fold-methods"><label for="trimLastFourBytesWriter-fold-methods">Methods (<i>total 2, in which 1 are exported</i>)</label><span id='trimLastFourBytesWriter-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-54">Write</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></span>
+			<input type='checkbox' checked class="showhide" id="trimLastFourBytesWriter-showhide-methods"><i><label for="trimLastFourBytesWriter-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="trimLastFourBytesWriter-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
+			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-48">reset</a>()</span></i></span></span>
+		<input type='checkbox' class="fold" id="trimLastFourBytesWriter-fold-impls"><label for="trimLastFourBytesWriter-fold-impls">Implements (<i>at least one exported</i>)</label><span id='trimLastFourBytesWriter-fold-impls-items' class="fold-items"><span>
+			*T : io.<a href="../io.html#name-Writer">Writer</a></span></span>
+
+</span></div><div class="anchor type-res hidden" id="name-websocketAddr" data-popularity="300">	<input type='checkbox' class="fold" id="websocketAddr-fold-content"><label for="websocketAddr-fold-content"> <a href="../../use/nhooyr.io/websocket..websocketAddr*dd18b.html">type</a> <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-125">websocketAddr</a> <i>(struct)</i></label><span id='websocketAddr-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="websocketAddr-fold-methods"><label for="websocketAddr-fold-methods">Methods (<i>total 2, both are exported</i>)</label><span id='websocketAddr-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-128">Network</a>() <a href="../builtin.html#name-string">string</a></span></span><span>
+			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-132">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="websocketAddr-fold-impls"><label for="websocketAddr-fold-impls">Implements (<i>at least 4, in which 2 are exported</i>)</label><span id='websocketAddr-fold-impls-items' class="fold-items"><span>
+			 T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span><span>
+			 T : net.<a href="../net.html#name-Addr">Addr</a></span>
+			<input type='checkbox' checked class="showhide" id="websocketAddr-showhide-impls"><i><label for="websocketAddr-showhide-impls" class="show-inline">/* 2+ unexporteds ... */</label><label for="websocketAddr-showhide-impls" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
+			 T : context.<a href="../context.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
+			 T : runtime.<a href="../runtime.html#name-stringer">stringer</a></i></span></span>
+
+</span></div><div class="anchor type-res hidden" id="name-websocketExtension" data-popularity="145">	<input type='checkbox' class="fold" id="websocketExtension-fold-content"><label for="websocketExtension-fold-content"> <a href="../../use/nhooyr.io/websocket..websocketExtension*a2445.html">type</a> <a href="../../src/nhooyr.io/websocket/accept.go.html#line-321">websocketExtension</a> <i>(struct)</i></label><span id='websocketExtension-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="websocketExtension-fold-fields"><label for="websocketExtension-fold-fields">Fields (<i>total 2, neither is exported</i>)</label><span id='websocketExtension-fold-fields-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="websocketExtension-showhide-fields"><i><label for="websocketExtension-showhide-fields" class="show-inline">/* 2 unexporteds ... */</label><label for="websocketExtension-showhide-fields" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/accept.go.html#line-322">name</a> <i><a href="../builtin.html#name-string">string</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/accept.go.html#line-323">params</a> <i>[]<a href="../builtin.html#name-string">string</a></i></span></i></span></span>
+		<input type='checkbox' class="fold" id="websocketExtension-fold-results"><label for="websocketExtension-fold-results">As Outputs Of (<i>at least one unexported</i>)</label><span id='websocketExtension-fold-results-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="websocketExtension-showhide-inputofs"><i><label for="websocketExtension-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="websocketExtension-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
+			func <a href="#name-websocketExtensions">websocketExtensions</a>(h <a href="../net/http.html">http</a>.<a href="../net/http.html#name-Header">Header</a>) []<b>websocketExtension</b></i></span></span>
+		<input type='checkbox' class="fold" id="websocketExtension-fold-params"><label for="websocketExtension-fold-params">As Inputs Of (<i>at least 2, neither is exported</i>)</label><span id='websocketExtension-fold-params-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="websocketExtension-showhide-outputofs"><i><label for="websocketExtension-showhide-outputofs" class="show-inline">/* 2+ unexporteds ... */</label><label for="websocketExtension-showhide-outputofs" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
+			func <a href="#name-acceptDeflate">acceptDeflate</a>(w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, ext <b>websocketExtension</b>, mode <a href="#name-CompressionMode">CompressionMode</a>) (*<a href="#name-compressionOptions">compressionOptions</a>, <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
+			func <a href="#name-acceptWebkitDeflate">acceptWebkitDeflate</a>(w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, ext <b>websocketExtension</b>, mode <a href="#name-CompressionMode">CompressionMode</a>) (*<a href="#name-compressionOptions">compressionOptions</a>, <a href="../builtin.html#name-error">error</a>)</i></span></span>
+
+</span></div><div class="anchor type-res hidden" id="name-writerFunc" data-popularity="100">	<input type='checkbox' class="fold" id="writerFunc-fold-content"><label for="writerFunc-fold-content"> <a href="../../use/nhooyr.io/websocket..writerFunc*49f17.html">type</a> <a href="../../src/nhooyr.io/websocket/write.go.html#line-370">writerFunc</a> <i>(func)</i></label><span id='writerFunc-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="writerFunc-fold-methods"><label for="writerFunc-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='writerFunc-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-372">Write</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></span></span>
+		<input type='checkbox' class="fold" id="writerFunc-fold-impls"><label for="writerFunc-fold-impls">Implements (<i>at least one exported</i>)</label><span id='writerFunc-fold-impls-items' class="fold-items"><span>
+			 T : io.<a href="../io.html#name-Writer">Writer</a></span></span>
+
+</span></div></div>
+<div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 40, in which 4 are exported)</i></span></span>
+
+<div class="anchor value-res" id="name-Accept">	<input type='checkbox' class="fold" id="Accept-fold-content"><label for="Accept-fold-content"> <a href="../../use/nhooyr.io/websocket..Accept.html">func</a> <a href="../../src/nhooyr.io/websocket/accept.go.html#line-73">Accept</a>(w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, r *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Request">Request</a>, opts *<a href="#name-AcceptOptions">AcceptOptions</a>) (*<a href="#name-Conn">Conn</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Accept-fold-content-docs' class="fold-docs">
+		Accept accepts a WebSocket handshake from a client and upgrades the
+		the connection to a WebSocket.
+
+		Accept will not allow cross origin requests by default.
+		See the InsecureSkipVerify and OriginPatterns options to allow cross origin requests.
+
+		Accept will write a response to w on all errors.
+
+</span></div><div class="anchor value-res" id="name-CloseStatus">	<input type='checkbox' class="fold" id="CloseStatus-fold-content"><label for="CloseStatus-fold-content"> <a href="../../use/nhooyr.io/websocket..CloseStatus.html">func</a> <a href="../../src/nhooyr.io/websocket/close.go.html#line-70">CloseStatus</a>(err <a href="../builtin.html#name-error">error</a>) <a href="#name-StatusCode">StatusCode</a></label><span id='CloseStatus-fold-content-docs' class="fold-docs">
+		CloseStatus is a convenience wrapper around Go 1.13's errors.As to grab
+		the status code from a CloseError.
+
+		-1 will be returned if the passed error is nil or not a CloseError.
+
+</span></div><div class="anchor value-res" id="name-Dial">	<input type='checkbox' class="fold" id="Dial-fold-content"><label for="Dial-fold-content"> <a href="../../use/nhooyr.io/websocket..Dial.html">func</a> <a href="../../src/nhooyr.io/websocket/dial.go.html#line-62">Dial</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, u <a href="../builtin.html#name-string">string</a>, opts *<a href="#name-DialOptions">DialOptions</a>) (*<a href="#name-Conn">Conn</a>, *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Response">Response</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Dial-fold-content-docs' class="fold-docs">
+		Dial performs a WebSocket handshake on url.
+
+		The response is the WebSocket handshake response from the server.
+		You never need to close resp.Body yourself.
+
+		If an error occurs, the returned response may be non nil.
+		However, you can only read the first 1024 bytes of the body.
+
+		This function requires at least Go 1.12 as it uses a new feature
+		in net/http to perform WebSocket handshakes.
+		See docs on the HTTPClient option and https://github.com/golang/go/issues/26937#issuecomment-415855861
+
+		URLs with http/https schemes will work and are interpreted as ws/wss.
+
+</span></div><div class="anchor value-res" id="name-NetConn">	<input type='checkbox' class="fold" id="NetConn-fold-content"><label for="NetConn-fold-content"> <a href="../../use/nhooyr.io/websocket..NetConn.html">func</a> <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-40">NetConn</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, c *<a href="#name-Conn">Conn</a>, msgType <a href="#name-MessageType">MessageType</a>) <a href="../net.html">net</a>.<a href="../net.html#name-Conn">Conn</a></label><span id='NetConn-fold-content-docs' class="fold-docs">
+		NetConn converts a *websocket.Conn into a net.Conn.
+
+		It's for tunneling arbitrary protocols over WebSockets.
+		Few users of the library will need this but it's tricky to implement
+		correctly and so provided in the library.
+		See https://github.com/nhooyr/websocket/issues/100.
+
+		Every Write to the net.Conn will correspond to a message write of
+		the given type on *websocket.Conn.
+
+		The passed ctx bounds the lifetime of the net.Conn. If cancelled,
+		all reads and writes on the net.Conn will be cancelled.
+
+		If a message is read that is not of the correct type, the connection
+		will be closed with StatusUnsupportedData and an error will be returned.
+
+		Close will close the *websocket.Conn with StatusNormalClosure.
+
+		When a deadline is hit, the connection will be closed. This is
+		different from most net.Conn implementations where only the
+		reading/writing goroutines are interrupted but the connection is kept alive.
+
+		The Addr methods will return a mock net.Addr that returns "websocket" for Network
+		and "websocket/unknown-addr" for String.
+
+		A received StatusNormalClosure or StatusGoingAway close frame will be translated to
+		io.EOF when reading.
+
+</span></div>	<input type='checkbox' class="showhide" id="unexported-functions-showhide"><i><label for="unexported-functions-showhide" class="show-inline">/* 36 unexporteds ... */</label><label for="unexported-functions-showhide" class="hide-inline">/* 36 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-accept"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..accept*c125d.html">func</a> <a href="../../src/nhooyr.io/websocket/accept.go.html#line-77">accept</a>(w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, r *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Request">Request</a>, opts *<a href="#name-AcceptOptions">AcceptOptions</a>) (_ *<a href="#name-Conn">Conn</a>, err <a href="../builtin.html#name-error">error</a>)</span></i></div><div class="anchor value-res hidden" id="name-acceptCompression"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..acceptCompression*a4951.html">func</a> <a href="../../src/nhooyr.io/websocket/accept.go.html#line-233">acceptCompression</a>(r *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Request">Request</a>, w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, mode <a href="#name-CompressionMode">CompressionMode</a>) (*<a href="#name-compressionOptions">compressionOptions</a>, <a href="../builtin.html#name-error">error</a>)</span></i></div><div class="anchor value-res hidden" id="name-acceptDeflate"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..acceptDeflate*e18d9.html">func</a> <a href="../../src/nhooyr.io/websocket/accept.go.html#line-250">acceptDeflate</a>(w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, ext <a href="#name-websocketExtension">websocketExtension</a>, mode <a href="#name-CompressionMode">CompressionMode</a>) (*<a href="#name-compressionOptions">compressionOptions</a>, <a href="../builtin.html#name-error">error</a>)</span></i></div><div class="anchor value-res hidden" id="name-acceptWebkitDeflate"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..acceptWebkitDeflate*411b0.html">func</a> <a href="../../src/nhooyr.io/websocket/accept.go.html#line-278">acceptWebkitDeflate</a>(w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, ext <a href="#name-websocketExtension">websocketExtension</a>, mode <a href="#name-CompressionMode">CompressionMode</a>) (*<a href="#name-compressionOptions">compressionOptions</a>, <a href="../builtin.html#name-error">error</a>)</span></i></div><div class="anchor value-res hidden" id="name-authenticateOrigin"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..authenticateOrigin*30342.html">func</a> <a href="../../src/nhooyr.io/websocket/accept.go.html#line-190">authenticateOrigin</a>(r *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Request">Request</a>, originHosts []<a href="../builtin.html#name-string">string</a>) <a href="../builtin.html#name-error">error</a></span></i></div><div class="anchor value-res hidden" id="name-dial"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..dial*21446.html">func</a> <a href="../../src/nhooyr.io/websocket/dial.go.html#line-66">dial</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, urls <a href="../builtin.html#name-string">string</a>, opts *<a href="#name-DialOptions">DialOptions</a>, rand <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>) (_ *<a href="#name-Conn">Conn</a>, _ *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Response">Response</a>, err <a href="../builtin.html#name-error">error</a>)</span></i></div><div class="anchor value-res hidden" id="name-extractBufioWriterBuf"><i>	<input type='checkbox' class="fold" id="extractBufioWriterBuf-fold-content"><label for="extractBufioWriterBuf-fold-content"> <a href="../../use/nhooyr.io/websocket..extractBufioWriterBuf*cc06d.html">func</a> <a href="../../src/nhooyr.io/websocket/write.go.html#line-378">extractBufioWriterBuf</a>(bw *<a href="../bufio.html">bufio</a>.<a href="../bufio.html#name-Writer">Writer</a>, w <a href="../io.html">io</a>.<a href="../io.html#name-Writer">Writer</a>) []<a href="../builtin.html#name-byte">byte</a></label><span id='extractBufioWriterBuf-fold-content-docs' class="fold-docs">
+		extractBufioWriterBuf grabs the []byte backing a *bufio.Writer
+		and returns it.
+
+</span></i></div><div class="anchor value-res hidden" id="name-getBufioReader"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..getBufioReader*f5d5c.html">func</a> <a href="../../src/nhooyr.io/websocket/dial.go.html#line-266">getBufioReader</a>(r <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>) *<a href="../bufio.html">bufio</a>.<a href="../bufio.html#name-Reader">Reader</a></span></i></div><div class="anchor value-res hidden" id="name-getBufioWriter"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..getBufioWriter*5b35b.html">func</a> <a href="../../src/nhooyr.io/websocket/dial.go.html#line-281">getBufioWriter</a>(w <a href="../io.html">io</a>.<a href="../io.html#name-Writer">Writer</a>) *<a href="../bufio.html">bufio</a>.<a href="../bufio.html#name-Writer">Writer</a></span></i></div><div class="anchor value-res hidden" id="name-getFlateReader"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..getFlateReader*3867d.html">func</a> <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-98">getFlateReader</a>(r <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>, dict []<a href="../builtin.html#name-byte">byte</a>) <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a></span></i></div><div class="anchor value-res hidden" id="name-handshakeRequest"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..handshakeRequest*96378.html">func</a> <a href="../../src/nhooyr.io/websocket/dial.go.html#line-144">handshakeRequest</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, urls <a href="../builtin.html#name-string">string</a>, opts *<a href="#name-DialOptions">DialOptions</a>, copts *<a href="#name-compressionOptions">compressionOptions</a>, secWebSocketKey <a href="../builtin.html#name-string">string</a>) (*<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Response">Response</a>, <a href="../builtin.html#name-error">error</a>)</span></i></div><div class="anchor value-res hidden" id="name-headerContainsTokenIgnoreCase"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..headerContainsTokenIgnoreCase*eaf2c.html">func</a> <a href="../../src/nhooyr.io/websocket/accept.go.html#line-312">headerContainsTokenIgnoreCase</a>(h <a href="../net/http.html">http</a>.<a href="../net/http.html#name-Header">Header</a>, key, token <a href="../builtin.html#name-string">string</a>) <a href="../builtin.html#name-bool">bool</a></span></i></div><div class="anchor value-res hidden" id="name-headerTokens"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..headerTokens*5a26e.html">func</a> <a href="../../src/nhooyr.io/websocket/accept.go.html#line-349">headerTokens</a>(h <a href="../net/http.html">http</a>.<a href="../net/http.html#name-Header">Header</a>, key <a href="../builtin.html#name-string">string</a>) []<a href="../builtin.html#name-string">string</a></span></i></div><div class="anchor value-res hidden" id="name-mask"><i>	<input type='checkbox' class="fold" id="mask-fold-content"><label for="mask-fold-content"> <a href="../../use/nhooyr.io/websocket..mask*48bf9.html">func</a> <a href="../../src/nhooyr.io/websocket/frame.go.html#line-185">mask</a>(key <a href="../builtin.html#name-uint32">uint32</a>, b []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-uint32">uint32</a></label><span id='mask-fold-content-docs' class="fold-docs">
+		mask applies the WebSocket masking algorithm to p
+		with the given key.
+		See https://tools.ietf.org/html/rfc6455#section-5.3
+
+		The returned value is the correctly rotated key to
+		to continue to mask/unmask the message.
+
+		It is optimized for LittleEndian and expects the key
+		to be in little endian.
+
+		See https://github.com/golang/go/issues/31586
+
+</span></i></div><div class="anchor value-res hidden" id="name-match"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..match*4945a.html">func</a> <a href="../../src/nhooyr.io/websocket/accept.go.html#line-217">match</a>(pattern, s <a href="../builtin.html#name-string">string</a>) (<a href="../builtin.html#name-bool">bool</a>, <a href="../builtin.html#name-error">error</a>)</span></i></div><div class="anchor value-res hidden" id="name-newConn"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..newConn*0c673.html">func</a> <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-75">newConn</a>(cfg <a href="#name-connConfig">connConfig</a>) *<a href="#name-Conn">Conn</a></span></i></div><div class="anchor value-res hidden" id="name-newLimitReader"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..newLimitReader*0ac4d.html">func</a> <a href="../../src/nhooyr.io/websocket/read.go.html#line-441">newLimitReader</a>(c *<a href="#name-Conn">Conn</a>, r <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>, limit <a href="../builtin.html#name-int64">int64</a>) *<a href="#name-limitReader">limitReader</a></span></i></div><div class="anchor value-res hidden" id="name-newMsgReader"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..newMsgReader*f9dc3.html">func</a> <a href="../../src/nhooyr.io/websocket/read.go.html#line-80">newMsgReader</a>(c *<a href="#name-Conn">Conn</a>) *<a href="#name-msgReader">msgReader</a></span></i></div><div class="anchor value-res hidden" id="name-newMsgWriterState"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..newMsgWriterState*37a77.html">func</a> <a href="../../src/nhooyr.io/websocket/write.go.html#line-83">newMsgWriterState</a>(c *<a href="#name-Conn">Conn</a>) *<a href="#name-msgWriterState">msgWriterState</a></span></i></div><div class="anchor value-res hidden" id="name-newMu"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..newMu*93f59.html">func</a> <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-226">newMu</a>(c *<a href="#name-Conn">Conn</a>) *<a href="#name-mu">mu</a></span></i></div><div class="anchor value-res hidden" id="name-parseClosePayload"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..parseClosePayload*d4211.html">func</a> <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-122">parseClosePayload</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="#name-CloseError">CloseError</a>, <a href="../builtin.html#name-error">error</a>)</span></i></div><div class="anchor value-res hidden" id="name-putBufioReader"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..putBufioReader*e0a40.html">func</a> <a href="../../src/nhooyr.io/websocket/dial.go.html#line-275">putBufioReader</a>(br *<a href="../bufio.html">bufio</a>.<a href="../bufio.html#name-Reader">Reader</a>)</span></i></div><div class="anchor value-res hidden" id="name-putBufioWriter"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..putBufioWriter*8b789.html">func</a> <a href="../../src/nhooyr.io/websocket/dial.go.html#line-290">putBufioWriter</a>(bw *<a href="../bufio.html">bufio</a>.<a href="../bufio.html#name-Writer">Writer</a>)</span></i></div><div class="anchor value-res hidden" id="name-putFlateReader"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..putFlateReader*cf8a2.html">func</a> <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-107">putFlateReader</a>(fr <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>)</span></i></div><div class="anchor value-res hidden" id="name-readFrameHeader"><i>	<input type='checkbox' class="fold" id="readFrameHeader-fold-content"><label for="readFrameHeader-fold-content"> <a href="../../use/nhooyr.io/websocket..readFrameHeader*650f9.html">func</a> <a href="../../src/nhooyr.io/websocket/frame.go.html#line-51">readFrameHeader</a>(r *<a href="../bufio.html">bufio</a>.<a href="../bufio.html#name-Reader">Reader</a>, readBuf []<a href="../builtin.html#name-byte">byte</a>) (h <a href="#name-header">header</a>, err <a href="../builtin.html#name-error">error</a>)</label><span id='readFrameHeader-fold-content-docs' class="fold-docs">
+		readFrameHeader reads a header from the reader.
+		See https://tools.ietf.org/html/rfc6455#section-5.2.
+
+</span></i></div><div class="anchor value-res hidden" id="name-secWebSocketAccept"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..secWebSocketAccept*c6f34.html">func</a> <a href="../../src/nhooyr.io/websocket/accept.go.html#line-364">secWebSocketAccept</a>(secWebSocketKey <a href="../builtin.html#name-string">string</a>) <a href="../builtin.html#name-string">string</a></span></i></div><div class="anchor value-res hidden" id="name-secWebSocketKey"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..secWebSocketKey*a66da.html">func</a> <a href="../../src/nhooyr.io/websocket/dial.go.html#line-180">secWebSocketKey</a>(rr <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>) (<a href="../builtin.html#name-string">string</a>, <a href="../builtin.html#name-error">error</a>)</span></i></div><div class="anchor value-res hidden" id="name-selectSubprotocol"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..selectSubprotocol*cd0ab.html">func</a> <a href="../../src/nhooyr.io/websocket/accept.go.html#line-221">selectSubprotocol</a>(r *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Request">Request</a>, subprotocols []<a href="../builtin.html#name-string">string</a>) <a href="../builtin.html#name-string">string</a></span></i></div><div class="anchor value-res hidden" id="name-slidingWindowPool"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..slidingWindowPool*3edc2.html">func</a> <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-118">slidingWindowPool</a>(n <a href="../builtin.html#name-int">int</a>) *<a href="../sync.html">sync</a>.<a href="../sync.html#name-Pool">Pool</a></span></i></div><div class="anchor value-res hidden" id="name-validWireCloseCode"><i>	<input type='checkbox' class="fold" id="validWireCloseCode-fold-content"><label for="validWireCloseCode-fold-content"> <a href="../../use/nhooyr.io/websocket..validWireCloseCode*ebc57.html">func</a> <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-147">validWireCloseCode</a>(code <a href="#name-StatusCode">StatusCode</a>) <a href="../builtin.html#name-bool">bool</a></label><span id='validWireCloseCode-fold-content-docs' class="fold-docs">
+		See http://www.iana.org/assignments/websocket/websocket.xhtml#close-code-number
+		and https://tools.ietf.org/html/rfc6455#section-7.4.1
+
+</span></i></div><div class="anchor value-res hidden" id="name-verifyClientRequest"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..verifyClientRequest*cb5de.html">func</a> <a href="../../src/nhooyr.io/websocket/accept.go.html#line-157">verifyClientRequest</a>(w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, r *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Request">Request</a>) (errCode <a href="../builtin.html#name-int">int</a>, _ <a href="../builtin.html#name-error">error</a>)</span></i></div><div class="anchor value-res hidden" id="name-verifyServerExtensions"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..verifyServerExtensions*81380.html">func</a> <a href="../../src/nhooyr.io/websocket/dial.go.html#line-235">verifyServerExtensions</a>(copts *<a href="#name-compressionOptions">compressionOptions</a>, h <a href="../net/http.html">http</a>.<a href="../net/http.html#name-Header">Header</a>) (*<a href="#name-compressionOptions">compressionOptions</a>, <a href="../builtin.html#name-error">error</a>)</span></i></div><div class="anchor value-res hidden" id="name-verifyServerResponse"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..verifyServerResponse*3247c.html">func</a> <a href="../../src/nhooyr.io/websocket/dial.go.html#line-192">verifyServerResponse</a>(opts *<a href="#name-DialOptions">DialOptions</a>, copts *<a href="#name-compressionOptions">compressionOptions</a>, secWebSocketKey <a href="../builtin.html#name-string">string</a>, resp *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Response">Response</a>) (*<a href="#name-compressionOptions">compressionOptions</a>, <a href="../builtin.html#name-error">error</a>)</span></i></div><div class="anchor value-res hidden" id="name-verifySubprotocol"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..verifySubprotocol*73328.html">func</a> <a href="../../src/nhooyr.io/websocket/dial.go.html#line-220">verifySubprotocol</a>(subprotos []<a href="../builtin.html#name-string">string</a>, resp *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Response">Response</a>) <a href="../builtin.html#name-error">error</a></span></i></div><div class="anchor value-res hidden" id="name-websocketExtensions"><i>	<span class="nodocs"> <a href="../../use/nhooyr.io/websocket..websocketExtensions*f9d97.html">func</a> <a href="../../src/nhooyr.io/websocket/accept.go.html#line-326">websocketExtensions</a>(h <a href="../net/http.html">http</a>.<a href="../net/http.html#name-Header">Header</a>) []<a href="#name-websocketExtension">websocketExtension</a></span></i></div><div class="anchor value-res hidden" id="name-writeFrameHeader"><i>	<input type='checkbox' class="fold" id="writeFrameHeader-fold-content"><label for="writeFrameHeader-fold-content"> <a href="../../use/nhooyr.io/websocket..writeFrameHeader*408f8.html">func</a> <a href="../../src/nhooyr.io/websocket/frame.go.html#line-109">writeFrameHeader</a>(h <a href="#name-header">header</a>, w *<a href="../bufio.html">bufio</a>.<a href="../bufio.html#name-Writer">Writer</a>, buf []<a href="../builtin.html#name-byte">byte</a>) (err <a href="../builtin.html#name-error">error</a>)</label><span id='writeFrameHeader-fold-content-docs' class="fold-docs">
+		writeFrameHeader writes the bytes of the header to w.
+		See https://tools.ietf.org/html/rfc6455#section-5.2
+
+</span></i></div></div>
+<div id="exported-variables"><span class="title">Package-Level Variables<span class="title-stat"><i> (total 11, none are exported)</i></span></span>
+
+	<input type='checkbox' class="showhide" id="unexported-variables-showhide"><i><label for="unexported-variables-showhide" class="show-inline">/* 11 unexporteds ... */</label><label for="unexported-variables-showhide" class="hide-inline">/* 11 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-_MessageType_index"><i>	<span class="nodocs">  <a href="../../use/nhooyr.io/websocket.._MessageType_index*2a6bb.html">var</a> <a href="../../src/nhooyr.io/websocket/stringer.go.html#line-50">_MessageType_index</a> [3]<a href="../builtin.html#name-uint8">uint8</a></span></i></div><div class="anchor value-res hidden" id="name-_opcode_index_0"><i>	<span class="nodocs">  <a href="../../use/nhooyr.io/websocket.._opcode_index_0*3ce6f.html">var</a> <a href="../../src/nhooyr.io/websocket/stringer.go.html#line-25">_opcode_index_0</a> [4]<a href="../builtin.html#name-uint8">uint8</a></span></i></div><div class="anchor value-res hidden" id="name-_opcode_index_1"><i>	<span class="nodocs">  <a href="../../use/nhooyr.io/websocket.._opcode_index_1*9409f.html">var</a> <a href="../../src/nhooyr.io/websocket/stringer.go.html#line-26">_opcode_index_1</a> [4]<a href="../builtin.html#name-uint8">uint8</a></span></i></div><div class="anchor value-res hidden" id="name-_StatusCode_index"><i>	<span class="nodocs">  <a href="../../use/nhooyr.io/websocket.._StatusCode_index*a0f73.html">var</a> <a href="../../src/nhooyr.io/websocket/stringer.go.html#line-83">_StatusCode_index</a> [17]<a href="../builtin.html#name-uint16">uint16</a></span></i></div><div class="anchor value-res hidden" id="name-bufioReaderPool"><i>	<span class="nodocs">  <a href="../../use/nhooyr.io/websocket..bufioReaderPool*9f6e5.html">var</a> <a href="../../src/nhooyr.io/websocket/dial.go.html#line-264">bufioReaderPool</a> <a href="../sync.html">sync</a>.<a href="../sync.html#name-Pool">Pool</a></span></i></div><div class="anchor value-res hidden" id="name-bufioWriterPool"><i>	<span class="nodocs">  <a href="../../use/nhooyr.io/websocket..bufioWriterPool*9216c.html">var</a> <a href="../../src/nhooyr.io/websocket/dial.go.html#line-279">bufioWriterPool</a> <a href="../sync.html">sync</a>.<a href="../sync.html#name-Pool">Pool</a></span></i></div><div class="anchor value-res hidden" id="name-errAlreadyWroteClose"><i>	<span class="nodocs">  <a href="../../use/nhooyr.io/websocket..errAlreadyWroteClose*6d1d5.html">var</a> <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-51">errAlreadyWroteClose</a> <a href="../builtin.html#name-error">error</a></span></i></div><div class="anchor value-res hidden" id="name-flateReaderPool"><i>	<span class="nodocs">  <a href="../../use/nhooyr.io/websocket..flateReaderPool*d0605.html">var</a> <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-96">flateReaderPool</a> <a href="../sync.html">sync</a>.<a href="../sync.html#name-Pool">Pool</a></span></i></div><div class="anchor value-res hidden" id="name-keyGUID"><i>	<span class="nodocs">  <a href="../../use/nhooyr.io/websocket..keyGUID*2f0c8.html">var</a> <a href="../../src/nhooyr.io/websocket/accept.go.html#line-362">keyGUID</a> []<a href="../builtin.html#name-byte">byte</a></span></i></div><div class="anchor value-res hidden" id="name-swPool"><i>	<span class="nodocs">  <a href="../../use/nhooyr.io/websocket..swPool*63aff.html">var</a> <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-116">swPool</a> map[<a href="../builtin.html#name-int">int</a>]*<a href="../sync.html">sync</a>.<a href="../sync.html#name-Pool">Pool</a></span></i></div><div class="anchor value-res hidden" id="name-swPoolMu"><i>	<span class="nodocs">  <a href="../../use/nhooyr.io/websocket..swPoolMu*1c6e5.html">var</a> <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-115">swPoolMu</a> <a href="../sync.html">sync</a>.<a href="../sync.html#name-RWMutex">RWMutex</a></span></i></div></div>
+<div id="exported-constants"><span class="title">Package-Level Constants<span class="title-stat"><i> (total 35, in which 20 are exported)</i></span></span>
+
+<div class="anchor value-res" id="name-CompressionContextTakeover">	<input type='checkbox' class="fold" id="CompressionContextTakeover-fold-content"><label for="CompressionContextTakeover-fold-content"><a href="../../use/nhooyr.io/websocket..CompressionContextTakeover.html">const</a> <a href="../../src/nhooyr.io/websocket/compress.go.html#line-31">CompressionContextTakeover</a> <a href="#name-CompressionMode">CompressionMode</a> = 1</label><span id='CompressionContextTakeover-fold-content-docs' class="fold-docs">
+		CompressionContextTakeover uses a flate.Reader and flate.Writer per connection.
+		This enables reusing the sliding window from previous messages.
+		As most WebSocket protocols are repetitive, this can be very efficient.
+		It carries an overhead of 8 kB for every connection compared to CompressionNoContextTakeover.
+
+		If the peer negotiates NoContextTakeover on the client or server side, it will be
+		used instead as this is required by the RFC.
+
+</span></div><div class="anchor value-res" id="name-CompressionDisabled">	<input type='checkbox' class="fold" id="CompressionDisabled-fold-content"><label for="CompressionDisabled-fold-content"><a href="../../use/nhooyr.io/websocket..CompressionDisabled.html">const</a> <a href="../../src/nhooyr.io/websocket/compress.go.html#line-38">CompressionDisabled</a> <a href="#name-CompressionMode">CompressionMode</a> = 2</label><span id='CompressionDisabled-fold-content-docs' class="fold-docs">
+		CompressionDisabled disables the deflate extension.
+
+		Use this if you are using a predominantly binary protocol with very
+		little duplication in between messages or CPU and memory are more
+		important than bandwidth.
+
+</span></div><div class="anchor value-res" id="name-CompressionNoContextTakeover">	<input type='checkbox' class="fold" id="CompressionNoContextTakeover-fold-content"><label for="CompressionNoContextTakeover-fold-content"><a href="../../use/nhooyr.io/websocket..CompressionNoContextTakeover.html">const</a> <a href="../../src/nhooyr.io/websocket/compress.go.html#line-22">CompressionNoContextTakeover</a> <a href="#name-CompressionMode">CompressionMode</a> = 0</label><span id='CompressionNoContextTakeover-fold-content-docs' class="fold-docs">
+		CompressionNoContextTakeover grabs a new flate.Reader and flate.Writer as needed
+		for every message. This applies to both server and client side.
+
+		This means less efficient compression as the sliding window from previous messages
+		will not be used but the memory overhead will be lower if the connections
+		are long lived and seldom used.
+
+		The message will only be compressed if greater than 512 bytes.
+
+</span></div><div class="anchor value-res" id="name-MessageBinary">	<input type='checkbox' class="fold" id="MessageBinary-fold-content"><label for="MessageBinary-fold-content"><a href="../../use/nhooyr.io/websocket..MessageBinary.html">const</a> <a href="../../src/nhooyr.io/websocket/conn.go.html#line-12">MessageBinary</a> <a href="#name-MessageType">MessageType</a> = 2</label><span id='MessageBinary-fold-content-docs' class="fold-docs">
+		MessageBinary is for binary messages like protobufs.
+
+</span></div><div class="anchor value-res" id="name-MessageText">	<input type='checkbox' class="fold" id="MessageText-fold-content"><label for="MessageText-fold-content"><a href="../../use/nhooyr.io/websocket..MessageText.html">const</a> <a href="../../src/nhooyr.io/websocket/conn.go.html#line-10">MessageText</a> <a href="#name-MessageType">MessageType</a> = 1</label><span id='MessageText-fold-content-docs' class="fold-docs">
+		MessageText is for UTF-8 encoded text messages like JSON.
+
+</span></div><div class="anchor value-res" id="name-StatusAbnormalClosure">	<input type='checkbox' class="fold" id="StatusAbnormalClosure-fold-content"><label for="StatusAbnormalClosure-fold-content"><a href="../../use/nhooyr.io/websocket..StatusAbnormalClosure.html">const</a> <a href="../../src/nhooyr.io/websocket/close.go.html#line-36">StatusAbnormalClosure</a> <a href="#name-StatusCode">StatusCode</a> = 1006</label><span id='StatusAbnormalClosure-fold-content-docs' class="fold-docs">
+		StatusAbnormalClosure is exported for use only with Wasm.
+		In non Wasm Go, the returned error will indicate whether the
+		connection was closed abnormally.
+
+</span></div><div class="anchor value-res" id="name-StatusBadGateway">	<input type='checkbox' class="fold" id="StatusBadGateway-fold-content"><label for="StatusBadGateway-fold-content"><a href="../../use/nhooyr.io/websocket..StatusBadGateway.html">const</a> <a href="../../src/nhooyr.io/websocket/close.go.html#line-45">StatusBadGateway</a> <a href="#name-StatusCode">StatusCode</a> = 1014</label><span id='StatusBadGateway-fold-content-docs' class="fold-docs">
+		https://www.iana.org/assignments/websocket/websocket.xhtml#close-code-number
+
+		These are only the status codes defined by the protocol.
+
+		You can define custom codes in the 3000-4999 range.
+		The 3000-3999 range is reserved for use by libraries, frameworks and applications.
+		The 4000-4999 range is reserved for private use.
+
+</span></div><div class="anchor value-res" id="name-StatusGoingAway">	<input type='checkbox' class="fold" id="StatusGoingAway-fold-content"><label for="StatusGoingAway-fold-content"><a href="../../use/nhooyr.io/websocket..StatusGoingAway.html">const</a> <a href="../../src/nhooyr.io/websocket/close.go.html#line-21">StatusGoingAway</a> <a href="#name-StatusCode">StatusCode</a> = 1001</label><span id='StatusGoingAway-fold-content-docs' class="fold-docs">
+		https://www.iana.org/assignments/websocket/websocket.xhtml#close-code-number
+
+		These are only the status codes defined by the protocol.
+
+		You can define custom codes in the 3000-4999 range.
+		The 3000-3999 range is reserved for use by libraries, frameworks and applications.
+		The 4000-4999 range is reserved for private use.
+
+</span></div><div class="anchor value-res" id="name-StatusInternalError">	<input type='checkbox' class="fold" id="StatusInternalError-fold-content"><label for="StatusInternalError-fold-content"><a href="../../use/nhooyr.io/websocket..StatusInternalError.html">const</a> <a href="../../src/nhooyr.io/websocket/close.go.html#line-42">StatusInternalError</a> <a href="#name-StatusCode">StatusCode</a> = 1011</label><span id='StatusInternalError-fold-content-docs' class="fold-docs">
+		https://www.iana.org/assignments/websocket/websocket.xhtml#close-code-number
+
+		These are only the status codes defined by the protocol.
+
+		You can define custom codes in the 3000-4999 range.
+		The 3000-3999 range is reserved for use by libraries, frameworks and applications.
+		The 4000-4999 range is reserved for private use.
+
+</span></div><div class="anchor value-res" id="name-StatusInvalidFramePayloadData">	<input type='checkbox' class="fold" id="StatusInvalidFramePayloadData-fold-content"><label for="StatusInvalidFramePayloadData-fold-content"><a href="../../use/nhooyr.io/websocket..StatusInvalidFramePayloadData.html">const</a> <a href="../../src/nhooyr.io/websocket/close.go.html#line-38">StatusInvalidFramePayloadData</a> <a href="#name-StatusCode">StatusCode</a> = 1007</label><span id='StatusInvalidFramePayloadData-fold-content-docs' class="fold-docs">
+		https://www.iana.org/assignments/websocket/websocket.xhtml#close-code-number
+
+		These are only the status codes defined by the protocol.
+
+		You can define custom codes in the 3000-4999 range.
+		The 3000-3999 range is reserved for use by libraries, frameworks and applications.
+		The 4000-4999 range is reserved for private use.
+
+</span></div><div class="anchor value-res" id="name-StatusMandatoryExtension">	<input type='checkbox' class="fold" id="StatusMandatoryExtension-fold-content"><label for="StatusMandatoryExtension-fold-content"><a href="../../use/nhooyr.io/websocket..StatusMandatoryExtension.html">const</a> <a href="../../src/nhooyr.io/websocket/close.go.html#line-41">StatusMandatoryExtension</a> <a href="#name-StatusCode">StatusCode</a> = 1010</label><span id='StatusMandatoryExtension-fold-content-docs' class="fold-docs">
+		https://www.iana.org/assignments/websocket/websocket.xhtml#close-code-number
+
+		These are only the status codes defined by the protocol.
+
+		You can define custom codes in the 3000-4999 range.
+		The 3000-3999 range is reserved for use by libraries, frameworks and applications.
+		The 4000-4999 range is reserved for private use.
+
+</span></div><div class="anchor value-res" id="name-StatusMessageTooBig">	<input type='checkbox' class="fold" id="StatusMessageTooBig-fold-content"><label for="StatusMessageTooBig-fold-content"><a href="../../use/nhooyr.io/websocket..StatusMessageTooBig.html">const</a> <a href="../../src/nhooyr.io/websocket/close.go.html#line-40">StatusMessageTooBig</a> <a href="#name-StatusCode">StatusCode</a> = 1009</label><span id='StatusMessageTooBig-fold-content-docs' class="fold-docs">
+		https://www.iana.org/assignments/websocket/websocket.xhtml#close-code-number
+
+		These are only the status codes defined by the protocol.
+
+		You can define custom codes in the 3000-4999 range.
+		The 3000-3999 range is reserved for use by libraries, frameworks and applications.
+		The 4000-4999 range is reserved for private use.
+
+</span></div><div class="anchor value-res" id="name-StatusNormalClosure">	<input type='checkbox' class="fold" id="StatusNormalClosure-fold-content"><label for="StatusNormalClosure-fold-content"><a href="../../use/nhooyr.io/websocket..StatusNormalClosure.html">const</a> <a href="../../src/nhooyr.io/websocket/close.go.html#line-20">StatusNormalClosure</a> <a href="#name-StatusCode">StatusCode</a> = 1000</label><span id='StatusNormalClosure-fold-content-docs' class="fold-docs">
+		https://www.iana.org/assignments/websocket/websocket.xhtml#close-code-number
+
+		These are only the status codes defined by the protocol.
+
+		You can define custom codes in the 3000-4999 range.
+		The 3000-3999 range is reserved for use by libraries, frameworks and applications.
+		The 4000-4999 range is reserved for private use.
+
+</span></div><div class="anchor value-res" id="name-StatusNoStatusRcvd">	<input type='checkbox' class="fold" id="StatusNoStatusRcvd-fold-content"><label for="StatusNoStatusRcvd-fold-content"><a href="../../use/nhooyr.io/websocket..StatusNoStatusRcvd.html">const</a> <a href="../../src/nhooyr.io/websocket/close.go.html#line-31">StatusNoStatusRcvd</a> <a href="#name-StatusCode">StatusCode</a> = 1005</label><span id='StatusNoStatusRcvd-fold-content-docs' class="fold-docs">
+		StatusNoStatusRcvd cannot be sent in a close message.
+		It is reserved for when a close message is received without
+		a status code.
+
+</span></div><div class="anchor value-res" id="name-StatusPolicyViolation">	<input type='checkbox' class="fold" id="StatusPolicyViolation-fold-content"><label for="StatusPolicyViolation-fold-content"><a href="../../use/nhooyr.io/websocket..StatusPolicyViolation.html">const</a> <a href="../../src/nhooyr.io/websocket/close.go.html#line-39">StatusPolicyViolation</a> <a href="#name-StatusCode">StatusCode</a> = 1008</label><span id='StatusPolicyViolation-fold-content-docs' class="fold-docs">
+		https://www.iana.org/assignments/websocket/websocket.xhtml#close-code-number
+
+		These are only the status codes defined by the protocol.
+
+		You can define custom codes in the 3000-4999 range.
+		The 3000-3999 range is reserved for use by libraries, frameworks and applications.
+		The 4000-4999 range is reserved for private use.
+
+</span></div><div class="anchor value-res" id="name-StatusProtocolError">	<input type='checkbox' class="fold" id="StatusProtocolError-fold-content"><label for="StatusProtocolError-fold-content"><a href="../../use/nhooyr.io/websocket..StatusProtocolError.html">const</a> <a href="../../src/nhooyr.io/websocket/close.go.html#line-22">StatusProtocolError</a> <a href="#name-StatusCode">StatusCode</a> = 1002</label><span id='StatusProtocolError-fold-content-docs' class="fold-docs">
+		https://www.iana.org/assignments/websocket/websocket.xhtml#close-code-number
+
+		These are only the status codes defined by the protocol.
+
+		You can define custom codes in the 3000-4999 range.
+		The 3000-3999 range is reserved for use by libraries, frameworks and applications.
+		The 4000-4999 range is reserved for private use.
+
+</span></div><div class="anchor value-res" id="name-StatusServiceRestart">	<input type='checkbox' class="fold" id="StatusServiceRestart-fold-content"><label for="StatusServiceRestart-fold-content"><a href="../../use/nhooyr.io/websocket..StatusServiceRestart.html">const</a> <a href="../../src/nhooyr.io/websocket/close.go.html#line-43">StatusServiceRestart</a> <a href="#name-StatusCode">StatusCode</a> = 1012</label><span id='StatusServiceRestart-fold-content-docs' class="fold-docs">
+		https://www.iana.org/assignments/websocket/websocket.xhtml#close-code-number
+
+		These are only the status codes defined by the protocol.
+
+		You can define custom codes in the 3000-4999 range.
+		The 3000-3999 range is reserved for use by libraries, frameworks and applications.
+		The 4000-4999 range is reserved for private use.
+
+</span></div><div class="anchor value-res" id="name-StatusTLSHandshake">	<input type='checkbox' class="fold" id="StatusTLSHandshake-fold-content"><label for="StatusTLSHandshake-fold-content"><a href="../../use/nhooyr.io/websocket..StatusTLSHandshake.html">const</a> <a href="../../src/nhooyr.io/websocket/close.go.html#line-50">StatusTLSHandshake</a> <a href="#name-StatusCode">StatusCode</a> = 1015</label><span id='StatusTLSHandshake-fold-content-docs' class="fold-docs">
+		StatusTLSHandshake is only exported for use with Wasm.
+		In non Wasm Go, the returned error will indicate whether there was
+		a TLS handshake failure.
+
+</span></div><div class="anchor value-res" id="name-StatusTryAgainLater">	<input type='checkbox' class="fold" id="StatusTryAgainLater-fold-content"><label for="StatusTryAgainLater-fold-content"><a href="../../use/nhooyr.io/websocket..StatusTryAgainLater.html">const</a> <a href="../../src/nhooyr.io/websocket/close.go.html#line-44">StatusTryAgainLater</a> <a href="#name-StatusCode">StatusCode</a> = 1013</label><span id='StatusTryAgainLater-fold-content-docs' class="fold-docs">
+		https://www.iana.org/assignments/websocket/websocket.xhtml#close-code-number
+
+		These are only the status codes defined by the protocol.
+
+		You can define custom codes in the 3000-4999 range.
+		The 3000-3999 range is reserved for use by libraries, frameworks and applications.
+		The 4000-4999 range is reserved for private use.
+
+</span></div><div class="anchor value-res" id="name-StatusUnsupportedData">	<input type='checkbox' class="fold" id="StatusUnsupportedData-fold-content"><label for="StatusUnsupportedData-fold-content"><a href="../../use/nhooyr.io/websocket..StatusUnsupportedData.html">const</a> <a href="../../src/nhooyr.io/websocket/close.go.html#line-23">StatusUnsupportedData</a> <a href="#name-StatusCode">StatusCode</a> = 1003</label><span id='StatusUnsupportedData-fold-content-docs' class="fold-docs">
+		https://www.iana.org/assignments/websocket/websocket.xhtml#close-code-number
+
+		These are only the status codes defined by the protocol.
+
+		You can define custom codes in the 3000-4999 range.
+		The 3000-3999 range is reserved for use by libraries, frameworks and applications.
+		The 4000-4999 range is reserved for private use.
+
+</span></div>	<input type='checkbox' class="showhide" id="unexported-constants-showhide"><i><label for="unexported-constants-showhide" class="show-inline">/* 15 unexporteds ... */</label><label for="unexported-constants-showhide" class="hide-inline">/* 15 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-_MessageType_name"><i>	<span class="nodocs"><a href="../../use/nhooyr.io/websocket.._MessageType_name*1189e.html">const</a> <a href="../../src/nhooyr.io/websocket/stringer.go.html#line-48">_MessageType_name</a> = "MessageTextMessageBinary"</span></i></div><div class="anchor value-res hidden" id="name-_opcode_name_0"><i>	<span class="nodocs"><a href="../../use/nhooyr.io/websocket.._opcode_name_0*31423.html">const</a> <a href="../../src/nhooyr.io/websocket/stringer.go.html#line-20">_opcode_name_0</a> = "opContinuationopTextopBinary"</span></i></div><div class="anchor value-res hidden" id="name-_opcode_name_1"><i>	<span class="nodocs"><a href="../../use/nhooyr.io/websocket.._opcode_name_1*8af0e.html">const</a> <a href="../../src/nhooyr.io/websocket/stringer.go.html#line-21">_opcode_name_1</a> = "opCloseopPingopPong"</span></i></div><div class="anchor value-res hidden" id="name-_StatusCode_name"><i>	<span class="nodocs"><a href="../../use/nhooyr.io/websocket.._StatusCode_name*03eab.html">const</a> <a href="../../src/nhooyr.io/websocket/stringer.go.html#line-81">_StatusCode_name</a> = "StatusNormalClosureStatusGoingAwayStatusProtocolErrorStatusUnsupport...</span></i></div><div class="anchor value-res hidden" id="name-defaultReadLimit"><i>	<span class="nodocs"><a href="../../use/nhooyr.io/websocket..defaultReadLimit*bf001.html">const</a> <a href="../../src/nhooyr.io/websocket/read.go.html#line-78">defaultReadLimit</a> = 32768</span></i></div><div class="anchor value-res hidden" id="name-deflateMessageTail"><i>	<input type='checkbox' class="fold" id="deflateMessageTail-fold-content"><label for="deflateMessageTail-fold-content"><a href="../../use/nhooyr.io/websocket..deflateMessageTail*37bb4.html">const</a> <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-41">deflateMessageTail</a> = "\x00\x00\xff\xff"</label><span id='deflateMessageTail-fold-content-docs' class="fold-docs">
+		These bytes are required to get flate.Reader to return.
+		They are removed when sending to avoid the overhead as
+		WebSocket framing tell's when the message has ended but then
+		we need to add them back otherwise flate.Reader keeps
+		trying to return more bytes.
+
+</span></i></div><div class="anchor value-res hidden" id="name-maxCloseReason"><i>	<span class="nodocs"><a href="../../use/nhooyr.io/websocket..maxCloseReason*defa3.html">const</a> <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-175">maxCloseReason</a> = 123</span></i></div><div class="anchor value-res hidden" id="name-maxControlPayload"><i>	<input type='checkbox' class="fold" id="maxControlPayload-fold-content"><label for="maxControlPayload-fold-content"><a href="../../use/nhooyr.io/websocket..maxControlPayload*67cd5.html">const</a> <a href="../../src/nhooyr.io/websocket/frame.go.html#line-105">maxControlPayload</a> = 125</label><span id='maxControlPayload-fold-content-docs' class="fold-docs">
+		maxControlPayload is the maximum length of a control frame payload.
+		See https://tools.ietf.org/html/rfc6455#section-5.5.
+
+</span></i></div><div class="anchor value-res hidden" id="name-opBinary"><i>	<input type='checkbox' class="fold" id="opBinary-fold-content"><label for="opBinary-fold-content"><a href="../../use/nhooyr.io/websocket..opBinary*fbc91.html">const</a> <a href="../../src/nhooyr.io/websocket/frame.go.html#line-21">opBinary</a> <a href="#name-opcode">opcode</a> = 2</label><span id='opBinary-fold-content-docs' class="fold-docs">
+		https://tools.ietf.org/html/rfc6455#section-11.8.
+
+</span></i></div><div class="anchor value-res hidden" id="name-opClose"><i>	<input type='checkbox' class="fold" id="opClose-fold-content"><label for="opClose-fold-content"><a href="../../use/nhooyr.io/websocket..opClose*6dc89.html">const</a> <a href="../../src/nhooyr.io/websocket/frame.go.html#line-28">opClose</a> <a href="#name-opcode">opcode</a> = 8</label><span id='opClose-fold-content-docs' class="fold-docs">
+		https://tools.ietf.org/html/rfc6455#section-11.8.
+
+</span></i></div><div class="anchor value-res hidden" id="name-opContinuation"><i>	<input type='checkbox' class="fold" id="opContinuation-fold-content"><label for="opContinuation-fold-content"><a href="../../use/nhooyr.io/websocket..opContinuation*ec653.html">const</a> <a href="../../src/nhooyr.io/websocket/frame.go.html#line-19">opContinuation</a> <a href="#name-opcode">opcode</a> = 0</label><span id='opContinuation-fold-content-docs' class="fold-docs">
+		https://tools.ietf.org/html/rfc6455#section-11.8.
+
+</span></i></div><div class="anchor value-res hidden" id="name-opPing"><i>	<input type='checkbox' class="fold" id="opPing-fold-content"><label for="opPing-fold-content"><a href="../../use/nhooyr.io/websocket..opPing*1e040.html">const</a> <a href="../../src/nhooyr.io/websocket/frame.go.html#line-29">opPing</a> <a href="#name-opcode">opcode</a> = 9</label><span id='opPing-fold-content-docs' class="fold-docs">
+		https://tools.ietf.org/html/rfc6455#section-11.8.
+
+</span></i></div><div class="anchor value-res hidden" id="name-opPong"><i>	<input type='checkbox' class="fold" id="opPong-fold-content"><label for="opPong-fold-content"><a href="../../use/nhooyr.io/websocket..opPong*2e83b.html">const</a> <a href="../../src/nhooyr.io/websocket/frame.go.html#line-30">opPong</a> <a href="#name-opcode">opcode</a> = 10</label><span id='opPong-fold-content-docs' class="fold-docs">
+		https://tools.ietf.org/html/rfc6455#section-11.8.
+
+</span></i></div><div class="anchor value-res hidden" id="name-opText"><i>	<input type='checkbox' class="fold" id="opText-fold-content"><label for="opText-fold-content"><a href="../../use/nhooyr.io/websocket..opText*2df66.html">const</a> <a href="../../src/nhooyr.io/websocket/frame.go.html#line-20">opText</a> <a href="#name-opcode">opcode</a> = 1</label><span id='opText-fold-content-docs' class="fold-docs">
+		https://tools.ietf.org/html/rfc6455#section-11.8.
+
+</span></i></div><div class="anchor value-res hidden" id="name-statusReserved"><i>	<input type='checkbox' class="fold" id="statusReserved-fold-content"><label for="statusReserved-fold-content"><a href="../../use/nhooyr.io/websocket..statusReserved*3e4f5.html">const</a> <a href="../../src/nhooyr.io/websocket/close.go.html#line-26">statusReserved</a> <a href="#name-StatusCode">StatusCode</a> = 1004</label><span id='statusReserved-fold-content-docs' class="fold-docs">
+		1004 is reserved and so unexported.
+
+</span></i></div></div></code></pre><pre id="footer">
+<table><tr><td><img src="../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

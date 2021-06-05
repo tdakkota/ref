@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: mcache.go in package runtime</title>
-<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -116,8 +116,8 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-20"><code><span class="keyword">type</span> <a href="../../pkg/runtime.html#name-mcache" class="ident">mcache</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-21"><code>	<span class="comment">// The following members are accessed on every malloc,</span></code></span>
 <span class="codeline" id="line-22"><code><span class="comment">	// so they are grouped here for better caching.</span></code></span>
-<span class="codeline" id="line-23"><code>	<a href="../../use/runtime..mcache.nextSample.html" class="ident">nextSample</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> <span class="comment">// trigger heap sample after allocating this many bytes</span></code></span>
-<span class="codeline" id="line-24"><code>	<a href="../../use/runtime..mcache.scanAlloc.html" class="ident">scanAlloc</a>  <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> <span class="comment">// bytes of scannable heap allocated</span></code></span>
+<span class="codeline" id="line-23"><code>	<a href="../../use/runtime..mcache*8aa2c.nextSample*01a5f.html" class="ident">nextSample</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> <span class="comment">// trigger heap sample after allocating this many bytes</span></code></span>
+<span class="codeline" id="line-24"><code>	<a href="../../use/runtime..mcache*8aa2c.scanAlloc*d45c7.html" class="ident">scanAlloc</a>  <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> <span class="comment">// bytes of scannable heap allocated</span></code></span>
 <span class="codeline" id="line-25"><code></code></span>
 <span class="codeline" id="line-26"><code>	<span class="comment">// Allocator cache for tiny objects w/o pointers.</span></code></span>
 <span class="codeline" id="line-27"><code><span class="comment">	// See "Tiny allocator" comment in malloc.go.</span></code></span>
@@ -131,21 +131,21 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-35"><code><span class="comment">	//</span></code></span>
 <span class="codeline" id="line-36"><code><span class="comment">	// tinyAllocs is the number of tiny allocations performed</span></code></span>
 <span class="codeline" id="line-37"><code><span class="comment">	// by the P that owns this mcache.</span></code></span>
-<span class="codeline" id="line-38"><code>	<a href="../../use/runtime..mcache.tiny.html" class="ident">tiny</a>       <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
-<span class="codeline" id="line-39"><code>	<a href="../../use/runtime..mcache.tinyoffset.html" class="ident">tinyoffset</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
-<span class="codeline" id="line-40"><code>	<a href="../../use/runtime..mcache.tinyAllocs.html" class="ident">tinyAllocs</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
+<span class="codeline" id="line-38"><code>	<a href="../../use/runtime..mcache*8aa2c.tiny*8950a.html" class="ident">tiny</a>       <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
+<span class="codeline" id="line-39"><code>	<a href="../../use/runtime..mcache*8aa2c.tinyoffset*84d9b.html" class="ident">tinyoffset</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
+<span class="codeline" id="line-40"><code>	<a href="../../use/runtime..mcache*8aa2c.tinyAllocs*00197.html" class="ident">tinyAllocs</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
 <span class="codeline" id="line-41"><code></code></span>
 <span class="codeline" id="line-42"><code>	<span class="comment">// The rest is not accessed on every malloc.</span></code></span>
 <span class="codeline" id="line-43"><code></code></span>
-<span class="codeline" id="line-44"><code>	<a href="../../use/runtime..mcache.alloc.html" class="ident">alloc</a> [<a href="mheap.go.html#line-535" class="ident">numSpanClasses</a>]*<a href="mheap.go.html#line-382" class="ident">mspan</a> <span class="comment">// spans to allocate from, indexed by spanClass</span></code></span>
+<span class="codeline" id="line-44"><code>	<a href="../../use/runtime..mcache*8aa2c.alloc*bcd3b.html" class="ident">alloc</a> [<a href="mheap.go.html#line-535" class="ident">numSpanClasses</a>]*<a href="mheap.go.html#line-382" class="ident">mspan</a> <span class="comment">// spans to allocate from, indexed by spanClass</span></code></span>
 <span class="codeline" id="line-45"><code></code></span>
-<span class="codeline" id="line-46"><code>	<a href="../../use/runtime..mcache.stackcache.html" class="ident">stackcache</a> [<a href="malloc.go.html#line-153" class="ident">_NumStackOrders</a>]<a href="#line-76" class="ident">stackfreelist</a></code></span>
+<span class="codeline" id="line-46"><code>	<a href="../../use/runtime..mcache*8aa2c.stackcache*60797.html" class="ident">stackcache</a> [<a href="malloc.go.html#line-153" class="ident">_NumStackOrders</a>]<a href="#line-76" class="ident">stackfreelist</a></code></span>
 <span class="codeline" id="line-47"><code></code></span>
 <span class="codeline" id="line-48"><code>	<span class="comment">// flushGen indicates the sweepgen during which this mcache</span></code></span>
 <span class="codeline" id="line-49"><code><span class="comment">	// was last flushed. If flushGen != mheap_.sweepgen, the spans</span></code></span>
 <span class="codeline" id="line-50"><code><span class="comment">	// in this mcache are stale and need to the flushed so they</span></code></span>
 <span class="codeline" id="line-51"><code><span class="comment">	// can be swept. This is done in acquirep.</span></code></span>
-<span class="codeline" id="line-52"><code>	<a href="../../use/runtime..mcache.flushGen.html" class="ident">flushGen</a> <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
+<span class="codeline" id="line-52"><code>	<a href="../../use/runtime..mcache*8aa2c.flushGen*5725f.html" class="ident">flushGen</a> <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
 <span class="codeline" id="line-53"><code>}</code></span>
 <span class="codeline" id="line-54"><code></code></span>
 <span class="codeline" id="line-55"><code><span class="comment">// A gclink is a node in a linked list of blocks, like mlink,</span></code></span>
@@ -155,7 +155,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-59"><code><span class="comment">// of gclinkptr values. Code should store references to gclinks</span></code></span>
 <span class="codeline" id="line-60"><code><span class="comment">// as gclinkptr, not as *gclink.</span></code></span>
 <span class="codeline" id="line-61"><code><span class="keyword">type</span> <a href="../../pkg/runtime.html#name-gclink" class="ident">gclink</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-62"><code>	<a href="../../use/runtime..gclink.next.html" class="ident">next</a> <a href="#line-67" class="ident">gclinkptr</a></code></span>
+<span class="codeline" id="line-62"><code>	<a href="../../use/runtime..gclink*73a7f.next*c6c1c.html" class="ident">next</a> <a href="#line-67" class="ident">gclinkptr</a></code></span>
 <span class="codeline" id="line-63"><code>}</code></span>
 <span class="codeline" id="line-64"><code></code></span>
 <span class="codeline" id="line-65"><code><span class="comment">// A gclinkptr is a pointer to a gclink, but it is opaque</span></code></span>
@@ -165,13 +165,13 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-69"><code><span class="comment">// ptr returns the *gclink form of p.</span></code></span>
 <span class="codeline" id="line-70"><code><span class="comment">// The result should be used for accessing fields, not stored</span></code></span>
 <span class="codeline" id="line-71"><code><span class="comment">// in other data structures.</span></code></span>
-<span class="codeline" id="line-72"><code><span class="keyword">func</span> (<label for="r0" class="ident">p</label> <a href="#line-67" class="ident">gclinkptr</a>) <label for="r1" class="ident"><a href="../../use/runtime..gclinkptr.ptr.html" class="ident">ptr</a></label>() *<a href="#line-61" class="ident">gclink</a> {</code></span>
+<span class="codeline" id="line-72"><code><span class="keyword">func</span> (<label for="r0" class="ident">p</label> <a href="#line-67" class="ident">gclinkptr</a>) <label for="r1" class="ident"><a href="../../use/runtime..gclinkptr*8ff94.ptr*83dbe.html" class="ident">ptr</a></label>() *<a href="#line-61" class="ident">gclink</a> {</code></span>
 <span class="codeline" id="line-73"><code>	<span class="keyword">return</span> (*<a href="#line-61" class="ident">gclink</a>)(<a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(<label for="r0" class="ident">p</label>))</code></span>
 <span class="codeline" id="line-74"><code>}</code></span>
 <span class="codeline" id="line-75"><code></code></span>
 <span class="codeline" id="line-76"><code><span class="keyword">type</span> <a href="../../pkg/runtime.html#name-stackfreelist" class="ident">stackfreelist</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-77"><code>	<a href="../../use/runtime..stackfreelist.list.html" class="ident">list</a> <a href="#line-67" class="ident">gclinkptr</a> <span class="comment">// linked list of free stacks</span></code></span>
-<span class="codeline" id="line-78"><code>	<a href="../../use/runtime..stackfreelist.size.html" class="ident">size</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>   <span class="comment">// total size of stacks in list</span></code></span>
+<span class="codeline" id="line-77"><code>	<a href="../../use/runtime..stackfreelist*53d1a.list*a3303.html" class="ident">list</a> <a href="#line-67" class="ident">gclinkptr</a> <span class="comment">// linked list of free stacks</span></code></span>
+<span class="codeline" id="line-78"><code>	<a href="../../use/runtime..stackfreelist*53d1a.size*ccdcb.html" class="ident">size</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>   <span class="comment">// total size of stacks in list</span></code></span>
 <span class="codeline" id="line-79"><code>}</code></span>
 <span class="codeline" id="line-80"><code></code></span>
 <span class="codeline" id="line-81"><code><span class="comment">// dummy mspan that contains no free objects.</span></code></span>
@@ -229,7 +229,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-133"><code><span class="comment">		// by procresize.</span></code></span>
 <span class="codeline" id="line-134"><code>		<label for="r9" class="ident">c</label> = <a href="proc.go.html#line-86" class="ident">mcache0</a></code></span>
 <span class="codeline" id="line-135"><code>	} <span class="keyword">else</span> {</code></span>
-<span class="codeline" id="line-136"><code>		<label for="r9" class="ident">c</label> = <label for="r8" class="ident">pp</label>.<a href="runtime2.go.html#line-584" class="ident">mcache</a></code></span>
+<span class="codeline" id="line-136"><code>		<label for="r9" class="ident">c</label> = <label for="r8" class="ident">pp</label>.<a href="runtime2.go.html#line-587" class="ident">mcache</a></code></span>
 <span class="codeline" id="line-137"><code>	}</code></span>
 <span class="codeline" id="line-138"><code>	<span class="keyword">return</span> <label for="r9" class="ident">c</label></code></span>
 <span class="codeline" id="line-139"><code>}</code></span>
@@ -239,7 +239,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-143"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-144"><code><span class="comment">// Must run in a non-preemptible context since otherwise the owner of</span></code></span>
 <span class="codeline" id="line-145"><code><span class="comment">// c could change.</span></code></span>
-<span class="codeline" id="line-146"><code><span class="keyword">func</span> (<label for="r10" class="ident">c</label> *<a href="#line-20" class="ident">mcache</a>) <label for="r11" class="ident"><a href="../../use/runtime..mcache.refill.html" class="ident">refill</a></label>(<label for="r12" class="ident">spc</label> <a href="mheap.go.html#line-532" class="ident">spanClass</a>) {</code></span>
+<span class="codeline" id="line-146"><code><span class="keyword">func</span> (<label for="r10" class="ident">c</label> *<a href="#line-20" class="ident">mcache</a>) <label for="r11" class="ident"><a href="../../use/runtime..mcache*8aa2c.refill*fffe1.html" class="ident">refill</a></label>(<label for="r12" class="ident">spc</label> <a href="mheap.go.html#line-532" class="ident">spanClass</a>) {</code></span>
 <span class="codeline" id="line-147"><code>	<span class="comment">// Return the current cached span to the central lists.</span></code></span>
 <span class="codeline" id="line-148"><code>	<label for="r13" class="ident">s</label> := <label for="r10" class="ident">c</label>.<a href="#line-44" class="ident">alloc</a>[<label for="r12" class="ident">spc</label>]</code></span>
 <span class="codeline" id="line-149"><code></code></span>
@@ -302,7 +302,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-206"><code>}</code></span>
 <span class="codeline" id="line-207"><code></code></span>
 <span class="codeline" id="line-208"><code><span class="comment">// allocLarge allocates a span for a large object.</span></code></span>
-<span class="codeline" id="line-209"><code><span class="keyword">func</span> (<label for="r16" class="ident">c</label> *<a href="#line-20" class="ident">mcache</a>) <label for="r17" class="ident"><a href="../../use/runtime..mcache.allocLarge.html" class="ident">allocLarge</a></label>(<label for="r18" class="ident">size</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>, <label for="r19" class="ident">needzero</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>, <label for="r20" class="ident">noscan</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) *<a href="mheap.go.html#line-382" class="ident">mspan</a> {</code></span>
+<span class="codeline" id="line-209"><code><span class="keyword">func</span> (<label for="r16" class="ident">c</label> *<a href="#line-20" class="ident">mcache</a>) <label for="r17" class="ident"><a href="../../use/runtime..mcache*8aa2c.allocLarge*328dc.html" class="ident">allocLarge</a></label>(<label for="r18" class="ident">size</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>, <label for="r19" class="ident">needzero</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>, <label for="r20" class="ident">noscan</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) *<a href="mheap.go.html#line-382" class="ident">mspan</a> {</code></span>
 <span class="codeline" id="line-210"><code>	<span class="keyword">if</span> <label for="r18" class="ident">size</label>+<a href="malloc.go.html#line-126" class="ident">_PageSize</a> &lt; <label for="r18" class="ident">size</label> {</code></span>
 <span class="codeline" id="line-211"><code>		<a href="panic.go.html#line-1107" class="ident">throw</a>(<span class="lit-string">"out of memory"</span>)</code></span>
 <span class="codeline" id="line-212"><code>	}</code></span>
@@ -344,7 +344,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-248"><code>	<span class="keyword">return</span> <label for="r23" class="ident">s</label></code></span>
 <span class="codeline" id="line-249"><code>}</code></span>
 <span class="codeline" id="line-250"><code></code></span>
-<span class="codeline" id="line-251"><code><span class="keyword">func</span> (<label for="r25" class="ident">c</label> *<a href="#line-20" class="ident">mcache</a>) <label for="r26" class="ident"><a href="../../use/runtime..mcache.releaseAll.html" class="ident">releaseAll</a></label>() {</code></span>
+<span class="codeline" id="line-251"><code><span class="keyword">func</span> (<label for="r25" class="ident">c</label> *<a href="#line-20" class="ident">mcache</a>) <label for="r26" class="ident"><a href="../../use/runtime..mcache*8aa2c.releaseAll*cec81.html" class="ident">releaseAll</a></label>() {</code></span>
 <span class="codeline" id="line-252"><code>	<span class="comment">// Take this opportunity to flush scanAlloc.</span></code></span>
 <span class="codeline" id="line-253"><code>	<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-54" class="ident">Xadd64</a>(&amp;<a href="mstats.go.html#line-170" class="ident">memstats</a>.<a href="mstats.go.html#line-150" class="ident">heap_scan</a>, <a href="../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r25" class="ident">c</label>.<a href="#line-24" class="ident">scanAlloc</a>))</code></span>
 <span class="codeline" id="line-254"><code>	<label for="r25" class="ident">c</label>.<a href="#line-24" class="ident">scanAlloc</a> = <span class="lit-number">0</span></code></span>
@@ -388,7 +388,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-292"><code><span class="comment">// prepareForSweep flushes c if the system has entered a new sweep phase</span></code></span>
 <span class="codeline" id="line-293"><code><span class="comment">// since c was populated. This must happen between the sweep phase</span></code></span>
 <span class="codeline" id="line-294"><code><span class="comment">// starting and the first allocation from c.</span></code></span>
-<span class="codeline" id="line-295"><code><span class="keyword">func</span> (<label for="r32" class="ident">c</label> *<a href="#line-20" class="ident">mcache</a>) <label for="r33" class="ident"><a href="../../use/runtime..mcache.prepareForSweep.html" class="ident">prepareForSweep</a></label>() {</code></span>
+<span class="codeline" id="line-295"><code><span class="keyword">func</span> (<label for="r32" class="ident">c</label> *<a href="#line-20" class="ident">mcache</a>) <label for="r33" class="ident"><a href="../../use/runtime..mcache*8aa2c.prepareForSweep*337ba.html" class="ident">prepareForSweep</a></label>() {</code></span>
 <span class="codeline" id="line-296"><code>	<span class="comment">// Alternatively, instead of making sure we do this on every P</span></code></span>
 <span class="codeline" id="line-297"><code><span class="comment">	// between starting the world and allocating on that P, we</span></code></span>
 <span class="codeline" id="line-298"><code><span class="comment">	// could leave allocate-black on, allow allocation to continue</span></code></span>
@@ -409,7 +409,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-313"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

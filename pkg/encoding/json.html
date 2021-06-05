@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Package: encoding/json</title>
-<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="package-details"><code><span style="font-size:xx-large;">package <b>json</b></span>
@@ -15,11 +15,12 @@
 	<a href="../../index.html#pkg-encoding/json">encoding/json</a><i> (on <a href="https://golang.org/pkg/encoding/json/" target="_blank">golang.org</a> and <a href="https://pkg.go.dev/encoding/json" target="_blank">go.dev</a>)</i>
 
 <span class="title">Dependency Relation</span>
-	imports <a href="../../dep/encoding/json.html">15 packages</a>, and imported by <a href="../../dep/encoding/json.html#imported-by">9 packages</a>
+	imports <a href="../../dep/encoding/json.html">15 packages</a>, and imported by <a href="../../dep/encoding/json.html#imported-by">4 packages</a>
 
-<div><span class="title">Involved Source Files</span>
+<div id="files"><span class="title">Involved Source Files</span>
+
 	<span class="nodocs">      <a href="../../src/encoding/json/decode.go.html">decode.go</a></span>
-	<input type='checkbox' class="fold" id="file-1-fold-content"><label for="file-1-fold-content">   <a href="../../src/encoding/json/encode.go.html#doc">d➜</a> <a href="../../src/encoding/json/encode.go.html">encode.go</a></label><span id='file-1-fold-content-items' class="fold-items">
+	<input type='checkbox' checked class="fold" id="file-1-fold-content"><label for="file-1-fold-content">   <a href="../../src/encoding/json/encode.go.html#doc">d➜</a> <a href="../../src/encoding/json/encode.go.html">encode.go</a></label><span id='file-1-fold-content-items' class="fold-items">
 		Package json implements encoding and decoding of JSON as defined in
 		RFC 7159. The mapping between JSON and Go values is described
 		in the documentation for the Marshal and Unmarshal functions.
@@ -33,9 +34,480 @@
 	<span class="nodocs">      <a href="../../src/encoding/json/stream.go.html">stream.go</a></span>
 	<span class="nodocs">      <a href="../../src/encoding/json/tables.go.html">tables.go</a></span>
 	<span class="nodocs">      <a href="../../src/encoding/json/tags.go.html">tags.go</a></span></div>
-<span class="title type-res">Package-Level Type Names<span class="title-stat"><i> (total 35, in which 16 are exported)</i></span></span>
+<div id="examples"><span class="title">Code Examples</span>
 
-<div id="exported-types-buttons" class="js-on">	/* sort exporteds by: <label id="sort-types-by-alphabet" class="button">alphabet</label> | <label id="sort-types-by-popularity" class="button">popularity</label> */</div><div id="exported-types"><div class="anchor type-res" id="name-Decoder" data-popularity="775">	<input type='checkbox' class="fold" id="Decoder-fold-content"><label for="Decoder-fold-content"> <a href="../../use/encoding/json..Decoder.html">type</a> <a href="../../src/encoding/json/stream.go.html#line-14">Decoder</a> <i>(struct)</i></label><span id='Decoder-fold-content-docs' class="fold-docs">
+	<input type='checkbox' class="fold" id="example-0-fold-content"><label for="example-0-fold-content">Decoder</label><span id='example-0-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"encoding/json"
+			"fmt"
+			"io"
+			"log"
+			"strings"
+		)
+		
+		func main() {
+			const jsonStream = `
+			{"Name": "Ed", "Text": "Knock knock."}
+			{"Name": "Sam", "Text": "Who's there?"}
+			{"Name": "Ed", "Text": "Go fmt."}
+			{"Name": "Sam", "Text": "Go fmt who?"}
+			{"Name": "Ed", "Text": "Go fmt yourself!"}
+		`
+			type Message struct {
+				Name, Text string
+			}
+			dec := json.NewDecoder(strings.NewReader(jsonStream))
+			for {
+				var m Message
+				if err := dec.Decode(&m); err == io.EOF {
+					break
+				} else if err != nil {
+					log.Fatal(err)
+				}
+				fmt.Printf("%s: %s\n", m.Name, m.Text)
+			}
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-1-fold-content"><label for="example-1-fold-content">Decoder_Decode_stream</label><span id='example-1-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"encoding/json"
+			"fmt"
+			"log"
+			"strings"
+		)
+		
+		func main() {
+			const jsonStream = `
+			[
+				{"Name": "Ed", "Text": "Knock knock."},
+				{"Name": "Sam", "Text": "Who's there?"},
+				{"Name": "Ed", "Text": "Go fmt."},
+				{"Name": "Sam", "Text": "Go fmt who?"},
+				{"Name": "Ed", "Text": "Go fmt yourself!"}
+			]
+		`
+			type Message struct {
+				Name, Text string
+			}
+			dec := json.NewDecoder(strings.NewReader(jsonStream))
+		
+			// read open bracket
+			t, err := dec.Token()
+			if err != nil {
+				log.Fatal(err)
+			}
+			fmt.Printf("%T: %v\n", t, t)
+		
+			// while the array contains values
+			for dec.More() {
+				var m Message
+				// decode an array value (Message)
+				err := dec.Decode(&m)
+				if err != nil {
+					log.Fatal(err)
+				}
+		
+				fmt.Printf("%v: %v\n", m.Name, m.Text)
+			}
+		
+			// read closing bracket
+			t, err = dec.Token()
+			if err != nil {
+				log.Fatal(err)
+			}
+			fmt.Printf("%T: %v\n", t, t)
+		
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-2-fold-content"><label for="example-2-fold-content">Decoder_Token</label><span id='example-2-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"encoding/json"
+			"fmt"
+			"io"
+			"log"
+			"strings"
+		)
+		
+		func main() {
+			const jsonStream = `
+			{"Message": "Hello", "Array": [1, 2, 3], "Null": null, "Number": 1.234}
+		`
+			dec := json.NewDecoder(strings.NewReader(jsonStream))
+			for {
+				t, err := dec.Token()
+				if err == io.EOF {
+					break
+				}
+				if err != nil {
+					log.Fatal(err)
+				}
+				fmt.Printf("%T: %v", t, t)
+				if dec.More() {
+					fmt.Printf(" (more)")
+				}
+				fmt.Printf("\n")
+			}
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-3-fold-content"><label for="example-3-fold-content">HTMLEscape</label><span id='example-3-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"bytes"
+			"encoding/json"
+			"os"
+		)
+		
+		func main() {
+			var out bytes.Buffer
+			json.HTMLEscape(&out, []byte(`{"Name":"<b>HTML content</b>"}`))
+			out.WriteTo(os.Stdout)
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-4-fold-content"><label for="example-4-fold-content">Indent</label><span id='example-4-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"bytes"
+			"encoding/json"
+			"log"
+			"os"
+		)
+		
+		func main() {
+			type Road struct {
+				Name   string
+				Number int
+			}
+			roads := []Road{
+				{"Diamond Fork", 29},
+				{"Sheep Creek", 51},
+			}
+		
+			b, err := json.Marshal(roads)
+			if err != nil {
+				log.Fatal(err)
+			}
+		
+			var out bytes.Buffer
+			json.Indent(&out, b, "=", "\t")
+			out.WriteTo(os.Stdout)
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-5-fold-content"><label for="example-5-fold-content">Marshal</label><span id='example-5-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"encoding/json"
+			"fmt"
+			"os"
+		)
+		
+		func main() {
+			type ColorGroup struct {
+				ID     int
+				Name   string
+				Colors []string
+			}
+			group := ColorGroup{
+				ID:     1,
+				Name:   "Reds",
+				Colors: []string{"Crimson", "Red", "Ruby", "Maroon"},
+			}
+			b, err := json.Marshal(group)
+			if err != nil {
+				fmt.Println("error:", err)
+			}
+			os.Stdout.Write(b)
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-6-fold-content"><label for="example-6-fold-content">MarshalIndent</label><span id='example-6-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"encoding/json"
+			"fmt"
+			"log"
+		)
+		
+		func main() {
+			data := map[string]int{
+				"a": 1,
+				"b": 2,
+			}
+		
+			json, err := json.MarshalIndent(data, "<prefix>", "<indent>")
+			if err != nil {
+				log.Fatal(err)
+			}
+		
+			fmt.Println(string(json))
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-7-fold-content"><label for="example-7-fold-content">RawMessage_marshal</label><span id='example-7-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"encoding/json"
+			"fmt"
+			"os"
+		)
+		
+		func main() {
+			h := json.RawMessage(`{"precomputed": true}`)
+		
+			c := struct {
+				Header *json.RawMessage `json:"header"`
+				Body   string           `json:"body"`
+			}{Header: &h, Body: "Hello Gophers!"}
+		
+			b, err := json.MarshalIndent(&c, "", "\t")
+			if err != nil {
+				fmt.Println("error:", err)
+			}
+			os.Stdout.Write(b)
+		
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-8-fold-content"><label for="example-8-fold-content">RawMessage_unmarshal</label><span id='example-8-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"encoding/json"
+			"fmt"
+			"log"
+		)
+		
+		func main() {
+			type Color struct {
+				Space string
+				Point json.RawMessage // delay parsing until we know the color space
+			}
+			type RGB struct {
+				R uint8
+				G uint8
+				B uint8
+			}
+			type YCbCr struct {
+				Y  uint8
+				Cb int8
+				Cr int8
+			}
+		
+			var j = []byte(`[
+			{"Space": "YCbCr", "Point": {"Y": 255, "Cb": 0, "Cr": -10}},
+			{"Space": "RGB",   "Point": {"R": 98, "G": 218, "B": 255}}
+		]`)
+			var colors []Color
+			err := json.Unmarshal(j, &colors)
+			if err != nil {
+				log.Fatalln("error:", err)
+			}
+		
+			for _, c := range colors {
+				var dst interface{}
+				switch c.Space {
+				case "RGB":
+					dst = new(RGB)
+				case "YCbCr":
+					dst = new(YCbCr)
+				}
+				err := json.Unmarshal(c.Point, dst)
+				if err != nil {
+					log.Fatalln("error:", err)
+				}
+				fmt.Println(c.Space, dst)
+			}
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-9-fold-content"><label for="example-9-fold-content">Unmarshal</label><span id='example-9-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"encoding/json"
+			"fmt"
+		)
+		
+		func main() {
+			var jsonBlob = []byte(`[
+			{"Name": "Platypus", "Order": "Monotremata"},
+			{"Name": "Quoll",    "Order": "Dasyuromorphia"}
+		]`)
+			type Animal struct {
+				Name  string
+				Order string
+			}
+			var animals []Animal
+			err := json.Unmarshal(jsonBlob, &animals)
+			if err != nil {
+				fmt.Println("error:", err)
+			}
+			fmt.Printf("%+v", animals)
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-10-fold-content"><label for="example-10-fold-content">Valid</label><span id='example-10-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"encoding/json"
+			"fmt"
+		)
+		
+		func main() {
+			goodJSON := `{"example": 1}`
+			badJSON := `{"example":2:]}}`
+		
+			fmt.Println(json.Valid([]byte(goodJSON)), json.Valid([]byte(badJSON)))
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-11-fold-content"><label for="example-11-fold-content">_customMarshalJSON</label><span id='example-11-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"encoding/json"
+			"fmt"
+			"log"
+			"strings"
+		)
+		
+		type Animal int
+		
+		const (
+			Unknown Animal = iota
+			Gopher
+			Zebra
+		)
+		
+		func (a *Animal) UnmarshalJSON(b []byte) error {
+			var s string
+			if err := json.Unmarshal(b, &s); err != nil {
+				return err
+			}
+			switch strings.ToLower(s) {
+			default:
+				*a = Unknown
+			case "gopher":
+				*a = Gopher
+			case "zebra":
+				*a = Zebra
+			}
+		
+			return nil
+		}
+		
+		func (a Animal) MarshalJSON() ([]byte, error) {
+			var s string
+			switch a {
+			default:
+				s = "unknown"
+			case Gopher:
+				s = "gopher"
+			case Zebra:
+				s = "zebra"
+			}
+		
+			return json.Marshal(s)
+		}
+		
+		func main() {
+			blob := `["gopher","armadillo","zebra","unknown","gopher","bee","gopher","zebra"]`
+			var zoo []Animal
+			if err := json.Unmarshal([]byte(blob), &zoo); err != nil {
+				log.Fatal(err)
+			}
+		
+			census := make(map[Animal]int)
+			for _, animal := range zoo {
+				census[animal] += 1
+			}
+		
+			fmt.Printf("Zoo Census:\n* Gophers: %d\n* Zebras:  %d\n* Unknown: %d\n",
+				census[Gopher], census[Zebra], census[Unknown])
+		
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-12-fold-content"><label for="example-12-fold-content">_textMarshalJSON</label><span id='example-12-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"encoding/json"
+			"fmt"
+			"log"
+			"strings"
+		)
+		
+		type Size int
+		
+		const (
+			Unrecognized Size = iota
+			Small
+			Large
+		)
+		
+		func (s *Size) UnmarshalText(text []byte) error {
+			switch strings.ToLower(string(text)) {
+			default:
+				*s = Unrecognized
+			case "small":
+				*s = Small
+			case "large":
+				*s = Large
+			}
+			return nil
+		}
+		
+		func (s Size) MarshalText() ([]byte, error) {
+			var name string
+			switch s {
+			default:
+				name = "unrecognized"
+			case Small:
+				name = "small"
+			case Large:
+				name = "large"
+			}
+			return []byte(name), nil
+		}
+		
+		func main() {
+			blob := `["small","regular","large","unrecognized","small","normal","small","large"]`
+			var inventory []Size
+			if err := json.Unmarshal([]byte(blob), &inventory); err != nil {
+				log.Fatal(err)
+			}
+		
+			counts := make(map[Size]int)
+			for _, size := range inventory {
+				counts[size] += 1
+			}
+		
+			fmt.Printf("Inventory Counts:\n* Small:        %d\n* Large:        %d\n* Unrecognized: %d\n",
+				counts[Small], counts[Large], counts[Unrecognized])
+		
+		}
+</span>
+</div>
+<div id="exported-types"><span class="title">Package-Level Type Names<span class="title-stat"><i> (total 35, in which 16 are exported)</i></span></span>
+
+<div id="exported-types-buttons" class="js-on">	/* sort exporteds by: <label id="sort-types-by-alphabet" class="button">alphabet</label> | <label id="sort-types-by-popularity" class="button">popularity</label> */</div><div class="anchor type-res" id="name-Decoder" data-popularity="775">	<input type='checkbox' class="fold" id="Decoder-fold-content"><label for="Decoder-fold-content"> <a href="../../use/encoding/json..Decoder.html">type</a> <a href="../../src/encoding/json/stream.go.html#line-14">Decoder</a> <i>(struct)</i></label><span id='Decoder-fold-content-docs' class="fold-docs">
 		A Decoder reads and decodes JSON values from an input stream.
 
 		<input type='checkbox' class="fold" id="Decoder-fold-fields"><label for="Decoder-fold-fields">Fields (<i>total 9, none are exported</i>)</label><span id='Decoder-fold-fields-items' class="fold-items">
@@ -112,16 +584,15 @@
 		<input type='checkbox' class="fold" id="Decoder-fold-results"><label for="Decoder-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='Decoder-fold-results-items' class="fold-items"><span>
 			func <a href="#name-NewDecoder">NewDecoder</a>(r <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>) *<b>Decoder</b></span></span>
 
-</span></div><div class="anchor type-res" id="name-Delim" data-popularity="250">	<input type='checkbox' class="fold" id="Delim-fold-content"><label for="Delim-fold-content"> <a href="../../use/encoding/json..Delim.html">type</a> <a href="../../src/encoding/json/stream.go.html#line-353">Delim</a> <a href="../builtin.html#name-rune">rune</a> <i>(basic type)</i></label><span id='Delim-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res" id="name-Delim" data-popularity="200">	<input type='checkbox' class="fold" id="Delim-fold-content"><label for="Delim-fold-content"> <a href="../../use/encoding/json..Delim.html">type</a> <a href="../../src/encoding/json/stream.go.html#line-353">Delim</a> <a href="../builtin.html#name-rune">rune</a> <i>(basic type)</i></label><span id='Delim-fold-content-docs' class="fold-docs">
 		A Delim is a JSON array or object delimiter, one of [ ] { or }.
 
 		<input type='checkbox' class="fold" id="Delim-fold-methods"><label for="Delim-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='Delim-fold-methods-items' class="fold-items"><span>
 			<span class="nodocs">( T) <a href="../../src/encoding/json/stream.go.html#line-355">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
-		<input type='checkbox' class="fold" id="Delim-fold-impls"><label for="Delim-fold-impls">Implements (<i>at least 4, in which 1 are exported</i>)</label><span id='Delim-fold-impls-items' class="fold-items"><span>
+		<input type='checkbox' class="fold" id="Delim-fold-impls"><label for="Delim-fold-impls">Implements (<i>at least 3, in which 1 are exported</i>)</label><span id='Delim-fold-impls-items' class="fold-items"><span>
 			 T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span>
-			<input type='checkbox' class="showhide" id="Delim-showhide-impls"><i><label for="Delim-showhide-impls" class="show-inline">/* 3+ unexporteds ... */</label><label for="Delim-showhide-impls" class="hide-inline">/* 3+ unexporteds: */</label></i><span class="hidden"><i>
+			<input type='checkbox' class="showhide" id="Delim-showhide-impls"><i><label for="Delim-showhide-impls" class="show-inline">/* 2+ unexporteds ... */</label><label for="Delim-showhide-impls" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
 			 T : context.<a href="../context.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
-			 T : os/signal.<a href="../os/signal.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
 			 T : runtime.<a href="../runtime.html#name-stringer">stringer</a></i></span></span>
 
 </span></div><div class="anchor type-res" id="name-Encoder" data-popularity="225">	<input type='checkbox' class="fold" id="Encoder-fold-content"><label for="Encoder-fold-content"> <a href="../../use/encoding/json..Encoder.html">type</a> <a href="../../src/encoding/json/stream.go.html#line-181">Encoder</a> <i>(struct)</i></label><span id='Encoder-fold-content-docs' class="fold-docs">
@@ -188,13 +659,13 @@
 		<input type='checkbox' class="fold" id="InvalidUTF8Error-fold-impls"><label for="InvalidUTF8Error-fold-impls">Implements (<i>at least one exported</i>)</label><span id='InvalidUTF8Error-fold-impls-items' class="fold-items"><span>
 			*T : <a href="../builtin.html#name-error">error</a></span></span>
 
-</span></div><div class="anchor type-res" id="name-Marshaler" data-popularity="1850">	<input type='checkbox' class="fold" id="Marshaler-fold-content"><label for="Marshaler-fold-content"> <a href="../../use/encoding/json..Marshaler.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-225">Marshaler</a> <b><i>(interface)</i></b></label><span id='Marshaler-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res" id="name-Marshaler" data-popularity="1550">	<input type='checkbox' class="fold" id="Marshaler-fold-content"><label for="Marshaler-fold-content"> <a href="../../use/encoding/json..Marshaler.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-225">Marshaler</a> <b><i>(interface)</i></b></label><span id='Marshaler-fold-content-docs' class="fold-docs">
 		Marshaler is the interface implemented by types that
 		can marshal themselves into valid JSON.
 
 		<input type='checkbox' class="fold" id="Marshaler-fold-methods"><label for="Marshaler-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='Marshaler-fold-methods-items' class="fold-items"><span>
 			<span class="nodocs">( T) <a href="../../src/encoding/json/encode.go.html#line-226">MarshalJSON</a>() ([]<a href="../builtin.html#name-byte">byte</a>, <a href="../builtin.html#name-error">error</a>)</span></span></span>
-		<input type='checkbox' class="fold" id="Marshaler-fold-impledby"><label for="Marshaler-fold-impledby">Implemented By (<i>at least 12, in which 11 are exported</i>)</label><span id='Marshaler-fold-impledby-items' class="fold-items"><span>
+		<input type='checkbox' class="fold" id="Marshaler-fold-impledby"><label for="Marshaler-fold-impledby">Implemented By (<i>at least 10, all are exported</i>)</label><span id='Marshaler-fold-impledby-items' class="fold-items"><span>
 			 <a href="#name-RawMessage">RawMessage</a></span><span>
 			*go.uber.org/atomic.<a href="../go.uber.org/atomic.html#name-Bool">Bool</a></span><span>
 			*go.uber.org/atomic.<a href="../go.uber.org/atomic.html#name-Duration">Duration</a></span><span>
@@ -203,11 +674,8 @@
 			*go.uber.org/atomic.<a href="../go.uber.org/atomic.html#name-Int64">Int64</a></span><span>
 			*go.uber.org/atomic.<a href="../go.uber.org/atomic.html#name-Uint32">Uint32</a></span><span>
 			*go.uber.org/atomic.<a href="../go.uber.org/atomic.html#name-Uint64">Uint64</a></span><span>
-			*golang.org/x/tools/go/packages.<a href="../golang.org/x/tools/go/packages.html#name-Package">Package</a></span><span>
 			*math/big.<a href="../math/big.html#name-Int">Int</a></span><span>
-			 time.<a href="../time.html#name-Time">Time</a></span>
-			<input type='checkbox' class="showhide" id="Marshaler-showhide-impedBys"><i><label for="Marshaler-showhide-impedBys" class="show-inline">/* at least one unexported ... */</label><label for="Marshaler-showhide-impedBys" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
-			 golang.org/x/tools/go/packages.<a href="../golang.org/x/tools/go/packages.html#name-loaderPackage">loaderPackage</a></i></span></span>
+			 time.<a href="../time.html#name-Time">Time</a></span></span>
 
 </span></div><div class="anchor type-res" id="name-MarshalerError" data-popularity="200">	<input type='checkbox' class="fold" id="MarshalerError-fold-content"><label for="MarshalerError-fold-content"> <a href="../../use/encoding/json..MarshalerError.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-265">MarshalerError</a> <i>(struct)</i></label><span id='MarshalerError-fold-content-docs' class="fold-docs">
 		A MarshalerError represents an error from calling a MarshalJSON or MarshalText method.
@@ -226,7 +694,7 @@
 			*T : <a href="../builtin.html#name-error">error</a></span><span>
 			*T : golang.org/x/xerrors.<a href="../golang.org/x/xerrors.html#name-Wrapper">Wrapper</a></span></span>
 
-</span></div><div class="anchor type-res" id="name-Number" data-popularity="350">	<input type='checkbox' class="fold" id="Number-fold-content"><label for="Number-fold-content"> <a href="../../use/encoding/json..Number.html">type</a> <a href="../../src/encoding/json/decode.go.html#line-188">Number</a> <a href="../builtin.html#name-string">string</a> <i>(basic type)</i></label><span id='Number-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res" id="name-Number" data-popularity="300">	<input type='checkbox' class="fold" id="Number-fold-content"><label for="Number-fold-content"> <a href="../../use/encoding/json..Number.html">type</a> <a href="../../src/encoding/json/decode.go.html#line-188">Number</a> <a href="../builtin.html#name-string">string</a> <i>(basic type)</i></label><span id='Number-fold-content-docs' class="fold-docs">
 		A Number represents a JSON number literal.
 
 		<input type='checkbox' class="fold" id="Number-fold-methods"><label for="Number-fold-methods">Methods (<i>total 3, all are exported</i>)</label><span id='Number-fold-methods-items' class="fold-items"><span>
@@ -239,11 +707,10 @@
 			<input type='checkbox' class="fold" id="Number-fold-method-String"><label for="Number-fold-method-String">( T) <a href="../../src/encoding/json/decode.go.html#line-191">String</a>() <a href="../builtin.html#name-string">string</a></label><span id='Number-fold-method-String-docs' class="fold-docs">
 				String returns the literal text of the number.
 </span></span></span>
-		<input type='checkbox' class="fold" id="Number-fold-impls"><label for="Number-fold-impls">Implements (<i>at least 4, in which 1 are exported</i>)</label><span id='Number-fold-impls-items' class="fold-items"><span>
+		<input type='checkbox' class="fold" id="Number-fold-impls"><label for="Number-fold-impls">Implements (<i>at least 3, in which 1 are exported</i>)</label><span id='Number-fold-impls-items' class="fold-items"><span>
 			 T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span>
-			<input type='checkbox' class="showhide" id="Number-showhide-impls"><i><label for="Number-showhide-impls" class="show-inline">/* 3+ unexporteds ... */</label><label for="Number-showhide-impls" class="hide-inline">/* 3+ unexporteds: */</label></i><span class="hidden"><i>
+			<input type='checkbox' class="showhide" id="Number-showhide-impls"><i><label for="Number-showhide-impls" class="show-inline">/* 2+ unexporteds ... */</label><label for="Number-showhide-impls" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
 			 T : context.<a href="../context.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
-			 T : os/signal.<a href="../os/signal.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
 			 T : runtime.<a href="../runtime.html#name-stringer">stringer</a></i></span></span>
 
 </span></div><div class="anchor type-res" id="name-RawMessage" data-popularity="200">	<input type='checkbox' class="fold" id="RawMessage-fold-content"><label for="RawMessage-fold-content"> <a href="../../use/encoding/json..RawMessage.html">type</a> <a href="../../src/encoding/json/stream.go.html#line-260">RawMessage</a> <i>([]T)</i></label><span id='RawMessage-fold-content-docs' class="fold-docs">
@@ -293,7 +760,7 @@
 			<input type='checkbox' class="showhide" id="Token-showhide-inputofs"><i><label for="Token-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="Token-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
 			func (*<a href="#name-Decoder">Decoder</a>).<a href="../../src/encoding/json/stream.go.html#line-464">tokenError</a>(c <a href="../builtin.html#name-byte">byte</a>) (<b>Token</b>, <a href="../builtin.html#name-error">error</a>)</i></span></span>
 
-</span></div><div class="anchor type-res" id="name-Unmarshaler" data-popularity="2075">	<input type='checkbox' class="fold" id="Unmarshaler-fold-content"><label for="Unmarshaler-fold-content"> <a href="../../use/encoding/json..Unmarshaler.html">type</a> <a href="../../src/encoding/json/decode.go.html#line-118">Unmarshaler</a> <b><i>(interface)</i></b></label><span id='Unmarshaler-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res" id="name-Unmarshaler" data-popularity="1775">	<input type='checkbox' class="fold" id="Unmarshaler-fold-content"><label for="Unmarshaler-fold-content"> <a href="../../use/encoding/json..Unmarshaler.html">type</a> <a href="../../src/encoding/json/decode.go.html#line-118">Unmarshaler</a> <b><i>(interface)</i></b></label><span id='Unmarshaler-fold-content-docs' class="fold-docs">
 		Unmarshaler is the interface implemented by types
 		that can unmarshal a JSON description of themselves.
 		The input can be assumed to be a valid encoding of
@@ -305,7 +772,7 @@
 
 		<input type='checkbox' class="fold" id="Unmarshaler-fold-methods"><label for="Unmarshaler-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='Unmarshaler-fold-methods-items' class="fold-items"><span>
 			<span class="nodocs">( T) <a href="../../src/encoding/json/decode.go.html#line-119">UnmarshalJSON</a>([]<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-error">error</a></span></span></span>
-		<input type='checkbox' class="fold" id="Unmarshaler-fold-impledby"><label for="Unmarshaler-fold-impledby">Implemented By (<i>at least 13, in which 12 are exported</i>)</label><span id='Unmarshaler-fold-impledby-items' class="fold-items"><span>
+		<input type='checkbox' class="fold" id="Unmarshaler-fold-impledby"><label for="Unmarshaler-fold-impledby">Implemented By (<i>at least 11, all are exported</i>)</label><span id='Unmarshaler-fold-impledby-items' class="fold-items"><span>
 			*<a href="#name-RawMessage">RawMessage</a></span><span>
 			*go.uber.org/atomic.<a href="../go.uber.org/atomic.html#name-Bool">Bool</a></span><span>
 			*go.uber.org/atomic.<a href="../go.uber.org/atomic.html#name-Duration">Duration</a></span><span>
@@ -315,11 +782,8 @@
 			*go.uber.org/atomic.<a href="../go.uber.org/atomic.html#name-Uint32">Uint32</a></span><span>
 			*go.uber.org/atomic.<a href="../go.uber.org/atomic.html#name-Uint64">Uint64</a></span><span>
 			*go.uber.org/zap/zapcore.<a href="../go.uber.org/zap/zapcore.html#name-TimeEncoder">TimeEncoder</a></span><span>
-			*golang.org/x/tools/go/packages.<a href="../golang.org/x/tools/go/packages.html#name-Package">Package</a></span><span>
 			*math/big.<a href="../math/big.html#name-Int">Int</a></span><span>
-			*time.<a href="../time.html#name-Time">Time</a></span>
-			<input type='checkbox' class="showhide" id="Unmarshaler-showhide-impedBys"><i><label for="Unmarshaler-showhide-impedBys" class="show-inline">/* at least one unexported ... */</label><label for="Unmarshaler-showhide-impedBys" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
-			 golang.org/x/tools/go/packages.<a href="../golang.org/x/tools/go/packages.html#name-loaderPackage">loaderPackage</a></i></span></span>
+			*time.<a href="../time.html#name-Time">Time</a></span></span>
 		<input type='checkbox' class="fold" id="Unmarshaler-fold-results"><label for="Unmarshaler-fold-results">As Outputs Of (<i>at least one unexported</i>)</label><span id='Unmarshaler-fold-results-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="Unmarshaler-showhide-inputofs"><i><label for="Unmarshaler-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="Unmarshaler-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
 			func <a href="#name-indirect">indirect</a>(v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, decodingNull <a href="../builtin.html#name-bool">bool</a>) (<b>Unmarshaler</b>, <a href="../encoding.html">encoding</a>.<a href="../encoding.html#name-TextUnmarshaler">TextUnmarshaler</a>, <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>)</i></span></span>
@@ -387,7 +851,7 @@
 		<input type='checkbox' class="fold" id="UnsupportedValueError-fold-impls"><label for="UnsupportedValueError-fold-impls">Implements (<i>at least one exported</i>)</label><span id='UnsupportedValueError-fold-impls-items' class="fold-items"><span>
 			*T : <a href="../builtin.html#name-error">error</a></span></span>
 
-</span></div></div><div>	<input type='checkbox' class="showhide" id="unexported-typenames-showhide"><i><label for="unexported-typenames-showhide" class="show-inline">/* 19 unexporteds ... */</label><label for="unexported-typenames-showhide" class="hide-inline">/* 19 unexporteds: */</label></i><div class="anchor type-res hidden" id="name-arrayEncoder" data-popularity="50">	<input type='checkbox' class="fold" id="arrayEncoder-fold-content"><label for="arrayEncoder-fold-content"> <a href="../../use/encoding/json..arrayEncoder.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-904">arrayEncoder</a> <i>(struct)</i></label><span id='arrayEncoder-fold-content-docs' class="fold-docs">
+</span></div></div><div>	<input type='checkbox' class="showhide" id="unexported-typenames-showhide"><i><label for="unexported-typenames-showhide" class="show-inline">/* 19 unexporteds ... */</label><label for="unexported-typenames-showhide" class="hide-inline">/* 19 unexporteds: */</label></i><div class="anchor type-res hidden" id="name-arrayEncoder" data-popularity="50">	<input type='checkbox' class="fold" id="arrayEncoder-fold-content"><label for="arrayEncoder-fold-content"> <a href="../../use/encoding/json..arrayEncoder*66823.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-904">arrayEncoder</a> <i>(struct)</i></label><span id='arrayEncoder-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="arrayEncoder-fold-fields"><label for="arrayEncoder-fold-fields">Fields (<i>only one, which is unexported</i>)</label><span id='arrayEncoder-fold-fields-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="arrayEncoder-showhide-fields"><i><label for="arrayEncoder-showhide-fields" class="show-inline">/* one unexported ... */</label><label for="arrayEncoder-showhide-fields" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
@@ -396,7 +860,7 @@
 			<input type='checkbox' checked class="showhide" id="arrayEncoder-showhide-methods"><i><label for="arrayEncoder-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="arrayEncoder-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
 			<span class="nodocs">( T) <a href="../../src/encoding/json/encode.go.html#line-908">encode</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-byIndex" data-popularity="200">	<input type='checkbox' class="fold" id="byIndex-fold-content"><label for="byIndex-fold-content"> <a href="../../use/encoding/json..byIndex.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-1191">byIndex</a> <i>([]T)</i></label><span id='byIndex-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-byIndex" data-popularity="200">	<input type='checkbox' class="fold" id="byIndex-fold-content"><label for="byIndex-fold-content"> <a href="../../use/encoding/json..byIndex*e2bbb.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-1191">byIndex</a> <i>([]T)</i></label><span id='byIndex-fold-content-docs' class="fold-docs">
 		byIndex sorts field by index sequence.
 
 		<input type='checkbox' class="fold" id="byIndex-fold-methods"><label for="byIndex-fold-methods">Methods (<i>total 3, all are exported</i>)</label><span id='byIndex-fold-methods-items' class="fold-items"><span>
@@ -406,7 +870,7 @@
 		<input type='checkbox' class="fold" id="byIndex-fold-impls"><label for="byIndex-fold-impls">Implements (<i>at least one exported</i>)</label><span id='byIndex-fold-impls-items' class="fold-items"><span>
 			 T : sort.<a href="../sort.html#name-Interface">Interface</a></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-condAddrEncoder" data-popularity="50">	<input type='checkbox' class="fold" id="condAddrEncoder-fold-content"><label for="condAddrEncoder-fold-content"> <a href="../../use/encoding/json..condAddrEncoder.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-953">condAddrEncoder</a> <i>(struct)</i></label><span id='condAddrEncoder-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-condAddrEncoder" data-popularity="50">	<input type='checkbox' class="fold" id="condAddrEncoder-fold-content"><label for="condAddrEncoder-fold-content"> <a href="../../use/encoding/json..condAddrEncoder*79f75.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-953">condAddrEncoder</a> <i>(struct)</i></label><span id='condAddrEncoder-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="condAddrEncoder-fold-fields"><label for="condAddrEncoder-fold-fields">Fields (<i>total 2, neither is exported</i>)</label><span id='condAddrEncoder-fold-fields-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="condAddrEncoder-showhide-fields"><i><label for="condAddrEncoder-showhide-fields" class="show-inline">/* 2 unexporteds ... */</label><label for="condAddrEncoder-showhide-fields" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
@@ -416,7 +880,7 @@
 			<input type='checkbox' checked class="showhide" id="condAddrEncoder-showhide-methods"><i><label for="condAddrEncoder-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="condAddrEncoder-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
 			<span class="nodocs">( T) <a href="../../src/encoding/json/encode.go.html#line-957">encode</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-decodeState" data-popularity="950">	<input type='checkbox' class="fold" id="decodeState-fold-content"><label for="decodeState-fold-content"> <a href="../../use/encoding/json..decodeState.html">type</a> <a href="../../src/encoding/json/decode.go.html#line-204">decodeState</a> <i>(struct)</i></label><span id='decodeState-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-decodeState" data-popularity="950">	<input type='checkbox' class="fold" id="decodeState-fold-content"><label for="decodeState-fold-content"> <a href="../../use/encoding/json..decodeState*25836.html">type</a> <a href="../../src/encoding/json/decode.go.html#line-204">decodeState</a> <i>(struct)</i></label><span id='decodeState-fold-content-docs' class="fold-docs">
 		decodeState represents the state while decoding a JSON value.
 
 		<input type='checkbox' class="fold" id="decodeState-fold-fields"><label for="decodeState-fold-fields">Fields (<i>total 8, none are exported</i>)</label><span id='decodeState-fold-fields-items' class="fold-items">
@@ -512,7 +976,7 @@
 				valueQuoted returns unquotedValue{}.
 </span></i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-encoderFunc" data-popularity="710">	<input type='checkbox' class="fold" id="encoderFunc-fold-content"><label for="encoderFunc-fold-content"> <a href="../../use/encoding/json..encoderFunc.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-370">encoderFunc</a> <i>(func)</i></label><span id='encoderFunc-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-encoderFunc" data-popularity="710">	<input type='checkbox' class="fold" id="encoderFunc-fold-content"><label for="encoderFunc-fold-content"> <a href="../../use/encoding/json..encoderFunc*2d9ef.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-370">encoderFunc</a> <i>(func)</i></label><span id='encoderFunc-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="encoderFunc-fold-results"><label for="encoderFunc-fold-results">As Outputs Of (<i>at least 9, none are exported</i>)</label><span id='encoderFunc-fold-results-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="encoderFunc-showhide-inputofs"><i><label for="encoderFunc-showhide-inputofs" class="show-inline">/* 9+ unexporteds ... */</label><label for="encoderFunc-showhide-inputofs" class="hide-inline">/* 9+ unexporteds: */</label></i><span class="hidden"><i>
@@ -529,7 +993,7 @@
 			<input type='checkbox' checked class="showhide" id="encoderFunc-showhide-outputofs"><i><label for="encoderFunc-showhide-outputofs" class="show-inline">/* at least one unexported ... */</label><label for="encoderFunc-showhide-outputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
 			func <a href="#name-newCondAddrEncoder">newCondAddrEncoder</a>(canAddrEnc, elseEnc <b>encoderFunc</b>) <b>encoderFunc</b></i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-encodeState" data-popularity="2945">	<input type='checkbox' class="fold" id="encodeState-fold-content"><label for="encodeState-fold-content"> <a href="../../use/encoding/json..encodeState.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-287">encodeState</a> <i>(struct)</i></label><span id='encodeState-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-encodeState" data-popularity="2895">	<input type='checkbox' class="fold" id="encodeState-fold-content"><label for="encodeState-fold-content"> <a href="../../use/encoding/json..encodeState*e4e14.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-287">encodeState</a> <i>(struct)</i></label><span id='encodeState-fold-content-docs' class="fold-docs">
 		An encodeState encodes JSON into a bytes.Buffer.
 
 		<input type='checkbox' class="fold" id="encodeState-fold-fields"><label for="encodeState-fold-fields">Fields (<i>total 7, in which 1 are exported</i>)</label><span id='encodeState-fold-fields-items' class="fold-items"><span>
@@ -708,9 +1172,10 @@
 				internal buffer only needs to be resliced.
 				It returns the index where bytes should be written and whether it succeeded.
 </span></i></span></span>
-		<input type='checkbox' class="fold" id="encodeState-fold-impls"><label for="encodeState-fold-impls">Implements (<i>at least 19, in which 13 are exported</i>)</label><span id='encodeState-fold-impls-items' class="fold-items"><span>
+		<input type='checkbox' class="fold" id="encodeState-fold-impls"><label for="encodeState-fold-impls">Implements (<i>at least 18, in which 14 are exported</i>)</label><span id='encodeState-fold-impls-items' class="fold-items"><span>
 			*T : compress/flate.<a href="../compress/flate.html#name-Reader">Reader</a></span><span>
 			*T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span><span>
+			*T : github.com/klauspost/compress/flate.<a href="../github.com/klauspost/compress/flate.html#name-Reader">Reader</a></span><span>
 			*T : io.<a href="../io.html#name-ByteReader">ByteReader</a></span><span>
 			*T : io.<a href="../io.html#name-ByteScanner">ByteScanner</a></span><span>
 			*T : io.<a href="../io.html#name-ByteWriter">ByteWriter</a></span><span>
@@ -722,12 +1187,10 @@
 			*T : io.<a href="../io.html#name-StringWriter">StringWriter</a></span><span>
 			*T : io.<a href="../io.html#name-Writer">Writer</a></span><span>
 			*T : io.<a href="../io.html#name-WriterTo">WriterTo</a></span>
-			<input type='checkbox' checked class="showhide" id="encodeState-showhide-impls"><i><label for="encodeState-showhide-impls" class="show-inline">/* 6+ unexporteds ... */</label><label for="encodeState-showhide-impls" class="hide-inline">/* 6+ unexporteds: */</label></i><span class="hidden"><i>
+			<input type='checkbox' checked class="showhide" id="encodeState-showhide-impls"><i><label for="encodeState-showhide-impls" class="show-inline">/* 4+ unexporteds ... */</label><label for="encodeState-showhide-impls" class="hide-inline">/* 4+ unexporteds: */</label></i><span class="hidden"><i>
 			*T : context.<a href="../context.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
-			*T : golang.org/x/net/html.<a href="../golang.org/x/net/html.html#name-writer">writer</a></i></span><span class="hidden"><i>
 			*T : net/http.<a href="../net/http.html#name-http2pipeBuffer">http2pipeBuffer</a></i></span><span class="hidden"><i>
 			*T : net/http.<a href="../net/http.html#name-http2stringWriter">http2stringWriter</a></i></span><span class="hidden"><i>
-			*T : os/signal.<a href="../os/signal.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
 			*T : runtime.<a href="../runtime.html#name-stringer">stringer</a></i></span></span>
 		<input type='checkbox' class="fold" id="encodeState-fold-results"><label for="encodeState-fold-results">As Outputs Of (<i>at least one unexported</i>)</label><span id='encodeState-fold-results-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="encodeState-showhide-inputofs"><i><label for="encodeState-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="encodeState-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
@@ -747,7 +1210,7 @@
 			func <a href="#name-uintEncoder">uintEncoder</a>(e *<b>encodeState</b>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</i></span><span class="hidden"><i>
 			func <a href="#name-unsupportedTypeEncoder">unsupportedTypeEncoder</a>(e *<b>encodeState</b>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, _ <a href="#name-encOpts">encOpts</a>)</i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-encOpts" data-popularity="420">	<input type='checkbox' class="fold" id="encOpts-fold-content"><label for="encOpts-fold-content"> <a href="../../use/encoding/json..encOpts.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-363">encOpts</a> <i>(struct)</i></label><span id='encOpts-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-encOpts" data-popularity="420">	<input type='checkbox' class="fold" id="encOpts-fold-content"><label for="encOpts-fold-content"> <a href="../../use/encoding/json..encOpts*2588f.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-363">encOpts</a> <i>(struct)</i></label><span id='encOpts-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="encOpts-fold-fields"><label for="encOpts-fold-fields">Fields (<i>total 2, neither is exported</i>)</label><span id='encOpts-fold-fields-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="encOpts-showhide-fields"><i><label for="encOpts-showhide-fields" class="show-inline">/* 2 unexporteds ... */</label><label for="encOpts-showhide-fields" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
@@ -772,7 +1235,7 @@
 			func <a href="#name-uintEncoder">uintEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <b>encOpts</b>)</i></span><span class="hidden"><i>
 			func <a href="#name-unsupportedTypeEncoder">unsupportedTypeEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, _ <b>encOpts</b>)</i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-field" data-popularity="110">	<input type='checkbox' class="fold" id="field-fold-content"><label for="field-fold-content"> <a href="../../use/encoding/json..field.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-1173">field</a> <i>(struct)</i></label><span id='field-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-field" data-popularity="110">	<input type='checkbox' class="fold" id="field-fold-content"><label for="field-fold-content"> <a href="../../use/encoding/json..field*c0d28.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-1173">field</a> <i>(struct)</i></label><span id='field-fold-content-docs' class="fold-docs">
 		A field represents a single field found in a struct.
 
 		<input type='checkbox' class="fold" id="field-fold-fields"><label for="field-fold-fields">Fields (<i>total 11, none are exported</i>)</label><span id='field-fold-fields-items' class="fold-items">
@@ -803,13 +1266,13 @@
 			<input type='checkbox' checked class="showhide" id="field-showhide-outputofs"><i><label for="field-showhide-outputofs" class="show-inline">/* at least one unexported ... */</label><label for="field-showhide-outputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
 			func <a href="#name-dominantField">dominantField</a>(fields []<b>field</b>) (<b>field</b>, <a href="../builtin.html#name-bool">bool</a>)</i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-floatEncoder" data-popularity="50">	<input type='checkbox' class="fold" id="floatEncoder-fold-content"><label for="floatEncoder-fold-content"> <a href="../../use/encoding/json..floatEncoder.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-573">floatEncoder</a> <a href="../builtin.html#name-int">int</a> <i>(basic type)</i></label><span id='floatEncoder-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-floatEncoder" data-popularity="50">	<input type='checkbox' class="fold" id="floatEncoder-fold-content"><label for="floatEncoder-fold-content"> <a href="../../use/encoding/json..floatEncoder*8f01e.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-573">floatEncoder</a> <a href="../builtin.html#name-int">int</a> <i>(basic type)</i></label><span id='floatEncoder-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="floatEncoder-fold-methods"><label for="floatEncoder-fold-methods">Methods (<i>only one, which is unexported</i>)</label><span id='floatEncoder-fold-methods-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="floatEncoder-showhide-methods"><i><label for="floatEncoder-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="floatEncoder-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
 			<span class="nodocs">( T) <a href="../../src/encoding/json/encode.go.html#line-575">encode</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-jsonError" data-popularity="100">	<input type='checkbox' class="fold" id="jsonError-fold-content"><label for="jsonError-fold-content"> <a href="../../use/encoding/json..jsonError.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-320">jsonError</a> <i>(struct)</i></label><span id='jsonError-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-jsonError" data-popularity="100">	<input type='checkbox' class="fold" id="jsonError-fold-content"><label for="jsonError-fold-content"> <a href="../../use/encoding/json..jsonError*e8d67.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-320">jsonError</a> <i>(struct)</i></label><span id='jsonError-fold-content-docs' class="fold-docs">
 		jsonError is an error wrapper type for internal use only.
 		Panics with errors are wrapped in jsonError so that the top-level recover
 		can distinguish intentional panics from this package.
@@ -822,7 +1285,7 @@
 		<input type='checkbox' class="fold" id="jsonError-fold-impls"><label for="jsonError-fold-impls">Implements (<i>at least one exported</i>)</label><span id='jsonError-fold-impls-items' class="fold-items"><span>
 			 T : <a href="../builtin.html#name-error">error</a></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-mapEncoder" data-popularity="50">	<input type='checkbox' class="fold" id="mapEncoder-fold-content"><label for="mapEncoder-fold-content"> <a href="../../use/encoding/json..mapEncoder.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-775">mapEncoder</a> <i>(struct)</i></label><span id='mapEncoder-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-mapEncoder" data-popularity="50">	<input type='checkbox' class="fold" id="mapEncoder-fold-content"><label for="mapEncoder-fold-content"> <a href="../../use/encoding/json..mapEncoder*56ea8.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-775">mapEncoder</a> <i>(struct)</i></label><span id='mapEncoder-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="mapEncoder-fold-fields"><label for="mapEncoder-fold-fields">Fields (<i>only one, which is unexported</i>)</label><span id='mapEncoder-fold-fields-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="mapEncoder-showhide-fields"><i><label for="mapEncoder-showhide-fields" class="show-inline">/* one unexported ... */</label><label for="mapEncoder-showhide-fields" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
@@ -831,7 +1294,7 @@
 			<input type='checkbox' checked class="showhide" id="mapEncoder-showhide-methods"><i><label for="mapEncoder-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="mapEncoder-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
 			<span class="nodocs">( T) <a href="../../src/encoding/json/encode.go.html#line-779">encode</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-ptrEncoder" data-popularity="50">	<input type='checkbox' class="fold" id="ptrEncoder-fold-content"><label for="ptrEncoder-fold-content"> <a href="../../use/encoding/json..ptrEncoder.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-925">ptrEncoder</a> <i>(struct)</i></label><span id='ptrEncoder-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-ptrEncoder" data-popularity="50">	<input type='checkbox' class="fold" id="ptrEncoder-fold-content"><label for="ptrEncoder-fold-content"> <a href="../../use/encoding/json..ptrEncoder*098b5.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-925">ptrEncoder</a> <i>(struct)</i></label><span id='ptrEncoder-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="ptrEncoder-fold-fields"><label for="ptrEncoder-fold-fields">Fields (<i>only one, which is unexported</i>)</label><span id='ptrEncoder-fold-fields-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="ptrEncoder-showhide-fields"><i><label for="ptrEncoder-showhide-fields" class="show-inline">/* one unexported ... */</label><label for="ptrEncoder-showhide-fields" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
@@ -840,7 +1303,7 @@
 			<input type='checkbox' checked class="showhide" id="ptrEncoder-showhide-methods"><i><label for="ptrEncoder-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="ptrEncoder-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
 			<span class="nodocs">( T) <a href="../../src/encoding/json/encode.go.html#line-929">encode</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-reflectWithString" data-popularity="50">	<input type='checkbox' class="fold" id="reflectWithString-fold-content"><label for="reflectWithString-fold-content"> <a href="../../use/encoding/json..reflectWithString.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-999">reflectWithString</a> <i>(struct)</i></label><span id='reflectWithString-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-reflectWithString" data-popularity="50">	<input type='checkbox' class="fold" id="reflectWithString-fold-content"><label for="reflectWithString-fold-content"> <a href="../../use/encoding/json..reflectWithString*1e190.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-999">reflectWithString</a> <i>(struct)</i></label><span id='reflectWithString-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="reflectWithString-fold-fields"><label for="reflectWithString-fold-fields">Fields (<i>total 2, neither is exported</i>)</label><span id='reflectWithString-fold-fields-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="reflectWithString-showhide-fields"><i><label for="reflectWithString-showhide-fields" class="show-inline">/* 2 unexporteds ... */</label><label for="reflectWithString-showhide-fields" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
@@ -850,7 +1313,7 @@
 			<input type='checkbox' checked class="showhide" id="reflectWithString-showhide-methods"><i><label for="reflectWithString-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="reflectWithString-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
 			<span class="nodocs">(*T) <a href="../../src/encoding/json/encode.go.html#line-1004">resolve</a>() <a href="../builtin.html#name-error">error</a></span></i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-scanner" data-popularity="1480">	<input type='checkbox' class="fold" id="scanner-fold-content"><label for="scanner-fold-content"> <a href="../../use/encoding/json..scanner.html">type</a> <a href="../../src/encoding/json/scanner.go.html#line-64">scanner</a> <i>(struct)</i></label><span id='scanner-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-scanner" data-popularity="1480">	<input type='checkbox' class="fold" id="scanner-fold-content"><label for="scanner-fold-content"> <a href="../../use/encoding/json..scanner*6105d.html">type</a> <a href="../../src/encoding/json/scanner.go.html#line-64">scanner</a> <i>(struct)</i></label><span id='scanner-fold-content-docs' class="fold-docs">
 		A scanner is a JSON scanning state machine.
 		Callers call scan.reset and then pass bytes in one at a time
 		by calling scan.step(&amp;scan, c) for each byte.
@@ -945,7 +1408,7 @@
 			func <a href="#name-stateTr">stateTr</a>(s *<b>scanner</b>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></i></span><span class="hidden"><i>
 			func <a href="#name-stateTru">stateTru</a>(s *<b>scanner</b>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-sliceEncoder" data-popularity="50">	<input type='checkbox' class="fold" id="sliceEncoder-fold-content"><label for="sliceEncoder-fold-content"> <a href="../../use/encoding/json..sliceEncoder.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-864">sliceEncoder</a> <i>(struct)</i></label><span id='sliceEncoder-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-sliceEncoder" data-popularity="50">	<input type='checkbox' class="fold" id="sliceEncoder-fold-content"><label for="sliceEncoder-fold-content"> <a href="../../use/encoding/json..sliceEncoder*848cd.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-864">sliceEncoder</a> <i>(struct)</i></label><span id='sliceEncoder-fold-content-docs' class="fold-docs">
 		sliceEncoder just wraps an arrayEncoder, checking to make sure the value isn't nil.
 
 		<input type='checkbox' class="fold" id="sliceEncoder-fold-fields"><label for="sliceEncoder-fold-fields">Fields (<i>only one, which is unexported</i>)</label><span id='sliceEncoder-fold-fields-items' class="fold-items">
@@ -955,7 +1418,7 @@
 			<input type='checkbox' checked class="showhide" id="sliceEncoder-showhide-methods"><i><label for="sliceEncoder-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="sliceEncoder-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
 			<span class="nodocs">( T) <a href="../../src/encoding/json/encode.go.html#line-868">encode</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-structEncoder" data-popularity="50">	<input type='checkbox' class="fold" id="structEncoder-fold-content"><label for="structEncoder-fold-content"> <a href="../../use/encoding/json..structEncoder.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-723">structEncoder</a> <i>(struct)</i></label><span id='structEncoder-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-structEncoder" data-popularity="50">	<input type='checkbox' class="fold" id="structEncoder-fold-content"><label for="structEncoder-fold-content"> <a href="../../use/encoding/json..structEncoder*1a92f.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-723">structEncoder</a> <i>(struct)</i></label><span id='structEncoder-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="structEncoder-fold-fields"><label for="structEncoder-fold-fields">Fields (<i>only one, which is unexported</i>)</label><span id='structEncoder-fold-fields-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="structEncoder-showhide-fields"><i><label for="structEncoder-showhide-fields" class="show-inline">/* one unexported ... */</label><label for="structEncoder-showhide-fields" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
@@ -964,7 +1427,7 @@
 			<input type='checkbox' checked class="showhide" id="structEncoder-showhide-methods"><i><label for="structEncoder-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="structEncoder-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
 			<span class="nodocs">( T) <a href="../../src/encoding/json/encode.go.html#line-732">encode</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-structFields" data-popularity="150">	<input type='checkbox' class="fold" id="structFields-fold-content"><label for="structFields-fold-content"> <a href="../../use/encoding/json..structFields.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-727">structFields</a> <i>(struct)</i></label><span id='structFields-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-structFields" data-popularity="150">	<input type='checkbox' class="fold" id="structFields-fold-content"><label for="structFields-fold-content"> <a href="../../use/encoding/json..structFields*51ed8.html">type</a> <a href="../../src/encoding/json/encode.go.html#line-727">structFields</a> <i>(struct)</i></label><span id='structFields-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="structFields-fold-fields"><label for="structFields-fold-fields">Fields (<i>total 2, neither is exported</i>)</label><span id='structFields-fold-fields-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="structFields-showhide-fields"><i><label for="structFields-showhide-fields" class="show-inline">/* 2 unexporteds ... */</label><label for="structFields-showhide-fields" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
@@ -975,7 +1438,7 @@
 			func <a href="#name-cachedTypeFields">cachedTypeFields</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>) <b>structFields</b></i></span><span class="hidden"><i>
 			func <a href="#name-typeFields">typeFields</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>) <b>structFields</b></i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-tagOptions" data-popularity="125">	<input type='checkbox' class="fold" id="tagOptions-fold-content"><label for="tagOptions-fold-content"> <a href="../../use/encoding/json..tagOptions.html">type</a> <a href="../../src/encoding/json/tags.go.html#line-13">tagOptions</a> <a href="../builtin.html#name-string">string</a> <i>(basic type)</i></label><span id='tagOptions-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-tagOptions" data-popularity="125">	<input type='checkbox' class="fold" id="tagOptions-fold-content"><label for="tagOptions-fold-content"> <a href="../../use/encoding/json..tagOptions*6ce95.html">type</a> <a href="../../src/encoding/json/tags.go.html#line-13">tagOptions</a> <a href="../builtin.html#name-string">string</a> <i>(basic type)</i></label><span id='tagOptions-fold-content-docs' class="fold-docs">
 		tagOptions is the string following a comma in a struct field's "json"
 		tag, or the empty string. It does not include the leading comma.
 
@@ -989,8 +1452,8 @@
 			<input type='checkbox' checked class="showhide" id="tagOptions-showhide-inputofs"><i><label for="tagOptions-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="tagOptions-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
 			func <a href="#name-parseTag">parseTag</a>(tag <a href="../builtin.html#name-string">string</a>) (<a href="../builtin.html#name-string">string</a>, <b>tagOptions</b>)</i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-unquotedValue" data-popularity="0">	<span class="nodocs"> <a href="../../use/encoding/json..unquotedValue.html">type</a> <a href="../../src/encoding/json/decode.go.html#line-392">unquotedValue</a> <i>(struct)</i></span></div></div>
-<div><span class="title value-res">Package-Level Functions<span class="title-stat"><i> (total 86, in which 9 are exported)</i></span></span>
+</span></div><div class="anchor type-res hidden" id="name-unquotedValue" data-popularity="0">	<span class="nodocs"> <a href="../../use/encoding/json..unquotedValue*42693.html">type</a> <a href="../../src/encoding/json/decode.go.html#line-392">unquotedValue</a> <i>(struct)</i></span></div></div>
+<div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 86, in which 9 are exported)</i></span></span>
 
 <div class="anchor value-res" id="name-Compact">	<input type='checkbox' class="fold" id="Compact-fold-content"><label for="Compact-fold-content"> <a href="../../use/encoding/json..Compact.html">func</a> <a href="../../src/encoding/json/indent.go.html#line-13">Compact</a>(dst *<a href="../bytes.html">bytes</a>.<a href="../bytes.html#name-Buffer">Buffer</a>, src []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-error">error</a></label><span id='Compact-fold-content-docs' class="fold-docs">
 		Compact appends to dst the JSON-encoded src with
@@ -1240,20 +1703,20 @@
 </span></div><div class="anchor value-res" id="name-Valid">	<input type='checkbox' class="fold" id="Valid-fold-content"><label for="Valid-fold-content"> <a href="../../use/encoding/json..Valid.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-22">Valid</a>(data []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-bool">bool</a></label><span id='Valid-fold-content-docs' class="fold-docs">
 		Valid reports whether data is a valid JSON encoding.
 
-</span></div>	<input type='checkbox' class="showhide" id="unexported-functions-showhide"><i><label for="unexported-functions-showhide" class="show-inline">/* 77 unexporteds ... */</label><label for="unexported-functions-showhide" class="hide-inline">/* 77 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-addrMarshalerEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..addrMarshalerEncoder.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-489">addrMarshalerEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-addrTextMarshalerEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..addrTextMarshalerEncoder.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-523">addrTextMarshalerEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-asciiEqualFold"><i>	<input type='checkbox' class="fold" id="asciiEqualFold-fold-content"><label for="asciiEqualFold-fold-content"> <a href="../../use/encoding/json..asciiEqualFold.html">func</a> <a href="../../src/encoding/json/fold.go.html#line-109">asciiEqualFold</a>(s, t []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-bool">bool</a></label><span id='asciiEqualFold-fold-content-docs' class="fold-docs">
+</span></div>	<input type='checkbox' class="showhide" id="unexported-functions-showhide"><i><label for="unexported-functions-showhide" class="show-inline">/* 77 unexporteds ... */</label><label for="unexported-functions-showhide" class="hide-inline">/* 77 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-addrMarshalerEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..addrMarshalerEncoder*7b823.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-489">addrMarshalerEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-addrTextMarshalerEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..addrTextMarshalerEncoder*481c7.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-523">addrTextMarshalerEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-asciiEqualFold"><i>	<input type='checkbox' class="fold" id="asciiEqualFold-fold-content"><label for="asciiEqualFold-fold-content"> <a href="../../use/encoding/json..asciiEqualFold*698f6.html">func</a> <a href="../../src/encoding/json/fold.go.html#line-109">asciiEqualFold</a>(s, t []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-bool">bool</a></label><span id='asciiEqualFold-fold-content-docs' class="fold-docs">
 		asciiEqualFold is a specialization of bytes.EqualFold for use when
 		s is all ASCII (but may contain non-letters) and contains no
 		special-folding letters.
 		See comments on foldFunc.
 
-</span></i></div><div class="anchor value-res hidden" id="name-boolEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..boolEncoder.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-537">boolEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-cachedTypeFields"><i>	<input type='checkbox' class="fold" id="cachedTypeFields-fold-content"><label for="cachedTypeFields-fold-content"> <a href="../../use/encoding/json..cachedTypeFields.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-1412">cachedTypeFields</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>) <a href="#name-structFields">structFields</a></label><span id='cachedTypeFields-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-boolEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..boolEncoder*46e14.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-537">boolEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-cachedTypeFields"><i>	<input type='checkbox' class="fold" id="cachedTypeFields-fold-content"><label for="cachedTypeFields-fold-content"> <a href="../../use/encoding/json..cachedTypeFields*7d50c.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-1412">cachedTypeFields</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>) <a href="#name-structFields">structFields</a></label><span id='cachedTypeFields-fold-content-docs' class="fold-docs">
 		cachedTypeFields is like typeFields but uses a cache to avoid repeated work.
 
-</span></i></div><div class="anchor value-res hidden" id="name-checkValid"><i>	<input type='checkbox' class="fold" id="checkValid-fold-content"><label for="checkValid-fold-content"> <a href="../../use/encoding/json..checkValid.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-30">checkValid</a>(data []<a href="../builtin.html#name-byte">byte</a>, scan *<a href="#name-scanner">scanner</a>) <a href="../builtin.html#name-error">error</a></label><span id='checkValid-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-checkValid"><i>	<input type='checkbox' class="fold" id="checkValid-fold-content"><label for="checkValid-fold-content"> <a href="../../use/encoding/json..checkValid*a6785.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-30">checkValid</a>(data []<a href="../builtin.html#name-byte">byte</a>, scan *<a href="#name-scanner">scanner</a>) <a href="../builtin.html#name-error">error</a></label><span id='checkValid-fold-content-docs' class="fold-docs">
 		checkValid verifies that data is valid JSON-encoded data.
 		scan is passed in for use by checkValid to avoid an allocation.
 
-</span></i></div><div class="anchor value-res hidden" id="name-compact"><i>	<span class="nodocs"> <a href="../../use/encoding/json..compact.html">func</a> <a href="../../src/encoding/json/indent.go.html#line-17">compact</a>(dst *<a href="../bytes.html">bytes</a>.<a href="../bytes.html#name-Buffer">Buffer</a>, src []<a href="../builtin.html#name-byte">byte</a>, escape <a href="../builtin.html#name-bool">bool</a>) <a href="../builtin.html#name-error">error</a></span></i></div><div class="anchor value-res hidden" id="name-dominantField"><i>	<input type='checkbox' class="fold" id="dominantField-fold-content"><label for="dominantField-fold-content"> <a href="../../use/encoding/json..dominantField.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-1399">dominantField</a>(fields []<a href="#name-field">field</a>) (<a href="#name-field">field</a>, <a href="../builtin.html#name-bool">bool</a>)</label><span id='dominantField-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-compact"><i>	<span class="nodocs"> <a href="../../use/encoding/json..compact*b6b54.html">func</a> <a href="../../src/encoding/json/indent.go.html#line-17">compact</a>(dst *<a href="../bytes.html">bytes</a>.<a href="../bytes.html#name-Buffer">Buffer</a>, src []<a href="../builtin.html#name-byte">byte</a>, escape <a href="../builtin.html#name-bool">bool</a>) <a href="../builtin.html#name-error">error</a></span></i></div><div class="anchor value-res hidden" id="name-dominantField"><i>	<input type='checkbox' class="fold" id="dominantField-fold-content"><label for="dominantField-fold-content"> <a href="../../use/encoding/json..dominantField*0f54c.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-1399">dominantField</a>(fields []<a href="#name-field">field</a>) (<a href="#name-field">field</a>, <a href="../builtin.html#name-bool">bool</a>)</label><span id='dominantField-fold-content-docs' class="fold-docs">
 		dominantField looks through the fields, all of which are known to
 		have the same name, to find the single field that dominates the
 		others using Go's embedding rules, modified by the presence of
@@ -1261,13 +1724,13 @@
 		will be false: This condition is an error in Go and we skip all
 		the fields.
 
-</span></i></div><div class="anchor value-res hidden" id="name-encodeByteSlice"><i>	<span class="nodocs"> <a href="../../use/encoding/json..encodeByteSlice.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-833">encodeByteSlice</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, _ <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-equalFoldRight"><i>	<input type='checkbox' class="fold" id="equalFoldRight-fold-content"><label for="equalFoldRight-fold-content"> <a href="../../use/encoding/json..equalFoldRight.html">func</a> <a href="../../src/encoding/json/fold.go.html#line-61">equalFoldRight</a>(s, t []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-bool">bool</a></label><span id='equalFoldRight-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-encodeByteSlice"><i>	<span class="nodocs"> <a href="../../use/encoding/json..encodeByteSlice*163cb.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-833">encodeByteSlice</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, _ <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-equalFoldRight"><i>	<input type='checkbox' class="fold" id="equalFoldRight-fold-content"><label for="equalFoldRight-fold-content"> <a href="../../use/encoding/json..equalFoldRight*d7ca7.html">func</a> <a href="../../src/encoding/json/fold.go.html#line-61">equalFoldRight</a>(s, t []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-bool">bool</a></label><span id='equalFoldRight-fold-content-docs' class="fold-docs">
 		equalFoldRight is a specialization of bytes.EqualFold when s is
 		known to be all ASCII (including punctuation), but contains an 's',
 		'S', 'k', or 'K', requiring a Unicode fold on the bytes in t.
 		See comments on foldFunc.
 
-</span></i></div><div class="anchor value-res hidden" id="name-foldFunc"><i>	<input type='checkbox' class="fold" id="foldFunc-fold-content"><label for="foldFunc-fold-content"> <a href="../../use/encoding/json..foldFunc.html">func</a> <a href="../../src/encoding/json/fold.go.html#line-33">foldFunc</a>(s []<a href="../builtin.html#name-byte">byte</a>) func(s, t []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-bool">bool</a></label><span id='foldFunc-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-foldFunc"><i>	<input type='checkbox' class="fold" id="foldFunc-fold-content"><label for="foldFunc-fold-content"> <a href="../../use/encoding/json..foldFunc*1f087.html">func</a> <a href="../../src/encoding/json/fold.go.html#line-33">foldFunc</a>(s []<a href="../builtin.html#name-byte">byte</a>) func(s, t []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-bool">bool</a></label><span id='foldFunc-fold-content-docs' class="fold-docs">
 		foldFunc returns one of four different case folding equivalence
 		functions, from most general (and slow) to fastest:
 
@@ -1284,158 +1747,158 @@
 		The returned function is specialized for matching against s and
 		should only be given s. It's not curried for performance reasons.
 
-</span></i></div><div class="anchor value-res hidden" id="name-freeScanner"><i>	<span class="nodocs"> <a href="../../use/encoding/json..freeScanner.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-99">freeScanner</a>(scan *<a href="#name-scanner">scanner</a>)</span></i></div><div class="anchor value-res hidden" id="name-getu4"><i>	<input type='checkbox' class="fold" id="getu4-fold-content"><label for="getu4-fold-content"> <a href="../../use/encoding/json..getu4.html">func</a> <a href="../../src/encoding/json/decode.go.html#line-1158">getu4</a>(s []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-rune">rune</a></label><span id='getu4-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-freeScanner"><i>	<span class="nodocs"> <a href="../../use/encoding/json..freeScanner*60b7f.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-99">freeScanner</a>(scan *<a href="#name-scanner">scanner</a>)</span></i></div><div class="anchor value-res hidden" id="name-getu4"><i>	<input type='checkbox' class="fold" id="getu4-fold-content"><label for="getu4-fold-content"> <a href="../../use/encoding/json..getu4*2dbc9.html">func</a> <a href="../../src/encoding/json/decode.go.html#line-1158">getu4</a>(s []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-rune">rune</a></label><span id='getu4-fold-content-docs' class="fold-docs">
 		getu4 decodes \uXXXX from the beginning of s, returning the hex value,
 		or it returns -1.
 
-</span></i></div><div class="anchor value-res hidden" id="name-indirect"><i>	<input type='checkbox' class="fold" id="indirect-fold-content"><label for="indirect-fold-content"> <a href="../../use/encoding/json..indirect.html">func</a> <a href="../../src/encoding/json/decode.go.html#line-422">indirect</a>(v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, decodingNull <a href="../builtin.html#name-bool">bool</a>) (<a href="#name-Unmarshaler">Unmarshaler</a>, <a href="../encoding.html">encoding</a>.<a href="../encoding.html#name-TextUnmarshaler">TextUnmarshaler</a>, <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>)</label><span id='indirect-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-indirect"><i>	<input type='checkbox' class="fold" id="indirect-fold-content"><label for="indirect-fold-content"> <a href="../../use/encoding/json..indirect*fdbf5.html">func</a> <a href="../../src/encoding/json/decode.go.html#line-422">indirect</a>(v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, decodingNull <a href="../builtin.html#name-bool">bool</a>) (<a href="#name-Unmarshaler">Unmarshaler</a>, <a href="../encoding.html">encoding</a>.<a href="../encoding.html#name-TextUnmarshaler">TextUnmarshaler</a>, <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>)</label><span id='indirect-fold-content-docs' class="fold-docs">
 		indirect walks down v allocating pointers as needed,
 		until it gets to a non-pointer.
 		If it encounters an Unmarshaler, indirect stops and returns that.
 		If decodingNull is true, indirect stops at the first settable pointer so it
 		can be set to nil.
 
-</span></i></div><div class="anchor value-res hidden" id="name-intEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..intEncoder.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-551">intEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-interfaceEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..interfaceEncoder.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-711">interfaceEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-invalidValueEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..invalidValueEncoder.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-465">invalidValueEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, _ <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-isEmptyValue"><i>	<span class="nodocs"> <a href="../../use/encoding/json..isEmptyValue.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-341">isEmptyValue</a>(v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>) <a href="../builtin.html#name-bool">bool</a></span></i></div><div class="anchor value-res hidden" id="name-isSpace"><i>	<span class="nodocs"> <a href="../../use/encoding/json..isSpace.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-197">isSpace</a>(c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-bool">bool</a></span></i></div><div class="anchor value-res hidden" id="name-isValidNumber"><i>	<input type='checkbox' class="fold" id="isValidNumber-fold-content"><label for="isValidNumber-fold-content"> <a href="../../use/encoding/json..isValidNumber.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-652">isValidNumber</a>(s <a href="../builtin.html#name-string">string</a>) <a href="../builtin.html#name-bool">bool</a></label><span id='isValidNumber-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-intEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..intEncoder*978f9.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-551">intEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-interfaceEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..interfaceEncoder*a5131.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-711">interfaceEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-invalidValueEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..invalidValueEncoder*2cd05.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-465">invalidValueEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, _ <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-isEmptyValue"><i>	<span class="nodocs"> <a href="../../use/encoding/json..isEmptyValue*a8863.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-341">isEmptyValue</a>(v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>) <a href="../builtin.html#name-bool">bool</a></span></i></div><div class="anchor value-res hidden" id="name-isSpace"><i>	<span class="nodocs"> <a href="../../use/encoding/json..isSpace*7786f.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-197">isSpace</a>(c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-bool">bool</a></span></i></div><div class="anchor value-res hidden" id="name-isValidNumber"><i>	<input type='checkbox' class="fold" id="isValidNumber-fold-content"><label for="isValidNumber-fold-content"> <a href="../../use/encoding/json..isValidNumber*2a984.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-652">isValidNumber</a>(s <a href="../builtin.html#name-string">string</a>) <a href="../builtin.html#name-bool">bool</a></label><span id='isValidNumber-fold-content-docs' class="fold-docs">
 		isValidNumber reports whether s is a valid JSON number literal.
 
-</span></i></div><div class="anchor value-res hidden" id="name-isValidTag"><i>	<span class="nodocs"> <a href="../../use/encoding/json..isValidTag.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-972">isValidTag</a>(s <a href="../builtin.html#name-string">string</a>) <a href="../builtin.html#name-bool">bool</a></span></i></div><div class="anchor value-res hidden" id="name-marshalerEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..marshalerEncoder.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-469">marshalerEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-newArrayEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..newArrayEncoder.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-920">newArrayEncoder</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>) <a href="#name-encoderFunc">encoderFunc</a></span></i></div><div class="anchor value-res hidden" id="name-newCondAddrEncoder"><i>	<input type='checkbox' class="fold" id="newCondAddrEncoder-fold-content"><label for="newCondAddrEncoder-fold-content"> <a href="../../use/encoding/json..newCondAddrEncoder.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-967">newCondAddrEncoder</a>(canAddrEnc, elseEnc <a href="#name-encoderFunc">encoderFunc</a>) <a href="#name-encoderFunc">encoderFunc</a></label><span id='newCondAddrEncoder-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-isValidTag"><i>	<span class="nodocs"> <a href="../../use/encoding/json..isValidTag*46e30.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-972">isValidTag</a>(s <a href="../builtin.html#name-string">string</a>) <a href="../builtin.html#name-bool">bool</a></span></i></div><div class="anchor value-res hidden" id="name-marshalerEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..marshalerEncoder*778e8.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-469">marshalerEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-newArrayEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..newArrayEncoder*b9639.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-920">newArrayEncoder</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>) <a href="#name-encoderFunc">encoderFunc</a></span></i></div><div class="anchor value-res hidden" id="name-newCondAddrEncoder"><i>	<input type='checkbox' class="fold" id="newCondAddrEncoder-fold-content"><label for="newCondAddrEncoder-fold-content"> <a href="../../use/encoding/json..newCondAddrEncoder*bd2d0.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-967">newCondAddrEncoder</a>(canAddrEnc, elseEnc <a href="#name-encoderFunc">encoderFunc</a>) <a href="#name-encoderFunc">encoderFunc</a></label><span id='newCondAddrEncoder-fold-content-docs' class="fold-docs">
 		newCondAddrEncoder returns an encoder that checks whether its value
 		CanAddr and delegates to canAddrEnc if so, else to elseEnc.
 
-</span></i></div><div class="anchor value-res hidden" id="name-newEncodeState"><i>	<span class="nodocs"> <a href="../../use/encoding/json..newEncodeState.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-304">newEncodeState</a>() *<a href="#name-encodeState">encodeState</a></span></i></div><div class="anchor value-res hidden" id="name-newline"><i>	<span class="nodocs"> <a href="../../use/encoding/json..newline.html">func</a> <a href="../../src/encoding/json/indent.go.html#line-62">newline</a>(dst *<a href="../bytes.html">bytes</a>.<a href="../bytes.html#name-Buffer">Buffer</a>, prefix, indent <a href="../builtin.html#name-string">string</a>, depth <a href="../builtin.html#name-int">int</a>)</span></i></div><div class="anchor value-res hidden" id="name-newMapEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..newMapEncoder.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-819">newMapEncoder</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>) <a href="#name-encoderFunc">encoderFunc</a></span></i></div><div class="anchor value-res hidden" id="name-newPtrEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..newPtrEncoder.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-948">newPtrEncoder</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>) <a href="#name-encoderFunc">encoderFunc</a></span></i></div><div class="anchor value-res hidden" id="name-newScanner"><i>	<span class="nodocs"> <a href="../../use/encoding/json..newScanner.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-91">newScanner</a>() *<a href="#name-scanner">scanner</a></span></i></div><div class="anchor value-res hidden" id="name-newSliceEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..newSliceEncoder.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-892">newSliceEncoder</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>) <a href="#name-encoderFunc">encoderFunc</a></span></i></div><div class="anchor value-res hidden" id="name-newStructEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..newStructEncoder.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-770">newStructEncoder</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>) <a href="#name-encoderFunc">encoderFunc</a></span></i></div><div class="anchor value-res hidden" id="name-newTypeEncoder"><i>	<input type='checkbox' class="fold" id="newTypeEncoder-fold-content"><label for="newTypeEncoder-fold-content"> <a href="../../use/encoding/json..newTypeEncoder.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-417">newTypeEncoder</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>, allowAddr <a href="../builtin.html#name-bool">bool</a>) <a href="#name-encoderFunc">encoderFunc</a></label><span id='newTypeEncoder-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-newEncodeState"><i>	<span class="nodocs"> <a href="../../use/encoding/json..newEncodeState*77a2c.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-304">newEncodeState</a>() *<a href="#name-encodeState">encodeState</a></span></i></div><div class="anchor value-res hidden" id="name-newline"><i>	<span class="nodocs"> <a href="../../use/encoding/json..newline*ea889.html">func</a> <a href="../../src/encoding/json/indent.go.html#line-62">newline</a>(dst *<a href="../bytes.html">bytes</a>.<a href="../bytes.html#name-Buffer">Buffer</a>, prefix, indent <a href="../builtin.html#name-string">string</a>, depth <a href="../builtin.html#name-int">int</a>)</span></i></div><div class="anchor value-res hidden" id="name-newMapEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..newMapEncoder*ae701.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-819">newMapEncoder</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>) <a href="#name-encoderFunc">encoderFunc</a></span></i></div><div class="anchor value-res hidden" id="name-newPtrEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..newPtrEncoder*1092c.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-948">newPtrEncoder</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>) <a href="#name-encoderFunc">encoderFunc</a></span></i></div><div class="anchor value-res hidden" id="name-newScanner"><i>	<span class="nodocs"> <a href="../../use/encoding/json..newScanner*b033d.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-91">newScanner</a>() *<a href="#name-scanner">scanner</a></span></i></div><div class="anchor value-res hidden" id="name-newSliceEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..newSliceEncoder*f20d5.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-892">newSliceEncoder</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>) <a href="#name-encoderFunc">encoderFunc</a></span></i></div><div class="anchor value-res hidden" id="name-newStructEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..newStructEncoder*790ce.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-770">newStructEncoder</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>) <a href="#name-encoderFunc">encoderFunc</a></span></i></div><div class="anchor value-res hidden" id="name-newTypeEncoder"><i>	<input type='checkbox' class="fold" id="newTypeEncoder-fold-content"><label for="newTypeEncoder-fold-content"> <a href="../../use/encoding/json..newTypeEncoder*2d244.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-417">newTypeEncoder</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>, allowAddr <a href="../builtin.html#name-bool">bool</a>) <a href="#name-encoderFunc">encoderFunc</a></label><span id='newTypeEncoder-fold-content-docs' class="fold-docs">
 		newTypeEncoder constructs an encoderFunc for a type.
 		The returned encoder only checks CanAddr when allowAddr is true.
 
-</span></i></div><div class="anchor value-res hidden" id="name-nonSpace"><i>	<span class="nodocs"> <a href="../../use/encoding/json..nonSpace.html">func</a> <a href="../../src/encoding/json/stream.go.html#line-171">nonSpace</a>(b []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-bool">bool</a></span></i></div><div class="anchor value-res hidden" id="name-parseTag"><i>	<input type='checkbox' class="fold" id="parseTag-fold-content"><label for="parseTag-fold-content"> <a href="../../use/encoding/json..parseTag.html">func</a> <a href="../../src/encoding/json/tags.go.html#line-17">parseTag</a>(tag <a href="../builtin.html#name-string">string</a>) (<a href="../builtin.html#name-string">string</a>, <a href="#name-tagOptions">tagOptions</a>)</label><span id='parseTag-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-nonSpace"><i>	<span class="nodocs"> <a href="../../use/encoding/json..nonSpace*445dc.html">func</a> <a href="../../src/encoding/json/stream.go.html#line-171">nonSpace</a>(b []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-bool">bool</a></span></i></div><div class="anchor value-res hidden" id="name-parseTag"><i>	<input type='checkbox' class="fold" id="parseTag-fold-content"><label for="parseTag-fold-content"> <a href="../../use/encoding/json..parseTag*46217.html">func</a> <a href="../../src/encoding/json/tags.go.html#line-17">parseTag</a>(tag <a href="../builtin.html#name-string">string</a>) (<a href="../builtin.html#name-string">string</a>, <a href="#name-tagOptions">tagOptions</a>)</label><span id='parseTag-fold-content-docs' class="fold-docs">
 		parseTag splits a struct field's json tag into its name and
 		comma-separated options.
 
-</span></i></div><div class="anchor value-res hidden" id="name-quoteChar"><i>	<input type='checkbox' class="fold" id="quoteChar-fold-content"><label for="quoteChar-fold-content"> <a href="../../use/encoding/json..quoteChar.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-596">quoteChar</a>(c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-string">string</a></label><span id='quoteChar-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-quoteChar"><i>	<input type='checkbox' class="fold" id="quoteChar-fold-content"><label for="quoteChar-fold-content"> <a href="../../use/encoding/json..quoteChar*2e6e4.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-596">quoteChar</a>(c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-string">string</a></label><span id='quoteChar-fold-content-docs' class="fold-docs">
 		quoteChar formats c as a quoted character literal
 
-</span></i></div><div class="anchor value-res hidden" id="name-simpleLetterEqualFold"><i>	<input type='checkbox' class="fold" id="simpleLetterEqualFold-fold-content"><label for="simpleLetterEqualFold-fold-content"> <a href="../../use/encoding/json..simpleLetterEqualFold.html">func</a> <a href="../../src/encoding/json/fold.go.html#line-133">simpleLetterEqualFold</a>(s, t []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-bool">bool</a></label><span id='simpleLetterEqualFold-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-simpleLetterEqualFold"><i>	<input type='checkbox' class="fold" id="simpleLetterEqualFold-fold-content"><label for="simpleLetterEqualFold-fold-content"> <a href="../../use/encoding/json..simpleLetterEqualFold*fc7c4.html">func</a> <a href="../../src/encoding/json/fold.go.html#line-133">simpleLetterEqualFold</a>(s, t []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-bool">bool</a></label><span id='simpleLetterEqualFold-fold-content-docs' class="fold-docs">
 		simpleLetterEqualFold is a specialization of bytes.EqualFold for
 		use when s is all ASCII letters (no underscores, etc) and also
 		doesn't contain 'k', 'K', 's', or 'S'.
 		See comments on foldFunc.
 
-</span></i></div><div class="anchor value-res hidden" id="name-state0"><i>	<input type='checkbox' class="fold" id="state0-fold-content"><label for="state0-fold-content"> <a href="../../use/encoding/json..state0.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-427">state0</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='state0-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-state0"><i>	<input type='checkbox' class="fold" id="state0-fold-content"><label for="state0-fold-content"> <a href="../../use/encoding/json..state0*290a1.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-427">state0</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='state0-fold-content-docs' class="fold-docs">
 		state0 is the state after reading `0` during a number.
 
-</span></i></div><div class="anchor value-res hidden" id="name-state1"><i>	<input type='checkbox' class="fold" id="state1-fold-content"><label for="state1-fold-content"> <a href="../../use/encoding/json..state1.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-418">state1</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='state1-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-state1"><i>	<input type='checkbox' class="fold" id="state1-fold-content"><label for="state1-fold-content"> <a href="../../use/encoding/json..state1*68e17.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-418">state1</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='state1-fold-content-docs' class="fold-docs">
 		state1 is the state after reading a non-zero integer during a number,
 		such as after reading `1` or `100` but not `0`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateBeginString"><i>	<input type='checkbox' class="fold" id="stateBeginString-fold-content"><label for="stateBeginString-fold-content"> <a href="../../use/encoding/json..stateBeginString.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-264">stateBeginString</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateBeginString-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateBeginString"><i>	<input type='checkbox' class="fold" id="stateBeginString-fold-content"><label for="stateBeginString-fold-content"> <a href="../../use/encoding/json..stateBeginString*a4b58.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-264">stateBeginString</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateBeginString-fold-content-docs' class="fold-docs">
 		stateBeginString is the state after reading `{"key": value,`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateBeginStringOrEmpty"><i>	<input type='checkbox' class="fold" id="stateBeginStringOrEmpty-fold-content"><label for="stateBeginStringOrEmpty-fold-content"> <a href="../../use/encoding/json..stateBeginStringOrEmpty.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-251">stateBeginStringOrEmpty</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateBeginStringOrEmpty-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateBeginStringOrEmpty"><i>	<input type='checkbox' class="fold" id="stateBeginStringOrEmpty-fold-content"><label for="stateBeginStringOrEmpty-fold-content"> <a href="../../use/encoding/json..stateBeginStringOrEmpty*fac58.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-251">stateBeginStringOrEmpty</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateBeginStringOrEmpty-fold-content-docs' class="fold-docs">
 		stateBeginStringOrEmpty is the state after reading `{`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateBeginValue"><i>	<input type='checkbox' class="fold" id="stateBeginValue-fold-content"><label for="stateBeginValue-fold-content"> <a href="../../use/encoding/json..stateBeginValue.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-213">stateBeginValue</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateBeginValue-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateBeginValue"><i>	<input type='checkbox' class="fold" id="stateBeginValue-fold-content"><label for="stateBeginValue-fold-content"> <a href="../../use/encoding/json..stateBeginValue*f7b70.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-213">stateBeginValue</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateBeginValue-fold-content-docs' class="fold-docs">
 		stateBeginValue is the state at the beginning of the input.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateBeginValueOrEmpty"><i>	<input type='checkbox' class="fold" id="stateBeginValueOrEmpty-fold-content"><label for="stateBeginValueOrEmpty-fold-content"> <a href="../../use/encoding/json..stateBeginValueOrEmpty.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-202">stateBeginValueOrEmpty</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateBeginValueOrEmpty-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateBeginValueOrEmpty"><i>	<input type='checkbox' class="fold" id="stateBeginValueOrEmpty-fold-content"><label for="stateBeginValueOrEmpty-fold-content"> <a href="../../use/encoding/json..stateBeginValueOrEmpty*cb5e6.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-202">stateBeginValueOrEmpty</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateBeginValueOrEmpty-fold-content-docs' class="fold-docs">
 		stateBeginValueOrEmpty is the state after reading `[`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateDot"><i>	<input type='checkbox' class="fold" id="stateDot-fold-content"><label for="stateDot-fold-content"> <a href="../../use/encoding/json..stateDot.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-441">stateDot</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateDot-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateDot"><i>	<input type='checkbox' class="fold" id="stateDot-fold-content"><label for="stateDot-fold-content"> <a href="../../use/encoding/json..stateDot*50f33.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-441">stateDot</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateDot-fold-content-docs' class="fold-docs">
 		stateDot is the state after reading the integer and decimal point in a number,
 		such as after reading `1.`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateDot0"><i>	<input type='checkbox' class="fold" id="stateDot0-fold-content"><label for="stateDot0-fold-content"> <a href="../../use/encoding/json..stateDot0.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-451">stateDot0</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateDot0-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateDot0"><i>	<input type='checkbox' class="fold" id="stateDot0-fold-content"><label for="stateDot0-fold-content"> <a href="../../use/encoding/json..stateDot0*7577f.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-451">stateDot0</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateDot0-fold-content-docs' class="fold-docs">
 		stateDot0 is the state after reading the integer, decimal point, and subsequent
 		digits of a number, such as after reading `3.14`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateE"><i>	<input type='checkbox' class="fold" id="stateE-fold-content"><label for="stateE-fold-content"> <a href="../../use/encoding/json..stateE.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-464">stateE</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateE-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateE"><i>	<input type='checkbox' class="fold" id="stateE-fold-content"><label for="stateE-fold-content"> <a href="../../use/encoding/json..stateE*ad71d.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-464">stateE</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateE-fold-content-docs' class="fold-docs">
 		stateE is the state after reading the mantissa and e in a number,
 		such as after reading `314e` or `0.314e`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateE0"><i>	<input type='checkbox' class="fold" id="stateE0-fold-content"><label for="stateE0-fold-content"> <a href="../../use/encoding/json..stateE0.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-485">stateE0</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateE0-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateE0"><i>	<input type='checkbox' class="fold" id="stateE0-fold-content"><label for="stateE0-fold-content"> <a href="../../use/encoding/json..stateE0*9b9be.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-485">stateE0</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateE0-fold-content-docs' class="fold-docs">
 		stateE0 is the state after reading the mantissa, e, optional sign,
 		and at least one digit of the exponent in a number,
 		such as after reading `314e-2` or `0.314e+1` or `3.14e0`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateEndTop"><i>	<input type='checkbox' class="fold" id="stateEndTop-fold-content"><label for="stateEndTop-fold-content"> <a href="../../use/encoding/json..stateEndTop.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-326">stateEndTop</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateEndTop-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateEndTop"><i>	<input type='checkbox' class="fold" id="stateEndTop-fold-content"><label for="stateEndTop-fold-content"> <a href="../../use/encoding/json..stateEndTop*dbdae.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-326">stateEndTop</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateEndTop-fold-content-docs' class="fold-docs">
 		stateEndTop is the state after finishing the top-level value,
 		such as after reading `{}` or `[1,2,3]`.
 		Only space characters should be seen now.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateEndValue"><i>	<input type='checkbox' class="fold" id="stateEndValue-fold-content"><label for="stateEndValue-fold-content"> <a href="../../use/encoding/json..stateEndValue.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-277">stateEndValue</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateEndValue-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateEndValue"><i>	<input type='checkbox' class="fold" id="stateEndValue-fold-content"><label for="stateEndValue-fold-content"> <a href="../../use/encoding/json..stateEndValue*90b1d.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-277">stateEndValue</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateEndValue-fold-content-docs' class="fold-docs">
 		stateEndValue is the state after completing a value,
 		such as after reading `{}` or `true` or `["x"`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateError"><i>	<input type='checkbox' class="fold" id="stateError-fold-content"><label for="stateError-fold-content"> <a href="../../use/encoding/json..stateError.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-584">stateError</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateError-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateError"><i>	<input type='checkbox' class="fold" id="stateError-fold-content"><label for="stateError-fold-content"> <a href="../../use/encoding/json..stateError*e7281.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-584">stateError</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateError-fold-content-docs' class="fold-docs">
 		stateError is the state after reaching a syntax error,
 		such as after reading `[1}` or `5.1.2`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateESign"><i>	<input type='checkbox' class="fold" id="stateESign-fold-content"><label for="stateESign-fold-content"> <a href="../../use/encoding/json..stateESign.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-474">stateESign</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateESign-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateESign"><i>	<input type='checkbox' class="fold" id="stateESign-fold-content"><label for="stateESign-fold-content"> <a href="../../use/encoding/json..stateESign*1a189.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-474">stateESign</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateESign-fold-content-docs' class="fold-docs">
 		stateESign is the state after reading the mantissa, e, and sign in a number,
 		such as after reading `314e-` or `0.314e+`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateF"><i>	<input type='checkbox' class="fold" id="stateF-fold-content"><label for="stateF-fold-content"> <a href="../../use/encoding/json..stateF.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-520">stateF</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateF-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateF"><i>	<input type='checkbox' class="fold" id="stateF-fold-content"><label for="stateF-fold-content"> <a href="../../use/encoding/json..stateF*6b3a6.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-520">stateF</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateF-fold-content-docs' class="fold-docs">
 		stateF is the state after reading `f`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateFa"><i>	<input type='checkbox' class="fold" id="stateFa-fold-content"><label for="stateFa-fold-content"> <a href="../../use/encoding/json..stateFa.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-529">stateFa</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateFa-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateFa"><i>	<input type='checkbox' class="fold" id="stateFa-fold-content"><label for="stateFa-fold-content"> <a href="../../use/encoding/json..stateFa*0223f.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-529">stateFa</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateFa-fold-content-docs' class="fold-docs">
 		stateFa is the state after reading `fa`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateFal"><i>	<input type='checkbox' class="fold" id="stateFal-fold-content"><label for="stateFal-fold-content"> <a href="../../use/encoding/json..stateFal.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-538">stateFal</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateFal-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateFal"><i>	<input type='checkbox' class="fold" id="stateFal-fold-content"><label for="stateFal-fold-content"> <a href="../../use/encoding/json..stateFal*6e6b8.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-538">stateFal</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateFal-fold-content-docs' class="fold-docs">
 		stateFal is the state after reading `fal`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateFals"><i>	<input type='checkbox' class="fold" id="stateFals-fold-content"><label for="stateFals-fold-content"> <a href="../../use/encoding/json..stateFals.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-547">stateFals</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateFals-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateFals"><i>	<input type='checkbox' class="fold" id="stateFals-fold-content"><label for="stateFals-fold-content"> <a href="../../use/encoding/json..stateFals*3b95e.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-547">stateFals</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateFals-fold-content-docs' class="fold-docs">
 		stateFals is the state after reading `fals`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateInString"><i>	<input type='checkbox' class="fold" id="stateInString-fold-content"><label for="stateInString-fold-content"> <a href="../../use/encoding/json..stateInString.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-335">stateInString</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateInString-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateInString"><i>	<input type='checkbox' class="fold" id="stateInString-fold-content"><label for="stateInString-fold-content"> <a href="../../use/encoding/json..stateInString*00bbb.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-335">stateInString</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateInString-fold-content-docs' class="fold-docs">
 		stateInString is the state after reading `"`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateInStringEsc"><i>	<input type='checkbox' class="fold" id="stateInStringEsc-fold-content"><label for="stateInStringEsc-fold-content"> <a href="../../use/encoding/json..stateInStringEsc.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-351">stateInStringEsc</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateInStringEsc-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateInStringEsc"><i>	<input type='checkbox' class="fold" id="stateInStringEsc-fold-content"><label for="stateInStringEsc-fold-content"> <a href="../../use/encoding/json..stateInStringEsc*56606.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-351">stateInStringEsc</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateInStringEsc-fold-content-docs' class="fold-docs">
 		stateInStringEsc is the state after reading `"\` during a quoted string.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateInStringEscU"><i>	<input type='checkbox' class="fold" id="stateInStringEscU-fold-content"><label for="stateInStringEscU-fold-content"> <a href="../../use/encoding/json..stateInStringEscU.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-364">stateInStringEscU</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateInStringEscU-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateInStringEscU"><i>	<input type='checkbox' class="fold" id="stateInStringEscU-fold-content"><label for="stateInStringEscU-fold-content"> <a href="../../use/encoding/json..stateInStringEscU*310ee.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-364">stateInStringEscU</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateInStringEscU-fold-content-docs' class="fold-docs">
 		stateInStringEscU is the state after reading `"\u` during a quoted string.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateInStringEscU1"><i>	<input type='checkbox' class="fold" id="stateInStringEscU1-fold-content"><label for="stateInStringEscU1-fold-content"> <a href="../../use/encoding/json..stateInStringEscU1.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-374">stateInStringEscU1</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateInStringEscU1-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateInStringEscU1"><i>	<input type='checkbox' class="fold" id="stateInStringEscU1-fold-content"><label for="stateInStringEscU1-fold-content"> <a href="../../use/encoding/json..stateInStringEscU1*f6d74.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-374">stateInStringEscU1</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateInStringEscU1-fold-content-docs' class="fold-docs">
 		stateInStringEscU1 is the state after reading `"\u1` during a quoted string.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateInStringEscU12"><i>	<input type='checkbox' class="fold" id="stateInStringEscU12-fold-content"><label for="stateInStringEscU12-fold-content"> <a href="../../use/encoding/json..stateInStringEscU12.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-384">stateInStringEscU12</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateInStringEscU12-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateInStringEscU12"><i>	<input type='checkbox' class="fold" id="stateInStringEscU12-fold-content"><label for="stateInStringEscU12-fold-content"> <a href="../../use/encoding/json..stateInStringEscU12*168be.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-384">stateInStringEscU12</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateInStringEscU12-fold-content-docs' class="fold-docs">
 		stateInStringEscU12 is the state after reading `"\u12` during a quoted string.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateInStringEscU123"><i>	<input type='checkbox' class="fold" id="stateInStringEscU123-fold-content"><label for="stateInStringEscU123-fold-content"> <a href="../../use/encoding/json..stateInStringEscU123.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-394">stateInStringEscU123</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateInStringEscU123-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateInStringEscU123"><i>	<input type='checkbox' class="fold" id="stateInStringEscU123-fold-content"><label for="stateInStringEscU123-fold-content"> <a href="../../use/encoding/json..stateInStringEscU123*5900c.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-394">stateInStringEscU123</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateInStringEscU123-fold-content-docs' class="fold-docs">
 		stateInStringEscU123 is the state after reading `"\u123` during a quoted string.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateN"><i>	<input type='checkbox' class="fold" id="stateN-fold-content"><label for="stateN-fold-content"> <a href="../../use/encoding/json..stateN.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-556">stateN</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateN-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateN"><i>	<input type='checkbox' class="fold" id="stateN-fold-content"><label for="stateN-fold-content"> <a href="../../use/encoding/json..stateN*66f9e.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-556">stateN</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateN-fold-content-docs' class="fold-docs">
 		stateN is the state after reading `n`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateNeg"><i>	<input type='checkbox' class="fold" id="stateNeg-fold-content"><label for="stateNeg-fold-content"> <a href="../../use/encoding/json..stateNeg.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-404">stateNeg</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateNeg-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateNeg"><i>	<input type='checkbox' class="fold" id="stateNeg-fold-content"><label for="stateNeg-fold-content"> <a href="../../use/encoding/json..stateNeg*d72a2.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-404">stateNeg</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateNeg-fold-content-docs' class="fold-docs">
 		stateNeg is the state after reading `-` during a number.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateNu"><i>	<input type='checkbox' class="fold" id="stateNu-fold-content"><label for="stateNu-fold-content"> <a href="../../use/encoding/json..stateNu.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-565">stateNu</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateNu-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateNu"><i>	<input type='checkbox' class="fold" id="stateNu-fold-content"><label for="stateNu-fold-content"> <a href="../../use/encoding/json..stateNu*e313e.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-565">stateNu</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateNu-fold-content-docs' class="fold-docs">
 		stateNu is the state after reading `nu`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateNul"><i>	<input type='checkbox' class="fold" id="stateNul-fold-content"><label for="stateNul-fold-content"> <a href="../../use/encoding/json..stateNul.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-574">stateNul</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateNul-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateNul"><i>	<input type='checkbox' class="fold" id="stateNul-fold-content"><label for="stateNul-fold-content"> <a href="../../use/encoding/json..stateNul*89244.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-574">stateNul</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateNul-fold-content-docs' class="fold-docs">
 		stateNul is the state after reading `nul`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateT"><i>	<input type='checkbox' class="fold" id="stateT-fold-content"><label for="stateT-fold-content"> <a href="../../use/encoding/json..stateT.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-493">stateT</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateT-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateT"><i>	<input type='checkbox' class="fold" id="stateT-fold-content"><label for="stateT-fold-content"> <a href="../../use/encoding/json..stateT*2c289.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-493">stateT</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateT-fold-content-docs' class="fold-docs">
 		stateT is the state after reading `t`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateTr"><i>	<input type='checkbox' class="fold" id="stateTr-fold-content"><label for="stateTr-fold-content"> <a href="../../use/encoding/json..stateTr.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-502">stateTr</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateTr-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateTr"><i>	<input type='checkbox' class="fold" id="stateTr-fold-content"><label for="stateTr-fold-content"> <a href="../../use/encoding/json..stateTr*c4cfd.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-502">stateTr</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateTr-fold-content-docs' class="fold-docs">
 		stateTr is the state after reading `tr`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stateTru"><i>	<input type='checkbox' class="fold" id="stateTru-fold-content"><label for="stateTru-fold-content"> <a href="../../use/encoding/json..stateTru.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-511">stateTru</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateTru-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stateTru"><i>	<input type='checkbox' class="fold" id="stateTru-fold-content"><label for="stateTru-fold-content"> <a href="../../use/encoding/json..stateTru*eb93e.html">func</a> <a href="../../src/encoding/json/scanner.go.html#line-511">stateTru</a>(s *<a href="#name-scanner">scanner</a>, c <a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-int">int</a></label><span id='stateTru-fold-content-docs' class="fold-docs">
 		stateTru is the state after reading `tru`.
 
-</span></i></div><div class="anchor value-res hidden" id="name-stringEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..stringEncoder.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-619">stringEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-textMarshalerEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..textMarshalerEncoder.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-506">textMarshalerEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-typeByIndex"><i>	<span class="nodocs"> <a href="../../use/encoding/json..typeByIndex.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-989">typeByIndex</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>, index []<a href="../builtin.html#name-int">int</a>) <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a></span></i></div><div class="anchor value-res hidden" id="name-typeEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..typeEncoder.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-381">typeEncoder</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>) <a href="#name-encoderFunc">encoderFunc</a></span></i></div><div class="anchor value-res hidden" id="name-typeFields"><i>	<input type='checkbox' class="fold" id="typeFields-fold-content"><label for="typeFields-fold-content"> <a href="../../use/encoding/json..typeFields.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-1212">typeFields</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>) <a href="#name-structFields">structFields</a></label><span id='typeFields-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stringEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..stringEncoder*b035c.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-619">stringEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-textMarshalerEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..textMarshalerEncoder*41697.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-506">textMarshalerEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-typeByIndex"><i>	<span class="nodocs"> <a href="../../use/encoding/json..typeByIndex*3bf56.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-989">typeByIndex</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>, index []<a href="../builtin.html#name-int">int</a>) <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a></span></i></div><div class="anchor value-res hidden" id="name-typeEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..typeEncoder*428ba.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-381">typeEncoder</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>) <a href="#name-encoderFunc">encoderFunc</a></span></i></div><div class="anchor value-res hidden" id="name-typeFields"><i>	<input type='checkbox' class="fold" id="typeFields-fold-content"><label for="typeFields-fold-content"> <a href="../../use/encoding/json..typeFields*f645f.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-1212">typeFields</a>(t <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a>) <a href="#name-structFields">structFields</a></label><span id='typeFields-fold-content-docs' class="fold-docs">
 		typeFields returns a list of fields that JSON should recognize for the given type.
 		The algorithm is breadth-first search over the set of structs to include - the top struct
 		and then any reachable anonymous structs.
 
-</span></i></div><div class="anchor value-res hidden" id="name-uintEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..uintEncoder.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-562">uintEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-unquote"><i>	<input type='checkbox' class="fold" id="unquote-fold-content"><label for="unquote-fold-content"> <a href="../../use/encoding/json..unquote.html">func</a> <a href="../../src/encoding/json/decode.go.html#line-1181">unquote</a>(s []<a href="../builtin.html#name-byte">byte</a>) (t <a href="../builtin.html#name-string">string</a>, ok <a href="../builtin.html#name-bool">bool</a>)</label><span id='unquote-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-uintEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..uintEncoder*a48fa.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-562">uintEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-unquote"><i>	<input type='checkbox' class="fold" id="unquote-fold-content"><label for="unquote-fold-content"> <a href="../../use/encoding/json..unquote*65730.html">func</a> <a href="../../src/encoding/json/decode.go.html#line-1181">unquote</a>(s []<a href="../builtin.html#name-byte">byte</a>) (t <a href="../builtin.html#name-string">string</a>, ok <a href="../builtin.html#name-bool">bool</a>)</label><span id='unquote-fold-content-docs' class="fold-docs">
 		unquote converts a quoted JSON string literal s into an actual string t.
 		The rules are different than for Go, so cannot use strconv.Unquote.
 
-</span></i></div><div class="anchor value-res hidden" id="name-unquoteBytes"><i>	<span class="nodocs"> <a href="../../use/encoding/json..unquoteBytes.html">func</a> <a href="../../src/encoding/json/decode.go.html#line-1187">unquoteBytes</a>(s []<a href="../builtin.html#name-byte">byte</a>) (t []<a href="../builtin.html#name-byte">byte</a>, ok <a href="../builtin.html#name-bool">bool</a>)</span></i></div><div class="anchor value-res hidden" id="name-unsupportedTypeEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..unsupportedTypeEncoder.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-719">unsupportedTypeEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, _ <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-valueEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..valueEncoder.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-374">valueEncoder</a>(v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>) <a href="#name-encoderFunc">encoderFunc</a></span></i></div></div>
-<div><span class="title value-res">Package-Level Variables<span class="title-stat"><i> (total 14, none are exported)</i></span></span>
+</span></i></div><div class="anchor value-res hidden" id="name-unquoteBytes"><i>	<span class="nodocs"> <a href="../../use/encoding/json..unquoteBytes*2229d.html">func</a> <a href="../../src/encoding/json/decode.go.html#line-1187">unquoteBytes</a>(s []<a href="../builtin.html#name-byte">byte</a>) (t []<a href="../builtin.html#name-byte">byte</a>, ok <a href="../builtin.html#name-bool">bool</a>)</span></i></div><div class="anchor value-res hidden" id="name-unsupportedTypeEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..unsupportedTypeEncoder*ca145.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-719">unsupportedTypeEncoder</a>(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, _ <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-valueEncoder"><i>	<span class="nodocs"> <a href="../../use/encoding/json..valueEncoder*3f430.html">func</a> <a href="../../src/encoding/json/encode.go.html#line-374">valueEncoder</a>(v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>) <a href="#name-encoderFunc">encoderFunc</a></span></i></div></div>
+<div id="exported-variables"><span class="title">Package-Level Variables<span class="title-stat"><i> (total 14, none are exported)</i></span></span>
 
-	<input type='checkbox' class="showhide" id="unexported-variables-showhide"><i><label for="unexported-variables-showhide" class="show-inline">/* 14 unexporteds ... */</label><label for="unexported-variables-showhide" class="hide-inline">/* 14 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-encoderCache"><i>	<span class="nodocs">  <a href="../../use/encoding/json..encoderCache.html">var</a> <a href="../../src/encoding/json/encode.go.html#line-372">encoderCache</a> <a href="../sync.html">sync</a>.<a href="../sync.html#name-Map">Map</a> // map[reflect.Type]encoderFunc</span></i></div><div class="anchor value-res hidden" id="name-encodeStatePool"><i>	<span class="nodocs">  <a href="../../use/encoding/json..encodeStatePool.html">var</a> <a href="../../src/encoding/json/encode.go.html#line-302">encodeStatePool</a> <a href="../sync.html">sync</a>.<a href="../sync.html#name-Pool">Pool</a></span></i></div><div class="anchor value-res hidden" id="name-fieldCache"><i>	<span class="nodocs">  <a href="../../use/encoding/json..fieldCache.html">var</a> <a href="../../src/encoding/json/encode.go.html#line-1409">fieldCache</a> <a href="../sync.html">sync</a>.<a href="../sync.html#name-Map">Map</a> // map[reflect.Type]structFields</span></i></div><div class="anchor value-res hidden" id="name-float32Encoder"><i>	<span class="nodocs">  <a href="../../use/encoding/json..float32Encoder.html">var</a> <a href="../../src/encoding/json/encode.go.html#line-615">float32Encoder</a> func(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-float64Encoder"><i>	<span class="nodocs">  <a href="../../use/encoding/json..float64Encoder.html">var</a> <a href="../../src/encoding/json/encode.go.html#line-616">float64Encoder</a> func(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-hex"><i>	<span class="nodocs">  <a href="../../use/encoding/json..hex.html">var</a> <a href="../../src/encoding/json/encode.go.html#line-284">hex</a> <a href="../builtin.html#name-string">string</a></span></i></div><div class="anchor value-res hidden" id="name-htmlSafeSet"><i>	<input type='checkbox' class="fold" id="htmlSafeSet-fold-content"><label for="htmlSafeSet-fold-content">  <a href="../../use/encoding/json..htmlSafeSet.html">var</a> <a href="../../src/encoding/json/tables.go.html#line-121">htmlSafeSet</a> [128]<a href="../builtin.html#name-bool">bool</a></label><span id='htmlSafeSet-fold-content-docs' class="fold-docs">
+	<input type='checkbox' class="showhide" id="unexported-variables-showhide"><i><label for="unexported-variables-showhide" class="show-inline">/* 14 unexporteds ... */</label><label for="unexported-variables-showhide" class="hide-inline">/* 14 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-encoderCache"><i>	<span class="nodocs">  <a href="../../use/encoding/json..encoderCache*2de47.html">var</a> <a href="../../src/encoding/json/encode.go.html#line-372">encoderCache</a> <a href="../sync.html">sync</a>.<a href="../sync.html#name-Map">Map</a> // map[reflect.Type]encoderFunc</span></i></div><div class="anchor value-res hidden" id="name-encodeStatePool"><i>	<span class="nodocs">  <a href="../../use/encoding/json..encodeStatePool*d4aab.html">var</a> <a href="../../src/encoding/json/encode.go.html#line-302">encodeStatePool</a> <a href="../sync.html">sync</a>.<a href="../sync.html#name-Pool">Pool</a></span></i></div><div class="anchor value-res hidden" id="name-fieldCache"><i>	<span class="nodocs">  <a href="../../use/encoding/json..fieldCache*c9855.html">var</a> <a href="../../src/encoding/json/encode.go.html#line-1409">fieldCache</a> <a href="../sync.html">sync</a>.<a href="../sync.html#name-Map">Map</a> // map[reflect.Type]structFields</span></i></div><div class="anchor value-res hidden" id="name-float32Encoder"><i>	<span class="nodocs">  <a href="../../use/encoding/json..float32Encoder*8fedb.html">var</a> <a href="../../src/encoding/json/encode.go.html#line-615">float32Encoder</a> func(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-float64Encoder"><i>	<span class="nodocs">  <a href="../../use/encoding/json..float64Encoder*da2d6.html">var</a> <a href="../../src/encoding/json/encode.go.html#line-616">float64Encoder</a> func(e *<a href="#name-encodeState">encodeState</a>, v <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Value">Value</a>, opts <a href="#name-encOpts">encOpts</a>)</span></i></div><div class="anchor value-res hidden" id="name-hex"><i>	<span class="nodocs">  <a href="../../use/encoding/json..hex*128df.html">var</a> <a href="../../src/encoding/json/encode.go.html#line-284">hex</a> <a href="../builtin.html#name-string">string</a></span></i></div><div class="anchor value-res hidden" id="name-htmlSafeSet"><i>	<input type='checkbox' class="fold" id="htmlSafeSet-fold-content"><label for="htmlSafeSet-fold-content">  <a href="../../use/encoding/json..htmlSafeSet*af06f.html">var</a> <a href="../../src/encoding/json/tables.go.html#line-121">htmlSafeSet</a> [128]<a href="../builtin.html#name-bool">bool</a></label><span id='htmlSafeSet-fold-content-docs' class="fold-docs">
 		htmlSafeSet holds the value true if the ASCII character with the given
 		array position can be safely represented inside a JSON string, embedded
 		inside of HTML &lt;script&gt; tags, without any additional escaping.
@@ -1444,7 +1907,7 @@
 		double quote ("), the backslash character ("\"), HTML opening and closing
 		tags ("&lt;" and "&gt;"), and the ampersand ("&amp;").
 
-</span></i></div><div class="anchor value-res hidden" id="name-marshalerType"><i>	<span class="nodocs">  <a href="../../use/encoding/json..marshalerType.html">var</a> <a href="../../src/encoding/json/encode.go.html#line-411">marshalerType</a> <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a></span></i></div><div class="anchor value-res hidden" id="name-nullLiteral"><i>	<span class="nodocs">  <a href="../../use/encoding/json..nullLiteral.html">var</a> <a href="../../src/encoding/json/decode.go.html#line-598">nullLiteral</a> []<a href="../builtin.html#name-byte">byte</a></span></i></div><div class="anchor value-res hidden" id="name-numberType"><i>	<span class="nodocs">  <a href="../../use/encoding/json..numberType.html">var</a> <a href="../../src/encoding/json/decode.go.html#line-843">numberType</a> <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a></span></i></div><div class="anchor value-res hidden" id="name-safeSet"><i>	<input type='checkbox' class="fold" id="safeSet-fold-content"><label for="safeSet-fold-content">  <a href="../../use/encoding/json..safeSet.html">var</a> <a href="../../src/encoding/json/tables.go.html#line-15">safeSet</a> [128]<a href="../builtin.html#name-bool">bool</a></label><span id='safeSet-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-marshalerType"><i>	<span class="nodocs">  <a href="../../use/encoding/json..marshalerType*0c53f.html">var</a> <a href="../../src/encoding/json/encode.go.html#line-411">marshalerType</a> <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a></span></i></div><div class="anchor value-res hidden" id="name-nullLiteral"><i>	<span class="nodocs">  <a href="../../use/encoding/json..nullLiteral*a4cf4.html">var</a> <a href="../../src/encoding/json/decode.go.html#line-598">nullLiteral</a> []<a href="../builtin.html#name-byte">byte</a></span></i></div><div class="anchor value-res hidden" id="name-numberType"><i>	<span class="nodocs">  <a href="../../use/encoding/json..numberType*6cd2f.html">var</a> <a href="../../src/encoding/json/decode.go.html#line-843">numberType</a> <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a></span></i></div><div class="anchor value-res hidden" id="name-safeSet"><i>	<input type='checkbox' class="fold" id="safeSet-fold-content"><label for="safeSet-fold-content">  <a href="../../use/encoding/json..safeSet*fc04b.html">var</a> <a href="../../src/encoding/json/tables.go.html#line-15">safeSet</a> [128]<a href="../builtin.html#name-bool">bool</a></label><span id='safeSet-fold-content-docs' class="fold-docs">
 		safeSet holds the value true if the ASCII character with the given array
 		position can be represented inside a JSON string without any further
 		escaping.
@@ -1452,37 +1915,37 @@
 		All values are true except for the ASCII control characters (0-31), the
 		double quote ("), and the backslash character ("\").
 
-</span></i></div><div class="anchor value-res hidden" id="name-scannerPool"><i>	<span class="nodocs">  <a href="../../use/encoding/json..scannerPool.html">var</a> <a href="../../src/encoding/json/scanner.go.html#line-85">scannerPool</a> <a href="../sync.html">sync</a>.<a href="../sync.html#name-Pool">Pool</a></span></i></div><div class="anchor value-res hidden" id="name-textMarshalerType"><i>	<span class="nodocs">  <a href="../../use/encoding/json..textMarshalerType.html">var</a> <a href="../../src/encoding/json/encode.go.html#line-412">textMarshalerType</a> <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a></span></i></div><div class="anchor value-res hidden" id="name-textUnmarshalerType"><i>	<span class="nodocs">  <a href="../../use/encoding/json..textUnmarshalerType.html">var</a> <a href="../../src/encoding/json/decode.go.html#line-599">textUnmarshalerType</a> <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a></span></i></div></div>
-<div><span class="title value-res">Package-Level Constants<span class="title-stat"><i> (total 30, none are exported)</i></span></span>
+</span></i></div><div class="anchor value-res hidden" id="name-scannerPool"><i>	<span class="nodocs">  <a href="../../use/encoding/json..scannerPool*c9e42.html">var</a> <a href="../../src/encoding/json/scanner.go.html#line-85">scannerPool</a> <a href="../sync.html">sync</a>.<a href="../sync.html#name-Pool">Pool</a></span></i></div><div class="anchor value-res hidden" id="name-textMarshalerType"><i>	<span class="nodocs">  <a href="../../use/encoding/json..textMarshalerType*4772b.html">var</a> <a href="../../src/encoding/json/encode.go.html#line-412">textMarshalerType</a> <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a></span></i></div><div class="anchor value-res hidden" id="name-textUnmarshalerType"><i>	<span class="nodocs">  <a href="../../use/encoding/json..textUnmarshalerType*57955.html">var</a> <a href="../../src/encoding/json/decode.go.html#line-599">textUnmarshalerType</a> <a href="../reflect.html">reflect</a>.<a href="../reflect.html#name-Type">Type</a></span></i></div></div>
+<div id="exported-constants"><span class="title">Package-Level Constants<span class="title-stat"><i> (total 30, none are exported)</i></span></span>
 
-	<input type='checkbox' class="showhide" id="unexported-constants-showhide"><i><label for="unexported-constants-showhide" class="show-inline">/* 30 unexporteds ... */</label><label for="unexported-constants-showhide" class="hide-inline">/* 30 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-caseMask"><i>	<span class="nodocs"><a href="../../use/encoding/json..caseMask.html">const</a> <a href="../../src/encoding/json/fold.go.html#line-13">caseMask</a> <a href="../builtin.html#name-byte">byte</a> = 223 // Mask to ignore case in ASCII.</span></i></div><div class="anchor value-res hidden" id="name-kelvin"><i>	<span class="nodocs"><a href="../../use/encoding/json..kelvin.html">const</a> <a href="../../src/encoding/json/fold.go.html#line-14">kelvin</a> = 8490</span></i></div><div class="anchor value-res hidden" id="name-maxNestingDepth"><i>	<input type='checkbox' class="fold" id="maxNestingDepth-fold-content"><label for="maxNestingDepth-fold-content"><a href="../../use/encoding/json..maxNestingDepth.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-144">maxNestingDepth</a> = 10000</label><span id='maxNestingDepth-fold-content-docs' class="fold-docs">
+	<input type='checkbox' class="showhide" id="unexported-constants-showhide"><i><label for="unexported-constants-showhide" class="show-inline">/* 30 unexporteds ... */</label><label for="unexported-constants-showhide" class="hide-inline">/* 30 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-caseMask"><i>	<span class="nodocs"><a href="../../use/encoding/json..caseMask*d2c6b.html">const</a> <a href="../../src/encoding/json/fold.go.html#line-13">caseMask</a> <a href="../builtin.html#name-byte">byte</a> = 223 // Mask to ignore case in ASCII.</span></i></div><div class="anchor value-res hidden" id="name-kelvin"><i>	<span class="nodocs"><a href="../../use/encoding/json..kelvin*03105.html">const</a> <a href="../../src/encoding/json/fold.go.html#line-14">kelvin</a> = 8490</span></i></div><div class="anchor value-res hidden" id="name-maxNestingDepth"><i>	<input type='checkbox' class="fold" id="maxNestingDepth-fold-content"><label for="maxNestingDepth-fold-content"><a href="../../use/encoding/json..maxNestingDepth*2228f.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-144">maxNestingDepth</a> = 10000</label><span id='maxNestingDepth-fold-content-docs' class="fold-docs">
 		This limits the max nesting depth to prevent stack overflow.
 		This is permitted by https://tools.ietf.org/html/rfc7159#section-9
 
-</span></i></div><div class="anchor value-res hidden" id="name-parseArrayValue"><i>	<input type='checkbox' class="fold" id="parseArrayValue-fold-content"><label for="parseArrayValue-fold-content"><a href="../../use/encoding/json..parseArrayValue.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-139">parseArrayValue</a> = 2 // parsing array value</label><span id='parseArrayValue-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-parseArrayValue"><i>	<input type='checkbox' class="fold" id="parseArrayValue-fold-content"><label for="parseArrayValue-fold-content"><a href="../../use/encoding/json..parseArrayValue*724b4.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-139">parseArrayValue</a> = 2 // parsing array value</label><span id='parseArrayValue-fold-content-docs' class="fold-docs">
 		These values are stored in the parseState stack.
 		They give the current state of a composite value
 		being scanned. If the parser is inside a nested value
 		the parseState describes the nested state, outermost at entry 0.
 
-</span></i></div><div class="anchor value-res hidden" id="name-parseObjectKey"><i>	<input type='checkbox' class="fold" id="parseObjectKey-fold-content"><label for="parseObjectKey-fold-content"><a href="../../use/encoding/json..parseObjectKey.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-137">parseObjectKey</a> = 0 // parsing object key (before colon)</label><span id='parseObjectKey-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-parseObjectKey"><i>	<input type='checkbox' class="fold" id="parseObjectKey-fold-content"><label for="parseObjectKey-fold-content"><a href="../../use/encoding/json..parseObjectKey*eb52c.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-137">parseObjectKey</a> = 0 // parsing object key (before colon)</label><span id='parseObjectKey-fold-content-docs' class="fold-docs">
 		These values are stored in the parseState stack.
 		They give the current state of a composite value
 		being scanned. If the parser is inside a nested value
 		the parseState describes the nested state, outermost at entry 0.
 
-</span></i></div><div class="anchor value-res hidden" id="name-parseObjectValue"><i>	<input type='checkbox' class="fold" id="parseObjectValue-fold-content"><label for="parseObjectValue-fold-content"><a href="../../use/encoding/json..parseObjectValue.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-138">parseObjectValue</a> = 1 // parsing object value (after colon)</label><span id='parseObjectValue-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-parseObjectValue"><i>	<input type='checkbox' class="fold" id="parseObjectValue-fold-content"><label for="parseObjectValue-fold-content"><a href="../../use/encoding/json..parseObjectValue*cd1d5.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-138">parseObjectValue</a> = 1 // parsing object value (after colon)</label><span id='parseObjectValue-fold-content-docs' class="fold-docs">
 		These values are stored in the parseState stack.
 		They give the current state of a composite value
 		being scanned. If the parser is inside a nested value
 		the parseState describes the nested state, outermost at entry 0.
 
-</span></i></div><div class="anchor value-res hidden" id="name-phasePanicMsg"><i>	<input type='checkbox' class="fold" id="phasePanicMsg-fold-content"><label for="phasePanicMsg-fold-content"><a href="../../use/encoding/json..phasePanicMsg.html">const</a> <a href="../../src/encoding/json/decode.go.html#line-226">phasePanicMsg</a> = "JSON decoder out of sync - data changing underfoot?"</label><span id='phasePanicMsg-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-phasePanicMsg"><i>	<input type='checkbox' class="fold" id="phasePanicMsg-fold-content"><label for="phasePanicMsg-fold-content"><a href="../../use/encoding/json..phasePanicMsg*53abc.html">const</a> <a href="../../src/encoding/json/decode.go.html#line-226">phasePanicMsg</a> = "JSON decoder out of sync - data changing underfoot?"</label><span id='phasePanicMsg-fold-content-docs' class="fold-docs">
 		phasePanicMsg is used as a panic message when we end up with something that
 		shouldn't happen. It can indicate a bug in the JSON decoder, or that
 		something is editing the data slice while the decoder executes.
 
-</span></i></div><div class="anchor value-res hidden" id="name-scanArrayValue"><i>	<input type='checkbox' class="fold" id="scanArrayValue-fold-content"><label for="scanArrayValue-fold-content"><a href="../../use/encoding/json..scanArrayValue.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-123">scanArrayValue</a> = 7 // just finished array value</label><span id='scanArrayValue-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-scanArrayValue"><i>	<input type='checkbox' class="fold" id="scanArrayValue-fold-content"><label for="scanArrayValue-fold-content"><a href="../../use/encoding/json..scanArrayValue*4792a.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-123">scanArrayValue</a> = 7 // just finished array value</label><span id='scanArrayValue-fold-content-docs' class="fold-docs">
 		These values are returned by the state transition functions
 		assigned to scanner.state and the method scanner.eof.
 		They give details about the current state of the scan that
@@ -1491,7 +1954,7 @@
 		call to scanner.state: if one call returns scanError,
 		every subsequent call will return scanError too.
 
-</span></i></div><div class="anchor value-res hidden" id="name-scanBeginArray"><i>	<input type='checkbox' class="fold" id="scanBeginArray-fold-content"><label for="scanBeginArray-fold-content"><a href="../../use/encoding/json..scanBeginArray.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-122">scanBeginArray</a> = 6 // begin array</label><span id='scanBeginArray-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-scanBeginArray"><i>	<input type='checkbox' class="fold" id="scanBeginArray-fold-content"><label for="scanBeginArray-fold-content"><a href="../../use/encoding/json..scanBeginArray*9eb8f.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-122">scanBeginArray</a> = 6 // begin array</label><span id='scanBeginArray-fold-content-docs' class="fold-docs">
 		These values are returned by the state transition functions
 		assigned to scanner.state and the method scanner.eof.
 		They give details about the current state of the scan that
@@ -1500,7 +1963,7 @@
 		call to scanner.state: if one call returns scanError,
 		every subsequent call will return scanError too.
 
-</span></i></div><div class="anchor value-res hidden" id="name-scanBeginLiteral"><i>	<input type='checkbox' class="fold" id="scanBeginLiteral-fold-content"><label for="scanBeginLiteral-fold-content"><a href="../../use/encoding/json..scanBeginLiteral.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-117">scanBeginLiteral</a> = 1 // end implied by next result != scanContinue</label><span id='scanBeginLiteral-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-scanBeginLiteral"><i>	<input type='checkbox' class="fold" id="scanBeginLiteral-fold-content"><label for="scanBeginLiteral-fold-content"><a href="../../use/encoding/json..scanBeginLiteral*0f70c.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-117">scanBeginLiteral</a> = 1 // end implied by next result != scanContinue</label><span id='scanBeginLiteral-fold-content-docs' class="fold-docs">
 		These values are returned by the state transition functions
 		assigned to scanner.state and the method scanner.eof.
 		They give details about the current state of the scan that
@@ -1509,7 +1972,7 @@
 		call to scanner.state: if one call returns scanError,
 		every subsequent call will return scanError too.
 
-</span></i></div><div class="anchor value-res hidden" id="name-scanBeginObject"><i>	<input type='checkbox' class="fold" id="scanBeginObject-fold-content"><label for="scanBeginObject-fold-content"><a href="../../use/encoding/json..scanBeginObject.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-118">scanBeginObject</a> = 2 // begin object</label><span id='scanBeginObject-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-scanBeginObject"><i>	<input type='checkbox' class="fold" id="scanBeginObject-fold-content"><label for="scanBeginObject-fold-content"><a href="../../use/encoding/json..scanBeginObject*69b7c.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-118">scanBeginObject</a> = 2 // begin object</label><span id='scanBeginObject-fold-content-docs' class="fold-docs">
 		These values are returned by the state transition functions
 		assigned to scanner.state and the method scanner.eof.
 		They give details about the current state of the scan that
@@ -1518,13 +1981,13 @@
 		call to scanner.state: if one call returns scanError,
 		every subsequent call will return scanError too.
 
-</span></i></div><div class="anchor value-res hidden" id="name-scanContinue"><i>	<input type='checkbox' class="fold" id="scanContinue-fold-content"><label for="scanContinue-fold-content"><a href="../../use/encoding/json..scanContinue.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-116">scanContinue</a> = 0 // uninteresting byte</label><span id='scanContinue-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-scanContinue"><i>	<input type='checkbox' class="fold" id="scanContinue-fold-content"><label for="scanContinue-fold-content"><a href="../../use/encoding/json..scanContinue*8cf16.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-116">scanContinue</a> = 0 // uninteresting byte</label><span id='scanContinue-fold-content-docs' class="fold-docs">
 		Continue.
 
-</span></i></div><div class="anchor value-res hidden" id="name-scanEnd"><i>	<input type='checkbox' class="fold" id="scanEnd-fold-content"><label for="scanEnd-fold-content"><a href="../../use/encoding/json..scanEnd.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-128">scanEnd</a> = 10 // top-level value ended *before* this byte; known to be first "stop" result</label><span id='scanEnd-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-scanEnd"><i>	<input type='checkbox' class="fold" id="scanEnd-fold-content"><label for="scanEnd-fold-content"><a href="../../use/encoding/json..scanEnd*ecf32.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-128">scanEnd</a> = 10 // top-level value ended *before* this byte; known to be first "stop" result</label><span id='scanEnd-fold-content-docs' class="fold-docs">
 		Stop.
 
-</span></i></div><div class="anchor value-res hidden" id="name-scanEndArray"><i>	<input type='checkbox' class="fold" id="scanEndArray-fold-content"><label for="scanEndArray-fold-content"><a href="../../use/encoding/json..scanEndArray.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-124">scanEndArray</a> = 8 // end array (implies scanArrayValue if possible)</label><span id='scanEndArray-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-scanEndArray"><i>	<input type='checkbox' class="fold" id="scanEndArray-fold-content"><label for="scanEndArray-fold-content"><a href="../../use/encoding/json..scanEndArray*791ee.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-124">scanEndArray</a> = 8 // end array (implies scanArrayValue if possible)</label><span id='scanEndArray-fold-content-docs' class="fold-docs">
 		These values are returned by the state transition functions
 		assigned to scanner.state and the method scanner.eof.
 		They give details about the current state of the scan that
@@ -1533,7 +1996,7 @@
 		call to scanner.state: if one call returns scanError,
 		every subsequent call will return scanError too.
 
-</span></i></div><div class="anchor value-res hidden" id="name-scanEndObject"><i>	<input type='checkbox' class="fold" id="scanEndObject-fold-content"><label for="scanEndObject-fold-content"><a href="../../use/encoding/json..scanEndObject.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-121">scanEndObject</a> = 5 // end object (implies scanObjectValue if possible)</label><span id='scanEndObject-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-scanEndObject"><i>	<input type='checkbox' class="fold" id="scanEndObject-fold-content"><label for="scanEndObject-fold-content"><a href="../../use/encoding/json..scanEndObject*b7e0c.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-121">scanEndObject</a> = 5 // end object (implies scanObjectValue if possible)</label><span id='scanEndObject-fold-content-docs' class="fold-docs">
 		These values are returned by the state transition functions
 		assigned to scanner.state and the method scanner.eof.
 		They give details about the current state of the scan that
@@ -1542,7 +2005,7 @@
 		call to scanner.state: if one call returns scanError,
 		every subsequent call will return scanError too.
 
-</span></i></div><div class="anchor value-res hidden" id="name-scanError"><i>	<input type='checkbox' class="fold" id="scanError-fold-content"><label for="scanError-fold-content"><a href="../../use/encoding/json..scanError.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-129">scanError</a> = 11 // hit an error, scanner.err.</label><span id='scanError-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-scanError"><i>	<input type='checkbox' class="fold" id="scanError-fold-content"><label for="scanError-fold-content"><a href="../../use/encoding/json..scanError*d9286.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-129">scanError</a> = 11 // hit an error, scanner.err.</label><span id='scanError-fold-content-docs' class="fold-docs">
 		These values are returned by the state transition functions
 		assigned to scanner.state and the method scanner.eof.
 		They give details about the current state of the scan that
@@ -1551,7 +2014,7 @@
 		call to scanner.state: if one call returns scanError,
 		every subsequent call will return scanError too.
 
-</span></i></div><div class="anchor value-res hidden" id="name-scanObjectKey"><i>	<input type='checkbox' class="fold" id="scanObjectKey-fold-content"><label for="scanObjectKey-fold-content"><a href="../../use/encoding/json..scanObjectKey.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-119">scanObjectKey</a> = 3 // just finished object key (string)</label><span id='scanObjectKey-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-scanObjectKey"><i>	<input type='checkbox' class="fold" id="scanObjectKey-fold-content"><label for="scanObjectKey-fold-content"><a href="../../use/encoding/json..scanObjectKey*30902.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-119">scanObjectKey</a> = 3 // just finished object key (string)</label><span id='scanObjectKey-fold-content-docs' class="fold-docs">
 		These values are returned by the state transition functions
 		assigned to scanner.state and the method scanner.eof.
 		They give details about the current state of the scan that
@@ -1560,7 +2023,7 @@
 		call to scanner.state: if one call returns scanError,
 		every subsequent call will return scanError too.
 
-</span></i></div><div class="anchor value-res hidden" id="name-scanObjectValue"><i>	<input type='checkbox' class="fold" id="scanObjectValue-fold-content"><label for="scanObjectValue-fold-content"><a href="../../use/encoding/json..scanObjectValue.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-120">scanObjectValue</a> = 4 // just finished non-last object value</label><span id='scanObjectValue-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-scanObjectValue"><i>	<input type='checkbox' class="fold" id="scanObjectValue-fold-content"><label for="scanObjectValue-fold-content"><a href="../../use/encoding/json..scanObjectValue*5d626.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-120">scanObjectValue</a> = 4 // just finished non-last object value</label><span id='scanObjectValue-fold-content-docs' class="fold-docs">
 		These values are returned by the state transition functions
 		assigned to scanner.state and the method scanner.eof.
 		They give details about the current state of the scan that
@@ -1569,7 +2032,7 @@
 		call to scanner.state: if one call returns scanError,
 		every subsequent call will return scanError too.
 
-</span></i></div><div class="anchor value-res hidden" id="name-scanSkipSpace"><i>	<input type='checkbox' class="fold" id="scanSkipSpace-fold-content"><label for="scanSkipSpace-fold-content"><a href="../../use/encoding/json..scanSkipSpace.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-125">scanSkipSpace</a> = 9 // space byte; can skip; known to be last "continue" result</label><span id='scanSkipSpace-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-scanSkipSpace"><i>	<input type='checkbox' class="fold" id="scanSkipSpace-fold-content"><label for="scanSkipSpace-fold-content"><a href="../../use/encoding/json..scanSkipSpace*640b2.html">const</a> <a href="../../src/encoding/json/scanner.go.html#line-125">scanSkipSpace</a> = 9 // space byte; can skip; known to be last "continue" result</label><span id='scanSkipSpace-fold-content-docs' class="fold-docs">
 		These values are returned by the state transition functions
 		assigned to scanner.state and the method scanner.eof.
 		They give details about the current state of the scan that
@@ -1578,9 +2041,9 @@
 		call to scanner.state: if one call returns scanError,
 		every subsequent call will return scanError too.
 
-</span></i></div><div class="anchor value-res hidden" id="name-smallLongEss"><i>	<span class="nodocs"><a href="../../use/encoding/json..smallLongEss.html">const</a> <a href="../../src/encoding/json/fold.go.html#line-15">smallLongEss</a> = 383</span></i></div><div class="anchor value-res hidden" id="name-startDetectingCyclesAfter"><i>	<span class="nodocs"><a href="../../use/encoding/json..startDetectingCyclesAfter.html">const</a> <a href="../../src/encoding/json/encode.go.html#line-300">startDetectingCyclesAfter</a> = 1000</span></i></div><div class="anchor value-res hidden" id="name-tokenArrayComma"><i>	<span class="nodocs"><a href="../../use/encoding/json..tokenArrayComma.html">const</a> <a href="../../src/encoding/json/stream.go.html#line-297">tokenArrayComma</a> = 3</span></i></div><div class="anchor value-res hidden" id="name-tokenArrayStart"><i>	<span class="nodocs"><a href="../../use/encoding/json..tokenArrayStart.html">const</a> <a href="../../src/encoding/json/stream.go.html#line-295">tokenArrayStart</a> = 1</span></i></div><div class="anchor value-res hidden" id="name-tokenArrayValue"><i>	<span class="nodocs"><a href="../../use/encoding/json..tokenArrayValue.html">const</a> <a href="../../src/encoding/json/stream.go.html#line-296">tokenArrayValue</a> = 2</span></i></div><div class="anchor value-res hidden" id="name-tokenObjectColon"><i>	<span class="nodocs"><a href="../../use/encoding/json..tokenObjectColon.html">const</a> <a href="../../src/encoding/json/stream.go.html#line-300">tokenObjectColon</a> = 6</span></i></div><div class="anchor value-res hidden" id="name-tokenObjectComma"><i>	<span class="nodocs"><a href="../../use/encoding/json..tokenObjectComma.html">const</a> <a href="../../src/encoding/json/stream.go.html#line-302">tokenObjectComma</a> = 8</span></i></div><div class="anchor value-res hidden" id="name-tokenObjectKey"><i>	<span class="nodocs"><a href="../../use/encoding/json..tokenObjectKey.html">const</a> <a href="../../src/encoding/json/stream.go.html#line-299">tokenObjectKey</a> = 5</span></i></div><div class="anchor value-res hidden" id="name-tokenObjectStart"><i>	<span class="nodocs"><a href="../../use/encoding/json..tokenObjectStart.html">const</a> <a href="../../src/encoding/json/stream.go.html#line-298">tokenObjectStart</a> = 4</span></i></div><div class="anchor value-res hidden" id="name-tokenObjectValue"><i>	<span class="nodocs"><a href="../../use/encoding/json..tokenObjectValue.html">const</a> <a href="../../src/encoding/json/stream.go.html#line-301">tokenObjectValue</a> = 7</span></i></div><div class="anchor value-res hidden" id="name-tokenTopValue"><i>	<span class="nodocs"><a href="../../use/encoding/json..tokenTopValue.html">const</a> <a href="../../src/encoding/json/stream.go.html#line-294">tokenTopValue</a> = 0</span></i></div></div></code></pre><pre id="footer">
+</span></i></div><div class="anchor value-res hidden" id="name-smallLongEss"><i>	<span class="nodocs"><a href="../../use/encoding/json..smallLongEss*a1413.html">const</a> <a href="../../src/encoding/json/fold.go.html#line-15">smallLongEss</a> = 383</span></i></div><div class="anchor value-res hidden" id="name-startDetectingCyclesAfter"><i>	<span class="nodocs"><a href="../../use/encoding/json..startDetectingCyclesAfter*93634.html">const</a> <a href="../../src/encoding/json/encode.go.html#line-300">startDetectingCyclesAfter</a> = 1000</span></i></div><div class="anchor value-res hidden" id="name-tokenArrayComma"><i>	<span class="nodocs"><a href="../../use/encoding/json..tokenArrayComma*f3730.html">const</a> <a href="../../src/encoding/json/stream.go.html#line-297">tokenArrayComma</a> = 3</span></i></div><div class="anchor value-res hidden" id="name-tokenArrayStart"><i>	<span class="nodocs"><a href="../../use/encoding/json..tokenArrayStart*369b4.html">const</a> <a href="../../src/encoding/json/stream.go.html#line-295">tokenArrayStart</a> = 1</span></i></div><div class="anchor value-res hidden" id="name-tokenArrayValue"><i>	<span class="nodocs"><a href="../../use/encoding/json..tokenArrayValue*7ab77.html">const</a> <a href="../../src/encoding/json/stream.go.html#line-296">tokenArrayValue</a> = 2</span></i></div><div class="anchor value-res hidden" id="name-tokenObjectColon"><i>	<span class="nodocs"><a href="../../use/encoding/json..tokenObjectColon*ca8df.html">const</a> <a href="../../src/encoding/json/stream.go.html#line-300">tokenObjectColon</a> = 6</span></i></div><div class="anchor value-res hidden" id="name-tokenObjectComma"><i>	<span class="nodocs"><a href="../../use/encoding/json..tokenObjectComma*ace86.html">const</a> <a href="../../src/encoding/json/stream.go.html#line-302">tokenObjectComma</a> = 8</span></i></div><div class="anchor value-res hidden" id="name-tokenObjectKey"><i>	<span class="nodocs"><a href="../../use/encoding/json..tokenObjectKey*97562.html">const</a> <a href="../../src/encoding/json/stream.go.html#line-299">tokenObjectKey</a> = 5</span></i></div><div class="anchor value-res hidden" id="name-tokenObjectStart"><i>	<span class="nodocs"><a href="../../use/encoding/json..tokenObjectStart*db763.html">const</a> <a href="../../src/encoding/json/stream.go.html#line-298">tokenObjectStart</a> = 4</span></i></div><div class="anchor value-res hidden" id="name-tokenObjectValue"><i>	<span class="nodocs"><a href="../../use/encoding/json..tokenObjectValue*02f91.html">const</a> <a href="../../src/encoding/json/stream.go.html#line-301">tokenObjectValue</a> = 7</span></i></div><div class="anchor value-res hidden" id="name-tokenTopValue"><i>	<span class="nodocs"><a href="../../use/encoding/json..tokenTopValue*48c8a.html">const</a> <a href="../../src/encoding/json/stream.go.html#line-294">tokenTopValue</a> = 0</span></i></div></div></code></pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

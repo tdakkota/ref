@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: search.go in package strings</title>
-<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -77,7 +77,7 @@ input[id=r21]:checked ~pre label[for=r21]
 <span class="codeline" id="line-11"><code><span class="comment">// document uses 1-based indexing)</span></code></span>
 <span class="codeline" id="line-12"><code><span class="keyword">type</span> <a href="../../pkg/strings.html#name-stringFinder" class="ident">stringFinder</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-13"><code>	<span class="comment">// pattern is the string that we are searching for in the text.</span></code></span>
-<span class="codeline" id="line-14"><code>	<a href="../../use/strings..stringFinder.pattern.html" class="ident">pattern</a> <a href="../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-14"><code>	<a href="../../use/strings..stringFinder*94758.pattern*1fd38.html" class="ident">pattern</a> <a href="../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
 <span class="codeline" id="line-15"><code></code></span>
 <span class="codeline" id="line-16"><code>	<span class="comment">// badCharSkip[b] contains the distance between the last byte of pattern</span></code></span>
 <span class="codeline" id="line-17"><code><span class="comment">	// and the rightmost occurrence of b in pattern. If b is not in pattern,</span></code></span>
@@ -86,7 +86,7 @@ input[id=r21]:checked ~pre label[for=r21]
 <span class="codeline" id="line-20"><code><span class="comment">	// Whenever a mismatch is found with byte b in the text, we can safely</span></code></span>
 <span class="codeline" id="line-21"><code><span class="comment">	// shift the matching frame at least badCharSkip[b] until the next time</span></code></span>
 <span class="codeline" id="line-22"><code><span class="comment">	// the matching char could be in alignment.</span></code></span>
-<span class="codeline" id="line-23"><code>	<a href="../../use/strings..stringFinder.badCharSkip.html" class="ident">badCharSkip</a> [<span class="lit-number">256</span>]<a href="../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-23"><code>	<a href="../../use/strings..stringFinder*94758.badCharSkip*19024.html" class="ident">badCharSkip</a> [<span class="lit-number">256</span>]<a href="../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
 <span class="codeline" id="line-24"><code></code></span>
 <span class="codeline" id="line-25"><code>	<span class="comment">// goodSuffixSkip[i] defines how far we can shift the matching frame given</span></code></span>
 <span class="codeline" id="line-26"><code><span class="comment">	// that the suffix pattern[i+1:] matches, but the byte pattern[i] does</span></code></span>
@@ -108,7 +108,7 @@ input[id=r21]:checked ~pre label[for=r21]
 <span class="codeline" id="line-42"><code><span class="comment">	// suffix "xxabc" is not found elsewhere in the pattern. However, its</span></code></span>
 <span class="codeline" id="line-43"><code><span class="comment">	// rightmost "abc" (at position 6) is a prefix of the whole pattern, so</span></code></span>
 <span class="codeline" id="line-44"><code><span class="comment">	// goodSuffixSkip[3] == shift+len(suffix) == 6+5 == 11.</span></code></span>
-<span class="codeline" id="line-45"><code>	<a href="../../use/strings..stringFinder.goodSuffixSkip.html" class="ident">goodSuffixSkip</a> []<a href="../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-45"><code>	<a href="../../use/strings..stringFinder*94758.goodSuffixSkip*cb800.html" class="ident">goodSuffixSkip</a> []<a href="../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
 <span class="codeline" id="line-46"><code>}</code></span>
 <span class="codeline" id="line-47"><code></code></span>
 <span class="codeline" id="line-48"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../pkg/strings.html#name-makeStringFinder" class="ident">makeStringFinder</a></label>(<label for="r1" class="ident">pattern</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) *<a href="#line-12" class="ident">stringFinder</a> {</code></span>
@@ -165,7 +165,7 @@ input[id=r21]:checked ~pre label[for=r21]
 <span class="codeline" id="line-99"><code></code></span>
 <span class="codeline" id="line-100"><code><span class="comment">// next returns the index in text of the first occurrence of the pattern. If</span></code></span>
 <span class="codeline" id="line-101"><code><span class="comment">// the pattern is not found, it returns -1.</span></code></span>
-<span class="codeline" id="line-102"><code><span class="keyword">func</span> (<label for="r14" class="ident">f</label> *<a href="#line-12" class="ident">stringFinder</a>) <label for="r15" class="ident"><a href="../../use/strings..stringFinder.next.html" class="ident">next</a></label>(<label for="r16" class="ident">text</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../pkg/builtin.html#name-int" class="ident">int</a> {</code></span>
+<span class="codeline" id="line-102"><code><span class="keyword">func</span> (<label for="r14" class="ident">f</label> *<a href="#line-12" class="ident">stringFinder</a>) <label for="r15" class="ident"><a href="../../use/strings..stringFinder*94758.next*c6c1c.html" class="ident">next</a></label>(<label for="r16" class="ident">text</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../pkg/builtin.html#name-int" class="ident">int</a> {</code></span>
 <span class="codeline" id="line-103"><code>	<label for="r17" class="ident">i</label> := <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r14" class="ident">f</label>.<a href="#line-14" class="ident">pattern</a>) - <span class="lit-number">1</span></code></span>
 <span class="codeline" id="line-104"><code>	<span class="keyword">for</span> <label for="r17" class="ident">i</label> &lt; <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r16" class="ident">text</label>) {</code></span>
 <span class="codeline" id="line-105"><code>		<span class="comment">// Compare backwards from the end until the first unmatching character.</span></code></span>
@@ -190,7 +190,7 @@ input[id=r21]:checked ~pre label[for=r21]
 <span class="codeline" id="line-124"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

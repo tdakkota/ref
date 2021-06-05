@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>References: sync.Pool.Get</title>
-<link href="../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre><code><span style="font-size:x-large;"><b><a href="../pkg/sync.html">sync</a>.<a href="../src/sync/pool.go.html#line-44">Pool</a>.<a href="../src/sync/pool.go.html#line-124">Get</a></b></span><span style="font-size: large;"><i> (method)</i></span>
@@ -15,10 +15,6 @@
 
 	sync (current package)
 		<a href="../src/sync/pool.go.html#line-124">pool.go#L124</a>: func (p *Pool) <b>Get</b>() interface{} {
-
-	<a href="../pkg/archive/zip.html">archive/zip</a>
-		<a href="../src/archive/zip/register.go.html#line-31">register.go#L31</a>: 	fw, ok := flateWriterPool.<b>Get</b>().(*flate.Writer)
-		<a href="../src/archive/zip/register.go.html#line-69" class="path-duplicate">register.go</a><a href="../src/archive/zip/register.go.html#line-69">#L69</a>: 	fr, ok := flateReaderPool.<b>Get</b>().(io.ReadCloser)
 
 	<a href="../pkg/crypto/tls.html">crypto/tls</a>
 		<a href="../src/crypto/tls/conn.go.html#line-938">conn.go#L938</a>: 	outBufPtr := outBufPool.<b>Get</b>().(*[]byte)
@@ -32,13 +28,16 @@
 		<a href="../src/fmt/scan.go.html#line-384">scan.go#L384</a>: 	s = ssFree.<b>Get</b>().(*ss)
 
 	<a href="../pkg/github.com/gotd/td/bin.html">github.com/gotd/td/bin</a>
-		<a href="../src/github.com/gotd/td/bin/pool.go.html#line-34">pool.go#L34</a>: 	return b.pool.<b>Get</b>().(*Buffer)
+		<a href="../src/github.com/gotd/td/bin/pool.go.html#line-33">pool.go#L33</a>: 	buf := b.pool.<b>Get</b>().(*Buffer)
 
 	<a href="../pkg/github.com/gotd/td/internal/crypto.html">github.com/gotd/td/internal/crypto</a>
 		<a href="../src/github.com/gotd/td/internal/crypto/sha256.go.html#line-27">sha256.go#L27</a>: 	h := sha256Pool.<b>Get</b>().(hash.Hash)
 
+	<a href="../pkg/github.com/klauspost/compress/flate.html">github.com/klauspost/compress/flate</a>
+		<a href="../src/github.com/klauspost/compress/flate/stateless.go.html#line-69">stateless.go#L69</a>: 	bw := bitWriterPool.<b>Get</b>().(*huffmanBitWriter)
+
 	<a href="../pkg/go.uber.org/multierr.html">go.uber.org/multierr</a>
-		<a href="../src/go.uber.org/multierr/error.go.html#line-194">error.go#L194</a>: 	buff := _bufferPool.<b>Get</b>().(*bytes.Buffer)
+		<a href="../src/go.uber.org/multierr/error.go.html#line-274">error.go#L274</a>: 	buff := _bufferPool.<b>Get</b>().(*bytes.Buffer)
 
 	<a href="../pkg/go.uber.org/zap.html">go.uber.org/zap</a>
 		<a href="../src/go.uber.org/zap/error.go.html#line-63">error.go#L63</a>: 		elem := _errArrayElemPool.<b>Get</b>().(*errArrayElem)
@@ -50,7 +49,7 @@
 	<a href="../pkg/go.uber.org/zap/zapcore.html">go.uber.org/zap/zapcore</a>
 		<a href="../src/go.uber.org/zap/zapcore/console_encoder.go.html#line-38">console_encoder.go#L38</a>: 	return _sliceEncoderPool.<b>Get</b>().(*sliceArrayEncoder)
 		<a href="../src/go.uber.org/zap/zapcore/entry.go.html#line-46">entry.go#L46</a>: 	ce := _cePool.<b>Get</b>().(*CheckedEntry)
-		<a href="../src/go.uber.org/zap/zapcore/error.go.html#line-99">error.go#L99</a>: 	e := _errArrayElemPool.<b>Get</b>().(*errArrayElem)
+		<a href="../src/go.uber.org/zap/zapcore/error.go.html#line-116">error.go#L116</a>: 	e := _errArrayElemPool.<b>Get</b>().(*errArrayElem)
 		<a href="../src/go.uber.org/zap/zapcore/json_encoder.go.html#line-43">json_encoder.go#L43</a>: 	return _jsonPool.<b>Get</b>().(*jsonEncoder)
 
 	<a href="../pkg/io.html">io</a>
@@ -77,14 +76,15 @@
 		<a href="../src/net/http/server.go.html#line-838" class="path-duplicate">server.go</a><a href="../src/net/http/server.go.html#line-838">#L838</a>: 	if v := bufioReaderPool.<b>Get</b>(); v != nil {
 		<a href="../src/net/http/server.go.html#line-856" class="path-duplicate">server.go</a><a href="../src/net/http/server.go.html#line-856">#L856</a>: 		if v := pool.<b>Get</b>(); v != nil {
 
+	<a href="../pkg/nhooyr.io/websocket.html">nhooyr.io/websocket</a>
+		<a href="../src/nhooyr.io/websocket/compress_notjs.go.html#line-99">compress_notjs.go#L99</a>: 	fr, ok := flateReaderPool.<b>Get</b>().(io.Reader)
+		<a href="../src/nhooyr.io/websocket/compress_notjs.go.html#line-145" class="path-duplicate">compress_notjs.go</a><a href="../src/nhooyr.io/websocket/compress_notjs.go.html#line-145">#L145</a>: 	buf, ok := p.<b>Get</b>().([]byte)
+		<a href="../src/nhooyr.io/websocket/dial.go.html#line-267">dial.go#L267</a>: 	br, ok := bufioReaderPool.<b>Get</b>().(*bufio.Reader)
+		<a href="../src/nhooyr.io/websocket/dial.go.html#line-282" class="path-duplicate">dial.go</a><a href="../src/nhooyr.io/websocket/dial.go.html#line-282">#L282</a>: 	bw, ok := bufioWriterPool.<b>Get</b>().(*bufio.Writer)
+
 	<a href="../pkg/reflect.html">reflect</a>
 		<a href="../src/reflect/value.go.html#line-439">value.go#L439</a>: 		args = framePool.<b>Get</b>().(unsafe.Pointer)
 		<a href="../src/reflect/value.go.html#line-716" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-716">#L716</a>: 	scratch := framePool.<b>Get</b>().(unsafe.Pointer)
-
-	<a href="../pkg/regexp.html">regexp</a>
-		<a href="../src/regexp/backtrack.go.html#line-50">backtrack.go#L50</a>: 	b, ok := bitStatePool.<b>Get</b>().(*bitState)
-		<a href="../src/regexp/exec.go.html#line-384">exec.go#L384</a>: 	m, ok := onePassPool.<b>Get</b>().(*onePassMachine)
-		<a href="../src/regexp/regexp.go.html#line-235">regexp.go#L235</a>: 	m, ok := matchPool[re.mpool].<b>Get</b>().(*machine)
 
 	<a href="../pkg/vendor/golang.org/x/net/http2/hpack.html">vendor/golang.org/x/net/http2/hpack</a>
 		<a href="../src/vendor/golang.org/x/net/http2/hpack/hpack.go.html#line-493">hpack.go#L493</a>: 		buf := bufPool.<b>Get</b>().(*bytes.Buffer)
@@ -92,7 +92,7 @@
 		<a href="../src/vendor/golang.org/x/net/http2/hpack/huffman.go.html#line-33" class="path-duplicate">huffman.go</a><a href="../src/vendor/golang.org/x/net/http2/hpack/huffman.go.html#line-33">#L33</a>: 	buf := bufPool.<b>Get</b>().(*bytes.Buffer)
 </code></pre><pre id="footer">
 <table><tr><td><img src="../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

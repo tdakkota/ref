@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: retry.go in package github.com/cenkalti/backoff/v4</title>
-<link href="../../../../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../../../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -42,7 +42,8 @@ input[id=r22]:checked ~pre label[for=r22],
 input[id=r23]:checked ~pre label[for=r23],
 input[id=r24]:checked ~pre label[for=r24],
 input[id=r25]:checked ~pre label[for=r25],
-input[id=r26]:checked ~pre label[for=r26]
+input[id=r26]:checked ~pre label[for=r26],
+input[id=r27]:checked ~pre label[for=r27]
 {background: #226; color: #ff8;}
 input[id=i0]:checked ~pre .i0,
 input[id=i1]:checked ~pre .i1
@@ -74,6 +75,7 @@ input[id=i1]:checked ~pre .i1
 <input id="r24" type="radio" name="g"/>
 <input id="r25" type="radio" name="g"/>
 <input id="r26" type="radio" name="g"/>
+<input id="r27" type="radio" name="g"/>
 <input id="i0" type="radio" name="i"/>
 <input id="i1" type="radio" name="i"/>
 
@@ -136,59 +138,63 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-56"><code>			<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-57"><code>		}</code></span>
 <span class="codeline" id="line-58"><code></code></span>
-<span class="codeline" id="line-59"><code>		<span class="keyword">var</span> <label for="r15" class="ident">permanent</label> *<a href="#line-83" class="ident">PermanentError</a></code></span>
+<span class="codeline" id="line-59"><code>		<span class="keyword">var</span> <label for="r15" class="ident">permanent</label> *<a href="#line-87" class="ident">PermanentError</a></code></span>
 <span class="codeline" id="line-60"><code>		<span class="keyword">if</span> <a href="../../../../../pkg/errors.html" class="ident i0">errors</a>.<a href="../../../../errors/wrap.go.html#line-77" class="ident">As</a>(<label for="r12" class="ident">err</label>, &amp;<label for="r15" class="ident">permanent</label>) {</code></span>
-<span class="codeline" id="line-61"><code>			<span class="keyword">return</span> <label for="r15" class="ident">permanent</label>.<a href="#line-84" class="ident">Err</a></code></span>
+<span class="codeline" id="line-61"><code>			<span class="keyword">return</span> <label for="r15" class="ident">permanent</label>.<a href="#line-88" class="ident">Err</a></code></span>
 <span class="codeline" id="line-62"><code>		}</code></span>
 <span class="codeline" id="line-63"><code></code></span>
 <span class="codeline" id="line-64"><code>		<span class="keyword">if</span> <label for="r13" class="ident">next</label> = <label for="r9" class="ident">b</label>.<a href="backoff.go.html#line-29" class="ident">NextBackOff</a>(); <label for="r13" class="ident">next</label> == <a href="backoff.go.html#line-36" class="ident">Stop</a> {</code></span>
-<span class="codeline" id="line-65"><code>			<span class="keyword">return</span> <label for="r12" class="ident">err</label></code></span>
-<span class="codeline" id="line-66"><code>		}</code></span>
-<span class="codeline" id="line-67"><code></code></span>
-<span class="codeline" id="line-68"><code>		<span class="keyword">if</span> <label for="r10" class="ident">notify</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-69"><code>			<label for="r10" class="ident">notify</label>(<label for="r12" class="ident">err</label>, <label for="r13" class="ident">next</label>)</code></span>
+<span class="codeline" id="line-65"><code>			<span class="keyword">if</span> <label for="r16" class="ident">cerr</label> := <label for="r14" class="ident">ctx</label>.<a href="../../../../context/context.go.html#line-106" class="ident">Err</a>(); <label for="r16" class="ident">cerr</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-66"><code>				<span class="keyword">return</span> <label for="r16" class="ident">cerr</label></code></span>
+<span class="codeline" id="line-67"><code>			}</code></span>
+<span class="codeline" id="line-68"><code></code></span>
+<span class="codeline" id="line-69"><code>			<span class="keyword">return</span> <label for="r12" class="ident">err</label></code></span>
 <span class="codeline" id="line-70"><code>		}</code></span>
 <span class="codeline" id="line-71"><code></code></span>
-<span class="codeline" id="line-72"><code>		<label for="r11" class="ident">t</label>.<a href="timer.go.html#line-6" class="ident">Start</a>(<label for="r13" class="ident">next</label>)</code></span>
-<span class="codeline" id="line-73"><code></code></span>
-<span class="codeline" id="line-74"><code>		<a href="../../../../runtime/select.go.html#line-121"><span class="keyword">select</span></a> {</code></span>
-<span class="codeline" id="line-75"><code>		<span class="keyword">case</span> <a href="../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r14" class="ident">ctx</label>.<a href="../../../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
-<span class="codeline" id="line-76"><code>			<span class="keyword">return</span> <label for="r14" class="ident">ctx</label>.<a href="../../../../context/context.go.html#line-106" class="ident">Err</a>()</code></span>
-<span class="codeline" id="line-77"><code>		<span class="keyword">case</span> <a href="../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r11" class="ident">t</label>.<a href="timer.go.html#line-8" class="ident">C</a>():</code></span>
-<span class="codeline" id="line-78"><code>		}</code></span>
-<span class="codeline" id="line-79"><code>	}</code></span>
-<span class="codeline" id="line-80"><code>}</code></span>
-<span class="codeline" id="line-81"><code></code></span>
-<span class="codeline" id="line-82"><code><span class="comment">// PermanentError signals that the operation should not be retried.</span></code></span>
-<span class="codeline" id="line-83"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/cenkalti/backoff/v4.html#name-PermanentError" class="ident">PermanentError</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-84"><code>	<a href="../../../../../use/github.com/cenkalti/backoff/v4..PermanentError.Err.html" class="ident">Err</a> <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
-<span class="codeline" id="line-85"><code>}</code></span>
-<span class="codeline" id="line-86"><code></code></span>
-<span class="codeline" id="line-87"><code><span class="keyword">func</span> (<label for="r16" class="ident">e</label> *<a href="#line-83" class="ident">PermanentError</a>) <label for="r17" class="ident"><a href="../../../../../use/github.com/cenkalti/backoff/v4..PermanentError.Error.html" class="ident">Error</a></label>() <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
-<span class="codeline" id="line-88"><code>	<span class="keyword">return</span> <label for="r16" class="ident">e</label>.<a href="#line-84" class="ident">Err</a>.Error()</code></span>
+<span class="codeline" id="line-72"><code>		<span class="keyword">if</span> <label for="r10" class="ident">notify</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-73"><code>			<label for="r10" class="ident">notify</label>(<label for="r12" class="ident">err</label>, <label for="r13" class="ident">next</label>)</code></span>
+<span class="codeline" id="line-74"><code>		}</code></span>
+<span class="codeline" id="line-75"><code></code></span>
+<span class="codeline" id="line-76"><code>		<label for="r11" class="ident">t</label>.<a href="timer.go.html#line-6" class="ident">Start</a>(<label for="r13" class="ident">next</label>)</code></span>
+<span class="codeline" id="line-77"><code></code></span>
+<span class="codeline" id="line-78"><code>		<a href="../../../../runtime/select.go.html#line-121"><span class="keyword">select</span></a> {</code></span>
+<span class="codeline" id="line-79"><code>		<span class="keyword">case</span> <a href="../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r14" class="ident">ctx</label>.<a href="../../../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
+<span class="codeline" id="line-80"><code>			<span class="keyword">return</span> <label for="r14" class="ident">ctx</label>.<a href="../../../../context/context.go.html#line-106" class="ident">Err</a>()</code></span>
+<span class="codeline" id="line-81"><code>		<span class="keyword">case</span> <a href="../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r11" class="ident">t</label>.<a href="timer.go.html#line-8" class="ident">C</a>():</code></span>
+<span class="codeline" id="line-82"><code>		}</code></span>
+<span class="codeline" id="line-83"><code>	}</code></span>
+<span class="codeline" id="line-84"><code>}</code></span>
+<span class="codeline" id="line-85"><code></code></span>
+<span class="codeline" id="line-86"><code><span class="comment">// PermanentError signals that the operation should not be retried.</span></code></span>
+<span class="codeline" id="line-87"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/cenkalti/backoff/v4.html#name-PermanentError" class="ident">PermanentError</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-88"><code>	<a href="../../../../../use/github.com/cenkalti/backoff/v4..PermanentError.Err.html" class="ident">Err</a> <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
 <span class="codeline" id="line-89"><code>}</code></span>
 <span class="codeline" id="line-90"><code></code></span>
-<span class="codeline" id="line-91"><code><span class="keyword">func</span> (<label for="r18" class="ident">e</label> *<a href="#line-83" class="ident">PermanentError</a>) <label for="r19" class="ident"><a href="../../../../../use/github.com/cenkalti/backoff/v4..PermanentError.Unwrap.html" class="ident">Unwrap</a></label>() <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-92"><code>	<span class="keyword">return</span> <label for="r18" class="ident">e</label>.<a href="#line-84" class="ident">Err</a></code></span>
+<span class="codeline" id="line-91"><code><span class="keyword">func</span> (<label for="r17" class="ident">e</label> *<a href="#line-87" class="ident">PermanentError</a>) <label for="r18" class="ident"><a href="../../../../../use/github.com/cenkalti/backoff/v4..PermanentError.Error.html" class="ident">Error</a></label>() <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-92"><code>	<span class="keyword">return</span> <label for="r17" class="ident">e</label>.<a href="#line-88" class="ident">Err</a>.Error()</code></span>
 <span class="codeline" id="line-93"><code>}</code></span>
 <span class="codeline" id="line-94"><code></code></span>
-<span class="codeline" id="line-95"><code><span class="keyword">func</span> (<label for="r20" class="ident">e</label> *<a href="#line-83" class="ident">PermanentError</a>) <label for="r21" class="ident"><a href="../../../../../use/github.com/cenkalti/backoff/v4..PermanentError.Is.html" class="ident">Is</a></label>(<label for="r22" class="ident">target</label> <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-96"><code>	<label for="r23" class="ident">_</label>, <label for="r24" class="ident">ok</label> := <label for="r22" class="ident">target</label>.(*<a href="#line-83" class="ident">PermanentError</a>)</code></span>
-<span class="codeline" id="line-97"><code>	<span class="keyword">return</span> <label for="r24" class="ident">ok</label></code></span>
-<span class="codeline" id="line-98"><code>}</code></span>
-<span class="codeline" id="line-99"><code></code></span>
-<span class="codeline" id="line-100"><code><span class="comment">// Permanent wraps the given err in a *PermanentError.</span></code></span>
-<span class="codeline" id="line-101"><code><span class="keyword">func</span> <label for="r25" class="ident"><a href="../../../../../pkg/github.com/cenkalti/backoff/v4.html#name-Permanent" class="ident">Permanent</a></label>(<label for="r26" class="ident">err</label> <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-102"><code>	<span class="keyword">if</span> <label for="r26" class="ident">err</label> == <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-103"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-104"><code>	}</code></span>
-<span class="codeline" id="line-105"><code>	<span class="keyword">return</span> &amp;<a href="#line-83" class="ident">PermanentError</a>{</code></span>
-<span class="codeline" id="line-106"><code>		<a href="#line-84" class="ident">Err</a>: <label for="r26" class="ident">err</label>,</code></span>
-<span class="codeline" id="line-107"><code>	}</code></span>
-<span class="codeline" id="line-108"><code>}</code></span>
+<span class="codeline" id="line-95"><code><span class="keyword">func</span> (<label for="r19" class="ident">e</label> *<a href="#line-87" class="ident">PermanentError</a>) <label for="r20" class="ident"><a href="../../../../../use/github.com/cenkalti/backoff/v4..PermanentError.Unwrap.html" class="ident">Unwrap</a></label>() <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-96"><code>	<span class="keyword">return</span> <label for="r19" class="ident">e</label>.<a href="#line-88" class="ident">Err</a></code></span>
+<span class="codeline" id="line-97"><code>}</code></span>
+<span class="codeline" id="line-98"><code></code></span>
+<span class="codeline" id="line-99"><code><span class="keyword">func</span> (<label for="r21" class="ident">e</label> *<a href="#line-87" class="ident">PermanentError</a>) <label for="r22" class="ident"><a href="../../../../../use/github.com/cenkalti/backoff/v4..PermanentError.Is.html" class="ident">Is</a></label>(<label for="r23" class="ident">target</label> <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-100"><code>	<label for="r24" class="ident">_</label>, <label for="r25" class="ident">ok</label> := <label for="r23" class="ident">target</label>.(*<a href="#line-87" class="ident">PermanentError</a>)</code></span>
+<span class="codeline" id="line-101"><code>	<span class="keyword">return</span> <label for="r25" class="ident">ok</label></code></span>
+<span class="codeline" id="line-102"><code>}</code></span>
+<span class="codeline" id="line-103"><code></code></span>
+<span class="codeline" id="line-104"><code><span class="comment">// Permanent wraps the given err in a *PermanentError.</span></code></span>
+<span class="codeline" id="line-105"><code><span class="keyword">func</span> <label for="r26" class="ident"><a href="../../../../../pkg/github.com/cenkalti/backoff/v4.html#name-Permanent" class="ident">Permanent</a></label>(<label for="r27" class="ident">err</label> <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-106"><code>	<span class="keyword">if</span> <label for="r27" class="ident">err</label> == <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-107"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-108"><code>	}</code></span>
+<span class="codeline" id="line-109"><code>	<span class="keyword">return</span> &amp;<a href="#line-87" class="ident">PermanentError</a>{</code></span>
+<span class="codeline" id="line-110"><code>		<a href="#line-88" class="ident">Err</a>: <label for="r27" class="ident">err</label>,</code></span>
+<span class="codeline" id="line-111"><code>	}</code></span>
+<span class="codeline" id="line-112"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

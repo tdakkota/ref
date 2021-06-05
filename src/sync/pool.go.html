@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: pool.go in package sync</title>
-<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -194,13 +194,13 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-42"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-43"><code><span class="comment">// A Pool must not be copied after first use.</span></code></span>
 <span class="codeline" id="line-44"><code><span class="keyword">type</span> <a href="../../pkg/sync.html#name-Pool" class="ident">Pool</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-45"><code>	<a href="../../use/sync..Pool.noCopy.html" class="ident">noCopy</a> <a href="cond.go.html#line-94" class="ident">noCopy</a></code></span>
+<span class="codeline" id="line-45"><code>	<a href="../../use/sync..Pool.noCopy*1a9fd.html" class="ident">noCopy</a> <a href="cond.go.html#line-94" class="ident">noCopy</a></code></span>
 <span class="codeline" id="line-46"><code></code></span>
-<span class="codeline" id="line-47"><code>	<a href="../../use/sync..Pool.local.html" class="ident">local</a>     <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a> <span class="comment">// local fixed-size per-P pool, actual type is [P]poolLocal</span></code></span>
-<span class="codeline" id="line-48"><code>	<a href="../../use/sync..Pool.localSize.html" class="ident">localSize</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>        <span class="comment">// size of the local array</span></code></span>
+<span class="codeline" id="line-47"><code>	<a href="../../use/sync..Pool.local*25bf8.html" class="ident">local</a>     <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a> <span class="comment">// local fixed-size per-P pool, actual type is [P]poolLocal</span></code></span>
+<span class="codeline" id="line-48"><code>	<a href="../../use/sync..Pool.localSize*679b3.html" class="ident">localSize</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>        <span class="comment">// size of the local array</span></code></span>
 <span class="codeline" id="line-49"><code></code></span>
-<span class="codeline" id="line-50"><code>	<a href="../../use/sync..Pool.victim.html" class="ident">victim</a>     <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a> <span class="comment">// local from previous cycle</span></code></span>
-<span class="codeline" id="line-51"><code>	<a href="../../use/sync..Pool.victimSize.html" class="ident">victimSize</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>        <span class="comment">// size of victims array</span></code></span>
+<span class="codeline" id="line-50"><code>	<a href="../../use/sync..Pool.victim*1bdd5.html" class="ident">victim</a>     <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a> <span class="comment">// local from previous cycle</span></code></span>
+<span class="codeline" id="line-51"><code>	<a href="../../use/sync..Pool.victimSize*50432.html" class="ident">victimSize</a> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>        <span class="comment">// size of victims array</span></code></span>
 <span class="codeline" id="line-52"><code></code></span>
 <span class="codeline" id="line-53"><code>	<span class="comment">// New optionally specifies a function to generate</span></code></span>
 <span class="codeline" id="line-54"><code><span class="comment">	// a value when Get would otherwise return nil.</span></code></span>
@@ -210,8 +210,8 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-58"><code></code></span>
 <span class="codeline" id="line-59"><code><span class="comment">// Local per-P Pool appendix.</span></code></span>
 <span class="codeline" id="line-60"><code><span class="keyword">type</span> <a href="../../pkg/sync.html#name-poolLocalInternal" class="ident">poolLocalInternal</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-61"><code>	<a href="../../use/sync..poolLocalInternal.private.html" class="ident">private</a> <span class="keyword">interface</span>{} <span class="comment">// Can be used only by the respective P.</span></code></span>
-<span class="codeline" id="line-62"><code>	<a href="../../use/sync..poolLocalInternal.shared.html" class="ident">shared</a>  <a href="poolqueue.go.html#line-194" class="ident">poolChain</a>   <span class="comment">// Local P can pushHead/popHead; any P can popTail.</span></code></span>
+<span class="codeline" id="line-61"><code>	<a href="../../use/sync..poolLocalInternal*08d82.private*715dc.html" class="ident">private</a> <span class="keyword">interface</span>{} <span class="comment">// Can be used only by the respective P.</span></code></span>
+<span class="codeline" id="line-62"><code>	<a href="../../use/sync..poolLocalInternal*08d82.shared*a4d26.html" class="ident">shared</a>  <a href="poolqueue.go.html#line-194" class="ident">poolChain</a>   <span class="comment">// Local P can pushHead/popHead; any P can popTail.</span></code></span>
 <span class="codeline" id="line-63"><code>}</code></span>
 <span class="codeline" id="line-64"><code></code></span>
 <span class="codeline" id="line-65"><code><span class="keyword">type</span> <a href="../../pkg/sync.html#name-poolLocal" class="ident">poolLocal</a> <span class="keyword">struct</span> {</code></span>
@@ -219,7 +219,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-67"><code></code></span>
 <span class="codeline" id="line-68"><code>	<span class="comment">// Prevents false sharing on widespread platforms with</span></code></span>
 <span class="codeline" id="line-69"><code><span class="comment">	// 128 mod (cache line size) = 0 .</span></code></span>
-<span class="codeline" id="line-70"><code>	<a href="../../use/sync..poolLocal.pad.html" class="ident">pad</a> [<span class="lit-number">128</span> - <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Sizeof" class="ident">Sizeof</a>(<a href="#line-60" class="ident">poolLocalInternal</a>{})%<span class="lit-number">128</span>]<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-70"><code>	<a href="../../use/sync..poolLocal*e8b2e.pad*f563f.html" class="ident">pad</a> [<span class="lit-number">128</span> - <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Sizeof" class="ident">Sizeof</a>(<a href="#line-60" class="ident">poolLocalInternal</a>{})%<span class="lit-number">128</span>]<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
 <span class="codeline" id="line-71"><code>}</code></span>
 <span class="codeline" id="line-72"><code></code></span>
 <span class="codeline" id="line-73"><code><span class="comment">// from runtime</span></code></span>
@@ -302,7 +302,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-150"><code>	<span class="keyword">return</span> <label for="r14" class="ident">x</label></code></span>
 <span class="codeline" id="line-151"><code>}</code></span>
 <span class="codeline" id="line-152"><code></code></span>
-<span class="codeline" id="line-153"><code><span class="keyword">func</span> (<label for="r15" class="ident">p</label> *<a href="#line-44" class="ident">Pool</a>) <label for="r16" class="ident"><a href="../../use/sync..Pool.getSlow.html" class="ident">getSlow</a></label>(<label for="r17" class="ident">pid</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>) <span class="keyword">interface</span>{} {</code></span>
+<span class="codeline" id="line-153"><code><span class="keyword">func</span> (<label for="r15" class="ident">p</label> *<a href="#line-44" class="ident">Pool</a>) <label for="r16" class="ident"><a href="../../use/sync..Pool.getSlow*697a4.html" class="ident">getSlow</a></label>(<label for="r17" class="ident">pid</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>) <span class="keyword">interface</span>{} {</code></span>
 <span class="codeline" id="line-154"><code>	<span class="comment">// See the comment in pin regarding ordering of the loads.</span></code></span>
 <span class="codeline" id="line-155"><code>	<label for="r18" class="ident">size</label> := <a href="#line-291" class="ident">runtime_LoadAcquintptr</a>(&amp;<label for="r15" class="ident">p</label>.<a href="#line-48" class="ident">localSize</a>) <span class="comment">// load-acquire</span></code></span>
 <span class="codeline" id="line-156"><code>	<label for="r19" class="ident">locals</label> := <label for="r15" class="ident">p</label>.<a href="#line-47" class="ident">local</a>                            <span class="comment">// load-consume</span></code></span>
@@ -344,7 +344,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-192"><code><span class="comment">// pin pins the current goroutine to P, disables preemption and</span></code></span>
 <span class="codeline" id="line-193"><code><span class="comment">// returns poolLocal pool for the P and the P's id.</span></code></span>
 <span class="codeline" id="line-194"><code><span class="comment">// Caller must call runtime_procUnpin() when done with the pool.</span></code></span>
-<span class="codeline" id="line-195"><code><span class="keyword">func</span> (<label for="r30" class="ident">p</label> *<a href="#line-44" class="ident">Pool</a>) <label for="r31" class="ident"><a href="../../use/sync..Pool.pin.html" class="ident">pin</a></label>() (*<a href="#line-65" class="ident">poolLocal</a>, <a href="../../pkg/builtin.html#name-int" class="ident">int</a>) {</code></span>
+<span class="codeline" id="line-195"><code><span class="keyword">func</span> (<label for="r30" class="ident">p</label> *<a href="#line-44" class="ident">Pool</a>) <label for="r31" class="ident"><a href="../../use/sync..Pool.pin*64f46.html" class="ident">pin</a></label>() (*<a href="#line-65" class="ident">poolLocal</a>, <a href="../../pkg/builtin.html#name-int" class="ident">int</a>) {</code></span>
 <span class="codeline" id="line-196"><code>	<label for="r32" class="ident">pid</label> := <a href="#line-283" class="ident">runtime_procPin</a>()</code></span>
 <span class="codeline" id="line-197"><code>	<span class="comment">// In pinSlow we store to local and then to localSize, here we load in opposite order.</span></code></span>
 <span class="codeline" id="line-198"><code><span class="comment">	// Since we've disabled preemption, GC cannot happen in between.</span></code></span>
@@ -358,7 +358,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-206"><code>	<span class="keyword">return</span> <label for="r30" class="ident">p</label>.<a href="#line-209" class="ident">pinSlow</a>()</code></span>
 <span class="codeline" id="line-207"><code>}</code></span>
 <span class="codeline" id="line-208"><code></code></span>
-<span class="codeline" id="line-209"><code><span class="keyword">func</span> (<label for="r35" class="ident">p</label> *<a href="#line-44" class="ident">Pool</a>) <label for="r36" class="ident"><a href="../../use/sync..Pool.pinSlow.html" class="ident">pinSlow</a></label>() (*<a href="#line-65" class="ident">poolLocal</a>, <a href="../../pkg/builtin.html#name-int" class="ident">int</a>) {</code></span>
+<span class="codeline" id="line-209"><code><span class="keyword">func</span> (<label for="r35" class="ident">p</label> *<a href="#line-44" class="ident">Pool</a>) <label for="r36" class="ident"><a href="../../use/sync..Pool.pinSlow*09b42.html" class="ident">pinSlow</a></label>() (*<a href="#line-65" class="ident">poolLocal</a>, <a href="../../pkg/builtin.html#name-int" class="ident">int</a>) {</code></span>
 <span class="codeline" id="line-210"><code>	<span class="comment">// Retry under the mutex.</span></code></span>
 <span class="codeline" id="line-211"><code><span class="comment">	// Can not lock the mutex while pinned.</span></code></span>
 <span class="codeline" id="line-212"><code>	<a href="#line-284" class="ident">runtime_procUnpin</a>()</code></span>
@@ -446,7 +446,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-294"><code><span class="keyword">func</span> <label for="r58" class="ident"><a href="../../pkg/sync.html#name-runtime_StoreReluintptr" class="ident">runtime_StoreReluintptr</a></label>(<label for="r59" class="ident">ptr</label> *<a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>, <label for="r60" class="ident">val</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a></code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

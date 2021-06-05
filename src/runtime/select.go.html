@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: select.go in package runtime</title>
-<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -249,8 +249,8 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-17"><code><span class="comment">// Known to compiler.</span></code></span>
 <span class="codeline" id="line-18"><code><span class="comment">// Changes here must also be made in src/cmd/internal/gc/select.go's scasetype.</span></code></span>
 <span class="codeline" id="line-19"><code><span class="keyword">type</span> <a href="../../pkg/runtime.html#name-scase" class="ident">scase</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-20"><code>	<a href="../../use/runtime..scase.c.html" class="ident">c</a>    *<a href="chan.go.html#line-32" class="ident">hchan</a>         <span class="comment">// chan</span></code></span>
-<span class="codeline" id="line-21"><code>	<a href="../../use/runtime..scase.elem.html" class="ident">elem</a> <a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a> <span class="comment">// data element</span></code></span>
+<span class="codeline" id="line-20"><code>	<a href="../../use/runtime..scase*cf50b.c*2e7d2.html" class="ident">c</a>    *<a href="chan.go.html#line-32" class="ident">hchan</a>         <span class="comment">// chan</span></code></span>
+<span class="codeline" id="line-21"><code>	<a href="../../use/runtime..scase*cf50b.elem*7ddcd.html" class="ident">elem</a> <a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a> <span class="comment">// data element</span></code></span>
 <span class="codeline" id="line-22"><code>}</code></span>
 <span class="codeline" id="line-23"><code></code></span>
 <span class="codeline" id="line-24"><code><span class="keyword">var</span> (</code></span>
@@ -332,7 +332,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-100"><code>}</code></span>
 <span class="codeline" id="line-101"><code></code></span>
 <span class="codeline" id="line-102"><code><span class="keyword">func</span> <label for="r19" class="ident"><a href="../../pkg/runtime.html#name-block" class="ident">block</a></label>() {</code></span>
-<span class="codeline" id="line-103"><code>	<a href="proc.go.html#line-319" class="ident">gopark</a>(<a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="runtime2.go.html#line-998" class="ident">waitReasonSelectNoCases</a>, <a href="trace.go.html#line-39" class="ident">traceEvGoStop</a>, <span class="lit-number">1</span>) <span class="comment">// forever</span></code></span>
+<span class="codeline" id="line-103"><code>	<a href="proc.go.html#line-319" class="ident">gopark</a>(<a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="runtime2.go.html#line-1001" class="ident">waitReasonSelectNoCases</a>, <a href="trace.go.html#line-39" class="ident">traceEvGoStop</a>, <span class="lit-number">1</span>) <span class="comment">// forever</span></code></span>
 <span class="codeline" id="line-104"><code>}</code></span>
 <span class="codeline" id="line-105"><code></code></span>
 <span class="codeline" id="line-106"><code><span class="comment">// selectgo implements the select statement.</span></code></span>
@@ -556,7 +556,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-324"><code><span class="comment">	// changes and when we set gp.activeStackChans is not safe for</span></code></span>
 <span class="codeline" id="line-325"><code><span class="comment">	// stack shrinking.</span></code></span>
 <span class="codeline" id="line-326"><code>	<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-98" class="ident">Store8</a>(&amp;<label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-451" class="ident">parkingOnChan</a>, <span class="lit-number">1</span>)</code></span>
-<span class="codeline" id="line-327"><code>	<a href="proc.go.html#line-319" class="ident">gopark</a>(<a href="#line-62" class="ident">selparkcommit</a>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="runtime2.go.html#line-997" class="ident">waitReasonSelect</a>, <a href="trace.go.html#line-47" class="ident">traceEvGoBlockSelect</a>, <span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-327"><code>	<a href="proc.go.html#line-319" class="ident">gopark</a>(<a href="#line-62" class="ident">selparkcommit</a>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="runtime2.go.html#line-1000" class="ident">waitReasonSelect</a>, <a href="trace.go.html#line-47" class="ident">traceEvGoBlockSelect</a>, <span class="lit-number">1</span>)</code></span>
 <span class="codeline" id="line-328"><code>	<label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-447" class="ident">activeStackChans</a> = <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
 <span class="codeline" id="line-329"><code></code></span>
 <span class="codeline" id="line-330"><code>	<a href="#line-33" class="ident">sellock</a>(<label for="r30" class="ident">scases</label>, <label for="r32" class="ident">lockorder</label>)</code></span>
@@ -731,17 +731,17 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-499"><code>	<a href="../../pkg/builtin.html#name-panic" class="ident">panic</a>(<a href="error.go.html#line-103" class="ident">plainError</a>(<span class="lit-string">"send on closed channel"</span>))</code></span>
 <span class="codeline" id="line-500"><code>}</code></span>
 <span class="codeline" id="line-501"><code></code></span>
-<span class="codeline" id="line-502"><code><span class="keyword">func</span> (<label for="r80" class="ident">c</label> *<a href="chan.go.html#line-32" class="ident">hchan</a>) <label for="r81" class="ident"><a href="../../use/runtime..hchan.sortkey.html" class="ident">sortkey</a></label>() <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> {</code></span>
+<span class="codeline" id="line-502"><code><span class="keyword">func</span> (<label for="r80" class="ident">c</label> *<a href="chan.go.html#line-32" class="ident">hchan</a>) <label for="r81" class="ident"><a href="../../use/runtime..hchan*2a0a9.sortkey*6877f.html" class="ident">sortkey</a></label>() <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> {</code></span>
 <span class="codeline" id="line-503"><code>	<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(<label for="r80" class="ident">c</label>))</code></span>
 <span class="codeline" id="line-504"><code>}</code></span>
 <span class="codeline" id="line-505"><code></code></span>
 <span class="codeline" id="line-506"><code><span class="comment">// A runtimeSelect is a single case passed to rselect.</span></code></span>
 <span class="codeline" id="line-507"><code><span class="comment">// This must match ../reflect/value.go:/runtimeSelect</span></code></span>
 <span class="codeline" id="line-508"><code><span class="keyword">type</span> <a href="../../pkg/runtime.html#name-runtimeSelect" class="ident">runtimeSelect</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-509"><code>	<a href="../../use/runtime..runtimeSelect.dir.html" class="ident">dir</a> <a href="#line-516" class="ident">selectDir</a></code></span>
-<span class="codeline" id="line-510"><code>	<a href="../../use/runtime..runtimeSelect.typ.html" class="ident">typ</a> <a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a> <span class="comment">// channel type (not used here)</span></code></span>
-<span class="codeline" id="line-511"><code>	<a href="../../use/runtime..runtimeSelect.ch.html" class="ident">ch</a>  *<a href="chan.go.html#line-32" class="ident">hchan</a>         <span class="comment">// channel</span></code></span>
-<span class="codeline" id="line-512"><code>	<a href="../../use/runtime..runtimeSelect.val.html" class="ident">val</a> <a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a> <span class="comment">// ptr to data (SendDir) or ptr to receive buffer (RecvDir)</span></code></span>
+<span class="codeline" id="line-509"><code>	<a href="../../use/runtime..runtimeSelect*817b0.dir*2b64c.html" class="ident">dir</a> <a href="#line-516" class="ident">selectDir</a></code></span>
+<span class="codeline" id="line-510"><code>	<a href="../../use/runtime..runtimeSelect*817b0.typ*5a553.html" class="ident">typ</a> <a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a> <span class="comment">// channel type (not used here)</span></code></span>
+<span class="codeline" id="line-511"><code>	<a href="../../use/runtime..runtimeSelect*817b0.ch*34367.html" class="ident">ch</a>  *<a href="chan.go.html#line-32" class="ident">hchan</a>         <span class="comment">// channel</span></code></span>
+<span class="codeline" id="line-512"><code>	<a href="../../use/runtime..runtimeSelect*817b0.val*97dfc.html" class="ident">val</a> <a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a> <span class="comment">// ptr to data (SendDir) or ptr to receive buffer (RecvDir)</span></code></span>
 <span class="codeline" id="line-513"><code>}</code></span>
 <span class="codeline" id="line-514"><code></code></span>
 <span class="codeline" id="line-515"><code><span class="comment">// These values must match ../reflect/value.go:/SelectDir.</span></code></span>
@@ -813,7 +813,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-581"><code>	<span class="keyword">return</span> <label for="r96" class="ident">chosen</label>, <label for="r97" class="ident">recvOK</label></code></span>
 <span class="codeline" id="line-582"><code>}</code></span>
 <span class="codeline" id="line-583"><code></code></span>
-<span class="codeline" id="line-584"><code><span class="keyword">func</span> (<label for="r98" class="ident">q</label> *<a href="chan.go.html#line-53" class="ident">waitq</a>) <label for="r99" class="ident"><a href="../../use/runtime..waitq.dequeueSudoG.html" class="ident">dequeueSudoG</a></label>(<label for="r100" class="ident">sgp</label> *<a href="runtime2.go.html#line-345" class="ident">sudog</a>) {</code></span>
+<span class="codeline" id="line-584"><code><span class="keyword">func</span> (<label for="r98" class="ident">q</label> *<a href="chan.go.html#line-53" class="ident">waitq</a>) <label for="r99" class="ident"><a href="../../use/runtime..waitq*65d4a.dequeueSudoG*0e4c3.html" class="ident">dequeueSudoG</a></label>(<label for="r100" class="ident">sgp</label> *<a href="runtime2.go.html#line-345" class="ident">sudog</a>) {</code></span>
 <span class="codeline" id="line-585"><code>	<label for="r101" class="ident">x</label> := <label for="r100" class="ident">sgp</label>.<a href="runtime2.go.html#line-353" class="ident">prev</a></code></span>
 <span class="codeline" id="line-586"><code>	<label for="r102" class="ident">y</label> := <label for="r100" class="ident">sgp</label>.<a href="runtime2.go.html#line-352" class="ident">next</a></code></span>
 <span class="codeline" id="line-587"><code>	<span class="keyword">if</span> <label for="r101" class="ident">x</label> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
@@ -848,7 +848,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-616"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

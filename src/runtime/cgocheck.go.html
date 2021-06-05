@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: cgocheck.go in package runtime</title>
-<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -262,15 +262,15 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-120"><code>	}</code></span>
 <span class="codeline" id="line-121"><code></code></span>
 <span class="codeline" id="line-122"><code>	<span class="comment">// The type has a GC program. Try to find GC bits somewhere else.</span></code></span>
-<span class="codeline" id="line-123"><code>	<span class="keyword">for</span> <label for="r23" class="ident">_</label>, <label for="r24" class="ident">datap</label> := <span class="keyword">range</span> <a href="symtab.go.html#line-437" class="ident">activeModules</a>() {</code></span>
-<span class="codeline" id="line-124"><code>		<span class="keyword">if</span> <a href="cgocall.go.html#line-613" class="ident">cgoInRange</a>(<label for="r19" class="ident">src</label>, <label for="r24" class="ident">datap</label>.<a href="symtab.go.html#line-368" class="ident">data</a>, <label for="r24" class="ident">datap</label>.<a href="symtab.go.html#line-368" class="ident">edata</a>) {</code></span>
-<span class="codeline" id="line-125"><code>			<label for="r25" class="ident">doff</label> := <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<label for="r19" class="ident">src</label>) - <label for="r24" class="ident">datap</label>.<a href="symtab.go.html#line-368" class="ident">data</a></code></span>
-<span class="codeline" id="line-126"><code>			<a href="#line-171" class="ident">cgoCheckBits</a>(<a href="stubs.go.html#line-11" class="ident">add</a>(<label for="r19" class="ident">src</label>, -<label for="r25" class="ident">doff</label>), <label for="r24" class="ident">datap</label>.<a href="symtab.go.html#line-388" class="ident">gcdatamask</a>.<a href="stack.go.html#line-564" class="ident">bytedata</a>, <label for="r20" class="ident">off</label>+<label for="r25" class="ident">doff</label>, <label for="r21" class="ident">size</label>)</code></span>
+<span class="codeline" id="line-123"><code>	<span class="keyword">for</span> <label for="r23" class="ident">_</label>, <label for="r24" class="ident">datap</label> := <span class="keyword">range</span> <a href="symtab.go.html#line-441" class="ident">activeModules</a>() {</code></span>
+<span class="codeline" id="line-124"><code>		<span class="keyword">if</span> <a href="cgocall.go.html#line-613" class="ident">cgoInRange</a>(<label for="r19" class="ident">src</label>, <label for="r24" class="ident">datap</label>.<a href="symtab.go.html#line-372" class="ident">data</a>, <label for="r24" class="ident">datap</label>.<a href="symtab.go.html#line-372" class="ident">edata</a>) {</code></span>
+<span class="codeline" id="line-125"><code>			<label for="r25" class="ident">doff</label> := <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<label for="r19" class="ident">src</label>) - <label for="r24" class="ident">datap</label>.<a href="symtab.go.html#line-372" class="ident">data</a></code></span>
+<span class="codeline" id="line-126"><code>			<a href="#line-171" class="ident">cgoCheckBits</a>(<a href="stubs.go.html#line-11" class="ident">add</a>(<label for="r19" class="ident">src</label>, -<label for="r25" class="ident">doff</label>), <label for="r24" class="ident">datap</label>.<a href="symtab.go.html#line-392" class="ident">gcdatamask</a>.<a href="stack.go.html#line-564" class="ident">bytedata</a>, <label for="r20" class="ident">off</label>+<label for="r25" class="ident">doff</label>, <label for="r21" class="ident">size</label>)</code></span>
 <span class="codeline" id="line-127"><code>			<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-128"><code>		}</code></span>
-<span class="codeline" id="line-129"><code>		<span class="keyword">if</span> <a href="cgocall.go.html#line-613" class="ident">cgoInRange</a>(<label for="r19" class="ident">src</label>, <label for="r24" class="ident">datap</label>.<a href="symtab.go.html#line-369" class="ident">bss</a>, <label for="r24" class="ident">datap</label>.<a href="symtab.go.html#line-369" class="ident">ebss</a>) {</code></span>
-<span class="codeline" id="line-130"><code>			<label for="r26" class="ident">boff</label> := <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<label for="r19" class="ident">src</label>) - <label for="r24" class="ident">datap</label>.<a href="symtab.go.html#line-369" class="ident">bss</a></code></span>
-<span class="codeline" id="line-131"><code>			<a href="#line-171" class="ident">cgoCheckBits</a>(<a href="stubs.go.html#line-11" class="ident">add</a>(<label for="r19" class="ident">src</label>, -<label for="r26" class="ident">boff</label>), <label for="r24" class="ident">datap</label>.<a href="symtab.go.html#line-388" class="ident">gcbssmask</a>.<a href="stack.go.html#line-564" class="ident">bytedata</a>, <label for="r20" class="ident">off</label>+<label for="r26" class="ident">boff</label>, <label for="r21" class="ident">size</label>)</code></span>
+<span class="codeline" id="line-129"><code>		<span class="keyword">if</span> <a href="cgocall.go.html#line-613" class="ident">cgoInRange</a>(<label for="r19" class="ident">src</label>, <label for="r24" class="ident">datap</label>.<a href="symtab.go.html#line-373" class="ident">bss</a>, <label for="r24" class="ident">datap</label>.<a href="symtab.go.html#line-373" class="ident">ebss</a>) {</code></span>
+<span class="codeline" id="line-130"><code>			<label for="r26" class="ident">boff</label> := <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<label for="r19" class="ident">src</label>) - <label for="r24" class="ident">datap</label>.<a href="symtab.go.html#line-373" class="ident">bss</a></code></span>
+<span class="codeline" id="line-131"><code>			<a href="#line-171" class="ident">cgoCheckBits</a>(<a href="stubs.go.html#line-11" class="ident">add</a>(<label for="r19" class="ident">src</label>, -<label for="r26" class="ident">boff</label>), <label for="r24" class="ident">datap</label>.<a href="symtab.go.html#line-392" class="ident">gcbssmask</a>.<a href="stack.go.html#line-564" class="ident">bytedata</a>, <label for="r20" class="ident">off</label>+<label for="r26" class="ident">boff</label>, <label for="r21" class="ident">size</label>)</code></span>
 <span class="codeline" id="line-132"><code>			<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-133"><code>		}</code></span>
 <span class="codeline" id="line-134"><code>	}</code></span>
@@ -405,7 +405,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-263"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

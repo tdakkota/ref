@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: sema.go in package runtime</title>
-<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -256,9 +256,9 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-38"><code><span class="comment">// before we introduced the second level of list, and test/locklinear.go</span></code></span>
 <span class="codeline" id="line-39"><code><span class="comment">// for a test that exercises this.</span></code></span>
 <span class="codeline" id="line-40"><code><span class="keyword">type</span> <a href="../../pkg/runtime.html#name-semaRoot" class="ident">semaRoot</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-41"><code>	<a href="../../use/runtime..semaRoot.lock.html" class="ident">lock</a>  <a href="runtime2.go.html#line-162" class="ident">mutex</a></code></span>
-<span class="codeline" id="line-42"><code>	<a href="../../use/runtime..semaRoot.treap.html" class="ident">treap</a> *<a href="runtime2.go.html#line-345" class="ident">sudog</a> <span class="comment">// root of balanced tree of unique waiters.</span></code></span>
-<span class="codeline" id="line-43"><code>	<a href="../../use/runtime..semaRoot.nwait.html" class="ident">nwait</a> <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Number of waiters. Read w/o the lock.</span></code></span>
+<span class="codeline" id="line-41"><code>	<a href="../../use/runtime..semaRoot*1b922.lock*0c030.html" class="ident">lock</a>  <a href="runtime2.go.html#line-162" class="ident">mutex</a></code></span>
+<span class="codeline" id="line-42"><code>	<a href="../../use/runtime..semaRoot*1b922.treap*05fde.html" class="ident">treap</a> *<a href="runtime2.go.html#line-345" class="ident">sudog</a> <span class="comment">// root of balanced tree of unique waiters.</span></code></span>
+<span class="codeline" id="line-43"><code>	<a href="../../use/runtime..semaRoot*1b922.nwait*95fd0.html" class="ident">nwait</a> <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Number of waiters. Read w/o the lock.</span></code></span>
 <span class="codeline" id="line-44"><code>}</code></span>
 <span class="codeline" id="line-45"><code></code></span>
 <span class="codeline" id="line-46"><code><span class="comment">// Prime to not correlate with any user patterns.</span></code></span>
@@ -359,7 +359,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-141"><code>		<span class="comment">// Any semrelease after the cansemacquire knows we're waiting</span></code></span>
 <span class="codeline" id="line-142"><code><span class="comment">		// (we set nwait above), so go to sleep.</span></code></span>
 <span class="codeline" id="line-143"><code>		<label for="r26" class="ident">root</label>.<a href="#line-234" class="ident">queue</a>(<label for="r20" class="ident">addr</label>, <label for="r25" class="ident">s</label>, <label for="r21" class="ident">lifo</label>)</code></span>
-<span class="codeline" id="line-144"><code>		<a href="proc.go.html#line-341" class="ident">goparkunlock</a>(&amp;<label for="r26" class="ident">root</label>.<a href="#line-41" class="ident">lock</a>, <a href="runtime2.go.html#line-1006" class="ident">waitReasonSemacquire</a>, <a href="trace.go.html#line-48" class="ident">traceEvGoBlockSync</a>, <span class="lit-number">4</span>+<label for="r23" class="ident">skipframes</label>)</code></span>
+<span class="codeline" id="line-144"><code>		<a href="proc.go.html#line-341" class="ident">goparkunlock</a>(&amp;<label for="r26" class="ident">root</label>.<a href="#line-41" class="ident">lock</a>, <a href="runtime2.go.html#line-1009" class="ident">waitReasonSemacquire</a>, <a href="trace.go.html#line-48" class="ident">traceEvGoBlockSync</a>, <span class="lit-number">4</span>+<label for="r23" class="ident">skipframes</label>)</code></span>
 <span class="codeline" id="line-145"><code>		<span class="keyword">if</span> <label for="r25" class="ident">s</label>.<a href="runtime2.go.html#line-363" class="ident">ticket</a> != <span class="lit-number">0</span> || <a href="#line-221" class="ident">cansemacquire</a>(<label for="r20" class="ident">addr</label>) {</code></span>
 <span class="codeline" id="line-146"><code>			<span class="keyword">break</span></code></span>
 <span class="codeline" id="line-147"><code>		}</code></span>
@@ -427,7 +427,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-209"><code><span class="comment">			// regime, and then we start to do direct handoffs of ticket and</span></code></span>
 <span class="codeline" id="line-210"><code><span class="comment">			// P.</span></code></span>
 <span class="codeline" id="line-211"><code><span class="comment">			// See issue 33747 for discussion.</span></code></span>
-<span class="codeline" id="line-212"><code>			<a href="proc.go.html#line-3348" class="ident">goyield</a>()</code></span>
+<span class="codeline" id="line-212"><code>			<a href="proc.go.html#line-3392" class="ident">goyield</a>()</code></span>
 <span class="codeline" id="line-213"><code>		}</code></span>
 <span class="codeline" id="line-214"><code>	}</code></span>
 <span class="codeline" id="line-215"><code>}</code></span>
@@ -449,7 +449,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-231"><code>}</code></span>
 <span class="codeline" id="line-232"><code></code></span>
 <span class="codeline" id="line-233"><code><span class="comment">// queue adds s to the blocked goroutines in semaRoot.</span></code></span>
-<span class="codeline" id="line-234"><code><span class="keyword">func</span> (<label for="r43" class="ident">root</label> *<a href="#line-40" class="ident">semaRoot</a>) <label for="r44" class="ident"><a href="../../use/runtime..semaRoot.queue.html" class="ident">queue</a></label>(<label for="r45" class="ident">addr</label> *<a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>, <label for="r46" class="ident">s</label> *<a href="runtime2.go.html#line-345" class="ident">sudog</a>, <label for="r47" class="ident">lifo</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
+<span class="codeline" id="line-234"><code><span class="keyword">func</span> (<label for="r43" class="ident">root</label> *<a href="#line-40" class="ident">semaRoot</a>) <label for="r44" class="ident"><a href="../../use/runtime..semaRoot*1b922.queue*00b10.html" class="ident">queue</a></label>(<label for="r45" class="ident">addr</label> *<a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>, <label for="r46" class="ident">s</label> *<a href="runtime2.go.html#line-345" class="ident">sudog</a>, <label for="r47" class="ident">lifo</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
 <span class="codeline" id="line-235"><code>	<label for="r46" class="ident">s</label>.<a href="runtime2.go.html#line-350" class="ident">g</a> = <a href="stubs.go.html#line-18" class="ident">getg</a>()</code></span>
 <span class="codeline" id="line-236"><code>	<label for="r46" class="ident">s</label>.<a href="runtime2.go.html#line-354" class="ident">elem</a> = <a href="../../pkg/unsafe.html" class="ident i2">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(<label for="r45" class="ident">addr</label>)</code></span>
 <span class="codeline" id="line-237"><code>	<label for="r46" class="ident">s</label>.<a href="runtime2.go.html#line-352" class="ident">next</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
@@ -536,7 +536,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-318"><code><span class="comment">// in semaRoot blocked on addr.</span></code></span>
 <span class="codeline" id="line-319"><code><span class="comment">// If the sudog was being profiled, dequeue returns the time</span></code></span>
 <span class="codeline" id="line-320"><code><span class="comment">// at which it was woken up as now. Otherwise now is 0.</span></code></span>
-<span class="codeline" id="line-321"><code><span class="keyword">func</span> (<label for="r51" class="ident">root</label> *<a href="#line-40" class="ident">semaRoot</a>) <label for="r52" class="ident"><a href="../../use/runtime..semaRoot.dequeue.html" class="ident">dequeue</a></label>(<label for="r53" class="ident">addr</label> *<a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>) (<label for="r54" class="ident">found</label> *<a href="runtime2.go.html#line-345" class="ident">sudog</a>, <label for="r55" class="ident">now</label> <a href="../../pkg/builtin.html#name-int64" class="ident">int64</a>) {</code></span>
+<span class="codeline" id="line-321"><code><span class="keyword">func</span> (<label for="r51" class="ident">root</label> *<a href="#line-40" class="ident">semaRoot</a>) <label for="r52" class="ident"><a href="../../use/runtime..semaRoot*1b922.dequeue*e8d66.html" class="ident">dequeue</a></label>(<label for="r53" class="ident">addr</label> *<a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>) (<label for="r54" class="ident">found</label> *<a href="runtime2.go.html#line-345" class="ident">sudog</a>, <label for="r55" class="ident">now</label> <a href="../../pkg/builtin.html#name-int64" class="ident">int64</a>) {</code></span>
 <span class="codeline" id="line-322"><code>	<label for="r56" class="ident">ps</label> := &amp;<label for="r51" class="ident">root</label>.<a href="#line-42" class="ident">treap</a></code></span>
 <span class="codeline" id="line-323"><code>	<label for="r57" class="ident">s</label> := *<label for="r56" class="ident">ps</label></code></span>
 <span class="codeline" id="line-324"><code>	<span class="keyword">for</span> ; <label for="r57" class="ident">s</label> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>; <label for="r57" class="ident">s</label> = *<label for="r56" class="ident">ps</label> {</code></span>
@@ -607,7 +607,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-389"><code></code></span>
 <span class="codeline" id="line-390"><code><span class="comment">// rotateLeft rotates the tree rooted at node x.</span></code></span>
 <span class="codeline" id="line-391"><code><span class="comment">// turning (x a (y b c)) into (y (x a b) c).</span></code></span>
-<span class="codeline" id="line-392"><code><span class="keyword">func</span> (<label for="r60" class="ident">root</label> *<a href="#line-40" class="ident">semaRoot</a>) <label for="r61" class="ident"><a href="../../use/runtime..semaRoot.rotateLeft.html" class="ident">rotateLeft</a></label>(<label for="r62" class="ident">x</label> *<a href="runtime2.go.html#line-345" class="ident">sudog</a>) {</code></span>
+<span class="codeline" id="line-392"><code><span class="keyword">func</span> (<label for="r60" class="ident">root</label> *<a href="#line-40" class="ident">semaRoot</a>) <label for="r61" class="ident"><a href="../../use/runtime..semaRoot*1b922.rotateLeft*aced3.html" class="ident">rotateLeft</a></label>(<label for="r62" class="ident">x</label> *<a href="runtime2.go.html#line-345" class="ident">sudog</a>) {</code></span>
 <span class="codeline" id="line-393"><code>	<span class="comment">// p -&gt; (x a (y b c))</span></code></span>
 <span class="codeline" id="line-394"><code>	<label for="r63" class="ident">p</label> := <label for="r62" class="ident">x</label>.<a href="runtime2.go.html#line-375" class="ident">parent</a></code></span>
 <span class="codeline" id="line-395"><code>	<label for="r64" class="ident">y</label> := <label for="r62" class="ident">x</label>.<a href="runtime2.go.html#line-352" class="ident">next</a></code></span>
@@ -635,7 +635,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-417"><code></code></span>
 <span class="codeline" id="line-418"><code><span class="comment">// rotateRight rotates the tree rooted at node y.</span></code></span>
 <span class="codeline" id="line-419"><code><span class="comment">// turning (y (x a b) c) into (x a (y b c)).</span></code></span>
-<span class="codeline" id="line-420"><code><span class="keyword">func</span> (<label for="r66" class="ident">root</label> *<a href="#line-40" class="ident">semaRoot</a>) <label for="r67" class="ident"><a href="../../use/runtime..semaRoot.rotateRight.html" class="ident">rotateRight</a></label>(<label for="r68" class="ident">y</label> *<a href="runtime2.go.html#line-345" class="ident">sudog</a>) {</code></span>
+<span class="codeline" id="line-420"><code><span class="keyword">func</span> (<label for="r66" class="ident">root</label> *<a href="#line-40" class="ident">semaRoot</a>) <label for="r67" class="ident"><a href="../../use/runtime..semaRoot*1b922.rotateRight*d3a0e.html" class="ident">rotateRight</a></label>(<label for="r68" class="ident">y</label> *<a href="runtime2.go.html#line-345" class="ident">sudog</a>) {</code></span>
 <span class="codeline" id="line-421"><code>	<span class="comment">// p -&gt; (y (x a b) c)</span></code></span>
 <span class="codeline" id="line-422"><code>	<label for="r69" class="ident">p</label> := <label for="r68" class="ident">y</label>.<a href="runtime2.go.html#line-375" class="ident">parent</a></code></span>
 <span class="codeline" id="line-423"><code>	<label for="r70" class="ident">x</label> := <label for="r68" class="ident">y</label>.<a href="runtime2.go.html#line-353" class="ident">prev</a></code></span>
@@ -667,7 +667,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-449"><code><span class="keyword">type</span> <a href="../../pkg/runtime.html#name-notifyList" class="ident">notifyList</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-450"><code>	<span class="comment">// wait is the ticket number of the next waiter. It is atomically</span></code></span>
 <span class="codeline" id="line-451"><code><span class="comment">	// incremented outside the lock.</span></code></span>
-<span class="codeline" id="line-452"><code>	<a href="../../use/runtime..notifyList.wait.html" class="ident">wait</a> <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
+<span class="codeline" id="line-452"><code>	<a href="../../use/runtime..notifyList*00817.wait*716ec.html" class="ident">wait</a> <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
 <span class="codeline" id="line-453"><code></code></span>
 <span class="codeline" id="line-454"><code>	<span class="comment">// notify is the ticket number of the next waiter to be notified. It can</span></code></span>
 <span class="codeline" id="line-455"><code><span class="comment">	// be read outside the lock, but is only written to with lock held.</span></code></span>
@@ -676,12 +676,12 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-458"><code><span class="comment">	// handled as long as their "unwrapped" difference is bounded by 2^31.</span></code></span>
 <span class="codeline" id="line-459"><code><span class="comment">	// For this not to be the case, we'd need to have 2^31+ goroutines</span></code></span>
 <span class="codeline" id="line-460"><code><span class="comment">	// blocked on the same condvar, which is currently not possible.</span></code></span>
-<span class="codeline" id="line-461"><code>	<a href="../../use/runtime..notifyList.notify.html" class="ident">notify</a> <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
+<span class="codeline" id="line-461"><code>	<a href="../../use/runtime..notifyList*00817.notify*6cd6f.html" class="ident">notify</a> <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
 <span class="codeline" id="line-462"><code></code></span>
 <span class="codeline" id="line-463"><code>	<span class="comment">// List of parked waiters.</span></code></span>
-<span class="codeline" id="line-464"><code>	<a href="../../use/runtime..notifyList.lock.html" class="ident">lock</a> <a href="runtime2.go.html#line-162" class="ident">mutex</a></code></span>
-<span class="codeline" id="line-465"><code>	<a href="../../use/runtime..notifyList.head.html" class="ident">head</a> *<a href="runtime2.go.html#line-345" class="ident">sudog</a></code></span>
-<span class="codeline" id="line-466"><code>	<a href="../../use/runtime..notifyList.tail.html" class="ident">tail</a> *<a href="runtime2.go.html#line-345" class="ident">sudog</a></code></span>
+<span class="codeline" id="line-464"><code>	<a href="../../use/runtime..notifyList*00817.lock*0c030.html" class="ident">lock</a> <a href="runtime2.go.html#line-162" class="ident">mutex</a></code></span>
+<span class="codeline" id="line-465"><code>	<a href="../../use/runtime..notifyList*00817.head*9f2e6.html" class="ident">head</a> *<a href="runtime2.go.html#line-345" class="ident">sudog</a></code></span>
+<span class="codeline" id="line-466"><code>	<a href="../../use/runtime..notifyList*00817.tail*0c62f.html" class="ident">tail</a> *<a href="runtime2.go.html#line-345" class="ident">sudog</a></code></span>
 <span class="codeline" id="line-467"><code>}</code></span>
 <span class="codeline" id="line-468"><code></code></span>
 <span class="codeline" id="line-469"><code><span class="comment">// less checks if a &lt; b, considering a &amp; b running counts that may overflow the</span></code></span>
@@ -728,7 +728,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-510"><code>		<label for="r78" class="ident">l</label>.<a href="#line-466" class="ident">tail</a>.<a href="runtime2.go.html#line-352" class="ident">next</a> = <label for="r80" class="ident">s</label></code></span>
 <span class="codeline" id="line-511"><code>	}</code></span>
 <span class="codeline" id="line-512"><code>	<label for="r78" class="ident">l</label>.<a href="#line-466" class="ident">tail</a> = <label for="r80" class="ident">s</label></code></span>
-<span class="codeline" id="line-513"><code>	<a href="proc.go.html#line-341" class="ident">goparkunlock</a>(&amp;<label for="r78" class="ident">l</label>.<a href="#line-464" class="ident">lock</a>, <a href="runtime2.go.html#line-1008" class="ident">waitReasonSyncCondWait</a>, <a href="trace.go.html#line-49" class="ident">traceEvGoBlockCond</a>, <span class="lit-number">3</span>)</code></span>
+<span class="codeline" id="line-513"><code>	<a href="proc.go.html#line-341" class="ident">goparkunlock</a>(&amp;<label for="r78" class="ident">l</label>.<a href="#line-464" class="ident">lock</a>, <a href="runtime2.go.html#line-1011" class="ident">waitReasonSyncCondWait</a>, <a href="trace.go.html#line-49" class="ident">traceEvGoBlockCond</a>, <span class="lit-number">3</span>)</code></span>
 <span class="codeline" id="line-514"><code>	<span class="keyword">if</span> <label for="r81" class="ident">t0</label> != <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-515"><code>		<a href="mprof.go.html#line-397" class="ident">blockevent</a>(<label for="r80" class="ident">s</label>.<a href="runtime2.go.html#line-362" class="ident">releasetime</a>-<label for="r81" class="ident">t0</label>, <span class="lit-number">2</span>)</code></span>
 <span class="codeline" id="line-516"><code>	}</code></span>
@@ -835,7 +835,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-617"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: os_linux.go in package runtime</title>
-<link href="../../css/light-v0.2.7-preview.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.2.7-preview.js"></script>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -493,7 +493,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-153"><code>	<a href="#line-402" class="ident">sigprocmask</a>(<a href="os_linux_generic.go.html#line-21" class="ident">_SIG_SETMASK</a>, &amp;<label for="r32" class="ident">oset</label>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
 <span class="codeline" id="line-154"><code></code></span>
 <span class="codeline" id="line-155"><code>	<span class="keyword">if</span> <label for="r33" class="ident">ret</label> &lt; <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-156"><code>		<a href="../../pkg/builtin.html#name-print" class="ident">print</a>(<span class="lit-string">"runtime: failed to create new OS thread (have "</span>, <a href="proc.go.html#line-4353" class="ident">mcount</a>(), <span class="lit-string">" already; errno="</span>, -<label for="r33" class="ident">ret</label>, <span class="lit-string">")\n"</span>)</code></span>
+<span class="codeline" id="line-156"><code>		<a href="../../pkg/builtin.html#name-print" class="ident">print</a>(<span class="lit-string">"runtime: failed to create new OS thread (have "</span>, <a href="proc.go.html#line-4397" class="ident">mcount</a>(), <span class="lit-string">" already; errno="</span>, -<label for="r33" class="ident">ret</label>, <span class="lit-string">")\n"</span>)</code></span>
 <span class="codeline" id="line-157"><code>		<span class="keyword">if</span> <label for="r33" class="ident">ret</label> == -<a href="defs_linux_amd64.go.html#line-8" class="ident">_EAGAIN</a> {</code></span>
 <span class="codeline" id="line-158"><code>			<a href="../../pkg/builtin.html#name-println" class="ident">println</a>(<span class="lit-string">"runtime: may need to increase max user processes (ulimit -u)"</span>)</code></span>
 <span class="codeline" id="line-159"><code>		}</code></span>
@@ -639,7 +639,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-299"><code>}</code></span>
 <span class="codeline" id="line-300"><code></code></span>
 <span class="codeline" id="line-301"><code><span class="keyword">func</span> <label for="r67" class="ident"><a href="../../pkg/runtime.html#name-osinit" class="ident">osinit</a></label>() {</code></span>
-<span class="codeline" id="line-302"><code>	<a href="runtime2.go.html#line-1057" class="ident">ncpu</a> = <a href="#line-71" class="ident">getproccount</a>()</code></span>
+<span class="codeline" id="line-302"><code>	<a href="runtime2.go.html#line-1060" class="ident">ncpu</a> = <a href="#line-71" class="ident">getproccount</a>()</code></span>
 <span class="codeline" id="line-303"><code>	<a href="malloc.go.html#line-344" class="ident">physHugePageSize</a> = <a href="#line-277" class="ident">getHugePageSize</a>()</code></span>
 <span class="codeline" id="line-304"><code>	<span class="keyword">if</span> <a href="cgo.go.html#line-32" class="ident">iscgo</a> {</code></span>
 <span class="codeline" id="line-305"><code>		<span class="comment">// #42494 glibc and musl reserve some signals for</span></code></span>
@@ -667,13 +667,13 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-327"><code><span class="keyword">func</span> <label for="r68" class="ident"><a href="../../pkg/runtime.html#name-getRandomData" class="ident">getRandomData</a></label>(<label for="r69" class="ident">r</label> []<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>) {</code></span>
 <span class="codeline" id="line-328"><code>	<span class="keyword">if</span> <a href="#line-253" class="ident">startupRandomData</a> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-329"><code>		<label for="r70" class="ident">n</label> := <a href="../../pkg/builtin.html#name-copy" class="ident">copy</a>(<label for="r69" class="ident">r</label>, <a href="#line-253" class="ident">startupRandomData</a>)</code></span>
-<span class="codeline" id="line-330"><code>		<a href="runtime2.go.html#line-880" class="ident">extendRandom</a>(<label for="r69" class="ident">r</label>, <label for="r70" class="ident">n</label>)</code></span>
+<span class="codeline" id="line-330"><code>		<a href="runtime2.go.html#line-883" class="ident">extendRandom</a>(<label for="r69" class="ident">r</label>, <label for="r70" class="ident">n</label>)</code></span>
 <span class="codeline" id="line-331"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-332"><code>	}</code></span>
 <span class="codeline" id="line-333"><code>	<label for="r71" class="ident">fd</label> := <a href="stubs2.go.html#line-32" class="ident">open</a>(&amp;<a href="#line-325" class="ident">urandom_dev</a>[<span class="lit-number">0</span>], <span class="lit-number">0</span> <span class="comment">/* O_RDONLY */</span>, <span class="lit-number">0</span>)</code></span>
 <span class="codeline" id="line-334"><code>	<label for="r72" class="ident">n</label> := <a href="stubs2.go.html#line-19" class="ident">read</a>(<label for="r71" class="ident">fd</label>, <a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(&amp;<label for="r69" class="ident">r</label>[<span class="lit-number">0</span>]), <a href="../../pkg/builtin.html#name-int32" class="ident">int32</a>(<a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r69" class="ident">r</label>)))</code></span>
 <span class="codeline" id="line-335"><code>	<a href="stubs2.go.html#line-21" class="ident">closefd</a>(<label for="r71" class="ident">fd</label>)</code></span>
-<span class="codeline" id="line-336"><code>	<a href="runtime2.go.html#line-880" class="ident">extendRandom</a>(<label for="r69" class="ident">r</label>, <a href="../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r72" class="ident">n</label>))</code></span>
+<span class="codeline" id="line-336"><code>	<a href="runtime2.go.html#line-883" class="ident">extendRandom</a>(<label for="r69" class="ident">r</label>, <a href="../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r72" class="ident">n</label>))</code></span>
 <span class="codeline" id="line-337"><code>}</code></span>
 <span class="codeline" id="line-338"><code></code></span>
 <span class="codeline" id="line-339"><code><span class="keyword">func</span> <label for="r73" class="ident"><a href="../../pkg/runtime.html#name-goenvs" class="ident">goenvs</a></label>() {</code></span>
@@ -692,7 +692,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-352"><code><span class="comment">// Called to initialize a new m (including the bootstrap m).</span></code></span>
 <span class="codeline" id="line-353"><code><span class="comment">// Called on the parent thread (main thread in case of bootstrap), can allocate memory.</span></code></span>
 <span class="codeline" id="line-354"><code><span class="keyword">func</span> <label for="r75" class="ident"><a href="../../pkg/runtime.html#name-mpreinit" class="ident">mpreinit</a></label>(<label for="r76" class="ident">mp</label> *<a href="runtime2.go.html#line-486" class="ident">m</a>) {</code></span>
-<span class="codeline" id="line-355"><code>	<label for="r76" class="ident">mp</label>.<a href="runtime2.go.html#line-493" class="ident">gsignal</a> = <a href="proc.go.html#line-3943" class="ident">malg</a>(<span class="lit-number">32</span> * <span class="lit-number">1024</span>) <span class="comment">// Linux wants &gt;= 2K</span></code></span>
+<span class="codeline" id="line-355"><code>	<label for="r76" class="ident">mp</label>.<a href="runtime2.go.html#line-493" class="ident">gsignal</a> = <a href="proc.go.html#line-3987" class="ident">malg</a>(<span class="lit-number">32</span> * <span class="lit-number">1024</span>) <span class="comment">// Linux wants &gt;= 2K</span></code></span>
 <span class="codeline" id="line-356"><code>	<label for="r76" class="ident">mp</label>.<a href="runtime2.go.html#line-493" class="ident">gsignal</a>.<a href="runtime2.go.html#line-418" class="ident">m</a> = <label for="r76" class="ident">mp</label></code></span>
 <span class="codeline" id="line-357"><code>}</code></span>
 <span class="codeline" id="line-358"><code></code></span>
@@ -804,7 +804,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-464"><code>}</code></span>
 <span class="codeline" id="line-465"><code></code></span>
 <span class="codeline" id="line-466"><code><span class="comment">//go:nosplit</span></code></span>
-<span class="codeline" id="line-467"><code><span class="keyword">func</span> (<label for="r137" class="ident">c</label> *<a href="signal_linux_amd64.go.html#line-12" class="ident">sigctxt</a>) <label for="r138" class="ident"><a href="../../use/runtime..sigctxt.fixsigcode.html" class="ident">fixsigcode</a></label>(<label for="r139" class="ident">sig</label> <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>) {</code></span>
+<span class="codeline" id="line-467"><code><span class="keyword">func</span> (<label for="r137" class="ident">c</label> *<a href="signal_linux_amd64.go.html#line-12" class="ident">sigctxt</a>) <label for="r138" class="ident"><a href="../../use/runtime..sigctxt*40d67.fixsigcode*5f4d0.html" class="ident">fixsigcode</a></label>(<label for="r139" class="ident">sig</label> <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>) {</code></span>
 <span class="codeline" id="line-468"><code>}</code></span>
 <span class="codeline" id="line-469"><code></code></span>
 <span class="codeline" id="line-470"><code><span class="comment">// sysSigaction calls the rt_sigaction system call.</span></code></span>
@@ -844,7 +844,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-504"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.2.7-preview</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>
