@@ -5,13 +5,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>References: sync.Pool</title>
-<link href="../css/light-v0.3.1.css" rel="stylesheet">
-<script src="../jvs/golds-v0.3.1.js"></script>
+<link href="../css/light-v0.3.6.css" rel="stylesheet">
+<script src="../jvs/golds-v0.3.6.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre><code><span style="font-size:x-large;">type <b><a href="../pkg/sync.html">sync</a>.<a href="../src/sync/pool.go.html#line-44">Pool</a></b></span>
 
-<span class="title">53 uses</span>
+<span class="title">55 uses</span>
 
 	sync (current package)
 		<a href="../src/sync/pool.go.html#line-44">pool.go#L44</a>: type <b>Pool</b> struct {
@@ -24,7 +24,7 @@
 		<a href="../src/sync/pool.go.html#line-269" class="path-duplicate">pool.go</a><a href="../src/sync/pool.go.html#line-269">#L269</a>: 	oldPools []*<b>Pool</b>
 
 	<a href="../pkg/crypto/tls.html">crypto/tls</a>
-		<a href="../src/crypto/tls/conn.go.html#line-929">conn.go#L929</a>: var outBufPool = sync.<b>Pool</b>{
+		<a href="../src/crypto/tls/conn.go.html#line-930">conn.go#L930</a>: var outBufPool = sync.<b>Pool</b>{
 
 	<a href="../pkg/encoding/json.html">encoding/json</a>
 		<a href="../src/encoding/json/encode.go.html#line-302">encode.go#L302</a>: var encodeStatePool sync.<b>Pool</b>
@@ -61,28 +61,31 @@
 		<a href="../src/go.uber.org/zap/zapcore/error.go.html#line-106">error.go#L106</a>: var _errArrayElemPool = sync.<b>Pool</b>{New: func() interface{} {
 		<a href="../src/go.uber.org/zap/zapcore/json_encoder.go.html#line-38">json_encoder.go#L38</a>: var _jsonPool = sync.<b>Pool</b>{New: func() interface{} {
 
+	<a href="../pkg/internal/poll.html">internal/poll</a>
+		<a href="../src/internal/poll/splice_linux.go.html#line-166">splice_linux.go#L166</a>: var splicePipePool = sync.<b>Pool</b>{New: newPoolPipe}
+
 	<a href="../pkg/io.html">io</a>
 		<a href="../src/io/io.go.html#line-587">io.go#L587</a>: var blackHolePool = sync.<b>Pool</b>{
 
 	<a href="../pkg/math/big.html">math/big</a>
-		<a href="../src/math/big/nat.go.html#line-694">nat.go#L694</a>: var natPool sync.<b>Pool</b>
+		<a href="../src/math/big/nat.go.html#line-652">nat.go#L652</a>: var natPool sync.<b>Pool</b>
 
 	<a href="../pkg/net/http.html">net/http</a>
-		<a href="../src/net/http/h2_bundle.go.html#line-974">h2_bundle.go#L974</a>: 	http2dataChunkPools = [...]sync.<b>Pool</b>{
-		<a href="../src/net/http/h2_bundle.go.html#line-1461" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-1461">#L1461</a>: var http2fhBytes = sync.<b>Pool</b>{
-		<a href="../src/net/http/h2_bundle.go.html#line-2926" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-2926">#L2926</a>: var http2littleBuf = sync.<b>Pool</b>{
-		<a href="../src/net/http/h2_bundle.go.html#line-3333" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-3333">#L3333</a>: var http2bufWriterPool = sync.<b>Pool</b>{
-		<a href="../src/net/http/h2_bundle.go.html#line-3406" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-3406">#L3406</a>: var http2sorterPool = sync.<b>Pool</b>{New: func() interface{} { return new(http2sorter) }}
-		<a href="../src/net/http/h2_bundle.go.html#line-3635" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-3635">#L3635</a>: var http2responseWriterStatePool = sync.<b>Pool</b>{
-		<a href="../src/net/http/h2_bundle.go.html#line-4559" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-4559">#L4559</a>: var http2errChanPool = sync.<b>Pool</b>{
-		<a href="../src/net/http/h2_bundle.go.html#line-4563" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-4563">#L4563</a>: var http2writeDataPool = sync.<b>Pool</b>{
-		<a href="../src/net/http/header.go.html#line-156">header.go#L156</a>: var headerSorterPool = sync.<b>Pool</b>{
-		<a href="../src/net/http/request.go.html#line-989">request.go#L989</a>: var textprotoReaderPool sync.<b>Pool</b>
-		<a href="../src/net/http/server.go.html#line-815">server.go#L815</a>: 	bufioReaderPool   sync.<b>Pool</b>
-		<a href="../src/net/http/server.go.html#line-816" class="path-duplicate">server.go</a><a href="../src/net/http/server.go.html#line-816">#L816</a>: 	bufioWriter2kPool sync.<b>Pool</b>
-		<a href="../src/net/http/server.go.html#line-817" class="path-duplicate">server.go</a><a href="../src/net/http/server.go.html#line-817">#L817</a>: 	bufioWriter4kPool sync.<b>Pool</b>
-		<a href="../src/net/http/server.go.html#line-820" class="path-duplicate">server.go</a><a href="../src/net/http/server.go.html#line-820">#L820</a>: var copyBufPool = sync.<b>Pool</b>{
-		<a href="../src/net/http/server.go.html#line-827" class="path-duplicate">server.go</a><a href="../src/net/http/server.go.html#line-827">#L827</a>: func bufioWriterPool(size int) *sync.<b>Pool</b> {
+		<a href="../src/net/http/h2_bundle.go.html#line-1050">h2_bundle.go#L1050</a>: 	http2dataChunkPools = [...]sync.<b>Pool</b>{
+		<a href="../src/net/http/h2_bundle.go.html#line-1537" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-1537">#L1537</a>: var http2fhBytes = sync.<b>Pool</b>{
+		<a href="../src/net/http/h2_bundle.go.html#line-3016" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-3016">#L3016</a>: var http2littleBuf = sync.<b>Pool</b>{
+		<a href="../src/net/http/h2_bundle.go.html#line-3423" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-3423">#L3423</a>: var http2bufWriterPool = sync.<b>Pool</b>{
+		<a href="../src/net/http/h2_bundle.go.html#line-3496" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-3496">#L3496</a>: var http2sorterPool = sync.<b>Pool</b>{New: func() interface{} { return new(http2sorter) }}
+		<a href="../src/net/http/h2_bundle.go.html#line-3725" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-3725">#L3725</a>: var http2responseWriterStatePool = sync.<b>Pool</b>{
+		<a href="../src/net/http/h2_bundle.go.html#line-4643" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-4643">#L4643</a>: var http2errChanPool = sync.<b>Pool</b>{
+		<a href="../src/net/http/h2_bundle.go.html#line-4647" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-4647">#L4647</a>: var http2writeDataPool = sync.<b>Pool</b>{
+		<a href="../src/net/http/header.go.html#line-157">header.go#L157</a>: var headerSorterPool = sync.<b>Pool</b>{
+		<a href="../src/net/http/request.go.html#line-991">request.go#L991</a>: var textprotoReaderPool sync.<b>Pool</b>
+		<a href="../src/net/http/server.go.html#line-795">server.go#L795</a>: 	bufioReaderPool   sync.<b>Pool</b>
+		<a href="../src/net/http/server.go.html#line-796" class="path-duplicate">server.go</a><a href="../src/net/http/server.go.html#line-796">#L796</a>: 	bufioWriter2kPool sync.<b>Pool</b>
+		<a href="../src/net/http/server.go.html#line-797" class="path-duplicate">server.go</a><a href="../src/net/http/server.go.html#line-797">#L797</a>: 	bufioWriter4kPool sync.<b>Pool</b>
+		<a href="../src/net/http/server.go.html#line-800" class="path-duplicate">server.go</a><a href="../src/net/http/server.go.html#line-800">#L800</a>: var copyBufPool = sync.<b>Pool</b>{
+		<a href="../src/net/http/server.go.html#line-807" class="path-duplicate">server.go</a><a href="../src/net/http/server.go.html#line-807">#L807</a>: func bufioWriterPool(size int) *sync.<b>Pool</b> {
 
 	<a href="../pkg/nhooyr.io/websocket.html">nhooyr.io/websocket</a>
 		<a href="../src/nhooyr.io/websocket/compress_notjs.go.html#line-96">compress_notjs.go#L96</a>: var flateReaderPool sync.<b>Pool</b>
@@ -92,16 +95,19 @@
 		<a href="../src/nhooyr.io/websocket/dial.go.html#line-264">dial.go#L264</a>: var bufioReaderPool sync.<b>Pool</b>
 		<a href="../src/nhooyr.io/websocket/dial.go.html#line-279" class="path-duplicate">dial.go</a><a href="../src/nhooyr.io/websocket/dial.go.html#line-279">#L279</a>: var bufioWriterPool sync.<b>Pool</b>
 
+	<a href="../pkg/os.html">os</a>
+		<a href="../src/os/dir_unix.go.html#line-30">dir_unix.go#L30</a>: var dirBufPool = sync.<b>Pool</b>{
+
 	<a href="../pkg/reflect.html">reflect</a>
-		<a href="../src/reflect/type.go.html#line-2990">type.go#L2990</a>: 	framePool *sync.<b>Pool</b>
-		<a href="../src/reflect/type.go.html#line-3001" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-3001">#L3001</a>: func funcLayout(t *funcType, rcvr *rtype) (frametype *rtype, argSize, retOffset uintptr, stk *bitVector, framePool *sync.<b>Pool</b>) {
-		<a href="../src/reflect/type.go.html#line-3062" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-3062">#L3062</a>: 	framePool = &amp;sync.<b>Pool</b>{New: func() interface{} {
+		<a href="../src/reflect/type.go.html#line-3035">type.go#L3035</a>: 	framePool *sync.<b>Pool</b>
+		<a href="../src/reflect/type.go.html#line-3048" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-3048">#L3048</a>: func funcLayout(t *funcType, rcvr *rtype) (frametype *rtype, framePool *sync.<b>Pool</b>, abi abiDesc) {
+		<a href="../src/reflect/type.go.html#line-3087" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-3087">#L3087</a>: 	framePool = &amp;sync.<b>Pool</b>{New: func() interface{} {
 
 	<a href="../pkg/vendor/golang.org/x/net/http2/hpack.html">vendor/golang.org/x/net/http2/hpack</a>
 		<a href="../src/vendor/golang.org/x/net/http2/hpack/huffman.go.html#line-14">huffman.go#L14</a>: var bufPool = sync.<b>Pool</b>{
 </code></pre><pre id="footer">
 <table><tr><td><img src="../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

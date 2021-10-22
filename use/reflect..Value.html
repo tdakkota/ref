@@ -5,206 +5,211 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>References: reflect.Value</title>
-<link href="../css/light-v0.3.1.css" rel="stylesheet">
-<script src="../jvs/golds-v0.3.1.js"></script>
+<link href="../css/light-v0.3.6.css" rel="stylesheet">
+<script src="../jvs/golds-v0.3.6.js"></script>
 <body onload="onPageLoad()"><div>
 
-<pre><code><span style="font-size:x-large;">type <b><a href="../pkg/reflect.html">reflect</a>.<a href="../src/reflect/value.go.html#line-37">Value</a></b></span>
+<pre><code><span style="font-size:x-large;">type <b><a href="../pkg/reflect.html">reflect</a>.<a href="../src/reflect/value.go.html#line-39">Value</a></b></span>
 
-<span class="title">322 uses</span>
+<span class="title">329 uses</span>
 
 	reflect (current package)
 		<a href="../src/reflect/deepequal.go.html#line-24">deepequal.go#L24</a>: func deepValueEqual(v1, v2 <b>Value</b>, visited map[visit]bool) bool {
 		<a href="../src/reflect/deepequal.go.html#line-36" class="path-duplicate">deepequal.go</a><a href="../src/reflect/deepequal.go.html#line-36">#L36</a>: 	hard := func(v1, v2 <b>Value</b>) bool {
 		<a href="../src/reflect/deepequal.go.html#line-60" class="path-duplicate">deepequal.go</a><a href="../src/reflect/deepequal.go.html#line-60">#L60</a>: 		ptrval := func(v <b>Value</b>) unsafe.Pointer {
-		<a href="../src/reflect/makefunc.go.html#line-23">makefunc.go#L23</a>: 	fn     func([]<b>Value</b>) []<b>Value</b>
-		<a href="../src/reflect/makefunc.go.html#line-48" class="path-duplicate">makefunc.go</a><a href="../src/reflect/makefunc.go.html#line-48">#L48</a>: func MakeFunc(typ Type, fn func(args []<b>Value</b>) (results []<b>Value</b>)) <b>Value</b> {
-		<a href="../src/reflect/makefunc.go.html#line-67" class="path-duplicate">makefunc.go</a><a href="../src/reflect/makefunc.go.html#line-67">#L67</a>: 	return <b>Value</b>{t, unsafe.Pointer(impl), flag(Func)}
-		<a href="../src/reflect/makefunc.go.html#line-85" class="path-duplicate">makefunc.go</a><a href="../src/reflect/makefunc.go.html#line-85">#L85</a>: 	rcvr   <b>Value</b>
-		<a href="../src/reflect/makefunc.go.html#line-95" class="path-duplicate">makefunc.go</a><a href="../src/reflect/makefunc.go.html#line-95">#L95</a>: func makeMethodValue(op string, v <b>Value</b>) <b>Value</b> {
-		<a href="../src/reflect/makefunc.go.html#line-103" class="path-duplicate">makefunc.go</a><a href="../src/reflect/makefunc.go.html#line-103">#L103</a>: 	rcvr := <b>Value</b>{v.typ, v.ptr, fl}
-		<a href="../src/reflect/makefunc.go.html#line-130" class="path-duplicate">makefunc.go</a><a href="../src/reflect/makefunc.go.html#line-130">#L130</a>: 	return <b>Value</b>{&ftyp.rtype, unsafe.Pointer(fv), v.flag&flagRO | flag(Func)}
-		<a href="../src/reflect/type.go.html#line-580">type.go#L580</a>: 	Func  <b>Value</b> // func with receiver as first argument
-		<a href="../src/reflect/type.go.html#line-830" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-830">#L830</a>: 	m.Func = <b>Value</b>{mt.(*rtype), fn, fl}
-		<a href="../src/reflect/type.go.html#line-2436" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2436">#L2436</a>: 						ifn     <b>Value</b>
-		<a href="../src/reflect/type.go.html#line-2437" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2437">#L2437</a>: 						tfn     <b>Value</b>
-		<a href="../src/reflect/type.go.html#line-2441" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2441">#L2441</a>: 						tfn = MakeFunc(mtyp, func(in []<b>Value</b>) []<b>Value</b> {
-		<a href="../src/reflect/type.go.html#line-2442" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2442">#L2442</a>: 							var args []<b>Value</b>
-		<a href="../src/reflect/type.go.html#line-2449" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2449">#L2449</a>: 						ifn = MakeFunc(mtyp, func(in []<b>Value</b>) []<b>Value</b> {
-		<a href="../src/reflect/type.go.html#line-2450" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2450">#L2450</a>: 							var args []<b>Value</b>
-		<a href="../src/reflect/type.go.html#line-2458" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2458">#L2458</a>: 						tfn = MakeFunc(mtyp, func(in []<b>Value</b>) []<b>Value</b> {
-		<a href="../src/reflect/type.go.html#line-2459" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2459">#L2459</a>: 							var args []<b>Value</b>
-		<a href="../src/reflect/type.go.html#line-2466" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2466">#L2466</a>: 						ifn = MakeFunc(mtyp, func(in []<b>Value</b>) []<b>Value</b> {
-		<a href="../src/reflect/type.go.html#line-2467" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2467">#L2467</a>: 							var args []<b>Value</b>
-		<a href="../src/reflect/value.go.html#line-37">value.go#L37</a>: type <b>Value</b> struct {
-		<a href="../src/reflect/value.go.html#line-94" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-94">#L94</a>: func (v <b>Value</b>) pointer() unsafe.Pointer {
-		<a href="../src/reflect/value.go.html#line-105" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-105">#L105</a>: func packEface(v <b>Value</b>) interface{} {
-		<a href="../src/reflect/value.go.html#line-142" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-142">#L142</a>: func unpackEface(i interface{}) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-147" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-147">#L147</a>: 		return <b>Value</b>{}
-		<a href="../src/reflect/value.go.html#line-153" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-153">#L153</a>: 	return <b>Value</b>{t, e.word, f}
-		<a href="../src/reflect/value.go.html#line-269" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-269">#L269</a>: func (v <b>Value</b>) Addr() <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-276" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-276">#L276</a>: 	return <b>Value</b>{v.typ.ptrTo(), v.ptr, fl | flag(Ptr)}
-		<a href="../src/reflect/value.go.html#line-281" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-281">#L281</a>: func (v <b>Value</b>) Bool() bool {
-		<a href="../src/reflect/value.go.html#line-288" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-288">#L288</a>: func (v <b>Value</b>) Bytes() []byte {
-		<a href="../src/reflect/value.go.html#line-299" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-299">#L299</a>: func (v <b>Value</b>) runes() []rune {
-		<a href="../src/reflect/value.go.html#line-313" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-313">#L313</a>: func (v <b>Value</b>) CanAddr() bool {
-		<a href="../src/reflect/value.go.html#line-322" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-322">#L322</a>: func (v <b>Value</b>) CanSet() bool {
-		<a href="../src/reflect/value.go.html#line-334" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-334">#L334</a>: func (v <b>Value</b>) Call(in []<b>Value</b>) []<b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-347" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-347">#L347</a>: func (v <b>Value</b>) CallSlice(in []<b>Value</b>) []<b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-355" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-355">#L355</a>: func (v <b>Value</b>) call(op string, in []<b>Value</b>) []<b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-360" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-360">#L360</a>: 		rcvr     <b>Value</b>
-		<a href="../src/reflect/value.go.html#line-422" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-422">#L422</a>: 		in = make([]<b>Value</b>, n+1)
-		<a href="../src/reflect/value.go.html#line-483" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-483">#L483</a>: 	var ret []<b>Value</b>
-		<a href="../src/reflect/value.go.html#line-494" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-494">#L494</a>: 		ret = make([]<b>Value</b>, nout)
-		<a href="../src/reflect/value.go.html#line-502" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-502">#L502</a>: 				ret[i] = <b>Value</b>{tv.common(), add(args, off, "tv.Size() != 0"), fl}
-		<a href="../src/reflect/value.go.html#line-543" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-543">#L543</a>: 	in := make([]<b>Value</b>, 0, int(ftyp.inCount))
-		<a href="../src/reflect/value.go.html#line-546" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-546">#L546</a>: 		v := <b>Value</b>{typ, nil, flag(typ.Kind())}
-		<a href="../src/reflect/value.go.html#line-635" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-635">#L635</a>: func methodReceiver(op string, v <b>Value</b>, methodIndex int) (rcvrtype *rtype, t *funcType, fn unsafe.Pointer) {
-		<a href="../src/reflect/value.go.html#line-674" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-674">#L674</a>: func storeRcvr(v <b>Value</b>, p unsafe.Pointer) {
-		<a href="../src/reflect/value.go.html#line-761" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-761">#L761</a>: func funcName(f func([]<b>Value</b>) []<b>Value</b>) string {
-		<a href="../src/reflect/value.go.html#line-772" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-772">#L772</a>: func (v <b>Value</b>) Cap() int {
-		<a href="../src/reflect/value.go.html#line-788" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-788">#L788</a>: func (v <b>Value</b>) Close() {
-		<a href="../src/reflect/value.go.html#line-796" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-796">#L796</a>: func (v <b>Value</b>) Complex() complex128 {
-		<a href="../src/reflect/value.go.html#line-811" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-811">#L811</a>: func (v <b>Value</b>) Elem() <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-835" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-835">#L835</a>: 			return <b>Value</b>{}
-		<a href="../src/reflect/value.go.html#line-841" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-841">#L841</a>: 		return <b>Value</b>{typ, ptr, fl}
-		<a href="../src/reflect/value.go.html#line-848" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-848">#L848</a>: func (v <b>Value</b>) Field(i int) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-875" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-875">#L875</a>: 	return <b>Value</b>{typ, ptr, fl}
-		<a href="../src/reflect/value.go.html#line-880" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-880">#L880</a>: func (v <b>Value</b>) FieldByIndex(index []int) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-902" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-902">#L902</a>: func (v <b>Value</b>) FieldByName(name string) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-907" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-907">#L907</a>: 	return <b>Value</b>{}
-		<a href="../src/reflect/value.go.html#line-914" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-914">#L914</a>: func (v <b>Value</b>) FieldByNameFunc(match func(string) bool) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-918" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-918">#L918</a>: 	return <b>Value</b>{}
-		<a href="../src/reflect/value.go.html#line-923" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-923">#L923</a>: func (v <b>Value</b>) Float() float64 {
-		<a href="../src/reflect/value.go.html#line-938" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-938">#L938</a>: func (v <b>Value</b>) Index(i int) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-955" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-955">#L955</a>: 		return <b>Value</b>{typ, val, fl}
-		<a href="../src/reflect/value.go.html#line-968" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-968">#L968</a>: 		return <b>Value</b>{typ, val, fl}
-		<a href="../src/reflect/value.go.html#line-977" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-977">#L977</a>: 		return <b>Value</b>{uint8Type, p, fl}
-		<a href="../src/reflect/value.go.html#line-984" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-984">#L984</a>: func (v <b>Value</b>) Int() int64 {
-		<a href="../src/reflect/value.go.html#line-1003" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1003">#L1003</a>: func (v <b>Value</b>) CanInterface() bool {
-		<a href="../src/reflect/value.go.html#line-1015" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1015">#L1015</a>: func (v <b>Value</b>) Interface() (i interface{}) {
-		<a href="../src/reflect/value.go.html#line-1019" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1019">#L1019</a>: func valueInterface(v <b>Value</b>, safe bool) interface{} {
-		<a href="../src/reflect/value.go.html#line-1051" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1051">#L1051</a>: func (v <b>Value</b>) InterfaceData() [2]uintptr {
-		<a href="../src/reflect/value.go.html#line-1069" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1069">#L1069</a>: func (v <b>Value</b>) IsNil() bool {
-		<a href="../src/reflect/value.go.html#line-1094" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1094">#L1094</a>: func (v <b>Value</b>) IsValid() bool {
-		<a href="../src/reflect/value.go.html#line-1100" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1100">#L1100</a>: func (v <b>Value</b>) IsZero() bool {
-		<a href="../src/reflect/value.go.html#line-1140" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1140">#L1140</a>: func (v <b>Value</b>) Kind() Kind {
-		<a href="../src/reflect/value.go.html#line-1146" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1146">#L1146</a>: func (v <b>Value</b>) Len() int {
-		<a href="../src/reflect/value.go.html#line-1170" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1170">#L1170</a>: func (v <b>Value</b>) MapIndex(key <b>Value</b>) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-1191" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1191">#L1191</a>: 		return <b>Value</b>{}
-		<a href="../src/reflect/value.go.html#line-1203" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1203">#L1203</a>: func (v <b>Value</b>) MapKeys() []<b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-1216" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1216">#L1216</a>: 	a := make([]<b>Value</b>, mlen)
-		<a href="../src/reflect/value.go.html#line-1235" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1235">#L1235</a>: 	m  <b>Value</b>
-		<a href="../src/reflect/value.go.html#line-1240" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1240">#L1240</a>: func (it *MapIter) Key() <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-1254" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1254">#L1254</a>: func (it *MapIter) Value() <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-1298" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1298">#L1298</a>: func (v <b>Value</b>) MapRange() *MapIter {
-		<a href="../src/reflect/value.go.html#line-1305" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1305">#L1305</a>: func copyVal(typ *rtype, fl flag, ptr unsafe.Pointer) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-1311" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1311">#L1311</a>: 		return <b>Value</b>{typ, c, fl | flagIndir}
-		<a href="../src/reflect/value.go.html#line-1313" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1313">#L1313</a>: 	return <b>Value</b>{typ, *(*unsafe.Pointer)(ptr), fl}
-		<a href="../src/reflect/value.go.html#line-1320" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1320">#L1320</a>: func (v <b>Value</b>) Method(i int) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-1333" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1333">#L1333</a>: 	return <b>Value</b>{v.typ, v.ptr, fl}
-		<a href="../src/reflect/value.go.html#line-1337" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1337">#L1337</a>: func (v <b>Value</b>) NumMethod() int {
-		<a href="../src/reflect/value.go.html#line-1352" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1352">#L1352</a>: func (v <b>Value</b>) MethodByName(name string) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-1357" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1357">#L1357</a>: 		return <b>Value</b>{}
-		<a href="../src/reflect/value.go.html#line-1361" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1361">#L1361</a>: 		return <b>Value</b>{}
-		<a href="../src/reflect/value.go.html#line-1368" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1368">#L1368</a>: func (v <b>Value</b>) NumField() int {
-		<a href="../src/reflect/value.go.html#line-1376" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1376">#L1376</a>: func (v <b>Value</b>) OverflowComplex(x complex128) bool {
-		<a href="../src/reflect/value.go.html#line-1389" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1389">#L1389</a>: func (v <b>Value</b>) OverflowFloat(x float64) bool {
-		<a href="../src/reflect/value.go.html#line-1409" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1409">#L1409</a>: func (v <b>Value</b>) OverflowInt(x int64) bool {
-		<a href="../src/reflect/value.go.html#line-1422" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1422">#L1422</a>: func (v <b>Value</b>) OverflowUint(x uint64) bool {
-		<a href="../src/reflect/value.go.html#line-1452" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1452">#L1452</a>: func (v <b>Value</b>) Pointer() uintptr {
-		<a href="../src/reflect/value.go.html#line-1497" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1497">#L1497</a>: func (v <b>Value</b>) Recv() (x <b>Value</b>, ok bool) {
-		<a href="../src/reflect/value.go.html#line-1505" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1505">#L1505</a>: func (v <b>Value</b>) recv(nb bool) (val <b>Value</b>, ok bool) {
-		<a href="../src/reflect/value.go.html#line-1511" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1511">#L1511</a>: 	val = <b>Value</b>{t, nil, flag(t.Kind())}
-		<a href="../src/reflect/value.go.html#line-1522" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1522">#L1522</a>: 		val = <b>Value</b>{}
-		<a href="../src/reflect/value.go.html#line-1530" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1530">#L1530</a>: func (v <b>Value</b>) Send(x <b>Value</b>) {
-		<a href="../src/reflect/value.go.html#line-1538" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1538">#L1538</a>: func (v <b>Value</b>) send(x <b>Value</b>, nb bool) (selected bool) {
-		<a href="../src/reflect/value.go.html#line-1557" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1557">#L1557</a>: func (v <b>Value</b>) Set(x <b>Value</b>) {
-		<a href="../src/reflect/value.go.html#line-1578" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1578">#L1578</a>: func (v <b>Value</b>) SetBool(x bool) {
-		<a href="../src/reflect/value.go.html#line-1586" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1586">#L1586</a>: func (v <b>Value</b>) SetBytes(x []byte) {
-		<a href="../src/reflect/value.go.html#line-1597" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1597">#L1597</a>: func (v <b>Value</b>) setRunes(x []rune) {
-		<a href="../src/reflect/value.go.html#line-1608" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1608">#L1608</a>: func (v <b>Value</b>) SetComplex(x complex128) {
-		<a href="../src/reflect/value.go.html#line-1622" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1622">#L1622</a>: func (v <b>Value</b>) SetFloat(x float64) {
-		<a href="../src/reflect/value.go.html#line-1636" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1636">#L1636</a>: func (v <b>Value</b>) SetInt(x int64) {
-		<a href="../src/reflect/value.go.html#line-1657" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1657">#L1657</a>: func (v <b>Value</b>) SetLen(n int) {
-		<a href="../src/reflect/value.go.html#line-1670" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1670">#L1670</a>: func (v <b>Value</b>) SetCap(n int) {
-		<a href="../src/reflect/value.go.html#line-1686" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1686">#L1686</a>: func (v <b>Value</b>) SetMapIndex(key, elem <b>Value</b>) {
-		<a href="../src/reflect/value.go.html#line-1715" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1715">#L1715</a>: func (v <b>Value</b>) SetUint(x uint64) {
-		<a href="../src/reflect/value.go.html#line-1737" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1737">#L1737</a>: func (v <b>Value</b>) SetPointer(x unsafe.Pointer) {
-		<a href="../src/reflect/value.go.html#line-1745" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1745">#L1745</a>: func (v <b>Value</b>) SetString(x string) {
-		<a href="../src/reflect/value.go.html#line-1754" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1754">#L1754</a>: func (v <b>Value</b>) Slice(i, j int) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-1788" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1788">#L1788</a>: 		return <b>Value</b>{v.typ, unsafe.Pointer(&t), v.flag}
-		<a href="../src/reflect/value.go.html#line-1810" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1810">#L1810</a>: 	return <b>Value</b>{typ.common(), unsafe.Pointer(&x), fl}
-		<a href="../src/reflect/value.go.html#line-1816" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1816">#L1816</a>: func (v <b>Value</b>) Slice3(i, j, k int) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-1862" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1862">#L1862</a>: 	return <b>Value</b>{typ.common(), unsafe.Pointer(&x), fl}
-		<a href="../src/reflect/value.go.html#line-1871" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1871">#L1871</a>: func (v <b>Value</b>) String() string {
-		<a href="../src/reflect/value.go.html#line-1888" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1888">#L1888</a>: func (v <b>Value</b>) TryRecv() (x <b>Value</b>, ok bool) {
-		<a href="../src/reflect/value.go.html#line-1898" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1898">#L1898</a>: func (v <b>Value</b>) TrySend(x <b>Value</b>) bool {
-		<a href="../src/reflect/value.go.html#line-1905" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1905">#L1905</a>: func (v <b>Value</b>) Type() Type {
-		<a href="../src/reflect/value.go.html#line-1938" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1938">#L1938</a>: func (v <b>Value</b>) Uint() uint64 {
-		<a href="../src/reflect/value.go.html#line-1966" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1966">#L1966</a>: func (v <b>Value</b>) UnsafeAddr() uintptr {
-		<a href="../src/reflect/value.go.html#line-2019" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2019">#L2019</a>: func grow(s <b>Value</b>, extra int) (<b>Value</b>, int, int) {
-		<a href="../src/reflect/value.go.html#line-2047" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2047">#L2047</a>: func Append(s <b>Value</b>, x ...<b>Value</b>) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2058" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2058">#L2058</a>: func AppendSlice(s, t <b>Value</b>) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2074" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2074">#L2074</a>: func Copy(dst, src <b>Value</b>) int {
-		<a href="../src/reflect/value.go.html#line-2171" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2171">#L2171</a>: 	Chan <b>Value</b>     // channel to use (for send or receive)
-		<a href="../src/reflect/value.go.html#line-2172" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2172">#L2172</a>: 	Send <b>Value</b>     // value to send (for send)
-		<a href="../src/reflect/value.go.html#line-2183" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2183">#L2183</a>: func Select(cases []SelectCase) (chosen int, recv <b>Value</b>, recvOK bool) {
-		<a href="../src/reflect/value.go.html#line-2271" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2271">#L2271</a>: 			recv = <b>Value</b>{t, p, fl | flagIndir}
-		<a href="../src/reflect/value.go.html#line-2273" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2273">#L2273</a>: 			recv = <b>Value</b>{t, *(*unsafe.Pointer)(p), fl}
-		<a href="../src/reflect/value.go.html#line-2289" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2289">#L2289</a>: func MakeSlice(typ Type, len, cap int) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2304" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2304">#L2304</a>: 	return <b>Value</b>{typ.(*rtype), unsafe.Pointer(&s), flagIndir | flag(Slice)}
-		<a href="../src/reflect/value.go.html#line-2308" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2308">#L2308</a>: func MakeChan(typ Type, buffer int) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2320" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2320">#L2320</a>: 	return <b>Value</b>{t, ch, flag(Chan)}
-		<a href="../src/reflect/value.go.html#line-2324" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2324">#L2324</a>: func MakeMap(typ Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2330" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2330">#L2330</a>: func MakeMapWithSize(typ Type, n int) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2336" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2336">#L2336</a>: 	return <b>Value</b>{t, m, flag(Map)}
-		<a href="../src/reflect/value.go.html#line-2342" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2342">#L2342</a>: func Indirect(v <b>Value</b>) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2351" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2351">#L2351</a>: func ValueOf(i interface{}) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2353" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2353">#L2353</a>: 		return <b>Value</b>{}
-		<a href="../src/reflect/value.go.html#line-2370" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2370">#L2370</a>: func Zero(typ Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2383" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2383">#L2383</a>: 		return <b>Value</b>{t, p, fl | flagIndir}
-		<a href="../src/reflect/value.go.html#line-2385" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2385">#L2385</a>: 	return <b>Value</b>{t, nil, fl}
-		<a href="../src/reflect/value.go.html#line-2396" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2396">#L2396</a>: func New(typ Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2403" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2403">#L2403</a>: 	return <b>Value</b>{t.ptrTo(), ptr, fl}
-		<a href="../src/reflect/value.go.html#line-2408" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2408">#L2408</a>: func NewAt(typ Type, p unsafe.Pointer) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2411" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2411">#L2411</a>: 	return <b>Value</b>{t.ptrTo(), p, fl}
-		<a href="../src/reflect/value.go.html#line-2418" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2418">#L2418</a>: func (v <b>Value</b>) assignTo(context string, dst *rtype, target unsafe.Pointer) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2429" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2429">#L2429</a>: 		return <b>Value</b>{dst, v.ptr, fl}
-		<a href="../src/reflect/value.go.html#line-2439" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2439">#L2439</a>: 			return <b>Value</b>{dst, nil, flag(Interface)}
-		<a href="../src/reflect/value.go.html#line-2447" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2447">#L2447</a>: 		return <b>Value</b>{dst, target, flagIndir | flag(Interface)}
-		<a href="../src/reflect/value.go.html#line-2457" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2457">#L2457</a>: func (v <b>Value</b>) Convert(t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2470" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2470">#L2470</a>: func convertOp(dst, src *rtype) func(<b>Value</b>, Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2558" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2558">#L2558</a>: func makeInt(f flag, bits uint64, t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2571" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2571">#L2571</a>: 	return <b>Value</b>{typ, ptr, f | flagIndir | flag(typ.Kind())}
-		<a href="../src/reflect/value.go.html#line-2576" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2576">#L2576</a>: func makeFloat(f flag, v float64, t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2585" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2585">#L2585</a>: 	return <b>Value</b>{typ, ptr, f | flagIndir | flag(typ.Kind())}
-		<a href="../src/reflect/value.go.html#line-2589" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2589">#L2589</a>: func makeFloat32(f flag, v float32, t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2593" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2593">#L2593</a>: 	return <b>Value</b>{typ, ptr, f | flagIndir | flag(typ.Kind())}
-		<a href="../src/reflect/value.go.html#line-2598" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2598">#L2598</a>: func makeComplex(f flag, v complex128, t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2607" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2607">#L2607</a>: 	return <b>Value</b>{typ, ptr, f | flagIndir | flag(typ.Kind())}
-		<a href="../src/reflect/value.go.html#line-2610" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2610">#L2610</a>: func makeString(f flag, v string, t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2617" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2617">#L2617</a>: func makeBytes(f flag, v []byte, t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2624" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2624">#L2624</a>: func makeRunes(f flag, v []rune, t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2637" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2637">#L2637</a>: func cvtInt(v <b>Value</b>, t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2642" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2642">#L2642</a>: func cvtUint(v <b>Value</b>, t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2647" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2647">#L2647</a>: func cvtFloatInt(v <b>Value</b>, t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2652" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2652">#L2652</a>: func cvtFloatUint(v <b>Value</b>, t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2657" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2657">#L2657</a>: func cvtIntFloat(v <b>Value</b>, t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2662" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2662">#L2662</a>: func cvtUintFloat(v <b>Value</b>, t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2667" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2667">#L2667</a>: func cvtFloat(v <b>Value</b>, t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2678" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2678">#L2678</a>: func cvtComplex(v <b>Value</b>, t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2683" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2683">#L2683</a>: func cvtIntString(v <b>Value</b>, t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2692" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2692">#L2692</a>: func cvtUintString(v <b>Value</b>, t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2701" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2701">#L2701</a>: func cvtBytesString(v <b>Value</b>, t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2706" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2706">#L2706</a>: func cvtStringBytes(v <b>Value</b>, t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2711" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2711">#L2711</a>: func cvtRunesString(v <b>Value</b>, t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2716" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2716">#L2716</a>: func cvtStringRunes(v <b>Value</b>, t Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2721" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2721">#L2721</a>: func cvtDirect(v <b>Value</b>, typ Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2732" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2732">#L2732</a>: 	return <b>Value</b>{t, ptr, v.flag.ro() | f} // v.flag.ro()|f == f?
-		<a href="../src/reflect/value.go.html#line-2736" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2736">#L2736</a>: func cvtT2I(v <b>Value</b>, typ Type) <b>Value</b> {
-		<a href="../src/reflect/value.go.html#line-2744" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2744">#L2744</a>: 	return <b>Value</b>{typ.common(), target, v.flag.ro() | flagIndir | flag(Interface)}
-		<a href="../src/reflect/value.go.html#line-2748" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2748">#L2748</a>: func cvtI2I(v <b>Value</b>, typ Type) <b>Value</b> {
+		<a href="../src/reflect/makefunc.go.html#line-22">makefunc.go#L22</a>: 	fn   func([]<b>Value</b>) []<b>Value</b>
+		<a href="../src/reflect/makefunc.go.html#line-47" class="path-duplicate">makefunc.go</a><a href="../src/reflect/makefunc.go.html#line-47">#L47</a>: func MakeFunc(typ Type, fn func(args []<b>Value</b>) (results []<b>Value</b>)) <b>Value</b> {
+		<a href="../src/reflect/makefunc.go.html#line-75" class="path-duplicate">makefunc.go</a><a href="../src/reflect/makefunc.go.html#line-75">#L75</a>: 	return <b>Value</b>{t, unsafe.Pointer(impl), flag(Func)}
+		<a href="../src/reflect/makefunc.go.html#line-91" class="path-duplicate">makefunc.go</a><a href="../src/reflect/makefunc.go.html#line-91">#L91</a>: 	rcvr   <b>Value</b>
+		<a href="../src/reflect/makefunc.go.html#line-101" class="path-duplicate">makefunc.go</a><a href="../src/reflect/makefunc.go.html#line-101">#L101</a>: func makeMethodValue(op string, v <b>Value</b>) <b>Value</b> {
+		<a href="../src/reflect/makefunc.go.html#line-109" class="path-duplicate">makefunc.go</a><a href="../src/reflect/makefunc.go.html#line-109">#L109</a>: 	rcvr := <b>Value</b>{v.typ, v.ptr, fl}
+		<a href="../src/reflect/makefunc.go.html#line-138" class="path-duplicate">makefunc.go</a><a href="../src/reflect/makefunc.go.html#line-138">#L138</a>: 	return <b>Value</b>{&ftyp.rtype, unsafe.Pointer(fv), v.flag&flagRO | flag(Func)}
+		<a href="../src/reflect/type.go.html#line-614">type.go#L614</a>: 	Func  <b>Value</b> // func with receiver as first argument
+		<a href="../src/reflect/type.go.html#line-869" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-869">#L869</a>: 	m.Func = <b>Value</b>{mt.(*rtype), fn, fl}
+		<a href="../src/reflect/type.go.html#line-2481" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2481">#L2481</a>: 						ifn     <b>Value</b>
+		<a href="../src/reflect/type.go.html#line-2482" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2482">#L2482</a>: 						tfn     <b>Value</b>
+		<a href="../src/reflect/type.go.html#line-2486" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2486">#L2486</a>: 						tfn = MakeFunc(mtyp, func(in []<b>Value</b>) []<b>Value</b> {
+		<a href="../src/reflect/type.go.html#line-2487" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2487">#L2487</a>: 							var args []<b>Value</b>
+		<a href="../src/reflect/type.go.html#line-2494" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2494">#L2494</a>: 						ifn = MakeFunc(mtyp, func(in []<b>Value</b>) []<b>Value</b> {
+		<a href="../src/reflect/type.go.html#line-2495" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2495">#L2495</a>: 							var args []<b>Value</b>
+		<a href="../src/reflect/type.go.html#line-2503" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2503">#L2503</a>: 						tfn = MakeFunc(mtyp, func(in []<b>Value</b>) []<b>Value</b> {
+		<a href="../src/reflect/type.go.html#line-2504" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2504">#L2504</a>: 							var args []<b>Value</b>
+		<a href="../src/reflect/type.go.html#line-2511" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2511">#L2511</a>: 						ifn = MakeFunc(mtyp, func(in []<b>Value</b>) []<b>Value</b> {
+		<a href="../src/reflect/type.go.html#line-2512" class="path-duplicate">type.go</a><a href="../src/reflect/type.go.html#line-2512">#L2512</a>: 							var args []<b>Value</b>
+		<a href="../src/reflect/value.go.html#line-39">value.go#L39</a>: type <b>Value</b> struct {
+		<a href="../src/reflect/value.go.html#line-96" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-96">#L96</a>: func (v <b>Value</b>) pointer() unsafe.Pointer {
+		<a href="../src/reflect/value.go.html#line-107" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-107">#L107</a>: func packEface(v <b>Value</b>) interface{} {
+		<a href="../src/reflect/value.go.html#line-144" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-144">#L144</a>: func unpackEface(i interface{}) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-149" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-149">#L149</a>: 		return <b>Value</b>{}
+		<a href="../src/reflect/value.go.html#line-155" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-155">#L155</a>: 	return <b>Value</b>{t, e.word, f}
+		<a href="../src/reflect/value.go.html#line-271" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-271">#L271</a>: func (v <b>Value</b>) Addr() <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-278" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-278">#L278</a>: 	return <b>Value</b>{v.typ.ptrTo(), v.ptr, fl | flag(Ptr)}
+		<a href="../src/reflect/value.go.html#line-283" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-283">#L283</a>: func (v <b>Value</b>) Bool() bool {
+		<a href="../src/reflect/value.go.html#line-290" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-290">#L290</a>: func (v <b>Value</b>) Bytes() []byte {
+		<a href="../src/reflect/value.go.html#line-301" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-301">#L301</a>: func (v <b>Value</b>) runes() []rune {
+		<a href="../src/reflect/value.go.html#line-315" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-315">#L315</a>: func (v <b>Value</b>) CanAddr() bool {
+		<a href="../src/reflect/value.go.html#line-324" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-324">#L324</a>: func (v <b>Value</b>) CanSet() bool {
+		<a href="../src/reflect/value.go.html#line-336" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-336">#L336</a>: func (v <b>Value</b>) Call(in []<b>Value</b>) []<b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-349" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-349">#L349</a>: func (v <b>Value</b>) CallSlice(in []<b>Value</b>) []<b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-359" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-359">#L359</a>: func (v <b>Value</b>) call(op string, in []<b>Value</b>) []<b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-364" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-364">#L364</a>: 		rcvr     <b>Value</b>
+		<a href="../src/reflect/value.go.html#line-427" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-427">#L427</a>: 		in = make([]<b>Value</b>, n+1)
+		<a href="../src/reflect/value.go.html#line-550" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-550">#L550</a>: 	var ret []<b>Value</b>
+		<a href="../src/reflect/value.go.html#line-565" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-565">#L565</a>: 		ret = make([]<b>Value</b>, nout)
+		<a href="../src/reflect/value.go.html#line-580" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-580">#L580</a>: 				ret[i] = <b>Value</b>{tv.common(), add(stackArgs, st.stkOff, "tv.Size() != 0"), fl}
+		<a href="../src/reflect/value.go.html#line-596" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-596">#L596</a>: 				ret[i] = <b>Value</b>{tv.common(), regArgs.Ptrs[steps[0].ireg], flag(tv.Kind())}
+		<a href="../src/reflect/value.go.html#line-627" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-627">#L627</a>: 			ret[i] = <b>Value</b>{tv.common(), s, flagIndir | flag(tv.Kind())}
+		<a href="../src/reflect/value.go.html#line-670" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-670">#L670</a>: 	in := make([]<b>Value</b>, 0, int(ftyp.inCount))
+		<a href="../src/reflect/value.go.html#line-676" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-676">#L676</a>: 		v := <b>Value</b>{typ, nil, flag(typ.Kind())}
+		<a href="../src/reflect/value.go.html#line-834" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-834">#L834</a>: func methodReceiver(op string, v <b>Value</b>, methodIndex int) (rcvrtype *rtype, t *funcType, fn unsafe.Pointer) {
+		<a href="../src/reflect/value.go.html#line-873" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-873">#L873</a>: func storeRcvr(v <b>Value</b>, p unsafe.Pointer) {
+		<a href="../src/reflect/value.go.html#line-1096" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1096">#L1096</a>: func funcName(f func([]<b>Value</b>) []<b>Value</b>) string {
+		<a href="../src/reflect/value.go.html#line-1107" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1107">#L1107</a>: func (v <b>Value</b>) Cap() int {
+		<a href="../src/reflect/value.go.html#line-1123" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1123">#L1123</a>: func (v <b>Value</b>) Close() {
+		<a href="../src/reflect/value.go.html#line-1131" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1131">#L1131</a>: func (v <b>Value</b>) Complex() complex128 {
+		<a href="../src/reflect/value.go.html#line-1146" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1146">#L1146</a>: func (v <b>Value</b>) Elem() <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-1170" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1170">#L1170</a>: 			return <b>Value</b>{}
+		<a href="../src/reflect/value.go.html#line-1176" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1176">#L1176</a>: 		return <b>Value</b>{typ, ptr, fl}
+		<a href="../src/reflect/value.go.html#line-1183" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1183">#L1183</a>: func (v <b>Value</b>) Field(i int) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-1210" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1210">#L1210</a>: 	return <b>Value</b>{typ, ptr, fl}
+		<a href="../src/reflect/value.go.html#line-1215" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1215">#L1215</a>: func (v <b>Value</b>) FieldByIndex(index []int) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-1237" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1237">#L1237</a>: func (v <b>Value</b>) FieldByName(name string) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-1242" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1242">#L1242</a>: 	return <b>Value</b>{}
+		<a href="../src/reflect/value.go.html#line-1249" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1249">#L1249</a>: func (v <b>Value</b>) FieldByNameFunc(match func(string) bool) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-1253" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1253">#L1253</a>: 	return <b>Value</b>{}
+		<a href="../src/reflect/value.go.html#line-1258" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1258">#L1258</a>: func (v <b>Value</b>) Float() float64 {
+		<a href="../src/reflect/value.go.html#line-1273" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1273">#L1273</a>: func (v <b>Value</b>) Index(i int) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-1290" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1290">#L1290</a>: 		return <b>Value</b>{typ, val, fl}
+		<a href="../src/reflect/value.go.html#line-1303" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1303">#L1303</a>: 		return <b>Value</b>{typ, val, fl}
+		<a href="../src/reflect/value.go.html#line-1312" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1312">#L1312</a>: 		return <b>Value</b>{uint8Type, p, fl}
+		<a href="../src/reflect/value.go.html#line-1319" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1319">#L1319</a>: func (v <b>Value</b>) Int() int64 {
+		<a href="../src/reflect/value.go.html#line-1338" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1338">#L1338</a>: func (v <b>Value</b>) CanInterface() bool {
+		<a href="../src/reflect/value.go.html#line-1350" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1350">#L1350</a>: func (v <b>Value</b>) Interface() (i interface{}) {
+		<a href="../src/reflect/value.go.html#line-1354" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1354">#L1354</a>: func valueInterface(v <b>Value</b>, safe bool) interface{} {
+		<a href="../src/reflect/value.go.html#line-1393" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1393">#L1393</a>: func (v <b>Value</b>) InterfaceData() [2]uintptr {
+		<a href="../src/reflect/value.go.html#line-1410" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1410">#L1410</a>: func (v <b>Value</b>) IsNil() bool {
+		<a href="../src/reflect/value.go.html#line-1435" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1435">#L1435</a>: func (v <b>Value</b>) IsValid() bool {
+		<a href="../src/reflect/value.go.html#line-1441" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1441">#L1441</a>: func (v <b>Value</b>) IsZero() bool {
+		<a href="../src/reflect/value.go.html#line-1481" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1481">#L1481</a>: func (v <b>Value</b>) Kind() Kind {
+		<a href="../src/reflect/value.go.html#line-1487" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1487">#L1487</a>: func (v <b>Value</b>) Len() int {
+		<a href="../src/reflect/value.go.html#line-1511" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1511">#L1511</a>: func (v <b>Value</b>) MapIndex(key <b>Value</b>) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-1532" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1532">#L1532</a>: 		return <b>Value</b>{}
+		<a href="../src/reflect/value.go.html#line-1544" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1544">#L1544</a>: func (v <b>Value</b>) MapKeys() []<b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-1557" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1557">#L1557</a>: 	a := make([]<b>Value</b>, mlen)
+		<a href="../src/reflect/value.go.html#line-1576" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1576">#L1576</a>: 	m  <b>Value</b>
+		<a href="../src/reflect/value.go.html#line-1581" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1581">#L1581</a>: func (it *MapIter) Key() <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-1595" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1595">#L1595</a>: func (it *MapIter) Value() <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-1639" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1639">#L1639</a>: func (v <b>Value</b>) MapRange() *MapIter {
+		<a href="../src/reflect/value.go.html#line-1646" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1646">#L1646</a>: func copyVal(typ *rtype, fl flag, ptr unsafe.Pointer) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-1652" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1652">#L1652</a>: 		return <b>Value</b>{typ, c, fl | flagIndir}
+		<a href="../src/reflect/value.go.html#line-1654" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1654">#L1654</a>: 	return <b>Value</b>{typ, *(*unsafe.Pointer)(ptr), fl}
+		<a href="../src/reflect/value.go.html#line-1661" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1661">#L1661</a>: func (v <b>Value</b>) Method(i int) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-1674" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1674">#L1674</a>: 	return <b>Value</b>{v.typ, v.ptr, fl}
+		<a href="../src/reflect/value.go.html#line-1678" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1678">#L1678</a>: func (v <b>Value</b>) NumMethod() int {
+		<a href="../src/reflect/value.go.html#line-1693" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1693">#L1693</a>: func (v <b>Value</b>) MethodByName(name string) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-1698" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1698">#L1698</a>: 		return <b>Value</b>{}
+		<a href="../src/reflect/value.go.html#line-1702" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1702">#L1702</a>: 		return <b>Value</b>{}
+		<a href="../src/reflect/value.go.html#line-1709" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1709">#L1709</a>: func (v <b>Value</b>) NumField() int {
+		<a href="../src/reflect/value.go.html#line-1717" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1717">#L1717</a>: func (v <b>Value</b>) OverflowComplex(x complex128) bool {
+		<a href="../src/reflect/value.go.html#line-1730" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1730">#L1730</a>: func (v <b>Value</b>) OverflowFloat(x float64) bool {
+		<a href="../src/reflect/value.go.html#line-1750" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1750">#L1750</a>: func (v <b>Value</b>) OverflowInt(x int64) bool {
+		<a href="../src/reflect/value.go.html#line-1763" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1763">#L1763</a>: func (v <b>Value</b>) OverflowUint(x uint64) bool {
+		<a href="../src/reflect/value.go.html#line-1793" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1793">#L1793</a>: func (v <b>Value</b>) Pointer() uintptr {
+		<a href="../src/reflect/value.go.html#line-1838" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1838">#L1838</a>: func (v <b>Value</b>) Recv() (x <b>Value</b>, ok bool) {
+		<a href="../src/reflect/value.go.html#line-1846" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1846">#L1846</a>: func (v <b>Value</b>) recv(nb bool) (val <b>Value</b>, ok bool) {
+		<a href="../src/reflect/value.go.html#line-1852" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1852">#L1852</a>: 	val = <b>Value</b>{t, nil, flag(t.Kind())}
+		<a href="../src/reflect/value.go.html#line-1863" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1863">#L1863</a>: 		val = <b>Value</b>{}
+		<a href="../src/reflect/value.go.html#line-1871" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1871">#L1871</a>: func (v <b>Value</b>) Send(x <b>Value</b>) {
+		<a href="../src/reflect/value.go.html#line-1879" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1879">#L1879</a>: func (v <b>Value</b>) send(x <b>Value</b>, nb bool) (selected bool) {
+		<a href="../src/reflect/value.go.html#line-1898" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1898">#L1898</a>: func (v <b>Value</b>) Set(x <b>Value</b>) {
+		<a href="../src/reflect/value.go.html#line-1919" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1919">#L1919</a>: func (v <b>Value</b>) SetBool(x bool) {
+		<a href="../src/reflect/value.go.html#line-1927" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1927">#L1927</a>: func (v <b>Value</b>) SetBytes(x []byte) {
+		<a href="../src/reflect/value.go.html#line-1938" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1938">#L1938</a>: func (v <b>Value</b>) setRunes(x []rune) {
+		<a href="../src/reflect/value.go.html#line-1949" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1949">#L1949</a>: func (v <b>Value</b>) SetComplex(x complex128) {
+		<a href="../src/reflect/value.go.html#line-1963" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1963">#L1963</a>: func (v <b>Value</b>) SetFloat(x float64) {
+		<a href="../src/reflect/value.go.html#line-1977" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1977">#L1977</a>: func (v <b>Value</b>) SetInt(x int64) {
+		<a href="../src/reflect/value.go.html#line-1998" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-1998">#L1998</a>: func (v <b>Value</b>) SetLen(n int) {
+		<a href="../src/reflect/value.go.html#line-2011" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2011">#L2011</a>: func (v <b>Value</b>) SetCap(n int) {
+		<a href="../src/reflect/value.go.html#line-2027" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2027">#L2027</a>: func (v <b>Value</b>) SetMapIndex(key, elem <b>Value</b>) {
+		<a href="../src/reflect/value.go.html#line-2056" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2056">#L2056</a>: func (v <b>Value</b>) SetUint(x uint64) {
+		<a href="../src/reflect/value.go.html#line-2078" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2078">#L2078</a>: func (v <b>Value</b>) SetPointer(x unsafe.Pointer) {
+		<a href="../src/reflect/value.go.html#line-2086" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2086">#L2086</a>: func (v <b>Value</b>) SetString(x string) {
+		<a href="../src/reflect/value.go.html#line-2095" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2095">#L2095</a>: func (v <b>Value</b>) Slice(i, j int) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2129" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2129">#L2129</a>: 		return <b>Value</b>{v.typ, unsafe.Pointer(&t), v.flag}
+		<a href="../src/reflect/value.go.html#line-2151" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2151">#L2151</a>: 	return <b>Value</b>{typ.common(), unsafe.Pointer(&x), fl}
+		<a href="../src/reflect/value.go.html#line-2157" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2157">#L2157</a>: func (v <b>Value</b>) Slice3(i, j, k int) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2203" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2203">#L2203</a>: 	return <b>Value</b>{typ.common(), unsafe.Pointer(&x), fl}
+		<a href="../src/reflect/value.go.html#line-2212" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2212">#L2212</a>: func (v <b>Value</b>) String() string {
+		<a href="../src/reflect/value.go.html#line-2229" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2229">#L2229</a>: func (v <b>Value</b>) TryRecv() (x <b>Value</b>, ok bool) {
+		<a href="../src/reflect/value.go.html#line-2239" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2239">#L2239</a>: func (v <b>Value</b>) TrySend(x <b>Value</b>) bool {
+		<a href="../src/reflect/value.go.html#line-2246" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2246">#L2246</a>: func (v <b>Value</b>) Type() Type {
+		<a href="../src/reflect/value.go.html#line-2279" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2279">#L2279</a>: func (v <b>Value</b>) Uint() uint64 {
+		<a href="../src/reflect/value.go.html#line-2307" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2307">#L2307</a>: func (v <b>Value</b>) UnsafeAddr() uintptr {
+		<a href="../src/reflect/value.go.html#line-2360" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2360">#L2360</a>: func grow(s <b>Value</b>, extra int) (<b>Value</b>, int, int) {
+		<a href="../src/reflect/value.go.html#line-2388" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2388">#L2388</a>: func Append(s <b>Value</b>, x ...<b>Value</b>) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2399" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2399">#L2399</a>: func AppendSlice(s, t <b>Value</b>) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2415" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2415">#L2415</a>: func Copy(dst, src <b>Value</b>) int {
+		<a href="../src/reflect/value.go.html#line-2512" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2512">#L2512</a>: 	Chan <b>Value</b>     // channel to use (for send or receive)
+		<a href="../src/reflect/value.go.html#line-2513" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2513">#L2513</a>: 	Send <b>Value</b>     // value to send (for send)
+		<a href="../src/reflect/value.go.html#line-2524" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2524">#L2524</a>: func Select(cases []SelectCase) (chosen int, recv <b>Value</b>, recvOK bool) {
+		<a href="../src/reflect/value.go.html#line-2612" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2612">#L2612</a>: 			recv = <b>Value</b>{t, p, fl | flagIndir}
+		<a href="../src/reflect/value.go.html#line-2614" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2614">#L2614</a>: 			recv = <b>Value</b>{t, *(*unsafe.Pointer)(p), fl}
+		<a href="../src/reflect/value.go.html#line-2630" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2630">#L2630</a>: func MakeSlice(typ Type, len, cap int) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2645" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2645">#L2645</a>: 	return <b>Value</b>{typ.(*rtype), unsafe.Pointer(&s), flagIndir | flag(Slice)}
+		<a href="../src/reflect/value.go.html#line-2649" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2649">#L2649</a>: func MakeChan(typ Type, buffer int) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2661" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2661">#L2661</a>: 	return <b>Value</b>{t, ch, flag(Chan)}
+		<a href="../src/reflect/value.go.html#line-2665" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2665">#L2665</a>: func MakeMap(typ Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2671" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2671">#L2671</a>: func MakeMapWithSize(typ Type, n int) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2677" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2677">#L2677</a>: 	return <b>Value</b>{t, m, flag(Map)}
+		<a href="../src/reflect/value.go.html#line-2683" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2683">#L2683</a>: func Indirect(v <b>Value</b>) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2692" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2692">#L2692</a>: func ValueOf(i interface{}) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2694" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2694">#L2694</a>: 		return <b>Value</b>{}
+		<a href="../src/reflect/value.go.html#line-2711" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2711">#L2711</a>: func Zero(typ Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2724" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2724">#L2724</a>: 		return <b>Value</b>{t, p, fl | flagIndir}
+		<a href="../src/reflect/value.go.html#line-2726" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2726">#L2726</a>: 	return <b>Value</b>{t, nil, fl}
+		<a href="../src/reflect/value.go.html#line-2737" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2737">#L2737</a>: func New(typ Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2749" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2749">#L2749</a>: 	return <b>Value</b>{pt, ptr, fl}
+		<a href="../src/reflect/value.go.html#line-2754" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2754">#L2754</a>: func NewAt(typ Type, p unsafe.Pointer) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2757" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2757">#L2757</a>: 	return <b>Value</b>{t.ptrTo(), p, fl}
+		<a href="../src/reflect/value.go.html#line-2764" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2764">#L2764</a>: func (v <b>Value</b>) assignTo(context string, dst *rtype, target unsafe.Pointer) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2775" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2775">#L2775</a>: 		return <b>Value</b>{dst, v.ptr, fl}
+		<a href="../src/reflect/value.go.html#line-2785" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2785">#L2785</a>: 			return <b>Value</b>{dst, nil, flag(Interface)}
+		<a href="../src/reflect/value.go.html#line-2793" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2793">#L2793</a>: 		return <b>Value</b>{dst, target, flagIndir | flag(Interface)}
+		<a href="../src/reflect/value.go.html#line-2803" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2803">#L2803</a>: func (v <b>Value</b>) Convert(t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2816" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2816">#L2816</a>: func (v <b>Value</b>) CanConvert(t Type) bool {
+		<a href="../src/reflect/value.go.html#line-2836" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2836">#L2836</a>: func convertOp(dst, src *rtype) func(<b>Value</b>, Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2929" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2929">#L2929</a>: func makeInt(f flag, bits uint64, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2942" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2942">#L2942</a>: 	return <b>Value</b>{typ, ptr, f | flagIndir | flag(typ.Kind())}
+		<a href="../src/reflect/value.go.html#line-2947" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2947">#L2947</a>: func makeFloat(f flag, v float64, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2956" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2956">#L2956</a>: 	return <b>Value</b>{typ, ptr, f | flagIndir | flag(typ.Kind())}
+		<a href="../src/reflect/value.go.html#line-2960" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2960">#L2960</a>: func makeFloat32(f flag, v float32, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2964" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2964">#L2964</a>: 	return <b>Value</b>{typ, ptr, f | flagIndir | flag(typ.Kind())}
+		<a href="../src/reflect/value.go.html#line-2969" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2969">#L2969</a>: func makeComplex(f flag, v complex128, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2978" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2978">#L2978</a>: 	return <b>Value</b>{typ, ptr, f | flagIndir | flag(typ.Kind())}
+		<a href="../src/reflect/value.go.html#line-2981" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2981">#L2981</a>: func makeString(f flag, v string, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2988" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2988">#L2988</a>: func makeBytes(f flag, v []byte, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-2995" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-2995">#L2995</a>: func makeRunes(f flag, v []rune, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-3008" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-3008">#L3008</a>: func cvtInt(v <b>Value</b>, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-3013" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-3013">#L3013</a>: func cvtUint(v <b>Value</b>, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-3018" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-3018">#L3018</a>: func cvtFloatInt(v <b>Value</b>, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-3023" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-3023">#L3023</a>: func cvtFloatUint(v <b>Value</b>, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-3028" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-3028">#L3028</a>: func cvtIntFloat(v <b>Value</b>, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-3033" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-3033">#L3033</a>: func cvtUintFloat(v <b>Value</b>, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-3038" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-3038">#L3038</a>: func cvtFloat(v <b>Value</b>, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-3049" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-3049">#L3049</a>: func cvtComplex(v <b>Value</b>, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-3054" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-3054">#L3054</a>: func cvtIntString(v <b>Value</b>, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-3063" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-3063">#L3063</a>: func cvtUintString(v <b>Value</b>, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-3072" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-3072">#L3072</a>: func cvtBytesString(v <b>Value</b>, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-3077" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-3077">#L3077</a>: func cvtStringBytes(v <b>Value</b>, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-3082" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-3082">#L3082</a>: func cvtRunesString(v <b>Value</b>, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-3087" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-3087">#L3087</a>: func cvtStringRunes(v <b>Value</b>, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-3092" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-3092">#L3092</a>: func cvtSliceArrayPtr(v <b>Value</b>, t Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-3098" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-3098">#L3098</a>: 	return <b>Value</b>{t.common(), h.Data, v.flag&^(flagIndir|flagAddr|flagKindMask) | flag(Ptr)}
+		<a href="../src/reflect/value.go.html#line-3102" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-3102">#L3102</a>: func cvtDirect(v <b>Value</b>, typ Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-3113" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-3113">#L3113</a>: 	return <b>Value</b>{t, ptr, v.flag.ro() | f} // v.flag.ro()|f == f?
+		<a href="../src/reflect/value.go.html#line-3117" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-3117">#L3117</a>: func cvtT2I(v <b>Value</b>, typ Type) <b>Value</b> {
+		<a href="../src/reflect/value.go.html#line-3125" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-3125">#L3125</a>: 	return <b>Value</b>{typ.common(), target, v.flag.ro() | flagIndir | flag(Interface)}
+		<a href="../src/reflect/value.go.html#line-3129" class="path-duplicate">value.go</a><a href="../src/reflect/value.go.html#line-3129">#L3129</a>: func cvtI2I(v <b>Value</b>, typ Type) <b>Value</b> {
 
 	<a href="../pkg/encoding/asn1.html">encoding/asn1</a>
 		<a href="../src/encoding/asn1/asn1.go.html#line-605">asn1.go#L605</a>: func parseSequenceOf(bytes []byte, sliceType reflect.Type, elemType reflect.Type) (ret reflect.<b>Value</b>, err error) {
@@ -221,18 +226,18 @@
 		<a href="../src/encoding/binary/binary.go.html#line-688" class="path-duplicate">binary.go</a><a href="../src/encoding/binary/binary.go.html#line-688">#L688</a>: func (e *encoder) skip(v reflect.<b>Value</b>) {
 
 	<a href="../pkg/encoding/json.html">encoding/json</a>
-		<a href="../src/encoding/json/decode.go.html#line-353">decode.go#L353</a>: func (d *decodeState) value(v reflect.<b>Value</b>) error {
-		<a href="../src/encoding/json/decode.go.html#line-422" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-422">#L422</a>: func indirect(v reflect.<b>Value</b>, decodingNull bool) (Unmarshaler, encoding.TextUnmarshaler, reflect.<b>Value</b>) {
-		<a href="../src/encoding/json/decode.go.html#line-476" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-476">#L476</a>: 				return u, nil, reflect.<b>Value</b>{}
-		<a href="../src/encoding/json/decode.go.html#line-480" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-480">#L480</a>: 					return nil, u, reflect.<b>Value</b>{}
-		<a href="../src/encoding/json/decode.go.html#line-497" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-497">#L497</a>: func (d *decodeState) array(v reflect.<b>Value</b>) error {
-		<a href="../src/encoding/json/decode.go.html#line-563" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-563">#L563</a>: 			if err := d.value(reflect.<b>Value</b>{}); err != nil {
-		<a href="../src/encoding/json/decode.go.html#line-603" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-603">#L603</a>: func (d *decodeState) object(v reflect.<b>Value</b>) error {
-		<a href="../src/encoding/json/decode.go.html#line-659" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-659">#L659</a>: 	var mapElem reflect.<b>Value</b>
-		<a href="../src/encoding/json/decode.go.html#line-683" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-683">#L683</a>: 		var subv reflect.<b>Value</b>
-		<a href="../src/encoding/json/decode.go.html#line-725" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-725">#L725</a>: 								subv = reflect.<b>Value</b>{}
-		<a href="../src/encoding/json/decode.go.html#line-774" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-774">#L774</a>: 			var kv reflect.<b>Value</b>
-		<a href="../src/encoding/json/decode.go.html#line-850" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-850">#L850</a>: func (d *decodeState) literalStore(item []byte, v reflect.<b>Value</b>, fromQuoted bool) error {
+		<a href="../src/encoding/json/decode.go.html#line-356">decode.go#L356</a>: func (d *decodeState) value(v reflect.<b>Value</b>) error {
+		<a href="../src/encoding/json/decode.go.html#line-425" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-425">#L425</a>: func indirect(v reflect.<b>Value</b>, decodingNull bool) (Unmarshaler, encoding.TextUnmarshaler, reflect.<b>Value</b>) {
+		<a href="../src/encoding/json/decode.go.html#line-479" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-479">#L479</a>: 				return u, nil, reflect.<b>Value</b>{}
+		<a href="../src/encoding/json/decode.go.html#line-483" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-483">#L483</a>: 					return nil, u, reflect.<b>Value</b>{}
+		<a href="../src/encoding/json/decode.go.html#line-500" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-500">#L500</a>: func (d *decodeState) array(v reflect.<b>Value</b>) error {
+		<a href="../src/encoding/json/decode.go.html#line-566" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-566">#L566</a>: 			if err := d.value(reflect.<b>Value</b>{}); err != nil {
+		<a href="../src/encoding/json/decode.go.html#line-606" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-606">#L606</a>: func (d *decodeState) object(v reflect.<b>Value</b>) error {
+		<a href="../src/encoding/json/decode.go.html#line-662" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-662">#L662</a>: 	var mapElem reflect.<b>Value</b>
+		<a href="../src/encoding/json/decode.go.html#line-689" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-689">#L689</a>: 		var subv reflect.<b>Value</b>
+		<a href="../src/encoding/json/decode.go.html#line-731" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-731">#L731</a>: 								subv = reflect.<b>Value</b>{}
+		<a href="../src/encoding/json/decode.go.html#line-783" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-783">#L783</a>: 			var kv reflect.<b>Value</b>
+		<a href="../src/encoding/json/decode.go.html#line-861" class="path-duplicate">decode.go</a><a href="../src/encoding/json/decode.go.html#line-861">#L861</a>: func (d *decodeState) literalStore(item []byte, v reflect.<b>Value</b>, fromQuoted bool) error {
 		<a href="../src/encoding/json/encode.go.html#line-242">encode.go#L242</a>: 	Value reflect.<b>Value</b>
 		<a href="../src/encoding/json/encode.go.html#line-341" class="path-duplicate">encode.go</a><a href="../src/encoding/json/encode.go.html#line-341">#L341</a>: func isEmptyValue(v reflect.<b>Value</b>) bool {
 		<a href="../src/encoding/json/encode.go.html#line-359" class="path-duplicate">encode.go</a><a href="../src/encoding/json/encode.go.html#line-359">#L359</a>: func (e *encodeState) reflectValue(v reflect.<b>Value</b>, opts encOpts) {
@@ -253,12 +258,13 @@
 		<a href="../src/encoding/json/encode.go.html#line-719" class="path-duplicate">encode.go</a><a href="../src/encoding/json/encode.go.html#line-719">#L719</a>: func unsupportedTypeEncoder(e *encodeState, v reflect.<b>Value</b>, _ encOpts) {
 		<a href="../src/encoding/json/encode.go.html#line-732" class="path-duplicate">encode.go</a><a href="../src/encoding/json/encode.go.html#line-732">#L732</a>: func (se structEncoder) encode(e *encodeState, v reflect.<b>Value</b>, opts encOpts) {
 		<a href="../src/encoding/json/encode.go.html#line-779" class="path-duplicate">encode.go</a><a href="../src/encoding/json/encode.go.html#line-779">#L779</a>: func (me mapEncoder) encode(e *encodeState, v reflect.<b>Value</b>, opts encOpts) {
-		<a href="../src/encoding/json/encode.go.html#line-833" class="path-duplicate">encode.go</a><a href="../src/encoding/json/encode.go.html#line-833">#L833</a>: func encodeByteSlice(e *encodeState, v reflect.<b>Value</b>, _ encOpts) {
-		<a href="../src/encoding/json/encode.go.html#line-868" class="path-duplicate">encode.go</a><a href="../src/encoding/json/encode.go.html#line-868">#L868</a>: func (se sliceEncoder) encode(e *encodeState, v reflect.<b>Value</b>, opts encOpts) {
-		<a href="../src/encoding/json/encode.go.html#line-908" class="path-duplicate">encode.go</a><a href="../src/encoding/json/encode.go.html#line-908">#L908</a>: func (ae arrayEncoder) encode(e *encodeState, v reflect.<b>Value</b>, opts encOpts) {
-		<a href="../src/encoding/json/encode.go.html#line-929" class="path-duplicate">encode.go</a><a href="../src/encoding/json/encode.go.html#line-929">#L929</a>: func (pe ptrEncoder) encode(e *encodeState, v reflect.<b>Value</b>, opts encOpts) {
-		<a href="../src/encoding/json/encode.go.html#line-957" class="path-duplicate">encode.go</a><a href="../src/encoding/json/encode.go.html#line-957">#L957</a>: func (ce condAddrEncoder) encode(e *encodeState, v reflect.<b>Value</b>, opts encOpts) {
-		<a href="../src/encoding/json/encode.go.html#line-1000" class="path-duplicate">encode.go</a><a href="../src/encoding/json/encode.go.html#line-1000">#L1000</a>: 	v reflect.<b>Value</b>
+		<a href="../src/encoding/json/encode.go.html#line-834" class="path-duplicate">encode.go</a><a href="../src/encoding/json/encode.go.html#line-834">#L834</a>: func encodeByteSlice(e *encodeState, v reflect.<b>Value</b>, _ encOpts) {
+		<a href="../src/encoding/json/encode.go.html#line-869" class="path-duplicate">encode.go</a><a href="../src/encoding/json/encode.go.html#line-869">#L869</a>: func (se sliceEncoder) encode(e *encodeState, v reflect.<b>Value</b>, opts encOpts) {
+		<a href="../src/encoding/json/encode.go.html#line-909" class="path-duplicate">encode.go</a><a href="../src/encoding/json/encode.go.html#line-909">#L909</a>: func (ae arrayEncoder) encode(e *encodeState, v reflect.<b>Value</b>, opts encOpts) {
+		<a href="../src/encoding/json/encode.go.html#line-930" class="path-duplicate">encode.go</a><a href="../src/encoding/json/encode.go.html#line-930">#L930</a>: func (pe ptrEncoder) encode(e *encodeState, v reflect.<b>Value</b>, opts encOpts) {
+		<a href="../src/encoding/json/encode.go.html#line-958" class="path-duplicate">encode.go</a><a href="../src/encoding/json/encode.go.html#line-958">#L958</a>: func (ce condAddrEncoder) encode(e *encodeState, v reflect.<b>Value</b>, opts encOpts) {
+		<a href="../src/encoding/json/encode.go.html#line-1001" class="path-duplicate">encode.go</a><a href="../src/encoding/json/encode.go.html#line-1001">#L1001</a>: 	k  reflect.<b>Value</b>
+		<a href="../src/encoding/json/encode.go.html#line-1002" class="path-duplicate">encode.go</a><a href="../src/encoding/json/encode.go.html#line-1002">#L1002</a>: 	v  reflect.<b>Value</b>
 
 	<a href="../pkg/flag.html">flag</a>
 		<a href="../src/flag/flag.go.html#line-458">flag.go#L458</a>: 	var z reflect.<b>Value</b>
@@ -289,7 +295,7 @@
 		<a href="../src/net/http/httptrace/trace.go.html#line-202">trace.go#L202</a>: 		newFunc := reflect.MakeFunc(hookType, func(args []reflect.<b>Value</b>) []reflect.<b>Value</b> {
 </code></pre><pre id="footer">
 <table><tr><td><img src="../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

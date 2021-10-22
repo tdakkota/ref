@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: cpu.go in package internal/cpu</title>
-<link href="../../../css/light-v0.3.1.css" rel="stylesheet">
-<script src="../../../jvs/golds-v0.3.1.js"></script>
+<link href="../../../css/light-v0.3.6.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.3.6.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -69,12 +69,12 @@ input[id=r17]:checked ~pre label[for=r17]
 <span class="codeline" id="line-12"><code><span class="keyword">var</span> <a href="../../../pkg/internal/cpu.html#name-DebugOptions" class="ident">DebugOptions</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
 <span class="codeline" id="line-13"><code></code></span>
 <span class="codeline" id="line-14"><code><span class="comment">// CacheLinePad is used to pad structs to avoid false sharing.</span></code></span>
-<span class="codeline" id="line-15"><code><span class="keyword">type</span> <a href="../../../pkg/internal/cpu.html#name-CacheLinePad" class="ident">CacheLinePad</a> <span class="keyword">struct</span>{ _ [<a href="cpu_x86.go.html#line-9" class="ident">CacheLinePadSize</a>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a> }</code></span>
+<span class="codeline" id="line-15"><code><span class="keyword">type</span> <a href="../../../pkg/internal/cpu.html#name-CacheLinePad" class="ident">CacheLinePad</a> <span class="keyword">struct</span>{ _ [<a href="cpu_x86.go.html#line-10" class="ident">CacheLinePadSize</a>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a> }</code></span>
 <span class="codeline" id="line-16"><code></code></span>
 <span class="codeline" id="line-17"><code><span class="comment">// CacheLineSize is the CPU's assumed cache line size.</span></code></span>
 <span class="codeline" id="line-18"><code><span class="comment">// There is currently no runtime detection of the real cache line size</span></code></span>
 <span class="codeline" id="line-19"><code><span class="comment">// so we use the constant per GOARCH CacheLinePadSize as an approximation.</span></code></span>
-<span class="codeline" id="line-20"><code><span class="keyword">var</span> <a href="../../../pkg/internal/cpu.html#name-CacheLineSize" class="ident">CacheLineSize</a> <a href="../../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> = <a href="cpu_x86.go.html#line-9" class="ident">CacheLinePadSize</a></code></span>
+<span class="codeline" id="line-20"><code><span class="keyword">var</span> <a href="../../../pkg/internal/cpu.html#name-CacheLineSize" class="ident">CacheLineSize</a> <a href="../../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> = <a href="cpu_x86.go.html#line-10" class="ident">CacheLinePadSize</a></code></span>
 <span class="codeline" id="line-21"><code></code></span>
 <span class="codeline" id="line-22"><code><span class="comment">// The booleans in X86 contain the correspondingly named cpuid feature bit.</span></code></span>
 <span class="codeline" id="line-23"><code><span class="comment">// HasAVX and HasAVX2 are only set if the OS does support XMM and YMM registers</span></code></span>
@@ -177,7 +177,7 @@ input[id=r17]:checked ~pre label[for=r17]
 <span class="codeline" id="line-120"><code><span class="comment">// before normal init functions are run. env is set by runtime if the OS supports</span></code></span>
 <span class="codeline" id="line-121"><code><span class="comment">// cpu feature options in GODEBUG.</span></code></span>
 <span class="codeline" id="line-122"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../pkg/internal/cpu.html#name-Initialize" class="ident">Initialize</a></label>(<label for="r1" class="ident">env</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) {</code></span>
-<span class="codeline" id="line-123"><code>	<a href="cpu_x86.go.html#line-43" class="ident">doinit</a>()</code></span>
+<span class="codeline" id="line-123"><code>	<a href="cpu_x86.go.html#line-44" class="ident">doinit</a>()</code></span>
 <span class="codeline" id="line-124"><code>	<a href="#line-148" class="ident">processOptions</a>(<label for="r1" class="ident">env</label>)</code></span>
 <span class="codeline" id="line-125"><code>}</code></span>
 <span class="codeline" id="line-126"><code></code></span>
@@ -189,11 +189,11 @@ input[id=r17]:checked ~pre label[for=r17]
 <span class="codeline" id="line-132"><code></code></span>
 <span class="codeline" id="line-133"><code><span class="comment">// Option names should be lower case. e.g. avx instead of AVX.</span></code></span>
 <span class="codeline" id="line-134"><code><span class="keyword">type</span> <a href="../../../pkg/internal/cpu.html#name-option" class="ident">option</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-135"><code>	<a href="../../../use/internal/cpu..option*a11a7.Name.html" class="ident">Name</a>      <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
-<span class="codeline" id="line-136"><code>	<a href="../../../use/internal/cpu..option*a11a7.Feature.html" class="ident">Feature</a>   *<a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
-<span class="codeline" id="line-137"><code>	<a href="../../../use/internal/cpu..option*a11a7.Specified.html" class="ident">Specified</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// whether feature value was specified in GODEBUG</span></code></span>
-<span class="codeline" id="line-138"><code>	<a href="../../../use/internal/cpu..option*a11a7.Enable.html" class="ident">Enable</a>    <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// whether feature should be enabled</span></code></span>
-<span class="codeline" id="line-139"><code>	<a href="../../../use/internal/cpu..option*a11a7.Required.html" class="ident">Required</a>  <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// whether feature is mandatory and can not be disabled</span></code></span>
+<span class="codeline" id="line-135"><code>	<a href="../../../use/internal/cpu..option^a11a7.Name.html" class="ident">Name</a>      <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-136"><code>	<a href="../../../use/internal/cpu..option^a11a7.Feature.html" class="ident">Feature</a>   *<a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-137"><code>	<a href="../../../use/internal/cpu..option^a11a7.Specified.html" class="ident">Specified</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// whether feature value was specified in GODEBUG</span></code></span>
+<span class="codeline" id="line-138"><code>	<a href="../../../use/internal/cpu..option^a11a7.Enable.html" class="ident">Enable</a>    <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// whether feature should be enabled</span></code></span>
+<span class="codeline" id="line-139"><code>	<a href="../../../use/internal/cpu..option^a11a7.Required.html" class="ident">Required</a>  <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// whether feature is mandatory and can not be disabled</span></code></span>
 <span class="codeline" id="line-140"><code>}</code></span>
 <span class="codeline" id="line-141"><code></code></span>
 <span class="codeline" id="line-142"><code><span class="comment">// processOptions enables or disables CPU feature values based on the parsed env string.</span></code></span>
@@ -283,7 +283,7 @@ input[id=r17]:checked ~pre label[for=r17]
 <span class="codeline" id="line-226"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>References: runtime.notInHeap</title>
+<link href="../css/light-v0.3.6.css" rel="stylesheet">
+<script src="../jvs/golds-v0.3.6.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre><code><span style="font-size:x-large;">type <b><a href="../pkg/runtime.html">runtime</a>.<a href="../src/runtime/malloc.go.html#line-1506">notInHeap</a></b></span>
+
+<span class="title">16 uses</span>
+
+	runtime (current package)
+		<a href="../src/runtime/malloc.go.html#line-760">malloc.go#L760</a>: 			newArray := (*<b>notInHeap</b>)(persistentalloc(size, sys.PtrSize, &memstats.gcMiscSys))
+		<a href="../src/runtime/malloc.go.html#line-1337" class="path-duplicate">malloc.go</a><a href="../src/runtime/malloc.go.html#line-1337">#L1337</a>: 	base *<b>notInHeap</b>
+		<a href="../src/runtime/malloc.go.html#line-1353" class="path-duplicate">malloc.go</a><a href="../src/runtime/malloc.go.html#line-1353">#L1353</a>: var persistentChunks *<b>notInHeap</b>
+		<a href="../src/runtime/malloc.go.html#line-1363" class="path-duplicate">malloc.go</a><a href="../src/runtime/malloc.go.html#line-1363">#L1363</a>: 	var p *<b>notInHeap</b>
+		<a href="../src/runtime/malloc.go.html#line-1373" class="path-duplicate">malloc.go</a><a href="../src/runtime/malloc.go.html#line-1373">#L1373</a>: func persistentalloc1(size, align uintptr, sysStat *sysMemStat) *<b>notInHeap</b> {
+		<a href="../src/runtime/malloc.go.html#line-1393" class="path-duplicate">malloc.go</a><a href="../src/runtime/malloc.go.html#line-1393">#L1393</a>: 		return (*<b>notInHeap</b>)(sysAlloc(size, sysStat))
+		<a href="../src/runtime/malloc.go.html#line-1406" class="path-duplicate">malloc.go</a><a href="../src/runtime/malloc.go.html#line-1406">#L1406</a>: 		persistent.base = (*<b>notInHeap</b>)(sysAlloc(persistentChunkSize, &memstats.other_sys))
+		<a href="../src/runtime/malloc.go.html#line-1506" class="path-duplicate">malloc.go</a><a href="../src/runtime/malloc.go.html#line-1506">#L1506</a>: type <b>notInHeap</b> struct{}
+		<a href="../src/runtime/malloc.go.html#line-1508" class="path-duplicate">malloc.go</a><a href="../src/runtime/malloc.go.html#line-1508">#L1508</a>: func (p *<b>notInHeap</b>) add(bytes uintptr) *<b>notInHeap</b> {
+		<a href="../src/runtime/malloc.go.html#line-1509" class="path-duplicate">malloc.go</a><a href="../src/runtime/malloc.go.html#line-1509">#L1509</a>: 	return (*<b>notInHeap</b>)(unsafe.Pointer(uintptr(unsafe.Pointer(p)) + bytes))
+		<a href="../src/runtime/mpagealloc_64bit.go.html#line-85">mpagealloc_64bit.go#L85</a>: 		sl := notInHeapSlice{(*<b>notInHeap</b>)(r), 0, entries}
+		<a href="../src/runtime/mranges.go.html#line-170">mranges.go#L170</a>: 	ranges.array = (*<b>notInHeap</b>)(persistentalloc(unsafe.Sizeof(addrRange{})*uintptr(ranges.cap), sys.PtrSize, sysStat))
+		<a href="../src/runtime/mranges.go.html#line-297" class="path-duplicate">mranges.go</a><a href="../src/runtime/mranges.go.html#line-297">#L297</a>: 			ranges.array = (*<b>notInHeap</b>)(persistentalloc(unsafe.Sizeof(addrRange{})*uintptr(ranges.cap), sys.PtrSize, a.sysStat))
+		<a href="../src/runtime/mranges.go.html#line-367" class="path-duplicate">mranges.go</a><a href="../src/runtime/mranges.go.html#line-367">#L367</a>: 		ranges.array = (*<b>notInHeap</b>)(persistentalloc(unsafe.Sizeof(addrRange{})*uintptr(ranges.cap), sys.PtrSize, b.sysStat))
+		<a href="../src/runtime/slice.go.html#line-21">slice.go#L21</a>: 	array *<b>notInHeap</b>
+</code></pre><pre id="footer">
+<table><tr><td><img src="../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

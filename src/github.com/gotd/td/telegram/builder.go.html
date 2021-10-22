@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: builder.go in package github.com/gotd/td/telegram</title>
-<link href="../../../../../css/light-v0.3.1.css" rel="stylesheet">
-<script src="../../../../../jvs/golds-v0.3.1.js"></script>
+<link href="../../../../../css/light-v0.3.6.css" rel="stylesheet">
+<script src="../../../../../jvs/golds-v0.3.6.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -164,7 +164,7 @@ input[id=i16]:checked ~pre .i16
 <span class="codeline" id="line-28"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/path/filepath.html" class="ident i5">filepath</a>.<a href="../../../../path/filepath/path.go.html#line-243" class="ident">Abs</a>(<label for="r1" class="ident">dir</label>)</code></span>
 <span class="codeline" id="line-29"><code>	}</code></span>
 <span class="codeline" id="line-30"><code></code></span>
-<span class="codeline" id="line-31"><code>	<label for="r1" class="ident">dir</label>, <label for="r3" class="ident">err</label> := <a href="../../../../../pkg/os.html" class="ident i4">os</a>.<a href="../../../../os/file.go.html#line-493" class="ident">UserHomeDir</a>()</code></span>
+<span class="codeline" id="line-31"><code>	<label for="r1" class="ident">dir</label>, <label for="r3" class="ident">err</label> := <a href="../../../../../pkg/os.html" class="ident i4">os</a>.<a href="../../../../os/file.go.html#line-500" class="ident">UserHomeDir</a>()</code></span>
 <span class="codeline" id="line-32"><code>	<span class="keyword">if</span> <label for="r3" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-33"><code>		<label for="r1" class="ident">dir</label> = <span class="lit-string">"."</span></code></span>
 <span class="codeline" id="line-34"><code>	}</code></span>
@@ -217,7 +217,7 @@ input[id=i16]:checked ~pre .i16
 <span class="codeline" id="line-81"><code><span class="comment">// 	APP_ID:   app_id of Telegram app.</span></code></span>
 <span class="codeline" id="line-82"><code><span class="comment">// 	APP_HASH: app_hash of Telegram app.</span></code></span>
 <span class="codeline" id="line-83"><code><span class="keyword">func</span> <label for="r13" class="ident"><a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-ClientFromEnvironment" class="ident">ClientFromEnvironment</a></label>(<label for="r14" class="ident">opts</label> <a href="options.go.html#line-21" class="ident">Options</a>) (*<a href="client.go.html#line-61" class="ident">Client</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-84"><code>	<label for="r15" class="ident">appID</label>, <label for="r16" class="ident">err</label> := <a href="../../../../../pkg/strconv.html" class="ident i6">strconv</a>.<a href="../../../../strconv/atoi.go.html#line-224" class="ident">Atoi</a>(<a href="../../../../../pkg/os.html" class="ident i4">os</a>.<a href="../../../../os/env.go.html#line-101" class="ident">Getenv</a>(<span class="lit-string">"APP_ID"</span>))</code></span>
+<span class="codeline" id="line-84"><code>	<label for="r15" class="ident">appID</label>, <label for="r16" class="ident">err</label> := <a href="../../../../../pkg/strconv.html" class="ident i6">strconv</a>.<a href="../../../../strconv/atoi.go.html#line-229" class="ident">Atoi</a>(<a href="../../../../../pkg/os.html" class="ident i4">os</a>.<a href="../../../../os/env.go.html#line-101" class="ident">Getenv</a>(<span class="lit-string">"APP_ID"</span>))</code></span>
 <span class="codeline" id="line-85"><code>	<span class="keyword">if</span> <label for="r16" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-86"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../pkg/golang.org/x/xerrors.html" class="ident i11">xerrors</a>.<a href="../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"APP_ID not set or invalid: %w"</span>, <label for="r16" class="ident">err</label>)</code></span>
 <span class="codeline" id="line-87"><code>	}</code></span>
@@ -253,7 +253,7 @@ input[id=i16]:checked ~pre .i16
 <span class="codeline" id="line-117"><code>				<span class="keyword">return</span> <label for="r25" class="ident">err</label></code></span>
 <span class="codeline" id="line-118"><code>			}</code></span>
 <span class="codeline" id="line-119"><code>			<span class="keyword">if</span> <label for="r26" class="ident">timeout</label>, <label for="r27" class="ident">ok</label> := <a href="flood_wait.go.html#line-15" class="ident">AsFloodWait</a>(<label for="r25" class="ident">err</label>); <label for="r27" class="ident">ok</label> {</code></span>
-<span class="codeline" id="line-120"><code>				<label for="r28" class="ident">timer</label> := <a href="../../../../../pkg/github.com/gotd/td/clock.html" class="ident i12">clock</a>.<a href="../clock/system.go.html#line-50" class="ident">System</a>.<a href="../clock/clock.go.html#line-13" class="ident">Timer</a>(<label for="r26" class="ident">timeout</label> + <span class="lit-number">1</span>*<a href="../../../../../pkg/time.html" class="ident i7">time</a>.<a href="../../../../time/time.go.html#line-605" class="ident">Second</a>)</code></span>
+<span class="codeline" id="line-120"><code>				<label for="r28" class="ident">timer</label> := <a href="../../../../../pkg/github.com/gotd/td/clock.html" class="ident i12">clock</a>.<a href="../clock/system.go.html#line-50" class="ident">System</a>.<a href="../clock/clock.go.html#line-13" class="ident">Timer</a>(<label for="r26" class="ident">timeout</label> + <span class="lit-number">1</span>*<a href="../../../../../pkg/time.html" class="ident i7">time</a>.<a href="../../../../time/time.go.html#line-612" class="ident">Second</a>)</code></span>
 <span class="codeline" id="line-121"><code>				<span class="keyword">defer</span> <a href="../../../../../pkg/github.com/gotd/td/clock.html" class="ident i12">clock</a>.<a href="../clock/clock.go.html#line-21" class="ident">StopTimer</a>(<label for="r28" class="ident">timer</label>)</code></span>
 <span class="codeline" id="line-122"><code></code></span>
 <span class="codeline" id="line-123"><code>				<a href="../../../../runtime/select.go.html#line-121"><span class="keyword">select</span></a> {</code></span>
@@ -309,7 +309,7 @@ input[id=i16]:checked ~pre .i16
 <span class="codeline" id="line-173"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

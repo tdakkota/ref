@@ -5,22 +5,25 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>References: fmt.Fprintf</title>
-<link href="../css/light-v0.3.1.css" rel="stylesheet">
-<script src="../jvs/golds-v0.3.1.js"></script>
+<link href="../css/light-v0.3.6.css" rel="stylesheet">
+<script src="../jvs/golds-v0.3.6.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre><code><span style="font-size:x-large;">func <b><a href="../pkg/fmt.html">fmt</a>.<a href="../src/fmt/print.go.html#line-202">Fprintf</a></b></span>
 
-<span class="title">43 uses</span>
+<span class="title">46 uses</span>
 
 	fmt (current package)
 		<a href="../src/fmt/print.go.html#line-202">print.go#L202</a>: func <b>Fprintf</b>(w io.Writer, format string, a ...interface{}) (n int, err error) {
 		<a href="../src/fmt/print.go.html#line-213" class="path-duplicate">print.go</a><a href="../src/fmt/print.go.html#line-213">#L213</a>: 	return <b>Fprintf</b>(os.Stdout, format, a...)
 
 	<a href="../pkg/flag.html">flag</a>
-		<a href="../src/flag/flag.go.html#line-567">flag.go#L567</a>: 		fmt.<b>Fprintf</b>(f.Output(), "Usage:\n")
-		<a href="../src/flag/flag.go.html#line-569" class="path-duplicate">flag.go</a><a href="../src/flag/flag.go.html#line-569">#L569</a>: 		fmt.<b>Fprintf</b>(f.Output(), "Usage of %s:\n", f.name)
-		<a href="../src/flag/flag.go.html#line-588" class="path-duplicate">flag.go</a><a href="../src/flag/flag.go.html#line-588">#L588</a>: 	fmt.<b>Fprintf</b>(CommandLine.Output(), "Usage of %s:\n", os.Args[0])
+		<a href="../src/flag/flag.go.html#line-512">flag.go#L512</a>: 		fmt.<b>Fprintf</b>(&b, "  -%s", flag.Name) // Two spaces before -; see next two comments.
+		<a href="../src/flag/flag.go.html#line-532" class="path-duplicate">flag.go</a><a href="../src/flag/flag.go.html#line-532">#L532</a>: 				fmt.<b>Fprintf</b>(&b, " (default %q)", flag.DefValue)
+		<a href="../src/flag/flag.go.html#line-534" class="path-duplicate">flag.go</a><a href="../src/flag/flag.go.html#line-534">#L534</a>: 				fmt.<b>Fprintf</b>(&b, " (default %v)", flag.DefValue)
+		<a href="../src/flag/flag.go.html#line-569" class="path-duplicate">flag.go</a><a href="../src/flag/flag.go.html#line-569">#L569</a>: 		fmt.<b>Fprintf</b>(f.Output(), "Usage:\n")
+		<a href="../src/flag/flag.go.html#line-571" class="path-duplicate">flag.go</a><a href="../src/flag/flag.go.html#line-571">#L571</a>: 		fmt.<b>Fprintf</b>(f.Output(), "Usage of %s:\n", f.name)
+		<a href="../src/flag/flag.go.html#line-590" class="path-duplicate">flag.go</a><a href="../src/flag/flag.go.html#line-590">#L590</a>: 	fmt.<b>Fprintf</b>(CommandLine.Output(), "Usage of %s:\n", os.Args[0])
 
 	<a href="../pkg/go.uber.org/zap.html">go.uber.org/zap</a>
 		<a href="../src/go.uber.org/zap/logger.go.html#line-310">logger.go#L310</a>: 			fmt.<b>Fprintf</b>(log.errorOutput, "%v Logger.check error: failed to get caller\n", time.Now().UTC())
@@ -49,26 +52,26 @@
 		<a href="../src/net/http/fs.go.html#line-152">fs.go#L152</a>: 	fmt.<b>Fprintf</b>(w, "<pre>\n")
 		<a href="../src/net/http/fs.go.html#line-162" class="path-duplicate">fs.go</a><a href="../src/net/http/fs.go.html#line-162">#L162</a>: 		fmt.<b>Fprintf</b>(w, "<a href=\"%s\">%s</a>\n", url.String(), htmlReplacer.Replace(name))
 		<a href="../src/net/http/fs.go.html#line-164" class="path-duplicate">fs.go</a><a href="../src/net/http/fs.go.html#line-164">#L164</a>: 	fmt.<b>Fprintf</b>(w, "</pre>\n")
-		<a href="../src/net/http/h2_bundle.go.html#line-1441">h2_bundle.go#L1441</a>: 				fmt.<b>Fprintf</b>(buf, "0x%x", 1<<i)
-		<a href="../src/net/http/h2_bundle.go.html#line-1446" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-1446">#L1446</a>: 		fmt.<b>Fprintf</b>(buf, " stream=%d", h.StreamID)
-		<a href="../src/net/http/h2_bundle.go.html#line-1448" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-1448">#L1448</a>: 	fmt.<b>Fprintf</b>(buf, " len=%d", h.Length)
-		<a href="../src/net/http/h2_bundle.go.html#line-2827" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-2827">#L2827</a>: 			fmt.<b>Fprintf</b>(&buf, " %v=%v,", s.ID, s.Val)
-		<a href="../src/net/http/h2_bundle.go.html#line-2839" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-2839">#L2839</a>: 		fmt.<b>Fprintf</b>(&buf, " data=%q", data)
-		<a href="../src/net/http/h2_bundle.go.html#line-2841" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-2841">#L2841</a>: 			fmt.<b>Fprintf</b>(&buf, " (%d bytes omitted)", len(f.Data())-max)
-		<a href="../src/net/http/h2_bundle.go.html#line-2847" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-2847">#L2847</a>: 		fmt.<b>Fprintf</b>(&buf, " incr=%v", f.Increment)
-		<a href="../src/net/http/h2_bundle.go.html#line-2849" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-2849">#L2849</a>: 		fmt.<b>Fprintf</b>(&buf, " ping=%q", f.Data[:])
-		<a href="../src/net/http/h2_bundle.go.html#line-2851" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-2851">#L2851</a>: 		fmt.<b>Fprintf</b>(&buf, " LastStreamID=%v ErrCode=%v Debug=%q",
-		<a href="../src/net/http/h2_bundle.go.html#line-2854" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-2854">#L2854</a>: 		fmt.<b>Fprintf</b>(&buf, " ErrCode=%v", f.ErrCode)
-		<a href="../src/net/http/request.go.html#line-610">request.go#L610</a>: 	_, err = fmt.<b>Fprintf</b>(w, "%s %s HTTP/1.1\r\n", valueOrDefault(r.Method, "GET"), ruri)
-		<a href="../src/net/http/request.go.html#line-616" class="path-duplicate">request.go</a><a href="../src/net/http/request.go.html#line-616">#L616</a>: 	_, err = fmt.<b>Fprintf</b>(w, "Host: %s\r\n", host)
-		<a href="../src/net/http/request.go.html#line-631" class="path-duplicate">request.go</a><a href="../src/net/http/request.go.html#line-631">#L631</a>: 		_, err = fmt.<b>Fprintf</b>(w, "User-Agent: %s\r\n", userAgent)
+		<a href="../src/net/http/h2_bundle.go.html#line-1517">h2_bundle.go#L1517</a>: 				fmt.<b>Fprintf</b>(buf, "0x%x", 1<<i)
+		<a href="../src/net/http/h2_bundle.go.html#line-1522" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-1522">#L1522</a>: 		fmt.<b>Fprintf</b>(buf, " stream=%d", h.StreamID)
+		<a href="../src/net/http/h2_bundle.go.html#line-1524" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-1524">#L1524</a>: 	fmt.<b>Fprintf</b>(buf, " len=%d", h.Length)
+		<a href="../src/net/http/h2_bundle.go.html#line-2903" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-2903">#L2903</a>: 			fmt.<b>Fprintf</b>(&buf, " %v=%v,", s.ID, s.Val)
+		<a href="../src/net/http/h2_bundle.go.html#line-2915" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-2915">#L2915</a>: 		fmt.<b>Fprintf</b>(&buf, " data=%q", data)
+		<a href="../src/net/http/h2_bundle.go.html#line-2917" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-2917">#L2917</a>: 			fmt.<b>Fprintf</b>(&buf, " (%d bytes omitted)", len(f.Data())-max)
+		<a href="../src/net/http/h2_bundle.go.html#line-2923" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-2923">#L2923</a>: 		fmt.<b>Fprintf</b>(&buf, " incr=%v", f.Increment)
+		<a href="../src/net/http/h2_bundle.go.html#line-2925" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-2925">#L2925</a>: 		fmt.<b>Fprintf</b>(&buf, " ping=%q", f.Data[:])
+		<a href="../src/net/http/h2_bundle.go.html#line-2927" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-2927">#L2927</a>: 		fmt.<b>Fprintf</b>(&buf, " LastStreamID=%v ErrCode=%v Debug=%q",
+		<a href="../src/net/http/h2_bundle.go.html#line-2930" class="path-duplicate">h2_bundle.go</a><a href="../src/net/http/h2_bundle.go.html#line-2930">#L2930</a>: 		fmt.<b>Fprintf</b>(&buf, " ErrCode=%v", f.ErrCode)
+		<a href="../src/net/http/request.go.html#line-611">request.go#L611</a>: 	_, err = fmt.<b>Fprintf</b>(w, "%s %s HTTP/1.1\r\n", valueOrDefault(r.Method, "GET"), ruri)
+		<a href="../src/net/http/request.go.html#line-617" class="path-duplicate">request.go</a><a href="../src/net/http/request.go.html#line-617">#L617</a>: 	_, err = fmt.<b>Fprintf</b>(w, "Host: %s\r\n", host)
+		<a href="../src/net/http/request.go.html#line-632" class="path-duplicate">request.go</a><a href="../src/net/http/request.go.html#line-632">#L632</a>: 		_, err = fmt.<b>Fprintf</b>(w, "User-Agent: %s\r\n", userAgent)
 		<a href="../src/net/http/response.go.html#line-260">response.go#L260</a>: 	if _, err := fmt.<b>Fprintf</b>(w, "HTTP/%d.%d %03d %s\r\n", r.ProtoMajor, r.ProtoMinor, r.StatusCode, text); err != nil {
 		<a href="../src/net/http/server.go.html#line-377">server.go#L377</a>: 		_, err = fmt.<b>Fprintf</b>(cw.res.conn.bufw, "%x\r\n", len(p))
-		<a href="../src/net/http/server.go.html#line-1525" class="path-duplicate">server.go</a><a href="../src/net/http/server.go.html#line-1525">#L1525</a>: 		fmt.<b>Fprintf</b>(bw, "%03d status code %d\r\n", code, code)
-		<a href="../src/net/http/server.go.html#line-1894" class="path-duplicate">server.go</a><a href="../src/net/http/server.go.html#line-1894">#L1894</a>: 				fmt.<b>Fprintf</b>(c.rwc, "HTTP/1.1 "+publicErr+errorHeaders+publicErr)
-		<a href="../src/net/http/server.go.html#line-1907" class="path-duplicate">server.go</a><a href="../src/net/http/server.go.html#line-1907">#L1907</a>: 				fmt.<b>Fprintf</b>(c.rwc, "HTTP/1.1 %d %s%sUnsupported transfer encoding", code, StatusText(code), errorHeaders)
-		<a href="../src/net/http/server.go.html#line-1915" class="path-duplicate">server.go</a><a href="../src/net/http/server.go.html#line-1915">#L1915</a>: 					fmt.<b>Fprintf</b>(c.rwc, "HTTP/1.1 %d %s: %s%s%d %s: %s", v.code, StatusText(v.code), v.text, errorHeaders, v.code, StatusText(v.code), v.text)
-		<a href="../src/net/http/server.go.html#line-1919" class="path-duplicate">server.go</a><a href="../src/net/http/server.go.html#line-1919">#L1919</a>: 				fmt.<b>Fprintf</b>(c.rwc, "HTTP/1.1 "+publicErr+errorHeaders+publicErr)
+		<a href="../src/net/http/server.go.html#line-1502" class="path-duplicate">server.go</a><a href="../src/net/http/server.go.html#line-1502">#L1502</a>: 		fmt.<b>Fprintf</b>(bw, "%03d status code %d\r\n", code, code)
+		<a href="../src/net/http/server.go.html#line-1871" class="path-duplicate">server.go</a><a href="../src/net/http/server.go.html#line-1871">#L1871</a>: 				fmt.<b>Fprintf</b>(c.rwc, "HTTP/1.1 "+publicErr+errorHeaders+publicErr)
+		<a href="../src/net/http/server.go.html#line-1884" class="path-duplicate">server.go</a><a href="../src/net/http/server.go.html#line-1884">#L1884</a>: 				fmt.<b>Fprintf</b>(c.rwc, "HTTP/1.1 %d %s%sUnsupported transfer encoding", code, StatusText(code), errorHeaders)
+		<a href="../src/net/http/server.go.html#line-1892" class="path-duplicate">server.go</a><a href="../src/net/http/server.go.html#line-1892">#L1892</a>: 					fmt.<b>Fprintf</b>(c.rwc, "HTTP/1.1 %d %s: %s%s%d %s: %s", v.code, StatusText(v.code), v.text, errorHeaders, v.code, StatusText(v.code), v.text)
+		<a href="../src/net/http/server.go.html#line-1896" class="path-duplicate">server.go</a><a href="../src/net/http/server.go.html#line-1896">#L1896</a>: 				fmt.<b>Fprintf</b>(c.rwc, "HTTP/1.1 "+publicErr+errorHeaders+publicErr)
 
 	<a href="../pkg/net/http/internal.html">net/http/internal</a>
 		<a href="../src/net/http/internal/chunked.go.html#line-203">chunked.go#L203</a>: 	if _, err = fmt.<b>Fprintf</b>(cw.Wire, "%x\r\n", len(data)); err != nil {
@@ -77,7 +80,7 @@
 		<a href="../src/net/textproto/writer.go.html#line-31">writer.go#L31</a>: 	fmt.<b>Fprintf</b>(w.W, format, args...)
 </code></pre><pre id="footer">
 <table><tr><td><img src="../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

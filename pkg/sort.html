@@ -5,24 +5,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Package: sort</title>
-<link href="../css/light-v0.3.1.css" rel="stylesheet">
-<script src="../jvs/golds-v0.3.1.js"></script>
+<link href="../css/light-v0.3.6.css" rel="stylesheet">
+<script src="../jvs/golds-v0.3.6.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="package-details"><code><span style="font-size:xx-large;">package <b>sort</b></span>
 
 <span class="title">Import Path</span>
-	<a href="../index.html#pkg-sort">sort</a><i> (on <a href="https://golang.org/pkg/sort/" target="_blank">golang.org</a> and <a href="https://pkg.go.dev/sort" target="_blank">go.dev</a>)</i>
+	<a href="../index.html#pkg-sort">sort</a><i> (on <a href="https://pkg.go.dev/sort" target="_blank">go.dev</a>)</i>
 
 <span class="title">Dependency Relation</span>
-	imports <a href="../dep/sort.html">one package</a>, and imported by <a href="../dep/sort.html#imported-by">24 packages</a>
+	imports <a href="../dep/sort.html">one package</a>, and imported by <a href="../dep/sort.html#imported-by">23 packages</a>
 
 <div id="files"><span class="title">Involved Source Files</span>
 
 	<span class="nodocs">      <a href="../src/sort/search.go.html">search.go</a></span>
 	<span class="nodocs">      <a href="../src/sort/slice.go.html">slice.go</a></span>
 	<span class="nodocs">      <a href="../src/sort/slice_go113.go.html">slice_go113.go</a></span>
-	<input type='checkbox' checked class="fold" id="file-3-fold-content"><label for="file-3-fold-content">   <a href="../src/sort/sort.go.html#doc">d➜</a> <a href="../src/sort/sort.go.html">sort.go</a></label><span id='file-3-fold-content-items' class="fold-items">
+	<input type='checkbox' checked class="fold" id="file-3-fold-content"><label for="file-3-fold-content">   <a href="../src/sort/sort.go.html#doc">#d</a> <a href="../src/sort/sort.go.html">sort.go</a></label><span id='file-3-fold-content-items' class="fold-items">
 		Package sort provides primitives for sorting slices and user-defined collections.
 </span>
 	<span class="nodocs">      <a href="../src/sort/zfuncversion.go.html">zfuncversion.go</a></span></div>
@@ -79,7 +79,6 @@
 			fmt.Println(people)
 		
 		}
-
 </span>
 	<input type='checkbox' class="fold" id="example-1-fold-content"><label for="example-1-fold-content">Float64s</label><span id='example-1-fold-content-items' class="fold-items">
 		package main
@@ -100,7 +99,6 @@
 			fmt.Println(s)
 		
 		}
-
 </span>
 	<input type='checkbox' class="fold" id="example-2-fold-content"><label for="example-2-fold-content">Float64sAreSorted</label><span id='example-2-fold-content-items' class="fold-items">
 		package main
@@ -121,7 +119,6 @@
 			fmt.Println(sort.Float64sAreSorted(s))
 		
 		}
-
 </span>
 	<input type='checkbox' class="fold" id="example-3-fold-content"><label for="example-3-fold-content">Ints</label><span id='example-3-fold-content-items' class="fold-items">
 		package main
@@ -136,7 +133,6 @@
 			sort.Ints(s)
 			fmt.Println(s)
 		}
-
 </span>
 	<input type='checkbox' class="fold" id="example-4-fold-content"><label for="example-4-fold-content">IntsAreSorted</label><span id='example-4-fold-content-items' class="fold-items">
 		package main
@@ -157,7 +153,6 @@
 			fmt.Println(sort.IntsAreSorted(s))
 		
 		}
-
 </span>
 	<input type='checkbox' class="fold" id="example-5-fold-content"><label for="example-5-fold-content">Reverse</label><span id='example-5-fold-content-items' class="fold-items">
 		package main
@@ -172,7 +167,6 @@
 			sort.Sort(sort.Reverse(sort.IntSlice(s)))
 			fmt.Println(s)
 		}
-
 </span>
 	<input type='checkbox' class="fold" id="example-6-fold-content"><label for="example-6-fold-content">Search</label><span id='example-6-fold-content-items' class="fold-items">
 		package main
@@ -193,9 +187,48 @@
 				fmt.Printf("%d not found in %v\n", x, a)
 			}
 		}
-
 </span>
-	<input type='checkbox' class="fold" id="example-7-fold-content"><label for="example-7-fold-content">Search_descendingOrder</label><span id='example-7-fold-content-items' class="fold-items">
+	<input type='checkbox' class="fold" id="example-7-fold-content"><label for="example-7-fold-content">SearchFloat64s</label><span id='example-7-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"fmt"
+			"sort"
+		)
+		
+		func main() {
+			a := []float64{1.0, 2.0, 3.3, 4.6, 6.1, 7.2, 8.0}
+		
+			x := 2.0
+			i := sort.SearchFloat64s(a, x)
+			fmt.Printf("found %g at index %d in %v\n", x, i, a)
+		
+			x = 0.5
+			i = sort.SearchFloat64s(a, x)
+			fmt.Printf("%g not found, can be inserted at index %d in %v\n", x, i, a)
+		}
+</span>
+	<input type='checkbox' class="fold" id="example-8-fold-content"><label for="example-8-fold-content">SearchInts</label><span id='example-8-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"fmt"
+			"sort"
+		)
+		
+		func main() {
+			a := []int{1, 2, 3, 4, 6, 7, 8}
+		
+			x := 2
+			i := sort.SearchInts(a, x)
+			fmt.Printf("found %d at index %d in %v\n", x, i, a)
+		
+			x = 5
+			i = sort.SearchInts(a, x)
+			fmt.Printf("%d not found, can be inserted at index %d in %v\n", x, i, a)
+		}
+</span>
+	<input type='checkbox' class="fold" id="example-9-fold-content"><label for="example-9-fold-content">Search_descendingOrder</label><span id='example-9-fold-content-items' class="fold-items">
 		package main
 		
 		import (
@@ -214,9 +247,8 @@
 				fmt.Printf("%d not found in %v\n", x, a)
 			}
 		}
-
 </span>
-	<input type='checkbox' class="fold" id="example-8-fold-content"><label for="example-8-fold-content">Slice</label><span id='example-8-fold-content-items' class="fold-items">
+	<input type='checkbox' class="fold" id="example-10-fold-content"><label for="example-10-fold-content">Slice</label><span id='example-10-fold-content-items' class="fold-items">
 		package main
 		
 		import (
@@ -240,9 +272,8 @@
 			sort.Slice(people, func(i, j int) bool { return people[i].Age < people[j].Age })
 			fmt.Println("By age:", people)
 		}
-
 </span>
-	<input type='checkbox' class="fold" id="example-9-fold-content"><label for="example-9-fold-content">SliceStable</label><span id='example-9-fold-content-items' class="fold-items">
+	<input type='checkbox' class="fold" id="example-11-fold-content"><label for="example-11-fold-content">SliceStable</label><span id='example-11-fold-content-items' class="fold-items">
 		package main
 		
 		import (
@@ -275,9 +306,8 @@
 			fmt.Println("By age,name:", people)
 		
 		}
-
 </span>
-	<input type='checkbox' class="fold" id="example-10-fold-content"><label for="example-10-fold-content">Strings</label><span id='example-10-fold-content-items' class="fold-items">
+	<input type='checkbox' class="fold" id="example-12-fold-content"><label for="example-12-fold-content">Strings</label><span id='example-12-fold-content-items' class="fold-items">
 		package main
 		
 		import (
@@ -290,9 +320,8 @@
 			sort.Strings(s)
 			fmt.Println(s)
 		}
-
 </span>
-	<input type='checkbox' class="fold" id="example-11-fold-content"><label for="example-11-fold-content">_sortKeys</label><span id='example-11-fold-content-items' class="fold-items">
+	<input type='checkbox' class="fold" id="example-13-fold-content"><label for="example-13-fold-content">_sortKeys</label><span id='example-13-fold-content-items' class="fold-items">
 		package main
 		
 		import (
@@ -381,9 +410,8 @@
 			fmt.Println("By decreasing distance:", planets)
 		
 		}
-
 </span>
-	<input type='checkbox' class="fold" id="example-12-fold-content"><label for="example-12-fold-content">_sortMultiKeys</label><span id='example-12-fold-content-items' class="fold-items">
+	<input type='checkbox' class="fold" id="example-14-fold-content"><label for="example-14-fold-content">_sortMultiKeys</label><span id='example-14-fold-content-items' class="fold-items">
 		package main
 		
 		import (
@@ -505,9 +533,8 @@
 			fmt.Println("By language,<lines,user:", changes)
 		
 		}
-
 </span>
-	<input type='checkbox' class="fold" id="example-13-fold-content"><label for="example-13-fold-content">_sortWrapper</label><span id='example-13-fold-content-items' class="fold-items">
+	<input type='checkbox' class="fold" id="example-15-fold-content"><label for="example-15-fold-content">_sortWrapper</label><span id='example-15-fold-content-items' class="fold-items">
 		package main
 		
 		import (
@@ -692,7 +719,7 @@
 		<input type='checkbox' class="fold" id="StringSlice-fold-impls"><label for="StringSlice-fold-impls">Implements (<i>at least one exported</i>)</label><span id='StringSlice-fold-impls-items' class="fold-items"><span>
 			 T : <a href="#name-Interface">Interface</a></span></span>
 
-</span></div></div><div>	<input type='checkbox' class="showhide" id="unexported-typenames-showhide"><i><label for="unexported-typenames-showhide" class="show-inline">/* 2 unexporteds ... */</label><label for="unexported-typenames-showhide" class="hide-inline">/* 2 unexporteds: */</label></i><div class="anchor type-res hidden" id="name-lessSwap" data-popularity="350">	<input type='checkbox' class="fold" id="lessSwap-fold-content"><label for="lessSwap-fold-content"> <a href="../use/sort..lessSwap*e3f82.html">type</a> <a href="../src/sort/sort.go.html#line-247">lessSwap</a> <i>(struct)</i></label><span id='lessSwap-fold-content-docs' class="fold-docs">
+</span></div></div><div>	<input type='checkbox' class="showhide" id="unexported-typenames-showhide"><i><label for="unexported-typenames-showhide" class="show-inline">/* 2 unexporteds ... */</label><label for="unexported-typenames-showhide" class="hide-inline">/* 2 unexporteds: */</label></i><div class="anchor type-res hidden" id="name-lessSwap" data-popularity="350">	<input type='checkbox' class="fold" id="lessSwap-fold-content"><label for="lessSwap-fold-content"> <a href="../use/sort..lessSwap^e3f82.html">type</a> <a href="../src/sort/sort.go.html#line-247">lessSwap</a> <i>(struct)</i></label><span id='lessSwap-fold-content-docs' class="fold-docs">
 		lessSwap is a pair of Less and Swap function for use with the
 		auto-generated func-optimized variant of sort.go in
 		zfuncversion.go.
@@ -713,7 +740,7 @@
 			func <a href="#name-swapRange_func">swapRange_func</a>(data <b>lessSwap</b>, a, b, n <a href="builtin.html#name-int">int</a>)</i></span><span class="hidden"><i>
 			func <a href="#name-symMerge_func">symMerge_func</a>(data <b>lessSwap</b>, a, m, b <a href="builtin.html#name-int">int</a>)</i></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-reverse" data-popularity="200">	<input type='checkbox' class="fold" id="reverse-fold-content"><label for="reverse-fold-content"> <a href="../use/sort..reverse*b2d7f.html">type</a> <a href="../src/sort/sort.go.html#line-252">reverse</a> <i>(struct)</i></label><span id='reverse-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-reverse" data-popularity="200">	<input type='checkbox' class="fold" id="reverse-fold-content"><label for="reverse-fold-content"> <a href="../use/sort..reverse^b2d7f.html">type</a> <a href="../src/sort/sort.go.html#line-252">reverse</a> <i>(struct)</i></label><span id='reverse-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="reverse-fold-fields"><label for="reverse-fold-fields">Fields (<i>only one, which is exported</i>)</label><span id='reverse-fold-fields-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="reverse-fold-field-Interface"><label for="reverse-fold-field-Interface"><a href="../src/sort/sort.go.html#line-255">Interface</a> <i><a href="#name-Interface">Interface</a></i></label><span id='reverse-fold-field-Interface-docs' class="fold-docs">
@@ -865,57 +892,57 @@
 </span></div><div class="anchor value-res" id="name-StringsAreSorted">	<input type='checkbox' class="fold" id="StringsAreSorted-fold-content"><label for="StringsAreSorted-fold-content"> <a href="../use/sort..StringsAreSorted.html">func</a> <a href="../src/sort/sort.go.html#line-345">StringsAreSorted</a>(x []<a href="builtin.html#name-string">string</a>) <a href="builtin.html#name-bool">bool</a></label><span id='StringsAreSorted-fold-content-docs' class="fold-docs">
 		StringsAreSorted reports whether the slice x is sorted in increasing order.
 
-</span></div>	<input type='checkbox' class="showhide" id="unexported-functions-showhide"><i><label for="unexported-functions-showhide" class="show-inline">/* 22 unexporteds ... */</label><label for="unexported-functions-showhide" class="hide-inline">/* 22 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-doPivot"><i>	<span class="nodocs"> <a href="../use/sort..doPivot*fe635.html">func</a> <a href="../src/sort/sort.go.html#line-109">doPivot</a>(data <a href="#name-Interface">Interface</a>, lo, hi <a href="builtin.html#name-int">int</a>) (midlo, midhi <a href="builtin.html#name-int">int</a>)</span></i></div><div class="anchor value-res hidden" id="name-doPivot_func"><i>	<input type='checkbox' class="fold" id="doPivot_func-fold-content"><label for="doPivot_func-fold-content"> <a href="../use/sort..doPivot_func*92abf.html">func</a> <a href="../src/sort/zfuncversion.go.html#line-72">doPivot_func</a>(data <a href="#name-lessSwap">lessSwap</a>, lo, hi <a href="builtin.html#name-int">int</a>) (midlo, midhi <a href="builtin.html#name-int">int</a>)</label><span id='doPivot_func-fold-content-docs' class="fold-docs">
+</span></div>	<input type='checkbox' class="showhide" id="unexported-functions-showhide"><i><label for="unexported-functions-showhide" class="show-inline">/* 22 unexporteds ... */</label><label for="unexported-functions-showhide" class="hide-inline">/* 22 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-doPivot"><i>	<span class="nodocs"> <a href="../use/sort..doPivot^fe635.html">func</a> <a href="../src/sort/sort.go.html#line-109">doPivot</a>(data <a href="#name-Interface">Interface</a>, lo, hi <a href="builtin.html#name-int">int</a>) (midlo, midhi <a href="builtin.html#name-int">int</a>)</span></i></div><div class="anchor value-res hidden" id="name-doPivot_func"><i>	<input type='checkbox' class="fold" id="doPivot_func-fold-content"><label for="doPivot_func-fold-content"> <a href="../use/sort..doPivot_func^92abf.html">func</a> <a href="../src/sort/zfuncversion.go.html#line-72">doPivot_func</a>(data <a href="#name-lessSwap">lessSwap</a>, lo, hi <a href="builtin.html#name-int">int</a>) (midlo, midhi <a href="builtin.html#name-int">int</a>)</label><span id='doPivot_func-fold-content-docs' class="fold-docs">
 		Auto-generated variant of sort.go:doPivot
 
-</span></i></div><div class="anchor value-res hidden" id="name-heapSort"><i>	<span class="nodocs"> <a href="../use/sort..heapSort*8133b.html">func</a> <a href="../src/sort/sort.go.html#line-66">heapSort</a>(data <a href="#name-Interface">Interface</a>, a, b <a href="builtin.html#name-int">int</a>)</span></i></div><div class="anchor value-res hidden" id="name-heapSort_func"><i>	<input type='checkbox' class="fold" id="heapSort_func-fold-content"><label for="heapSort_func-fold-content"> <a href="../use/sort..heapSort_func*fd15f.html">func</a> <a href="../src/sort/zfuncversion.go.html#line-38">heapSort_func</a>(data <a href="#name-lessSwap">lessSwap</a>, a, b <a href="builtin.html#name-int">int</a>)</label><span id='heapSort_func-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-heapSort"><i>	<span class="nodocs"> <a href="../use/sort..heapSort^8133b.html">func</a> <a href="../src/sort/sort.go.html#line-66">heapSort</a>(data <a href="#name-Interface">Interface</a>, a, b <a href="builtin.html#name-int">int</a>)</span></i></div><div class="anchor value-res hidden" id="name-heapSort_func"><i>	<input type='checkbox' class="fold" id="heapSort_func-fold-content"><label for="heapSort_func-fold-content"> <a href="../use/sort..heapSort_func^fd15f.html">func</a> <a href="../src/sort/zfuncversion.go.html#line-38">heapSort_func</a>(data <a href="#name-lessSwap">lessSwap</a>, a, b <a href="builtin.html#name-int">int</a>)</label><span id='heapSort_func-fold-content-docs' class="fold-docs">
 		Auto-generated variant of sort.go:heapSort
 
-</span></i></div><div class="anchor value-res hidden" id="name-insertionSort"><i>	<input type='checkbox' class="fold" id="insertionSort-fold-content"><label for="insertionSort-fold-content"> <a href="../use/sort..insertionSort*fd8bf.html">func</a> <a href="../src/sort/sort.go.html#line-38">insertionSort</a>(data <a href="#name-Interface">Interface</a>, a, b <a href="builtin.html#name-int">int</a>)</label><span id='insertionSort-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-insertionSort"><i>	<input type='checkbox' class="fold" id="insertionSort-fold-content"><label for="insertionSort-fold-content"> <a href="../use/sort..insertionSort^fd8bf.html">func</a> <a href="../src/sort/sort.go.html#line-38">insertionSort</a>(data <a href="#name-Interface">Interface</a>, a, b <a href="builtin.html#name-int">int</a>)</label><span id='insertionSort-fold-content-docs' class="fold-docs">
 		insertionSort sorts data[a:b] using insertion sort.
 
-</span></i></div><div class="anchor value-res hidden" id="name-insertionSort_func"><i>	<input type='checkbox' class="fold" id="insertionSort_func-fold-content"><label for="insertionSort_func-fold-content"> <a href="../use/sort..insertionSort_func*75933.html">func</a> <a href="../src/sort/zfuncversion.go.html#line-10">insertionSort_func</a>(data <a href="#name-lessSwap">lessSwap</a>, a, b <a href="builtin.html#name-int">int</a>)</label><span id='insertionSort_func-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-insertionSort_func"><i>	<input type='checkbox' class="fold" id="insertionSort_func-fold-content"><label for="insertionSort_func-fold-content"> <a href="../use/sort..insertionSort_func^75933.html">func</a> <a href="../src/sort/zfuncversion.go.html#line-10">insertionSort_func</a>(data <a href="#name-lessSwap">lessSwap</a>, a, b <a href="builtin.html#name-int">int</a>)</label><span id='insertionSort_func-fold-content-docs' class="fold-docs">
 		Auto-generated variant of sort.go:insertionSort
 
-</span></i></div><div class="anchor value-res hidden" id="name-isNaN"><i>	<input type='checkbox' class="fold" id="isNaN-fold-content"><label for="isNaN-fold-content"> <a href="../use/sort..isNaN*c4c55.html">func</a> <a href="../src/sort/sort.go.html#line-308">isNaN</a>(f <a href="builtin.html#name-float64">float64</a>) <a href="builtin.html#name-bool">bool</a></label><span id='isNaN-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-isNaN"><i>	<input type='checkbox' class="fold" id="isNaN-fold-content"><label for="isNaN-fold-content"> <a href="../use/sort..isNaN^c4c55.html">func</a> <a href="../src/sort/sort.go.html#line-308">isNaN</a>(f <a href="builtin.html#name-float64">float64</a>) <a href="builtin.html#name-bool">bool</a></label><span id='isNaN-fold-content-docs' class="fold-docs">
 		isNaN is a copy of math.IsNaN to avoid a dependency on the math package.
 
-</span></i></div><div class="anchor value-res hidden" id="name-maxDepth"><i>	<input type='checkbox' class="fold" id="maxDepth-fold-content"><label for="maxDepth-fold-content"> <a href="../use/sort..maxDepth*41f18.html">func</a> <a href="../src/sort/sort.go.html#line-236">maxDepth</a>(n <a href="builtin.html#name-int">int</a>) <a href="builtin.html#name-int">int</a></label><span id='maxDepth-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-maxDepth"><i>	<input type='checkbox' class="fold" id="maxDepth-fold-content"><label for="maxDepth-fold-content"> <a href="../use/sort..maxDepth^41f18.html">func</a> <a href="../src/sort/sort.go.html#line-236">maxDepth</a>(n <a href="builtin.html#name-int">int</a>) <a href="builtin.html#name-int">int</a></label><span id='maxDepth-fold-content-docs' class="fold-docs">
 		maxDepth returns a threshold at which quicksort should switch
 		to heapsort. It returns 2*ceil(lg(n+1)).
 
-</span></i></div><div class="anchor value-res hidden" id="name-medianOfThree"><i>	<input type='checkbox' class="fold" id="medianOfThree-fold-content"><label for="medianOfThree-fold-content"> <a href="../use/sort..medianOfThree*24668.html">func</a> <a href="../src/sort/sort.go.html#line-87">medianOfThree</a>(data <a href="#name-Interface">Interface</a>, m1, m0, m2 <a href="builtin.html#name-int">int</a>)</label><span id='medianOfThree-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-medianOfThree"><i>	<input type='checkbox' class="fold" id="medianOfThree-fold-content"><label for="medianOfThree-fold-content"> <a href="../use/sort..medianOfThree^24668.html">func</a> <a href="../src/sort/sort.go.html#line-87">medianOfThree</a>(data <a href="#name-Interface">Interface</a>, m1, m0, m2 <a href="builtin.html#name-int">int</a>)</label><span id='medianOfThree-fold-content-docs' class="fold-docs">
 		medianOfThree moves the median of the three values data[m0], data[m1], data[m2] into data[m1].
 
-</span></i></div><div class="anchor value-res hidden" id="name-medianOfThree_func"><i>	<input type='checkbox' class="fold" id="medianOfThree_func-fold-content"><label for="medianOfThree_func-fold-content"> <a href="../use/sort..medianOfThree_func*e37c3.html">func</a> <a href="../src/sort/zfuncversion.go.html#line-52">medianOfThree_func</a>(data <a href="#name-lessSwap">lessSwap</a>, m1, m0, m2 <a href="builtin.html#name-int">int</a>)</label><span id='medianOfThree_func-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-medianOfThree_func"><i>	<input type='checkbox' class="fold" id="medianOfThree_func-fold-content"><label for="medianOfThree_func-fold-content"> <a href="../use/sort..medianOfThree_func^e37c3.html">func</a> <a href="../src/sort/zfuncversion.go.html#line-52">medianOfThree_func</a>(data <a href="#name-lessSwap">lessSwap</a>, m1, m0, m2 <a href="builtin.html#name-int">int</a>)</label><span id='medianOfThree_func-fold-content-docs' class="fold-docs">
 		Auto-generated variant of sort.go:medianOfThree
 
-</span></i></div><div class="anchor value-res hidden" id="name-quickSort"><i>	<span class="nodocs"> <a href="../use/sort..quickSort*14e3a.html">func</a> <a href="../src/sort/sort.go.html#line-196">quickSort</a>(data <a href="#name-Interface">Interface</a>, a, b, maxDepth <a href="builtin.html#name-int">int</a>)</span></i></div><div class="anchor value-res hidden" id="name-quickSort_func"><i>	<input type='checkbox' class="fold" id="quickSort_func-fold-content"><label for="quickSort_func-fold-content"> <a href="../use/sort..quickSort_func*11b4c.html">func</a> <a href="../src/sort/zfuncversion.go.html#line-136">quickSort_func</a>(data <a href="#name-lessSwap">lessSwap</a>, a, b, maxDepth <a href="builtin.html#name-int">int</a>)</label><span id='quickSort_func-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-quickSort"><i>	<span class="nodocs"> <a href="../use/sort..quickSort^14e3a.html">func</a> <a href="../src/sort/sort.go.html#line-196">quickSort</a>(data <a href="#name-Interface">Interface</a>, a, b, maxDepth <a href="builtin.html#name-int">int</a>)</span></i></div><div class="anchor value-res hidden" id="name-quickSort_func"><i>	<input type='checkbox' class="fold" id="quickSort_func-fold-content"><label for="quickSort_func-fold-content"> <a href="../use/sort..quickSort_func^11b4c.html">func</a> <a href="../src/sort/zfuncversion.go.html#line-136">quickSort_func</a>(data <a href="#name-lessSwap">lessSwap</a>, a, b, maxDepth <a href="builtin.html#name-int">int</a>)</label><span id='quickSort_func-fold-content-docs' class="fold-docs">
 		Auto-generated variant of sort.go:quickSort
 
-</span></i></div><div class="anchor value-res hidden" id="name-rotate"><i>	<input type='checkbox' class="fold" id="rotate-fold-content"><label for="rotate-fold-content"> <a href="../use/sort..rotate*299bc.html">func</a> <a href="../src/sort/sort.go.html#line-510">rotate</a>(data <a href="#name-Interface">Interface</a>, a, m, b <a href="builtin.html#name-int">int</a>)</label><span id='rotate-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-rotate"><i>	<input type='checkbox' class="fold" id="rotate-fold-content"><label for="rotate-fold-content"> <a href="../use/sort..rotate^299bc.html">func</a> <a href="../src/sort/sort.go.html#line-510">rotate</a>(data <a href="#name-Interface">Interface</a>, a, m, b <a href="builtin.html#name-int">int</a>)</label><span id='rotate-fold-content-docs' class="fold-docs">
 		rotate rotates two consecutive blocks u = data[a:m] and v = data[m:b] in data:
 		Data of the form 'x u v y' is changed to 'x v u y'.
 		rotate performs at most b-a many calls to data.Swap,
 		and it assumes non-degenerate arguments: a &lt; m &amp;&amp; m &lt; b.
 
-</span></i></div><div class="anchor value-res hidden" id="name-rotate_func"><i>	<input type='checkbox' class="fold" id="rotate_func-fold-content"><label for="rotate_func-fold-content"> <a href="../use/sort..rotate_func*52c90.html">func</a> <a href="../src/sort/zfuncversion.go.html#line-252">rotate_func</a>(data <a href="#name-lessSwap">lessSwap</a>, a, m, b <a href="builtin.html#name-int">int</a>)</label><span id='rotate_func-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-rotate_func"><i>	<input type='checkbox' class="fold" id="rotate_func-fold-content"><label for="rotate_func-fold-content"> <a href="../use/sort..rotate_func^52c90.html">func</a> <a href="../src/sort/zfuncversion.go.html#line-252">rotate_func</a>(data <a href="#name-lessSwap">lessSwap</a>, a, m, b <a href="builtin.html#name-int">int</a>)</label><span id='rotate_func-fold-content-docs' class="fold-docs">
 		Auto-generated variant of sort.go:rotate
 
-</span></i></div><div class="anchor value-res hidden" id="name-siftDown"><i>	<input type='checkbox' class="fold" id="siftDown-fold-content"><label for="siftDown-fold-content"> <a href="../use/sort..siftDown*d0674.html">func</a> <a href="../src/sort/sort.go.html#line-48">siftDown</a>(data <a href="#name-Interface">Interface</a>, lo, hi, first <a href="builtin.html#name-int">int</a>)</label><span id='siftDown-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-siftDown"><i>	<input type='checkbox' class="fold" id="siftDown-fold-content"><label for="siftDown-fold-content"> <a href="../use/sort..siftDown^d0674.html">func</a> <a href="../src/sort/sort.go.html#line-48">siftDown</a>(data <a href="#name-Interface">Interface</a>, lo, hi, first <a href="builtin.html#name-int">int</a>)</label><span id='siftDown-fold-content-docs' class="fold-docs">
 		siftDown implements the heap property on data[lo:hi].
 		first is an offset into the array where the root of the heap lies.
 
-</span></i></div><div class="anchor value-res hidden" id="name-siftDown_func"><i>	<input type='checkbox' class="fold" id="siftDown_func-fold-content"><label for="siftDown_func-fold-content"> <a href="../use/sort..siftDown_func*024b1.html">func</a> <a href="../src/sort/zfuncversion.go.html#line-19">siftDown_func</a>(data <a href="#name-lessSwap">lessSwap</a>, lo, hi, first <a href="builtin.html#name-int">int</a>)</label><span id='siftDown_func-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-siftDown_func"><i>	<input type='checkbox' class="fold" id="siftDown_func-fold-content"><label for="siftDown_func-fold-content"> <a href="../use/sort..siftDown_func^024b1.html">func</a> <a href="../src/sort/zfuncversion.go.html#line-19">siftDown_func</a>(data <a href="#name-lessSwap">lessSwap</a>, lo, hi, first <a href="builtin.html#name-int">int</a>)</label><span id='siftDown_func-fold-content-docs' class="fold-docs">
 		Auto-generated variant of sort.go:siftDown
 
-</span></i></div><div class="anchor value-res hidden" id="name-stable"><i>	<span class="nodocs"> <a href="../use/sort..stable*f379c.html">func</a> <a href="../src/sort/sort.go.html#line-381">stable</a>(data <a href="#name-Interface">Interface</a>, n <a href="builtin.html#name-int">int</a>)</span></i></div><div class="anchor value-res hidden" id="name-stable_func"><i>	<input type='checkbox' class="fold" id="stable_func-fold-content"><label for="stable_func-fold-content"> <a href="../use/sort..stable_func*686f6.html">func</a> <a href="../src/sort/zfuncversion.go.html#line-163">stable_func</a>(data <a href="#name-lessSwap">lessSwap</a>, n <a href="builtin.html#name-int">int</a>)</label><span id='stable_func-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-stable"><i>	<span class="nodocs"> <a href="../use/sort..stable^f379c.html">func</a> <a href="../src/sort/sort.go.html#line-381">stable</a>(data <a href="#name-Interface">Interface</a>, n <a href="builtin.html#name-int">int</a>)</span></i></div><div class="anchor value-res hidden" id="name-stable_func"><i>	<input type='checkbox' class="fold" id="stable_func-fold-content"><label for="stable_func-fold-content"> <a href="../use/sort..stable_func^686f6.html">func</a> <a href="../src/sort/zfuncversion.go.html#line-163">stable_func</a>(data <a href="#name-lessSwap">lessSwap</a>, n <a href="builtin.html#name-int">int</a>)</label><span id='stable_func-fold-content-docs' class="fold-docs">
 		Auto-generated variant of sort.go:stable
 
-</span></i></div><div class="anchor value-res hidden" id="name-swapRange"><i>	<span class="nodocs"> <a href="../use/sort..swapRange*dc74a.html">func</a> <a href="../src/sort/sort.go.html#line-103">swapRange</a>(data <a href="#name-Interface">Interface</a>, a, b, n <a href="builtin.html#name-int">int</a>)</span></i></div><div class="anchor value-res hidden" id="name-swapRange_func"><i>	<input type='checkbox' class="fold" id="swapRange_func-fold-content"><label for="swapRange_func-fold-content"> <a href="../use/sort..swapRange_func*074c5.html">func</a> <a href="../src/sort/zfuncversion.go.html#line-65">swapRange_func</a>(data <a href="#name-lessSwap">lessSwap</a>, a, b, n <a href="builtin.html#name-int">int</a>)</label><span id='swapRange_func-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-swapRange"><i>	<span class="nodocs"> <a href="../use/sort..swapRange^dc74a.html">func</a> <a href="../src/sort/sort.go.html#line-103">swapRange</a>(data <a href="#name-Interface">Interface</a>, a, b, n <a href="builtin.html#name-int">int</a>)</span></i></div><div class="anchor value-res hidden" id="name-swapRange_func"><i>	<input type='checkbox' class="fold" id="swapRange_func-fold-content"><label for="swapRange_func-fold-content"> <a href="../use/sort..swapRange_func^074c5.html">func</a> <a href="../src/sort/zfuncversion.go.html#line-65">swapRange_func</a>(data <a href="#name-lessSwap">lessSwap</a>, a, b, n <a href="builtin.html#name-int">int</a>)</label><span id='swapRange_func-fold-content-docs' class="fold-docs">
 		Auto-generated variant of sort.go:swapRange
 
-</span></i></div><div class="anchor value-res hidden" id="name-symMerge"><i>	<input type='checkbox' class="fold" id="symMerge-fold-content"><label for="symMerge-fold-content"> <a href="../use/sort..symMerge*e4eea.html">func</a> <a href="../src/sort/sort.go.html#line-424">symMerge</a>(data <a href="#name-Interface">Interface</a>, a, m, b <a href="builtin.html#name-int">int</a>)</label><span id='symMerge-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-symMerge"><i>	<input type='checkbox' class="fold" id="symMerge-fold-content"><label for="symMerge-fold-content"> <a href="../use/sort..symMerge^e4eea.html">func</a> <a href="../src/sort/sort.go.html#line-424">symMerge</a>(data <a href="#name-Interface">Interface</a>, a, m, b <a href="builtin.html#name-int">int</a>)</label><span id='symMerge-fold-content-docs' class="fold-docs">
 		symMerge merges the two sorted subsequences data[a:m] and data[m:b] using
 		the SymMerge algorithm from Pok-Son Kim and Arne Kutzner, "Stable Minimum
 		Storage Merging by Symmetric Comparisons", in Susanne Albers and Tomasz
@@ -936,15 +963,15 @@
 		Having the caller check this condition eliminates many leaf recursion calls,
 		which improves performance.
 
-</span></i></div><div class="anchor value-res hidden" id="name-symMerge_func"><i>	<input type='checkbox' class="fold" id="symMerge_func-fold-content"><label for="symMerge_func-fold-content"> <a href="../use/sort..symMerge_func*49a86.html">func</a> <a href="../src/sort/zfuncversion.go.html#line-187">symMerge_func</a>(data <a href="#name-lessSwap">lessSwap</a>, a, m, b <a href="builtin.html#name-int">int</a>)</label><span id='symMerge_func-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-symMerge_func"><i>	<input type='checkbox' class="fold" id="symMerge_func-fold-content"><label for="symMerge_func-fold-content"> <a href="../use/sort..symMerge_func^49a86.html">func</a> <a href="../src/sort/zfuncversion.go.html#line-187">symMerge_func</a>(data <a href="#name-lessSwap">lessSwap</a>, a, m, b <a href="builtin.html#name-int">int</a>)</label><span id='symMerge_func-fold-content-docs' class="fold-docs">
 		Auto-generated variant of sort.go:symMerge
 
 </span></i></div></div>
 <div id="exported-variables"><span class="title">Package-Level Variables<span class="title-stat"><i> (total 2, neither is exported)</i></span></span>
 
-	<input type='checkbox' class="showhide" id="unexported-variables-showhide"><i><label for="unexported-variables-showhide" class="show-inline">/* 2 unexporteds ... */</label><label for="unexported-variables-showhide" class="hide-inline">/* 2 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-reflectSwapper"><i>	<span class="nodocs">  <a href="../use/sort..reflectSwapper*ba9d6.html">var</a> <a href="../src/sort/slice_go113.go.html#line-12">reflectSwapper</a> func(slice interface{}) func(i <a href="builtin.html#name-int">int</a>, j <a href="builtin.html#name-int">int</a>)</span></i></div><div class="anchor value-res hidden" id="name-reflectValueOf"><i>	<span class="nodocs">  <a href="../use/sort..reflectValueOf*f6e6f.html">var</a> <a href="../src/sort/slice_go113.go.html#line-11">reflectValueOf</a> func(i interface{}) <a href="internal/reflectlite.html">reflectlite</a>.<a href="internal/reflectlite.html#name-Value">Value</a></span></i></div></div></code></pre><pre id="footer">
+	<input type='checkbox' class="showhide" id="unexported-variables-showhide"><i><label for="unexported-variables-showhide" class="show-inline">/* 2 unexporteds ... */</label><label for="unexported-variables-showhide" class="hide-inline">/* 2 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-reflectSwapper"><i>	<span class="nodocs">  <a href="../use/sort..reflectSwapper^ba9d6.html">var</a> <a href="../src/sort/slice_go113.go.html#line-13">reflectSwapper</a> func(slice interface{}) func(i <a href="builtin.html#name-int">int</a>, j <a href="builtin.html#name-int">int</a>)</span></i></div><div class="anchor value-res hidden" id="name-reflectValueOf"><i>	<span class="nodocs">  <a href="../use/sort..reflectValueOf^f6e6f.html">var</a> <a href="../src/sort/slice_go113.go.html#line-12">reflectValueOf</a> func(i interface{}) <a href="internal/reflectlite.html">reflectlite</a>.<a href="internal/reflectlite.html#name-Value">Value</a></span></i></div></div></code></pre><pre id="footer">
 <table><tr><td><img src="../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

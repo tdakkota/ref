@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: socks.go in package golang.org/x/net/internal/socks</title>
-<link href="../../../../../../css/light-v0.3.1.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.1.js"></script>
+<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -305,7 +305,7 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-84"><code><span class="comment">// Either Name or IP is used exclusively.</span></code></span>
 <span class="codeline" id="line-85"><code><span class="keyword">type</span> <a href="../../../../../../pkg/golang.org/x/net/internal/socks.html#name-Addr" class="ident">Addr</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-86"><code>	<a href="../../../../../../use/golang.org/x/net/internal/socks..Addr.Name.html" class="ident">Name</a> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a> <span class="comment">// fully-qualified domain name</span></code></span>
-<span class="codeline" id="line-87"><code>	<a href="../../../../../../use/golang.org/x/net/internal/socks..Addr.IP.html" class="ident">IP</a>   <a href="../../../../../../pkg/net.html" class="ident i3">net</a>.<a href="../../../../../net/ip.go.html#line-32" class="ident">IP</a></code></span>
+<span class="codeline" id="line-87"><code>	<a href="../../../../../../use/golang.org/x/net/internal/socks..Addr.IP.html" class="ident">IP</a>   <a href="../../../../../../pkg/net.html" class="ident i3">net</a>.<a href="../../../../../net/ip.go.html#line-35" class="ident">IP</a></code></span>
 <span class="codeline" id="line-88"><code>	<a href="../../../../../../use/golang.org/x/net/internal/socks..Addr.Port.html" class="ident">Port</a> <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
 <span class="codeline" id="line-89"><code>}</code></span>
 <span class="codeline" id="line-90"><code></code></span>
@@ -317,16 +317,16 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-96"><code>	}</code></span>
 <span class="codeline" id="line-97"><code>	<label for="r8" class="ident">port</label> := <a href="../../../../../../pkg/strconv.html" class="ident i4">strconv</a>.<a href="../../../../../strconv/itoa.go.html#line-34" class="ident">Itoa</a>(<label for="r6" class="ident">a</label>.<a href="#line-88" class="ident">Port</a>)</code></span>
 <span class="codeline" id="line-98"><code>	<span class="keyword">if</span> <label for="r6" class="ident">a</label>.<a href="#line-87" class="ident">IP</a> == <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-99"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/net.html" class="ident i3">net</a>.<a href="../../../../../net/ipsock.go.html#line-227" class="ident">JoinHostPort</a>(<label for="r6" class="ident">a</label>.<a href="#line-86" class="ident">Name</a>, <label for="r8" class="ident">port</label>)</code></span>
+<span class="codeline" id="line-99"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/net.html" class="ident i3">net</a>.<a href="../../../../../net/ipsock.go.html#line-235" class="ident">JoinHostPort</a>(<label for="r6" class="ident">a</label>.<a href="#line-86" class="ident">Name</a>, <label for="r8" class="ident">port</label>)</code></span>
 <span class="codeline" id="line-100"><code>	}</code></span>
-<span class="codeline" id="line-101"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/net.html" class="ident i3">net</a>.<a href="../../../../../net/ipsock.go.html#line-227" class="ident">JoinHostPort</a>(<label for="r6" class="ident">a</label>.<a href="#line-87" class="ident">IP</a>.<a href="../../../../../net/ip.go.html#line-291" class="ident">String</a>(), <label for="r8" class="ident">port</label>)</code></span>
+<span class="codeline" id="line-101"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/net.html" class="ident i3">net</a>.<a href="../../../../../net/ipsock.go.html#line-235" class="ident">JoinHostPort</a>(<label for="r6" class="ident">a</label>.<a href="#line-87" class="ident">IP</a>.<a href="../../../../../net/ip.go.html#line-313" class="ident">String</a>(), <label for="r8" class="ident">port</label>)</code></span>
 <span class="codeline" id="line-102"><code>}</code></span>
 <span class="codeline" id="line-103"><code></code></span>
 <span class="codeline" id="line-104"><code><span class="comment">// A Conn represents a forward proxy connection.</span></code></span>
 <span class="codeline" id="line-105"><code><span class="keyword">type</span> <a href="../../../../../../pkg/golang.org/x/net/internal/socks.html#name-Conn" class="ident">Conn</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-106"><code>	<a href="../../../../../../pkg/net.html" class="ident i3">net</a>.<a href="../../../../../net/net.go.html#line-113" class="ident">Conn</a></code></span>
 <span class="codeline" id="line-107"><code></code></span>
-<span class="codeline" id="line-108"><code>	<a href="../../../../../../use/golang.org/x/net/internal/socks..Conn.boundAddr*3c661.html" class="ident">boundAddr</a> <a href="../../../../../../pkg/net.html" class="ident i3">net</a>.<a href="../../../../../net/net.go.html#line-105" class="ident">Addr</a></code></span>
+<span class="codeline" id="line-108"><code>	<a href="../../../../../../use/golang.org/x/net/internal/socks..Conn.boundAddr^3c661.html" class="ident">boundAddr</a> <a href="../../../../../../pkg/net.html" class="ident i3">net</a>.<a href="../../../../../net/net.go.html#line-105" class="ident">Addr</a></code></span>
 <span class="codeline" id="line-109"><code>}</code></span>
 <span class="codeline" id="line-110"><code></code></span>
 <span class="codeline" id="line-111"><code><span class="comment">// BoundAddr returns the address assigned by the proxy server for</span></code></span>
@@ -340,9 +340,9 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-119"><code></code></span>
 <span class="codeline" id="line-120"><code><span class="comment">// A Dialer holds SOCKS-specific options.</span></code></span>
 <span class="codeline" id="line-121"><code><span class="keyword">type</span> <a href="../../../../../../pkg/golang.org/x/net/internal/socks.html#name-Dialer" class="ident">Dialer</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-122"><code>	<a href="../../../../../../use/golang.org/x/net/internal/socks..Dialer.cmd*04dc5.html" class="ident">cmd</a>          <a href="#line-21" class="ident">Command</a> <span class="comment">// either CmdConnect or cmdBind</span></code></span>
-<span class="codeline" id="line-123"><code>	<a href="../../../../../../use/golang.org/x/net/internal/socks..Dialer.proxyNetwork*85a59.html" class="ident">proxyNetwork</a> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>  <span class="comment">// network between a proxy server and a client</span></code></span>
-<span class="codeline" id="line-124"><code>	<a href="../../../../../../use/golang.org/x/net/internal/socks..Dialer.proxyAddress*5e04e.html" class="ident">proxyAddress</a> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>  <span class="comment">// proxy server address</span></code></span>
+<span class="codeline" id="line-122"><code>	<a href="../../../../../../use/golang.org/x/net/internal/socks..Dialer.cmd^04dc5.html" class="ident">cmd</a>          <a href="#line-21" class="ident">Command</a> <span class="comment">// either CmdConnect or cmdBind</span></code></span>
+<span class="codeline" id="line-123"><code>	<a href="../../../../../../use/golang.org/x/net/internal/socks..Dialer.proxyNetwork^85a59.html" class="ident">proxyNetwork</a> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>  <span class="comment">// network between a proxy server and a client</span></code></span>
+<span class="codeline" id="line-124"><code>	<a href="../../../../../../use/golang.org/x/net/internal/socks..Dialer.proxyAddress^5e04e.html" class="ident">proxyAddress</a> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>  <span class="comment">// proxy server address</span></code></span>
 <span class="codeline" id="line-125"><code></code></span>
 <span class="codeline" id="line-126"><code>	<span class="comment">// ProxyDial specifies the optional dial function for</span></code></span>
 <span class="codeline" id="line-127"><code><span class="comment">	// establishing the transport connection.</span></code></span>
@@ -384,7 +384,7 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-163"><code>		<label for="r24" class="ident">c</label>, <label for="r23" class="ident">err</label> = <label for="r11" class="ident">d</label>.<a href="#line-128" class="ident">ProxyDial</a>(<label for="r13" class="ident">ctx</label>, <label for="r11" class="ident">d</label>.<a href="#line-123" class="ident">proxyNetwork</a>, <label for="r11" class="ident">d</label>.<a href="#line-124" class="ident">proxyAddress</a>)</code></span>
 <span class="codeline" id="line-164"><code>	} <span class="keyword">else</span> {</code></span>
 <span class="codeline" id="line-165"><code>		<span class="keyword">var</span> <label for="r25" class="ident">dd</label> <a href="../../../../../../pkg/net.html" class="ident i3">net</a>.<a href="../../../../../net/dial.go.html#line-27" class="ident">Dialer</a></code></span>
-<span class="codeline" id="line-166"><code>		<label for="r24" class="ident">c</label>, <label for="r23" class="ident">err</label> = <label for="r25" class="ident">dd</label>.<a href="../../../../../net/dial.go.html#line-369" class="ident">DialContext</a>(<label for="r13" class="ident">ctx</label>, <label for="r11" class="ident">d</label>.<a href="#line-123" class="ident">proxyNetwork</a>, <label for="r11" class="ident">d</label>.<a href="#line-124" class="ident">proxyAddress</a>)</code></span>
+<span class="codeline" id="line-166"><code>		<label for="r24" class="ident">c</label>, <label for="r23" class="ident">err</label> = <label for="r25" class="ident">dd</label>.<a href="../../../../../net/dial.go.html#line-372" class="ident">DialContext</a>(<label for="r13" class="ident">ctx</label>, <label for="r11" class="ident">d</label>.<a href="#line-123" class="ident">proxyNetwork</a>, <label for="r11" class="ident">d</label>.<a href="#line-124" class="ident">proxyAddress</a>)</code></span>
 <span class="codeline" id="line-167"><code>	}</code></span>
 <span class="codeline" id="line-168"><code>	<span class="keyword">if</span> <label for="r23" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-169"><code>		<label for="r26" class="ident">proxy</label>, <label for="r27" class="ident">dst</label>, <label for="r28" class="ident">_</label> := <label for="r11" class="ident">d</label>.<a href="#line-247" class="ident">pathAddrs</a>(<label for="r15" class="ident">address</label>)</code></span>
@@ -451,7 +451,7 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-230"><code>	<span class="keyword">return</span> <label for="r60" class="ident">c</label>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-231"><code>}</code></span>
 <span class="codeline" id="line-232"><code></code></span>
-<span class="codeline" id="line-233"><code><span class="keyword">func</span> (<label for="r66" class="ident">d</label> *<a href="#line-121" class="ident">Dialer</a>) <label for="r67" class="ident"><a href="../../../../../../use/golang.org/x/net/internal/socks..Dialer.validateTarget*ecec4.html" class="ident">validateTarget</a></label>(<label for="r68" class="ident">network</label>, <label for="r69" class="ident">address</label> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-233"><code><span class="keyword">func</span> (<label for="r66" class="ident">d</label> *<a href="#line-121" class="ident">Dialer</a>) <label for="r67" class="ident"><a href="../../../../../../use/golang.org/x/net/internal/socks..Dialer.validateTarget^ecec4.html" class="ident">validateTarget</a></label>(<label for="r68" class="ident">network</label>, <label for="r69" class="ident">address</label> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
 <span class="codeline" id="line-234"><code>	<span class="keyword">switch</span> <label for="r68" class="ident">network</label> {</code></span>
 <span class="codeline" id="line-235"><code>	<span class="keyword">case</span> <span class="lit-string">"tcp"</span>, <span class="lit-string">"tcp6"</span>, <span class="lit-string">"tcp4"</span>:</code></span>
 <span class="codeline" id="line-236"><code>	<span class="keyword">default</span>:</code></span>
@@ -465,14 +465,14 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-244"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-245"><code>}</code></span>
 <span class="codeline" id="line-246"><code></code></span>
-<span class="codeline" id="line-247"><code><span class="keyword">func</span> (<label for="r70" class="ident">d</label> *<a href="#line-121" class="ident">Dialer</a>) <label for="r71" class="ident"><a href="../../../../../../use/golang.org/x/net/internal/socks..Dialer.pathAddrs*4db95.html" class="ident">pathAddrs</a></label>(<label for="r72" class="ident">address</label> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) (<label for="r73" class="ident">proxy</label>, <label for="r74" class="ident">dst</label> <a href="../../../../../../pkg/net.html" class="ident i3">net</a>.<a href="../../../../../net/net.go.html#line-105" class="ident">Addr</a>, <label for="r75" class="ident">err</label> <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-247"><code><span class="keyword">func</span> (<label for="r70" class="ident">d</label> *<a href="#line-121" class="ident">Dialer</a>) <label for="r71" class="ident"><a href="../../../../../../use/golang.org/x/net/internal/socks..Dialer.pathAddrs^4db95.html" class="ident">pathAddrs</a></label>(<label for="r72" class="ident">address</label> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) (<label for="r73" class="ident">proxy</label>, <label for="r74" class="ident">dst</label> <a href="../../../../../../pkg/net.html" class="ident i3">net</a>.<a href="../../../../../net/net.go.html#line-105" class="ident">Addr</a>, <label for="r75" class="ident">err</label> <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
 <span class="codeline" id="line-248"><code>	<span class="keyword">for</span> <label for="r76" class="ident">i</label>, <label for="r77" class="ident">s</label> := <span class="keyword">range</span> []<a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>{<label for="r70" class="ident">d</label>.<a href="#line-124" class="ident">proxyAddress</a>, <label for="r72" class="ident">address</label>} {</code></span>
 <span class="codeline" id="line-249"><code>		<label for="r78" class="ident">host</label>, <label for="r79" class="ident">port</label>, <label for="r80" class="ident">err</label> := <a href="client.go.html#line-155" class="ident">splitHostPort</a>(<label for="r77" class="ident">s</label>)</code></span>
 <span class="codeline" id="line-250"><code>		<span class="keyword">if</span> <label for="r80" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-251"><code>			<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r80" class="ident">err</label></code></span>
 <span class="codeline" id="line-252"><code>		}</code></span>
 <span class="codeline" id="line-253"><code>		<label for="r81" class="ident">a</label> := &amp;<a href="#line-85" class="ident">Addr</a>{<a href="#line-88" class="ident">Port</a>: <label for="r79" class="ident">port</label>}</code></span>
-<span class="codeline" id="line-254"><code>		<label for="r81" class="ident">a</label>.<a href="#line-87" class="ident">IP</a> = <a href="../../../../../../pkg/net.html" class="ident i3">net</a>.<a href="../../../../../net/ip.go.html#line-678" class="ident">ParseIP</a>(<label for="r78" class="ident">host</label>)</code></span>
+<span class="codeline" id="line-254"><code>		<label for="r81" class="ident">a</label>.<a href="#line-87" class="ident">IP</a> = <a href="../../../../../../pkg/net.html" class="ident i3">net</a>.<a href="../../../../../net/ip.go.html#line-704" class="ident">ParseIP</a>(<label for="r78" class="ident">host</label>)</code></span>
 <span class="codeline" id="line-255"><code>		<span class="keyword">if</span> <label for="r81" class="ident">a</label>.<a href="#line-87" class="ident">IP</a> == <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-256"><code>			<label for="r81" class="ident">a</label>.<a href="#line-86" class="ident">Name</a> = <label for="r78" class="ident">host</label></code></span>
 <span class="codeline" id="line-257"><code>		}</code></span>
@@ -538,7 +538,7 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-317"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

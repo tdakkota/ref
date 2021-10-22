@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Package: go.uber.org/atomic</title>
-<link href="../../css/light-v0.3.1.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.3.1.js"></script>
+<link href="../../css/light-v0.3.6.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.6.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="package-details"><code><span style="font-size:xx-large;">package <b>atomic</b></span>
@@ -21,7 +21,7 @@
 
 	<span class="nodocs">      <a href="../../src/go.uber.org/atomic/bool.go.html">bool.go</a></span>
 	<span class="nodocs">      <a href="../../src/go.uber.org/atomic/bool_ext.go.html">bool_ext.go</a></span>
-	<input type='checkbox' checked class="fold" id="file-2-fold-content"><label for="file-2-fold-content">   <a href="../../src/go.uber.org/atomic/doc.go.html#doc">d➜</a> <a href="../../src/go.uber.org/atomic/doc.go.html">doc.go</a></label><span id='file-2-fold-content-items' class="fold-items">
+	<input type='checkbox' checked class="fold" id="file-2-fold-content"><label for="file-2-fold-content">   <a href="../../src/go.uber.org/atomic/doc.go.html#doc">#d</a> <a href="../../src/go.uber.org/atomic/doc.go.html">doc.go</a></label><span id='file-2-fold-content-items' class="fold-items">
 		Package atomic provides simple wrappers around numerics to enforce atomic
 		access.
 </span>
@@ -445,7 +445,7 @@
 		<input type='checkbox' class="fold" id="Uint64-fold-results"><label for="Uint64-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='Uint64-fold-results-items' class="fold-items"><span>
 			func <a href="#name-NewUint64">NewUint64</a>(i <a href="../builtin.html#name-uint64">uint64</a>) *<b>Uint64</b></span></span>
 
-</span></div><div class="anchor type-res" id="name-Value" data-popularity="100">	<input type='checkbox' class="fold" id="Value-fold-content"><label for="Value-fold-content"> <a href="../../use/go.uber.org/atomic..Value.html">type</a> <a href="../../src/go.uber.org/atomic/value.go.html#line-27">Value</a> <i>(struct)</i></label><span id='Value-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res" id="name-Value" data-popularity="200">	<input type='checkbox' class="fold" id="Value-fold-content"><label for="Value-fold-content"> <a href="../../use/go.uber.org/atomic..Value.html">type</a> <a href="../../src/go.uber.org/atomic/value.go.html#line-27">Value</a> <i>(struct)</i></label><span id='Value-fold-content-docs' class="fold-docs">
 		Value shadows the type of the same name from sync/atomic
 		https://godoc.org/sync/atomic#Value
 
@@ -453,18 +453,32 @@
 			<span class="nodocs"><a href="../../src/go.uber.org/atomic/value.go.html#line-28">Value</a> <i><a href="../sync/atomic.html">atomic</a>.<a href="../sync/atomic.html#name-Value">Value</a></i></span></span>
 			<input type='checkbox' class="showhide" id="Value-showhide-fields"><i><label for="Value-showhide-fields" class="show-inline">/* one unexported ... */</label><label for="Value-showhide-fields" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
 			<span class="nodocs"><a href="../../src/go.uber.org/atomic/value.go.html#line-28" class="path-duplicate">Value</a>.<a href="../../src/sync/atomic/value.go.html#line-17">v</a> <i>interface{}</i></span></i></span></span>
-		<input type='checkbox' class="fold" id="Value-fold-methods"><label for="Value-fold-methods">Methods (<i>total 2, both are exported</i>)</label><span id='Value-fold-methods-items' class="fold-items"><span>
-			<input type='checkbox' class="fold" id="Value-fold-method-Load"><label for="Value-fold-method-Load">(*T) <a href="../../src/sync/atomic/value.go.html#line-28">Load</a>() (x interface{})</label><span id='Value-fold-method-Load-docs' class="fold-docs">
+		<input type='checkbox' class="fold" id="Value-fold-methods"><label for="Value-fold-methods">Methods (<i>total 4, all are exported</i>)</label><span id='Value-fold-methods-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Value-fold-method-CompareAndSwap"><label for="Value-fold-method-CompareAndSwap">(*T) <a href="../../src/sync/atomic/value.go.html#line-134">CompareAndSwap</a>(old, new interface{}) (swapped <a href="../builtin.html#name-bool">bool</a>)</label><span id='Value-fold-method-CompareAndSwap-docs' class="fold-docs">
+				CompareAndSwap executes the compare-and-swap operation for the Value.
+
+				All calls to CompareAndSwap for a given Value must use values of the same
+				concrete type. CompareAndSwap of an inconsistent type panics, as does
+				CompareAndSwap(old, nil).
+</span></span><span>
+			<input type='checkbox' class="fold" id="Value-fold-method-Load"><label for="Value-fold-method-Load">(*T) <a href="../../src/sync/atomic/value.go.html#line-28">Load</a>() (val interface{})</label><span id='Value-fold-method-Load-docs' class="fold-docs">
 				Load returns the value set by the most recent Store.
 				It returns nil if there has been no call to Store for this Value.
 </span></span><span>
-			<input type='checkbox' class="fold" id="Value-fold-method-Store"><label for="Value-fold-method-Store">(*T) <a href="../../src/sync/atomic/value.go.html#line-45">Store</a>(x interface{})</label><span id='Value-fold-method-Store-docs' class="fold-docs">
+			<input type='checkbox' class="fold" id="Value-fold-method-Store"><label for="Value-fold-method-Store">(*T) <a href="../../src/sync/atomic/value.go.html#line-45">Store</a>(val interface{})</label><span id='Value-fold-method-Store-docs' class="fold-docs">
 				Store sets the value of the Value to x.
 				All calls to Store for a given Value must use values of the same concrete type.
 				Store of an inconsistent type panics, as does Store(nil).
+</span></span><span>
+			<input type='checkbox' class="fold" id="Value-fold-method-Swap"><label for="Value-fold-method-Swap">(*T) <a href="../../src/sync/atomic/value.go.html#line-89">Swap</a>(new interface{}) (old interface{})</label><span id='Value-fold-method-Swap-docs' class="fold-docs">
+				Swap stores new into Value and returns the previous value. It returns nil if
+				the Value is empty.
+
+				All calls to Swap for a given Value must use values of the same concrete
+				type. Swap of an inconsistent type panics, as does Swap(nil).
 </span></span></span>
 
-</span></div></div><div>	<input type='checkbox' class="showhide" id="unexported-typenames-showhide"><i><label for="unexported-typenames-showhide" class="show-inline">/* 2 unexporteds ... */</label><label for="unexported-typenames-showhide" class="hide-inline">/* 2 unexporteds: */</label></i><div class="anchor type-res hidden" id="name-nocmp" data-popularity="0">	<input type='checkbox' class="fold" id="nocmp-fold-content"><label for="nocmp-fold-content"> <a href="../../use/go.uber.org/atomic..nocmp*1dcd5.html">type</a> <a href="../../src/go.uber.org/atomic/nocmp.go.html#line-35">nocmp</a> <i>([...]T)</i></label><span id='nocmp-fold-content-docs' class="fold-docs">
+</span></div></div><div>	<input type='checkbox' class="showhide" id="unexported-typenames-showhide"><i><label for="unexported-typenames-showhide" class="show-inline">/* 2 unexporteds ... */</label><label for="unexported-typenames-showhide" class="hide-inline">/* 2 unexporteds: */</label></i><div class="anchor type-res hidden" id="name-nocmp" data-popularity="0">	<input type='checkbox' class="fold" id="nocmp-fold-content"><label for="nocmp-fold-content"> <a href="../../use/go.uber.org/atomic..nocmp^1dcd5.html">type</a> <a href="../../src/go.uber.org/atomic/nocmp.go.html#line-35">nocmp</a> <i>([...]T)</i></label><span id='nocmp-fold-content-docs' class="fold-docs">
 		nocmp is an uncomparable struct. Embed this inside another struct to make
 		it uncomparable.
 
@@ -478,8 +492,7 @@
 		 - Disallow shallow copies of structs
 		 - Disallow comparison of pointers to uncomparable structs
 
-
-</span></div><div class="anchor type-res hidden" id="name-packedError" data-popularity="0">	<input type='checkbox' class="fold" id="packedError-fold-content"><label for="packedError-fold-content"> <a href="../../use/go.uber.org/atomic..packedError*3a58f.html">type</a> <a href="../../src/go.uber.org/atomic/error_ext.go.html#line-28">packedError</a> <i>(struct)</i></label><span id='packedError-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-packedError" data-popularity="0">	<input type='checkbox' class="fold" id="packedError-fold-content"><label for="packedError-fold-content"> <a href="../../use/go.uber.org/atomic..packedError^3a58f.html">type</a> <a href="../../src/go.uber.org/atomic/error_ext.go.html#line-28">packedError</a> <i>(struct)</i></label><span id='packedError-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="packedError-fold-fields"><label for="packedError-fold-fields">Fields (<i>only one, which is exported</i>)</label><span id='packedError-fold-fields-items' class="fold-items"><span>
 			<span class="nodocs"><a href="../../src/go.uber.org/atomic/error_ext.go.html#line-28">Value</a> <i><a href="../builtin.html#name-error">error</a></i></span></span></span>
@@ -514,12 +527,12 @@
 </span></div><div class="anchor value-res" id="name-NewUint64">	<input type='checkbox' class="fold" id="NewUint64-fold-content"><label for="NewUint64-fold-content"> <a href="../../use/go.uber.org/atomic..NewUint64.html">func</a> <a href="../../src/go.uber.org/atomic/uint64.go.html#line-39">NewUint64</a>(i <a href="../builtin.html#name-uint64">uint64</a>) *<a href="#name-Uint64">Uint64</a></label><span id='NewUint64-fold-content-docs' class="fold-docs">
 		NewUint64 creates a new Uint64.
 
-</span></div>	<input type='checkbox' class="showhide" id="unexported-functions-showhide"><i><label for="unexported-functions-showhide" class="show-inline">/* 4 unexporteds ... */</label><label for="unexported-functions-showhide" class="hide-inline">/* 4 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-boolToInt"><i>	<span class="nodocs"> <a href="../../use/go.uber.org/atomic..boolToInt*7372b.html">func</a> <a href="../../src/go.uber.org/atomic/bool_ext.go.html#line-33">boolToInt</a>(b <a href="../builtin.html#name-bool">bool</a>) <a href="../builtin.html#name-uint32">uint32</a></span></i></div><div class="anchor value-res hidden" id="name-packError"><i>	<span class="nodocs"> <a href="../../use/go.uber.org/atomic..packError*7556d.html">func</a> <a href="../../src/go.uber.org/atomic/error_ext.go.html#line-30">packError</a>(v <a href="../builtin.html#name-error">error</a>) interface{}</span></i></div><div class="anchor value-res hidden" id="name-truthy"><i>	<span class="nodocs"> <a href="../../use/go.uber.org/atomic..truthy*46a9c.html">func</a> <a href="../../src/go.uber.org/atomic/bool_ext.go.html#line-29">truthy</a>(n <a href="../builtin.html#name-uint32">uint32</a>) <a href="../builtin.html#name-bool">bool</a></span></i></div><div class="anchor value-res hidden" id="name-unpackError"><i>	<span class="nodocs"> <a href="../../use/go.uber.org/atomic..unpackError*bca67.html">func</a> <a href="../../src/go.uber.org/atomic/error_ext.go.html#line-34">unpackError</a>(v interface{}) <a href="../builtin.html#name-error">error</a></span></i></div></div>
+</span></div>	<input type='checkbox' class="showhide" id="unexported-functions-showhide"><i><label for="unexported-functions-showhide" class="show-inline">/* 4 unexporteds ... */</label><label for="unexported-functions-showhide" class="hide-inline">/* 4 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-boolToInt"><i>	<span class="nodocs"> <a href="../../use/go.uber.org/atomic..boolToInt^7372b.html">func</a> <a href="../../src/go.uber.org/atomic/bool_ext.go.html#line-33">boolToInt</a>(b <a href="../builtin.html#name-bool">bool</a>) <a href="../builtin.html#name-uint32">uint32</a></span></i></div><div class="anchor value-res hidden" id="name-packError"><i>	<span class="nodocs"> <a href="../../use/go.uber.org/atomic..packError^7556d.html">func</a> <a href="../../src/go.uber.org/atomic/error_ext.go.html#line-30">packError</a>(v <a href="../builtin.html#name-error">error</a>) interface{}</span></i></div><div class="anchor value-res hidden" id="name-truthy"><i>	<span class="nodocs"> <a href="../../use/go.uber.org/atomic..truthy^46a9c.html">func</a> <a href="../../src/go.uber.org/atomic/bool_ext.go.html#line-29">truthy</a>(n <a href="../builtin.html#name-uint32">uint32</a>) <a href="../builtin.html#name-bool">bool</a></span></i></div><div class="anchor value-res hidden" id="name-unpackError"><i>	<span class="nodocs"> <a href="../../use/go.uber.org/atomic..unpackError^bca67.html">func</a> <a href="../../src/go.uber.org/atomic/error_ext.go.html#line-34">unpackError</a>(v interface{}) <a href="../builtin.html#name-error">error</a></span></i></div></div>
 <div id="exported-variables"><span class="title">Package-Level Variables<span class="title-stat"><i> (total 5, none are exported)</i></span></span>
 
-	<input type='checkbox' class="showhide" id="unexported-variables-showhide"><i><label for="unexported-variables-showhide" class="show-inline">/* 5 unexporteds ... */</label><label for="unexported-variables-showhide" class="hide-inline">/* 5 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-_zeroBool"><i>	<span class="nodocs">  <a href="../../use/go.uber.org/atomic.._zeroBool*b270e.html">var</a> <a href="../../src/go.uber.org/atomic/bool.go.html#line-36">_zeroBool</a> <a href="../builtin.html#name-bool">bool</a></span></i></div><div class="anchor value-res hidden" id="name-_zeroDuration"><i>	<span class="nodocs">  <a href="../../use/go.uber.org/atomic.._zeroDuration*96972.html">var</a> <a href="../../src/go.uber.org/atomic/duration.go.html#line-37">_zeroDuration</a> <a href="../time.html">time</a>.<a href="../time.html#name-Duration">Duration</a></span></i></div><div class="anchor value-res hidden" id="name-_zeroError"><i>	<span class="nodocs">  <a href="../../use/go.uber.org/atomic.._zeroError*bc94b.html">var</a> <a href="../../src/go.uber.org/atomic/error.go.html#line-32">_zeroError</a> <a href="../builtin.html#name-error">error</a></span></i></div><div class="anchor value-res hidden" id="name-_zeroFloat64"><i>	<span class="nodocs">  <a href="../../use/go.uber.org/atomic.._zeroFloat64*b021b.html">var</a> <a href="../../src/go.uber.org/atomic/float64.go.html#line-37">_zeroFloat64</a> <a href="../builtin.html#name-float64">float64</a></span></i></div><div class="anchor value-res hidden" id="name-_zeroString"><i>	<span class="nodocs">  <a href="../../use/go.uber.org/atomic.._zeroString*fdb38.html">var</a> <a href="../../src/go.uber.org/atomic/string.go.html#line-32">_zeroString</a> <a href="../builtin.html#name-string">string</a></span></i></div></div></code></pre><pre id="footer">
+	<input type='checkbox' class="showhide" id="unexported-variables-showhide"><i><label for="unexported-variables-showhide" class="show-inline">/* 5 unexporteds ... */</label><label for="unexported-variables-showhide" class="hide-inline">/* 5 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-_zeroBool"><i>	<span class="nodocs">  <a href="../../use/go.uber.org/atomic.._zeroBool^b270e.html">var</a> <a href="../../src/go.uber.org/atomic/bool.go.html#line-36">_zeroBool</a> <a href="../builtin.html#name-bool">bool</a></span></i></div><div class="anchor value-res hidden" id="name-_zeroDuration"><i>	<span class="nodocs">  <a href="../../use/go.uber.org/atomic.._zeroDuration^96972.html">var</a> <a href="../../src/go.uber.org/atomic/duration.go.html#line-37">_zeroDuration</a> <a href="../time.html">time</a>.<a href="../time.html#name-Duration">Duration</a></span></i></div><div class="anchor value-res hidden" id="name-_zeroError"><i>	<span class="nodocs">  <a href="../../use/go.uber.org/atomic.._zeroError^bc94b.html">var</a> <a href="../../src/go.uber.org/atomic/error.go.html#line-32">_zeroError</a> <a href="../builtin.html#name-error">error</a></span></i></div><div class="anchor value-res hidden" id="name-_zeroFloat64"><i>	<span class="nodocs">  <a href="../../use/go.uber.org/atomic.._zeroFloat64^b021b.html">var</a> <a href="../../src/go.uber.org/atomic/float64.go.html#line-37">_zeroFloat64</a> <a href="../builtin.html#name-float64">float64</a></span></i></div><div class="anchor value-res hidden" id="name-_zeroString"><i>	<span class="nodocs">  <a href="../../use/go.uber.org/atomic.._zeroString^fdb38.html">var</a> <a href="../../src/go.uber.org/atomic/string.go.html#line-32">_zeroString</a> <a href="../builtin.html#name-string">string</a></span></i></div></div></code></pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>
