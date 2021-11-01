@@ -2,7 +2,7 @@ name: Weekly
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 10 * * 1'
+    - cron: '* 15 * * *'
 
 jobs:
   update-docs:
@@ -55,3 +55,9 @@ jobs:
           title: 'docs: update gotd docs to the latest version'
           labels: |
             dependencies
+            
+      - uses: peter-evans/enable-pull-request-automerge@v1
+        with:
+          token: ${{ secrets.PAT }}
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+          merge-method: rebase
