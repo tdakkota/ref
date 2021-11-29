@@ -11,7 +11,7 @@
 
 <pre><code><span style="font-size:x-large;"><b><a href="../../pkg/net/http.html">net/http</a>.<a href="../../src/net/http/response.go.html#line-35">Response</a>.<a href="../../src/net/http/response.go.html#line-72">Body</a></b></span><span style="font-size: large;"><i> (field)</i></span>
 
-<span class="title">33 uses</span>
+<span class="title">36 uses</span>
 
 	net/http (current package)
 		<a href="../../src/net/http/client.go.html#line-271">client.go#L271</a>: 	if resp.<b>Body</b> == nil {
@@ -21,9 +21,12 @@
 		<a href="../../src/net/http/client.go.html#line-707" class="path-duplicate">client.go</a><a href="../../src/net/http/client.go.html#line-707">#L707</a>: 				io.CopyN(io.Discard, resp.<b>Body</b>, maxBodySlurpSize)
 		<a href="../../src/net/http/client.go.html#line-709" class="path-duplicate">client.go</a><a href="../../src/net/http/client.go.html#line-709">#L709</a>: 			resp.<b>Body</b>.Close()
 		<a href="../../src/net/http/filetransport.go.html#line-59">filetransport.go#L59</a>: 			<b>Body</b>:       pr,
-		<a href="../../src/net/http/h2_bundle.go.html#line-8665">h2_bundle.go#L8665</a>: 		res.<b>Body</b> = http2noBody
-		<a href="../../src/net/http/h2_bundle.go.html#line-8671" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-8671">#L8671</a>: 	res.<b>Body</b> = http2transportResponseBody{cs}
-		<a href="../../src/net/http/h2_bundle.go.html#line-8678" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-8678">#L8678</a>: 		res.<b>Body</b> = &amp;http2gzipReader{body: res.<b>Body</b>}
+		<a href="../../src/net/http/h2_bundle.go.html#line-7679">h2_bundle.go#L7679</a>: 			if res.<b>Body</b> == http2noBody && http2actualContentLength(req) == 0 {
+		<a href="../../src/net/http/h2_bundle.go.html#line-8797" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-8797">#L8797</a>: 		res.<b>Body</b> = http2noBody
+		<a href="../../src/net/http/h2_bundle.go.html#line-8803" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-8803">#L8803</a>: 			res.<b>Body</b> = http2missingBody{}
+		<a href="../../src/net/http/h2_bundle.go.html#line-8805" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-8805">#L8805</a>: 			res.<b>Body</b> = http2noBody
+		<a href="../../src/net/http/h2_bundle.go.html#line-8812" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-8812">#L8812</a>: 	res.<b>Body</b> = http2transportResponseBody{cs}
+		<a href="../../src/net/http/h2_bundle.go.html#line-8818" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-8818">#L8818</a>: 		res.<b>Body</b> = &amp;http2gzipReader{body: res.<b>Body</b>}
 		<a href="../../src/net/http/response.go.html#line-72">response.go#L72</a>: 	<b>Body</b> io.ReadCloser
 		<a href="../../src/net/http/response.go.html#line-267" class="path-duplicate">response.go</a><a href="../../src/net/http/response.go.html#line-267">#L267</a>: 	if r1.ContentLength == 0 &amp;&amp; r1.<b>Body</b> != nil {
 		<a href="../../src/net/http/response.go.html#line-270" class="path-duplicate">response.go</a><a href="../../src/net/http/response.go.html#line-270">#L270</a>: 		n, err := r1.<b>Body</b>.Read(buf[:])

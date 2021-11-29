@@ -11,16 +11,18 @@
 
 <pre><code><span style="font-size:x-large;"><b><a href="../../pkg/net/http.html">net/http</a>.<a href="../../src/net/http/server.go.html#line-2527">Server</a>.<a href="../../src/net/http/server.go.html#line-2543">TLSConfig</a></b></span><span style="font-size: large;"><i> (field)</i></span>
 
-<span class="title">13 uses</span>
+<span class="title">16 uses</span>
 
 	net/http (current package)
-		<a href="../../src/net/http/h2_bundle.go.html#line-3888">h2_bundle.go#L3888</a>: 	if s.<b>TLSConfig</b> == nil {
-		<a href="../../src/net/http/h2_bundle.go.html#line-3889" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-3889">#L3889</a>: 		s.<b>TLSConfig</b> = new(tls.Config)
-		<a href="../../src/net/http/h2_bundle.go.html#line-3890" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-3890">#L3890</a>: 	} else if s.<b>TLSConfig</b>.CipherSuites != nil &amp;&amp; s.<b>TLSConfig</b>.MinVersion < tls.VersionTLS13 {
-		<a href="../../src/net/http/h2_bundle.go.html#line-3895" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-3895">#L3895</a>: 		for _, cs := range s.<b>TLSConfig</b>.CipherSuites {
-		<a href="../../src/net/http/h2_bundle.go.html#line-3916" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-3916">#L3916</a>: 	s.<b>TLSConfig</b>.PreferServerCipherSuites = true
-		<a href="../../src/net/http/h2_bundle.go.html#line-3919" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-3919">#L3919</a>: 	for _, p := range s.<b>TLSConfig</b>.NextProtos {
-		<a href="../../src/net/http/h2_bundle.go.html#line-3926" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-3926">#L3926</a>: 		s.<b>TLSConfig</b>.NextProtos = append(s.<b>TLSConfig</b>.NextProtos, http2NextProtoTLS)
+		<a href="../../src/net/http/h2_bundle.go.html#line-3901">h2_bundle.go#L3901</a>: 	if s.<b>TLSConfig</b> == nil {
+		<a href="../../src/net/http/h2_bundle.go.html#line-3902" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-3902">#L3902</a>: 		s.<b>TLSConfig</b> = new(tls.Config)
+		<a href="../../src/net/http/h2_bundle.go.html#line-3903" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-3903">#L3903</a>: 	} else if s.<b>TLSConfig</b>.CipherSuites != nil &amp;&amp; s.<b>TLSConfig</b>.MinVersion < tls.VersionTLS13 {
+		<a href="../../src/net/http/h2_bundle.go.html#line-3908" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-3908">#L3908</a>: 		for _, cs := range s.<b>TLSConfig</b>.CipherSuites {
+		<a href="../../src/net/http/h2_bundle.go.html#line-3929" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-3929">#L3929</a>: 	s.<b>TLSConfig</b>.PreferServerCipherSuites = true
+		<a href="../../src/net/http/h2_bundle.go.html#line-3931" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-3931">#L3931</a>: 	if !http2strSliceContains(s.<b>TLSConfig</b>.NextProtos, http2NextProtoTLS) {
+		<a href="../../src/net/http/h2_bundle.go.html#line-3932" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-3932">#L3932</a>: 		s.<b>TLSConfig</b>.NextProtos = append(s.<b>TLSConfig</b>.NextProtos, http2NextProtoTLS)
+		<a href="../../src/net/http/h2_bundle.go.html#line-3934" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-3934">#L3934</a>: 	if !http2strSliceContains(s.<b>TLSConfig</b>.NextProtos, "http/1.1") {
+		<a href="../../src/net/http/h2_bundle.go.html#line-3935" class="path-duplicate">h2_bundle.go</a><a href="../../src/net/http/h2_bundle.go.html#line-3935">#L3935</a>: 		s.<b>TLSConfig</b>.NextProtos = append(s.<b>TLSConfig</b>.NextProtos, "http/1.1")
 		<a href="../../src/net/http/server.go.html#line-2543">server.go#L2543</a>: 	<b>TLSConfig</b> *tls.Config
 		<a href="../../src/net/http/server.go.html#line-2938" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-2938">#L2938</a>: 	if srv.<b>TLSConfig</b> == nil {
 		<a href="../../src/net/http/server.go.html#line-2954" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-2954">#L2954</a>: 	return strSliceContains(srv.<b>TLSConfig</b>.NextProtos, http2NextProtoTLS)

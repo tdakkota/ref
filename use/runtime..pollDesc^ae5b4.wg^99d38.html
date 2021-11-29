@@ -9,18 +9,18 @@
 <script src="../jvs/golds-v0.3.6.js"></script>
 <body onload="onPageLoad()"><div>
 
-<pre><code><span style="font-size:x-large;"><b><a href="../pkg/runtime.html">runtime</a>.<a href="../src/runtime/netpoll.go.html#line-73">pollDesc</a>.<a href="../src/runtime/netpoll.go.html#line-93">wg</a></b></span><span style="font-size: large;"><i> (field)</i></span>
+<pre><code><span style="font-size:x-large;"><b><a href="../pkg/runtime.html">runtime</a>.<a href="../src/runtime/netpoll.go.html#line-73">pollDesc</a>.<a href="../src/runtime/netpoll.go.html#line-94">wg</a></b></span><span style="font-size: large;"><i> (field)</i></span>
 
-<span class="title">9 uses</span>
+<span class="title">7 uses</span>
 
 	runtime (current package)
-		<a href="../src/runtime/netpoll.go.html#line-93">netpoll.go#L93</a>: 	<b>wg</b>      uintptr   // pdReady, pdWait, G waiting for write or nil
-		<a href="../src/runtime/netpoll.go.html#line-150" class="path-duplicate">netpoll.go</a><a href="../src/runtime/netpoll.go.html#line-150">#L150</a>: 	if pd.<b>wg</b> != 0 &amp;&amp; pd.<b>wg</b> != pdReady {
-		<a href="../src/runtime/netpoll.go.html#line-163" class="path-duplicate">netpoll.go</a><a href="../src/runtime/netpoll.go.html#line-163">#L163</a>: 	pd.<b>wg</b> = 0
-		<a href="../src/runtime/netpoll.go.html#line-181" class="path-duplicate">netpoll.go</a><a href="../src/runtime/netpoll.go.html#line-181">#L181</a>: 	if pd.<b>wg</b> != 0 &amp;&amp; pd.<b>wg</b> != pdReady {
-		<a href="../src/runtime/netpoll.go.html#line-210" class="path-duplicate">netpoll.go</a><a href="../src/runtime/netpoll.go.html#line-210">#L210</a>: 		pd.<b>wg</b> = 0
-		<a href="../src/runtime/netpoll.go.html#line-423" class="path-duplicate">netpoll.go</a><a href="../src/runtime/netpoll.go.html#line-423">#L423</a>: 		gpp = &amp;pd.<b>wg</b>
-		<a href="../src/runtime/netpoll.go.html#line-458" class="path-duplicate">netpoll.go</a><a href="../src/runtime/netpoll.go.html#line-458">#L458</a>: 		gpp = &amp;pd.<b>wg</b>
+		<a href="../src/runtime/netpoll.go.html#line-94">netpoll.go#L94</a>: 	<b>wg</b>      uintptr   // pdReady, pdWait, G waiting for write or nil. Accessed atomically.
+		<a href="../src/runtime/netpoll.go.html#line-151" class="path-duplicate">netpoll.go</a><a href="../src/runtime/netpoll.go.html#line-151">#L151</a>: 	wg := atomic.Loaduintptr(&amp;pd.<b>wg</b>)
+		<a href="../src/runtime/netpoll.go.html#line-166" class="path-duplicate">netpoll.go</a><a href="../src/runtime/netpoll.go.html#line-166">#L166</a>: 	atomic.Storeuintptr(&amp;pd.<b>wg</b>, 0)
+		<a href="../src/runtime/netpoll.go.html#line-184" class="path-duplicate">netpoll.go</a><a href="../src/runtime/netpoll.go.html#line-184">#L184</a>: 	wg := atomic.Loaduintptr(&amp;pd.<b>wg</b>)
+		<a href="../src/runtime/netpoll.go.html#line-215" class="path-duplicate">netpoll.go</a><a href="../src/runtime/netpoll.go.html#line-215">#L215</a>: 		atomic.Storeuintptr(&amp;pd.<b>wg</b>, 0)
+		<a href="../src/runtime/netpoll.go.html#line-430" class="path-duplicate">netpoll.go</a><a href="../src/runtime/netpoll.go.html#line-430">#L430</a>: 		gpp = &amp;pd.<b>wg</b>
+		<a href="../src/runtime/netpoll.go.html#line-467" class="path-duplicate">netpoll.go</a><a href="../src/runtime/netpoll.go.html#line-467">#L467</a>: 		gpp = &amp;pd.<b>wg</b>
 </code></pre><pre id="footer">
 <table><tr><td><img src="../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
