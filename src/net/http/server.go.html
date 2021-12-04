@@ -4455,7 +4455,7 @@ input[id=i22]:checked ~pre .i22
 <span class="codeline" id="line-2951"><code><span class="comment">	// passed this tls.Config to tls.NewListener. And if they did,</span></code></span>
 <span class="codeline" id="line-2952"><code><span class="comment">	// it's too late anyway to fix it. It would only be potentially racy.</span></code></span>
 <span class="codeline" id="line-2953"><code><span class="comment">	// See Issue 15908.</span></code></span>
-<span class="codeline" id="line-2954"><code>	<span class="keyword">return</span> <a href="#line-3552" class="ident">strSliceContains</a>(<label for="r549" class="ident">srv</label>.<a href="#line-2543" class="ident">TLSConfig</a>.<a href="../../crypto/tls/common.go.html#line-623" class="ident">NextProtos</a>, <a href="h2_bundle.go.html#line-3225" class="ident">http2NextProtoTLS</a>)</code></span>
+<span class="codeline" id="line-2954"><code>	<span class="keyword">return</span> <a href="#line-3552" class="ident">strSliceContains</a>(<label for="r549" class="ident">srv</label>.<a href="#line-2543" class="ident">TLSConfig</a>.<a href="../../crypto/tls/common.go.html#line-623" class="ident">NextProtos</a>, <a href="h2_bundle.go.html#line-3227" class="ident">http2NextProtoTLS</a>)</code></span>
 <span class="codeline" id="line-2955"><code>}</code></span>
 <span class="codeline" id="line-2956"><code></code></span>
 <span class="codeline" id="line-2957"><code><span class="comment">// ErrServerClosed is returned by the Server's Serve, ServeTLS, ListenAndServe,</span></code></span>
@@ -4769,10 +4769,10 @@ input[id=i22]:checked ~pre .i22
 <span class="codeline" id="line-3265"><code>	<span class="comment">// Enable HTTP/2 by default if the user hasn't otherwise</span></code></span>
 <span class="codeline" id="line-3266"><code><span class="comment">	// configured their TLSNextProto map.</span></code></span>
 <span class="codeline" id="line-3267"><code>	<span class="keyword">if</span> <label for="r630" class="ident">srv</label>.<a href="#line-2592" class="ident">TLSNextProto</a> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-3268"><code>		<label for="r632" class="ident">conf</label> := &amp;<a href="h2_bundle.go.html#line-3742" class="ident">http2Server</a>{</code></span>
-<span class="codeline" id="line-3269"><code>			<a href="h2_bundle.go.html#line-3787" class="ident">NewWriteScheduler</a>: <span class="keyword">func</span>() <a href="h2_bundle.go.html#line-9739" class="ident">http2WriteScheduler</a> { <span class="keyword">return</span> <a href="h2_bundle.go.html#line-10025" class="ident">http2NewPriorityWriteScheduler</a>(<a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>) },</code></span>
+<span class="codeline" id="line-3268"><code>		<label for="r632" class="ident">conf</label> := &amp;<a href="h2_bundle.go.html#line-3755" class="ident">http2Server</a>{</code></span>
+<span class="codeline" id="line-3269"><code>			<a href="h2_bundle.go.html#line-3800" class="ident">NewWriteScheduler</a>: <span class="keyword">func</span>() <a href="h2_bundle.go.html#line-9855" class="ident">http2WriteScheduler</a> { <span class="keyword">return</span> <a href="h2_bundle.go.html#line-10141" class="ident">http2NewPriorityWriteScheduler</a>(<a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>) },</code></span>
 <span class="codeline" id="line-3270"><code>		}</code></span>
-<span class="codeline" id="line-3271"><code>		<label for="r630" class="ident">srv</label>.<a href="#line-2623" class="ident">nextProtoErr</a> = <a href="h2_bundle.go.html#line-3871" class="ident">http2ConfigureServer</a>(<label for="r630" class="ident">srv</label>, <label for="r632" class="ident">conf</label>)</code></span>
+<span class="codeline" id="line-3271"><code>		<label for="r630" class="ident">srv</label>.<a href="#line-2623" class="ident">nextProtoErr</a> = <a href="h2_bundle.go.html#line-3884" class="ident">http2ConfigureServer</a>(<label for="r630" class="ident">srv</label>, <label for="r632" class="ident">conf</label>)</code></span>
 <span class="codeline" id="line-3272"><code>	}</code></span>
 <span class="codeline" id="line-3273"><code>}</code></span>
 <span class="codeline" id="line-3274"><code></code></span>
