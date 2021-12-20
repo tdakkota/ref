@@ -22,17 +22,17 @@
 		<a href="../../src/net/http/server.go.html#line-1310" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1310">#L1310</a>: 	if ecr, ok := w.<b>req</b>.Body.(*expectContinueReader); ok && !ecr.sawEOF.isSet() {
 		<a href="../../src/net/http/server.go.html#line-1321" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1321">#L1321</a>: 	if w.<b>req</b>.ContentLength != 0 && !w.closeAfterReply {
 		<a href="../../src/net/http/server.go.html#line-1324" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1324">#L1324</a>: 		switch bdy := w.<b>req</b>.Body.(type) {
-		<a href="../../src/net/http/server.go.html#line-1407" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1407">#L1407</a>: 	if w.<b>req</b>.Method == "HEAD" || !bodyAllowedForStatus(code) {
+		<a href="../../src/net/http/server.go.html#line-1407" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1407">#L1407</a>: 	if w.<b>req</b>.Method == "HEAD" || !bodyAllowedForStatus(code) || code == StatusNoContent {
 		<a href="../../src/net/http/server.go.html#line-1413" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1413">#L1413</a>: 	} else if w.<b>req</b>.ProtoAtLeast(1, 1) {
-		<a href="../../src/net/http/server.go.html#line-1444" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1444">#L1444</a>: 	if !w.<b>req</b>.ProtoAtLeast(1, 0) {
-		<a href="../../src/net/http/server.go.html#line-1456" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1456">#L1456</a>: 		if w.<b>req</b>.ProtoAtLeast(1, 1) {
-		<a href="../../src/net/http/server.go.html#line-1461" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1461">#L1461</a>: 	writeStatusLine(w.conn.bufw, w.<b>req</b>.ProtoAtLeast(1, 1), code, w.statusBuf[:])
-		<a href="../../src/net/http/server.go.html#line-1616" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1616">#L1616</a>: 	if w.<b>req</b>.MultipartForm != nil {
-		<a href="../../src/net/http/server.go.html#line-1617" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1617">#L1617</a>: 		w.<b>req</b>.MultipartForm.RemoveAll()
-		<a href="../../src/net/http/server.go.html#line-1631" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1631">#L1631</a>: 	if w.<b>req</b>.Method != "HEAD" && w.contentLength != -1 && w.bodyAllowed() && w.contentLength != w.written {
-		<a href="../../src/net/http/server.go.html#line-1650" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1650">#L1650</a>: 	body, ok := w.<b>req</b>.Body.(*body)
-		<a href="../../src/net/http/server.go.html#line-1902" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1902">#L1902</a>: 		req := w.<b>req</b>
-		<a href="../../src/net/http/server.go.html#line-1929" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1929">#L1929</a>: 		serverHandler{c.server}.ServeHTTP(w, w.<b>req</b>)
+		<a href="../../src/net/http/server.go.html#line-1445" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1445">#L1445</a>: 	if !w.<b>req</b>.ProtoAtLeast(1, 0) {
+		<a href="../../src/net/http/server.go.html#line-1457" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1457">#L1457</a>: 		if w.<b>req</b>.ProtoAtLeast(1, 1) {
+		<a href="../../src/net/http/server.go.html#line-1462" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1462">#L1462</a>: 	writeStatusLine(w.conn.bufw, w.<b>req</b>.ProtoAtLeast(1, 1), code, w.statusBuf[:])
+		<a href="../../src/net/http/server.go.html#line-1617" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1617">#L1617</a>: 	if w.<b>req</b>.MultipartForm != nil {
+		<a href="../../src/net/http/server.go.html#line-1618" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1618">#L1618</a>: 		w.<b>req</b>.MultipartForm.RemoveAll()
+		<a href="../../src/net/http/server.go.html#line-1632" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1632">#L1632</a>: 	if w.<b>req</b>.Method != "HEAD" && w.contentLength != -1 && w.bodyAllowed() && w.contentLength != w.written {
+		<a href="../../src/net/http/server.go.html#line-1651" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1651">#L1651</a>: 	body, ok := w.<b>req</b>.Body.(*body)
+		<a href="../../src/net/http/server.go.html#line-1903" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1903">#L1903</a>: 		req := w.<b>req</b>
+		<a href="../../src/net/http/server.go.html#line-1930" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1930">#L1930</a>: 		serverHandler{c.server}.ServeHTTP(w, w.<b>req</b>)
 </code></pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
