@@ -320,7 +320,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-140"><code><span class="comment">		// non-zero-sized struct do not cause it to be</span></code></span>
 <span class="codeline" id="line-141"><code><span class="comment">		// stack-assigned. So we need a special case here</span></code></span>
 <span class="codeline" id="line-142"><code><span class="comment">		// at the top.</span></code></span>
-<span class="codeline" id="line-143"><code>		<label for="r11" class="ident">a</label>.<a href="#line-88" class="ident">stackBytes</a> = <a href="value.go.html#line-888" class="ident">align</a>(<label for="r11" class="ident">a</label>.<a href="#line-88" class="ident">stackBytes</a>, <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<label for="r13" class="ident">t</label>.<a href="type.go.html#line-316" class="ident">align</a>))</code></span>
+<span class="codeline" id="line-143"><code>		<label for="r11" class="ident">a</label>.<a href="#line-88" class="ident">stackBytes</a> = <a href="value.go.html#line-901" class="ident">align</a>(<label for="r11" class="ident">a</label>.<a href="#line-88" class="ident">stackBytes</a>, <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<label for="r13" class="ident">t</label>.<a href="type.go.html#line-316" class="ident">align</a>))</code></span>
 <span class="codeline" id="line-144"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-145"><code>	}</code></span>
 <span class="codeline" id="line-146"><code>	<span class="comment">// Hold a copy of "a" so that we can roll back if</span></code></span>
@@ -494,7 +494,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-314"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-315"><code><span class="comment">// Should not be called directly; use addArg instead.</span></code></span>
 <span class="codeline" id="line-316"><code><span class="keyword">func</span> (<label for="r43" class="ident">a</label> *<a href="#line-70" class="ident">abiSeq</a>) <label for="r44" class="ident"><a href="../../use/reflect..abiSeq^6a441.stackAssign^c27fc.html" class="ident">stackAssign</a></label>(<label for="r45" class="ident">size</label>, <label for="r46" class="ident">alignment</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) {</code></span>
-<span class="codeline" id="line-317"><code>	<label for="r43" class="ident">a</label>.<a href="#line-88" class="ident">stackBytes</a> = <a href="value.go.html#line-888" class="ident">align</a>(<label for="r43" class="ident">a</label>.<a href="#line-88" class="ident">stackBytes</a>, <label for="r46" class="ident">alignment</label>)</code></span>
+<span class="codeline" id="line-317"><code>	<label for="r43" class="ident">a</label>.<a href="#line-88" class="ident">stackBytes</a> = <a href="value.go.html#line-901" class="ident">align</a>(<label for="r43" class="ident">a</label>.<a href="#line-88" class="ident">stackBytes</a>, <label for="r46" class="ident">alignment</label>)</code></span>
 <span class="codeline" id="line-318"><code>	<label for="r43" class="ident">a</label>.<a href="#line-85" class="ident">steps</a> = <a href="../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r43" class="ident">a</label>.<a href="#line-85" class="ident">steps</a>, <a href="#line-40" class="ident">abiStep</a>{</code></span>
 <span class="codeline" id="line-319"><code>		<a href="#line-41" class="ident">kind</a>:   <a href="#line-59" class="ident">abiStepStack</a>,</code></span>
 <span class="codeline" id="line-320"><code>		<a href="#line-45" class="ident">offset</a>: <span class="lit-number">0</span>, <span class="comment">// Only used for whole arguments, so the memory offset is 0.</span></code></span>
@@ -534,7 +534,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-354"><code><span class="comment">	// outRegPtrs is the same, but for result values.</span></code></span>
 <span class="codeline" id="line-355"><code><span class="comment">	// Used by reflectcall to make result pointers visible</span></code></span>
 <span class="codeline" id="line-356"><code><span class="comment">	// to the GC.</span></code></span>
-<span class="codeline" id="line-357"><code>	<a href="../../use/reflect..abiDesc^2505c.inRegPtrs^5f81a.html" class="ident">inRegPtrs</a>, <a href="../../use/reflect..abiDesc^2505c.outRegPtrs^d8cb5.html" class="ident">outRegPtrs</a> <a href="../../pkg/internal/abi.html" class="ident i0">abi</a>.<a href="../internal/abi/abi.go.html#line-38" class="ident">IntArgRegBitmap</a></code></span>
+<span class="codeline" id="line-357"><code>	<a href="../../use/reflect..abiDesc^2505c.inRegPtrs^5f81a.html" class="ident">inRegPtrs</a>, <a href="../../use/reflect..abiDesc^2505c.outRegPtrs^d8cb5.html" class="ident">outRegPtrs</a> <a href="../../pkg/internal/abi.html" class="ident i0">abi</a>.<a href="../internal/abi/abi.go.html#line-56" class="ident">IntArgRegBitmap</a></code></span>
 <span class="codeline" id="line-358"><code>}</code></span>
 <span class="codeline" id="line-359"><code></code></span>
 <span class="codeline" id="line-360"><code><span class="keyword">func</span> (<label for="r47" class="ident">a</label> *<a href="#line-328" class="ident">abiDesc</a>) <label for="r48" class="ident"><a href="../../use/reflect..abiDesc^2505c.dump^b6ca0.html" class="ident">dump</a></label>() {</code></span>
@@ -554,10 +554,10 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-374"><code>	<a href="../../pkg/builtin.html#name-println" class="ident">println</a>()</code></span>
 <span class="codeline" id="line-375"><code>}</code></span>
 <span class="codeline" id="line-376"><code></code></span>
-<span class="codeline" id="line-377"><code><span class="keyword">func</span> <label for="r49" class="ident"><a href="../../pkg/reflect.html#name-dumpPtrBitMap" class="ident">dumpPtrBitMap</a></label>(<label for="r50" class="ident">b</label> <a href="../../pkg/internal/abi.html" class="ident i0">abi</a>.<a href="../internal/abi/abi.go.html#line-38" class="ident">IntArgRegBitmap</a>) {</code></span>
+<span class="codeline" id="line-377"><code><span class="keyword">func</span> <label for="r49" class="ident"><a href="../../pkg/reflect.html#name-dumpPtrBitMap" class="ident">dumpPtrBitMap</a></label>(<label for="r50" class="ident">b</label> <a href="../../pkg/internal/abi.html" class="ident i0">abi</a>.<a href="../internal/abi/abi.go.html#line-56" class="ident">IntArgRegBitmap</a>) {</code></span>
 <span class="codeline" id="line-378"><code>	<span class="keyword">for</span> <label for="r51" class="ident">i</label> := <span class="lit-number">0</span>; <label for="r51" class="ident">i</label> &lt; <a href="#line-32" class="ident">intArgRegs</a>; <label for="r51" class="ident">i</label>++ {</code></span>
 <span class="codeline" id="line-379"><code>		<label for="r52" class="ident">x</label> := <span class="lit-number">0</span></code></span>
-<span class="codeline" id="line-380"><code>		<span class="keyword">if</span> <label for="r50" class="ident">b</label>.<a href="../internal/abi/abi.go.html#line-51" class="ident">Get</a>(<label for="r51" class="ident">i</label>) {</code></span>
+<span class="codeline" id="line-380"><code>		<span class="keyword">if</span> <label for="r50" class="ident">b</label>.<a href="../internal/abi/abi.go.html#line-69" class="ident">Get</a>(<label for="r51" class="ident">i</label>) {</code></span>
 <span class="codeline" id="line-381"><code>			<label for="r52" class="ident">x</label> = <span class="lit-number">1</span></code></span>
 <span class="codeline" id="line-382"><code>		}</code></span>
 <span class="codeline" id="line-383"><code>		<a href="../../pkg/builtin.html#name-print" class="ident">print</a>(<span class="lit-string">" "</span>, <label for="r52" class="ident">x</label>)</code></span>
@@ -580,7 +580,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-400"><code></code></span>
 <span class="codeline" id="line-401"><code>	<span class="comment">// Compute the stack frame pointer bitmap and register</span></code></span>
 <span class="codeline" id="line-402"><code><span class="comment">	// pointer bitmap for arguments.</span></code></span>
-<span class="codeline" id="line-403"><code>	<label for="r58" class="ident">inRegPtrs</label> := <a href="../../pkg/internal/abi.html" class="ident i0">abi</a>.<a href="../internal/abi/abi.go.html#line-38" class="ident">IntArgRegBitmap</a>{}</code></span>
+<span class="codeline" id="line-403"><code>	<label for="r58" class="ident">inRegPtrs</label> := <a href="../../pkg/internal/abi.html" class="ident i0">abi</a>.<a href="../internal/abi/abi.go.html#line-56" class="ident">IntArgRegBitmap</a>{}</code></span>
 <span class="codeline" id="line-404"><code></code></span>
 <span class="codeline" id="line-405"><code>	<span class="comment">// Compute abiSeq for input parameters.</span></code></span>
 <span class="codeline" id="line-406"><code>	<span class="keyword">var</span> <label for="r59" class="ident">in</label> <a href="#line-70" class="ident">abiSeq</a></code></span>
@@ -601,25 +601,25 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-421"><code>		<span class="keyword">if</span> <label for="r64" class="ident">stkStep</label> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-422"><code>			<a href="type.go.html#line-3119" class="ident">addTypeBits</a>(<label for="r57" class="ident">stackPtrs</label>, <label for="r64" class="ident">stkStep</label>.<a href="#line-49" class="ident">stkOff</a>, <label for="r63" class="ident">arg</label>)</code></span>
 <span class="codeline" id="line-423"><code>		} <span class="keyword">else</span> {</code></span>
-<span class="codeline" id="line-424"><code>			<label for="r56" class="ident">spill</label> = <a href="value.go.html#line-888" class="ident">align</a>(<label for="r56" class="ident">spill</label>, <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<label for="r63" class="ident">arg</label>.<a href="type.go.html#line-316" class="ident">align</a>))</code></span>
+<span class="codeline" id="line-424"><code>			<label for="r56" class="ident">spill</label> = <a href="value.go.html#line-901" class="ident">align</a>(<label for="r56" class="ident">spill</label>, <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<label for="r63" class="ident">arg</label>.<a href="type.go.html#line-316" class="ident">align</a>))</code></span>
 <span class="codeline" id="line-425"><code>			<label for="r56" class="ident">spill</label> += <label for="r63" class="ident">arg</label>.<a href="type.go.html#line-312" class="ident">size</a></code></span>
 <span class="codeline" id="line-426"><code>			<span class="keyword">for</span> <label for="r65" class="ident">_</label>, <label for="r66" class="ident">st</label> := <span class="keyword">range</span> <label for="r59" class="ident">in</label>.<a href="#line-109" class="ident">stepsForValue</a>(<label for="r62" class="ident">i</label>) {</code></span>
 <span class="codeline" id="line-427"><code>				<span class="keyword">if</span> <label for="r66" class="ident">st</label>.<a href="#line-41" class="ident">kind</a> == <a href="#line-61" class="ident">abiStepPointer</a> {</code></span>
-<span class="codeline" id="line-428"><code>					<label for="r58" class="ident">inRegPtrs</label>.<a href="../internal/abi/abi.go.html#line-41" class="ident">Set</a>(<label for="r66" class="ident">st</label>.<a href="#line-50" class="ident">ireg</a>)</code></span>
+<span class="codeline" id="line-428"><code>					<label for="r58" class="ident">inRegPtrs</label>.<a href="../internal/abi/abi.go.html#line-59" class="ident">Set</a>(<label for="r66" class="ident">st</label>.<a href="#line-50" class="ident">ireg</a>)</code></span>
 <span class="codeline" id="line-429"><code>				}</code></span>
 <span class="codeline" id="line-430"><code>			}</code></span>
 <span class="codeline" id="line-431"><code>		}</code></span>
 <span class="codeline" id="line-432"><code>	}</code></span>
-<span class="codeline" id="line-433"><code>	<label for="r56" class="ident">spill</label> = <a href="value.go.html#line-888" class="ident">align</a>(<label for="r56" class="ident">spill</label>, <a href="value.go.html#line-16" class="ident">ptrSize</a>)</code></span>
+<span class="codeline" id="line-433"><code>	<label for="r56" class="ident">spill</label> = <a href="value.go.html#line-901" class="ident">align</a>(<label for="r56" class="ident">spill</label>, <a href="value.go.html#line-16" class="ident">ptrSize</a>)</code></span>
 <span class="codeline" id="line-434"><code></code></span>
 <span class="codeline" id="line-435"><code>	<span class="comment">// From the input parameters alone, we now know</span></code></span>
 <span class="codeline" id="line-436"><code><span class="comment">	// the stackCallArgsSize and retOffset.</span></code></span>
 <span class="codeline" id="line-437"><code>	<label for="r67" class="ident">stackCallArgsSize</label> := <label for="r59" class="ident">in</label>.<a href="#line-88" class="ident">stackBytes</a></code></span>
-<span class="codeline" id="line-438"><code>	<label for="r68" class="ident">retOffset</label> := <a href="value.go.html#line-888" class="ident">align</a>(<label for="r59" class="ident">in</label>.<a href="#line-88" class="ident">stackBytes</a>, <a href="value.go.html#line-16" class="ident">ptrSize</a>)</code></span>
+<span class="codeline" id="line-438"><code>	<label for="r68" class="ident">retOffset</label> := <a href="value.go.html#line-901" class="ident">align</a>(<label for="r59" class="ident">in</label>.<a href="#line-88" class="ident">stackBytes</a>, <a href="value.go.html#line-16" class="ident">ptrSize</a>)</code></span>
 <span class="codeline" id="line-439"><code></code></span>
 <span class="codeline" id="line-440"><code>	<span class="comment">// Compute the stack frame pointer bitmap and register</span></code></span>
 <span class="codeline" id="line-441"><code><span class="comment">	// pointer bitmap for return values.</span></code></span>
-<span class="codeline" id="line-442"><code>	<label for="r69" class="ident">outRegPtrs</label> := <a href="../../pkg/internal/abi.html" class="ident i0">abi</a>.<a href="../internal/abi/abi.go.html#line-38" class="ident">IntArgRegBitmap</a>{}</code></span>
+<span class="codeline" id="line-442"><code>	<label for="r69" class="ident">outRegPtrs</label> := <a href="../../pkg/internal/abi.html" class="ident i0">abi</a>.<a href="../internal/abi/abi.go.html#line-56" class="ident">IntArgRegBitmap</a>{}</code></span>
 <span class="codeline" id="line-443"><code></code></span>
 <span class="codeline" id="line-444"><code>	<span class="comment">// Compute abiSeq for output parameters.</span></code></span>
 <span class="codeline" id="line-445"><code>	<span class="keyword">var</span> <label for="r70" class="ident">out</label> <a href="#line-70" class="ident">abiSeq</a></code></span>
@@ -636,7 +636,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-456"><code>		} <span class="keyword">else</span> {</code></span>
 <span class="codeline" id="line-457"><code>			<span class="keyword">for</span> <label for="r74" class="ident">_</label>, <label for="r75" class="ident">st</label> := <span class="keyword">range</span> <label for="r70" class="ident">out</label>.<a href="#line-109" class="ident">stepsForValue</a>(<label for="r71" class="ident">i</label>) {</code></span>
 <span class="codeline" id="line-458"><code>				<span class="keyword">if</span> <label for="r75" class="ident">st</label>.<a href="#line-41" class="ident">kind</a> == <a href="#line-61" class="ident">abiStepPointer</a> {</code></span>
-<span class="codeline" id="line-459"><code>					<label for="r69" class="ident">outRegPtrs</label>.<a href="../internal/abi/abi.go.html#line-41" class="ident">Set</a>(<label for="r75" class="ident">st</label>.<a href="#line-50" class="ident">ireg</a>)</code></span>
+<span class="codeline" id="line-459"><code>					<label for="r69" class="ident">outRegPtrs</label>.<a href="../internal/abi/abi.go.html#line-59" class="ident">Set</a>(<label for="r75" class="ident">st</label>.<a href="#line-50" class="ident">ireg</a>)</code></span>
 <span class="codeline" id="line-460"><code>				}</code></span>
 <span class="codeline" id="line-461"><code>			}</code></span>
 <span class="codeline" id="line-462"><code>		}</code></span>
