@@ -11,7 +11,7 @@
 
 <pre><code><span style="font-size:x-large;">const <b><a href="../pkg/runtime.html">runtime</a>.<a href="../src/runtime/histogram.go.html#line-55">timeHistNumSubBuckets</a></b></span>
 
-<span class="title">10 uses</span>
+<span class="title">11 uses</span>
 
 	runtime (current package)
 		<a href="../src/runtime/histogram.go.html#line-55">histogram.go#L55</a>: 	<b>timeHistNumSubBuckets</b>   = 1 << timeHistSubBucketBits
@@ -22,8 +22,9 @@
 		<a href="../src/runtime/histogram.go.html#line-107" class="path-duplicate">histogram.go</a><a href="../src/runtime/histogram.go.html#line-107">#L107</a>: 			subBucket = <b>timeHistNumSubBuckets</b> - 1
 		<a href="../src/runtime/histogram.go.html#line-113" class="path-duplicate">histogram.go</a><a href="../src/runtime/histogram.go.html#line-113">#L113</a>: 			subBucket = uint((duration &gt;&gt; (superBucket - 1)) % <b>timeHistNumSubBuckets</b>)
 		<a href="../src/runtime/histogram.go.html#line-118" class="path-duplicate">histogram.go</a><a href="../src/runtime/histogram.go.html#line-118">#L118</a>: 	atomic.Xadd64(&amp;h.counts[superBucket*<b>timeHistNumSubBuckets</b>+subBucket], 1)
-		<a href="../src/runtime/histogram.go.html#line-163" class="path-duplicate">histogram.go</a><a href="../src/runtime/histogram.go.html#line-163">#L163</a>: 		for j := 0; j &lt; <b>timeHistNumSubBuckets</b>; j++ {
-		<a href="../src/runtime/histogram.go.html#line-171" class="path-duplicate">histogram.go</a><a href="../src/runtime/histogram.go.html#line-171">#L171</a>: 			b[i*<b>timeHistNumSubBuckets</b>+j+1] = float64(subBucketMin) / 1e9
+		<a href="../src/runtime/histogram.go.html#line-145" class="path-duplicate">histogram.go</a><a href="../src/runtime/histogram.go.html#line-145">#L145</a>: 	for i := 0; i &lt; <b>timeHistNumSubBuckets</b>; i++ {
+		<a href="../src/runtime/histogram.go.html#line-153" class="path-duplicate">histogram.go</a><a href="../src/runtime/histogram.go.html#line-153">#L153</a>: 		for j := 0; j &lt; <b>timeHistNumSubBuckets</b>; j++ {
+		<a href="../src/runtime/histogram.go.html#line-162" class="path-duplicate">histogram.go</a><a href="../src/runtime/histogram.go.html#line-162">#L162</a>: 			bucketIndex := (i+1)*<b>timeHistNumSubBuckets</b> + j + 1
 </code></pre><pre id="footer">
 <table><tr><td><img src="../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
