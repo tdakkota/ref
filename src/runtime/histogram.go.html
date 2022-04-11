@@ -31,7 +31,8 @@ input[id=r11]:checked ~pre label[for=r11],
 input[id=r12]:checked ~pre label[for=r12],
 input[id=r13]:checked ~pre label[for=r13],
 input[id=r14]:checked ~pre label[for=r14],
-input[id=r15]:checked ~pre label[for=r15]
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16]
 {background: #226; color: #ff8;}
 input[id=i0]:checked ~pre .i0,
 input[id=i1]:checked ~pre .i1,
@@ -53,6 +54,7 @@ input[id=i2]:checked ~pre .i2
 <input id="r13" type="radio" name="g"/>
 <input id="r14" type="radio" name="g"/>
 <input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
 <input id="i0" type="radio" name="i"/>
 <input id="i1" type="radio" name="i"/>
 <input id="i2" type="radio" name="i"/>
@@ -107,7 +109,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-47"><code><span class="comment">	//    │  └---- Next 4 bits -&gt; sub-bucket 1</span></code></span>
 <span class="codeline" id="line-48"><code><span class="comment">	//    └------- Bit 5 set -&gt; super-bucket 2</span></code></span>
 <span class="codeline" id="line-49"><code><span class="comment">	//</span></code></span>
-<span class="codeline" id="line-50"><code><span class="comment">	// Following this pattern, bucket 45 will have the bit 48 set. We don't</span></code></span>
+<span class="codeline" id="line-50"><code><span class="comment">	// Following this pattern, super-bucket 44 will have the bit 47 set. We don't</span></code></span>
 <span class="codeline" id="line-51"><code><span class="comment">	// have any buckets for higher values, so the highest sub-bucket will</span></code></span>
 <span class="codeline" id="line-52"><code><span class="comment">	// contain values of 2^48-1 nanoseconds or approx. 3 days. This range is</span></code></span>
 <span class="codeline" id="line-53"><code><span class="comment">	// more than enough to handle durations produced by the runtime.</span></code></span>
@@ -199,41 +201,35 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-139"><code><span class="keyword">func</span> <label for="r9" class="ident"><a href="../../pkg/runtime.html#name-timeHistogramMetricsBuckets" class="ident">timeHistogramMetricsBuckets</a></label>() []<a href="../../pkg/builtin.html#name-float64" class="ident">float64</a> {</code></span>
 <span class="codeline" id="line-140"><code>	<label for="r10" class="ident">b</label> := <a href="../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../pkg/builtin.html#name-float64" class="ident">float64</a>, <a href="#line-57" class="ident">timeHistTotalBuckets</a>+<span class="lit-number">1</span>)</code></span>
 <span class="codeline" id="line-141"><code>	<label for="r10" class="ident">b</label>[<span class="lit-number">0</span>] = <a href="#line-131" class="ident">float64NegInf</a>()</code></span>
-<span class="codeline" id="line-142"><code>	<span class="keyword">for</span> <label for="r11" class="ident">i</label> := <span class="lit-number">0</span>; <label for="r11" class="ident">i</label> &lt; <a href="#line-56" class="ident">timeHistNumSuperBuckets</a>; <label for="r11" class="ident">i</label>++ {</code></span>
-<span class="codeline" id="line-143"><code>		<label for="r12" class="ident">superBucketMin</label> := <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>(<span class="lit-number">0</span>)</code></span>
-<span class="codeline" id="line-144"><code>		<span class="comment">// The (inclusive) minimum for the first non-negative bucket is 0.</span></code></span>
-<span class="codeline" id="line-145"><code>		<span class="keyword">if</span> <label for="r11" class="ident">i</label> &gt; <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-146"><code>			<span class="comment">// The minimum for the second bucket will be</span></code></span>
-<span class="codeline" id="line-147"><code><span class="comment">			// 1 &lt;&lt; timeHistSubBucketBits, indicating that all</span></code></span>
-<span class="codeline" id="line-148"><code><span class="comment">			// sub-buckets are represented by the next timeHistSubBucketBits</span></code></span>
-<span class="codeline" id="line-149"><code><span class="comment">			// bits.</span></code></span>
-<span class="codeline" id="line-150"><code><span class="comment">			// Thereafter, we shift up by 1 each time, so we can represent</span></code></span>
-<span class="codeline" id="line-151"><code><span class="comment">			// this pattern as (i-1)+timeHistSubBucketBits.</span></code></span>
-<span class="codeline" id="line-152"><code>			<label for="r12" class="ident">superBucketMin</label> = <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>(<span class="lit-number">1</span>) &lt;&lt; <a href="../../pkg/builtin.html#name-uint" class="ident">uint</a>(<label for="r11" class="ident">i</label>-<span class="lit-number">1</span>+<a href="#line-54" class="ident">timeHistSubBucketBits</a>)</code></span>
-<span class="codeline" id="line-153"><code>		}</code></span>
-<span class="codeline" id="line-154"><code>		<span class="comment">// subBucketShift is the amount that we need to shift the sub-bucket</span></code></span>
-<span class="codeline" id="line-155"><code><span class="comment">		// index to combine it with the bucketMin.</span></code></span>
-<span class="codeline" id="line-156"><code>		<label for="r13" class="ident">subBucketShift</label> := <a href="../../pkg/builtin.html#name-uint" class="ident">uint</a>(<span class="lit-number">0</span>)</code></span>
-<span class="codeline" id="line-157"><code>		<span class="keyword">if</span> <label for="r11" class="ident">i</label> &gt; <span class="lit-number">1</span> {</code></span>
-<span class="codeline" id="line-158"><code>			<span class="comment">// The first two super buckets are exact with respect to integers,</span></code></span>
-<span class="codeline" id="line-159"><code><span class="comment">			// so we'll never have to shift the sub-bucket index. Thereafter,</span></code></span>
-<span class="codeline" id="line-160"><code><span class="comment">			// we shift up by 1 with each subsequent bucket.</span></code></span>
-<span class="codeline" id="line-161"><code>			<label for="r13" class="ident">subBucketShift</label> = <a href="../../pkg/builtin.html#name-uint" class="ident">uint</a>(<label for="r11" class="ident">i</label> - <span class="lit-number">2</span>)</code></span>
-<span class="codeline" id="line-162"><code>		}</code></span>
-<span class="codeline" id="line-163"><code>		<span class="keyword">for</span> <label for="r14" class="ident">j</label> := <span class="lit-number">0</span>; <label for="r14" class="ident">j</label> &lt; <a href="#line-55" class="ident">timeHistNumSubBuckets</a>; <label for="r14" class="ident">j</label>++ {</code></span>
-<span class="codeline" id="line-164"><code>			<span class="comment">// j is the sub-bucket index. By shifting the index into position to</span></code></span>
-<span class="codeline" id="line-165"><code><span class="comment">			// combine with the bucket minimum, we obtain the minimum value for that</span></code></span>
-<span class="codeline" id="line-166"><code><span class="comment">			// sub-bucket.</span></code></span>
-<span class="codeline" id="line-167"><code>			<label for="r15" class="ident">subBucketMin</label> := <label for="r12" class="ident">superBucketMin</label> + (<a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>(<label for="r14" class="ident">j</label>) &lt;&lt; <label for="r13" class="ident">subBucketShift</label>)</code></span>
-<span class="codeline" id="line-168"><code></code></span>
-<span class="codeline" id="line-169"><code>			<span class="comment">// Convert the subBucketMin which is in nanoseconds to a float64 seconds value.</span></code></span>
-<span class="codeline" id="line-170"><code><span class="comment">			// These values will all be exactly representable by a float64.</span></code></span>
-<span class="codeline" id="line-171"><code>			<label for="r10" class="ident">b</label>[<label for="r11" class="ident">i</label>*<a href="#line-55" class="ident">timeHistNumSubBuckets</a>+<label for="r14" class="ident">j</label>+<span class="lit-number">1</span>] = <a href="../../pkg/builtin.html#name-float64" class="ident">float64</a>(<label for="r15" class="ident">subBucketMin</label>) / <span class="lit-number">1e9</span></code></span>
-<span class="codeline" id="line-172"><code>		}</code></span>
-<span class="codeline" id="line-173"><code>	}</code></span>
-<span class="codeline" id="line-174"><code>	<label for="r10" class="ident">b</label>[<a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r10" class="ident">b</label>)-<span class="lit-number">1</span>] = <a href="#line-126" class="ident">float64Inf</a>()</code></span>
-<span class="codeline" id="line-175"><code>	<span class="keyword">return</span> <label for="r10" class="ident">b</label></code></span>
-<span class="codeline" id="line-176"><code>}</code></span>
+<span class="codeline" id="line-142"><code>	<span class="comment">// Super-bucket 0 has no bits above timeHistSubBucketBits</span></code></span>
+<span class="codeline" id="line-143"><code><span class="comment">	// set, so just iterate over each bucket and assign the</span></code></span>
+<span class="codeline" id="line-144"><code><span class="comment">	// incrementing bucket.</span></code></span>
+<span class="codeline" id="line-145"><code>	<span class="keyword">for</span> <label for="r11" class="ident">i</label> := <span class="lit-number">0</span>; <label for="r11" class="ident">i</label> &lt; <a href="#line-55" class="ident">timeHistNumSubBuckets</a>; <label for="r11" class="ident">i</label>++ {</code></span>
+<span class="codeline" id="line-146"><code>		<label for="r12" class="ident">bucketNanos</label> := <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>(<label for="r11" class="ident">i</label>)</code></span>
+<span class="codeline" id="line-147"><code>		<label for="r10" class="ident">b</label>[<label for="r11" class="ident">i</label>+<span class="lit-number">1</span>] = <a href="../../pkg/builtin.html#name-float64" class="ident">float64</a>(<label for="r12" class="ident">bucketNanos</label>) / <span class="lit-number">1e9</span></code></span>
+<span class="codeline" id="line-148"><code>	}</code></span>
+<span class="codeline" id="line-149"><code>	<span class="comment">// Generate the rest of the super-buckets. It's easier to reason</span></code></span>
+<span class="codeline" id="line-150"><code><span class="comment">	// about if we cut out the 0'th bucket, so subtract one since</span></code></span>
+<span class="codeline" id="line-151"><code><span class="comment">	// we just handled that bucket.</span></code></span>
+<span class="codeline" id="line-152"><code>	<span class="keyword">for</span> <label for="r13" class="ident">i</label> := <span class="lit-number">0</span>; <label for="r13" class="ident">i</label> &lt; <a href="#line-56" class="ident">timeHistNumSuperBuckets</a>-<span class="lit-number">1</span>; <label for="r13" class="ident">i</label>++ {</code></span>
+<span class="codeline" id="line-153"><code>		<span class="keyword">for</span> <label for="r14" class="ident">j</label> := <span class="lit-number">0</span>; <label for="r14" class="ident">j</label> &lt; <a href="#line-55" class="ident">timeHistNumSubBuckets</a>; <label for="r14" class="ident">j</label>++ {</code></span>
+<span class="codeline" id="line-154"><code>			<span class="comment">// Set the super-bucket bit.</span></code></span>
+<span class="codeline" id="line-155"><code>			<label for="r15" class="ident">bucketNanos</label> := <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>(<span class="lit-number">1</span>) &lt;&lt; (<label for="r13" class="ident">i</label> + <a href="#line-54" class="ident">timeHistSubBucketBits</a>)</code></span>
+<span class="codeline" id="line-156"><code>			<span class="comment">// Set the sub-bucket bits.</span></code></span>
+<span class="codeline" id="line-157"><code>			<label for="r15" class="ident">bucketNanos</label> |= <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>(<label for="r14" class="ident">j</label>) &lt;&lt; <label for="r13" class="ident">i</label></code></span>
+<span class="codeline" id="line-158"><code>			<span class="comment">// The index for this bucket is going to be the (i+1)'th super bucket</span></code></span>
+<span class="codeline" id="line-159"><code><span class="comment">			// (note that we're starting from zero, but handled the first super-bucket</span></code></span>
+<span class="codeline" id="line-160"><code><span class="comment">			// earlier, so we need to compensate), and the j'th sub bucket.</span></code></span>
+<span class="codeline" id="line-161"><code><span class="comment">			// Add 1 because we left space for -Inf.</span></code></span>
+<span class="codeline" id="line-162"><code>			<label for="r16" class="ident">bucketIndex</label> := (<label for="r13" class="ident">i</label>+<span class="lit-number">1</span>)*<a href="#line-55" class="ident">timeHistNumSubBuckets</a> + <label for="r14" class="ident">j</label> + <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-163"><code>			<span class="comment">// Convert nanoseconds to seconds via a division.</span></code></span>
+<span class="codeline" id="line-164"><code><span class="comment">			// These values will all be exactly representable by a float64.</span></code></span>
+<span class="codeline" id="line-165"><code>			<label for="r10" class="ident">b</label>[<label for="r16" class="ident">bucketIndex</label>] = <a href="../../pkg/builtin.html#name-float64" class="ident">float64</a>(<label for="r15" class="ident">bucketNanos</label>) / <span class="lit-number">1e9</span></code></span>
+<span class="codeline" id="line-166"><code>		}</code></span>
+<span class="codeline" id="line-167"><code>	}</code></span>
+<span class="codeline" id="line-168"><code>	<label for="r10" class="ident">b</label>[<a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r10" class="ident">b</label>)-<span class="lit-number">1</span>] = <a href="#line-126" class="ident">float64Inf</a>()</code></span>
+<span class="codeline" id="line-169"><code>	<span class="keyword">return</span> <label for="r10" class="ident">b</label></code></span>
+<span class="codeline" id="line-170"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)

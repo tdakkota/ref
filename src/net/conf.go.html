@@ -224,20 +224,20 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-116"><code><span class="comment">// canUseCgo reports whether calling cgo functions is allowed</span></code></span>
 <span class="codeline" id="line-117"><code><span class="comment">// for non-hostname lookups.</span></code></span>
 <span class="codeline" id="line-118"><code><span class="keyword">func</span> (<label for="r8" class="ident">c</label> *<a href="#line-19" class="ident">conf</a>) <label for="r9" class="ident"><a href="../../use/net..conf^0c326.canUseCgo^c7117.html" class="ident">canUseCgo</a></label>() <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-119"><code>	<span class="keyword">return</span> <label for="r8" class="ident">c</label>.<a href="#line-124" class="ident">hostLookupOrder</a>(<a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <span class="lit-string">""</span>) == <a href="dnsclient_unix.go.html#line-495" class="ident">hostLookupCgo</a></code></span>
+<span class="codeline" id="line-119"><code>	<span class="keyword">return</span> <label for="r8" class="ident">c</label>.<a href="#line-124" class="ident">hostLookupOrder</a>(<a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <span class="lit-string">""</span>) == <a href="dnsclient_unix.go.html#line-499" class="ident">hostLookupCgo</a></code></span>
 <span class="codeline" id="line-120"><code>}</code></span>
 <span class="codeline" id="line-121"><code></code></span>
 <span class="codeline" id="line-122"><code><span class="comment">// hostLookupOrder determines which strategy to use to resolve hostname.</span></code></span>
 <span class="codeline" id="line-123"><code><span class="comment">// The provided Resolver is optional. nil means to not consider its options.</span></code></span>
-<span class="codeline" id="line-124"><code><span class="keyword">func</span> (<label for="r10" class="ident">c</label> *<a href="#line-19" class="ident">conf</a>) <label for="r11" class="ident"><a href="../../use/net..conf^0c326.hostLookupOrder^d2657.html" class="ident">hostLookupOrder</a></label>(<label for="r12" class="ident">r</label> *<a href="lookup.go.html#line-119" class="ident">Resolver</a>, <label for="r13" class="ident">hostname</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) (<label for="r14" class="ident">ret</label> <a href="dnsclient_unix.go.html#line-491" class="ident">hostLookupOrder</a>) {</code></span>
+<span class="codeline" id="line-124"><code><span class="keyword">func</span> (<label for="r10" class="ident">c</label> *<a href="#line-19" class="ident">conf</a>) <label for="r11" class="ident"><a href="../../use/net..conf^0c326.hostLookupOrder^d2657.html" class="ident">hostLookupOrder</a></label>(<label for="r12" class="ident">r</label> *<a href="lookup.go.html#line-119" class="ident">Resolver</a>, <label for="r13" class="ident">hostname</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) (<label for="r14" class="ident">ret</label> <a href="dnsclient_unix.go.html#line-495" class="ident">hostLookupOrder</a>) {</code></span>
 <span class="codeline" id="line-125"><code>	<span class="keyword">if</span> <label for="r10" class="ident">c</label>.<a href="#line-30" class="ident">dnsDebugLevel</a> &gt; <span class="lit-number">1</span> {</code></span>
 <span class="codeline" id="line-126"><code>		<span class="keyword">defer</span> <span class="keyword">func</span>() {</code></span>
-<span class="codeline" id="line-127"><code>			<a href="../../pkg/builtin.html#name-print" class="ident">print</a>(<span class="lit-string">"go package net: hostLookupOrder("</span>, <label for="r13" class="ident">hostname</label>, <span class="lit-string">") = "</span>, <label for="r14" class="ident">ret</label>.<a href="dnsclient_unix.go.html#line-510" class="ident">String</a>(), <span class="lit-string">"\n"</span>)</code></span>
+<span class="codeline" id="line-127"><code>			<a href="../../pkg/builtin.html#name-print" class="ident">print</a>(<span class="lit-string">"go package net: hostLookupOrder("</span>, <label for="r13" class="ident">hostname</label>, <span class="lit-string">") = "</span>, <label for="r14" class="ident">ret</label>.<a href="dnsclient_unix.go.html#line-514" class="ident">String</a>(), <span class="lit-string">"\n"</span>)</code></span>
 <span class="codeline" id="line-128"><code>		}()</code></span>
 <span class="codeline" id="line-129"><code>	}</code></span>
-<span class="codeline" id="line-130"><code>	<label for="r15" class="ident">fallbackOrder</label> := <a href="dnsclient_unix.go.html#line-495" class="ident">hostLookupCgo</a></code></span>
+<span class="codeline" id="line-130"><code>	<label for="r15" class="ident">fallbackOrder</label> := <a href="dnsclient_unix.go.html#line-499" class="ident">hostLookupCgo</a></code></span>
 <span class="codeline" id="line-131"><code>	<span class="keyword">if</span> <label for="r10" class="ident">c</label>.<a href="#line-23" class="ident">netGo</a> || <label for="r12" class="ident">r</label>.<a href="lookup.go.html#line-157" class="ident">preferGo</a>() {</code></span>
-<span class="codeline" id="line-132"><code>		<label for="r15" class="ident">fallbackOrder</label> = <a href="dnsclient_unix.go.html#line-496" class="ident">hostLookupFilesDNS</a></code></span>
+<span class="codeline" id="line-132"><code>		<label for="r15" class="ident">fallbackOrder</label> = <a href="dnsclient_unix.go.html#line-500" class="ident">hostLookupFilesDNS</a></code></span>
 <span class="codeline" id="line-133"><code>	}</code></span>
 <span class="codeline" id="line-134"><code>	<span class="keyword">if</span> <label for="r10" class="ident">c</label>.<a href="#line-21" class="ident">forceCgoLookupHost</a> || <label for="r10" class="ident">c</label>.<a href="#line-33" class="ident">resolv</a>.<a href="dnsconfig_unix.go.html#line-31" class="ident">unknownOpt</a> || <label for="r10" class="ident">c</label>.<a href="#line-29" class="ident">goos</a> == <span class="lit-string">"android"</span> {</code></span>
 <span class="codeline" id="line-135"><code>		<span class="keyword">return</span> <label for="r15" class="ident">fallbackOrder</label></code></span>
@@ -255,7 +255,7 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-147"><code><span class="comment">		// resolv.conf means "lookup" defaults to only "files",</span></code></span>
 <span class="codeline" id="line-148"><code><span class="comment">		// without DNS lookups.</span></code></span>
 <span class="codeline" id="line-149"><code>		<span class="keyword">if</span> <a href="../../pkg/os.html" class="ident i1">os</a>.<a href="../os/error.go.html#line-92" class="ident">IsNotExist</a>(<label for="r10" class="ident">c</label>.<a href="#line-33" class="ident">resolv</a>.<a href="dnsconfig_unix.go.html#line-33" class="ident">err</a>) {</code></span>
-<span class="codeline" id="line-150"><code>			<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-498" class="ident">hostLookupFiles</a></code></span>
+<span class="codeline" id="line-150"><code>			<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-502" class="ident">hostLookupFiles</a></code></span>
 <span class="codeline" id="line-151"><code>		}</code></span>
 <span class="codeline" id="line-152"><code>		<label for="r16" class="ident">lookup</label> := <label for="r10" class="ident">c</label>.<a href="#line-33" class="ident">resolv</a>.<a href="dnsconfig_unix.go.html#line-32" class="ident">lookup</a></code></span>
 <span class="codeline" id="line-153"><code>		<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r16" class="ident">lookup</label>) == <span class="lit-number">0</span> {</code></span>
@@ -263,7 +263,7 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-155"><code><span class="comment">			// "If the lookup keyword is not used in the</span></code></span>
 <span class="codeline" id="line-156"><code><span class="comment">			// system's resolv.conf file then the assumed</span></code></span>
 <span class="codeline" id="line-157"><code><span class="comment">			// order is 'bind file'"</span></code></span>
-<span class="codeline" id="line-158"><code>			<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-497" class="ident">hostLookupDNSFiles</a></code></span>
+<span class="codeline" id="line-158"><code>			<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-501" class="ident">hostLookupDNSFiles</a></code></span>
 <span class="codeline" id="line-159"><code>		}</code></span>
 <span class="codeline" id="line-160"><code>		<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r16" class="ident">lookup</label>) &lt; <span class="lit-number">1</span> || <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r16" class="ident">lookup</label>) &gt; <span class="lit-number">2</span> {</code></span>
 <span class="codeline" id="line-161"><code>			<span class="keyword">return</span> <label for="r15" class="ident">fallbackOrder</label></code></span>
@@ -272,19 +272,19 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-164"><code>		<span class="keyword">case</span> <span class="lit-string">"bind"</span>:</code></span>
 <span class="codeline" id="line-165"><code>			<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r16" class="ident">lookup</label>) == <span class="lit-number">2</span> {</code></span>
 <span class="codeline" id="line-166"><code>				<span class="keyword">if</span> <label for="r16" class="ident">lookup</label>[<span class="lit-number">1</span>] == <span class="lit-string">"file"</span> {</code></span>
-<span class="codeline" id="line-167"><code>					<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-497" class="ident">hostLookupDNSFiles</a></code></span>
+<span class="codeline" id="line-167"><code>					<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-501" class="ident">hostLookupDNSFiles</a></code></span>
 <span class="codeline" id="line-168"><code>				}</code></span>
 <span class="codeline" id="line-169"><code>				<span class="keyword">return</span> <label for="r15" class="ident">fallbackOrder</label></code></span>
 <span class="codeline" id="line-170"><code>			}</code></span>
-<span class="codeline" id="line-171"><code>			<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-499" class="ident">hostLookupDNS</a></code></span>
+<span class="codeline" id="line-171"><code>			<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-503" class="ident">hostLookupDNS</a></code></span>
 <span class="codeline" id="line-172"><code>		<span class="keyword">case</span> <span class="lit-string">"file"</span>:</code></span>
 <span class="codeline" id="line-173"><code>			<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r16" class="ident">lookup</label>) == <span class="lit-number">2</span> {</code></span>
 <span class="codeline" id="line-174"><code>				<span class="keyword">if</span> <label for="r16" class="ident">lookup</label>[<span class="lit-number">1</span>] == <span class="lit-string">"bind"</span> {</code></span>
-<span class="codeline" id="line-175"><code>					<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-496" class="ident">hostLookupFilesDNS</a></code></span>
+<span class="codeline" id="line-175"><code>					<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-500" class="ident">hostLookupFilesDNS</a></code></span>
 <span class="codeline" id="line-176"><code>				}</code></span>
 <span class="codeline" id="line-177"><code>				<span class="keyword">return</span> <label for="r15" class="ident">fallbackOrder</label></code></span>
 <span class="codeline" id="line-178"><code>			}</code></span>
-<span class="codeline" id="line-179"><code>			<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-498" class="ident">hostLookupFiles</a></code></span>
+<span class="codeline" id="line-179"><code>			<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-502" class="ident">hostLookupFiles</a></code></span>
 <span class="codeline" id="line-180"><code>		<span class="keyword">default</span>:</code></span>
 <span class="codeline" id="line-181"><code>			<span class="keyword">return</span> <label for="r15" class="ident">fallbackOrder</label></code></span>
 <span class="codeline" id="line-182"><code>		}</code></span>
@@ -311,7 +311,7 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-203"><code>			<span class="comment">// illumos defaults to "nis [NOTFOUND=return] files"</span></code></span>
 <span class="codeline" id="line-204"><code>			<span class="keyword">return</span> <label for="r15" class="ident">fallbackOrder</label></code></span>
 <span class="codeline" id="line-205"><code>		}</code></span>
-<span class="codeline" id="line-206"><code>		<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-496" class="ident">hostLookupFilesDNS</a></code></span>
+<span class="codeline" id="line-206"><code>		<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-500" class="ident">hostLookupFilesDNS</a></code></span>
 <span class="codeline" id="line-207"><code>	}</code></span>
 <span class="codeline" id="line-208"><code>	<span class="keyword">if</span> <label for="r17" class="ident">nss</label>.<a href="nss.go.html#line-19" class="ident">err</a> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-209"><code>		<span class="comment">// We failed to parse or open nsswitch.conf, so</span></code></span>
@@ -370,14 +370,14 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-262"><code>	<span class="keyword">switch</span> {</code></span>
 <span class="codeline" id="line-263"><code>	<span class="keyword">case</span> <label for="r20" class="ident">filesSource</label> &amp;&amp; <label for="r21" class="ident">dnsSource</label>:</code></span>
 <span class="codeline" id="line-264"><code>		<span class="keyword">if</span> <label for="r22" class="ident">first</label> == <span class="lit-string">"files"</span> {</code></span>
-<span class="codeline" id="line-265"><code>			<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-496" class="ident">hostLookupFilesDNS</a></code></span>
+<span class="codeline" id="line-265"><code>			<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-500" class="ident">hostLookupFilesDNS</a></code></span>
 <span class="codeline" id="line-266"><code>		} <span class="keyword">else</span> {</code></span>
-<span class="codeline" id="line-267"><code>			<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-497" class="ident">hostLookupDNSFiles</a></code></span>
+<span class="codeline" id="line-267"><code>			<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-501" class="ident">hostLookupDNSFiles</a></code></span>
 <span class="codeline" id="line-268"><code>		}</code></span>
 <span class="codeline" id="line-269"><code>	<span class="keyword">case</span> <label for="r20" class="ident">filesSource</label>:</code></span>
-<span class="codeline" id="line-270"><code>		<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-498" class="ident">hostLookupFiles</a></code></span>
+<span class="codeline" id="line-270"><code>		<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-502" class="ident">hostLookupFiles</a></code></span>
 <span class="codeline" id="line-271"><code>	<span class="keyword">case</span> <label for="r21" class="ident">dnsSource</label>:</code></span>
-<span class="codeline" id="line-272"><code>		<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-499" class="ident">hostLookupDNS</a></code></span>
+<span class="codeline" id="line-272"><code>		<span class="keyword">return</span> <a href="dnsclient_unix.go.html#line-503" class="ident">hostLookupDNS</a></code></span>
 <span class="codeline" id="line-273"><code>	}</code></span>
 <span class="codeline" id="line-274"><code></code></span>
 <span class="codeline" id="line-275"><code>	<span class="comment">// Something weird. Let libc deal with it.</span></code></span>
