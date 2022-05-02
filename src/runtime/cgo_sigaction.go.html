@@ -88,7 +88,7 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-40"><code></code></span>
 <span class="codeline" id="line-41"><code>		<span class="keyword">var</span> <label for="r4" class="ident">ret</label> <a href="../../pkg/builtin.html#name-int32" class="ident">int32</a></code></span>
 <span class="codeline" id="line-42"><code></code></span>
-<span class="codeline" id="line-43"><code>		<span class="keyword">var</span> <label for="r5" class="ident">g</label> *<a href="runtime2.go.html#line-403" class="ident">g</a></code></span>
+<span class="codeline" id="line-43"><code>		<span class="keyword">var</span> <label for="r5" class="ident">g</label> *<a href="runtime2.go.html#line-405" class="ident">g</a></code></span>
 <span class="codeline" id="line-44"><code>		<span class="keyword">if</span> <a href="proc.go.html#line-136" class="ident">mainStarted</a> {</code></span>
 <span class="codeline" id="line-45"><code>			<label for="r5" class="ident">g</label> = <a href="stubs.go.html#line-22" class="ident">getg</a>()</code></span>
 <span class="codeline" id="line-46"><code>		}</code></span>
@@ -97,7 +97,7 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-49"><code>		<span class="keyword">case</span> <label for="r5" class="ident">g</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>:</code></span>
 <span class="codeline" id="line-50"><code>			<span class="comment">// No g: we're on a C stack or a signal stack.</span></code></span>
 <span class="codeline" id="line-51"><code>			<label for="r4" class="ident">ret</label> = <a href="#line-88" class="ident">callCgoSigaction</a>(<a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<label for="r1" class="ident">sig</label>), <label for="r2" class="ident">new</label>, <label for="r3" class="ident">old</label>)</code></span>
-<span class="codeline" id="line-52"><code>		<span class="keyword">case</span> <label for="r6" class="ident">sp</label> &lt; <label for="r5" class="ident">g</label>.<a href="runtime2.go.html#line-411" class="ident">stack</a>.<a href="runtime2.go.html#line-393" class="ident">lo</a> || <label for="r6" class="ident">sp</label> &gt;= <label for="r5" class="ident">g</label>.<a href="runtime2.go.html#line-411" class="ident">stack</a>.<a href="runtime2.go.html#line-394" class="ident">hi</a>:</code></span>
+<span class="codeline" id="line-52"><code>		<span class="keyword">case</span> <label for="r6" class="ident">sp</label> &lt; <label for="r5" class="ident">g</label>.<a href="runtime2.go.html#line-413" class="ident">stack</a>.<a href="runtime2.go.html#line-395" class="ident">lo</a> || <label for="r6" class="ident">sp</label> &gt;= <label for="r5" class="ident">g</label>.<a href="runtime2.go.html#line-413" class="ident">stack</a>.<a href="runtime2.go.html#line-396" class="ident">hi</a>:</code></span>
 <span class="codeline" id="line-53"><code>			<span class="comment">// We're no longer on g's stack, so we must be handling a signal.  It's</span></code></span>
 <span class="codeline" id="line-54"><code><span class="comment">			// possible that we interrupted the thread during a transition between g</span></code></span>
 <span class="codeline" id="line-55"><code><span class="comment">			// and g0, so we should stay on the current stack to avoid corrupting g0.</span></code></span>

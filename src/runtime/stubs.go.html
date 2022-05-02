@@ -673,7 +673,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-19"><code><span class="comment">// getg returns the pointer to the current g.</span></code></span>
 <span class="codeline" id="line-20"><code><span class="comment">// The compiler rewrites calls to this function into instructions</span></code></span>
 <span class="codeline" id="line-21"><code><span class="comment">// that fetch the g directly (from TLS or from the dedicated register).</span></code></span>
-<span class="codeline" id="line-22"><code><span class="keyword">func</span> <label for="r3" class="ident"><a href="../../pkg/runtime.html#name-getg" class="ident">getg</a></label>() *<a href="runtime2.go.html#line-403" class="ident">g</a></code></span>
+<span class="codeline" id="line-22"><code><span class="keyword">func</span> <label for="r3" class="ident"><a href="../../pkg/runtime.html#name-getg" class="ident">getg</a></label>() *<a href="runtime2.go.html#line-405" class="ident">g</a></code></span>
 <span class="codeline" id="line-23"><code></code></span>
 <span class="codeline" id="line-24"><code><span class="comment">// mcall switches from the g to the g0 stack and invokes fn(g),</span></code></span>
 <span class="codeline" id="line-25"><code><span class="comment">// where g is the goroutine that made the call.</span></code></span>
@@ -689,7 +689,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-35"><code><span class="comment">// This must NOT be go:noescape: if fn is a stack-allocated closure,</span></code></span>
 <span class="codeline" id="line-36"><code><span class="comment">// fn puts g on a run queue, and g executes before fn returns, the</span></code></span>
 <span class="codeline" id="line-37"><code><span class="comment">// closure will be invalidated while it is still executing.</span></code></span>
-<span class="codeline" id="line-38"><code><span class="keyword">func</span> <label for="r4" class="ident"><a href="../../pkg/runtime.html#name-mcall" class="ident">mcall</a></label>(<label for="r5" class="ident">fn</label> <span class="keyword">func</span>(*<a href="runtime2.go.html#line-403" class="ident">g</a>))</code></span>
+<span class="codeline" id="line-38"><code><span class="keyword">func</span> <label for="r4" class="ident"><a href="../../pkg/runtime.html#name-mcall" class="ident">mcall</a></label>(<label for="r5" class="ident">fn</label> <span class="keyword">func</span>(*<a href="runtime2.go.html#line-405" class="ident">g</a>))</code></span>
 <span class="codeline" id="line-39"><code></code></span>
 <span class="codeline" id="line-40"><code><span class="comment">// systemstack runs fn on a system stack.</span></code></span>
 <span class="codeline" id="line-41"><code><span class="comment">// If systemstack is called from the per-OS-thread (g0) stack, or</span></code></span>
@@ -776,16 +776,16 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-122"><code></code></span>
 <span class="codeline" id="line-123"><code><span class="comment">//go:nosplit</span></code></span>
 <span class="codeline" id="line-124"><code><span class="keyword">func</span> <label for="r24" class="ident"><a href="../../pkg/runtime.html#name-fastrand" class="ident">fastrand</a></label>() <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a> {</code></span>
-<span class="codeline" id="line-125"><code>	<label for="r25" class="ident">mp</label> := <a href="#line-22" class="ident">getg</a>().<a href="runtime2.go.html#line-417" class="ident">m</a></code></span>
+<span class="codeline" id="line-125"><code>	<label for="r25" class="ident">mp</label> := <a href="#line-22" class="ident">getg</a>().<a href="runtime2.go.html#line-419" class="ident">m</a></code></span>
 <span class="codeline" id="line-126"><code>	<span class="comment">// Implement xorshift64+: 2 32-bit xorshift sequences added together.</span></code></span>
 <span class="codeline" id="line-127"><code><span class="comment">	// Shift triplet [17,7,16] was calculated as indicated in Marsaglia's</span></code></span>
 <span class="codeline" id="line-128"><code><span class="comment">	// Xorshift paper: https://www.jstatsoft.org/article/view/v008i14/xorshift.pdf</span></code></span>
 <span class="codeline" id="line-129"><code><span class="comment">	// This generator passes the SmallCrush suite, part of TestU01 framework:</span></code></span>
 <span class="codeline" id="line-130"><code><span class="comment">	// http://simul.iro.umontreal.ca/testu01/tu01.html</span></code></span>
-<span class="codeline" id="line-131"><code>	<label for="r26" class="ident">s1</label>, <label for="r27" class="ident">s0</label> := <label for="r25" class="ident">mp</label>.<a href="runtime2.go.html#line-541" class="ident">fastrand</a>[<span class="lit-number">0</span>], <label for="r25" class="ident">mp</label>.<a href="runtime2.go.html#line-541" class="ident">fastrand</a>[<span class="lit-number">1</span>]</code></span>
+<span class="codeline" id="line-131"><code>	<label for="r26" class="ident">s1</label>, <label for="r27" class="ident">s0</label> := <label for="r25" class="ident">mp</label>.<a href="runtime2.go.html#line-543" class="ident">fastrand</a>[<span class="lit-number">0</span>], <label for="r25" class="ident">mp</label>.<a href="runtime2.go.html#line-543" class="ident">fastrand</a>[<span class="lit-number">1</span>]</code></span>
 <span class="codeline" id="line-132"><code>	<label for="r26" class="ident">s1</label> ^= <label for="r26" class="ident">s1</label> &lt;&lt; <span class="lit-number">17</span></code></span>
 <span class="codeline" id="line-133"><code>	<label for="r26" class="ident">s1</label> = <label for="r26" class="ident">s1</label> ^ <label for="r27" class="ident">s0</label> ^ <label for="r26" class="ident">s1</label>&gt;&gt;<span class="lit-number">7</span> ^ <label for="r27" class="ident">s0</label>&gt;&gt;<span class="lit-number">16</span></code></span>
-<span class="codeline" id="line-134"><code>	<label for="r25" class="ident">mp</label>.<a href="runtime2.go.html#line-541" class="ident">fastrand</a>[<span class="lit-number">0</span>], <label for="r25" class="ident">mp</label>.<a href="runtime2.go.html#line-541" class="ident">fastrand</a>[<span class="lit-number">1</span>] = <label for="r27" class="ident">s0</label>, <label for="r26" class="ident">s1</label></code></span>
+<span class="codeline" id="line-134"><code>	<label for="r25" class="ident">mp</label>.<a href="runtime2.go.html#line-543" class="ident">fastrand</a>[<span class="lit-number">0</span>], <label for="r25" class="ident">mp</label>.<a href="runtime2.go.html#line-543" class="ident">fastrand</a>[<span class="lit-number">1</span>] = <label for="r27" class="ident">s0</label>, <label for="r26" class="ident">s1</label></code></span>
 <span class="codeline" id="line-135"><code>	<span class="keyword">return</span> <label for="r27" class="ident">s0</label> + <label for="r26" class="ident">s1</label></code></span>
 <span class="codeline" id="line-136"><code>}</code></span>
 <span class="codeline" id="line-137"><code></code></span>
@@ -828,12 +828,12 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-174"><code><span class="comment">// pointer-declared arguments.</span></code></span>
 <span class="codeline" id="line-175"><code><span class="keyword">func</span> <label for="r40" class="ident"><a href="../../pkg/runtime.html#name-cgocallback" class="ident">cgocallback</a></label>(<label for="r41" class="ident">fn</label>, <label for="r42" class="ident">frame</label>, <label for="r43" class="ident">ctxt</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>)</code></span>
 <span class="codeline" id="line-176"><code></code></span>
-<span class="codeline" id="line-177"><code><span class="keyword">func</span> <label for="r44" class="ident"><a href="../../pkg/runtime.html#name-gogo" class="ident">gogo</a></label>(<label for="r45" class="ident">buf</label> *<a href="runtime2.go.html#line-312" class="ident">gobuf</a>)</code></span>
+<span class="codeline" id="line-177"><code><span class="keyword">func</span> <label for="r44" class="ident"><a href="../../pkg/runtime.html#name-gogo" class="ident">gogo</a></label>(<label for="r45" class="ident">buf</label> *<a href="runtime2.go.html#line-314" class="ident">gobuf</a>)</code></span>
 <span class="codeline" id="line-178"><code></code></span>
 <span class="codeline" id="line-179"><code><span class="comment">//go:noescape</span></code></span>
 <span class="codeline" id="line-180"><code><span class="keyword">func</span> <label for="r46" class="ident"><a href="../../pkg/runtime.html#name-jmpdefer" class="ident">jmpdefer</a></label>(<label for="r47" class="ident">fv</label> *<a href="runtime2.go.html#line-197" class="ident">funcval</a>, <label for="r48" class="ident">argp</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>)</code></span>
 <span class="codeline" id="line-181"><code><span class="keyword">func</span> <label for="r49" class="ident"><a href="../../pkg/runtime.html#name-asminit" class="ident">asminit</a></label>()</code></span>
-<span class="codeline" id="line-182"><code><span class="keyword">func</span> <label for="r50" class="ident"><a href="../../pkg/runtime.html#name-setg" class="ident">setg</a></label>(<label for="r51" class="ident">gg</label> *<a href="runtime2.go.html#line-403" class="ident">g</a>)</code></span>
+<span class="codeline" id="line-182"><code><span class="keyword">func</span> <label for="r50" class="ident"><a href="../../pkg/runtime.html#name-setg" class="ident">setg</a></label>(<label for="r51" class="ident">gg</label> *<a href="runtime2.go.html#line-405" class="ident">g</a>)</code></span>
 <span class="codeline" id="line-183"><code><span class="keyword">func</span> <label for="r52" class="ident"><a href="../../pkg/runtime.html#name-breakpoint" class="ident">breakpoint</a></label>()</code></span>
 <span class="codeline" id="line-184"><code></code></span>
 <span class="codeline" id="line-185"><code><span class="comment">// reflectcall calls fn with arguments described by stackArgs, stackArgsSize,</span></code></span>

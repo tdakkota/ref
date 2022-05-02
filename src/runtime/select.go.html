@@ -291,17 +291,17 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-59"><code>	}</code></span>
 <span class="codeline" id="line-60"><code>}</code></span>
 <span class="codeline" id="line-61"><code></code></span>
-<span class="codeline" id="line-62"><code><span class="keyword">func</span> <label for="r14" class="ident"><a href="../../pkg/runtime.html#name-selparkcommit" class="ident">selparkcommit</a></label>(<label for="r15" class="ident">gp</label> *<a href="runtime2.go.html#line-403" class="ident">g</a>, <label for="r16" class="ident">_</label> <a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>) <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-62"><code><span class="keyword">func</span> <label for="r14" class="ident"><a href="../../pkg/runtime.html#name-selparkcommit" class="ident">selparkcommit</a></label>(<label for="r15" class="ident">gp</label> *<a href="runtime2.go.html#line-405" class="ident">g</a>, <label for="r16" class="ident">_</label> <a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>) <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
 <span class="codeline" id="line-63"><code>	<span class="comment">// There are unlocked sudogs that point into gp's stack. Stack</span></code></span>
 <span class="codeline" id="line-64"><code><span class="comment">	// copying must lock the channels of those sudogs.</span></code></span>
 <span class="codeline" id="line-65"><code><span class="comment">	// Set activeStackChans here instead of before we try parking</span></code></span>
 <span class="codeline" id="line-66"><code><span class="comment">	// because we could self-deadlock in stack growth on a</span></code></span>
 <span class="codeline" id="line-67"><code><span class="comment">	// channel lock.</span></code></span>
-<span class="codeline" id="line-68"><code>	<label for="r15" class="ident">gp</label>.<a href="runtime2.go.html#line-457" class="ident">activeStackChans</a> = <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-68"><code>	<label for="r15" class="ident">gp</label>.<a href="runtime2.go.html#line-459" class="ident">activeStackChans</a> = <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
 <span class="codeline" id="line-69"><code>	<span class="comment">// Mark that it's safe for stack shrinking to occur now,</span></code></span>
 <span class="codeline" id="line-70"><code><span class="comment">	// because any thread acquiring this G's stack for shrinking</span></code></span>
 <span class="codeline" id="line-71"><code><span class="comment">	// is guaranteed to observe activeStackChans after this store.</span></code></span>
-<span class="codeline" id="line-72"><code>	<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-98" class="ident">Store8</a>(&amp;<label for="r15" class="ident">gp</label>.<a href="runtime2.go.html#line-461" class="ident">parkingOnChan</a>, <span class="lit-number">0</span>)</code></span>
+<span class="codeline" id="line-72"><code>	<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-98" class="ident">Store8</a>(&amp;<label for="r15" class="ident">gp</label>.<a href="runtime2.go.html#line-463" class="ident">parkingOnChan</a>, <span class="lit-number">0</span>)</code></span>
 <span class="codeline" id="line-73"><code>	<span class="comment">// Make sure we unlock after setting activeStackChans and</span></code></span>
 <span class="codeline" id="line-74"><code><span class="comment">	// unsetting parkingOnChan. The moment we unlock any of the</span></code></span>
 <span class="codeline" id="line-75"><code><span class="comment">	// channel locks we risk gp getting readied by a channel operation</span></code></span>
@@ -313,8 +313,8 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-81"><code><span class="comment">	// because by the time this is called, gp.waiting has all</span></code></span>
 <span class="codeline" id="line-82"><code><span class="comment">	// channels in lock order.</span></code></span>
 <span class="codeline" id="line-83"><code>	<span class="keyword">var</span> <label for="r17" class="ident">lastc</label> *<a href="chan.go.html#line-32" class="ident">hchan</a></code></span>
-<span class="codeline" id="line-84"><code>	<span class="keyword">for</span> <label for="r18" class="ident">sg</label> := <label for="r15" class="ident">gp</label>.<a href="runtime2.go.html#line-482" class="ident">waiting</a>; <label for="r18" class="ident">sg</label> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>; <label for="r18" class="ident">sg</label> = <label for="r18" class="ident">sg</label>.<a href="runtime2.go.html#line-375" class="ident">waitlink</a> {</code></span>
-<span class="codeline" id="line-85"><code>		<span class="keyword">if</span> <label for="r18" class="ident">sg</label>.<a href="runtime2.go.html#line-377" class="ident">c</a> != <label for="r17" class="ident">lastc</label> &amp;&amp; <label for="r17" class="ident">lastc</label> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-84"><code>	<span class="keyword">for</span> <label for="r18" class="ident">sg</label> := <label for="r15" class="ident">gp</label>.<a href="runtime2.go.html#line-484" class="ident">waiting</a>; <label for="r18" class="ident">sg</label> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>; <label for="r18" class="ident">sg</label> = <label for="r18" class="ident">sg</label>.<a href="runtime2.go.html#line-377" class="ident">waitlink</a> {</code></span>
+<span class="codeline" id="line-85"><code>		<span class="keyword">if</span> <label for="r18" class="ident">sg</label>.<a href="runtime2.go.html#line-379" class="ident">c</a> != <label for="r17" class="ident">lastc</label> &amp;&amp; <label for="r17" class="ident">lastc</label> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-86"><code>			<span class="comment">// As soon as we unlock the channel, fields in</span></code></span>
 <span class="codeline" id="line-87"><code><span class="comment">			// any sudog with that channel may change,</span></code></span>
 <span class="codeline" id="line-88"><code><span class="comment">			// including c and waitlink. Since multiple</span></code></span>
@@ -323,7 +323,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-91"><code><span class="comment">			// of a channel.</span></code></span>
 <span class="codeline" id="line-92"><code>			<a href="lock_futex.go.html#line-111" class="ident">unlock</a>(&amp;<label for="r17" class="ident">lastc</label>.<a href="chan.go.html#line-50" class="ident">lock</a>)</code></span>
 <span class="codeline" id="line-93"><code>		}</code></span>
-<span class="codeline" id="line-94"><code>		<label for="r17" class="ident">lastc</label> = <label for="r18" class="ident">sg</label>.<a href="runtime2.go.html#line-377" class="ident">c</a></code></span>
+<span class="codeline" id="line-94"><code>		<label for="r17" class="ident">lastc</label> = <label for="r18" class="ident">sg</label>.<a href="runtime2.go.html#line-379" class="ident">c</a></code></span>
 <span class="codeline" id="line-95"><code>	}</code></span>
 <span class="codeline" id="line-96"><code>	<span class="keyword">if</span> <label for="r17" class="ident">lastc</label> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-97"><code>		<a href="lock_futex.go.html#line-111" class="ident">unlock</a>(&amp;<label for="r17" class="ident">lastc</label>.<a href="chan.go.html#line-50" class="ident">lock</a>)</code></span>
@@ -332,7 +332,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-100"><code>}</code></span>
 <span class="codeline" id="line-101"><code></code></span>
 <span class="codeline" id="line-102"><code><span class="keyword">func</span> <label for="r19" class="ident"><a href="../../pkg/runtime.html#name-block" class="ident">block</a></label>() {</code></span>
-<span class="codeline" id="line-103"><code>	<a href="proc.go.html#line-349" class="ident">gopark</a>(<a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="runtime2.go.html#line-1034" class="ident">waitReasonSelectNoCases</a>, <a href="trace.go.html#line-39" class="ident">traceEvGoStop</a>, <span class="lit-number">1</span>) <span class="comment">// forever</span></code></span>
+<span class="codeline" id="line-103"><code>	<a href="proc.go.html#line-349" class="ident">gopark</a>(<a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="runtime2.go.html#line-1036" class="ident">waitReasonSelectNoCases</a>, <a href="trace.go.html#line-39" class="ident">traceEvGoStop</a>, <span class="lit-number">1</span>) <span class="comment">// forever</span></code></span>
 <span class="codeline" id="line-104"><code>}</code></span>
 <span class="codeline" id="line-105"><code></code></span>
 <span class="codeline" id="line-106"><code><span class="comment">// selectgo implements the select statement.</span></code></span>
@@ -462,14 +462,14 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-230"><code>	<a href="#line-33" class="ident">sellock</a>(<label for="r30" class="ident">scases</label>, <label for="r32" class="ident">lockorder</label>)</code></span>
 <span class="codeline" id="line-231"><code></code></span>
 <span class="codeline" id="line-232"><code>	<span class="keyword">var</span> (</code></span>
-<span class="codeline" id="line-233"><code>		<label for="r52" class="ident">gp</label>     *<a href="runtime2.go.html#line-403" class="ident">g</a></code></span>
-<span class="codeline" id="line-234"><code>		<label for="r53" class="ident">sg</label>     *<a href="runtime2.go.html#line-344" class="ident">sudog</a></code></span>
+<span class="codeline" id="line-233"><code>		<label for="r52" class="ident">gp</label>     *<a href="runtime2.go.html#line-405" class="ident">g</a></code></span>
+<span class="codeline" id="line-234"><code>		<label for="r53" class="ident">sg</label>     *<a href="runtime2.go.html#line-346" class="ident">sudog</a></code></span>
 <span class="codeline" id="line-235"><code>		<label for="r54" class="ident">c</label>      *<a href="chan.go.html#line-32" class="ident">hchan</a></code></span>
 <span class="codeline" id="line-236"><code>		<label for="r55" class="ident">k</label>      *<a href="#line-19" class="ident">scase</a></code></span>
-<span class="codeline" id="line-237"><code>		<label for="r56" class="ident">sglist</label> *<a href="runtime2.go.html#line-344" class="ident">sudog</a></code></span>
-<span class="codeline" id="line-238"><code>		<label for="r57" class="ident">sgnext</label> *<a href="runtime2.go.html#line-344" class="ident">sudog</a></code></span>
+<span class="codeline" id="line-237"><code>		<label for="r56" class="ident">sglist</label> *<a href="runtime2.go.html#line-346" class="ident">sudog</a></code></span>
+<span class="codeline" id="line-238"><code>		<label for="r57" class="ident">sgnext</label> *<a href="runtime2.go.html#line-346" class="ident">sudog</a></code></span>
 <span class="codeline" id="line-239"><code>		<label for="r58" class="ident">qp</label>     <a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a></code></span>
-<span class="codeline" id="line-240"><code>		<label for="r59" class="ident">nextp</label>  **<a href="runtime2.go.html#line-344" class="ident">sudog</a></code></span>
+<span class="codeline" id="line-240"><code>		<label for="r59" class="ident">nextp</label>  **<a href="runtime2.go.html#line-346" class="ident">sudog</a></code></span>
 <span class="codeline" id="line-241"><code>	)</code></span>
 <span class="codeline" id="line-242"><code></code></span>
 <span class="codeline" id="line-243"><code>	<span class="comment">// pass 1 - look for something already waiting</span></code></span>
@@ -519,28 +519,28 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-287"><code></code></span>
 <span class="codeline" id="line-288"><code>	<span class="comment">// pass 2 - enqueue on all chans</span></code></span>
 <span class="codeline" id="line-289"><code>	<label for="r52" class="ident">gp</label> = <a href="stubs.go.html#line-22" class="ident">getg</a>()</code></span>
-<span class="codeline" id="line-290"><code>	<span class="keyword">if</span> <label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-482" class="ident">waiting</a> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-290"><code>	<span class="keyword">if</span> <label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-484" class="ident">waiting</a> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-291"><code>		<a href="panic.go.html#line-1188" class="ident">throw</a>(<span class="lit-string">"gp.waiting != nil"</span>)</code></span>
 <span class="codeline" id="line-292"><code>	}</code></span>
-<span class="codeline" id="line-293"><code>	<label for="r59" class="ident">nextp</label> = &amp;<label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-482" class="ident">waiting</a></code></span>
+<span class="codeline" id="line-293"><code>	<label for="r59" class="ident">nextp</label> = &amp;<label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-484" class="ident">waiting</a></code></span>
 <span class="codeline" id="line-294"><code>	<span class="keyword">for</span> <label for="r74" class="ident">_</label>, <label for="r75" class="ident">casei</label> := <span class="keyword">range</span> <label for="r32" class="ident">lockorder</label> {</code></span>
 <span class="codeline" id="line-295"><code>		<label for="r60" class="ident">casi</label> = <a href="../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r75" class="ident">casei</label>)</code></span>
 <span class="codeline" id="line-296"><code>		<label for="r61" class="ident">cas</label> = &amp;<label for="r30" class="ident">scases</label>[<label for="r60" class="ident">casi</label>]</code></span>
 <span class="codeline" id="line-297"><code>		<label for="r54" class="ident">c</label> = <label for="r61" class="ident">cas</label>.<a href="#line-20" class="ident">c</a></code></span>
 <span class="codeline" id="line-298"><code>		<label for="r76" class="ident">sg</label> := <a href="proc.go.html#line-382" class="ident">acquireSudog</a>()</code></span>
-<span class="codeline" id="line-299"><code>		<label for="r76" class="ident">sg</label>.<a href="runtime2.go.html#line-349" class="ident">g</a> = <label for="r52" class="ident">gp</label></code></span>
-<span class="codeline" id="line-300"><code>		<label for="r76" class="ident">sg</label>.<a href="runtime2.go.html#line-366" class="ident">isSelect</a> = <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-299"><code>		<label for="r76" class="ident">sg</label>.<a href="runtime2.go.html#line-351" class="ident">g</a> = <label for="r52" class="ident">gp</label></code></span>
+<span class="codeline" id="line-300"><code>		<label for="r76" class="ident">sg</label>.<a href="runtime2.go.html#line-368" class="ident">isSelect</a> = <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
 <span class="codeline" id="line-301"><code>		<span class="comment">// No stack splits between assigning elem and enqueuing</span></code></span>
 <span class="codeline" id="line-302"><code><span class="comment">		// sg on gp.waiting where copystack can find it.</span></code></span>
-<span class="codeline" id="line-303"><code>		<label for="r76" class="ident">sg</label>.<a href="runtime2.go.html#line-353" class="ident">elem</a> = <label for="r61" class="ident">cas</label>.<a href="#line-21" class="ident">elem</a></code></span>
-<span class="codeline" id="line-304"><code>		<label for="r76" class="ident">sg</label>.<a href="runtime2.go.html#line-361" class="ident">releasetime</a> = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-303"><code>		<label for="r76" class="ident">sg</label>.<a href="runtime2.go.html#line-355" class="ident">elem</a> = <label for="r61" class="ident">cas</label>.<a href="#line-21" class="ident">elem</a></code></span>
+<span class="codeline" id="line-304"><code>		<label for="r76" class="ident">sg</label>.<a href="runtime2.go.html#line-363" class="ident">releasetime</a> = <span class="lit-number">0</span></code></span>
 <span class="codeline" id="line-305"><code>		<span class="keyword">if</span> <label for="r37" class="ident">t0</label> != <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-306"><code>			<label for="r76" class="ident">sg</label>.<a href="runtime2.go.html#line-361" class="ident">releasetime</a> = -<span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-306"><code>			<label for="r76" class="ident">sg</label>.<a href="runtime2.go.html#line-363" class="ident">releasetime</a> = -<span class="lit-number">1</span></code></span>
 <span class="codeline" id="line-307"><code>		}</code></span>
-<span class="codeline" id="line-308"><code>		<label for="r76" class="ident">sg</label>.<a href="runtime2.go.html#line-377" class="ident">c</a> = <label for="r54" class="ident">c</label></code></span>
+<span class="codeline" id="line-308"><code>		<label for="r76" class="ident">sg</label>.<a href="runtime2.go.html#line-379" class="ident">c</a> = <label for="r54" class="ident">c</label></code></span>
 <span class="codeline" id="line-309"><code>		<span class="comment">// Construct waiting list in lock order.</span></code></span>
 <span class="codeline" id="line-310"><code>		*<label for="r59" class="ident">nextp</label> = <label for="r76" class="ident">sg</label></code></span>
-<span class="codeline" id="line-311"><code>		<label for="r59" class="ident">nextp</label> = &amp;<label for="r76" class="ident">sg</label>.<a href="runtime2.go.html#line-375" class="ident">waitlink</a></code></span>
+<span class="codeline" id="line-311"><code>		<label for="r59" class="ident">nextp</label> = &amp;<label for="r76" class="ident">sg</label>.<a href="runtime2.go.html#line-377" class="ident">waitlink</a></code></span>
 <span class="codeline" id="line-312"><code></code></span>
 <span class="codeline" id="line-313"><code>		<span class="keyword">if</span> <label for="r60" class="ident">casi</label> &lt; <label for="r24" class="ident">nsends</label> {</code></span>
 <span class="codeline" id="line-314"><code>			<label for="r54" class="ident">c</label>.<a href="chan.go.html#line-42" class="ident">sendq</a>.<a href="chan.go.html#line-750" class="ident">enqueue</a>(<label for="r76" class="ident">sg</label>)</code></span>
@@ -550,20 +550,20 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-318"><code>	}</code></span>
 <span class="codeline" id="line-319"><code></code></span>
 <span class="codeline" id="line-320"><code>	<span class="comment">// wait for someone to wake us up</span></code></span>
-<span class="codeline" id="line-321"><code>	<label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-433" class="ident">param</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-321"><code>	<label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-435" class="ident">param</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-322"><code>	<span class="comment">// Signal to anyone trying to shrink our stack that we're about</span></code></span>
 <span class="codeline" id="line-323"><code><span class="comment">	// to park on a channel. The window between when this G's status</span></code></span>
 <span class="codeline" id="line-324"><code><span class="comment">	// changes and when we set gp.activeStackChans is not safe for</span></code></span>
 <span class="codeline" id="line-325"><code><span class="comment">	// stack shrinking.</span></code></span>
-<span class="codeline" id="line-326"><code>	<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-98" class="ident">Store8</a>(&amp;<label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-461" class="ident">parkingOnChan</a>, <span class="lit-number">1</span>)</code></span>
-<span class="codeline" id="line-327"><code>	<a href="proc.go.html#line-349" class="ident">gopark</a>(<a href="#line-62" class="ident">selparkcommit</a>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="runtime2.go.html#line-1033" class="ident">waitReasonSelect</a>, <a href="trace.go.html#line-47" class="ident">traceEvGoBlockSelect</a>, <span class="lit-number">1</span>)</code></span>
-<span class="codeline" id="line-328"><code>	<label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-457" class="ident">activeStackChans</a> = <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-326"><code>	<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-98" class="ident">Store8</a>(&amp;<label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-463" class="ident">parkingOnChan</a>, <span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-327"><code>	<a href="proc.go.html#line-349" class="ident">gopark</a>(<a href="#line-62" class="ident">selparkcommit</a>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="runtime2.go.html#line-1035" class="ident">waitReasonSelect</a>, <a href="trace.go.html#line-47" class="ident">traceEvGoBlockSelect</a>, <span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-328"><code>	<label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-459" class="ident">activeStackChans</a> = <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
 <span class="codeline" id="line-329"><code></code></span>
 <span class="codeline" id="line-330"><code>	<a href="#line-33" class="ident">sellock</a>(<label for="r30" class="ident">scases</label>, <label for="r32" class="ident">lockorder</label>)</code></span>
 <span class="codeline" id="line-331"><code></code></span>
-<span class="codeline" id="line-332"><code>	<label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-486" class="ident">selectDone</a> = <span class="lit-number">0</span></code></span>
-<span class="codeline" id="line-333"><code>	<label for="r53" class="ident">sg</label> = (*<a href="runtime2.go.html#line-344" class="ident">sudog</a>)(<label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-433" class="ident">param</a>)</code></span>
-<span class="codeline" id="line-334"><code>	<label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-433" class="ident">param</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-332"><code>	<label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-488" class="ident">selectDone</a> = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-333"><code>	<label for="r53" class="ident">sg</label> = (*<a href="runtime2.go.html#line-346" class="ident">sudog</a>)(<label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-435" class="ident">param</a>)</code></span>
+<span class="codeline" id="line-334"><code>	<label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-435" class="ident">param</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-335"><code></code></span>
 <span class="codeline" id="line-336"><code>	<span class="comment">// pass 3 - dequeue from unsuccessful chans</span></code></span>
 <span class="codeline" id="line-337"><code><span class="comment">	// otherwise they stack up on quiet channels</span></code></span>
@@ -572,14 +572,14 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-340"><code>	<label for="r60" class="ident">casi</label> = -<span class="lit-number">1</span></code></span>
 <span class="codeline" id="line-341"><code>	<label for="r61" class="ident">cas</label> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-342"><code>	<label for="r62" class="ident">caseSuccess</label> = <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-343"><code>	<label for="r56" class="ident">sglist</label> = <label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-482" class="ident">waiting</a></code></span>
+<span class="codeline" id="line-343"><code>	<label for="r56" class="ident">sglist</label> = <label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-484" class="ident">waiting</a></code></span>
 <span class="codeline" id="line-344"><code>	<span class="comment">// Clear all elem before unlinking from gp.waiting.</span></code></span>
-<span class="codeline" id="line-345"><code>	<span class="keyword">for</span> <label for="r77" class="ident">sg1</label> := <label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-482" class="ident">waiting</a>; <label for="r77" class="ident">sg1</label> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>; <label for="r77" class="ident">sg1</label> = <label for="r77" class="ident">sg1</label>.<a href="runtime2.go.html#line-375" class="ident">waitlink</a> {</code></span>
-<span class="codeline" id="line-346"><code>		<label for="r77" class="ident">sg1</label>.<a href="runtime2.go.html#line-366" class="ident">isSelect</a> = <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-347"><code>		<label for="r77" class="ident">sg1</label>.<a href="runtime2.go.html#line-353" class="ident">elem</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-348"><code>		<label for="r77" class="ident">sg1</label>.<a href="runtime2.go.html#line-377" class="ident">c</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-345"><code>	<span class="keyword">for</span> <label for="r77" class="ident">sg1</label> := <label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-484" class="ident">waiting</a>; <label for="r77" class="ident">sg1</label> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>; <label for="r77" class="ident">sg1</label> = <label for="r77" class="ident">sg1</label>.<a href="runtime2.go.html#line-377" class="ident">waitlink</a> {</code></span>
+<span class="codeline" id="line-346"><code>		<label for="r77" class="ident">sg1</label>.<a href="runtime2.go.html#line-368" class="ident">isSelect</a> = <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-347"><code>		<label for="r77" class="ident">sg1</label>.<a href="runtime2.go.html#line-355" class="ident">elem</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-348"><code>		<label for="r77" class="ident">sg1</label>.<a href="runtime2.go.html#line-379" class="ident">c</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-349"><code>	}</code></span>
-<span class="codeline" id="line-350"><code>	<label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-482" class="ident">waiting</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-350"><code>	<label for="r52" class="ident">gp</label>.<a href="runtime2.go.html#line-484" class="ident">waiting</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-351"><code></code></span>
 <span class="codeline" id="line-352"><code>	<span class="keyword">for</span> <label for="r78" class="ident">_</label>, <label for="r79" class="ident">casei</label> := <span class="keyword">range</span> <label for="r32" class="ident">lockorder</label> {</code></span>
 <span class="codeline" id="line-353"><code>		<label for="r55" class="ident">k</label> = &amp;<label for="r30" class="ident">scases</label>[<label for="r79" class="ident">casei</label>]</code></span>
@@ -587,9 +587,9 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-355"><code>			<span class="comment">// sg has already been dequeued by the G that woke us up.</span></code></span>
 <span class="codeline" id="line-356"><code>			<label for="r60" class="ident">casi</label> = <a href="../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r79" class="ident">casei</label>)</code></span>
 <span class="codeline" id="line-357"><code>			<label for="r61" class="ident">cas</label> = <label for="r55" class="ident">k</label></code></span>
-<span class="codeline" id="line-358"><code>			<label for="r62" class="ident">caseSuccess</label> = <label for="r56" class="ident">sglist</label>.<a href="runtime2.go.html#line-372" class="ident">success</a></code></span>
-<span class="codeline" id="line-359"><code>			<span class="keyword">if</span> <label for="r56" class="ident">sglist</label>.<a href="runtime2.go.html#line-361" class="ident">releasetime</a> &gt; <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-360"><code>				<label for="r63" class="ident">caseReleaseTime</label> = <label for="r56" class="ident">sglist</label>.<a href="runtime2.go.html#line-361" class="ident">releasetime</a></code></span>
+<span class="codeline" id="line-358"><code>			<label for="r62" class="ident">caseSuccess</label> = <label for="r56" class="ident">sglist</label>.<a href="runtime2.go.html#line-374" class="ident">success</a></code></span>
+<span class="codeline" id="line-359"><code>			<span class="keyword">if</span> <label for="r56" class="ident">sglist</label>.<a href="runtime2.go.html#line-363" class="ident">releasetime</a> &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-360"><code>				<label for="r63" class="ident">caseReleaseTime</label> = <label for="r56" class="ident">sglist</label>.<a href="runtime2.go.html#line-363" class="ident">releasetime</a></code></span>
 <span class="codeline" id="line-361"><code>			}</code></span>
 <span class="codeline" id="line-362"><code>		} <span class="keyword">else</span> {</code></span>
 <span class="codeline" id="line-363"><code>			<label for="r54" class="ident">c</label> = <label for="r55" class="ident">k</label>.<a href="#line-20" class="ident">c</a></code></span>
@@ -599,8 +599,8 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-367"><code>				<label for="r54" class="ident">c</label>.<a href="chan.go.html#line-41" class="ident">recvq</a>.<a href="#line-584" class="ident">dequeueSudoG</a>(<label for="r56" class="ident">sglist</label>)</code></span>
 <span class="codeline" id="line-368"><code>			}</code></span>
 <span class="codeline" id="line-369"><code>		}</code></span>
-<span class="codeline" id="line-370"><code>		<label for="r57" class="ident">sgnext</label> = <label for="r56" class="ident">sglist</label>.<a href="runtime2.go.html#line-375" class="ident">waitlink</a></code></span>
-<span class="codeline" id="line-371"><code>		<label for="r56" class="ident">sglist</label>.<a href="runtime2.go.html#line-375" class="ident">waitlink</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-370"><code>		<label for="r57" class="ident">sgnext</label> = <label for="r56" class="ident">sglist</label>.<a href="runtime2.go.html#line-377" class="ident">waitlink</a></code></span>
+<span class="codeline" id="line-371"><code>		<label for="r56" class="ident">sglist</label>.<a href="runtime2.go.html#line-377" class="ident">waitlink</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-372"><code>		<a href="proc.go.html#line-420" class="ident">releaseSudog</a>(<label for="r56" class="ident">sglist</label>)</code></span>
 <span class="codeline" id="line-373"><code>		<label for="r56" class="ident">sglist</label> = <label for="r57" class="ident">sgnext</label></code></span>
 <span class="codeline" id="line-374"><code>	}</code></span>
@@ -813,29 +813,29 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-581"><code>	<span class="keyword">return</span> <label for="r96" class="ident">chosen</label>, <label for="r97" class="ident">recvOK</label></code></span>
 <span class="codeline" id="line-582"><code>}</code></span>
 <span class="codeline" id="line-583"><code></code></span>
-<span class="codeline" id="line-584"><code><span class="keyword">func</span> (<label for="r98" class="ident">q</label> *<a href="chan.go.html#line-53" class="ident">waitq</a>) <label for="r99" class="ident"><a href="../../use/runtime..waitq^65d4a.dequeueSudoG^0e4c3.html" class="ident">dequeueSudoG</a></label>(<label for="r100" class="ident">sgp</label> *<a href="runtime2.go.html#line-344" class="ident">sudog</a>) {</code></span>
-<span class="codeline" id="line-585"><code>	<label for="r101" class="ident">x</label> := <label for="r100" class="ident">sgp</label>.<a href="runtime2.go.html#line-352" class="ident">prev</a></code></span>
-<span class="codeline" id="line-586"><code>	<label for="r102" class="ident">y</label> := <label for="r100" class="ident">sgp</label>.<a href="runtime2.go.html#line-351" class="ident">next</a></code></span>
+<span class="codeline" id="line-584"><code><span class="keyword">func</span> (<label for="r98" class="ident">q</label> *<a href="chan.go.html#line-53" class="ident">waitq</a>) <label for="r99" class="ident"><a href="../../use/runtime..waitq^65d4a.dequeueSudoG^0e4c3.html" class="ident">dequeueSudoG</a></label>(<label for="r100" class="ident">sgp</label> *<a href="runtime2.go.html#line-346" class="ident">sudog</a>) {</code></span>
+<span class="codeline" id="line-585"><code>	<label for="r101" class="ident">x</label> := <label for="r100" class="ident">sgp</label>.<a href="runtime2.go.html#line-354" class="ident">prev</a></code></span>
+<span class="codeline" id="line-586"><code>	<label for="r102" class="ident">y</label> := <label for="r100" class="ident">sgp</label>.<a href="runtime2.go.html#line-353" class="ident">next</a></code></span>
 <span class="codeline" id="line-587"><code>	<span class="keyword">if</span> <label for="r101" class="ident">x</label> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-588"><code>		<span class="keyword">if</span> <label for="r102" class="ident">y</label> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-589"><code>			<span class="comment">// middle of queue</span></code></span>
-<span class="codeline" id="line-590"><code>			<label for="r101" class="ident">x</label>.<a href="runtime2.go.html#line-351" class="ident">next</a> = <label for="r102" class="ident">y</label></code></span>
-<span class="codeline" id="line-591"><code>			<label for="r102" class="ident">y</label>.<a href="runtime2.go.html#line-352" class="ident">prev</a> = <label for="r101" class="ident">x</label></code></span>
-<span class="codeline" id="line-592"><code>			<label for="r100" class="ident">sgp</label>.<a href="runtime2.go.html#line-351" class="ident">next</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-593"><code>			<label for="r100" class="ident">sgp</label>.<a href="runtime2.go.html#line-352" class="ident">prev</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-590"><code>			<label for="r101" class="ident">x</label>.<a href="runtime2.go.html#line-353" class="ident">next</a> = <label for="r102" class="ident">y</label></code></span>
+<span class="codeline" id="line-591"><code>			<label for="r102" class="ident">y</label>.<a href="runtime2.go.html#line-354" class="ident">prev</a> = <label for="r101" class="ident">x</label></code></span>
+<span class="codeline" id="line-592"><code>			<label for="r100" class="ident">sgp</label>.<a href="runtime2.go.html#line-353" class="ident">next</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-593"><code>			<label for="r100" class="ident">sgp</label>.<a href="runtime2.go.html#line-354" class="ident">prev</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-594"><code>			<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-595"><code>		}</code></span>
 <span class="codeline" id="line-596"><code>		<span class="comment">// end of queue</span></code></span>
-<span class="codeline" id="line-597"><code>		<label for="r101" class="ident">x</label>.<a href="runtime2.go.html#line-351" class="ident">next</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-597"><code>		<label for="r101" class="ident">x</label>.<a href="runtime2.go.html#line-353" class="ident">next</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-598"><code>		<label for="r98" class="ident">q</label>.<a href="chan.go.html#line-55" class="ident">last</a> = <label for="r101" class="ident">x</label></code></span>
-<span class="codeline" id="line-599"><code>		<label for="r100" class="ident">sgp</label>.<a href="runtime2.go.html#line-352" class="ident">prev</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-599"><code>		<label for="r100" class="ident">sgp</label>.<a href="runtime2.go.html#line-354" class="ident">prev</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-600"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-601"><code>	}</code></span>
 <span class="codeline" id="line-602"><code>	<span class="keyword">if</span> <label for="r102" class="ident">y</label> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-603"><code>		<span class="comment">// start of queue</span></code></span>
-<span class="codeline" id="line-604"><code>		<label for="r102" class="ident">y</label>.<a href="runtime2.go.html#line-352" class="ident">prev</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-604"><code>		<label for="r102" class="ident">y</label>.<a href="runtime2.go.html#line-354" class="ident">prev</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-605"><code>		<label for="r98" class="ident">q</label>.<a href="chan.go.html#line-54" class="ident">first</a> = <label for="r102" class="ident">y</label></code></span>
-<span class="codeline" id="line-606"><code>		<label for="r100" class="ident">sgp</label>.<a href="runtime2.go.html#line-351" class="ident">next</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-606"><code>		<label for="r100" class="ident">sgp</label>.<a href="runtime2.go.html#line-353" class="ident">next</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-607"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-608"><code>	}</code></span>
 <span class="codeline" id="line-609"><code></code></span>
