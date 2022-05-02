@@ -11,7 +11,7 @@
 
 <pre><code><span style="font-size:x-large;">func <b><a href="../../../pkg/runtime/internal/atomic.html">runtime/internal/atomic</a>.<a href="../../../src/runtime/internal/atomic/stubs.go.html#line-13">Cas</a></b></span>
 
-<span class="title">78 uses</span>
+<span class="title">80 uses</span>
 
 	runtime/internal/atomic (current package)
 		<a href="../../../src/runtime/internal/atomic/stubs.go.html#line-13">stubs.go#L13</a>: func <b>Cas</b>(ptr *uint32, old, new uint32) bool
@@ -27,6 +27,8 @@
 		<a href="../../../src/runtime/mgcsweep.go.html#line-71">mgcsweep.go#L71</a>: 	for sOld &lt; sNew &amp;&amp; !atomic.<b>Cas</b>((*uint32)(s), uint32(sOld), uint32(sNew)) {
 		<a href="../../../src/runtime/mgcsweep.go.html#line-219" class="path-duplicate">mgcsweep.go</a><a href="../../../src/runtime/mgcsweep.go.html#line-219">#L219</a>: 	if !atomic.<b>Cas</b>(&s.sweepgen, l.sweepGen-2, l.sweepGen-1) {
 		<a href="../../../src/runtime/mgcsweep.go.html#line-274" class="path-duplicate">mgcsweep.go</a><a href="../../../src/runtime/mgcsweep.go.html#line-274">#L274</a>: 			noMoreWork = atomic.<b>Cas</b>(&mheap_.sweepDrained, 0, 1)
+		<a href="../../../src/runtime/netpoll.go.html#line-155">netpoll.go#L155</a>: 	for !atomic.<b>Cas</b>(&pd.atomicInfo, x, (x&pollEventErr)|info) {
+		<a href="../../../src/runtime/netpoll.go.html#line-163" class="path-duplicate">netpoll.go</a><a href="../../../src/runtime/netpoll.go.html#line-163">#L163</a>: 	for (x&amp;pollEventErr != 0) != b &amp;&amp; !atomic.<b>Cas</b>(&pd.atomicInfo, x, x^pollEventErr) {
 		<a href="../../../src/runtime/netpoll_epoll.go.html#line-83">netpoll_epoll.go#L83</a>: 	if atomic.<b>Cas</b>(&netpollWakeSig, 0, 1) {
 		<a href="../../../src/runtime/proc.go.html#line-911">proc.go#L911</a>: 			success = atomic.<b>Cas</b>(&gp.atomicstatus, oldval, newval)
 		<a href="../../../src/runtime/proc.go.html#line-931" class="path-duplicate">proc.go</a><a href="../../../src/runtime/proc.go.html#line-931">#L931</a>: 			r := atomic.<b>Cas</b>(&gp.atomicstatus, oldval, newval)

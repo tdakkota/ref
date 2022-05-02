@@ -414,7 +414,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-160"><code><span class="comment">// Sleep/wait state of the background scavenger.</span></code></span>
 <span class="codeline" id="line-161"><code><span class="keyword">var</span> <a href="../../pkg/runtime.html#name-scavenge" class="ident">scavenge</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-162"><code>	lock       <a href="runtime2.go.html#line-161" class="ident">mutex</a></code></span>
-<span class="codeline" id="line-163"><code>	g          *<a href="runtime2.go.html#line-403" class="ident">g</a></code></span>
+<span class="codeline" id="line-163"><code>	g          *<a href="runtime2.go.html#line-405" class="ident">g</a></code></span>
 <span class="codeline" id="line-164"><code>	parked     <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
 <span class="codeline" id="line-165"><code>	timer      *<a href="time.go.html#line-17" class="ident">timer</a></code></span>
 <span class="codeline" id="line-166"><code>	sysmonWake <a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Set atomically.</span></code></span>
@@ -492,7 +492,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-238"><code></code></span>
 <span class="codeline" id="line-239"><code>	<span class="comment">// Mark ourself as asleep and go to sleep.</span></code></span>
 <span class="codeline" id="line-240"><code>	<a href="#line-161" class="ident">scavenge</a>.<a href="#line-164" class="ident">parked</a> = <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-241"><code>	<a href="proc.go.html#line-371" class="ident">goparkunlock</a>(&amp;<a href="#line-161" class="ident">scavenge</a>.<a href="#line-162" class="ident">lock</a>, <a href="runtime2.go.html#line-1043" class="ident">waitReasonSleep</a>, <a href="trace.go.html#line-42" class="ident">traceEvGoSleep</a>, <span class="lit-number">2</span>)</code></span>
+<span class="codeline" id="line-241"><code>	<a href="proc.go.html#line-371" class="ident">goparkunlock</a>(&amp;<a href="#line-161" class="ident">scavenge</a>.<a href="#line-162" class="ident">lock</a>, <a href="runtime2.go.html#line-1045" class="ident">waitReasonSleep</a>, <a href="trace.go.html#line-42" class="ident">traceEvGoSleep</a>, <span class="lit-number">2</span>)</code></span>
 <span class="codeline" id="line-242"><code></code></span>
 <span class="codeline" id="line-243"><code>	<span class="comment">// Return how long we actually slept for.</span></code></span>
 <span class="codeline" id="line-244"><code>	<span class="keyword">return</span> <a href="time_nofake.go.html#line-19" class="ident">nanotime</a>() - <label for="r10" class="ident">start</label></code></span>
@@ -516,7 +516,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-262"><code>	}</code></span>
 <span class="codeline" id="line-263"><code></code></span>
 <span class="codeline" id="line-264"><code>	<a href="mgc.go.html#line-172" class="ident">gcenable_setup</a> &lt;- <span class="lit-number">1</span></code></span>
-<span class="codeline" id="line-265"><code>	<a href="proc.go.html#line-371" class="ident">goparkunlock</a>(&amp;<a href="#line-161" class="ident">scavenge</a>.<a href="#line-162" class="ident">lock</a>, <a href="runtime2.go.html#line-1037" class="ident">waitReasonGCScavengeWait</a>, <a href="trace.go.html#line-43" class="ident">traceEvGoBlock</a>, <span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-265"><code>	<a href="proc.go.html#line-371" class="ident">goparkunlock</a>(&amp;<a href="#line-161" class="ident">scavenge</a>.<a href="#line-162" class="ident">lock</a>, <a href="runtime2.go.html#line-1039" class="ident">waitReasonGCScavengeWait</a>, <a href="trace.go.html#line-43" class="ident">traceEvGoBlock</a>, <span class="lit-number">1</span>)</code></span>
 <span class="codeline" id="line-266"><code></code></span>
 <span class="codeline" id="line-267"><code>	<span class="comment">// Exponentially-weighted moving average of the fraction of time this</span></code></span>
 <span class="codeline" id="line-268"><code><span class="comment">	// goroutine spends scavenging (that is, percent of a single CPU).</span></code></span>
@@ -565,7 +565,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-311"><code>		<span class="keyword">if</span> <label for="r16" class="ident">released</label> == <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-312"><code>			<a href="lock_futex.go.html#line-47" class="ident">lock</a>(&amp;<a href="#line-161" class="ident">scavenge</a>.<a href="#line-162" class="ident">lock</a>)</code></span>
 <span class="codeline" id="line-313"><code>			<a href="#line-161" class="ident">scavenge</a>.<a href="#line-164" class="ident">parked</a> = <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-314"><code>			<a href="proc.go.html#line-371" class="ident">goparkunlock</a>(&amp;<a href="#line-161" class="ident">scavenge</a>.<a href="#line-162" class="ident">lock</a>, <a href="runtime2.go.html#line-1037" class="ident">waitReasonGCScavengeWait</a>, <a href="trace.go.html#line-43" class="ident">traceEvGoBlock</a>, <span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-314"><code>			<a href="proc.go.html#line-371" class="ident">goparkunlock</a>(&amp;<a href="#line-161" class="ident">scavenge</a>.<a href="#line-162" class="ident">lock</a>, <a href="runtime2.go.html#line-1039" class="ident">waitReasonGCScavengeWait</a>, <a href="trace.go.html#line-43" class="ident">traceEvGoBlock</a>, <span class="lit-number">1</span>)</code></span>
 <span class="codeline" id="line-315"><code>			<span class="keyword">continue</span></code></span>
 <span class="codeline" id="line-316"><code>		}</code></span>
 <span class="codeline" id="line-317"><code></code></span>
