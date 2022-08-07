@@ -700,7 +700,7 @@ input[id=i14]:checked ~pre .i14
 <span class="codeline" id="line-76"><code>	<span class="keyword">if</span> <label for="r10" class="ident">dir</label> == <span class="lit-string">""</span> {</code></span>
 <span class="codeline" id="line-77"><code>		<label for="r10" class="ident">dir</label> = <span class="lit-string">"."</span></code></span>
 <span class="codeline" id="line-78"><code>	}</code></span>
-<span class="codeline" id="line-79"><code>	<label for="r11" class="ident">fullName</label> := <a href="../../../pkg/path/filepath.html" class="ident i10">filepath</a>.<a href="../../path/filepath/path.go.html#line-212" class="ident">Join</a>(<label for="r10" class="ident">dir</label>, <a href="../../../pkg/path/filepath.html" class="ident i10">filepath</a>.<a href="../../path/filepath/path.go.html#line-176" class="ident">FromSlash</a>(<a href="../../../pkg/path.html" class="ident i9">path</a>.<a href="../../path/path.go.html#line-70" class="ident">Clean</a>(<span class="lit-string">"/"</span>+<label for="r9" class="ident">name</label>)))</code></span>
+<span class="codeline" id="line-79"><code>	<label for="r11" class="ident">fullName</label> := <a href="../../../pkg/path/filepath.html" class="ident i10">filepath</a>.<a href="../../path/filepath/path.go.html#line-224" class="ident">Join</a>(<label for="r10" class="ident">dir</label>, <a href="../../../pkg/path/filepath.html" class="ident i10">filepath</a>.<a href="../../path/filepath/path.go.html#line-188" class="ident">FromSlash</a>(<a href="../../../pkg/path.html" class="ident i9">path</a>.<a href="../../path/path.go.html#line-70" class="ident">Clean</a>(<span class="lit-string">"/"</span>+<label for="r9" class="ident">name</label>)))</code></span>
 <span class="codeline" id="line-80"><code>	<label for="r12" class="ident">f</label>, <label for="r13" class="ident">err</label> := <a href="../../../pkg/os.html" class="ident i8">os</a>.<a href="../../os/file.go.html#line-317" class="ident">Open</a>(<label for="r11" class="ident">fullName</label>)</code></span>
 <span class="codeline" id="line-81"><code>	<span class="keyword">if</span> <label for="r13" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-82"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="#line-48" class="ident">mapDirOpenError</a>(<label for="r13" class="ident">err</label>, <label for="r11" class="ident">fullName</label>)</code></span>
@@ -856,7 +856,7 @@ input[id=i14]:checked ~pre .i14
 <span class="codeline" id="line-232"><code>	<label for="r65" class="ident">ctypes</label>, <label for="r66" class="ident">haveType</label> := <label for="r56" class="ident">w</label>.<a href="server.go.html#line-116" class="ident">Header</a>()[<span class="lit-string">"Content-Type"</span>]</code></span>
 <span class="codeline" id="line-233"><code>	<span class="keyword">var</span> <label for="r67" class="ident">ctype</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
 <span class="codeline" id="line-234"><code>	<span class="keyword">if</span> !<label for="r66" class="ident">haveType</label> {</code></span>
-<span class="codeline" id="line-235"><code>		<label for="r67" class="ident">ctype</label> = <a href="../../../pkg/mime.html" class="ident i4">mime</a>.<a href="../../mime/type.go.html#line-111" class="ident">TypeByExtension</a>(<a href="../../../pkg/path/filepath.html" class="ident i10">filepath</a>.<a href="../../path/filepath/path.go.html#line-220" class="ident">Ext</a>(<label for="r58" class="ident">name</label>))</code></span>
+<span class="codeline" id="line-235"><code>		<label for="r67" class="ident">ctype</label> = <a href="../../../pkg/mime.html" class="ident i4">mime</a>.<a href="../../mime/type.go.html#line-111" class="ident">TypeByExtension</a>(<a href="../../../pkg/path/filepath.html" class="ident i10">filepath</a>.<a href="../../path/filepath/path.go.html#line-232" class="ident">Ext</a>(<label for="r58" class="ident">name</label>))</code></span>
 <span class="codeline" id="line-236"><code>		<span class="keyword">if</span> <label for="r67" class="ident">ctype</label> == <span class="lit-string">""</span> {</code></span>
 <span class="codeline" id="line-237"><code>			<span class="comment">// read a chunk to decide between utf-8 text and binary</span></code></span>
 <span class="codeline" id="line-238"><code>			<span class="keyword">var</span> <label for="r68" class="ident">buf</label> [<a href="sniff.go.html#line-13" class="ident">sniffLen</a>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
@@ -1047,7 +1047,7 @@ input[id=i14]:checked ~pre .i14
 <span class="codeline" id="line-423"><code>	<span class="keyword">if</span> <label for="r115" class="ident">ius</label> == <span class="lit-string">""</span> || <a href="#line-525" class="ident">isZeroTime</a>(<label for="r114" class="ident">modtime</label>) {</code></span>
 <span class="codeline" id="line-424"><code>		<span class="keyword">return</span> <a href="#line-386" class="ident">condNone</a></code></span>
 <span class="codeline" id="line-425"><code>	}</code></span>
-<span class="codeline" id="line-426"><code>	<label for="r116" class="ident">t</label>, <label for="r117" class="ident">err</label> := <a href="header.go.html#line-120" class="ident">ParseTime</a>(<label for="r115" class="ident">ius</label>)</code></span>
+<span class="codeline" id="line-426"><code>	<label for="r116" class="ident">t</label>, <label for="r117" class="ident">err</label> := <a href="header.go.html#line-126" class="ident">ParseTime</a>(<label for="r115" class="ident">ius</label>)</code></span>
 <span class="codeline" id="line-427"><code>	<span class="keyword">if</span> <label for="r117" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-428"><code>		<span class="keyword">return</span> <a href="#line-386" class="ident">condNone</a></code></span>
 <span class="codeline" id="line-429"><code>	}</code></span>
@@ -1099,7 +1099,7 @@ input[id=i14]:checked ~pre .i14
 <span class="codeline" id="line-475"><code>	<span class="keyword">if</span> <label for="r128" class="ident">ims</label> == <span class="lit-string">""</span> || <a href="#line-525" class="ident">isZeroTime</a>(<label for="r127" class="ident">modtime</label>) {</code></span>
 <span class="codeline" id="line-476"><code>		<span class="keyword">return</span> <a href="#line-386" class="ident">condNone</a></code></span>
 <span class="codeline" id="line-477"><code>	}</code></span>
-<span class="codeline" id="line-478"><code>	<label for="r129" class="ident">t</label>, <label for="r130" class="ident">err</label> := <a href="header.go.html#line-120" class="ident">ParseTime</a>(<label for="r128" class="ident">ims</label>)</code></span>
+<span class="codeline" id="line-478"><code>	<label for="r129" class="ident">t</label>, <label for="r130" class="ident">err</label> := <a href="header.go.html#line-126" class="ident">ParseTime</a>(<label for="r128" class="ident">ims</label>)</code></span>
 <span class="codeline" id="line-479"><code>	<span class="keyword">if</span> <label for="r130" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-480"><code>		<span class="keyword">return</span> <a href="#line-386" class="ident">condNone</a></code></span>
 <span class="codeline" id="line-481"><code>	}</code></span>
@@ -1133,7 +1133,7 @@ input[id=i14]:checked ~pre .i14
 <span class="codeline" id="line-509"><code>	<span class="keyword">if</span> <label for="r134" class="ident">modtime</label>.<a href="../../time/time.go.html#line-433" class="ident">IsZero</a>() {</code></span>
 <span class="codeline" id="line-510"><code>		<span class="keyword">return</span> <a href="#line-388" class="ident">condFalse</a></code></span>
 <span class="codeline" id="line-511"><code>	}</code></span>
-<span class="codeline" id="line-512"><code>	<label for="r138" class="ident">t</label>, <label for="r139" class="ident">err</label> := <a href="header.go.html#line-120" class="ident">ParseTime</a>(<label for="r135" class="ident">ir</label>)</code></span>
+<span class="codeline" id="line-512"><code>	<label for="r138" class="ident">t</label>, <label for="r139" class="ident">err</label> := <a href="header.go.html#line-126" class="ident">ParseTime</a>(<label for="r135" class="ident">ir</label>)</code></span>
 <span class="codeline" id="line-513"><code>	<span class="keyword">if</span> <label for="r139" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-514"><code>		<span class="keyword">return</span> <a href="#line-388" class="ident">condFalse</a></code></span>
 <span class="codeline" id="line-515"><code>	}</code></span>
@@ -1345,7 +1345,7 @@ input[id=i14]:checked ~pre .i14
 <span class="codeline" id="line-721"><code>		<a href="server.go.html#line-2056" class="ident">Error</a>(<label for="r187" class="ident">w</label>, <span class="lit-string">"invalid URL path"</span>, <a href="status.go.html#line-36" class="ident">StatusBadRequest</a>)</code></span>
 <span class="codeline" id="line-722"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-723"><code>	}</code></span>
-<span class="codeline" id="line-724"><code>	<label for="r190" class="ident">dir</label>, <label for="r191" class="ident">file</label> := <a href="../../../pkg/path/filepath.html" class="ident i10">filepath</a>.<a href="../../path/filepath/path.go.html#line-196" class="ident">Split</a>(<label for="r189" class="ident">name</label>)</code></span>
+<span class="codeline" id="line-724"><code>	<label for="r190" class="ident">dir</label>, <label for="r191" class="ident">file</label> := <a href="../../../pkg/path/filepath.html" class="ident i10">filepath</a>.<a href="../../path/filepath/path.go.html#line-208" class="ident">Split</a>(<label for="r189" class="ident">name</label>)</code></span>
 <span class="codeline" id="line-725"><code>	<a href="#line-586" class="ident">serveFile</a>(<label for="r187" class="ident">w</label>, <label for="r188" class="ident">r</label>, <a href="#line-43" class="ident">Dir</a>(<label for="r190" class="ident">dir</label>), <label for="r191" class="ident">file</label>, <a href="../../../pkg/builtin.html#name-false" class="ident">false</a>)</code></span>
 <span class="codeline" id="line-726"><code>}</code></span>
 <span class="codeline" id="line-727"><code></code></span>
