@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: supervisor.go in package github.com/gotd/td/internal/tdsync</title>
-<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -70,7 +70,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-10"><code><span class="comment">// Unlike Groups, Supervisor does not cancel when one task is failed.</span></code></span>
 <span class="codeline" id="line-11"><code><span class="comment">// Unlike WaitGroup and errgroup.Group this is not allowed to use zero value.</span></code></span>
 <span class="codeline" id="line-12"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/internal/tdsync.html#name-Supervisor" class="ident">Supervisor</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-13"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/tdsync..Supervisor.wg^99d38.html" class="ident">wg</a> <a href="../../../../../../pkg/sync.html" class="ident i1">sync</a>.<a href="../../../../../sync/waitgroup.go.html#line-20" class="ident">WaitGroup</a></code></span>
+<span class="codeline" id="line-13"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/tdsync..Supervisor.wg^99d38.html" class="ident">wg</a> <a href="../../../../../../pkg/sync.html" class="ident i1">sync</a>.<a href="../../../../../sync/waitgroup.go.html#line-23" class="ident">WaitGroup</a></code></span>
 <span class="codeline" id="line-14"><code></code></span>
 <span class="codeline" id="line-15"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/tdsync..Supervisor.ctx^0230c.html" class="ident">ctx</a>    <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a></code></span>
 <span class="codeline" id="line-16"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/tdsync..Supervisor.cancel^2374d.html" class="ident">cancel</a> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-224" class="ident">CancelFunc</a></code></span>
@@ -97,9 +97,9 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-37"><code></code></span>
 <span class="codeline" id="line-38"><code><span class="comment">// Go calls the given function in a new goroutine.</span></code></span>
 <span class="codeline" id="line-39"><code><span class="keyword">func</span> (<label for="r8" class="ident">s</label> *<a href="#line-12" class="ident">Supervisor</a>) <label for="r9" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/tdsync..Supervisor.Go.html" class="ident">Go</a></label>(<label for="r10" class="ident">task</label> <span class="keyword">func</span>(<label for="r11" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-40"><code>	<label for="r8" class="ident">s</label>.<a href="#line-13" class="ident">wg</a>.<a href="../../../../../sync/waitgroup.go.html#line-53" class="ident">Add</a>(<span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-40"><code>	<label for="r8" class="ident">s</label>.<a href="#line-13" class="ident">wg</a>.<a href="../../../../../sync/waitgroup.go.html#line-62" class="ident">Add</a>(<span class="lit-number">1</span>)</code></span>
 <span class="codeline" id="line-41"><code>	<span class="keyword">go</span> <span class="keyword">func</span>() {</code></span>
-<span class="codeline" id="line-42"><code>		<span class="keyword">defer</span> <label for="r8" class="ident">s</label>.<a href="#line-13" class="ident">wg</a>.<a href="../../../../../sync/waitgroup.go.html#line-98" class="ident">Done</a>()</code></span>
+<span class="codeline" id="line-42"><code>		<span class="keyword">defer</span> <label for="r8" class="ident">s</label>.<a href="#line-13" class="ident">wg</a>.<a href="../../../../../sync/waitgroup.go.html#line-107" class="ident">Done</a>()</code></span>
 <span class="codeline" id="line-43"><code></code></span>
 <span class="codeline" id="line-44"><code>		<span class="keyword">if</span> <label for="r12" class="ident">err</label> := <label for="r10" class="ident">task</label>(<label for="r8" class="ident">s</label>.<a href="#line-15" class="ident">ctx</a>); <label for="r12" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-45"><code>			<span class="keyword">if</span> <label for="r8" class="ident">s</label>.<a href="#line-18" class="ident">onError</a> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
@@ -119,12 +119,12 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-59"><code><span class="comment">// Wait blocks until all function calls from the Go method have returned, then</span></code></span>
 <span class="codeline" id="line-60"><code><span class="comment">// returns the first non-nil error (if any) from them.</span></code></span>
 <span class="codeline" id="line-61"><code><span class="keyword">func</span> (<label for="r15" class="ident">s</label> *<a href="#line-12" class="ident">Supervisor</a>) <label for="r16" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/tdsync..Supervisor.Wait.html" class="ident">Wait</a></label>() <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-62"><code>	<label for="r15" class="ident">s</label>.<a href="#line-13" class="ident">wg</a>.<a href="../../../../../sync/waitgroup.go.html#line-103" class="ident">Wait</a>()</code></span>
+<span class="codeline" id="line-62"><code>	<label for="r15" class="ident">s</label>.<a href="#line-13" class="ident">wg</a>.<a href="../../../../../sync/waitgroup.go.html#line-112" class="ident">Wait</a>()</code></span>
 <span class="codeline" id="line-63"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-64"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

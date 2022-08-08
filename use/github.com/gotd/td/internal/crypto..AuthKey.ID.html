@@ -5,31 +5,37 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>References: github.com/gotd/td/internal/crypto.AuthKey.ID</title>
-<link href="../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
-<pre><code><span style="font-size:x-large;"><b><a href="../../../../../pkg/github.com/gotd/td/internal/crypto.html">github.com/gotd/td/internal/crypto</a>.<a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-48">AuthKey</a>.<a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-50">ID</a></b></span><span style="font-size: large;"><i> (field)</i></span>
+<pre><code><span style="font-size:x-large;"><b><a href="../../../../../pkg/github.com/gotd/td/internal/crypto.html">github.com/gotd/td/internal/crypto</a>.<a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-54">AuthKey</a>.<a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-56">ID</a></b></span><span style="font-size: large;"><i> (field)</i></span>
 
-<span class="title">9 uses</span>
+<span class="title">13 uses</span>
 
 	github.com/gotd/td/internal/crypto (current package)
-		<a href="../../../../../src/github.com/gotd/td/internal/crypto/cipher_decrypt.go.html#line-66">cipher_decrypt.go#L66</a>: 	if k.<b>ID</b> != encrypted.AuthKeyID {
-		<a href="../../../../../src/github.com/gotd/td/internal/crypto/cipher_encrypt.go.html#line-30">cipher_encrypt.go#L30</a>: 		AuthKeyID:     k.<b>ID</b>,
-		<a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-43">key.go#L43</a>: 		<b>ID</b>:    k.ID(),
-		<a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-50" class="path-duplicate">key.go</a><a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-50">#L50</a>: 	<b>ID</b>    [8]byte
-		<a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-59" class="path-duplicate">key.go</a><a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-59">#L59</a>: 	return fmt.Sprintf("Key(id: %x)", a.<b>ID</b>)
+		<a href="../../../../../src/github.com/gotd/td/internal/crypto/cipher_decrypt.go.html#line-67">cipher_decrypt.go#L67</a>: 	if k.<b>ID</b> != encrypted.AuthKeyID {
+		<a href="../../../../../src/github.com/gotd/td/internal/crypto/cipher_encrypt.go.html#line-29">cipher_encrypt.go#L29</a>: 		AuthKeyID:     k.<b>ID</b>,
+		<a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-49">key.go#L49</a>: 		<b>ID</b>:    k.ID(),
+		<a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-56" class="path-duplicate">key.go</a><a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-56">#L56</a>: 	<b>ID</b>    [8]byte
+		<a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-115" class="path-duplicate">key.go</a><a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-115">#L115</a>: 	return int64(binary.LittleEndian.Uint64(a.<b>ID</b>[:]))
+		<a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-120" class="path-duplicate">key.go</a><a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-120">#L120</a>: 	binary.LittleEndian.PutUint64(a.<b>ID</b>[:], uint64(v))
+		<a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-125" class="path-duplicate">key.go</a><a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-125">#L125</a>: 	return fmt.Sprintf("Key(id: %x)", a.<b>ID</b>)
+		<a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-130" class="path-duplicate">key.go</a><a href="../../../../../src/github.com/gotd/td/internal/crypto/key.go.html#line-130">#L130</a>: 	encoder.AddString("id", hex.EncodeToString(a.<b>ID</b>[:]))
 
 	<a href="../../../../../pkg/github.com/gotd/td/internal/exchange.html">github.com/gotd/td/internal/exchange</a>
-		<a href="../../../../../src/github.com/gotd/td/internal/exchange/client_flow.go.html#line-252">client_flow.go#L252</a>: 				AuthKey:    crypto.AuthKey{Value: key, <b>ID</b>: authKeyID},
+		<a href="../../../../../src/github.com/gotd/td/internal/exchange/client_flow.go.html#line-262">client_flow.go#L262</a>: 				AuthKey:    crypto.AuthKey{Value: key, <b>ID</b>: authKeyID},
+
+	<a href="../../../../../pkg/github.com/gotd/td/session.html">github.com/gotd/td/session</a>
+		<a href="../../../../../src/github.com/gotd/td/session/telethon.go.html#line-79">telethon.go#L79</a>: 	id := key.WithID().<b>ID</b>
 
 	<a href="../../../../../pkg/github.com/gotd/td/telegram.html">github.com/gotd/td/telegram</a>
-		<a href="../../../../../src/github.com/gotd/td/telegram/client.go.html#line-266">client.go#L266</a>: 	copy(key.<b>ID</b>[:], data.AuthKeyID)
-		<a href="../../../../../src/github.com/gotd/td/telegram/client.go.html#line-268" class="path-duplicate">client.go</a><a href="../../../../../src/github.com/gotd/td/telegram/client.go.html#line-268">#L268</a>: 	if key.Value.ID() != key.<b>ID</b> {
-		<a href="../../../../../src/github.com/gotd/td/telegram/client.go.html#line-454" class="path-duplicate">client.go</a><a href="../../../../../src/github.com/gotd/td/telegram/client.go.html#line-454">#L454</a>: 	data.AuthKeyID = s.Key.<b>ID</b>[:]
+		<a href="../../../../../src/github.com/gotd/td/telegram/session.go.html#line-39">session.go#L39</a>: 	copy(key.<b>ID</b>[:], data.AuthKeyID)
+		<a href="../../../../../src/github.com/gotd/td/telegram/session.go.html#line-41" class="path-duplicate">session.go</a><a href="../../../../../src/github.com/gotd/td/telegram/session.go.html#line-41">#L41</a>: 	if key.Value.ID() != key.<b>ID</b> {
+		<a href="../../../../../src/github.com/gotd/td/telegram/session.go.html#line-81" class="path-duplicate">session.go</a><a href="../../../../../src/github.com/gotd/td/telegram/session.go.html#line-81">#L81</a>: 	data.AuthKeyID = s.Key.<b>ID</b>[:]
 </code></pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

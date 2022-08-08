@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: cancel_group.go in package github.com/gotd/td/internal/tdsync</title>
-<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -66,56 +66,57 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-13"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/internal/tdsync.html#name-CancellableGroup" class="ident">CancellableGroup</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-14"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/tdsync..CancellableGroup.cancel^2374d.html" class="ident">cancel</a> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-224" class="ident">CancelFunc</a></code></span>
 <span class="codeline" id="line-15"><code></code></span>
-<span class="codeline" id="line-16"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/tdsync..CancellableGroup.group^ad936.html" class="ident">group</a> *<a href="../../../../../../pkg/golang.org/x/sync/errgroup.html" class="ident i1">errgroup</a>.<a href="../../../../../golang.org/x/sync/errgroup/errgroup.go.html#line-18" class="ident">Group</a></code></span>
+<span class="codeline" id="line-16"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/tdsync..CancellableGroup.group^ad936.html" class="ident">group</a> *<a href="../../../../../../pkg/golang.org/x/sync/errgroup.html" class="ident i1">errgroup</a>.<a href="../../../../../golang.org/x/sync/errgroup/errgroup.go.html#line-22" class="ident">Group</a></code></span>
 <span class="codeline" id="line-17"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/tdsync..CancellableGroup.ctx^0230c.html" class="ident">ctx</a>   <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a></code></span>
 <span class="codeline" id="line-18"><code>}</code></span>
 <span class="codeline" id="line-19"><code></code></span>
 <span class="codeline" id="line-20"><code><span class="comment">// NewCancellableGroup creates new CancellableGroup.</span></code></span>
 <span class="codeline" id="line-21"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-22"><code><span class="comment">// Example:</span></code></span>
-<span class="codeline" id="line-23"><code><span class="comment">//		g := NewCancellableGroup(ctx)</span></code></span>
-<span class="codeline" id="line-24"><code><span class="comment">//		g.Go(func(ctx context.Context) error {</span></code></span>
-<span class="codeline" id="line-25"><code><span class="comment">//			&lt;-ctx.Done()</span></code></span>
-<span class="codeline" id="line-26"><code><span class="comment">//			return ctx.Err()</span></code></span>
-<span class="codeline" id="line-27"><code><span class="comment">//		})</span></code></span>
-<span class="codeline" id="line-28"><code><span class="comment">//		g.Cancel()</span></code></span>
-<span class="codeline" id="line-29"><code><span class="comment">//		g.Wait()</span></code></span>
-<span class="codeline" id="line-30"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/tdsync.html#name-NewCancellableGroup" class="ident">NewCancellableGroup</a></label>(<label for="r1" class="ident">parent</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>) *<a href="#line-13" class="ident">CancellableGroup</a> {</code></span>
-<span class="codeline" id="line-31"><code>	<label for="r2" class="ident">ctx</label>, <label for="r3" class="ident">cancel</label> := <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-232" class="ident">WithCancel</a>(<label for="r1" class="ident">parent</label>)</code></span>
-<span class="codeline" id="line-32"><code>	<label for="r4" class="ident">group</label>, <label for="r5" class="ident">groupCtx</label> := <a href="../../../../../../pkg/golang.org/x/sync/errgroup.html" class="ident i1">errgroup</a>.<a href="../../../../../golang.org/x/sync/errgroup/errgroup.go.html#line-32" class="ident">WithContext</a>(<label for="r2" class="ident">ctx</label>)</code></span>
-<span class="codeline" id="line-33"><code></code></span>
-<span class="codeline" id="line-34"><code>	<span class="keyword">return</span> &amp;<a href="#line-13" class="ident">CancellableGroup</a>{</code></span>
-<span class="codeline" id="line-35"><code>		<a href="#line-14" class="ident">cancel</a>: <label for="r3" class="ident">cancel</label>,</code></span>
-<span class="codeline" id="line-36"><code>		<a href="#line-16" class="ident">group</a>:  <label for="r4" class="ident">group</label>,</code></span>
-<span class="codeline" id="line-37"><code>		<a href="#line-17" class="ident">ctx</a>:    <label for="r5" class="ident">groupCtx</label>,</code></span>
-<span class="codeline" id="line-38"><code>	}</code></span>
-<span class="codeline" id="line-39"><code>}</code></span>
-<span class="codeline" id="line-40"><code></code></span>
-<span class="codeline" id="line-41"><code><span class="comment">// Go calls the given function in a new goroutine.</span></code></span>
-<span class="codeline" id="line-42"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-43"><code><span class="comment">// The first call to return a non-nil error cancels the group; its error will be</span></code></span>
-<span class="codeline" id="line-44"><code><span class="comment">// returned by Wait.</span></code></span>
-<span class="codeline" id="line-45"><code><span class="keyword">func</span> (<label for="r6" class="ident">g</label> *<a href="#line-13" class="ident">CancellableGroup</a>) <label for="r7" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/tdsync..CancellableGroup.Go.html" class="ident">Go</a></label>(<label for="r8" class="ident">f</label> <span class="keyword">func</span>(<label for="r9" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-46"><code>	<label for="r6" class="ident">g</label>.<a href="#line-16" class="ident">group</a>.<a href="../../../../../golang.org/x/sync/errgroup/errgroup.go.html#line-51" class="ident">Go</a>(<span class="keyword">func</span>() <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-47"><code>		<span class="keyword">return</span> <label for="r8" class="ident">f</label>(<label for="r6" class="ident">g</label>.<a href="#line-17" class="ident">ctx</a>)</code></span>
-<span class="codeline" id="line-48"><code>	})</code></span>
-<span class="codeline" id="line-49"><code>}</code></span>
-<span class="codeline" id="line-50"><code></code></span>
-<span class="codeline" id="line-51"><code><span class="comment">// Cancel cancels all goroutines in group.</span></code></span>
-<span class="codeline" id="line-52"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-53"><code><span class="comment">// Note: context cancellation error will be returned by Wait().</span></code></span>
-<span class="codeline" id="line-54"><code><span class="keyword">func</span> (<label for="r10" class="ident">g</label> *<a href="#line-13" class="ident">CancellableGroup</a>) <label for="r11" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/tdsync..CancellableGroup.Cancel.html" class="ident">Cancel</a></label>() {</code></span>
-<span class="codeline" id="line-55"><code>	<label for="r10" class="ident">g</label>.<a href="#line-14" class="ident">cancel</a>()</code></span>
-<span class="codeline" id="line-56"><code>}</code></span>
-<span class="codeline" id="line-57"><code></code></span>
-<span class="codeline" id="line-58"><code><span class="comment">// Wait blocks until all function calls from the Go method have returned, then</span></code></span>
-<span class="codeline" id="line-59"><code><span class="comment">// returns the first non-nil error (if any) from them.</span></code></span>
-<span class="codeline" id="line-60"><code><span class="keyword">func</span> (<label for="r12" class="ident">g</label> *<a href="#line-13" class="ident">CancellableGroup</a>) <label for="r13" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/tdsync..CancellableGroup.Wait.html" class="ident">Wait</a></label>() <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-61"><code>	<span class="keyword">return</span> <label for="r12" class="ident">g</label>.<a href="#line-16" class="ident">group</a>.<a href="../../../../../golang.org/x/sync/errgroup/errgroup.go.html#line-39" class="ident">Wait</a>()</code></span>
-<span class="codeline" id="line-62"><code>}</code></span>
+<span class="codeline" id="line-23"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-24"><code><span class="comment">//	g := NewCancellableGroup(ctx)</span></code></span>
+<span class="codeline" id="line-25"><code><span class="comment">//	g.Go(func(ctx context.Context) error {</span></code></span>
+<span class="codeline" id="line-26"><code><span class="comment">//		&lt;-ctx.Done()</span></code></span>
+<span class="codeline" id="line-27"><code><span class="comment">//		return ctx.Err()</span></code></span>
+<span class="codeline" id="line-28"><code><span class="comment">//	})</span></code></span>
+<span class="codeline" id="line-29"><code><span class="comment">//	g.Cancel()</span></code></span>
+<span class="codeline" id="line-30"><code><span class="comment">//	g.Wait()</span></code></span>
+<span class="codeline" id="line-31"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/tdsync.html#name-NewCancellableGroup" class="ident">NewCancellableGroup</a></label>(<label for="r1" class="ident">parent</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>) *<a href="#line-13" class="ident">CancellableGroup</a> {</code></span>
+<span class="codeline" id="line-32"><code>	<label for="r2" class="ident">ctx</label>, <label for="r3" class="ident">cancel</label> := <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-232" class="ident">WithCancel</a>(<label for="r1" class="ident">parent</label>)</code></span>
+<span class="codeline" id="line-33"><code>	<label for="r4" class="ident">group</label>, <label for="r5" class="ident">groupCtx</label> := <a href="../../../../../../pkg/golang.org/x/sync/errgroup.html" class="ident i1">errgroup</a>.<a href="../../../../../golang.org/x/sync/errgroup/errgroup.go.html#line-45" class="ident">WithContext</a>(<label for="r2" class="ident">ctx</label>)</code></span>
+<span class="codeline" id="line-34"><code></code></span>
+<span class="codeline" id="line-35"><code>	<span class="keyword">return</span> &amp;<a href="#line-13" class="ident">CancellableGroup</a>{</code></span>
+<span class="codeline" id="line-36"><code>		<a href="#line-14" class="ident">cancel</a>: <label for="r3" class="ident">cancel</label>,</code></span>
+<span class="codeline" id="line-37"><code>		<a href="#line-16" class="ident">group</a>:  <label for="r4" class="ident">group</label>,</code></span>
+<span class="codeline" id="line-38"><code>		<a href="#line-17" class="ident">ctx</a>:    <label for="r5" class="ident">groupCtx</label>,</code></span>
+<span class="codeline" id="line-39"><code>	}</code></span>
+<span class="codeline" id="line-40"><code>}</code></span>
+<span class="codeline" id="line-41"><code></code></span>
+<span class="codeline" id="line-42"><code><span class="comment">// Go calls the given function in a new goroutine.</span></code></span>
+<span class="codeline" id="line-43"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-44"><code><span class="comment">// The first call to return a non-nil error cancels the group; its error will be</span></code></span>
+<span class="codeline" id="line-45"><code><span class="comment">// returned by Wait.</span></code></span>
+<span class="codeline" id="line-46"><code><span class="keyword">func</span> (<label for="r6" class="ident">g</label> *<a href="#line-13" class="ident">CancellableGroup</a>) <label for="r7" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/tdsync..CancellableGroup.Go.html" class="ident">Go</a></label>(<label for="r8" class="ident">f</label> <span class="keyword">func</span>(<label for="r9" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-47"><code>	<label for="r6" class="ident">g</label>.<a href="#line-16" class="ident">group</a>.<a href="../../../../../golang.org/x/sync/errgroup/errgroup.go.html#line-66" class="ident">Go</a>(<span class="keyword">func</span>() <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-48"><code>		<span class="keyword">return</span> <label for="r8" class="ident">f</label>(<label for="r6" class="ident">g</label>.<a href="#line-17" class="ident">ctx</a>)</code></span>
+<span class="codeline" id="line-49"><code>	})</code></span>
+<span class="codeline" id="line-50"><code>}</code></span>
+<span class="codeline" id="line-51"><code></code></span>
+<span class="codeline" id="line-52"><code><span class="comment">// Cancel cancels all goroutines in group.</span></code></span>
+<span class="codeline" id="line-53"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-54"><code><span class="comment">// Note: context cancellation error will be returned by Wait().</span></code></span>
+<span class="codeline" id="line-55"><code><span class="keyword">func</span> (<label for="r10" class="ident">g</label> *<a href="#line-13" class="ident">CancellableGroup</a>) <label for="r11" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/tdsync..CancellableGroup.Cancel.html" class="ident">Cancel</a></label>() {</code></span>
+<span class="codeline" id="line-56"><code>	<label for="r10" class="ident">g</label>.<a href="#line-14" class="ident">cancel</a>()</code></span>
+<span class="codeline" id="line-57"><code>}</code></span>
+<span class="codeline" id="line-58"><code></code></span>
+<span class="codeline" id="line-59"><code><span class="comment">// Wait blocks until all function calls from the Go method have returned, then</span></code></span>
+<span class="codeline" id="line-60"><code><span class="comment">// returns the first non-nil error (if any) from them.</span></code></span>
+<span class="codeline" id="line-61"><code><span class="keyword">func</span> (<label for="r12" class="ident">g</label> *<a href="#line-13" class="ident">CancellableGroup</a>) <label for="r13" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/tdsync..CancellableGroup.Wait.html" class="ident">Wait</a></label>() <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-62"><code>	<span class="keyword">return</span> <label for="r12" class="ident">g</label>.<a href="#line-16" class="ident">group</a>.<a href="../../../../../golang.org/x/sync/errgroup/errgroup.go.html#line-52" class="ident">Wait</a>()</code></span>
+<span class="codeline" id="line-63"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

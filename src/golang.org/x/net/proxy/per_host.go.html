@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: per_host.go in package golang.org/x/net/proxy</title>
-<link href="../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -199,7 +199,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-57"><code>}</code></span>
 <span class="codeline" id="line-58"><code></code></span>
 <span class="codeline" id="line-59"><code><span class="keyword">func</span> (<label for="r23" class="ident">p</label> *<a href="#line-15" class="ident">PerHost</a>) <label for="r24" class="ident"><a href="../../../../../use/golang.org/x/net/proxy..PerHost.dialerForRequest^fb1d1.html" class="ident">dialerForRequest</a></label>(<label for="r25" class="ident">host</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="proxy.go.html#line-19" class="ident">Dialer</a> {</code></span>
-<span class="codeline" id="line-60"><code>	<span class="keyword">if</span> <label for="r26" class="ident">ip</label> := <a href="../../../../../pkg/net.html" class="ident i1">net</a>.<a href="../../../../net/ip.go.html#line-704" class="ident">ParseIP</a>(<label for="r25" class="ident">host</label>); <label for="r26" class="ident">ip</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-60"><code>	<span class="keyword">if</span> <label for="r26" class="ident">ip</label> := <a href="../../../../../pkg/net.html" class="ident i1">net</a>.<a href="../../../../net/ip.go.html#line-707" class="ident">ParseIP</a>(<label for="r25" class="ident">host</label>); <label for="r26" class="ident">ip</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-61"><code>		<span class="keyword">for</span> <label for="r27" class="ident">_</label>, <label for="r28" class="ident">net</label> := <span class="keyword">range</span> <label for="r23" class="ident">p</label>.<a href="#line-18" class="ident">bypassNetworks</a> {</code></span>
 <span class="codeline" id="line-62"><code>			<span class="keyword">if</span> <label for="r28" class="ident">net</label>.<a href="../../../../net/ip.go.html#line-521" class="ident">Contains</a>(<label for="r26" class="ident">ip</label>) {</code></span>
 <span class="codeline" id="line-63"><code>				<span class="keyword">return</span> <label for="r23" class="ident">p</label>.<a href="#line-16" class="ident">bypass</a></code></span>
@@ -214,7 +214,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-72"><code>	}</code></span>
 <span class="codeline" id="line-73"><code></code></span>
 <span class="codeline" id="line-74"><code>	<span class="keyword">for</span> <label for="r31" class="ident">_</label>, <label for="r32" class="ident">zone</label> := <span class="keyword">range</span> <label for="r23" class="ident">p</label>.<a href="#line-20" class="ident">bypassZones</a> {</code></span>
-<span class="codeline" id="line-75"><code>		<span class="keyword">if</span> <a href="../../../../../pkg/strings.html" class="ident i2">strings</a>.<a href="../../../../strings/strings.go.html#line-449" class="ident">HasSuffix</a>(<label for="r25" class="ident">host</label>, <label for="r32" class="ident">zone</label>) {</code></span>
+<span class="codeline" id="line-75"><code>		<span class="keyword">if</span> <a href="../../../../../pkg/strings.html" class="ident i2">strings</a>.<a href="../../../../strings/strings.go.html#line-458" class="ident">HasSuffix</a>(<label for="r25" class="ident">host</label>, <label for="r32" class="ident">zone</label>) {</code></span>
 <span class="codeline" id="line-76"><code>			<span class="keyword">return</span> <label for="r23" class="ident">p</label>.<a href="#line-16" class="ident">bypass</a></code></span>
 <span class="codeline" id="line-77"><code>		}</code></span>
 <span class="codeline" id="line-78"><code>		<span class="keyword">if</span> <label for="r25" class="ident">host</label> == <label for="r32" class="ident">zone</label>[<span class="lit-number">1</span>:] {</code></span>
@@ -237,24 +237,24 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-95"><code><span class="comment">// (localhost). A best effort is made to parse the string and errors are</span></code></span>
 <span class="codeline" id="line-96"><code><span class="comment">// ignored.</span></code></span>
 <span class="codeline" id="line-97"><code><span class="keyword">func</span> (<label for="r35" class="ident">p</label> *<a href="#line-15" class="ident">PerHost</a>) <label for="r36" class="ident"><a href="../../../../../use/golang.org/x/net/proxy..PerHost.AddFromString.html" class="ident">AddFromString</a></label>(<label for="r37" class="ident">s</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) {</code></span>
-<span class="codeline" id="line-98"><code>	<label for="r38" class="ident">hosts</label> := <a href="../../../../../pkg/strings.html" class="ident i2">strings</a>.<a href="../../../../strings/strings.go.html#line-299" class="ident">Split</a>(<label for="r37" class="ident">s</label>, <span class="lit-string">","</span>)</code></span>
+<span class="codeline" id="line-98"><code>	<label for="r38" class="ident">hosts</label> := <a href="../../../../../pkg/strings.html" class="ident i2">strings</a>.<a href="../../../../strings/strings.go.html#line-308" class="ident">Split</a>(<label for="r37" class="ident">s</label>, <span class="lit-string">","</span>)</code></span>
 <span class="codeline" id="line-99"><code>	<span class="keyword">for</span> <label for="r39" class="ident">_</label>, <label for="r40" class="ident">host</label> := <span class="keyword">range</span> <label for="r38" class="ident">hosts</label> {</code></span>
-<span class="codeline" id="line-100"><code>		<label for="r40" class="ident">host</label> = <a href="../../../../../pkg/strings.html" class="ident i2">strings</a>.<a href="../../../../strings/strings.go.html#line-867" class="ident">TrimSpace</a>(<label for="r40" class="ident">host</label>)</code></span>
+<span class="codeline" id="line-100"><code>		<label for="r40" class="ident">host</label> = <a href="../../../../../pkg/strings.html" class="ident i2">strings</a>.<a href="../../../../strings/strings.go.html#line-945" class="ident">TrimSpace</a>(<label for="r40" class="ident">host</label>)</code></span>
 <span class="codeline" id="line-101"><code>		<span class="keyword">if</span> <a href="../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r40" class="ident">host</label>) == <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-102"><code>			<span class="keyword">continue</span></code></span>
 <span class="codeline" id="line-103"><code>		}</code></span>
 <span class="codeline" id="line-104"><code>		<span class="keyword">if</span> <a href="../../../../../pkg/strings.html" class="ident i2">strings</a>.<a href="../../../../strings/strings.go.html#line-61" class="ident">Contains</a>(<label for="r40" class="ident">host</label>, <span class="lit-string">"/"</span>) {</code></span>
 <span class="codeline" id="line-105"><code>			<span class="comment">// We assume that it's a CIDR address like 127.0.0.0/8</span></code></span>
-<span class="codeline" id="line-106"><code>			<span class="keyword">if</span> <label for="r41" class="ident">_</label>, <label for="r42" class="ident">net</label>, <label for="r43" class="ident">err</label> := <a href="../../../../../pkg/net.html" class="ident i1">net</a>.<a href="../../../../net/ip.go.html#line-738" class="ident">ParseCIDR</a>(<label for="r40" class="ident">host</label>); <label for="r43" class="ident">err</label> == <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-106"><code>			<span class="keyword">if</span> <label for="r41" class="ident">_</label>, <label for="r42" class="ident">net</label>, <label for="r43" class="ident">err</label> := <a href="../../../../../pkg/net.html" class="ident i1">net</a>.<a href="../../../../net/ip.go.html#line-741" class="ident">ParseCIDR</a>(<label for="r40" class="ident">host</label>); <label for="r43" class="ident">err</label> == <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-107"><code>				<label for="r35" class="ident">p</label>.<a href="#line-133" class="ident">AddNetwork</a>(<label for="r42" class="ident">net</label>)</code></span>
 <span class="codeline" id="line-108"><code>			}</code></span>
 <span class="codeline" id="line-109"><code>			<span class="keyword">continue</span></code></span>
 <span class="codeline" id="line-110"><code>		}</code></span>
-<span class="codeline" id="line-111"><code>		<span class="keyword">if</span> <label for="r44" class="ident">ip</label> := <a href="../../../../../pkg/net.html" class="ident i1">net</a>.<a href="../../../../net/ip.go.html#line-704" class="ident">ParseIP</a>(<label for="r40" class="ident">host</label>); <label for="r44" class="ident">ip</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-111"><code>		<span class="keyword">if</span> <label for="r44" class="ident">ip</label> := <a href="../../../../../pkg/net.html" class="ident i1">net</a>.<a href="../../../../net/ip.go.html#line-707" class="ident">ParseIP</a>(<label for="r40" class="ident">host</label>); <label for="r44" class="ident">ip</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-112"><code>			<label for="r35" class="ident">p</label>.<a href="#line-126" class="ident">AddIP</a>(<label for="r44" class="ident">ip</label>)</code></span>
 <span class="codeline" id="line-113"><code>			<span class="keyword">continue</span></code></span>
 <span class="codeline" id="line-114"><code>		}</code></span>
-<span class="codeline" id="line-115"><code>		<span class="keyword">if</span> <a href="../../../../../pkg/strings.html" class="ident i2">strings</a>.<a href="../../../../strings/strings.go.html#line-444" class="ident">HasPrefix</a>(<label for="r40" class="ident">host</label>, <span class="lit-string">"*."</span>) {</code></span>
+<span class="codeline" id="line-115"><code>		<span class="keyword">if</span> <a href="../../../../../pkg/strings.html" class="ident i2">strings</a>.<a href="../../../../strings/strings.go.html#line-453" class="ident">HasPrefix</a>(<label for="r40" class="ident">host</label>, <span class="lit-string">"*."</span>) {</code></span>
 <span class="codeline" id="line-116"><code>			<label for="r35" class="ident">p</label>.<a href="#line-139" class="ident">AddZone</a>(<label for="r40" class="ident">host</label>[<span class="lit-number">1</span>:])</code></span>
 <span class="codeline" id="line-117"><code>			<span class="keyword">continue</span></code></span>
 <span class="codeline" id="line-118"><code>		}</code></span>
@@ -279,10 +279,10 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-137"><code><span class="comment">// AddZone specifies a DNS suffix that will use the bypass proxy. A zone of</span></code></span>
 <span class="codeline" id="line-138"><code><span class="comment">// "example.com" matches "example.com" and all of its subdomains.</span></code></span>
 <span class="codeline" id="line-139"><code><span class="keyword">func</span> (<label for="r51" class="ident">p</label> *<a href="#line-15" class="ident">PerHost</a>) <label for="r52" class="ident"><a href="../../../../../use/golang.org/x/net/proxy..PerHost.AddZone.html" class="ident">AddZone</a></label>(<label for="r53" class="ident">zone</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) {</code></span>
-<span class="codeline" id="line-140"><code>	<span class="keyword">if</span> <a href="../../../../../pkg/strings.html" class="ident i2">strings</a>.<a href="../../../../strings/strings.go.html#line-449" class="ident">HasSuffix</a>(<label for="r53" class="ident">zone</label>, <span class="lit-string">"."</span>) {</code></span>
+<span class="codeline" id="line-140"><code>	<span class="keyword">if</span> <a href="../../../../../pkg/strings.html" class="ident i2">strings</a>.<a href="../../../../strings/strings.go.html#line-458" class="ident">HasSuffix</a>(<label for="r53" class="ident">zone</label>, <span class="lit-string">"."</span>) {</code></span>
 <span class="codeline" id="line-141"><code>		<label for="r53" class="ident">zone</label> = <label for="r53" class="ident">zone</label>[:<a href="../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r53" class="ident">zone</label>)-<span class="lit-number">1</span>]</code></span>
 <span class="codeline" id="line-142"><code>	}</code></span>
-<span class="codeline" id="line-143"><code>	<span class="keyword">if</span> !<a href="../../../../../pkg/strings.html" class="ident i2">strings</a>.<a href="../../../../strings/strings.go.html#line-444" class="ident">HasPrefix</a>(<label for="r53" class="ident">zone</label>, <span class="lit-string">"."</span>) {</code></span>
+<span class="codeline" id="line-143"><code>	<span class="keyword">if</span> !<a href="../../../../../pkg/strings.html" class="ident i2">strings</a>.<a href="../../../../strings/strings.go.html#line-453" class="ident">HasPrefix</a>(<label for="r53" class="ident">zone</label>, <span class="lit-string">"."</span>) {</code></span>
 <span class="codeline" id="line-144"><code>		<label for="r53" class="ident">zone</label> = <span class="lit-string">"."</span> + <label for="r53" class="ident">zone</label></code></span>
 <span class="codeline" id="line-145"><code>	}</code></span>
 <span class="codeline" id="line-146"><code>	<label for="r51" class="ident">p</label>.<a href="#line-20" class="ident">bypassZones</a> = <a href="../../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r51" class="ident">p</label>.<a href="#line-20" class="ident">bypassZones</a>, <label for="r53" class="ident">zone</label>)</code></span>
@@ -290,14 +290,14 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-148"><code></code></span>
 <span class="codeline" id="line-149"><code><span class="comment">// AddHost specifies a host name that will use the bypass proxy.</span></code></span>
 <span class="codeline" id="line-150"><code><span class="keyword">func</span> (<label for="r54" class="ident">p</label> *<a href="#line-15" class="ident">PerHost</a>) <label for="r55" class="ident"><a href="../../../../../use/golang.org/x/net/proxy..PerHost.AddHost.html" class="ident">AddHost</a></label>(<label for="r56" class="ident">host</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) {</code></span>
-<span class="codeline" id="line-151"><code>	<span class="keyword">if</span> <a href="../../../../../pkg/strings.html" class="ident i2">strings</a>.<a href="../../../../strings/strings.go.html#line-449" class="ident">HasSuffix</a>(<label for="r56" class="ident">host</label>, <span class="lit-string">"."</span>) {</code></span>
+<span class="codeline" id="line-151"><code>	<span class="keyword">if</span> <a href="../../../../../pkg/strings.html" class="ident i2">strings</a>.<a href="../../../../strings/strings.go.html#line-458" class="ident">HasSuffix</a>(<label for="r56" class="ident">host</label>, <span class="lit-string">"."</span>) {</code></span>
 <span class="codeline" id="line-152"><code>		<label for="r56" class="ident">host</label> = <label for="r56" class="ident">host</label>[:<a href="../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r56" class="ident">host</label>)-<span class="lit-number">1</span>]</code></span>
 <span class="codeline" id="line-153"><code>	}</code></span>
 <span class="codeline" id="line-154"><code>	<label for="r54" class="ident">p</label>.<a href="#line-21" class="ident">bypassHosts</a> = <a href="../../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r54" class="ident">p</label>.<a href="#line-21" class="ident">bypassHosts</a>, <label for="r56" class="ident">host</label>)</code></span>
 <span class="codeline" id="line-155"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

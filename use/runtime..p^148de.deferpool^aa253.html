@@ -5,40 +5,35 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>References: runtime.p.deferpool</title>
-<link href="../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../jvs/golds-v0.3.6.js"></script>
+<link href="../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
-<pre><code><span style="font-size:x-large;"><b><a href="../pkg/runtime.html">runtime</a>.<a href="../src/runtime/runtime2.go.html#line-606">p</a>.<a href="../src/runtime/runtime2.go.html#line-618">deferpool</a></b></span><span style="font-size: large;"><i> (field)</i></span>
+<pre><code><span style="font-size:x-large;"><b><a href="../pkg/runtime.html">runtime</a>.<a href="../src/runtime/runtime2.go.html#line-602">p</a>.<a href="../src/runtime/runtime2.go.html#line-614">deferpool</a></b></span><span style="font-size: large;"><i> (field)</i></span>
 
-<span class="title">29 uses</span>
+<span class="title">24 uses</span>
 
 	runtime (current package)
-		<a href="../src/runtime/panic.go.html#line-360">panic.go#L360</a>: 	var m [len(p{}.<b>deferpool</b>)]int32
-		<a href="../src/runtime/panic.go.html#line-426" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-426">#L426</a>: 	if sc &lt; uintptr(len(p{}.<b>deferpool</b>)) {
-		<a href="../src/runtime/panic.go.html#line-428" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-428">#L428</a>: 		if len(pp.<b>deferpool</b>[sc]) == 0 && sched.deferpool[sc] != nil {
-		<a href="../src/runtime/panic.go.html#line-433" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-433">#L433</a>: 				for len(pp.<b>deferpool</b>[sc]) &lt; cap(pp.<b>deferpool</b>[sc])/2 && sched.deferpool[sc] != nil {
-		<a href="../src/runtime/panic.go.html#line-437" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-437">#L437</a>: 					pp.<b>deferpool</b>[sc] = append(pp.<b>deferpool</b>[sc], d)
-		<a href="../src/runtime/panic.go.html#line-442" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-442">#L442</a>: 		if n := len(pp.<b>deferpool</b>[sc]); n > 0 {
-		<a href="../src/runtime/panic.go.html#line-443" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-443">#L443</a>: 			d = pp.<b>deferpool</b>[sc][n-1]
-		<a href="../src/runtime/panic.go.html#line-444" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-444">#L444</a>: 			pp.<b>deferpool</b>[sc][n-1] = nil
-		<a href="../src/runtime/panic.go.html#line-445" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-445">#L445</a>: 			pp.<b>deferpool</b>[sc] = pp.<b>deferpool</b>[sc][:n-1]
-		<a href="../src/runtime/panic.go.html#line-478" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-478">#L478</a>: 	if sc &gt;= uintptr(len(p{}.<b>deferpool</b>)) {
-		<a href="../src/runtime/panic.go.html#line-482" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-482">#L482</a>: 	if len(pp.<b>deferpool</b>[sc]) == cap(pp.<b>deferpool</b>[sc]) {
-		<a href="../src/runtime/panic.go.html#line-489" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-489">#L489</a>: 			for len(pp.<b>deferpool</b>[sc]) &gt; cap(pp.<b>deferpool</b>[sc])/2 {
-		<a href="../src/runtime/panic.go.html#line-490" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-490">#L490</a>: 				n := len(pp.<b>deferpool</b>[sc])
-		<a href="../src/runtime/panic.go.html#line-491" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-491">#L491</a>: 				d := pp.<b>deferpool</b>[sc][n-1]
-		<a href="../src/runtime/panic.go.html#line-492" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-492">#L492</a>: 				pp.<b>deferpool</b>[sc][n-1] = nil
-		<a href="../src/runtime/panic.go.html#line-493" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-493">#L493</a>: 				pp.<b>deferpool</b>[sc] = pp.<b>deferpool</b>[sc][:n-1]
-		<a href="../src/runtime/panic.go.html#line-523" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-523">#L523</a>: 	pp.<b>deferpool</b>[sc] = append(pp.<b>deferpool</b>[sc], d)
-		<a href="../src/runtime/proc.go.html#line-4864">proc.go#L4864</a>: 	for i := range pp.<b>deferpool</b> {
-		<a href="../src/runtime/proc.go.html#line-4865" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-4865">#L4865</a>: 		pp.<b>deferpool</b>[i] = pp.deferpoolbuf[i][:0]
-		<a href="../src/runtime/proc.go.html#line-4943" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-4943">#L4943</a>: 	for i := range pp.<b>deferpool</b> {
-		<a href="../src/runtime/proc.go.html#line-4947" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-4947">#L4947</a>: 		pp.<b>deferpool</b>[i] = pp.deferpoolbuf[i][:0]
-		<a href="../src/runtime/runtime2.go.html#line-618">runtime2.go#L618</a>: 	<b>deferpool</b>    [5][]*_defer // pool of available defer structs of different sizes (see panic.go)
+		<a href="../src/runtime/panic.go.html#line-353">panic.go#L353</a>: 	if len(pp.<b>deferpool</b>) == 0 &amp;&amp; sched.deferpool != nil {
+		<a href="../src/runtime/panic.go.html#line-355" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-355">#L355</a>: 		for len(pp.<b>deferpool</b>) &lt; cap(pp.<b>deferpool</b>)/2 &amp;&amp; sched.deferpool != nil {
+		<a href="../src/runtime/panic.go.html#line-359" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-359">#L359</a>: 			pp.<b>deferpool</b> = append(pp.<b>deferpool</b>, d)
+		<a href="../src/runtime/panic.go.html#line-363" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-363">#L363</a>: 	if n := len(pp.<b>deferpool</b>); n &gt; 0 {
+		<a href="../src/runtime/panic.go.html#line-364" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-364">#L364</a>: 		d = pp.<b>deferpool</b>[n-1]
+		<a href="../src/runtime/panic.go.html#line-365" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-365">#L365</a>: 		pp.<b>deferpool</b>[n-1] = nil
+		<a href="../src/runtime/panic.go.html#line-366" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-366">#L366</a>: 		pp.<b>deferpool</b> = pp.<b>deferpool</b>[:n-1]
+		<a href="../src/runtime/panic.go.html#line-404" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-404">#L404</a>: 	if len(pp.<b>deferpool</b>) == cap(pp.<b>deferpool</b>) {
+		<a href="../src/runtime/panic.go.html#line-407" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-407">#L407</a>: 		for len(pp.<b>deferpool</b>) &gt; cap(pp.<b>deferpool</b>)/2 {
+		<a href="../src/runtime/panic.go.html#line-408" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-408">#L408</a>: 			n := len(pp.<b>deferpool</b>)
+		<a href="../src/runtime/panic.go.html#line-409" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-409">#L409</a>: 			d := pp.<b>deferpool</b>[n-1]
+		<a href="../src/runtime/panic.go.html#line-410" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-410">#L410</a>: 			pp.<b>deferpool</b>[n-1] = nil
+		<a href="../src/runtime/panic.go.html#line-411" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-411">#L411</a>: 			pp.<b>deferpool</b> = pp.<b>deferpool</b>[:n-1]
+		<a href="../src/runtime/panic.go.html#line-427" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-427">#L427</a>: 	pp.<b>deferpool</b> = append(pp.<b>deferpool</b>, d)
+		<a href="../src/runtime/proc.go.html#line-4667">proc.go#L4667</a>: 	pp.<b>deferpool</b> = pp.deferpoolbuf[:0]
+		<a href="../src/runtime/proc.go.html#line-4747" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-4747">#L4747</a>: 	pp.<b>deferpool</b> = pp.deferpoolbuf[:0]
+		<a href="../src/runtime/runtime2.go.html#line-614">runtime2.go#L614</a>: 	<b>deferpool</b>    []*_defer // pool of available defer structs (see panic.go)
 </code></pre><pre id="footer">
 <table><tr><td><img src="../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

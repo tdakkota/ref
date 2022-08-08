@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: dec.go in package github.com/go-faster/jx</title>
+<link href="../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../jvs/golds-v0.5.2.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	dec.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../../pkg/github.com/go-faster/jx.html">github.com/go-faster/jx</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+
+<pre class="line-numbers">
+<span class="codeline" id="line-1"><code><span class="keyword">package</span> jx</code></span>
+<span class="codeline" id="line-2"><code></code></span>
+<span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"io"</span></label></code></span>
+<span class="codeline" id="line-5"><code>)</code></span>
+<span class="codeline" id="line-6"><code></code></span>
+<span class="codeline" id="line-7"><code><span class="comment">// Type of json value.</span></code></span>
+<span class="codeline" id="line-8"><code><span class="keyword">type</span> <a href="../../../../pkg/github.com/go-faster/jx.html#name-Type" class="ident">Type</a> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-9"><code></code></span>
+<span class="codeline" id="line-10"><code><span class="keyword">func</span> (<label for="r0" class="ident">t</label> <a href="#line-8" class="ident">Type</a>) <label for="r1" class="ident"><a href="../../../../use/github.com/go-faster/jx..Type.String.html" class="ident">String</a></label>() <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-11"><code>	<span class="keyword">switch</span> <label for="r0" class="ident">t</label> {</code></span>
+<span class="codeline" id="line-12"><code>	<span class="keyword">case</span> <a href="#line-33" class="ident">Invalid</a>:</code></span>
+<span class="codeline" id="line-13"><code>		<span class="keyword">return</span> <span class="lit-string">"invalid"</span></code></span>
+<span class="codeline" id="line-14"><code>	<span class="keyword">case</span> <a href="#line-35" class="ident">String</a>:</code></span>
+<span class="codeline" id="line-15"><code>		<span class="keyword">return</span> <span class="lit-string">"string"</span></code></span>
+<span class="codeline" id="line-16"><code>	<span class="keyword">case</span> <a href="#line-37" class="ident">Number</a>:</code></span>
+<span class="codeline" id="line-17"><code>		<span class="keyword">return</span> <span class="lit-string">"number"</span></code></span>
+<span class="codeline" id="line-18"><code>	<span class="keyword">case</span> <a href="#line-39" class="ident">Null</a>:</code></span>
+<span class="codeline" id="line-19"><code>		<span class="keyword">return</span> <span class="lit-string">"null"</span></code></span>
+<span class="codeline" id="line-20"><code>	<span class="keyword">case</span> <a href="#line-41" class="ident">Bool</a>:</code></span>
+<span class="codeline" id="line-21"><code>		<span class="keyword">return</span> <span class="lit-string">"bool"</span></code></span>
+<span class="codeline" id="line-22"><code>	<span class="keyword">case</span> <a href="#line-43" class="ident">Array</a>:</code></span>
+<span class="codeline" id="line-23"><code>		<span class="keyword">return</span> <span class="lit-string">"array"</span></code></span>
+<span class="codeline" id="line-24"><code>	<span class="keyword">case</span> <a href="#line-45" class="ident">Object</a>:</code></span>
+<span class="codeline" id="line-25"><code>		<span class="keyword">return</span> <span class="lit-string">"object"</span></code></span>
+<span class="codeline" id="line-26"><code>	<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-27"><code>		<span class="keyword">return</span> <span class="lit-string">"unknown"</span></code></span>
+<span class="codeline" id="line-28"><code>	}</code></span>
+<span class="codeline" id="line-29"><code>}</code></span>
+<span class="codeline" id="line-30"><code></code></span>
+<span class="codeline" id="line-31"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-32"><code>	<span class="comment">// Invalid json value.</span></code></span>
+<span class="codeline" id="line-33"><code>	<a href="../../../../pkg/github.com/go-faster/jx.html#name-Invalid" class="ident">Invalid</a> <a href="#line-8" class="ident">Type</a> = <a href="../../../../pkg/builtin.html#name-iota" class="ident">iota</a></code></span>
+<span class="codeline" id="line-34"><code>	<span class="comment">// String json value, like "foo".</span></code></span>
+<span class="codeline" id="line-35"><code>	<a href="../../../../pkg/github.com/go-faster/jx.html#name-String" class="ident">String</a></code></span>
+<span class="codeline" id="line-36"><code>	<span class="comment">// Number json value, like 100 or 1.01.</span></code></span>
+<span class="codeline" id="line-37"><code>	<a href="../../../../pkg/github.com/go-faster/jx.html#name-Number" class="ident">Number</a></code></span>
+<span class="codeline" id="line-38"><code>	<span class="comment">// Null json value.</span></code></span>
+<span class="codeline" id="line-39"><code>	<a href="../../../../pkg/github.com/go-faster/jx.html#name-Null" class="ident">Null</a></code></span>
+<span class="codeline" id="line-40"><code>	<span class="comment">// Bool json value, true or false.</span></code></span>
+<span class="codeline" id="line-41"><code>	<a href="../../../../pkg/github.com/go-faster/jx.html#name-Bool" class="ident">Bool</a></code></span>
+<span class="codeline" id="line-42"><code>	<span class="comment">// Array json value, like [1, 2, 3].</span></code></span>
+<span class="codeline" id="line-43"><code>	<a href="../../../../pkg/github.com/go-faster/jx.html#name-Array" class="ident">Array</a></code></span>
+<span class="codeline" id="line-44"><code>	<span class="comment">// Object json value, like {"foo": 1}.</span></code></span>
+<span class="codeline" id="line-45"><code>	<a href="../../../../pkg/github.com/go-faster/jx.html#name-Object" class="ident">Object</a></code></span>
+<span class="codeline" id="line-46"><code>)</code></span>
+<span class="codeline" id="line-47"><code></code></span>
+<span class="codeline" id="line-48"><code><span class="keyword">var</span> <a href="../../../../pkg/github.com/go-faster/jx.html#name-types" class="ident">types</a> []<a href="#line-8" class="ident">Type</a></code></span>
+<span class="codeline" id="line-49"><code></code></span>
+<span class="codeline" id="line-50"><code><span class="keyword">func</span> <label for="r2" class="ident"><a href="../../../../pkg/github.com/go-faster/jx.html#name-init" class="ident">init</a></label>() {</code></span>
+<span class="codeline" id="line-51"><code>	<a href="#line-48" class="ident">types</a> = <a href="../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="#line-8" class="ident">Type</a>, <span class="lit-number">256</span>)</code></span>
+<span class="codeline" id="line-52"><code>	<span class="keyword">for</span> <label for="r3" class="ident">i</label> := <span class="keyword">range</span> <a href="#line-48" class="ident">types</a> {</code></span>
+<span class="codeline" id="line-53"><code>		<a href="#line-48" class="ident">types</a>[<label for="r3" class="ident">i</label>] = <a href="#line-33" class="ident">Invalid</a></code></span>
+<span class="codeline" id="line-54"><code>	}</code></span>
+<span class="codeline" id="line-55"><code>	<a href="#line-48" class="ident">types</a>[<span class="lit-number">'"'</span>] = <a href="#line-35" class="ident">String</a></code></span>
+<span class="codeline" id="line-56"><code>	<a href="#line-48" class="ident">types</a>[<span class="lit-number">'-'</span>] = <a href="#line-37" class="ident">Number</a></code></span>
+<span class="codeline" id="line-57"><code>	<a href="#line-48" class="ident">types</a>[<span class="lit-number">'0'</span>] = <a href="#line-37" class="ident">Number</a></code></span>
+<span class="codeline" id="line-58"><code>	<a href="#line-48" class="ident">types</a>[<span class="lit-number">'1'</span>] = <a href="#line-37" class="ident">Number</a></code></span>
+<span class="codeline" id="line-59"><code>	<a href="#line-48" class="ident">types</a>[<span class="lit-number">'2'</span>] = <a href="#line-37" class="ident">Number</a></code></span>
+<span class="codeline" id="line-60"><code>	<a href="#line-48" class="ident">types</a>[<span class="lit-number">'3'</span>] = <a href="#line-37" class="ident">Number</a></code></span>
+<span class="codeline" id="line-61"><code>	<a href="#line-48" class="ident">types</a>[<span class="lit-number">'4'</span>] = <a href="#line-37" class="ident">Number</a></code></span>
+<span class="codeline" id="line-62"><code>	<a href="#line-48" class="ident">types</a>[<span class="lit-number">'5'</span>] = <a href="#line-37" class="ident">Number</a></code></span>
+<span class="codeline" id="line-63"><code>	<a href="#line-48" class="ident">types</a>[<span class="lit-number">'6'</span>] = <a href="#line-37" class="ident">Number</a></code></span>
+<span class="codeline" id="line-64"><code>	<a href="#line-48" class="ident">types</a>[<span class="lit-number">'7'</span>] = <a href="#line-37" class="ident">Number</a></code></span>
+<span class="codeline" id="line-65"><code>	<a href="#line-48" class="ident">types</a>[<span class="lit-number">'8'</span>] = <a href="#line-37" class="ident">Number</a></code></span>
+<span class="codeline" id="line-66"><code>	<a href="#line-48" class="ident">types</a>[<span class="lit-number">'9'</span>] = <a href="#line-37" class="ident">Number</a></code></span>
+<span class="codeline" id="line-67"><code>	<a href="#line-48" class="ident">types</a>[<span class="lit-number">'t'</span>] = <a href="#line-41" class="ident">Bool</a></code></span>
+<span class="codeline" id="line-68"><code>	<a href="#line-48" class="ident">types</a>[<span class="lit-number">'f'</span>] = <a href="#line-41" class="ident">Bool</a></code></span>
+<span class="codeline" id="line-69"><code>	<a href="#line-48" class="ident">types</a>[<span class="lit-number">'n'</span>] = <a href="#line-39" class="ident">Null</a></code></span>
+<span class="codeline" id="line-70"><code>	<a href="#line-48" class="ident">types</a>[<span class="lit-number">'['</span>] = <a href="#line-43" class="ident">Array</a></code></span>
+<span class="codeline" id="line-71"><code>	<a href="#line-48" class="ident">types</a>[<span class="lit-number">'{'</span>] = <a href="#line-45" class="ident">Object</a></code></span>
+<span class="codeline" id="line-72"><code>}</code></span>
+<span class="codeline" id="line-73"><code></code></span>
+<span class="codeline" id="line-74"><code><span class="comment">// Decoder decodes json.</span></code></span>
+<span class="codeline" id="line-75"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-76"><code><span class="comment">// Can decode from io.Reader or byte slice directly.</span></code></span>
+<span class="codeline" id="line-77"><code><span class="keyword">type</span> <a href="../../../../pkg/github.com/go-faster/jx.html#name-Decoder" class="ident">Decoder</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-78"><code>	<a href="../../../../use/github.com/go-faster/jx..Decoder.reader^3d094.html" class="ident">reader</a> <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-83" class="ident">Reader</a></code></span>
+<span class="codeline" id="line-79"><code></code></span>
+<span class="codeline" id="line-80"><code>	<span class="comment">// buf is current buffer.</span></code></span>
+<span class="codeline" id="line-81"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-82"><code><span class="comment">	// Contains full json if reader is nil or used as a read buffer</span></code></span>
+<span class="codeline" id="line-83"><code><span class="comment">	// otherwise.</span></code></span>
+<span class="codeline" id="line-84"><code>	<a href="../../../../use/github.com/go-faster/jx..Decoder.buf^3ef31.html" class="ident">buf</a>  []<a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-85"><code>	<a href="../../../../use/github.com/go-faster/jx..Decoder.head^9f2e6.html" class="ident">head</a> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a> <span class="comment">// offset in buf to start of current json stream</span></code></span>
+<span class="codeline" id="line-86"><code>	<a href="../../../../use/github.com/go-faster/jx..Decoder.tail^0c62f.html" class="ident">tail</a> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a> <span class="comment">// offset in buf to end of current json stream</span></code></span>
+<span class="codeline" id="line-87"><code></code></span>
+<span class="codeline" id="line-88"><code>	<a href="../../../../use/github.com/go-faster/jx..Decoder.depth^ded32.html" class="ident">depth</a> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-89"><code>}</code></span>
+<span class="codeline" id="line-90"><code></code></span>
+<span class="codeline" id="line-91"><code><span class="keyword">const</span> <a href="../../../../pkg/github.com/go-faster/jx.html#name-defaultBuf" class="ident">defaultBuf</a> = <span class="lit-number">512</span></code></span>
+<span class="codeline" id="line-92"><code></code></span>
+<span class="codeline" id="line-93"><code><span class="comment">// Decode creates a Decoder that reads json from io.Reader.</span></code></span>
+<span class="codeline" id="line-94"><code><span class="keyword">func</span> <label for="r4" class="ident"><a href="../../../../pkg/github.com/go-faster/jx.html#name-Decode" class="ident">Decode</a></label>(<label for="r5" class="ident">reader</label> <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-83" class="ident">Reader</a>, <label for="r6" class="ident">bufSize</label> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>) *<a href="#line-77" class="ident">Decoder</a> {</code></span>
+<span class="codeline" id="line-95"><code>	<span class="keyword">if</span> <label for="r6" class="ident">bufSize</label> &lt;= <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-96"><code>		<label for="r6" class="ident">bufSize</label> = <a href="#line-91" class="ident">defaultBuf</a></code></span>
+<span class="codeline" id="line-97"><code>	}</code></span>
+<span class="codeline" id="line-98"><code>	<span class="keyword">return</span> &amp;<a href="#line-77" class="ident">Decoder</a>{</code></span>
+<span class="codeline" id="line-99"><code>		<a href="#line-78" class="ident">reader</a>: <label for="r5" class="ident">reader</label>,</code></span>
+<span class="codeline" id="line-100"><code>		<a href="#line-84" class="ident">buf</a>:    <a href="../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r6" class="ident">bufSize</label>),</code></span>
+<span class="codeline" id="line-101"><code>	}</code></span>
+<span class="codeline" id="line-102"><code>}</code></span>
+<span class="codeline" id="line-103"><code></code></span>
+<span class="codeline" id="line-104"><code><span class="comment">// DecodeBytes creates a Decoder that reads json from byte slice.</span></code></span>
+<span class="codeline" id="line-105"><code><span class="keyword">func</span> <label for="r7" class="ident"><a href="../../../../pkg/github.com/go-faster/jx.html#name-DecodeBytes" class="ident">DecodeBytes</a></label>(<label for="r8" class="ident">input</label> []<a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) *<a href="#line-77" class="ident">Decoder</a> {</code></span>
+<span class="codeline" id="line-106"><code>	<span class="keyword">return</span> &amp;<a href="#line-77" class="ident">Decoder</a>{</code></span>
+<span class="codeline" id="line-107"><code>		<a href="#line-84" class="ident">buf</a>:  <label for="r8" class="ident">input</label>,</code></span>
+<span class="codeline" id="line-108"><code>		<a href="#line-86" class="ident">tail</a>: <a href="../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r8" class="ident">input</label>),</code></span>
+<span class="codeline" id="line-109"><code>	}</code></span>
+<span class="codeline" id="line-110"><code>}</code></span>
+<span class="codeline" id="line-111"><code></code></span>
+<span class="codeline" id="line-112"><code><span class="comment">// DecodeStr creates a Decoder that reads string as json.</span></code></span>
+<span class="codeline" id="line-113"><code><span class="keyword">func</span> <label for="r9" class="ident"><a href="../../../../pkg/github.com/go-faster/jx.html#name-DecodeStr" class="ident">DecodeStr</a></label>(<label for="r10" class="ident">input</label> <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>) *<a href="#line-77" class="ident">Decoder</a> {</code></span>
+<span class="codeline" id="line-114"><code>	<span class="keyword">return</span> <a href="#line-105" class="ident">DecodeBytes</a>([]<a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a>(<label for="r10" class="ident">input</label>))</code></span>
+<span class="codeline" id="line-115"><code>}</code></span>
+<span class="codeline" id="line-116"><code></code></span>
+<span class="codeline" id="line-117"><code><span class="comment">// Reset resets reader and underlying state, next reads will use provided io.Reader.</span></code></span>
+<span class="codeline" id="line-118"><code><span class="keyword">func</span> (<label for="r11" class="ident">d</label> *<a href="#line-77" class="ident">Decoder</a>) <label for="r12" class="ident"><a href="../../../../use/github.com/go-faster/jx..Decoder.Reset.html" class="ident">Reset</a></label>(<label for="r13" class="ident">reader</label> <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-83" class="ident">Reader</a>) {</code></span>
+<span class="codeline" id="line-119"><code>	<label for="r11" class="ident">d</label>.<a href="#line-78" class="ident">reader</a> = <label for="r13" class="ident">reader</label></code></span>
+<span class="codeline" id="line-120"><code>	<label for="r11" class="ident">d</label>.<a href="#line-85" class="ident">head</a> = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-121"><code>	<label for="r11" class="ident">d</label>.<a href="#line-86" class="ident">tail</a> = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-122"><code>	<label for="r11" class="ident">d</label>.<a href="#line-88" class="ident">depth</a> = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-123"><code></code></span>
+<span class="codeline" id="line-124"><code>	<span class="comment">// Reads from reader need buffer.</span></code></span>
+<span class="codeline" id="line-125"><code>	<span class="keyword">if</span> <a href="../../../../pkg/builtin.html#name-cap" class="ident">cap</a>(<label for="r11" class="ident">d</label>.<a href="#line-84" class="ident">buf</a>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-126"><code>		<span class="comment">// Allocate new buffer if none.</span></code></span>
+<span class="codeline" id="line-127"><code>		<label for="r11" class="ident">d</label>.<a href="#line-84" class="ident">buf</a> = <a href="../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="#line-91" class="ident">defaultBuf</a>)</code></span>
+<span class="codeline" id="line-128"><code>	}</code></span>
+<span class="codeline" id="line-129"><code>	<span class="keyword">if</span> <a href="../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r11" class="ident">d</label>.<a href="#line-84" class="ident">buf</a>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-130"><code>		<span class="comment">// Set buffer to full capacity if needed.</span></code></span>
+<span class="codeline" id="line-131"><code>		<label for="r11" class="ident">d</label>.<a href="#line-84" class="ident">buf</a> = <label for="r11" class="ident">d</label>.<a href="#line-84" class="ident">buf</a>[:<a href="../../../../pkg/builtin.html#name-cap" class="ident">cap</a>(<label for="r11" class="ident">d</label>.<a href="#line-84" class="ident">buf</a>)]</code></span>
+<span class="codeline" id="line-132"><code>	}</code></span>
+<span class="codeline" id="line-133"><code>}</code></span>
+<span class="codeline" id="line-134"><code></code></span>
+<span class="codeline" id="line-135"><code><span class="comment">// ResetBytes resets underlying state, next reads will use provided buffer.</span></code></span>
+<span class="codeline" id="line-136"><code><span class="keyword">func</span> (<label for="r14" class="ident">d</label> *<a href="#line-77" class="ident">Decoder</a>) <label for="r15" class="ident"><a href="../../../../use/github.com/go-faster/jx..Decoder.ResetBytes.html" class="ident">ResetBytes</a></label>(<label for="r16" class="ident">input</label> []<a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) {</code></span>
+<span class="codeline" id="line-137"><code>	<label for="r14" class="ident">d</label>.<a href="#line-78" class="ident">reader</a> = <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-138"><code>	<label for="r14" class="ident">d</label>.<a href="#line-85" class="ident">head</a> = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-139"><code>	<label for="r14" class="ident">d</label>.<a href="#line-86" class="ident">tail</a> = <a href="../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r16" class="ident">input</label>)</code></span>
+<span class="codeline" id="line-140"><code>	<label for="r14" class="ident">d</label>.<a href="#line-88" class="ident">depth</a> = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-141"><code></code></span>
+<span class="codeline" id="line-142"><code>	<label for="r14" class="ident">d</label>.<a href="#line-84" class="ident">buf</a> = <label for="r16" class="ident">input</label></code></span>
+<span class="codeline" id="line-143"><code>}</code></span>
+</pre><pre id="footer">
+<table><tr><td><img src="../../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

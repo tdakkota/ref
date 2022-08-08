@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: cpu.go in package internal/cpu</title>
-<link href="../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -69,12 +69,12 @@ input[id=r17]:checked ~pre label[for=r17]
 <span class="codeline" id="line-12"><code><span class="keyword">var</span> <a href="../../../pkg/internal/cpu.html#name-DebugOptions" class="ident">DebugOptions</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
 <span class="codeline" id="line-13"><code></code></span>
 <span class="codeline" id="line-14"><code><span class="comment">// CacheLinePad is used to pad structs to avoid false sharing.</span></code></span>
-<span class="codeline" id="line-15"><code><span class="keyword">type</span> <a href="../../../pkg/internal/cpu.html#name-CacheLinePad" class="ident">CacheLinePad</a> <span class="keyword">struct</span>{ _ [<a href="cpu_x86.go.html#line-10" class="ident">CacheLinePadSize</a>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a> }</code></span>
+<span class="codeline" id="line-15"><code><span class="keyword">type</span> <a href="../../../pkg/internal/cpu.html#name-CacheLinePad" class="ident">CacheLinePad</a> <span class="keyword">struct</span>{ _ [<a href="cpu_x86.go.html#line-9" class="ident">CacheLinePadSize</a>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a> }</code></span>
 <span class="codeline" id="line-16"><code></code></span>
 <span class="codeline" id="line-17"><code><span class="comment">// CacheLineSize is the CPU's assumed cache line size.</span></code></span>
 <span class="codeline" id="line-18"><code><span class="comment">// There is currently no runtime detection of the real cache line size</span></code></span>
 <span class="codeline" id="line-19"><code><span class="comment">// so we use the constant per GOARCH CacheLinePadSize as an approximation.</span></code></span>
-<span class="codeline" id="line-20"><code><span class="keyword">var</span> <a href="../../../pkg/internal/cpu.html#name-CacheLineSize" class="ident">CacheLineSize</a> <a href="../../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> = <a href="cpu_x86.go.html#line-10" class="ident">CacheLinePadSize</a></code></span>
+<span class="codeline" id="line-20"><code><span class="keyword">var</span> <a href="../../../pkg/internal/cpu.html#name-CacheLineSize" class="ident">CacheLineSize</a> <a href="../../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a> = <a href="cpu_x86.go.html#line-9" class="ident">CacheLinePadSize</a></code></span>
 <span class="codeline" id="line-21"><code></code></span>
 <span class="codeline" id="line-22"><code><span class="comment">// The booleans in X86 contain the correspondingly named cpuid feature bit.</span></code></span>
 <span class="codeline" id="line-23"><code><span class="comment">// HasAVX and HasAVX2 are only set if the OS does support XMM and YMM registers</span></code></span>
@@ -93,7 +93,7 @@ input[id=r17]:checked ~pre label[for=r17]
 <span class="codeline" id="line-36"><code>	HasOSXSAVE   <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
 <span class="codeline" id="line-37"><code>	HasPCLMULQDQ <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
 <span class="codeline" id="line-38"><code>	HasPOPCNT    <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
-<span class="codeline" id="line-39"><code>	HasSSE2      <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-39"><code>	HasRDTSCP    <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
 <span class="codeline" id="line-40"><code>	HasSSE3      <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
 <span class="codeline" id="line-41"><code>	HasSSSE3     <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
 <span class="codeline" id="line-42"><code>	HasSSE41     <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
@@ -138,62 +138,62 @@ input[id=r17]:checked ~pre label[for=r17]
 <span class="codeline" id="line-81"><code><span class="comment">// those as well. The minimum processor requirement is POWER8 (ISA 2.07).</span></code></span>
 <span class="codeline" id="line-82"><code><span class="comment">// The struct is padded to avoid false sharing.</span></code></span>
 <span class="codeline" id="line-83"><code><span class="keyword">var</span> <a href="../../../pkg/internal/cpu.html#name-PPC64" class="ident">PPC64</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-84"><code>	_        <a href="#line-15" class="ident">CacheLinePad</a></code></span>
-<span class="codeline" id="line-85"><code>	HasDARN  <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// Hardware random number generator (requires kernel enablement)</span></code></span>
-<span class="codeline" id="line-86"><code>	HasSCV   <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// Syscall vectored (requires kernel enablement)</span></code></span>
-<span class="codeline" id="line-87"><code>	IsPOWER8 <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// ISA v2.07 (POWER8)</span></code></span>
-<span class="codeline" id="line-88"><code>	IsPOWER9 <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// ISA v3.00 (POWER9)</span></code></span>
-<span class="codeline" id="line-89"><code>	_        <a href="#line-15" class="ident">CacheLinePad</a></code></span>
-<span class="codeline" id="line-90"><code>}</code></span>
-<span class="codeline" id="line-91"><code></code></span>
-<span class="codeline" id="line-92"><code><span class="keyword">var</span> <a href="../../../pkg/internal/cpu.html#name-S390X" class="ident">S390X</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-93"><code>	_         <a href="#line-15" class="ident">CacheLinePad</a></code></span>
-<span class="codeline" id="line-94"><code>	HasZARCH  <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// z architecture mode is active [mandatory]</span></code></span>
-<span class="codeline" id="line-95"><code>	HasSTFLE  <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// store facility list extended [mandatory]</span></code></span>
-<span class="codeline" id="line-96"><code>	HasLDISP  <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// long (20-bit) displacements [mandatory]</span></code></span>
-<span class="codeline" id="line-97"><code>	HasEIMM   <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// 32-bit immediates [mandatory]</span></code></span>
-<span class="codeline" id="line-98"><code>	HasDFP    <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// decimal floating point</span></code></span>
-<span class="codeline" id="line-99"><code>	HasETF3EH <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// ETF-3 enhanced</span></code></span>
-<span class="codeline" id="line-100"><code>	HasMSA    <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// message security assist (CPACF)</span></code></span>
-<span class="codeline" id="line-101"><code>	HasAES    <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// KM-AES{128,192,256} functions</span></code></span>
-<span class="codeline" id="line-102"><code>	HasAESCBC <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// KMC-AES{128,192,256} functions</span></code></span>
-<span class="codeline" id="line-103"><code>	HasAESCTR <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// KMCTR-AES{128,192,256} functions</span></code></span>
-<span class="codeline" id="line-104"><code>	HasAESGCM <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// KMA-GCM-AES{128,192,256} functions</span></code></span>
-<span class="codeline" id="line-105"><code>	HasGHASH  <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// KIMD-GHASH function</span></code></span>
-<span class="codeline" id="line-106"><code>	HasSHA1   <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// K{I,L}MD-SHA-1 functions</span></code></span>
-<span class="codeline" id="line-107"><code>	HasSHA256 <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// K{I,L}MD-SHA-256 functions</span></code></span>
-<span class="codeline" id="line-108"><code>	HasSHA512 <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// K{I,L}MD-SHA-512 functions</span></code></span>
-<span class="codeline" id="line-109"><code>	HasSHA3   <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// K{I,L}MD-SHA3-{224,256,384,512} and K{I,L}MD-SHAKE-{128,256} functions</span></code></span>
-<span class="codeline" id="line-110"><code>	HasVX     <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// vector facility. Note: the runtime sets this when it processes auxv records.</span></code></span>
-<span class="codeline" id="line-111"><code>	HasVXE    <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// vector-enhancements facility 1</span></code></span>
-<span class="codeline" id="line-112"><code>	HasKDSA   <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// elliptic curve functions</span></code></span>
-<span class="codeline" id="line-113"><code>	HasECDSA  <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// NIST curves</span></code></span>
-<span class="codeline" id="line-114"><code>	HasEDDSA  <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// Edwards curves</span></code></span>
-<span class="codeline" id="line-115"><code>	_         <a href="#line-15" class="ident">CacheLinePad</a></code></span>
-<span class="codeline" id="line-116"><code>}</code></span>
-<span class="codeline" id="line-117"><code></code></span>
-<span class="codeline" id="line-118"><code><span class="comment">// Initialize examines the processor and sets the relevant variables above.</span></code></span>
-<span class="codeline" id="line-119"><code><span class="comment">// This is called by the runtime package early in program initialization,</span></code></span>
-<span class="codeline" id="line-120"><code><span class="comment">// before normal init functions are run. env is set by runtime if the OS supports</span></code></span>
-<span class="codeline" id="line-121"><code><span class="comment">// cpu feature options in GODEBUG.</span></code></span>
-<span class="codeline" id="line-122"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../pkg/internal/cpu.html#name-Initialize" class="ident">Initialize</a></label>(<label for="r1" class="ident">env</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) {</code></span>
-<span class="codeline" id="line-123"><code>	<a href="cpu_x86.go.html#line-44" class="ident">doinit</a>()</code></span>
-<span class="codeline" id="line-124"><code>	<a href="#line-148" class="ident">processOptions</a>(<label for="r1" class="ident">env</label>)</code></span>
-<span class="codeline" id="line-125"><code>}</code></span>
-<span class="codeline" id="line-126"><code></code></span>
-<span class="codeline" id="line-127"><code><span class="comment">// options contains the cpu debug options that can be used in GODEBUG.</span></code></span>
-<span class="codeline" id="line-128"><code><span class="comment">// Options are arch dependent and are added by the arch specific doinit functions.</span></code></span>
-<span class="codeline" id="line-129"><code><span class="comment">// Features that are mandatory for the specific GOARCH should not be added to options</span></code></span>
-<span class="codeline" id="line-130"><code><span class="comment">// (e.g. SSE2 on amd64).</span></code></span>
-<span class="codeline" id="line-131"><code><span class="keyword">var</span> <a href="../../../pkg/internal/cpu.html#name-options" class="ident">options</a> []<a href="#line-134" class="ident">option</a></code></span>
-<span class="codeline" id="line-132"><code></code></span>
-<span class="codeline" id="line-133"><code><span class="comment">// Option names should be lower case. e.g. avx instead of AVX.</span></code></span>
-<span class="codeline" id="line-134"><code><span class="keyword">type</span> <a href="../../../pkg/internal/cpu.html#name-option" class="ident">option</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-135"><code>	<a href="../../../use/internal/cpu..option^a11a7.Name.html" class="ident">Name</a>      <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
-<span class="codeline" id="line-136"><code>	<a href="../../../use/internal/cpu..option^a11a7.Feature.html" class="ident">Feature</a>   *<a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
-<span class="codeline" id="line-137"><code>	<a href="../../../use/internal/cpu..option^a11a7.Specified.html" class="ident">Specified</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// whether feature value was specified in GODEBUG</span></code></span>
-<span class="codeline" id="line-138"><code>	<a href="../../../use/internal/cpu..option^a11a7.Enable.html" class="ident">Enable</a>    <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// whether feature should be enabled</span></code></span>
-<span class="codeline" id="line-139"><code>	<a href="../../../use/internal/cpu..option^a11a7.Required.html" class="ident">Required</a>  <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// whether feature is mandatory and can not be disabled</span></code></span>
+<span class="codeline" id="line-84"><code>	_         <a href="#line-15" class="ident">CacheLinePad</a></code></span>
+<span class="codeline" id="line-85"><code>	HasDARN   <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// Hardware random number generator (requires kernel enablement)</span></code></span>
+<span class="codeline" id="line-86"><code>	HasSCV    <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// Syscall vectored (requires kernel enablement)</span></code></span>
+<span class="codeline" id="line-87"><code>	IsPOWER8  <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// ISA v2.07 (POWER8)</span></code></span>
+<span class="codeline" id="line-88"><code>	IsPOWER9  <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// ISA v3.00 (POWER9)</span></code></span>
+<span class="codeline" id="line-89"><code>	IsPOWER10 <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// ISA v3.1  (POWER10)</span></code></span>
+<span class="codeline" id="line-90"><code>	_         <a href="#line-15" class="ident">CacheLinePad</a></code></span>
+<span class="codeline" id="line-91"><code>}</code></span>
+<span class="codeline" id="line-92"><code></code></span>
+<span class="codeline" id="line-93"><code><span class="keyword">var</span> <a href="../../../pkg/internal/cpu.html#name-S390X" class="ident">S390X</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-94"><code>	_         <a href="#line-15" class="ident">CacheLinePad</a></code></span>
+<span class="codeline" id="line-95"><code>	HasZARCH  <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// z architecture mode is active [mandatory]</span></code></span>
+<span class="codeline" id="line-96"><code>	HasSTFLE  <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// store facility list extended [mandatory]</span></code></span>
+<span class="codeline" id="line-97"><code>	HasLDISP  <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// long (20-bit) displacements [mandatory]</span></code></span>
+<span class="codeline" id="line-98"><code>	HasEIMM   <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// 32-bit immediates [mandatory]</span></code></span>
+<span class="codeline" id="line-99"><code>	HasDFP    <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// decimal floating point</span></code></span>
+<span class="codeline" id="line-100"><code>	HasETF3EH <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// ETF-3 enhanced</span></code></span>
+<span class="codeline" id="line-101"><code>	HasMSA    <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// message security assist (CPACF)</span></code></span>
+<span class="codeline" id="line-102"><code>	HasAES    <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// KM-AES{128,192,256} functions</span></code></span>
+<span class="codeline" id="line-103"><code>	HasAESCBC <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// KMC-AES{128,192,256} functions</span></code></span>
+<span class="codeline" id="line-104"><code>	HasAESCTR <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// KMCTR-AES{128,192,256} functions</span></code></span>
+<span class="codeline" id="line-105"><code>	HasAESGCM <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// KMA-GCM-AES{128,192,256} functions</span></code></span>
+<span class="codeline" id="line-106"><code>	HasGHASH  <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// KIMD-GHASH function</span></code></span>
+<span class="codeline" id="line-107"><code>	HasSHA1   <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// K{I,L}MD-SHA-1 functions</span></code></span>
+<span class="codeline" id="line-108"><code>	HasSHA256 <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// K{I,L}MD-SHA-256 functions</span></code></span>
+<span class="codeline" id="line-109"><code>	HasSHA512 <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// K{I,L}MD-SHA-512 functions</span></code></span>
+<span class="codeline" id="line-110"><code>	HasSHA3   <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// K{I,L}MD-SHA3-{224,256,384,512} and K{I,L}MD-SHAKE-{128,256} functions</span></code></span>
+<span class="codeline" id="line-111"><code>	HasVX     <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// vector facility. Note: the runtime sets this when it processes auxv records.</span></code></span>
+<span class="codeline" id="line-112"><code>	HasVXE    <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// vector-enhancements facility 1</span></code></span>
+<span class="codeline" id="line-113"><code>	HasKDSA   <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// elliptic curve functions</span></code></span>
+<span class="codeline" id="line-114"><code>	HasECDSA  <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// NIST curves</span></code></span>
+<span class="codeline" id="line-115"><code>	HasEDDSA  <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// Edwards curves</span></code></span>
+<span class="codeline" id="line-116"><code>	_         <a href="#line-15" class="ident">CacheLinePad</a></code></span>
+<span class="codeline" id="line-117"><code>}</code></span>
+<span class="codeline" id="line-118"><code></code></span>
+<span class="codeline" id="line-119"><code><span class="comment">// Initialize examines the processor and sets the relevant variables above.</span></code></span>
+<span class="codeline" id="line-120"><code><span class="comment">// This is called by the runtime package early in program initialization,</span></code></span>
+<span class="codeline" id="line-121"><code><span class="comment">// before normal init functions are run. env is set by runtime if the OS supports</span></code></span>
+<span class="codeline" id="line-122"><code><span class="comment">// cpu feature options in GODEBUG.</span></code></span>
+<span class="codeline" id="line-123"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../pkg/internal/cpu.html#name-Initialize" class="ident">Initialize</a></label>(<label for="r1" class="ident">env</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) {</code></span>
+<span class="codeline" id="line-124"><code>	<a href="cpu_x86.go.html#line-49" class="ident">doinit</a>()</code></span>
+<span class="codeline" id="line-125"><code>	<a href="#line-148" class="ident">processOptions</a>(<label for="r1" class="ident">env</label>)</code></span>
+<span class="codeline" id="line-126"><code>}</code></span>
+<span class="codeline" id="line-127"><code></code></span>
+<span class="codeline" id="line-128"><code><span class="comment">// options contains the cpu debug options that can be used in GODEBUG.</span></code></span>
+<span class="codeline" id="line-129"><code><span class="comment">// Options are arch dependent and are added by the arch specific doinit functions.</span></code></span>
+<span class="codeline" id="line-130"><code><span class="comment">// Features that are mandatory for the specific GOARCH should not be added to options</span></code></span>
+<span class="codeline" id="line-131"><code><span class="comment">// (e.g. SSE2 on amd64).</span></code></span>
+<span class="codeline" id="line-132"><code><span class="keyword">var</span> <a href="../../../pkg/internal/cpu.html#name-options" class="ident">options</a> []<a href="#line-135" class="ident">option</a></code></span>
+<span class="codeline" id="line-133"><code></code></span>
+<span class="codeline" id="line-134"><code><span class="comment">// Option names should be lower case. e.g. avx instead of AVX.</span></code></span>
+<span class="codeline" id="line-135"><code><span class="keyword">type</span> <a href="../../../pkg/internal/cpu.html#name-option" class="ident">option</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-136"><code>	<a href="../../../use/internal/cpu..option^a11a7.Name.html" class="ident">Name</a>      <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-137"><code>	<a href="../../../use/internal/cpu..option^a11a7.Feature.html" class="ident">Feature</a>   *<a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-138"><code>	<a href="../../../use/internal/cpu..option^a11a7.Specified.html" class="ident">Specified</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// whether feature value was specified in GODEBUG</span></code></span>
+<span class="codeline" id="line-139"><code>	<a href="../../../use/internal/cpu..option^a11a7.Enable.html" class="ident">Enable</a>    <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// whether feature should be enabled</span></code></span>
 <span class="codeline" id="line-140"><code>}</code></span>
 <span class="codeline" id="line-141"><code></code></span>
 <span class="codeline" id="line-142"><code><span class="comment">// processOptions enables or disables CPU feature values based on the parsed env string.</span></code></span>
@@ -206,7 +206,7 @@ input[id=r17]:checked ~pre label[for=r17]
 <span class="codeline" id="line-149"><code><label for="r4" class="ident">field</label>:</code></span>
 <span class="codeline" id="line-150"><code>	<span class="keyword">for</span> <label for="r3" class="ident">env</label> != <span class="lit-string">""</span> {</code></span>
 <span class="codeline" id="line-151"><code>		<label for="r5" class="ident">field</label> := <span class="lit-string">""</span></code></span>
-<span class="codeline" id="line-152"><code>		<label for="r6" class="ident">i</label> := <a href="#line-219" class="ident">indexByte</a>(<label for="r3" class="ident">env</label>, <span class="lit-number">','</span>)</code></span>
+<span class="codeline" id="line-152"><code>		<label for="r6" class="ident">i</label> := <a href="#line-214" class="ident">indexByte</a>(<label for="r3" class="ident">env</label>, <span class="lit-number">','</span>)</code></span>
 <span class="codeline" id="line-153"><code>		<span class="keyword">if</span> <label for="r6" class="ident">i</label> &lt; <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-154"><code>			<label for="r5" class="ident">field</label>, <label for="r3" class="ident">env</label> = <label for="r3" class="ident">env</label>, <span class="lit-string">""</span></code></span>
 <span class="codeline" id="line-155"><code>		} <span class="keyword">else</span> {</code></span>
@@ -215,7 +215,7 @@ input[id=r17]:checked ~pre label[for=r17]
 <span class="codeline" id="line-158"><code>		<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r5" class="ident">field</label>) &lt; <span class="lit-number">4</span> || <label for="r5" class="ident">field</label>[:<span class="lit-number">4</span>] != <span class="lit-string">"cpu."</span> {</code></span>
 <span class="codeline" id="line-159"><code>			<span class="keyword">continue</span></code></span>
 <span class="codeline" id="line-160"><code>		}</code></span>
-<span class="codeline" id="line-161"><code>		<label for="r6" class="ident">i</label> = <a href="#line-219" class="ident">indexByte</a>(<label for="r5" class="ident">field</label>, <span class="lit-number">'='</span>)</code></span>
+<span class="codeline" id="line-161"><code>		<label for="r6" class="ident">i</label> = <a href="#line-214" class="ident">indexByte</a>(<label for="r5" class="ident">field</label>, <span class="lit-number">'='</span>)</code></span>
 <span class="codeline" id="line-162"><code>		<span class="keyword">if</span> <label for="r6" class="ident">i</label> &lt; <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-163"><code>			<a href="../../../pkg/builtin.html#name-print" class="ident">print</a>(<span class="lit-string">"GODEBUG: no value specified for \""</span>, <label for="r5" class="ident">field</label>, <span class="lit-string">"\"\n"</span>)</code></span>
 <span class="codeline" id="line-164"><code>			<span class="keyword">continue</span></code></span>
@@ -234,17 +234,17 @@ input[id=r17]:checked ~pre label[for=r17]
 <span class="codeline" id="line-177"><code>		}</code></span>
 <span class="codeline" id="line-178"><code></code></span>
 <span class="codeline" id="line-179"><code>		<span class="keyword">if</span> <label for="r7" class="ident">key</label> == <span class="lit-string">"all"</span> {</code></span>
-<span class="codeline" id="line-180"><code>			<span class="keyword">for</span> <label for="r10" class="ident">i</label> := <span class="keyword">range</span> <a href="#line-131" class="ident">options</a> {</code></span>
-<span class="codeline" id="line-181"><code>				<a href="#line-131" class="ident">options</a>[<label for="r10" class="ident">i</label>].<a href="#line-137" class="ident">Specified</a> = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-182"><code>				<a href="#line-131" class="ident">options</a>[<label for="r10" class="ident">i</label>].<a href="#line-138" class="ident">Enable</a> = <label for="r9" class="ident">enable</label> || <a href="#line-131" class="ident">options</a>[<label for="r10" class="ident">i</label>].<a href="#line-139" class="ident">Required</a></code></span>
+<span class="codeline" id="line-180"><code>			<span class="keyword">for</span> <label for="r10" class="ident">i</label> := <span class="keyword">range</span> <a href="#line-132" class="ident">options</a> {</code></span>
+<span class="codeline" id="line-181"><code>				<a href="#line-132" class="ident">options</a>[<label for="r10" class="ident">i</label>].<a href="#line-138" class="ident">Specified</a> = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-182"><code>				<a href="#line-132" class="ident">options</a>[<label for="r10" class="ident">i</label>].<a href="#line-139" class="ident">Enable</a> = <label for="r9" class="ident">enable</label></code></span>
 <span class="codeline" id="line-183"><code>			}</code></span>
 <span class="codeline" id="line-184"><code>			<span class="keyword">continue</span> <label for="r4" class="ident">field</label></code></span>
 <span class="codeline" id="line-185"><code>		}</code></span>
 <span class="codeline" id="line-186"><code></code></span>
-<span class="codeline" id="line-187"><code>		<span class="keyword">for</span> <label for="r11" class="ident">i</label> := <span class="keyword">range</span> <a href="#line-131" class="ident">options</a> {</code></span>
-<span class="codeline" id="line-188"><code>			<span class="keyword">if</span> <a href="#line-131" class="ident">options</a>[<label for="r11" class="ident">i</label>].<a href="#line-135" class="ident">Name</a> == <label for="r7" class="ident">key</label> {</code></span>
-<span class="codeline" id="line-189"><code>				<a href="#line-131" class="ident">options</a>[<label for="r11" class="ident">i</label>].<a href="#line-137" class="ident">Specified</a> = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-190"><code>				<a href="#line-131" class="ident">options</a>[<label for="r11" class="ident">i</label>].<a href="#line-138" class="ident">Enable</a> = <label for="r9" class="ident">enable</label></code></span>
+<span class="codeline" id="line-187"><code>		<span class="keyword">for</span> <label for="r11" class="ident">i</label> := <span class="keyword">range</span> <a href="#line-132" class="ident">options</a> {</code></span>
+<span class="codeline" id="line-188"><code>			<span class="keyword">if</span> <a href="#line-132" class="ident">options</a>[<label for="r11" class="ident">i</label>].<a href="#line-136" class="ident">Name</a> == <label for="r7" class="ident">key</label> {</code></span>
+<span class="codeline" id="line-189"><code>				<a href="#line-132" class="ident">options</a>[<label for="r11" class="ident">i</label>].<a href="#line-138" class="ident">Specified</a> = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-190"><code>				<a href="#line-132" class="ident">options</a>[<label for="r11" class="ident">i</label>].<a href="#line-139" class="ident">Enable</a> = <label for="r9" class="ident">enable</label></code></span>
 <span class="codeline" id="line-191"><code>				<span class="keyword">continue</span> <label for="r4" class="ident">field</label></code></span>
 <span class="codeline" id="line-192"><code>			}</code></span>
 <span class="codeline" id="line-193"><code>		}</code></span>
@@ -252,38 +252,33 @@ input[id=r17]:checked ~pre label[for=r17]
 <span class="codeline" id="line-195"><code>		<a href="../../../pkg/builtin.html#name-print" class="ident">print</a>(<span class="lit-string">"GODEBUG: unknown cpu feature \""</span>, <label for="r7" class="ident">key</label>, <span class="lit-string">"\"\n"</span>)</code></span>
 <span class="codeline" id="line-196"><code>	}</code></span>
 <span class="codeline" id="line-197"><code></code></span>
-<span class="codeline" id="line-198"><code>	<span class="keyword">for</span> <label for="r12" class="ident">_</label>, <label for="r13" class="ident">o</label> := <span class="keyword">range</span> <a href="#line-131" class="ident">options</a> {</code></span>
-<span class="codeline" id="line-199"><code>		<span class="keyword">if</span> !<label for="r13" class="ident">o</label>.<a href="#line-137" class="ident">Specified</a> {</code></span>
+<span class="codeline" id="line-198"><code>	<span class="keyword">for</span> <label for="r12" class="ident">_</label>, <label for="r13" class="ident">o</label> := <span class="keyword">range</span> <a href="#line-132" class="ident">options</a> {</code></span>
+<span class="codeline" id="line-199"><code>		<span class="keyword">if</span> !<label for="r13" class="ident">o</label>.<a href="#line-138" class="ident">Specified</a> {</code></span>
 <span class="codeline" id="line-200"><code>			<span class="keyword">continue</span></code></span>
 <span class="codeline" id="line-201"><code>		}</code></span>
 <span class="codeline" id="line-202"><code></code></span>
-<span class="codeline" id="line-203"><code>		<span class="keyword">if</span> <label for="r13" class="ident">o</label>.<a href="#line-138" class="ident">Enable</a> &amp;&amp; !*<label for="r13" class="ident">o</label>.<a href="#line-136" class="ident">Feature</a> {</code></span>
-<span class="codeline" id="line-204"><code>			<a href="../../../pkg/builtin.html#name-print" class="ident">print</a>(<span class="lit-string">"GODEBUG: can not enable \""</span>, <label for="r13" class="ident">o</label>.<a href="#line-135" class="ident">Name</a>, <span class="lit-string">"\", missing CPU support\n"</span>)</code></span>
+<span class="codeline" id="line-203"><code>		<span class="keyword">if</span> <label for="r13" class="ident">o</label>.<a href="#line-139" class="ident">Enable</a> &amp;&amp; !*<label for="r13" class="ident">o</label>.<a href="#line-137" class="ident">Feature</a> {</code></span>
+<span class="codeline" id="line-204"><code>			<a href="../../../pkg/builtin.html#name-print" class="ident">print</a>(<span class="lit-string">"GODEBUG: can not enable \""</span>, <label for="r13" class="ident">o</label>.<a href="#line-136" class="ident">Name</a>, <span class="lit-string">"\", missing CPU support\n"</span>)</code></span>
 <span class="codeline" id="line-205"><code>			<span class="keyword">continue</span></code></span>
 <span class="codeline" id="line-206"><code>		}</code></span>
 <span class="codeline" id="line-207"><code></code></span>
-<span class="codeline" id="line-208"><code>		<span class="keyword">if</span> !<label for="r13" class="ident">o</label>.<a href="#line-138" class="ident">Enable</a> &amp;&amp; <label for="r13" class="ident">o</label>.<a href="#line-139" class="ident">Required</a> {</code></span>
-<span class="codeline" id="line-209"><code>			<a href="../../../pkg/builtin.html#name-print" class="ident">print</a>(<span class="lit-string">"GODEBUG: can not disable \""</span>, <label for="r13" class="ident">o</label>.<a href="#line-135" class="ident">Name</a>, <span class="lit-string">"\", required CPU feature\n"</span>)</code></span>
-<span class="codeline" id="line-210"><code>			<span class="keyword">continue</span></code></span>
-<span class="codeline" id="line-211"><code>		}</code></span>
-<span class="codeline" id="line-212"><code></code></span>
-<span class="codeline" id="line-213"><code>		*<label for="r13" class="ident">o</label>.<a href="#line-136" class="ident">Feature</a> = <label for="r13" class="ident">o</label>.<a href="#line-138" class="ident">Enable</a></code></span>
-<span class="codeline" id="line-214"><code>	}</code></span>
-<span class="codeline" id="line-215"><code>}</code></span>
-<span class="codeline" id="line-216"><code></code></span>
-<span class="codeline" id="line-217"><code><span class="comment">// indexByte returns the index of the first instance of c in s,</span></code></span>
-<span class="codeline" id="line-218"><code><span class="comment">// or -1 if c is not present in s.</span></code></span>
-<span class="codeline" id="line-219"><code><span class="keyword">func</span> <label for="r14" class="ident"><a href="../../../pkg/internal/cpu.html#name-indexByte" class="ident">indexByte</a></label>(<label for="r15" class="ident">s</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r16" class="ident">c</label> <a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>) <a href="../../../pkg/builtin.html#name-int" class="ident">int</a> {</code></span>
-<span class="codeline" id="line-220"><code>	<span class="keyword">for</span> <label for="r17" class="ident">i</label> := <span class="lit-number">0</span>; <label for="r17" class="ident">i</label> &lt; <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r15" class="ident">s</label>); <label for="r17" class="ident">i</label>++ {</code></span>
-<span class="codeline" id="line-221"><code>		<span class="keyword">if</span> <label for="r15" class="ident">s</label>[<label for="r17" class="ident">i</label>] == <label for="r16" class="ident">c</label> {</code></span>
-<span class="codeline" id="line-222"><code>			<span class="keyword">return</span> <label for="r17" class="ident">i</label></code></span>
-<span class="codeline" id="line-223"><code>		}</code></span>
-<span class="codeline" id="line-224"><code>	}</code></span>
-<span class="codeline" id="line-225"><code>	<span class="keyword">return</span> -<span class="lit-number">1</span></code></span>
-<span class="codeline" id="line-226"><code>}</code></span>
+<span class="codeline" id="line-208"><code>		*<label for="r13" class="ident">o</label>.<a href="#line-137" class="ident">Feature</a> = <label for="r13" class="ident">o</label>.<a href="#line-139" class="ident">Enable</a></code></span>
+<span class="codeline" id="line-209"><code>	}</code></span>
+<span class="codeline" id="line-210"><code>}</code></span>
+<span class="codeline" id="line-211"><code></code></span>
+<span class="codeline" id="line-212"><code><span class="comment">// indexByte returns the index of the first instance of c in s,</span></code></span>
+<span class="codeline" id="line-213"><code><span class="comment">// or -1 if c is not present in s.</span></code></span>
+<span class="codeline" id="line-214"><code><span class="keyword">func</span> <label for="r14" class="ident"><a href="../../../pkg/internal/cpu.html#name-indexByte" class="ident">indexByte</a></label>(<label for="r15" class="ident">s</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r16" class="ident">c</label> <a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>) <a href="../../../pkg/builtin.html#name-int" class="ident">int</a> {</code></span>
+<span class="codeline" id="line-215"><code>	<span class="keyword">for</span> <label for="r17" class="ident">i</label> := <span class="lit-number">0</span>; <label for="r17" class="ident">i</label> &lt; <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r15" class="ident">s</label>); <label for="r17" class="ident">i</label>++ {</code></span>
+<span class="codeline" id="line-216"><code>		<span class="keyword">if</span> <label for="r15" class="ident">s</label>[<label for="r17" class="ident">i</label>] == <label for="r16" class="ident">c</label> {</code></span>
+<span class="codeline" id="line-217"><code>			<span class="keyword">return</span> <label for="r17" class="ident">i</label></code></span>
+<span class="codeline" id="line-218"><code>		}</code></span>
+<span class="codeline" id="line-219"><code>	}</code></span>
+<span class="codeline" id="line-220"><code>	<span class="keyword">return</span> -<span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-221"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

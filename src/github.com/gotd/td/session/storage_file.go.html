@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: storage_file.go in package github.com/gotd/td/session</title>
-<link href="../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -53,31 +53,31 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"os"</span></label></code></span>
 <span class="codeline" id="line-6"><code>	<label for="i2"><span class="lit-string i2">"sync"</span></label></code></span>
 <span class="codeline" id="line-7"><code></code></span>
-<span class="codeline" id="line-8"><code>	<label for="i3"><span class="lit-string i3">"golang.org/x/xerrors"</span></label></code></span>
+<span class="codeline" id="line-8"><code>	<label for="i3"><span class="lit-string i3">"github.com/go-faster/errors"</span></label></code></span>
 <span class="codeline" id="line-9"><code>)</code></span>
 <span class="codeline" id="line-10"><code></code></span>
 <span class="codeline" id="line-11"><code><span class="comment">// FileStorage implements SessionStorage for file system as file</span></code></span>
 <span class="codeline" id="line-12"><code><span class="comment">// stored in Path.</span></code></span>
 <span class="codeline" id="line-13"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/session.html#name-FileStorage" class="ident">FileStorage</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-14"><code>	<a href="../../../../../use/github.com/gotd/td/session..FileStorage.Path.html" class="ident">Path</a> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
-<span class="codeline" id="line-15"><code>	<a href="../../../../../use/github.com/gotd/td/session..FileStorage.mux^99830.html" class="ident">mux</a>  <a href="../../../../../pkg/sync.html" class="ident i2">sync</a>.<a href="../../../../sync/mutex.go.html#line-25" class="ident">Mutex</a></code></span>
+<span class="codeline" id="line-15"><code>	<a href="../../../../../use/github.com/gotd/td/session..FileStorage.mux^99830.html" class="ident">mux</a>  <a href="../../../../../pkg/sync.html" class="ident i2">sync</a>.<a href="../../../../sync/mutex.go.html#line-34" class="ident">Mutex</a></code></span>
 <span class="codeline" id="line-16"><code>}</code></span>
 <span class="codeline" id="line-17"><code></code></span>
 <span class="codeline" id="line-18"><code><span class="comment">// LoadSession loads session from file.</span></code></span>
 <span class="codeline" id="line-19"><code><span class="keyword">func</span> (<label for="r0" class="ident">f</label> *<a href="#line-13" class="ident">FileStorage</a>) <label for="r1" class="ident"><a href="../../../../../use/github.com/gotd/td/session..FileStorage.LoadSession.html" class="ident">LoadSession</a></label>(<label for="r2" class="ident">_</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>) ([]<a href="../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
 <span class="codeline" id="line-20"><code>	<span class="keyword">if</span> <label for="r0" class="ident">f</label> == <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-21"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../pkg/golang.org/x/xerrors.html" class="ident i3">xerrors</a>.<a href="../../../../golang.org/x/xerrors/errors.go.html#line-19" class="ident">New</a>(<span class="lit-string">"nil session storage is invalid"</span>)</code></span>
+<span class="codeline" id="line-21"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i3">errors</a>.<a href="../../../go-faster/errors/errors.go.html#line-22" class="ident">New</a>(<span class="lit-string">"nil session storage is invalid"</span>)</code></span>
 <span class="codeline" id="line-22"><code>	}</code></span>
 <span class="codeline" id="line-23"><code></code></span>
-<span class="codeline" id="line-24"><code>	<label for="r0" class="ident">f</label>.<a href="#line-15" class="ident">mux</a>.<a href="../../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
-<span class="codeline" id="line-25"><code>	<span class="keyword">defer</span> <label for="r0" class="ident">f</label>.<a href="#line-15" class="ident">mux</a>.<a href="../../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-24"><code>	<label for="r0" class="ident">f</label>.<a href="#line-15" class="ident">mux</a>.<a href="../../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-25"><code>	<span class="keyword">defer</span> <label for="r0" class="ident">f</label>.<a href="#line-15" class="ident">mux</a>.<a href="../../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-26"><code></code></span>
-<span class="codeline" id="line-27"><code>	<label for="r3" class="ident">data</label>, <label for="r4" class="ident">err</label> := <a href="../../../../../pkg/os.html" class="ident i1">os</a>.<a href="../../../../os/file.go.html#line-669" class="ident">ReadFile</a>(<label for="r0" class="ident">f</label>.<a href="#line-14" class="ident">Path</a>)</code></span>
+<span class="codeline" id="line-27"><code>	<label for="r3" class="ident">data</label>, <label for="r4" class="ident">err</label> := <a href="../../../../../pkg/os.html" class="ident i1">os</a>.<a href="../../../../os/file.go.html#line-672" class="ident">ReadFile</a>(<label for="r0" class="ident">f</label>.<a href="#line-14" class="ident">Path</a>)</code></span>
 <span class="codeline" id="line-28"><code>	<span class="keyword">if</span> <a href="../../../../../pkg/os.html" class="ident i1">os</a>.<a href="../../../../os/error.go.html#line-92" class="ident">IsNotExist</a>(<label for="r4" class="ident">err</label>) {</code></span>
-<span class="codeline" id="line-29"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="session.go.html#line-35" class="ident">ErrNotFound</a></code></span>
+<span class="codeline" id="line-29"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="session.go.html#line-34" class="ident">ErrNotFound</a></code></span>
 <span class="codeline" id="line-30"><code>	}</code></span>
 <span class="codeline" id="line-31"><code>	<span class="keyword">if</span> <label for="r4" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-32"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../pkg/golang.org/x/xerrors.html" class="ident i3">xerrors</a>.<a href="../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"read: %w"</span>, <label for="r4" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-32"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i3">errors</a>.<a href="../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r4" class="ident">err</label>, <span class="lit-string">"read"</span>)</code></span>
 <span class="codeline" id="line-33"><code>	}</code></span>
 <span class="codeline" id="line-34"><code></code></span>
 <span class="codeline" id="line-35"><code>	<span class="keyword">return</span> <label for="r3" class="ident">data</label>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
@@ -86,17 +86,17 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-38"><code><span class="comment">// StoreSession stores session to file.</span></code></span>
 <span class="codeline" id="line-39"><code><span class="keyword">func</span> (<label for="r5" class="ident">f</label> *<a href="#line-13" class="ident">FileStorage</a>) <label for="r6" class="ident"><a href="../../../../../use/github.com/gotd/td/session..FileStorage.StoreSession.html" class="ident">StoreSession</a></label>(<label for="r7" class="ident">_</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r8" class="ident">data</label> []<a href="../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
 <span class="codeline" id="line-40"><code>	<span class="keyword">if</span> <label for="r5" class="ident">f</label> == <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-41"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/golang.org/x/xerrors.html" class="ident i3">xerrors</a>.<a href="../../../../golang.org/x/xerrors/errors.go.html#line-19" class="ident">New</a>(<span class="lit-string">"nil session storage is invalid"</span>)</code></span>
+<span class="codeline" id="line-41"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i3">errors</a>.<a href="../../../go-faster/errors/errors.go.html#line-22" class="ident">New</a>(<span class="lit-string">"nil session storage is invalid"</span>)</code></span>
 <span class="codeline" id="line-42"><code>	}</code></span>
 <span class="codeline" id="line-43"><code></code></span>
-<span class="codeline" id="line-44"><code>	<label for="r5" class="ident">f</label>.<a href="#line-15" class="ident">mux</a>.<a href="../../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
-<span class="codeline" id="line-45"><code>	<span class="keyword">defer</span> <label for="r5" class="ident">f</label>.<a href="#line-15" class="ident">mux</a>.<a href="../../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-44"><code>	<label for="r5" class="ident">f</label>.<a href="#line-15" class="ident">mux</a>.<a href="../../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-45"><code>	<span class="keyword">defer</span> <label for="r5" class="ident">f</label>.<a href="#line-15" class="ident">mux</a>.<a href="../../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-46"><code>	<span class="comment">// TODO(tdakkota): use robustio/renameio?</span></code></span>
-<span class="codeline" id="line-47"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/os.html" class="ident i1">os</a>.<a href="../../../../os/file.go.html#line-713" class="ident">WriteFile</a>(<label for="r5" class="ident">f</label>.<a href="#line-14" class="ident">Path</a>, <label for="r8" class="ident">data</label>, <span class="lit-number">0600</span>)</code></span>
+<span class="codeline" id="line-47"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/os.html" class="ident i1">os</a>.<a href="../../../../os/file.go.html#line-716" class="ident">WriteFile</a>(<label for="r5" class="ident">f</label>.<a href="#line-14" class="ident">Path</a>, <label for="r8" class="ident">data</label>, <span class="lit-number">0600</span>)</code></span>
 <span class="codeline" id="line-48"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

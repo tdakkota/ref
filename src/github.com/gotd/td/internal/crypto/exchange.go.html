@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: exchange.go in package github.com/gotd/td/internal/crypto</title>
-<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -40,17 +40,14 @@ input[id=r20]:checked ~pre label[for=r20],
 input[id=r21]:checked ~pre label[for=r21],
 input[id=r22]:checked ~pre label[for=r22],
 input[id=r23]:checked ~pre label[for=r23],
-input[id=r24]:checked ~pre label[for=r24],
-input[id=r25]:checked ~pre label[for=r25],
-input[id=r26]:checked ~pre label[for=r26]
+input[id=r24]:checked ~pre label[for=r24]
 {background: #226; color: #ff8;}
 input[id=i0]:checked ~pre .i0,
 input[id=i1]:checked ~pre .i1,
 input[id=i2]:checked ~pre .i2,
 input[id=i3]:checked ~pre .i3,
 input[id=i4]:checked ~pre .i4,
-input[id=i5]:checked ~pre .i5,
-input[id=i6]:checked ~pre .i6
+input[id=i5]:checked ~pre .i5
 {background: brown; color: #eed;}
 </style><input id="r0" type="radio" name="g"/>
 <input id="r1" type="radio" name="g"/>
@@ -77,15 +74,12 @@ input[id=i6]:checked ~pre .i6
 <input id="r22" type="radio" name="g"/>
 <input id="r23" type="radio" name="g"/>
 <input id="r24" type="radio" name="g"/>
-<input id="r25" type="radio" name="g"/>
-<input id="r26" type="radio" name="g"/>
 <input id="i0" type="radio" name="i"/>
 <input id="i1" type="radio" name="i"/>
 <input id="i2" type="radio" name="i"/>
 <input id="i3" type="radio" name="i"/>
 <input id="i4" type="radio" name="i"/>
 <input id="i5" type="radio" name="i"/>
-<input id="i6" type="radio" name="i"/>
 
 <pre class="line-numbers">
 <span class="codeline" id="line-1"><code><span class="keyword">package</span> crypto</code></span>
@@ -93,79 +87,77 @@ input[id=i6]:checked ~pre .i6
 <span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
 <span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"crypto/aes"</span></label></code></span>
 <span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"crypto/sha1"</span></label> <span class="comment">// #nosec</span></code></span>
-<span class="codeline" id="line-6"><code>	<label for="i2"><span class="lit-string i2">"errors"</span></label></code></span>
-<span class="codeline" id="line-7"><code>	<label for="i3"><span class="lit-string i3">"io"</span></label></code></span>
-<span class="codeline" id="line-8"><code></code></span>
-<span class="codeline" id="line-9"><code>	<label for="i4"><span class="lit-string i4">"golang.org/x/xerrors"</span></label></code></span>
-<span class="codeline" id="line-10"><code></code></span>
-<span class="codeline" id="line-11"><code>	<label for="i5"><span class="lit-string i5">"github.com/gotd/ige"</span></label></code></span>
-<span class="codeline" id="line-12"><code>	<label for="i6"><span class="lit-string i6">"github.com/gotd/td/bin"</span></label></code></span>
+<span class="codeline" id="line-6"><code>	<label for="i2"><span class="lit-string i2">"io"</span></label></code></span>
+<span class="codeline" id="line-7"><code></code></span>
+<span class="codeline" id="line-8"><code>	<label for="i3"><span class="lit-string i3">"github.com/go-faster/errors"</span></label></code></span>
+<span class="codeline" id="line-9"><code></code></span>
+<span class="codeline" id="line-10"><code>	<label for="i4"><span class="lit-string i4">"github.com/gotd/ige"</span></label></code></span>
+<span class="codeline" id="line-11"><code></code></span>
+<span class="codeline" id="line-12"><code>	<label for="i5"><span class="lit-string i5">"github.com/gotd/td/bin"</span></label></code></span>
 <span class="codeline" id="line-13"><code>)</code></span>
 <span class="codeline" id="line-14"><code></code></span>
 <span class="codeline" id="line-15"><code><span class="comment">// DecryptExchangeAnswer decrypts messages created during key exchange.</span></code></span>
 <span class="codeline" id="line-16"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-DecryptExchangeAnswer" class="ident">DecryptExchangeAnswer</a></label>(<label for="r1" class="ident">data</label>, <label for="r2" class="ident">key</label>, <label for="r3" class="ident">iv</label> []<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) (<label for="r4" class="ident">dst</label> []<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r5" class="ident">err</label> <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
 <span class="codeline" id="line-17"><code>	<span class="comment">// Decrypting inner data.</span></code></span>
-<span class="codeline" id="line-18"><code>	<label for="r6" class="ident">cipher</label>, <label for="r5" class="ident">err</label> := <a href="../../../../../../pkg/crypto/aes.html" class="ident i0">aes</a>.<a href="../../../../../crypto/aes/cipher.go.html#line-32" class="ident">NewCipher</a>(<label for="r2" class="ident">key</label>)</code></span>
+<span class="codeline" id="line-18"><code>	<label for="r6" class="ident">cipher</label>, <label for="r5" class="ident">err</label> := <a href="../../../../../../pkg/crypto/aes.html" class="ident i0">aes</a>.<a href="../../../../../crypto/aes/cipher.go.html#line-33" class="ident">NewCipher</a>(<label for="r2" class="ident">key</label>)</code></span>
 <span class="codeline" id="line-19"><code>	<span class="keyword">if</span> <label for="r5" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-20"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i4">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"failed to init aes cipher: %w"</span>, <label for="r5" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-20"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i3">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r5" class="ident">err</label>, <span class="lit-string">"create aes cipher"</span>)</code></span>
 <span class="codeline" id="line-21"><code>	}</code></span>
 <span class="codeline" id="line-22"><code></code></span>
-<span class="codeline" id="line-23"><code>	<label for="r7" class="ident">d</label> := <a href="../../../../../../pkg/github.com/gotd/ige.html" class="ident i5">ige</a>.<a href="../../../ige/decrypt.go.html#line-14" class="ident">NewIGEDecrypter</a>(<label for="r6" class="ident">cipher</label>, <label for="r3" class="ident">iv</label>)</code></span>
-<span class="codeline" id="line-24"><code>	<label for="r8" class="ident">dataWithHash</label> := <a href="../../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r1" class="ident">data</label>))</code></span>
-<span class="codeline" id="line-25"><code>	<span class="comment">// Checking length. Invalid length will lead to panic in CryptBlocks.</span></code></span>
-<span class="codeline" id="line-26"><code>	<span class="keyword">if</span> <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r8" class="ident">dataWithHash</label>)%<label for="r6" class="ident">cipher</label>.<a href="../../../../../crypto/cipher/cipher.go.html#line-17" class="ident">BlockSize</a>() != <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-27"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i4">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"invalid len of data_with_hash (%d %% 16 != 0)"</span>, <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r8" class="ident">dataWithHash</label>))</code></span>
-<span class="codeline" id="line-28"><code>	}</code></span>
-<span class="codeline" id="line-29"><code>	<label for="r7" class="ident">d</label>.<a href="../../../ige/ige.go.html#line-24" class="ident">CryptBlocks</a>(<label for="r8" class="ident">dataWithHash</label>, <label for="r1" class="ident">data</label>)</code></span>
-<span class="codeline" id="line-30"><code></code></span>
-<span class="codeline" id="line-31"><code>	<label for="r4" class="ident">dst</label> = <a href="data_with_hash.go.html#line-10" class="ident">GuessDataWithHash</a>(<label for="r8" class="ident">dataWithHash</label>)</code></span>
-<span class="codeline" id="line-32"><code>	<span class="keyword">if</span> <label for="r1" class="ident">data</label> == <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-33"><code>		<span class="comment">// Most common cause of this error is invalid crypto implementation,</span></code></span>
-<span class="codeline" id="line-34"><code><span class="comment">		// i.e. invalid keys are used to decrypt payload which lead to</span></code></span>
-<span class="codeline" id="line-35"><code><span class="comment">		// decrypt failure, so data does not match sha1 with any padding.</span></code></span>
-<span class="codeline" id="line-36"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/errors.html" class="ident i2">errors</a>.<a href="../../../../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"failed to guess data from data_with_hash"</span>)</code></span>
-<span class="codeline" id="line-37"><code>	}</code></span>
-<span class="codeline" id="line-38"><code></code></span>
-<span class="codeline" id="line-39"><code>	<span class="keyword">return</span></code></span>
-<span class="codeline" id="line-40"><code>}</code></span>
-<span class="codeline" id="line-41"><code></code></span>
-<span class="codeline" id="line-42"><code><span class="comment">// EncryptExchangeAnswer encrypts messages created during key exchange.</span></code></span>
-<span class="codeline" id="line-43"><code><span class="keyword">func</span> <label for="r9" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-EncryptExchangeAnswer" class="ident">EncryptExchangeAnswer</a></label>(<label for="r10" class="ident">rand</label> <a href="../../../../../../pkg/io.html" class="ident i3">io</a>.<a href="../../../../../io/io.go.html#line-83" class="ident">Reader</a>, <label for="r11" class="ident">answer</label>, <label for="r12" class="ident">key</label>, <label for="r13" class="ident">iv</label> []<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) (<label for="r14" class="ident">dst</label> []<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r15" class="ident">err</label> <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-44"><code>	<label for="r16" class="ident">cipher</label>, <label for="r15" class="ident">err</label> := <a href="../../../../../../pkg/crypto/aes.html" class="ident i0">aes</a>.<a href="../../../../../crypto/aes/cipher.go.html#line-32" class="ident">NewCipher</a>(<label for="r12" class="ident">key</label>)</code></span>
-<span class="codeline" id="line-45"><code>	<span class="keyword">if</span> <label for="r15" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-46"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i4">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"failed to init aes cipher: %w"</span>, <label for="r15" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-47"><code>	}</code></span>
-<span class="codeline" id="line-48"><code></code></span>
-<span class="codeline" id="line-49"><code>	<label for="r17" class="ident">answerWithHash</label>, <label for="r15" class="ident">err</label> := <a href="data_with_hash.go.html#line-46" class="ident">DataWithHash</a>(<label for="r11" class="ident">answer</label>, <label for="r10" class="ident">rand</label>)</code></span>
-<span class="codeline" id="line-50"><code>	<span class="keyword">if</span> <label for="r15" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-51"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i4">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"failed to get answer with hash: %w"</span>, <label for="r15" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-52"><code>	}</code></span>
-<span class="codeline" id="line-53"><code></code></span>
-<span class="codeline" id="line-54"><code>	<label for="r14" class="ident">dst</label> = <a href="../../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r17" class="ident">answerWithHash</label>))</code></span>
-<span class="codeline" id="line-55"><code>	<label for="r18" class="ident">i</label> := <a href="../../../../../../pkg/github.com/gotd/ige.html" class="ident i5">ige</a>.<a href="../../../ige/encrypt.go.html#line-14" class="ident">NewIGEEncrypter</a>(<label for="r16" class="ident">cipher</label>, <label for="r13" class="ident">iv</label>)</code></span>
-<span class="codeline" id="line-56"><code>	<label for="r18" class="ident">i</label>.<a href="../../../ige/ige.go.html#line-24" class="ident">CryptBlocks</a>(<label for="r14" class="ident">dst</label>, <label for="r17" class="ident">answerWithHash</label>)</code></span>
-<span class="codeline" id="line-57"><code>	<span class="keyword">return</span></code></span>
-<span class="codeline" id="line-58"><code>}</code></span>
-<span class="codeline" id="line-59"><code></code></span>
-<span class="codeline" id="line-60"><code><span class="comment">// NonceHash1 computes nonce_hash_1.</span></code></span>
-<span class="codeline" id="line-61"><code><span class="comment">// See https://core.telegram.org/mtproto/auth_key#dh-key-exchange-complete.</span></code></span>
-<span class="codeline" id="line-62"><code><span class="keyword">func</span> <label for="r19" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-NonceHash1" class="ident">NonceHash1</a></label>(<label for="r20" class="ident">newNonce</label> <a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../bin/int256.go.html#line-6" class="ident">Int256</a>, <label for="r21" class="ident">key</label> <a href="key.go.html#line-11" class="ident">Key</a>) (<label for="r22" class="ident">r</label> <a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../bin/int128.go.html#line-6" class="ident">Int128</a>) {</code></span>
-<span class="codeline" id="line-63"><code>	<span class="keyword">var</span> <label for="r23" class="ident">buf</label> []<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
-<span class="codeline" id="line-64"><code>	<label for="r23" class="ident">buf</label> = <a href="../../../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r23" class="ident">buf</label>, <label for="r20" class="ident">newNonce</label>[:]...)</code></span>
-<span class="codeline" id="line-65"><code>	<label for="r23" class="ident">buf</label> = <a href="../../../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r23" class="ident">buf</label>, <span class="lit-number">1</span>)</code></span>
-<span class="codeline" id="line-66"><code>	<label for="r23" class="ident">buf</label> = <a href="../../../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r23" class="ident">buf</label>, <a href="#line-72" class="ident">sha</a>(<label for="r21" class="ident">key</label>[:])[<span class="lit-number">0</span>:<span class="lit-number">8</span>]...)</code></span>
-<span class="codeline" id="line-67"><code>	<label for="r23" class="ident">buf</label> = <a href="#line-72" class="ident">sha</a>(<label for="r23" class="ident">buf</label>)[<span class="lit-number">4</span>:<span class="lit-number">20</span>]</code></span>
-<span class="codeline" id="line-68"><code>	<a href="../../../../../../pkg/builtin.html#name-copy" class="ident">copy</a>(<label for="r22" class="ident">r</label>[:], <label for="r23" class="ident">buf</label>)</code></span>
-<span class="codeline" id="line-69"><code>	<span class="keyword">return</span></code></span>
-<span class="codeline" id="line-70"><code>}</code></span>
-<span class="codeline" id="line-71"><code></code></span>
-<span class="codeline" id="line-72"><code><span class="keyword">func</span> <label for="r24" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-sha" class="ident">sha</a></label>(<label for="r25" class="ident">v</label> []<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) []<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a> {</code></span>
-<span class="codeline" id="line-73"><code>	<label for="r26" class="ident">h</label> := <a href="../../../../../../pkg/crypto/sha1.html" class="ident i1">sha1</a>.<a href="../../../../../crypto/sha1/sha1.go.html#line-261" class="ident">Sum</a>(<label for="r25" class="ident">v</label>) <span class="comment">// #nosec</span></code></span>
-<span class="codeline" id="line-74"><code>	<span class="keyword">return</span> <label for="r26" class="ident">h</label>[:]</code></span>
-<span class="codeline" id="line-75"><code>}</code></span>
+<span class="codeline" id="line-23"><code>	<label for="r7" class="ident">dataWithHash</label> := <a href="../../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r1" class="ident">data</label>))</code></span>
+<span class="codeline" id="line-24"><code>	<span class="comment">// Checking length. Invalid length will lead to panic in CryptBlocks.</span></code></span>
+<span class="codeline" id="line-25"><code>	<span class="keyword">if</span> <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r7" class="ident">dataWithHash</label>)%<label for="r6" class="ident">cipher</label>.<a href="../../../../../crypto/cipher/cipher.go.html#line-17" class="ident">BlockSize</a>() != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-26"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i3">errors</a>.<a href="../../../../go-faster/errors/format.go.html#line-42" class="ident">Errorf</a>(<span class="lit-string">"invalid len of data_with_hash (%d %% 16 != 0)"</span>, <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r7" class="ident">dataWithHash</label>))</code></span>
+<span class="codeline" id="line-27"><code>	}</code></span>
+<span class="codeline" id="line-28"><code>	<a href="../../../../../../pkg/github.com/gotd/ige.html" class="ident i4">ige</a>.<a href="../../../ige/decrypt.go.html#line-35" class="ident">DecryptBlocks</a>(<label for="r6" class="ident">cipher</label>, <label for="r3" class="ident">iv</label>, <label for="r7" class="ident">dataWithHash</label>, <label for="r1" class="ident">data</label>)</code></span>
+<span class="codeline" id="line-29"><code></code></span>
+<span class="codeline" id="line-30"><code>	<label for="r4" class="ident">dst</label> = <a href="data_with_hash.go.html#line-10" class="ident">GuessDataWithHash</a>(<label for="r7" class="ident">dataWithHash</label>)</code></span>
+<span class="codeline" id="line-31"><code>	<span class="keyword">if</span> <label for="r1" class="ident">data</label> == <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-32"><code>		<span class="comment">// Most common cause of this error is invalid crypto implementation,</span></code></span>
+<span class="codeline" id="line-33"><code><span class="comment">		// i.e. invalid keys are used to decrypt payload which lead to</span></code></span>
+<span class="codeline" id="line-34"><code><span class="comment">		// decrypt failure, so data does not match sha1 with any padding.</span></code></span>
+<span class="codeline" id="line-35"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i3">errors</a>.<a href="../../../../go-faster/errors/errors.go.html#line-22" class="ident">New</a>(<span class="lit-string">"guess data from data_with_hash"</span>)</code></span>
+<span class="codeline" id="line-36"><code>	}</code></span>
+<span class="codeline" id="line-37"><code></code></span>
+<span class="codeline" id="line-38"><code>	<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-39"><code>}</code></span>
+<span class="codeline" id="line-40"><code></code></span>
+<span class="codeline" id="line-41"><code><span class="comment">// EncryptExchangeAnswer encrypts messages created during key exchange.</span></code></span>
+<span class="codeline" id="line-42"><code><span class="keyword">func</span> <label for="r8" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-EncryptExchangeAnswer" class="ident">EncryptExchangeAnswer</a></label>(<label for="r9" class="ident">rand</label> <a href="../../../../../../pkg/io.html" class="ident i2">io</a>.<a href="../../../../../io/io.go.html#line-83" class="ident">Reader</a>, <label for="r10" class="ident">answer</label>, <label for="r11" class="ident">key</label>, <label for="r12" class="ident">iv</label> []<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) (<label for="r13" class="ident">dst</label> []<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r14" class="ident">err</label> <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-43"><code>	<label for="r15" class="ident">cipher</label>, <label for="r14" class="ident">err</label> := <a href="../../../../../../pkg/crypto/aes.html" class="ident i0">aes</a>.<a href="../../../../../crypto/aes/cipher.go.html#line-33" class="ident">NewCipher</a>(<label for="r11" class="ident">key</label>)</code></span>
+<span class="codeline" id="line-44"><code>	<span class="keyword">if</span> <label for="r14" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-45"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i3">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r14" class="ident">err</label>, <span class="lit-string">"create aes cipher"</span>)</code></span>
+<span class="codeline" id="line-46"><code>	}</code></span>
+<span class="codeline" id="line-47"><code></code></span>
+<span class="codeline" id="line-48"><code>	<label for="r16" class="ident">answerWithHash</label>, <label for="r14" class="ident">err</label> := <a href="data_with_hash.go.html#line-46" class="ident">DataWithHash</a>(<label for="r10" class="ident">answer</label>, <label for="r9" class="ident">rand</label>)</code></span>
+<span class="codeline" id="line-49"><code>	<span class="keyword">if</span> <label for="r14" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-50"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i3">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r14" class="ident">err</label>, <span class="lit-string">"get answer with hash"</span>)</code></span>
+<span class="codeline" id="line-51"><code>	}</code></span>
+<span class="codeline" id="line-52"><code></code></span>
+<span class="codeline" id="line-53"><code>	<label for="r13" class="ident">dst</label> = <a href="../../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r16" class="ident">answerWithHash</label>))</code></span>
+<span class="codeline" id="line-54"><code>	<a href="../../../../../../pkg/github.com/gotd/ige.html" class="ident i4">ige</a>.<a href="../../../ige/encrypt.go.html#line-35" class="ident">EncryptBlocks</a>(<label for="r15" class="ident">cipher</label>, <label for="r12" class="ident">iv</label>, <label for="r13" class="ident">dst</label>, <label for="r16" class="ident">answerWithHash</label>)</code></span>
+<span class="codeline" id="line-55"><code>	<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-56"><code>}</code></span>
+<span class="codeline" id="line-57"><code></code></span>
+<span class="codeline" id="line-58"><code><span class="comment">// NonceHash1 computes nonce_hash_1.</span></code></span>
+<span class="codeline" id="line-59"><code><span class="comment">// See https://core.telegram.org/mtproto/auth_key#dh-key-exchange-complete.</span></code></span>
+<span class="codeline" id="line-60"><code><span class="keyword">func</span> <label for="r17" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-NonceHash1" class="ident">NonceHash1</a></label>(<label for="r18" class="ident">newNonce</label> <a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i5">bin</a>.<a href="../../bin/int256.go.html#line-6" class="ident">Int256</a>, <label for="r19" class="ident">key</label> <a href="key.go.html#line-17" class="ident">Key</a>) (<label for="r20" class="ident">r</label> <a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i5">bin</a>.<a href="../../bin/int128.go.html#line-6" class="ident">Int128</a>) {</code></span>
+<span class="codeline" id="line-61"><code>	<span class="keyword">var</span> <label for="r21" class="ident">buf</label> []<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-62"><code>	<label for="r21" class="ident">buf</label> = <a href="../../../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r21" class="ident">buf</label>, <label for="r18" class="ident">newNonce</label>[:]...)</code></span>
+<span class="codeline" id="line-63"><code>	<label for="r21" class="ident">buf</label> = <a href="../../../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r21" class="ident">buf</label>, <span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-64"><code>	<label for="r21" class="ident">buf</label> = <a href="../../../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r21" class="ident">buf</label>, <a href="#line-70" class="ident">sha</a>(<label for="r19" class="ident">key</label>[:])[<span class="lit-number">0</span>:<span class="lit-number">8</span>]...)</code></span>
+<span class="codeline" id="line-65"><code>	<label for="r21" class="ident">buf</label> = <a href="#line-70" class="ident">sha</a>(<label for="r21" class="ident">buf</label>)[<span class="lit-number">4</span>:<span class="lit-number">20</span>]</code></span>
+<span class="codeline" id="line-66"><code>	<a href="../../../../../../pkg/builtin.html#name-copy" class="ident">copy</a>(<label for="r20" class="ident">r</label>[:], <label for="r21" class="ident">buf</label>)</code></span>
+<span class="codeline" id="line-67"><code>	<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-68"><code>}</code></span>
+<span class="codeline" id="line-69"><code></code></span>
+<span class="codeline" id="line-70"><code><span class="keyword">func</span> <label for="r22" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-sha" class="ident">sha</a></label>(<label for="r23" class="ident">v</label> []<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) []<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a> {</code></span>
+<span class="codeline" id="line-71"><code>	<label for="r24" class="ident">h</label> := <a href="../../../../../../pkg/crypto/sha1.html" class="ident i1">sha1</a>.<a href="../../../../../crypto/sha1/sha1.go.html#line-266" class="ident">Sum</a>(<label for="r23" class="ident">v</label>) <span class="comment">// #nosec</span></code></span>
+<span class="codeline" id="line-72"><code>	<span class="keyword">return</span> <label for="r24" class="ident">h</label>[:]</code></span>
+<span class="codeline" id="line-73"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

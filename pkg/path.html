@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Package: path</title>
-<link href="../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../jvs/golds-v0.3.6.js"></script>
+<link href="../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="package-details"><code><span style="font-size:xx-large;">package <b>path</b></span>
@@ -15,7 +15,7 @@
 	<a href="../index.html#pkg-path">path</a><i> (on <a href="https://pkg.go.dev/path" target="_blank">go.dev</a>)</i>
 
 <span class="title">Dependency Relation</span>
-	imports <a href="../dep/path.html">3 packages</a>, and imported by <a href="../dep/path.html#imported-by">2 packages</a>
+	imports <a href="../dep/path.html">3 packages</a>, and imported by <a href="../dep/path.html#imported-by">4 packages</a>
 
 <div id="files"><span class="title">Involved Source Files</span>
 
@@ -181,9 +181,9 @@
 			<span class="nodocs"><a href="../src/path/path.go.html#line-21">w</a> <i><a href="builtin.html#name-int">int</a></i></span></i></span></span>
 		<input type='checkbox' class="fold" id="lazybuf-fold-methods"><label for="lazybuf-fold-methods">Methods (<i>total 3, none are exported</i>)</label><span id='lazybuf-fold-methods-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="lazybuf-showhide-methods"><i><label for="lazybuf-showhide-methods" class="show-inline">/* 3 unexporteds ... */</label><label for="lazybuf-showhide-methods" class="hide-inline">/* 3 unexporteds: */</label></i><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../src/path/path.go.html#line-31">append</a>(c <a href="builtin.html#name-byte">byte</a>)</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../src/path/path.go.html#line-24">index</a>(i <a href="builtin.html#name-int">int</a>) <a href="builtin.html#name-byte">byte</a></span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../src/path/path.go.html#line-44">string</a>() <a href="builtin.html#name-string">string</a></span></i></span></span>
+			<span class="nodocs">(*lazybuf) <a href="../src/path/path.go.html#line-31">append</a>(c <a href="builtin.html#name-byte">byte</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*lazybuf) <a href="../src/path/path.go.html#line-24">index</a>(i <a href="builtin.html#name-int">int</a>) <a href="builtin.html#name-byte">byte</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*lazybuf) <a href="../src/path/path.go.html#line-44">string</a>() <a href="builtin.html#name-string">string</a></span></i></span></span>
 
 </span></div></div>
 <div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 12, in which 8 are exported)</i></span></span>
@@ -199,20 +199,20 @@
 		by purely lexical processing. It applies the following rules
 		iteratively until no further processing can be done:
 
-			1. Replace multiple slashes with a single slash.
-			2. Eliminate each . path name element (the current directory).
-			3. Eliminate each inner .. path name element (the parent directory)
-			   along with the non-.. element that precedes it.
-			4. Eliminate .. elements that begin a rooted path:
-			   that is, replace "/.." by "/" at the beginning of a path.
+		 1. Replace multiple slashes with a single slash.
+		 2. Eliminate each . path name element (the current directory).
+		 3. Eliminate each inner .. path name element (the parent directory)
+		    along with the non-.. element that precedes it.
+		 4. Eliminate .. elements that begin a rooted path:
+		    that is, replace "/.." by "/" at the beginning of a path.
 
 		The returned path ends in a slash only if it is the root "/".
 
 		If the result of this process is an empty string, Clean
 		returns the string ".".
 
-		See also Rob Pike, ``Lexical File Names in Plan 9 or
-		Getting Dot-Dot Right,''
+		See also Rob Pike, “Lexical File Names in Plan 9 or
+		Getting Dot-Dot Right,”
 		https://9p.io/sys/doc/lexnames.html
 
 </span></div><div class="anchor value-res" id="name-Dir">	<input type='checkbox' class="fold" id="Dir-fold-content"><label for="Dir-fold-content"> <a href="../use/path..Dir.html">func</a> <a href="../src/path/path.go.html#line-230">Dir</a>(path <a href="builtin.html#name-string">string</a>) <a href="builtin.html#name-string">string</a></label><span id='Dir-fold-content-docs' class="fold-docs">
@@ -240,7 +240,7 @@
 		empty or all its elements are empty, Join returns
 		an empty string.
 
-</span></div><div class="anchor value-res" id="name-Match">	<input type='checkbox' class="fold" id="Match-fold-content"><label for="Match-fold-content"> <a href="../use/path..Match.html">func</a> <a href="../src/path/match.go.html#line-38">Match</a>(pattern, name <a href="builtin.html#name-string">string</a>) (matched <a href="builtin.html#name-bool">bool</a>, err <a href="builtin.html#name-error">error</a>)</label><span id='Match-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor value-res" id="name-Match">	<input type='checkbox' class="fold" id="Match-fold-content"><label for="Match-fold-content"> <a href="../use/path..Match.html">func</a> <a href="../src/path/match.go.html#line-37">Match</a>(pattern, name <a href="builtin.html#name-string">string</a>) (matched <a href="builtin.html#name-bool">bool</a>, err <a href="builtin.html#name-error">error</a>)</label><span id='Match-fold-content-docs' class="fold-docs">
 		Match reports whether name matches the shell pattern.
 		The pattern syntax is:
 
@@ -270,18 +270,18 @@
 		file set to path.
 		The returned values have the property that path = dir+file.
 
-</span></div>	<input type='checkbox' class="showhide" id="unexported-functions-showhide"><i><label for="unexported-functions-showhide" class="show-inline">/* 4 unexporteds ... */</label><label for="unexported-functions-showhide" class="hide-inline">/* 4 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-getEsc"><i>	<input type='checkbox' class="fold" id="getEsc-fold-content"><label for="getEsc-fold-content"> <a href="../use/path..getEsc^30981.html">func</a> <a href="../src/path/match.go.html#line-210">getEsc</a>(chunk <a href="builtin.html#name-string">string</a>) (r <a href="builtin.html#name-rune">rune</a>, nchunk <a href="builtin.html#name-string">string</a>, err <a href="builtin.html#name-error">error</a>)</label><span id='getEsc-fold-content-docs' class="fold-docs">
+</span></div>	<input type='checkbox' class="showhide" id="unexported-functions-showhide"><i><label for="unexported-functions-showhide" class="show-inline">/* 4 unexporteds ... */</label><label for="unexported-functions-showhide" class="hide-inline">/* 4 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-getEsc"><i>	<input type='checkbox' class="fold" id="getEsc-fold-content"><label for="getEsc-fold-content"> <a href="../use/path..getEsc^30981.html">func</a> <a href="../src/path/match.go.html#line-209">getEsc</a>(chunk <a href="builtin.html#name-string">string</a>) (r <a href="builtin.html#name-rune">rune</a>, nchunk <a href="builtin.html#name-string">string</a>, err <a href="builtin.html#name-error">error</a>)</label><span id='getEsc-fold-content-docs' class="fold-docs">
 		getEsc gets a possibly-escaped character from chunk, for a character class.
 
 </span></i></div><div class="anchor value-res hidden" id="name-lastSlash"><i>	<input type='checkbox' class="fold" id="lastSlash-fold-content"><label for="lastSlash-fold-content"> <a href="../use/path..lastSlash^f19bf.html">func</a> <a href="../src/path/path.go.html#line-139">lastSlash</a>(s <a href="builtin.html#name-string">string</a>) <a href="builtin.html#name-int">int</a></label><span id='lastSlash-fold-content-docs' class="fold-docs">
 		lastSlash(s) is strings.LastIndex(s, "/") but we can't import strings.
 
-</span></i></div><div class="anchor value-res hidden" id="name-matchChunk"><i>	<input type='checkbox' class="fold" id="matchChunk-fold-content"><label for="matchChunk-fold-content"> <a href="../use/path..matchChunk^508e0.html">func</a> <a href="../src/path/match.go.html#line-124">matchChunk</a>(chunk, s <a href="builtin.html#name-string">string</a>) (rest <a href="builtin.html#name-string">string</a>, ok <a href="builtin.html#name-bool">bool</a>, err <a href="builtin.html#name-error">error</a>)</label><span id='matchChunk-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-matchChunk"><i>	<input type='checkbox' class="fold" id="matchChunk-fold-content"><label for="matchChunk-fold-content"> <a href="../use/path..matchChunk^508e0.html">func</a> <a href="../src/path/match.go.html#line-123">matchChunk</a>(chunk, s <a href="builtin.html#name-string">string</a>) (rest <a href="builtin.html#name-string">string</a>, ok <a href="builtin.html#name-bool">bool</a>, err <a href="builtin.html#name-error">error</a>)</label><span id='matchChunk-fold-content-docs' class="fold-docs">
 		matchChunk checks whether chunk matches the beginning of s.
 		If so, it returns the remainder of s (after the match).
 		Chunk is all single-character operators: literals, char classes, and ?.
 
-</span></i></div><div class="anchor value-res hidden" id="name-scanChunk"><i>	<input type='checkbox' class="fold" id="scanChunk-fold-content"><label for="scanChunk-fold-content"> <a href="../use/path..scanChunk^5ab0e.html">func</a> <a href="../src/path/match.go.html#line-93">scanChunk</a>(pattern <a href="builtin.html#name-string">string</a>) (star <a href="builtin.html#name-bool">bool</a>, chunk, rest <a href="builtin.html#name-string">string</a>)</label><span id='scanChunk-fold-content-docs' class="fold-docs">
+</span></i></div><div class="anchor value-res hidden" id="name-scanChunk"><i>	<input type='checkbox' class="fold" id="scanChunk-fold-content"><label for="scanChunk-fold-content"> <a href="../use/path..scanChunk^5ab0e.html">func</a> <a href="../src/path/match.go.html#line-92">scanChunk</a>(pattern <a href="builtin.html#name-string">string</a>) (star <a href="builtin.html#name-bool">bool</a>, chunk, rest <a href="builtin.html#name-string">string</a>)</label><span id='scanChunk-fold-content-docs' class="fold-docs">
 		scanChunk gets the next segment of pattern, which is a non-star string
 		possibly preceded by a star.
 
@@ -293,7 +293,7 @@
 
 </span></div></div></code></pre><pre id="footer">
 <table><tr><td><img src="../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

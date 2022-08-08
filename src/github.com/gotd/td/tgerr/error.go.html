@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: error.go in package github.com/gotd/td/tgerr</title>
-<link href="../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -137,156 +137,157 @@ input[id=i4]:checked ~pre .i4
 <div class="anchor" id="doc"><span class="codeline" id="line-1"><code><span class="comment">// Package tgerr implements helpers for error handling.</span></code></span></div><span class="codeline" id="line-2"><code><span class="keyword">package</span> tgerr</code></span>
 <span class="codeline" id="line-3"><code></code></span>
 <span class="codeline" id="line-4"><code><span class="keyword">import</span> (</code></span>
-<span class="codeline" id="line-5"><code>	<label for="i0"><span class="lit-string i0">"errors"</span></label></code></span>
-<span class="codeline" id="line-6"><code>	<label for="i1"><span class="lit-string i1">"fmt"</span></label></code></span>
-<span class="codeline" id="line-7"><code>	<label for="i2"><span class="lit-string i2">"strconv"</span></label></code></span>
-<span class="codeline" id="line-8"><code>	<label for="i3"><span class="lit-string i3">"strings"</span></label></code></span>
-<span class="codeline" id="line-9"><code></code></span>
-<span class="codeline" id="line-10"><code>	<label for="i4"><span class="lit-string i4">"github.com/gotd/td/internal/ascii"</span></label></code></span>
-<span class="codeline" id="line-11"><code>)</code></span>
-<span class="codeline" id="line-12"><code></code></span>
-<span class="codeline" id="line-13"><code><span class="comment">// Error represents RPC error returned as result to request.</span></code></span>
-<span class="codeline" id="line-14"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/tgerr.html#name-Error" class="ident">Error</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-15"><code>	<a href="../../../../../use/github.com/gotd/td/tgerr..Error.Code.html" class="ident">Code</a>     <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>    <span class="comment">// 420</span></code></span>
-<span class="codeline" id="line-16"><code>	<a href="../../../../../use/github.com/gotd/td/tgerr..Error.Message.html" class="ident">Message</a>  <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a> <span class="comment">// FLOOD_WAIT_3</span></code></span>
-<span class="codeline" id="line-17"><code>	<a href="../../../../../use/github.com/gotd/td/tgerr..Error.Type.html" class="ident">Type</a>     <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a> <span class="comment">// FLOOD_WAIT</span></code></span>
-<span class="codeline" id="line-18"><code>	<a href="../../../../../use/github.com/gotd/td/tgerr..Error.Argument.html" class="ident">Argument</a> <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>    <span class="comment">// 3</span></code></span>
-<span class="codeline" id="line-19"><code>}</code></span>
-<span class="codeline" id="line-20"><code></code></span>
-<span class="codeline" id="line-21"><code><span class="comment">// New creates new *Error from code and message, extracting argument</span></code></span>
-<span class="codeline" id="line-22"><code><span class="comment">// and type.</span></code></span>
-<span class="codeline" id="line-23"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../pkg/github.com/gotd/td/tgerr.html#name-New" class="ident">New</a></label>(<label for="r1" class="ident">code</label> <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r2" class="ident">msg</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) *<a href="#line-14" class="ident">Error</a> {</code></span>
-<span class="codeline" id="line-24"><code>	<label for="r3" class="ident">e</label> := &amp;<a href="#line-14" class="ident">Error</a>{</code></span>
-<span class="codeline" id="line-25"><code>		<a href="#line-15" class="ident">Code</a>:    <label for="r1" class="ident">code</label>,</code></span>
-<span class="codeline" id="line-26"><code>		<a href="#line-16" class="ident">Message</a>: <label for="r2" class="ident">msg</label>,</code></span>
-<span class="codeline" id="line-27"><code>	}</code></span>
-<span class="codeline" id="line-28"><code>	<label for="r3" class="ident">e</label>.<a href="#line-75" class="ident">extractArgument</a>()</code></span>
-<span class="codeline" id="line-29"><code>	<span class="keyword">return</span> <label for="r3" class="ident">e</label></code></span>
-<span class="codeline" id="line-30"><code>}</code></span>
-<span class="codeline" id="line-31"><code></code></span>
-<span class="codeline" id="line-32"><code><span class="comment">// IsType reports whether error has type t.</span></code></span>
-<span class="codeline" id="line-33"><code><span class="keyword">func</span> (<label for="r4" class="ident">e</label> *<a href="#line-14" class="ident">Error</a>) <label for="r5" class="ident"><a href="../../../../../use/github.com/gotd/td/tgerr..Error.IsType.html" class="ident">IsType</a></label>(<label for="r6" class="ident">t</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-34"><code>	<span class="keyword">if</span> <label for="r4" class="ident">e</label> == <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-35"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-36"><code>	}</code></span>
-<span class="codeline" id="line-37"><code>	<span class="keyword">return</span> <label for="r4" class="ident">e</label>.<a href="#line-17" class="ident">Type</a> == <label for="r6" class="ident">t</label></code></span>
-<span class="codeline" id="line-38"><code>}</code></span>
-<span class="codeline" id="line-39"><code></code></span>
-<span class="codeline" id="line-40"><code><span class="comment">// IsCode reports whether error Code is equal to code.</span></code></span>
-<span class="codeline" id="line-41"><code><span class="keyword">func</span> (<label for="r7" class="ident">e</label> *<a href="#line-14" class="ident">Error</a>) <label for="r8" class="ident"><a href="../../../../../use/github.com/gotd/td/tgerr..Error.IsCode.html" class="ident">IsCode</a></label>(<label for="r9" class="ident">code</label> <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-42"><code>	<span class="keyword">if</span> <label for="r7" class="ident">e</label> == <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-43"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-44"><code>	}</code></span>
-<span class="codeline" id="line-45"><code>	<span class="keyword">return</span> <label for="r7" class="ident">e</label>.<a href="#line-15" class="ident">Code</a> == <label for="r9" class="ident">code</label></code></span>
-<span class="codeline" id="line-46"><code>}</code></span>
-<span class="codeline" id="line-47"><code></code></span>
-<span class="codeline" id="line-48"><code><span class="comment">// IsOneOf returns true if error type is in tt.</span></code></span>
-<span class="codeline" id="line-49"><code><span class="keyword">func</span> (<label for="r10" class="ident">e</label> *<a href="#line-14" class="ident">Error</a>) <label for="r11" class="ident"><a href="../../../../../use/github.com/gotd/td/tgerr..Error.IsOneOf.html" class="ident">IsOneOf</a></label>(<label for="r12" class="ident">tt</label> ...<a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-50"><code>	<span class="keyword">if</span> <label for="r10" class="ident">e</label> == <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-51"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-52"><code>	}</code></span>
-<span class="codeline" id="line-53"><code>	<span class="keyword">for</span> <label for="r13" class="ident">_</label>, <label for="r14" class="ident">t</label> := <span class="keyword">range</span> <label for="r12" class="ident">tt</label> {</code></span>
-<span class="codeline" id="line-54"><code>		<span class="keyword">if</span> <label for="r10" class="ident">e</label>.<a href="#line-33" class="ident">IsType</a>(<label for="r14" class="ident">t</label>) {</code></span>
-<span class="codeline" id="line-55"><code>			<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-56"><code>		}</code></span>
-<span class="codeline" id="line-57"><code>	}</code></span>
-<span class="codeline" id="line-58"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-59"><code>}</code></span>
-<span class="codeline" id="line-60"><code></code></span>
-<span class="codeline" id="line-61"><code><span class="comment">// IsCodeOneOf returns true if error code is one of codes.</span></code></span>
-<span class="codeline" id="line-62"><code><span class="keyword">func</span> (<label for="r15" class="ident">e</label> *<a href="#line-14" class="ident">Error</a>) <label for="r16" class="ident"><a href="../../../../../use/github.com/gotd/td/tgerr..Error.IsCodeOneOf.html" class="ident">IsCodeOneOf</a></label>(<label for="r17" class="ident">codes</label> ...<a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-63"><code>	<span class="keyword">if</span> <label for="r15" class="ident">e</label> == <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-64"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-65"><code>	}</code></span>
-<span class="codeline" id="line-66"><code>	<span class="keyword">for</span> <label for="r18" class="ident">_</label>, <label for="r19" class="ident">code</label> := <span class="keyword">range</span> <label for="r17" class="ident">codes</label> {</code></span>
-<span class="codeline" id="line-67"><code>		<span class="keyword">if</span> <label for="r15" class="ident">e</label>.<a href="#line-41" class="ident">IsCode</a>(<label for="r19" class="ident">code</label>) {</code></span>
-<span class="codeline" id="line-68"><code>			<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-69"><code>		}</code></span>
-<span class="codeline" id="line-70"><code>	}</code></span>
-<span class="codeline" id="line-71"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-72"><code>}</code></span>
-<span class="codeline" id="line-73"><code></code></span>
-<span class="codeline" id="line-74"><code><span class="comment">// extractArgument extracts Type and Argument from Message.</span></code></span>
-<span class="codeline" id="line-75"><code><span class="keyword">func</span> (<label for="r20" class="ident">e</label> *<a href="#line-14" class="ident">Error</a>) <label for="r21" class="ident"><a href="../../../../../use/github.com/gotd/td/tgerr..Error.extractArgument^7e1da.html" class="ident">extractArgument</a></label>() {</code></span>
-<span class="codeline" id="line-76"><code>	<span class="keyword">if</span> <label for="r20" class="ident">e</label>.<a href="#line-16" class="ident">Message</a> == <span class="lit-string">""</span> {</code></span>
-<span class="codeline" id="line-77"><code>		<span class="keyword">return</span></code></span>
-<span class="codeline" id="line-78"><code>	}</code></span>
-<span class="codeline" id="line-79"><code></code></span>
-<span class="codeline" id="line-80"><code>	<span class="comment">// Defaulting Type to Message.</span></code></span>
-<span class="codeline" id="line-81"><code>	<label for="r20" class="ident">e</label>.<a href="#line-17" class="ident">Type</a> = <label for="r20" class="ident">e</label>.<a href="#line-16" class="ident">Message</a></code></span>
-<span class="codeline" id="line-82"><code></code></span>
-<span class="codeline" id="line-83"><code>	<span class="comment">// Splitting by underscore.</span></code></span>
-<span class="codeline" id="line-84"><code>	<label for="r22" class="ident">parts</label> := <a href="../../../../../pkg/strings.html" class="ident i3">strings</a>.<a href="../../../../strings/strings.go.html#line-299" class="ident">Split</a>(<label for="r20" class="ident">e</label>.<a href="#line-16" class="ident">Message</a>, <span class="lit-string">"_"</span>)</code></span>
-<span class="codeline" id="line-85"><code>	<span class="keyword">if</span> <a href="../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r22" class="ident">parts</label>) &lt; <span class="lit-number">2</span> {</code></span>
-<span class="codeline" id="line-86"><code>		<span class="keyword">return</span></code></span>
-<span class="codeline" id="line-87"><code>	}</code></span>
-<span class="codeline" id="line-88"><code></code></span>
-<span class="codeline" id="line-89"><code>	<span class="keyword">var</span> <label for="r23" class="ident">nonDigit</label> []<a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
-<span class="codeline" id="line-90"><code><label for="r24" class="ident">Parts</label>:</code></span>
-<span class="codeline" id="line-91"><code>	<span class="keyword">for</span> <label for="r25" class="ident">_</label>, <label for="r26" class="ident">part</label> := <span class="keyword">range</span> <label for="r22" class="ident">parts</label> {</code></span>
-<span class="codeline" id="line-92"><code>		<span class="keyword">for</span> <label for="r27" class="ident">_</label>, <label for="r28" class="ident">r</label> := <span class="keyword">range</span> <label for="r26" class="ident">part</label> {</code></span>
-<span class="codeline" id="line-93"><code>			<span class="keyword">if</span> <a href="../../../../../pkg/github.com/gotd/td/internal/ascii.html" class="ident i4">ascii</a>.<a href="../internal/ascii/ascii.go.html#line-6" class="ident">IsDigit</a>(<label for="r28" class="ident">r</label>) {</code></span>
-<span class="codeline" id="line-94"><code>				<span class="keyword">continue</span></code></span>
-<span class="codeline" id="line-95"><code>			}</code></span>
-<span class="codeline" id="line-96"><code></code></span>
-<span class="codeline" id="line-97"><code>			<span class="comment">// Found non-digit part, skipping.</span></code></span>
-<span class="codeline" id="line-98"><code>			<label for="r23" class="ident">nonDigit</label> = <a href="../../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r23" class="ident">nonDigit</label>, <label for="r26" class="ident">part</label>)</code></span>
-<span class="codeline" id="line-99"><code>			<span class="keyword">continue</span> <label for="r24" class="ident">Parts</label></code></span>
-<span class="codeline" id="line-100"><code>		}</code></span>
-<span class="codeline" id="line-101"><code></code></span>
-<span class="codeline" id="line-102"><code>		<span class="comment">// Found digit-only part, using as argument.</span></code></span>
-<span class="codeline" id="line-103"><code>		<label for="r29" class="ident">argument</label>, <label for="r30" class="ident">err</label> := <a href="../../../../../pkg/strconv.html" class="ident i2">strconv</a>.<a href="../../../../strconv/atoi.go.html#line-229" class="ident">Atoi</a>(<label for="r26" class="ident">part</label>)</code></span>
-<span class="codeline" id="line-104"><code>		<span class="keyword">if</span> <label for="r30" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-105"><code>			<span class="comment">// Should be unreachable.</span></code></span>
-<span class="codeline" id="line-106"><code>			<span class="keyword">return</span></code></span>
-<span class="codeline" id="line-107"><code>		}</code></span>
-<span class="codeline" id="line-108"><code>		<label for="r20" class="ident">e</label>.<a href="#line-18" class="ident">Argument</a> = <label for="r29" class="ident">argument</label></code></span>
-<span class="codeline" id="line-109"><code>	}</code></span>
-<span class="codeline" id="line-110"><code></code></span>
-<span class="codeline" id="line-111"><code>	<label for="r20" class="ident">e</label>.<a href="#line-17" class="ident">Type</a> = <a href="../../../../../pkg/strings.html" class="ident i3">strings</a>.<a href="../../../../strings/strings.go.html#line-421" class="ident">Join</a>(<label for="r23" class="ident">nonDigit</label>, <span class="lit-string">"_"</span>)</code></span>
-<span class="codeline" id="line-112"><code>}</code></span>
-<span class="codeline" id="line-113"><code></code></span>
-<span class="codeline" id="line-114"><code><span class="keyword">func</span> (<label for="r31" class="ident">e</label> *<a href="#line-14" class="ident">Error</a>) <label for="r32" class="ident"><a href="../../../../../use/github.com/gotd/td/tgerr..Error.Error.html" class="ident">Error</a></label>() <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
-<span class="codeline" id="line-115"><code>	<span class="keyword">if</span> <label for="r31" class="ident">e</label>.<a href="#line-17" class="ident">Type</a> != <label for="r31" class="ident">e</label>.<a href="#line-16" class="ident">Message</a> {</code></span>
-<span class="codeline" id="line-116"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../../../fmt/print.go.html#line-217" class="ident">Sprintf</a>(<span class="lit-string">"rpc error code %d: %s (%d)"</span>, <label for="r31" class="ident">e</label>.<a href="#line-15" class="ident">Code</a>, <label for="r31" class="ident">e</label>.<a href="#line-17" class="ident">Type</a>, <label for="r31" class="ident">e</label>.<a href="#line-18" class="ident">Argument</a>)</code></span>
-<span class="codeline" id="line-117"><code>	}</code></span>
-<span class="codeline" id="line-118"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../../../fmt/print.go.html#line-217" class="ident">Sprintf</a>(<span class="lit-string">"rpc error code %d: %s"</span>, <label for="r31" class="ident">e</label>.<a href="#line-15" class="ident">Code</a>, <label for="r31" class="ident">e</label>.<a href="#line-16" class="ident">Message</a>)</code></span>
-<span class="codeline" id="line-119"><code>}</code></span>
-<span class="codeline" id="line-120"><code></code></span>
-<span class="codeline" id="line-121"><code><span class="comment">// AsType returns *Error from err if rpc error type is t.</span></code></span>
-<span class="codeline" id="line-122"><code><span class="keyword">func</span> <label for="r33" class="ident"><a href="../../../../../pkg/github.com/gotd/td/tgerr.html#name-AsType" class="ident">AsType</a></label>(<label for="r34" class="ident">err</label> <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>, <label for="r35" class="ident">t</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) (<label for="r36" class="ident">rpcErr</label> *<a href="#line-14" class="ident">Error</a>, <label for="r37" class="ident">ok</label> <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
-<span class="codeline" id="line-123"><code>	<span class="keyword">if</span> <a href="../../../../../pkg/errors.html" class="ident i0">errors</a>.<a href="../../../../errors/wrap.go.html#line-77" class="ident">As</a>(<label for="r34" class="ident">err</label>, &amp;<label for="r36" class="ident">rpcErr</label>) &amp;&amp; <label for="r36" class="ident">rpcErr</label>.<a href="#line-17" class="ident">Type</a> == <label for="r35" class="ident">t</label> {</code></span>
-<span class="codeline" id="line-124"><code>		<span class="keyword">return</span> <label for="r36" class="ident">rpcErr</label>, <a href="../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-125"><code>	}</code></span>
-<span class="codeline" id="line-126"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-127"><code>}</code></span>
-<span class="codeline" id="line-128"><code></code></span>
-<span class="codeline" id="line-129"><code><span class="comment">// As extracts *Error from err if possible.</span></code></span>
-<span class="codeline" id="line-130"><code><span class="keyword">func</span> <label for="r38" class="ident"><a href="../../../../../pkg/github.com/gotd/td/tgerr.html#name-As" class="ident">As</a></label>(<label for="r39" class="ident">err</label> <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) (<label for="r40" class="ident">rpcErr</label> *<a href="#line-14" class="ident">Error</a>, <label for="r41" class="ident">ok</label> <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
-<span class="codeline" id="line-131"><code>	<span class="keyword">if</span> <a href="../../../../../pkg/errors.html" class="ident i0">errors</a>.<a href="../../../../errors/wrap.go.html#line-77" class="ident">As</a>(<label for="r39" class="ident">err</label>, &amp;<label for="r40" class="ident">rpcErr</label>) {</code></span>
-<span class="codeline" id="line-132"><code>		<span class="keyword">return</span> <label for="r40" class="ident">rpcErr</label>, <a href="../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-133"><code>	}</code></span>
-<span class="codeline" id="line-134"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-135"><code>}</code></span>
-<span class="codeline" id="line-136"><code></code></span>
-<span class="codeline" id="line-137"><code><span class="comment">// Is returns true if err type is t.</span></code></span>
-<span class="codeline" id="line-138"><code><span class="keyword">func</span> <label for="r42" class="ident"><a href="../../../../../pkg/github.com/gotd/td/tgerr.html#name-Is" class="ident">Is</a></label>(<label for="r43" class="ident">err</label> <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>, <label for="r44" class="ident">tt</label> ...<a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-139"><code>	<span class="keyword">if</span> <label for="r45" class="ident">rpcErr</label>, <label for="r46" class="ident">ok</label> := <a href="#line-130" class="ident">As</a>(<label for="r43" class="ident">err</label>); <label for="r46" class="ident">ok</label> {</code></span>
-<span class="codeline" id="line-140"><code>		<span class="keyword">return</span> <label for="r45" class="ident">rpcErr</label>.<a href="#line-49" class="ident">IsOneOf</a>(<label for="r44" class="ident">tt</label>...)</code></span>
-<span class="codeline" id="line-141"><code>	}</code></span>
-<span class="codeline" id="line-142"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-143"><code>}</code></span>
-<span class="codeline" id="line-144"><code></code></span>
-<span class="codeline" id="line-145"><code><span class="comment">// IsCode returns true of error code is as provided.</span></code></span>
-<span class="codeline" id="line-146"><code><span class="keyword">func</span> <label for="r47" class="ident"><a href="../../../../../pkg/github.com/gotd/td/tgerr.html#name-IsCode" class="ident">IsCode</a></label>(<label for="r48" class="ident">err</label> <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>, <label for="r49" class="ident">code</label> ...<a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-147"><code>	<span class="keyword">if</span> <label for="r50" class="ident">rpcErr</label>, <label for="r51" class="ident">ok</label> := <a href="#line-130" class="ident">As</a>(<label for="r48" class="ident">err</label>); <label for="r51" class="ident">ok</label> {</code></span>
-<span class="codeline" id="line-148"><code>		<span class="keyword">return</span> <label for="r50" class="ident">rpcErr</label>.<a href="#line-62" class="ident">IsCodeOneOf</a>(<label for="r49" class="ident">code</label>...)</code></span>
-<span class="codeline" id="line-149"><code>	}</code></span>
-<span class="codeline" id="line-150"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-151"><code>}</code></span>
+<span class="codeline" id="line-5"><code>	<label for="i0"><span class="lit-string i0">"fmt"</span></label></code></span>
+<span class="codeline" id="line-6"><code>	<label for="i1"><span class="lit-string i1">"strconv"</span></label></code></span>
+<span class="codeline" id="line-7"><code>	<label for="i2"><span class="lit-string i2">"strings"</span></label></code></span>
+<span class="codeline" id="line-8"><code></code></span>
+<span class="codeline" id="line-9"><code>	<label for="i3"><span class="lit-string i3">"github.com/go-faster/errors"</span></label></code></span>
+<span class="codeline" id="line-10"><code></code></span>
+<span class="codeline" id="line-11"><code>	<label for="i4"><span class="lit-string i4">"github.com/gotd/td/internal/ascii"</span></label></code></span>
+<span class="codeline" id="line-12"><code>)</code></span>
+<span class="codeline" id="line-13"><code></code></span>
+<span class="codeline" id="line-14"><code><span class="comment">// Error represents RPC error returned as result to request.</span></code></span>
+<span class="codeline" id="line-15"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/tgerr.html#name-Error" class="ident">Error</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-16"><code>	<a href="../../../../../use/github.com/gotd/td/tgerr..Error.Code.html" class="ident">Code</a>     <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>    <span class="comment">// 420</span></code></span>
+<span class="codeline" id="line-17"><code>	<a href="../../../../../use/github.com/gotd/td/tgerr..Error.Message.html" class="ident">Message</a>  <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a> <span class="comment">// FLOOD_WAIT_3</span></code></span>
+<span class="codeline" id="line-18"><code>	<a href="../../../../../use/github.com/gotd/td/tgerr..Error.Type.html" class="ident">Type</a>     <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a> <span class="comment">// FLOOD_WAIT</span></code></span>
+<span class="codeline" id="line-19"><code>	<a href="../../../../../use/github.com/gotd/td/tgerr..Error.Argument.html" class="ident">Argument</a> <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>    <span class="comment">// 3</span></code></span>
+<span class="codeline" id="line-20"><code>}</code></span>
+<span class="codeline" id="line-21"><code></code></span>
+<span class="codeline" id="line-22"><code><span class="comment">// New creates new *Error from code and message, extracting argument</span></code></span>
+<span class="codeline" id="line-23"><code><span class="comment">// and type.</span></code></span>
+<span class="codeline" id="line-24"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../pkg/github.com/gotd/td/tgerr.html#name-New" class="ident">New</a></label>(<label for="r1" class="ident">code</label> <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r2" class="ident">msg</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) *<a href="#line-15" class="ident">Error</a> {</code></span>
+<span class="codeline" id="line-25"><code>	<label for="r3" class="ident">e</label> := &amp;<a href="#line-15" class="ident">Error</a>{</code></span>
+<span class="codeline" id="line-26"><code>		<a href="#line-16" class="ident">Code</a>:    <label for="r1" class="ident">code</label>,</code></span>
+<span class="codeline" id="line-27"><code>		<a href="#line-17" class="ident">Message</a>: <label for="r2" class="ident">msg</label>,</code></span>
+<span class="codeline" id="line-28"><code>	}</code></span>
+<span class="codeline" id="line-29"><code>	<label for="r3" class="ident">e</label>.<a href="#line-76" class="ident">extractArgument</a>()</code></span>
+<span class="codeline" id="line-30"><code>	<span class="keyword">return</span> <label for="r3" class="ident">e</label></code></span>
+<span class="codeline" id="line-31"><code>}</code></span>
+<span class="codeline" id="line-32"><code></code></span>
+<span class="codeline" id="line-33"><code><span class="comment">// IsType reports whether error has type t.</span></code></span>
+<span class="codeline" id="line-34"><code><span class="keyword">func</span> (<label for="r4" class="ident">e</label> *<a href="#line-15" class="ident">Error</a>) <label for="r5" class="ident"><a href="../../../../../use/github.com/gotd/td/tgerr..Error.IsType.html" class="ident">IsType</a></label>(<label for="r6" class="ident">t</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-35"><code>	<span class="keyword">if</span> <label for="r4" class="ident">e</label> == <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-36"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-37"><code>	}</code></span>
+<span class="codeline" id="line-38"><code>	<span class="keyword">return</span> <label for="r4" class="ident">e</label>.<a href="#line-18" class="ident">Type</a> == <label for="r6" class="ident">t</label></code></span>
+<span class="codeline" id="line-39"><code>}</code></span>
+<span class="codeline" id="line-40"><code></code></span>
+<span class="codeline" id="line-41"><code><span class="comment">// IsCode reports whether error Code is equal to code.</span></code></span>
+<span class="codeline" id="line-42"><code><span class="keyword">func</span> (<label for="r7" class="ident">e</label> *<a href="#line-15" class="ident">Error</a>) <label for="r8" class="ident"><a href="../../../../../use/github.com/gotd/td/tgerr..Error.IsCode.html" class="ident">IsCode</a></label>(<label for="r9" class="ident">code</label> <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-43"><code>	<span class="keyword">if</span> <label for="r7" class="ident">e</label> == <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-44"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-45"><code>	}</code></span>
+<span class="codeline" id="line-46"><code>	<span class="keyword">return</span> <label for="r7" class="ident">e</label>.<a href="#line-16" class="ident">Code</a> == <label for="r9" class="ident">code</label></code></span>
+<span class="codeline" id="line-47"><code>}</code></span>
+<span class="codeline" id="line-48"><code></code></span>
+<span class="codeline" id="line-49"><code><span class="comment">// IsOneOf returns true if error type is in tt.</span></code></span>
+<span class="codeline" id="line-50"><code><span class="keyword">func</span> (<label for="r10" class="ident">e</label> *<a href="#line-15" class="ident">Error</a>) <label for="r11" class="ident"><a href="../../../../../use/github.com/gotd/td/tgerr..Error.IsOneOf.html" class="ident">IsOneOf</a></label>(<label for="r12" class="ident">tt</label> ...<a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-51"><code>	<span class="keyword">if</span> <label for="r10" class="ident">e</label> == <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-52"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-53"><code>	}</code></span>
+<span class="codeline" id="line-54"><code>	<span class="keyword">for</span> <label for="r13" class="ident">_</label>, <label for="r14" class="ident">t</label> := <span class="keyword">range</span> <label for="r12" class="ident">tt</label> {</code></span>
+<span class="codeline" id="line-55"><code>		<span class="keyword">if</span> <label for="r10" class="ident">e</label>.<a href="#line-34" class="ident">IsType</a>(<label for="r14" class="ident">t</label>) {</code></span>
+<span class="codeline" id="line-56"><code>			<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-57"><code>		}</code></span>
+<span class="codeline" id="line-58"><code>	}</code></span>
+<span class="codeline" id="line-59"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-60"><code>}</code></span>
+<span class="codeline" id="line-61"><code></code></span>
+<span class="codeline" id="line-62"><code><span class="comment">// IsCodeOneOf returns true if error code is one of codes.</span></code></span>
+<span class="codeline" id="line-63"><code><span class="keyword">func</span> (<label for="r15" class="ident">e</label> *<a href="#line-15" class="ident">Error</a>) <label for="r16" class="ident"><a href="../../../../../use/github.com/gotd/td/tgerr..Error.IsCodeOneOf.html" class="ident">IsCodeOneOf</a></label>(<label for="r17" class="ident">codes</label> ...<a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-64"><code>	<span class="keyword">if</span> <label for="r15" class="ident">e</label> == <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-65"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-66"><code>	}</code></span>
+<span class="codeline" id="line-67"><code>	<span class="keyword">for</span> <label for="r18" class="ident">_</label>, <label for="r19" class="ident">code</label> := <span class="keyword">range</span> <label for="r17" class="ident">codes</label> {</code></span>
+<span class="codeline" id="line-68"><code>		<span class="keyword">if</span> <label for="r15" class="ident">e</label>.<a href="#line-42" class="ident">IsCode</a>(<label for="r19" class="ident">code</label>) {</code></span>
+<span class="codeline" id="line-69"><code>			<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-70"><code>		}</code></span>
+<span class="codeline" id="line-71"><code>	}</code></span>
+<span class="codeline" id="line-72"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-73"><code>}</code></span>
+<span class="codeline" id="line-74"><code></code></span>
+<span class="codeline" id="line-75"><code><span class="comment">// extractArgument extracts Type and Argument from Message.</span></code></span>
+<span class="codeline" id="line-76"><code><span class="keyword">func</span> (<label for="r20" class="ident">e</label> *<a href="#line-15" class="ident">Error</a>) <label for="r21" class="ident"><a href="../../../../../use/github.com/gotd/td/tgerr..Error.extractArgument^7e1da.html" class="ident">extractArgument</a></label>() {</code></span>
+<span class="codeline" id="line-77"><code>	<span class="keyword">if</span> <label for="r20" class="ident">e</label>.<a href="#line-17" class="ident">Message</a> == <span class="lit-string">""</span> {</code></span>
+<span class="codeline" id="line-78"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-79"><code>	}</code></span>
+<span class="codeline" id="line-80"><code></code></span>
+<span class="codeline" id="line-81"><code>	<span class="comment">// Defaulting Type to Message.</span></code></span>
+<span class="codeline" id="line-82"><code>	<label for="r20" class="ident">e</label>.<a href="#line-18" class="ident">Type</a> = <label for="r20" class="ident">e</label>.<a href="#line-17" class="ident">Message</a></code></span>
+<span class="codeline" id="line-83"><code></code></span>
+<span class="codeline" id="line-84"><code>	<span class="comment">// Splitting by underscore.</span></code></span>
+<span class="codeline" id="line-85"><code>	<label for="r22" class="ident">parts</label> := <a href="../../../../../pkg/strings.html" class="ident i2">strings</a>.<a href="../../../../strings/strings.go.html#line-308" class="ident">Split</a>(<label for="r20" class="ident">e</label>.<a href="#line-17" class="ident">Message</a>, <span class="lit-string">"_"</span>)</code></span>
+<span class="codeline" id="line-86"><code>	<span class="keyword">if</span> <a href="../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r22" class="ident">parts</label>) &lt; <span class="lit-number">2</span> {</code></span>
+<span class="codeline" id="line-87"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-88"><code>	}</code></span>
+<span class="codeline" id="line-89"><code></code></span>
+<span class="codeline" id="line-90"><code>	<span class="keyword">var</span> <label for="r23" class="ident">nonDigit</label> []<a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-91"><code><label for="r24" class="ident">Parts</label>:</code></span>
+<span class="codeline" id="line-92"><code>	<span class="keyword">for</span> <label for="r25" class="ident">_</label>, <label for="r26" class="ident">part</label> := <span class="keyword">range</span> <label for="r22" class="ident">parts</label> {</code></span>
+<span class="codeline" id="line-93"><code>		<span class="keyword">for</span> <label for="r27" class="ident">_</label>, <label for="r28" class="ident">r</label> := <span class="keyword">range</span> <label for="r26" class="ident">part</label> {</code></span>
+<span class="codeline" id="line-94"><code>			<span class="keyword">if</span> <a href="../../../../../pkg/github.com/gotd/td/internal/ascii.html" class="ident i4">ascii</a>.<a href="../internal/ascii/ascii.go.html#line-6" class="ident">IsDigit</a>(<label for="r28" class="ident">r</label>) {</code></span>
+<span class="codeline" id="line-95"><code>				<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-96"><code>			}</code></span>
+<span class="codeline" id="line-97"><code></code></span>
+<span class="codeline" id="line-98"><code>			<span class="comment">// Found non-digit part, skipping.</span></code></span>
+<span class="codeline" id="line-99"><code>			<label for="r23" class="ident">nonDigit</label> = <a href="../../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r23" class="ident">nonDigit</label>, <label for="r26" class="ident">part</label>)</code></span>
+<span class="codeline" id="line-100"><code>			<span class="keyword">continue</span> <label for="r24" class="ident">Parts</label></code></span>
+<span class="codeline" id="line-101"><code>		}</code></span>
+<span class="codeline" id="line-102"><code></code></span>
+<span class="codeline" id="line-103"><code>		<span class="comment">// Found digit-only part, using as argument.</span></code></span>
+<span class="codeline" id="line-104"><code>		<label for="r29" class="ident">argument</label>, <label for="r30" class="ident">err</label> := <a href="../../../../../pkg/strconv.html" class="ident i1">strconv</a>.<a href="../../../../strconv/atoi.go.html#line-231" class="ident">Atoi</a>(<label for="r26" class="ident">part</label>)</code></span>
+<span class="codeline" id="line-105"><code>		<span class="keyword">if</span> <label for="r30" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-106"><code>			<span class="comment">// Should be unreachable.</span></code></span>
+<span class="codeline" id="line-107"><code>			<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-108"><code>		}</code></span>
+<span class="codeline" id="line-109"><code>		<label for="r20" class="ident">e</label>.<a href="#line-19" class="ident">Argument</a> = <label for="r29" class="ident">argument</label></code></span>
+<span class="codeline" id="line-110"><code>	}</code></span>
+<span class="codeline" id="line-111"><code></code></span>
+<span class="codeline" id="line-112"><code>	<label for="r20" class="ident">e</label>.<a href="#line-18" class="ident">Type</a> = <a href="../../../../../pkg/strings.html" class="ident i2">strings</a>.<a href="../../../../strings/strings.go.html#line-430" class="ident">Join</a>(<label for="r23" class="ident">nonDigit</label>, <span class="lit-string">"_"</span>)</code></span>
+<span class="codeline" id="line-113"><code>}</code></span>
+<span class="codeline" id="line-114"><code></code></span>
+<span class="codeline" id="line-115"><code><span class="keyword">func</span> (<label for="r31" class="ident">e</label> *<a href="#line-15" class="ident">Error</a>) <label for="r32" class="ident"><a href="../../../../../use/github.com/gotd/td/tgerr..Error.Error.html" class="ident">Error</a></label>() <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-116"><code>	<span class="keyword">if</span> <label for="r31" class="ident">e</label>.<a href="#line-18" class="ident">Type</a> != <label for="r31" class="ident">e</label>.<a href="#line-17" class="ident">Message</a> {</code></span>
+<span class="codeline" id="line-117"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/fmt.html" class="ident i0">fmt</a>.<a href="../../../../fmt/print.go.html#line-217" class="ident">Sprintf</a>(<span class="lit-string">"rpc error code %d: %s (%d)"</span>, <label for="r31" class="ident">e</label>.<a href="#line-16" class="ident">Code</a>, <label for="r31" class="ident">e</label>.<a href="#line-18" class="ident">Type</a>, <label for="r31" class="ident">e</label>.<a href="#line-19" class="ident">Argument</a>)</code></span>
+<span class="codeline" id="line-118"><code>	}</code></span>
+<span class="codeline" id="line-119"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/fmt.html" class="ident i0">fmt</a>.<a href="../../../../fmt/print.go.html#line-217" class="ident">Sprintf</a>(<span class="lit-string">"rpc error code %d: %s"</span>, <label for="r31" class="ident">e</label>.<a href="#line-16" class="ident">Code</a>, <label for="r31" class="ident">e</label>.<a href="#line-17" class="ident">Message</a>)</code></span>
+<span class="codeline" id="line-120"><code>}</code></span>
+<span class="codeline" id="line-121"><code></code></span>
+<span class="codeline" id="line-122"><code><span class="comment">// AsType returns *Error from err if rpc error type is t.</span></code></span>
+<span class="codeline" id="line-123"><code><span class="keyword">func</span> <label for="r33" class="ident"><a href="../../../../../pkg/github.com/gotd/td/tgerr.html#name-AsType" class="ident">AsType</a></label>(<label for="r34" class="ident">err</label> <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>, <label for="r35" class="ident">t</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) (<label for="r36" class="ident">rpcErr</label> *<a href="#line-15" class="ident">Error</a>, <label for="r37" class="ident">ok</label> <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
+<span class="codeline" id="line-124"><code>	<span class="keyword">if</span> <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i3">errors</a>.<a href="../../../go-faster/errors/wrap.go.html#line-134" class="ident">As</a>(<label for="r34" class="ident">err</label>, &amp;<label for="r36" class="ident">rpcErr</label>) &amp;&amp; <label for="r36" class="ident">rpcErr</label>.<a href="#line-18" class="ident">Type</a> == <label for="r35" class="ident">t</label> {</code></span>
+<span class="codeline" id="line-125"><code>		<span class="keyword">return</span> <label for="r36" class="ident">rpcErr</label>, <a href="../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-126"><code>	}</code></span>
+<span class="codeline" id="line-127"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-128"><code>}</code></span>
+<span class="codeline" id="line-129"><code></code></span>
+<span class="codeline" id="line-130"><code><span class="comment">// As extracts *Error from err if possible.</span></code></span>
+<span class="codeline" id="line-131"><code><span class="keyword">func</span> <label for="r38" class="ident"><a href="../../../../../pkg/github.com/gotd/td/tgerr.html#name-As" class="ident">As</a></label>(<label for="r39" class="ident">err</label> <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) (<label for="r40" class="ident">rpcErr</label> *<a href="#line-15" class="ident">Error</a>, <label for="r41" class="ident">ok</label> <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
+<span class="codeline" id="line-132"><code>	<span class="keyword">if</span> <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i3">errors</a>.<a href="../../../go-faster/errors/wrap.go.html#line-134" class="ident">As</a>(<label for="r39" class="ident">err</label>, &amp;<label for="r40" class="ident">rpcErr</label>) {</code></span>
+<span class="codeline" id="line-133"><code>		<span class="keyword">return</span> <label for="r40" class="ident">rpcErr</label>, <a href="../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-134"><code>	}</code></span>
+<span class="codeline" id="line-135"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-136"><code>}</code></span>
+<span class="codeline" id="line-137"><code></code></span>
+<span class="codeline" id="line-138"><code><span class="comment">// Is returns true if err type is t.</span></code></span>
+<span class="codeline" id="line-139"><code><span class="keyword">func</span> <label for="r42" class="ident"><a href="../../../../../pkg/github.com/gotd/td/tgerr.html#name-Is" class="ident">Is</a></label>(<label for="r43" class="ident">err</label> <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>, <label for="r44" class="ident">tt</label> ...<a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-140"><code>	<span class="keyword">if</span> <label for="r45" class="ident">rpcErr</label>, <label for="r46" class="ident">ok</label> := <a href="#line-131" class="ident">As</a>(<label for="r43" class="ident">err</label>); <label for="r46" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-141"><code>		<span class="keyword">return</span> <label for="r45" class="ident">rpcErr</label>.<a href="#line-50" class="ident">IsOneOf</a>(<label for="r44" class="ident">tt</label>...)</code></span>
+<span class="codeline" id="line-142"><code>	}</code></span>
+<span class="codeline" id="line-143"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-144"><code>}</code></span>
+<span class="codeline" id="line-145"><code></code></span>
+<span class="codeline" id="line-146"><code><span class="comment">// IsCode returns true of error code is as provided.</span></code></span>
+<span class="codeline" id="line-147"><code><span class="keyword">func</span> <label for="r47" class="ident"><a href="../../../../../pkg/github.com/gotd/td/tgerr.html#name-IsCode" class="ident">IsCode</a></label>(<label for="r48" class="ident">err</label> <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>, <label for="r49" class="ident">code</label> ...<a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-148"><code>	<span class="keyword">if</span> <label for="r50" class="ident">rpcErr</label>, <label for="r51" class="ident">ok</label> := <a href="#line-131" class="ident">As</a>(<label for="r48" class="ident">err</label>); <label for="r51" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-149"><code>		<span class="keyword">return</span> <label for="r50" class="ident">rpcErr</label>.<a href="#line-63" class="ident">IsCodeOneOf</a>(<label for="r49" class="ident">code</label>...)</code></span>
+<span class="codeline" id="line-150"><code>	}</code></span>
+<span class="codeline" id="line-151"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-152"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

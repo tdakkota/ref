@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: server_flow.go in package github.com/gotd/td/internal/exchange</title>
-<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -46,7 +46,24 @@ input[id=r26]:checked ~pre label[for=r26],
 input[id=r27]:checked ~pre label[for=r27],
 input[id=r28]:checked ~pre label[for=r28],
 input[id=r29]:checked ~pre label[for=r29],
-input[id=r30]:checked ~pre label[for=r30]
+input[id=r30]:checked ~pre label[for=r30],
+input[id=r31]:checked ~pre label[for=r31],
+input[id=r32]:checked ~pre label[for=r32],
+input[id=r33]:checked ~pre label[for=r33],
+input[id=r34]:checked ~pre label[for=r34],
+input[id=r35]:checked ~pre label[for=r35],
+input[id=r36]:checked ~pre label[for=r36],
+input[id=r37]:checked ~pre label[for=r37],
+input[id=r38]:checked ~pre label[for=r38],
+input[id=r39]:checked ~pre label[for=r39],
+input[id=r40]:checked ~pre label[for=r40],
+input[id=r41]:checked ~pre label[for=r41],
+input[id=r42]:checked ~pre label[for=r42],
+input[id=r43]:checked ~pre label[for=r43],
+input[id=r44]:checked ~pre label[for=r44],
+input[id=r45]:checked ~pre label[for=r45],
+input[id=r46]:checked ~pre label[for=r46],
+input[id=r47]:checked ~pre label[for=r47]
 {background: #226; color: #ff8;}
 input[id=i0]:checked ~pre .i0,
 input[id=i1]:checked ~pre .i1,
@@ -54,7 +71,8 @@ input[id=i2]:checked ~pre .i2,
 input[id=i3]:checked ~pre .i3,
 input[id=i4]:checked ~pre .i4,
 input[id=i5]:checked ~pre .i5,
-input[id=i6]:checked ~pre .i6
+input[id=i6]:checked ~pre .i6,
+input[id=i7]:checked ~pre .i7
 {background: brown; color: #eed;}
 </style><input id="r0" type="radio" name="g"/>
 <input id="r1" type="radio" name="g"/>
@@ -87,6 +105,23 @@ input[id=i6]:checked ~pre .i6
 <input id="r28" type="radio" name="g"/>
 <input id="r29" type="radio" name="g"/>
 <input id="r30" type="radio" name="g"/>
+<input id="r31" type="radio" name="g"/>
+<input id="r32" type="radio" name="g"/>
+<input id="r33" type="radio" name="g"/>
+<input id="r34" type="radio" name="g"/>
+<input id="r35" type="radio" name="g"/>
+<input id="r36" type="radio" name="g"/>
+<input id="r37" type="radio" name="g"/>
+<input id="r38" type="radio" name="g"/>
+<input id="r39" type="radio" name="g"/>
+<input id="r40" type="radio" name="g"/>
+<input id="r41" type="radio" name="g"/>
+<input id="r42" type="radio" name="g"/>
+<input id="r43" type="radio" name="g"/>
+<input id="r44" type="radio" name="g"/>
+<input id="r45" type="radio" name="g"/>
+<input id="r46" type="radio" name="g"/>
+<input id="r47" type="radio" name="g"/>
 <input id="i0" type="radio" name="i"/>
 <input id="i1" type="radio" name="i"/>
 <input id="i2" type="radio" name="i"/>
@@ -94,6 +129,7 @@ input[id=i6]:checked ~pre .i6
 <input id="i4" type="radio" name="i"/>
 <input id="i5" type="radio" name="i"/>
 <input id="i6" type="radio" name="i"/>
+<input id="i7" type="radio" name="i"/>
 
 <pre class="line-numbers">
 <span class="codeline" id="line-1"><code><span class="keyword">package</span> exchange</code></span>
@@ -102,161 +138,211 @@ input[id=i6]:checked ~pre .i6
 <span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"context"</span></label></code></span>
 <span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"math/big"</span></label></code></span>
 <span class="codeline" id="line-6"><code></code></span>
-<span class="codeline" id="line-7"><code>	<label for="i2"><span class="lit-string i2">"go.uber.org/zap"</span></label></code></span>
-<span class="codeline" id="line-8"><code>	<label for="i3"><span class="lit-string i3">"golang.org/x/xerrors"</span></label></code></span>
+<span class="codeline" id="line-7"><code>	<label for="i2"><span class="lit-string i2">"github.com/go-faster/errors"</span></label></code></span>
+<span class="codeline" id="line-8"><code>	<label for="i3"><span class="lit-string i3">"go.uber.org/zap"</span></label></code></span>
 <span class="codeline" id="line-9"><code></code></span>
 <span class="codeline" id="line-10"><code>	<label for="i4"><span class="lit-string i4">"github.com/gotd/td/bin"</span></label></code></span>
 <span class="codeline" id="line-11"><code>	<label for="i5"><span class="lit-string i5">"github.com/gotd/td/internal/crypto"</span></label></code></span>
 <span class="codeline" id="line-12"><code>	<label for="i6"><span class="lit-string i6">"github.com/gotd/td/internal/mt"</span></label></code></span>
-<span class="codeline" id="line-13"><code>)</code></span>
-<span class="codeline" id="line-14"><code></code></span>
-<span class="codeline" id="line-15"><code><span class="comment">// Run runs server-side flow.</span></code></span>
-<span class="codeline" id="line-16"><code><span class="comment">// If b parameter is not nil, it will be used as first read message.</span></code></span>
-<span class="codeline" id="line-17"><code><span class="comment">// Otherwise, it will be read from connection.</span></code></span>
-<span class="codeline" id="line-18"><code><span class="keyword">func</span> (<label for="r0" class="ident">s</label> <a href="server.go.html#line-13" class="ident">ServerExchange</a>) <label for="r1" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/exchange..ServerExchange.Run.html" class="ident">Run</a></label>(<label for="r2" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>) (<a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-19"><code>	<span class="comment">// 1. Client sends query to server</span></code></span>
-<span class="codeline" id="line-20"><code><span class="comment">	//</span></code></span>
-<span class="codeline" id="line-21"><code><span class="comment">	// req_pq_multi#be7e8ef1 nonce:int128 = ResPQ;</span></code></span>
-<span class="codeline" id="line-22"><code>	<span class="keyword">var</span> <label for="r3" class="ident">pqReq</label> <a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i6">mt</a>.<a href="../mt/tl_req_pq_multi_gen.go.html#line-33" class="ident">ReqPqMultiRequest</a></code></span>
-<span class="codeline" id="line-23"><code>	<label for="r4" class="ident">b</label> := <a href="../../../../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i4">bin</a>.<a href="../../bin/buffer.go.html#line-8" class="ident">Buffer</a>)</code></span>
-<span class="codeline" id="line-24"><code>	<span class="keyword">if</span> <label for="r5" class="ident">err</label> := <label for="r0" class="ident">s</label>.<a href="proto.go.html#line-43" class="ident">readUnencrypted</a>(<label for="r2" class="ident">ctx</label>, <label for="r4" class="ident">b</label>, &amp;<label for="r3" class="ident">pqReq</label>); <label for="r5" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-25"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r5" class="ident">err</label></code></span>
-<span class="codeline" id="line-26"><code>	}</code></span>
-<span class="codeline" id="line-27"><code>	<label for="r0" class="ident">s</label>.<a href="server.go.html#line-16" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-179" class="ident">Debug</a>(<span class="lit-string">"Received client ReqPqMultiRequest"</span>)</code></span>
-<span class="codeline" id="line-28"><code></code></span>
-<span class="codeline" id="line-29"><code>	<label for="r6" class="ident">serverNonce</label>, <label for="r7" class="ident">err</label> := <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i5">crypto</a>.<a href="../crypto/rand.go.html#line-34" class="ident">RandInt128</a>(<label for="r0" class="ident">s</label>.<a href="server.go.html#line-15" class="ident">rand</a>)</code></span>
-<span class="codeline" id="line-30"><code>	<span class="keyword">if</span> <label for="r7" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-31"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i3">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"generate server nonce: %w"</span>, <label for="r7" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-32"><code>	}</code></span>
-<span class="codeline" id="line-33"><code></code></span>
-<span class="codeline" id="line-34"><code>	<span class="comment">// 2. Server sends response of the form</span></code></span>
-<span class="codeline" id="line-35"><code><span class="comment">	//</span></code></span>
-<span class="codeline" id="line-36"><code><span class="comment">	// resPQ#05162463 nonce:int128 server_nonce:int128 pq:string server_public_key_fingerprints:Vector long = ResPQ;</span></code></span>
-<span class="codeline" id="line-37"><code>	<label for="r8" class="ident">pq</label>, <label for="r7" class="ident">err</label> := <label for="r0" class="ident">s</label>.<a href="server.go.html#line-18" class="ident">rng</a>.<a href="generator.go.html#line-16" class="ident">PQ</a>()</code></span>
-<span class="codeline" id="line-38"><code>	<span class="keyword">if</span> <label for="r7" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-39"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i3">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"generate pq: %w"</span>, <label for="r7" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-40"><code>	}</code></span>
-<span class="codeline" id="line-41"><code></code></span>
-<span class="codeline" id="line-42"><code>	<label for="r0" class="ident">s</label>.<a href="server.go.html#line-16" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-179" class="ident">Debug</a>(<span class="lit-string">"Sending ResPQ"</span>, <a href="../../../../../../pkg/go.uber.org/zap.html" class="ident i2">zap</a>.<a href="../../../../../go.uber.org/zap/field.go.html#line-221" class="ident">String</a>(<span class="lit-string">"pq"</span>, <label for="r8" class="ident">pq</label>.<a href="../../../../../math/big/intconv.go.html#line-39" class="ident">String</a>()))</code></span>
-<span class="codeline" id="line-43"><code>	<span class="keyword">if</span> <label for="r9" class="ident">err</label> := <label for="r0" class="ident">s</label>.<a href="proto.go.html#line-23" class="ident">writeUnencrypted</a>(<label for="r2" class="ident">ctx</label>, <label for="r4" class="ident">b</label>, &amp;<a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i6">mt</a>.<a href="../mt/tl_res_p_q_gen.go.html#line-33" class="ident">ResPQ</a>{</code></span>
-<span class="codeline" id="line-44"><code>		<a href="../mt/tl_res_p_q_gen.go.html#line-39" class="ident">Pq</a>:          <label for="r8" class="ident">pq</label>.<a href="../../../../../math/big/int.go.html#line-452" class="ident">Bytes</a>(),</code></span>
-<span class="codeline" id="line-45"><code>		<a href="../mt/tl_res_p_q_gen.go.html#line-35" class="ident">Nonce</a>:       <label for="r3" class="ident">pqReq</label>.<a href="../mt/tl_req_pq_multi_gen.go.html#line-35" class="ident">Nonce</a>,</code></span>
-<span class="codeline" id="line-46"><code>		<a href="../mt/tl_res_p_q_gen.go.html#line-37" class="ident">ServerNonce</a>: <label for="r6" class="ident">serverNonce</label>,</code></span>
-<span class="codeline" id="line-47"><code>		<a href="../mt/tl_res_p_q_gen.go.html#line-41" class="ident">ServerPublicKeyFingerprints</a>: []<a href="../../../../../../pkg/builtin.html#name-int64" class="ident">int64</a>{</code></span>
-<span class="codeline" id="line-48"><code>			<a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i5">crypto</a>.<a href="../crypto/rsa_fingerprint.go.html#line-13" class="ident">RSAFingerprint</a>(&amp;<label for="r0" class="ident">s</label>.<a href="server.go.html#line-19" class="ident">key</a>.<a href="../../../../../crypto/rsa/rsa.go.html#line-101" class="ident">PublicKey</a>),</code></span>
-<span class="codeline" id="line-49"><code>		},</code></span>
-<span class="codeline" id="line-50"><code>	}); <label for="r9" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-51"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r9" class="ident">err</label></code></span>
-<span class="codeline" id="line-52"><code>	}</code></span>
-<span class="codeline" id="line-53"><code></code></span>
-<span class="codeline" id="line-54"><code>	<span class="comment">// 4. Client sends query to server</span></code></span>
-<span class="codeline" id="line-55"><code><span class="comment">	//</span></code></span>
-<span class="codeline" id="line-56"><code><span class="comment">	// req_DH_params#d712e4be nonce:int128 server_nonce:int128 p:string</span></code></span>
-<span class="codeline" id="line-57"><code><span class="comment">	//  q:string public_key_fingerprint:long encrypted_data:string = Server_DH_Params</span></code></span>
-<span class="codeline" id="line-58"><code>	<span class="keyword">var</span> <label for="r10" class="ident">dhParams</label> <a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i6">mt</a>.<a href="../mt/tl_req_d_h_params_gen.go.html#line-33" class="ident">ReqDHParamsRequest</a></code></span>
-<span class="codeline" id="line-59"><code>	<span class="keyword">if</span> <label for="r11" class="ident">err</label> := <label for="r0" class="ident">s</label>.<a href="proto.go.html#line-43" class="ident">readUnencrypted</a>(<label for="r2" class="ident">ctx</label>, <label for="r4" class="ident">b</label>, &amp;<label for="r10" class="ident">dhParams</label>); <label for="r11" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-60"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r11" class="ident">err</label></code></span>
+<span class="codeline" id="line-13"><code>	<label for="i7"><span class="lit-string i7">"github.com/gotd/td/internal/proto/codec"</span></label></code></span>
+<span class="codeline" id="line-14"><code>)</code></span>
+<span class="codeline" id="line-15"><code></code></span>
+<span class="codeline" id="line-16"><code><span class="comment">// ServerExchangeError is returned when exchange fails due to</span></code></span>
+<span class="codeline" id="line-17"><code><span class="comment">// some security or validation checks.</span></code></span>
+<span class="codeline" id="line-18"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/internal/exchange.html#name-ServerExchangeError" class="ident">ServerExchangeError</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-19"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/exchange..ServerExchangeError.Code.html" class="ident">Code</a> <a href="../../../../../../pkg/builtin.html#name-int32" class="ident">int32</a></code></span>
+<span class="codeline" id="line-20"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/exchange..ServerExchangeError.Err.html" class="ident">Err</a>  <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-21"><code>}</code></span>
+<span class="codeline" id="line-22"><code></code></span>
+<span class="codeline" id="line-23"><code><span class="comment">// Error implements error.</span></code></span>
+<span class="codeline" id="line-24"><code><span class="keyword">func</span> (<label for="r0" class="ident">s</label> *<a href="#line-18" class="ident">ServerExchangeError</a>) <label for="r1" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/exchange..ServerExchangeError.Error.html" class="ident">Error</a></label>() <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-25"><code>	<span class="keyword">return</span> <label for="r0" class="ident">s</label>.<a href="#line-20" class="ident">Err</a>.Error()</code></span>
+<span class="codeline" id="line-26"><code>}</code></span>
+<span class="codeline" id="line-27"><code></code></span>
+<span class="codeline" id="line-28"><code><span class="comment">// Unwrap implements error wrapper interface.</span></code></span>
+<span class="codeline" id="line-29"><code><span class="keyword">func</span> (<label for="r2" class="ident">s</label> *<a href="#line-18" class="ident">ServerExchangeError</a>) <label for="r3" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/exchange..ServerExchangeError.Unwrap.html" class="ident">Unwrap</a></label>() <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-30"><code>	<span class="keyword">return</span> <label for="r2" class="ident">s</label>.<a href="#line-20" class="ident">Err</a></code></span>
+<span class="codeline" id="line-31"><code>}</code></span>
+<span class="codeline" id="line-32"><code></code></span>
+<span class="codeline" id="line-33"><code><span class="keyword">func</span> <label for="r4" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/exchange.html#name-serverError" class="ident">serverError</a></label>(<label for="r5" class="ident">code</label> <a href="../../../../../../pkg/builtin.html#name-int32" class="ident">int32</a>, <label for="r6" class="ident">err</label> <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-34"><code>	<span class="keyword">return</span> &amp;<a href="#line-18" class="ident">ServerExchangeError</a>{</code></span>
+<span class="codeline" id="line-35"><code>		<a href="#line-19" class="ident">Code</a>: <label for="r5" class="ident">code</label>,</code></span>
+<span class="codeline" id="line-36"><code>		<a href="#line-20" class="ident">Err</a>:  <label for="r6" class="ident">err</label>,</code></span>
+<span class="codeline" id="line-37"><code>	}</code></span>
+<span class="codeline" id="line-38"><code>}</code></span>
+<span class="codeline" id="line-39"><code></code></span>
+<span class="codeline" id="line-40"><code><span class="comment">// Run runs server-side flow.</span></code></span>
+<span class="codeline" id="line-41"><code><span class="comment">// If b parameter is not nil, it will be used as first read message.</span></code></span>
+<span class="codeline" id="line-42"><code><span class="comment">// Otherwise, it will be read from connection.</span></code></span>
+<span class="codeline" id="line-43"><code><span class="keyword">func</span> (<label for="r7" class="ident">s</label> <a href="server.go.html#line-12" class="ident">ServerExchange</a>) <label for="r8" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/exchange..ServerExchange.Run.html" class="ident">Run</a></label>(<label for="r9" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>) (<a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-44"><code>	<label for="r10" class="ident">wrapKeyNotFound</label> := <span class="keyword">func</span>(<label for="r11" class="ident">err</label> <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-45"><code>		<span class="keyword">return</span> <a href="#line-33" class="ident">serverError</a>(<a href="../../../../../../pkg/github.com/gotd/td/internal/proto/codec.html" class="ident i7">codec</a>.<a href="../proto/codec/errors.go.html#line-14" class="ident">CodeAuthKeyNotFound</a>, <label for="r11" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-46"><code>	}</code></span>
+<span class="codeline" id="line-47"><code></code></span>
+<span class="codeline" id="line-48"><code>	<span class="comment">// 1. Client sends query to server</span></code></span>
+<span class="codeline" id="line-49"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-50"><code><span class="comment">	// req_pq_multi#be7e8ef1 nonce:int128 = ResPQ;</span></code></span>
+<span class="codeline" id="line-51"><code>	<span class="keyword">var</span> <label for="r12" class="ident">pqReq</label> <a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i6">mt</a>.<a href="../mt/tl_req_pq_multi_gen.go.html#line-35" class="ident">ReqPqMultiRequest</a></code></span>
+<span class="codeline" id="line-52"><code>	<label for="r13" class="ident">b</label> := <a href="../../../../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i4">bin</a>.<a href="../../bin/buffer.go.html#line-8" class="ident">Buffer</a>)</code></span>
+<span class="codeline" id="line-53"><code>	<span class="keyword">if</span> <label for="r14" class="ident">err</label> := <label for="r7" class="ident">s</label>.<a href="proto.go.html#line-59" class="ident">readUnencrypted</a>(<label for="r9" class="ident">ctx</label>, <label for="r13" class="ident">b</label>, &amp;<label for="r12" class="ident">pqReq</label>); <label for="r14" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-54"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r14" class="ident">err</label></code></span>
+<span class="codeline" id="line-55"><code>	}</code></span>
+<span class="codeline" id="line-56"><code>	<label for="r7" class="ident">s</label>.<a href="server.go.html#line-15" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-182" class="ident">Debug</a>(<span class="lit-string">"Received client ReqPqMultiRequest"</span>)</code></span>
+<span class="codeline" id="line-57"><code></code></span>
+<span class="codeline" id="line-58"><code>	<label for="r15" class="ident">serverNonce</label>, <label for="r16" class="ident">err</label> := <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i5">crypto</a>.<a href="../crypto/rand.go.html#line-34" class="ident">RandInt128</a>(<label for="r7" class="ident">s</label>.<a href="server.go.html#line-14" class="ident">rand</a>)</code></span>
+<span class="codeline" id="line-59"><code>	<span class="keyword">if</span> <label for="r16" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-60"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i2">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r16" class="ident">err</label>, <span class="lit-string">"generate server nonce"</span>)</code></span>
 <span class="codeline" id="line-61"><code>	}</code></span>
-<span class="codeline" id="line-62"><code>	<label for="r0" class="ident">s</label>.<a href="server.go.html#line-16" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-179" class="ident">Debug</a>(<span class="lit-string">"Received client ReqDHParamsRequest"</span>)</code></span>
-<span class="codeline" id="line-63"><code></code></span>
-<span class="codeline" id="line-64"><code>	<label for="r12" class="ident">r</label>, <label for="r7" class="ident">err</label> := <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i5">crypto</a>.<a href="../crypto/rsa.go.html#line-79" class="ident">RSADecryptHashed</a>(<label for="r10" class="ident">dhParams</label>.<a href="../mt/tl_req_d_h_params_gen.go.html#line-45" class="ident">EncryptedData</a>, <label for="r0" class="ident">s</label>.<a href="server.go.html#line-19" class="ident">key</a>)</code></span>
-<span class="codeline" id="line-65"><code>	<span class="keyword">if</span> <label for="r7" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-66"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r7" class="ident">err</label></code></span>
-<span class="codeline" id="line-67"><code>	}</code></span>
-<span class="codeline" id="line-68"><code>	<label for="r4" class="ident">b</label>.<a href="../../bin/buffer.go.html#line-69" class="ident">ResetTo</a>(<label for="r12" class="ident">r</label>)</code></span>
-<span class="codeline" id="line-69"><code></code></span>
-<span class="codeline" id="line-70"><code>	<span class="keyword">var</span> <label for="r13" class="ident">innerData</label> <a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i6">mt</a>.<a href="../mt/tl_p_q_inner_data_gen.go.html#line-33" class="ident">PQInnerData</a></code></span>
-<span class="codeline" id="line-71"><code>	<label for="r7" class="ident">err</label> = <label for="r13" class="ident">innerData</label>.<a href="../mt/tl_p_q_inner_data_gen.go.html#line-208" class="ident">Decode</a>(<label for="r4" class="ident">b</label>)</code></span>
-<span class="codeline" id="line-72"><code>	<span class="keyword">if</span> <label for="r7" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-73"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r7" class="ident">err</label></code></span>
-<span class="codeline" id="line-74"><code>	}</code></span>
-<span class="codeline" id="line-75"><code></code></span>
-<span class="codeline" id="line-76"><code>	<label for="r14" class="ident">dhPrime</label>, <label for="r7" class="ident">err</label> := <label for="r0" class="ident">s</label>.<a href="server.go.html#line-18" class="ident">rng</a>.<a href="generator.go.html#line-18" class="ident">DhPrime</a>()</code></span>
-<span class="codeline" id="line-77"><code>	<span class="keyword">if</span> <label for="r7" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-78"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i3">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"generate dh_prime: %w"</span>, <label for="r7" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-79"><code>	}</code></span>
-<span class="codeline" id="line-80"><code></code></span>
-<span class="codeline" id="line-81"><code>	<label for="r15" class="ident">g</label> := <span class="lit-number">3</span></code></span>
-<span class="codeline" id="line-82"><code>	<label for="r16" class="ident">a</label>, <label for="r17" class="ident">ga</label>, <label for="r7" class="ident">err</label> := <label for="r0" class="ident">s</label>.<a href="server.go.html#line-18" class="ident">rng</a>.<a href="generator.go.html#line-17" class="ident">GA</a>(<label for="r15" class="ident">g</label>, <label for="r14" class="ident">dhPrime</label>)</code></span>
-<span class="codeline" id="line-83"><code>	<span class="keyword">if</span> <label for="r7" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-84"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i3">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"generate g_a: %w"</span>, <label for="r7" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-85"><code>	}</code></span>
-<span class="codeline" id="line-86"><code></code></span>
-<span class="codeline" id="line-87"><code>	<label for="r18" class="ident">data</label> := <a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i6">mt</a>.<a href="../mt/tl_server_d_h_inner_data_gen.go.html#line-33" class="ident">ServerDHInnerData</a>{</code></span>
-<span class="codeline" id="line-88"><code>		<a href="../mt/tl_server_d_h_inner_data_gen.go.html#line-35" class="ident">Nonce</a>:       <label for="r3" class="ident">pqReq</label>.<a href="../mt/tl_req_pq_multi_gen.go.html#line-35" class="ident">Nonce</a>,</code></span>
-<span class="codeline" id="line-89"><code>		<a href="../mt/tl_server_d_h_inner_data_gen.go.html#line-37" class="ident">ServerNonce</a>: <label for="r6" class="ident">serverNonce</label>,</code></span>
-<span class="codeline" id="line-90"><code>		<a href="../mt/tl_server_d_h_inner_data_gen.go.html#line-39" class="ident">G</a>:           <label for="r15" class="ident">g</label>,</code></span>
-<span class="codeline" id="line-91"><code>		<a href="../mt/tl_server_d_h_inner_data_gen.go.html#line-43" class="ident">GA</a>:          <label for="r17" class="ident">ga</label>.<a href="../../../../../math/big/int.go.html#line-452" class="ident">Bytes</a>(),</code></span>
-<span class="codeline" id="line-92"><code>		<a href="../mt/tl_server_d_h_inner_data_gen.go.html#line-41" class="ident">DhPrime</a>:     <label for="r14" class="ident">dhPrime</label>.<a href="../../../../../math/big/int.go.html#line-452" class="ident">Bytes</a>(),</code></span>
-<span class="codeline" id="line-93"><code>		<a href="../mt/tl_server_d_h_inner_data_gen.go.html#line-45" class="ident">ServerTime</a>:  <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r0" class="ident">s</label>.<a href="proto.go.html#line-16" class="ident">clock</a>.<a href="../../clock/clock.go.html#line-12" class="ident">Now</a>().<a href="../../../../../time/time.go.html#line-1134" class="ident">Unix</a>()),</code></span>
-<span class="codeline" id="line-94"><code>	}</code></span>
-<span class="codeline" id="line-95"><code></code></span>
-<span class="codeline" id="line-96"><code>	<label for="r4" class="ident">b</label>.<a href="../../bin/encode.go.html#line-100" class="ident">Reset</a>()</code></span>
-<span class="codeline" id="line-97"><code>	<label for="r7" class="ident">err</label> = <label for="r18" class="ident">data</label>.<a href="../mt/tl_server_d_h_inner_data_gen.go.html#line-155" class="ident">Encode</a>(<label for="r4" class="ident">b</label>)</code></span>
-<span class="codeline" id="line-98"><code>	<span class="keyword">if</span> <label for="r7" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-99"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r7" class="ident">err</label></code></span>
-<span class="codeline" id="line-100"><code>	}</code></span>
-<span class="codeline" id="line-101"><code></code></span>
-<span class="codeline" id="line-102"><code>	<label for="r19" class="ident">key</label>, <label for="r20" class="ident">iv</label> := <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i5">crypto</a>.<a href="../crypto/temp_keys.go.html#line-20" class="ident">TempAESKeys</a>(<label for="r13" class="ident">innerData</label>.<a href="../mt/tl_p_q_inner_data_gen.go.html#line-45" class="ident">NewNonce</a>.<a href="../../bin/int256.go.html#line-25" class="ident">BigInt</a>(), <label for="r6" class="ident">serverNonce</label>.<a href="../../bin/int128.go.html#line-25" class="ident">BigInt</a>())</code></span>
-<span class="codeline" id="line-103"><code>	<label for="r21" class="ident">answer</label>, <label for="r7" class="ident">err</label> := <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i5">crypto</a>.<a href="../crypto/exchange.go.html#line-43" class="ident">EncryptExchangeAnswer</a>(<label for="r0" class="ident">s</label>.<a href="server.go.html#line-15" class="ident">rand</a>, <label for="r4" class="ident">b</label>.<a href="../../bin/buffer.go.html#line-56" class="ident">Raw</a>(), <label for="r19" class="ident">key</label>, <label for="r20" class="ident">iv</label>)</code></span>
-<span class="codeline" id="line-104"><code>	<span class="keyword">if</span> <label for="r7" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-105"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r7" class="ident">err</label></code></span>
-<span class="codeline" id="line-106"><code>	}</code></span>
-<span class="codeline" id="line-107"><code></code></span>
-<span class="codeline" id="line-108"><code>	<label for="r0" class="ident">s</label>.<a href="server.go.html#line-16" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-179" class="ident">Debug</a>(<span class="lit-string">"Sending ServerDHParamsOk"</span>, <a href="../../../../../../pkg/go.uber.org/zap.html" class="ident i2">zap</a>.<a href="../../../../../go.uber.org/zap/field.go.html#line-151" class="ident">Int</a>(<span class="lit-string">"g"</span>, <label for="r15" class="ident">g</label>))</code></span>
-<span class="codeline" id="line-109"><code>	<span class="comment">// 5. Server responds with Server_DH_Params.</span></code></span>
-<span class="codeline" id="line-110"><code>	<span class="keyword">if</span> <label for="r22" class="ident">err</label> := <label for="r0" class="ident">s</label>.<a href="proto.go.html#line-23" class="ident">writeUnencrypted</a>(<label for="r2" class="ident">ctx</label>, <label for="r4" class="ident">b</label>, &amp;<a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i6">mt</a>.<a href="../mt/tl_server_d_h_params_gen.go.html#line-210" class="ident">ServerDHParamsOk</a>{</code></span>
-<span class="codeline" id="line-111"><code>		<a href="../mt/tl_server_d_h_params_gen.go.html#line-212" class="ident">Nonce</a>:           <label for="r3" class="ident">pqReq</label>.<a href="../mt/tl_req_pq_multi_gen.go.html#line-35" class="ident">Nonce</a>,</code></span>
-<span class="codeline" id="line-112"><code>		<a href="../mt/tl_server_d_h_params_gen.go.html#line-214" class="ident">ServerNonce</a>:     <label for="r6" class="ident">serverNonce</label>,</code></span>
-<span class="codeline" id="line-113"><code>		<a href="../mt/tl_server_d_h_params_gen.go.html#line-216" class="ident">EncryptedAnswer</a>: <label for="r21" class="ident">answer</label>,</code></span>
-<span class="codeline" id="line-114"><code>	}); <label for="r22" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-115"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r22" class="ident">err</label></code></span>
-<span class="codeline" id="line-116"><code>	}</code></span>
-<span class="codeline" id="line-117"><code></code></span>
-<span class="codeline" id="line-118"><code>	<span class="keyword">var</span> <label for="r23" class="ident">clientDhParams</label> <a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i6">mt</a>.<a href="../mt/tl_set_client_d_h_params_gen.go.html#line-33" class="ident">SetClientDHParamsRequest</a></code></span>
-<span class="codeline" id="line-119"><code>	<span class="keyword">if</span> <label for="r24" class="ident">err</label> := <label for="r0" class="ident">s</label>.<a href="proto.go.html#line-43" class="ident">readUnencrypted</a>(<label for="r2" class="ident">ctx</label>, <label for="r4" class="ident">b</label>, &amp;<label for="r23" class="ident">clientDhParams</label>); <label for="r24" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-120"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r24" class="ident">err</label></code></span>
-<span class="codeline" id="line-121"><code>	}</code></span>
-<span class="codeline" id="line-122"><code>	<label for="r0" class="ident">s</label>.<a href="server.go.html#line-16" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-179" class="ident">Debug</a>(<span class="lit-string">"Received client SetClientDHParamsRequest"</span>)</code></span>
+<span class="codeline" id="line-62"><code></code></span>
+<span class="codeline" id="line-63"><code>	<span class="comment">// 2. Server sends response of the form</span></code></span>
+<span class="codeline" id="line-64"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-65"><code><span class="comment">	// resPQ#05162463 nonce:int128 server_nonce:int128 pq:string server_public_key_fingerprints:Vector long = ResPQ;</span></code></span>
+<span class="codeline" id="line-66"><code>	<label for="r17" class="ident">pq</label>, <label for="r16" class="ident">err</label> := <label for="r7" class="ident">s</label>.<a href="server.go.html#line-17" class="ident">rng</a>.<a href="generator.go.html#line-16" class="ident">PQ</a>()</code></span>
+<span class="codeline" id="line-67"><code>	<span class="keyword">if</span> <label for="r16" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-68"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i2">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r16" class="ident">err</label>, <span class="lit-string">"generate pq"</span>)</code></span>
+<span class="codeline" id="line-69"><code>	}</code></span>
+<span class="codeline" id="line-70"><code></code></span>
+<span class="codeline" id="line-71"><code>	<label for="r7" class="ident">s</label>.<a href="server.go.html#line-15" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-182" class="ident">Debug</a>(<span class="lit-string">"Sending ResPQ"</span>, <a href="../../../../../../pkg/go.uber.org/zap.html" class="ident i3">zap</a>.<a href="../../../../../go.uber.org/zap/field.go.html#line-221" class="ident">String</a>(<span class="lit-string">"pq"</span>, <label for="r17" class="ident">pq</label>.<a href="../../../../../math/big/intconv.go.html#line-39" class="ident">String</a>()))</code></span>
+<span class="codeline" id="line-72"><code>	<span class="keyword">if</span> <label for="r18" class="ident">err</label> := <label for="r7" class="ident">s</label>.<a href="proto.go.html#line-24" class="ident">writeUnencrypted</a>(<label for="r9" class="ident">ctx</label>, <label for="r13" class="ident">b</label>, &amp;<a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i6">mt</a>.<a href="../mt/tl_res_p_q_gen.go.html#line-35" class="ident">ResPQ</a>{</code></span>
+<span class="codeline" id="line-73"><code>		<a href="../mt/tl_res_p_q_gen.go.html#line-41" class="ident">Pq</a>:          <label for="r17" class="ident">pq</label>.<a href="../../../../../math/big/int.go.html#line-446" class="ident">Bytes</a>(),</code></span>
+<span class="codeline" id="line-74"><code>		<a href="../mt/tl_res_p_q_gen.go.html#line-37" class="ident">Nonce</a>:       <label for="r12" class="ident">pqReq</label>.<a href="../mt/tl_req_pq_multi_gen.go.html#line-37" class="ident">Nonce</a>,</code></span>
+<span class="codeline" id="line-75"><code>		<a href="../mt/tl_res_p_q_gen.go.html#line-39" class="ident">ServerNonce</a>: <label for="r15" class="ident">serverNonce</label>,</code></span>
+<span class="codeline" id="line-76"><code>		<a href="../mt/tl_res_p_q_gen.go.html#line-43" class="ident">ServerPublicKeyFingerprints</a>: []<a href="../../../../../../pkg/builtin.html#name-int64" class="ident">int64</a>{</code></span>
+<span class="codeline" id="line-77"><code>			<label for="r7" class="ident">s</label>.<a href="server.go.html#line-18" class="ident">key</a>.<a href="key.go.html#line-37" class="ident">Fingerprint</a>(),</code></span>
+<span class="codeline" id="line-78"><code>		},</code></span>
+<span class="codeline" id="line-79"><code>	}); <label for="r18" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-80"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r18" class="ident">err</label></code></span>
+<span class="codeline" id="line-81"><code>	}</code></span>
+<span class="codeline" id="line-82"><code></code></span>
+<span class="codeline" id="line-83"><code>	<span class="comment">// 4. Client sends query to server</span></code></span>
+<span class="codeline" id="line-84"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-85"><code><span class="comment">	// req_DH_params#d712e4be nonce:int128 server_nonce:int128 p:string</span></code></span>
+<span class="codeline" id="line-86"><code><span class="comment">	//  q:string public_key_fingerprint:long encrypted_data:string = Server_DH_Params</span></code></span>
+<span class="codeline" id="line-87"><code>	<span class="keyword">var</span> <label for="r19" class="ident">dhParams</label> <a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i6">mt</a>.<a href="../mt/tl_req_d_h_params_gen.go.html#line-35" class="ident">ReqDHParamsRequest</a></code></span>
+<span class="codeline" id="line-88"><code>	<span class="keyword">if</span> <label for="r20" class="ident">err</label> := <label for="r7" class="ident">s</label>.<a href="proto.go.html#line-59" class="ident">readUnencrypted</a>(<label for="r9" class="ident">ctx</label>, <label for="r13" class="ident">b</label>, &amp;<label for="r19" class="ident">dhParams</label>); <label for="r20" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-89"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r20" class="ident">err</label></code></span>
+<span class="codeline" id="line-90"><code>	}</code></span>
+<span class="codeline" id="line-91"><code>	<label for="r7" class="ident">s</label>.<a href="server.go.html#line-15" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-182" class="ident">Debug</a>(<span class="lit-string">"Received client ReqDHParamsRequest"</span>)</code></span>
+<span class="codeline" id="line-92"><code></code></span>
+<span class="codeline" id="line-93"><code>	<span class="keyword">var</span> <label for="r21" class="ident">innerData</label> <a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i6">mt</a>.<a href="../mt/tl_p_q_inner_data_gen.go.html#line-35" class="ident">PQInnerData</a></code></span>
+<span class="codeline" id="line-94"><code>	{</code></span>
+<span class="codeline" id="line-95"><code>		<label for="r22" class="ident">r</label>, <label for="r23" class="ident">err</label> := <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i5">crypto</a>.<a href="../crypto/rsa_pad.go.html#line-123" class="ident">DecodeRSAPad</a>(<label for="r19" class="ident">dhParams</label>.<a href="../mt/tl_req_d_h_params_gen.go.html#line-47" class="ident">EncryptedData</a>, <label for="r7" class="ident">s</label>.<a href="server.go.html#line-18" class="ident">key</a>.<a href="key.go.html#line-28" class="ident">RSA</a>)</code></span>
+<span class="codeline" id="line-96"><code>		<span class="keyword">if</span> <label for="r23" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-97"><code>			<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r10" class="ident">wrapKeyNotFound</label>(<label for="r23" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-98"><code>		}</code></span>
+<span class="codeline" id="line-99"><code>		<label for="r13" class="ident">b</label>.<a href="../../bin/buffer.go.html#line-69" class="ident">ResetTo</a>(<label for="r22" class="ident">r</label>)</code></span>
+<span class="codeline" id="line-100"><code></code></span>
+<span class="codeline" id="line-101"><code>		<label for="r24" class="ident">d</label>, <label for="r23" class="ident">err</label> := <a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i6">mt</a>.<a href="../mt/tl_p_q_inner_data_gen.go.html#line-608" class="ident">DecodePQInnerData</a>(<label for="r13" class="ident">b</label>)</code></span>
+<span class="codeline" id="line-102"><code>		<span class="keyword">if</span> <label for="r23" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-103"><code>			<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r23" class="ident">err</label></code></span>
+<span class="codeline" id="line-104"><code>		}</code></span>
+<span class="codeline" id="line-105"><code></code></span>
+<span class="codeline" id="line-106"><code>		<span class="keyword">if</span> <label for="r25" class="ident">innerDataDC</label>, <label for="r26" class="ident">ok</label> := <label for="r24" class="ident">d</label>.(*<a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i6">mt</a>.<a href="../mt/tl_p_q_inner_data_gen.go.html#line-285" class="ident">PQInnerDataDC</a>); <label for="r26" class="ident">ok</label> &amp;&amp; <label for="r25" class="ident">innerDataDC</label>.<a href="../mt/tl_p_q_inner_data_gen.go.html#line-299" class="ident">DC</a> != <label for="r7" class="ident">s</label>.<a href="server.go.html#line-19" class="ident">dc</a> {</code></span>
+<span class="codeline" id="line-107"><code>			<label for="r27" class="ident">err</label> := <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i2">errors</a>.<a href="../../../../go-faster/errors/format.go.html#line-42" class="ident">Errorf</a>(</code></span>
+<span class="codeline" id="line-108"><code>				<span class="lit-string">"wrong DC ID, want %d, got %d"</span>,</code></span>
+<span class="codeline" id="line-109"><code>				<label for="r7" class="ident">s</label>.<a href="server.go.html#line-19" class="ident">dc</a>, <label for="r25" class="ident">innerDataDC</label>.<a href="../mt/tl_p_q_inner_data_gen.go.html#line-299" class="ident">DC</a>,</code></span>
+<span class="codeline" id="line-110"><code>			)</code></span>
+<span class="codeline" id="line-111"><code>			<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <a href="#line-33" class="ident">serverError</a>(<a href="../../../../../../pkg/github.com/gotd/td/internal/proto/codec.html" class="ident i7">codec</a>.<a href="../proto/codec/errors.go.html#line-18" class="ident">CodeWrongDC</a>, <label for="r27" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-112"><code>		}</code></span>
+<span class="codeline" id="line-113"><code></code></span>
+<span class="codeline" id="line-114"><code>		<label for="r21" class="ident">innerData</label> = <a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i6">mt</a>.<a href="../mt/tl_p_q_inner_data_gen.go.html#line-35" class="ident">PQInnerData</a>{</code></span>
+<span class="codeline" id="line-115"><code>			<a href="../mt/tl_p_q_inner_data_gen.go.html#line-37" class="ident">Pq</a>:          <label for="r24" class="ident">d</label>.<a href="../mt/tl_p_q_inner_data_gen.go.html#line-594" class="ident">GetPq</a>(),</code></span>
+<span class="codeline" id="line-116"><code>			<a href="../mt/tl_p_q_inner_data_gen.go.html#line-39" class="ident">P</a>:           <label for="r24" class="ident">d</label>.<a href="../mt/tl_p_q_inner_data_gen.go.html#line-596" class="ident">GetP</a>(),</code></span>
+<span class="codeline" id="line-117"><code>			<a href="../mt/tl_p_q_inner_data_gen.go.html#line-41" class="ident">Q</a>:           <label for="r24" class="ident">d</label>.<a href="../mt/tl_p_q_inner_data_gen.go.html#line-598" class="ident">GetQ</a>(),</code></span>
+<span class="codeline" id="line-118"><code>			<a href="../mt/tl_p_q_inner_data_gen.go.html#line-43" class="ident">Nonce</a>:       <label for="r24" class="ident">d</label>.<a href="../mt/tl_p_q_inner_data_gen.go.html#line-600" class="ident">GetNonce</a>(),</code></span>
+<span class="codeline" id="line-119"><code>			<a href="../mt/tl_p_q_inner_data_gen.go.html#line-45" class="ident">ServerNonce</a>: <label for="r24" class="ident">d</label>.<a href="../mt/tl_p_q_inner_data_gen.go.html#line-602" class="ident">GetServerNonce</a>(),</code></span>
+<span class="codeline" id="line-120"><code>			<a href="../mt/tl_p_q_inner_data_gen.go.html#line-47" class="ident">NewNonce</a>:    <label for="r24" class="ident">d</label>.<a href="../mt/tl_p_q_inner_data_gen.go.html#line-604" class="ident">GetNewNonce</a>(),</code></span>
+<span class="codeline" id="line-121"><code>		}</code></span>
+<span class="codeline" id="line-122"><code>	}</code></span>
 <span class="codeline" id="line-123"><code></code></span>
-<span class="codeline" id="line-124"><code>	<label for="r25" class="ident">decrypted</label>, <label for="r7" class="ident">err</label> := <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i5">crypto</a>.<a href="../crypto/exchange.go.html#line-16" class="ident">DecryptExchangeAnswer</a>(<label for="r23" class="ident">clientDhParams</label>.<a href="../mt/tl_set_client_d_h_params_gen.go.html#line-39" class="ident">EncryptedData</a>, <label for="r19" class="ident">key</label>, <label for="r20" class="ident">iv</label>)</code></span>
-<span class="codeline" id="line-125"><code>	<span class="keyword">if</span> <label for="r7" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-126"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r7" class="ident">err</label></code></span>
+<span class="codeline" id="line-124"><code>	<label for="r28" class="ident">dhPrime</label>, <label for="r16" class="ident">err</label> := <label for="r7" class="ident">s</label>.<a href="server.go.html#line-17" class="ident">rng</a>.<a href="generator.go.html#line-18" class="ident">DhPrime</a>()</code></span>
+<span class="codeline" id="line-125"><code>	<span class="keyword">if</span> <label for="r16" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-126"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i2">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r16" class="ident">err</label>, <span class="lit-string">"generate dh_prime"</span>)</code></span>
 <span class="codeline" id="line-127"><code>	}</code></span>
-<span class="codeline" id="line-128"><code>	<label for="r4" class="ident">b</label>.<a href="../../bin/buffer.go.html#line-69" class="ident">ResetTo</a>(<label for="r25" class="ident">decrypted</label>)</code></span>
-<span class="codeline" id="line-129"><code></code></span>
-<span class="codeline" id="line-130"><code>	<span class="keyword">var</span> <label for="r26" class="ident">clientInnerData</label> <a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i6">mt</a>.<a href="../mt/tl_client_d_h_inner_data_gen.go.html#line-33" class="ident">ClientDHInnerData</a></code></span>
-<span class="codeline" id="line-131"><code>	<label for="r7" class="ident">err</label> = <label for="r26" class="ident">clientInnerData</label>.<a href="../mt/tl_client_d_h_inner_data_gen.go.html#line-174" class="ident">Decode</a>(<label for="r4" class="ident">b</label>)</code></span>
-<span class="codeline" id="line-132"><code>	<span class="keyword">if</span> <label for="r7" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-133"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r7" class="ident">err</label></code></span>
-<span class="codeline" id="line-134"><code>	}</code></span>
-<span class="codeline" id="line-135"><code></code></span>
-<span class="codeline" id="line-136"><code>	<label for="r27" class="ident">gB</label> := <a href="../../../../../../pkg/math/big.html" class="ident i1">big</a>.<a href="../../../../../math/big/int.go.html#line-68" class="ident">NewInt</a>(<span class="lit-number">0</span>).<a href="../../../../../math/big/int.go.html#line-443" class="ident">SetBytes</a>(<label for="r26" class="ident">clientInnerData</label>.<a href="../mt/tl_client_d_h_inner_data_gen.go.html#line-41" class="ident">GB</a>)</code></span>
-<span class="codeline" id="line-137"><code>	<span class="keyword">var</span> <label for="r28" class="ident">authKey</label> <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i5">crypto</a>.<a href="../crypto/key.go.html#line-11" class="ident">Key</a></code></span>
-<span class="codeline" id="line-138"><code>	<a href="../../../../../../pkg/math/big.html" class="ident i1">big</a>.<a href="../../../../../math/big/int.go.html#line-68" class="ident">NewInt</a>(<span class="lit-number">0</span>).<a href="../../../../../math/big/int.go.html#line-488" class="ident">Exp</a>(<label for="r27" class="ident">gB</label>, <label for="r16" class="ident">a</label>, <label for="r14" class="ident">dhPrime</label>).<a href="../../../../../math/big/int.go.html#line-461" class="ident">FillBytes</a>(<label for="r28" class="ident">authKey</label>[:])</code></span>
-<span class="codeline" id="line-139"><code></code></span>
-<span class="codeline" id="line-140"><code>	<span class="comment">// DH key exchange complete</span></code></span>
-<span class="codeline" id="line-141"><code><span class="comment">	// 8. Server responds in one of three ways:</span></code></span>
-<span class="codeline" id="line-142"><code><span class="comment">	// dh_gen_ok#3bcbf734 nonce:int128 server_nonce:int128</span></code></span>
-<span class="codeline" id="line-143"><code><span class="comment">	// 	new_nonce_hash1:int128 = Set_client_DH_params_answer;</span></code></span>
-<span class="codeline" id="line-144"><code>	<label for="r0" class="ident">s</label>.<a href="server.go.html#line-16" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-179" class="ident">Debug</a>(<span class="lit-string">"Sending DhGenOk"</span>)</code></span>
-<span class="codeline" id="line-145"><code>	<span class="keyword">if</span> <label for="r29" class="ident">err</label> := <label for="r0" class="ident">s</label>.<a href="proto.go.html#line-23" class="ident">writeUnencrypted</a>(<label for="r2" class="ident">ctx</label>, <label for="r4" class="ident">b</label>, &amp;<a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i6">mt</a>.<a href="../mt/tl_set_client_d_h_params_answer_gen.go.html#line-33" class="ident">DhGenOk</a>{</code></span>
-<span class="codeline" id="line-146"><code>		<a href="../mt/tl_set_client_d_h_params_answer_gen.go.html#line-35" class="ident">Nonce</a>:         <label for="r3" class="ident">pqReq</label>.<a href="../mt/tl_req_pq_multi_gen.go.html#line-35" class="ident">Nonce</a>,</code></span>
-<span class="codeline" id="line-147"><code>		<a href="../mt/tl_set_client_d_h_params_answer_gen.go.html#line-37" class="ident">ServerNonce</a>:   <label for="r6" class="ident">serverNonce</label>,</code></span>
-<span class="codeline" id="line-148"><code>		<a href="../mt/tl_set_client_d_h_params_answer_gen.go.html#line-39" class="ident">NewNonceHash1</a>: <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i5">crypto</a>.<a href="../crypto/exchange.go.html#line-62" class="ident">NonceHash1</a>(<label for="r13" class="ident">innerData</label>.<a href="../mt/tl_p_q_inner_data_gen.go.html#line-45" class="ident">NewNonce</a>, <label for="r28" class="ident">authKey</label>),</code></span>
-<span class="codeline" id="line-149"><code>	}); <label for="r29" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-150"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r29" class="ident">err</label></code></span>
-<span class="codeline" id="line-151"><code>	}</code></span>
-<span class="codeline" id="line-152"><code></code></span>
-<span class="codeline" id="line-153"><code>	<label for="r30" class="ident">serverSalt</label> := <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i5">crypto</a>.<a href="../crypto/salt.go.html#line-11" class="ident">ServerSalt</a>(<label for="r13" class="ident">innerData</label>.<a href="../mt/tl_p_q_inner_data_gen.go.html#line-45" class="ident">NewNonce</a>, <label for="r6" class="ident">serverNonce</label>)</code></span>
-<span class="codeline" id="line-154"><code>	<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{</code></span>
-<span class="codeline" id="line-155"><code>		<a href="server.go.html#line-24" class="ident">Key</a>:        <label for="r28" class="ident">authKey</label>.<a href="../crypto/key.go.html#line-40" class="ident">WithID</a>(),</code></span>
-<span class="codeline" id="line-156"><code>		<a href="server.go.html#line-25" class="ident">ServerSalt</a>: <label for="r30" class="ident">serverSalt</label>,</code></span>
-<span class="codeline" id="line-157"><code>	}, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-158"><code>}</code></span>
+<span class="codeline" id="line-128"><code></code></span>
+<span class="codeline" id="line-129"><code>	<label for="r29" class="ident">g</label> := <span class="lit-number">3</span></code></span>
+<span class="codeline" id="line-130"><code>	<label for="r30" class="ident">a</label>, <label for="r31" class="ident">ga</label>, <label for="r16" class="ident">err</label> := <label for="r7" class="ident">s</label>.<a href="server.go.html#line-17" class="ident">rng</a>.<a href="generator.go.html#line-17" class="ident">GA</a>(<label for="r29" class="ident">g</label>, <label for="r28" class="ident">dhPrime</label>)</code></span>
+<span class="codeline" id="line-131"><code>	<span class="keyword">if</span> <label for="r16" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-132"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i2">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r16" class="ident">err</label>, <span class="lit-string">"generate g_a"</span>)</code></span>
+<span class="codeline" id="line-133"><code>	}</code></span>
+<span class="codeline" id="line-134"><code></code></span>
+<span class="codeline" id="line-135"><code>	<label for="r32" class="ident">data</label> := <a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i6">mt</a>.<a href="../mt/tl_server_d_h_inner_data_gen.go.html#line-35" class="ident">ServerDHInnerData</a>{</code></span>
+<span class="codeline" id="line-136"><code>		<a href="../mt/tl_server_d_h_inner_data_gen.go.html#line-37" class="ident">Nonce</a>:       <label for="r12" class="ident">pqReq</label>.<a href="../mt/tl_req_pq_multi_gen.go.html#line-37" class="ident">Nonce</a>,</code></span>
+<span class="codeline" id="line-137"><code>		<a href="../mt/tl_server_d_h_inner_data_gen.go.html#line-39" class="ident">ServerNonce</a>: <label for="r15" class="ident">serverNonce</label>,</code></span>
+<span class="codeline" id="line-138"><code>		<a href="../mt/tl_server_d_h_inner_data_gen.go.html#line-41" class="ident">G</a>:           <label for="r29" class="ident">g</label>,</code></span>
+<span class="codeline" id="line-139"><code>		<a href="../mt/tl_server_d_h_inner_data_gen.go.html#line-45" class="ident">GA</a>:          <label for="r31" class="ident">ga</label>.<a href="../../../../../math/big/int.go.html#line-446" class="ident">Bytes</a>(),</code></span>
+<span class="codeline" id="line-140"><code>		<a href="../mt/tl_server_d_h_inner_data_gen.go.html#line-43" class="ident">DhPrime</a>:     <label for="r28" class="ident">dhPrime</label>.<a href="../../../../../math/big/int.go.html#line-446" class="ident">Bytes</a>(),</code></span>
+<span class="codeline" id="line-141"><code>		<a href="../mt/tl_server_d_h_inner_data_gen.go.html#line-47" class="ident">ServerTime</a>:  <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">s</label>.<a href="proto.go.html#line-17" class="ident">clock</a>.<a href="../../clock/clock.go.html#line-12" class="ident">Now</a>().<a href="../../../../../time/time.go.html#line-1168" class="ident">Unix</a>()),</code></span>
+<span class="codeline" id="line-142"><code>	}</code></span>
+<span class="codeline" id="line-143"><code></code></span>
+<span class="codeline" id="line-144"><code>	<label for="r13" class="ident">b</label>.<a href="../../bin/encode.go.html#line-105" class="ident">Reset</a>()</code></span>
+<span class="codeline" id="line-145"><code>	<span class="keyword">if</span> <label for="r33" class="ident">err</label> := <label for="r32" class="ident">data</label>.<a href="../mt/tl_server_d_h_inner_data_gen.go.html#line-148" class="ident">Encode</a>(<label for="r13" class="ident">b</label>); <label for="r33" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-146"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r33" class="ident">err</label></code></span>
+<span class="codeline" id="line-147"><code>	}</code></span>
+<span class="codeline" id="line-148"><code></code></span>
+<span class="codeline" id="line-149"><code>	<label for="r34" class="ident">key</label>, <label for="r35" class="ident">iv</label> := <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i5">crypto</a>.<a href="../crypto/temp_keys.go.html#line-20" class="ident">TempAESKeys</a>(<label for="r21" class="ident">innerData</label>.<a href="../mt/tl_p_q_inner_data_gen.go.html#line-47" class="ident">NewNonce</a>.<a href="../../bin/int256.go.html#line-25" class="ident">BigInt</a>(), <label for="r15" class="ident">serverNonce</label>.<a href="../../bin/int128.go.html#line-25" class="ident">BigInt</a>())</code></span>
+<span class="codeline" id="line-150"><code>	<label for="r36" class="ident">answer</label>, <label for="r16" class="ident">err</label> := <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i5">crypto</a>.<a href="../crypto/exchange.go.html#line-42" class="ident">EncryptExchangeAnswer</a>(<label for="r7" class="ident">s</label>.<a href="server.go.html#line-14" class="ident">rand</a>, <label for="r13" class="ident">b</label>.<a href="../../bin/buffer.go.html#line-56" class="ident">Raw</a>(), <label for="r34" class="ident">key</label>, <label for="r35" class="ident">iv</label>)</code></span>
+<span class="codeline" id="line-151"><code>	<span class="keyword">if</span> <label for="r16" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-152"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r16" class="ident">err</label></code></span>
+<span class="codeline" id="line-153"><code>	}</code></span>
+<span class="codeline" id="line-154"><code></code></span>
+<span class="codeline" id="line-155"><code>	<label for="r7" class="ident">s</label>.<a href="server.go.html#line-15" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-182" class="ident">Debug</a>(<span class="lit-string">"Sending ServerDHParamsOk"</span>, <a href="../../../../../../pkg/go.uber.org/zap.html" class="ident i3">zap</a>.<a href="../../../../../go.uber.org/zap/field.go.html#line-151" class="ident">Int</a>(<span class="lit-string">"g"</span>, <label for="r29" class="ident">g</label>))</code></span>
+<span class="codeline" id="line-156"><code>	<span class="comment">// 5. Server responds with Server_DH_Params.</span></code></span>
+<span class="codeline" id="line-157"><code>	<span class="keyword">if</span> <label for="r37" class="ident">err</label> := <label for="r7" class="ident">s</label>.<a href="proto.go.html#line-24" class="ident">writeUnencrypted</a>(<label for="r9" class="ident">ctx</label>, <label for="r13" class="ident">b</label>, &amp;<a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i6">mt</a>.<a href="../mt/tl_server_d_h_params_gen.go.html#line-210" class="ident">ServerDHParamsOk</a>{</code></span>
+<span class="codeline" id="line-158"><code>		<a href="../mt/tl_server_d_h_params_gen.go.html#line-212" class="ident">Nonce</a>:           <label for="r12" class="ident">pqReq</label>.<a href="../mt/tl_req_pq_multi_gen.go.html#line-37" class="ident">Nonce</a>,</code></span>
+<span class="codeline" id="line-159"><code>		<a href="../mt/tl_server_d_h_params_gen.go.html#line-214" class="ident">ServerNonce</a>:     <label for="r15" class="ident">serverNonce</label>,</code></span>
+<span class="codeline" id="line-160"><code>		<a href="../mt/tl_server_d_h_params_gen.go.html#line-216" class="ident">EncryptedAnswer</a>: <label for="r36" class="ident">answer</label>,</code></span>
+<span class="codeline" id="line-161"><code>	}); <label for="r37" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-162"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r37" class="ident">err</label></code></span>
+<span class="codeline" id="line-163"><code>	}</code></span>
+<span class="codeline" id="line-164"><code></code></span>
+<span class="codeline" id="line-165"><code>	<span class="keyword">var</span> <label for="r38" class="ident">clientDhParams</label> <a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i6">mt</a>.<a href="../mt/tl_set_client_d_h_params_gen.go.html#line-35" class="ident">SetClientDHParamsRequest</a></code></span>
+<span class="codeline" id="line-166"><code>	<span class="keyword">if</span> <label for="r39" class="ident">err</label> := <label for="r7" class="ident">s</label>.<a href="proto.go.html#line-59" class="ident">readUnencrypted</a>(<label for="r9" class="ident">ctx</label>, <label for="r13" class="ident">b</label>, &amp;<label for="r38" class="ident">clientDhParams</label>); <label for="r39" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-167"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r39" class="ident">err</label></code></span>
+<span class="codeline" id="line-168"><code>	}</code></span>
+<span class="codeline" id="line-169"><code>	<label for="r7" class="ident">s</label>.<a href="server.go.html#line-15" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-182" class="ident">Debug</a>(<span class="lit-string">"Received client SetClientDHParamsRequest"</span>)</code></span>
+<span class="codeline" id="line-170"><code></code></span>
+<span class="codeline" id="line-171"><code>	<label for="r40" class="ident">decrypted</label>, <label for="r16" class="ident">err</label> := <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i5">crypto</a>.<a href="../crypto/exchange.go.html#line-16" class="ident">DecryptExchangeAnswer</a>(<label for="r38" class="ident">clientDhParams</label>.<a href="../mt/tl_set_client_d_h_params_gen.go.html#line-41" class="ident">EncryptedData</a>, <label for="r34" class="ident">key</label>, <label for="r35" class="ident">iv</label>)</code></span>
+<span class="codeline" id="line-172"><code>	<span class="keyword">if</span> <label for="r16" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-173"><code>		<label for="r16" class="ident">err</label> = <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i2">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r16" class="ident">err</label>, <span class="lit-string">"decrypt exchange answer"</span>)</code></span>
+<span class="codeline" id="line-174"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r10" class="ident">wrapKeyNotFound</label>(<label for="r16" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-175"><code>	}</code></span>
+<span class="codeline" id="line-176"><code>	<label for="r13" class="ident">b</label>.<a href="../../bin/buffer.go.html#line-69" class="ident">ResetTo</a>(<label for="r40" class="ident">decrypted</label>)</code></span>
+<span class="codeline" id="line-177"><code></code></span>
+<span class="codeline" id="line-178"><code>	<span class="keyword">var</span> <label for="r41" class="ident">clientInnerData</label> <a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i6">mt</a>.<a href="../mt/tl_client_d_h_inner_data_gen.go.html#line-35" class="ident">ClientDHInnerData</a></code></span>
+<span class="codeline" id="line-179"><code>	<span class="keyword">if</span> <label for="r42" class="ident">err</label> := <label for="r41" class="ident">clientInnerData</label>.<a href="../mt/tl_client_d_h_inner_data_gen.go.html#line-151" class="ident">Decode</a>(<label for="r13" class="ident">b</label>); <label for="r42" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-180"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r10" class="ident">wrapKeyNotFound</label>(<label for="r42" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-181"><code>	}</code></span>
+<span class="codeline" id="line-182"><code></code></span>
+<span class="codeline" id="line-183"><code>	<label for="r43" class="ident">gB</label> := <a href="../../../../../../pkg/math/big.html" class="ident i1">big</a>.<a href="../../../../../math/big/int.go.html#line-67" class="ident">NewInt</a>(<span class="lit-number">0</span>).<a href="../../../../../math/big/int.go.html#line-437" class="ident">SetBytes</a>(<label for="r41" class="ident">clientInnerData</label>.<a href="../mt/tl_client_d_h_inner_data_gen.go.html#line-43" class="ident">GB</a>)</code></span>
+<span class="codeline" id="line-184"><code>	<span class="keyword">var</span> <label for="r44" class="ident">authKey</label> <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i5">crypto</a>.<a href="../crypto/key.go.html#line-17" class="ident">Key</a></code></span>
+<span class="codeline" id="line-185"><code>	<span class="keyword">if</span> !<a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i5">crypto</a>.<a href="../crypto/fill_bytes.go.html#line-8" class="ident">FillBytes</a>(<a href="../../../../../../pkg/math/big.html" class="ident i1">big</a>.<a href="../../../../../math/big/int.go.html#line-67" class="ident">NewInt</a>(<span class="lit-number">0</span>).<a href="../../../../../math/big/int.go.html#line-482" class="ident">Exp</a>(<label for="r43" class="ident">gB</label>, <label for="r30" class="ident">a</label>, <label for="r28" class="ident">dhPrime</label>), <label for="r44" class="ident">authKey</label>[:]) {</code></span>
+<span class="codeline" id="line-186"><code>		<label for="r45" class="ident">err</label> := <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i2">errors</a>.<a href="../../../../go-faster/errors/errors.go.html#line-22" class="ident">New</a>(<span class="lit-string">"auth_key is too big"</span>)</code></span>
+<span class="codeline" id="line-187"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r10" class="ident">wrapKeyNotFound</label>(<label for="r45" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-188"><code>	}</code></span>
+<span class="codeline" id="line-189"><code></code></span>
+<span class="codeline" id="line-190"><code>	<span class="comment">// DH key exchange complete</span></code></span>
+<span class="codeline" id="line-191"><code><span class="comment">	// 8. Server responds in one of three ways:</span></code></span>
+<span class="codeline" id="line-192"><code><span class="comment">	// dh_gen_ok#3bcbf734 nonce:int128 server_nonce:int128</span></code></span>
+<span class="codeline" id="line-193"><code><span class="comment">	// 	new_nonce_hash1:int128 = Set_client_DH_params_answer;</span></code></span>
+<span class="codeline" id="line-194"><code>	<label for="r7" class="ident">s</label>.<a href="server.go.html#line-15" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-182" class="ident">Debug</a>(<span class="lit-string">"Sending DhGenOk"</span>)</code></span>
+<span class="codeline" id="line-195"><code>	<span class="keyword">if</span> <label for="r46" class="ident">err</label> := <label for="r7" class="ident">s</label>.<a href="proto.go.html#line-24" class="ident">writeUnencrypted</a>(<label for="r9" class="ident">ctx</label>, <label for="r13" class="ident">b</label>, &amp;<a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i6">mt</a>.<a href="../mt/tl_set_client_d_h_params_answer_gen.go.html#line-35" class="ident">DhGenOk</a>{</code></span>
+<span class="codeline" id="line-196"><code>		<a href="../mt/tl_set_client_d_h_params_answer_gen.go.html#line-37" class="ident">Nonce</a>:         <label for="r12" class="ident">pqReq</label>.<a href="../mt/tl_req_pq_multi_gen.go.html#line-37" class="ident">Nonce</a>,</code></span>
+<span class="codeline" id="line-197"><code>		<a href="../mt/tl_set_client_d_h_params_answer_gen.go.html#line-39" class="ident">ServerNonce</a>:   <label for="r15" class="ident">serverNonce</label>,</code></span>
+<span class="codeline" id="line-198"><code>		<a href="../mt/tl_set_client_d_h_params_answer_gen.go.html#line-41" class="ident">NewNonceHash1</a>: <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i5">crypto</a>.<a href="../crypto/exchange.go.html#line-60" class="ident">NonceHash1</a>(<label for="r21" class="ident">innerData</label>.<a href="../mt/tl_p_q_inner_data_gen.go.html#line-47" class="ident">NewNonce</a>, <label for="r44" class="ident">authKey</label>),</code></span>
+<span class="codeline" id="line-199"><code>	}); <label for="r46" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-200"><code>		<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{}, <label for="r46" class="ident">err</label></code></span>
+<span class="codeline" id="line-201"><code>	}</code></span>
+<span class="codeline" id="line-202"><code></code></span>
+<span class="codeline" id="line-203"><code>	<label for="r47" class="ident">serverSalt</label> := <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i5">crypto</a>.<a href="../crypto/salt.go.html#line-12" class="ident">ServerSalt</a>(<label for="r21" class="ident">innerData</label>.<a href="../mt/tl_p_q_inner_data_gen.go.html#line-47" class="ident">NewNonce</a>, <label for="r15" class="ident">serverNonce</label>)</code></span>
+<span class="codeline" id="line-204"><code>	<span class="keyword">return</span> <a href="server.go.html#line-23" class="ident">ServerExchangeResult</a>{</code></span>
+<span class="codeline" id="line-205"><code>		<a href="server.go.html#line-24" class="ident">Key</a>:        <label for="r44" class="ident">authKey</label>.<a href="../crypto/key.go.html#line-46" class="ident">WithID</a>(),</code></span>
+<span class="codeline" id="line-206"><code>		<a href="server.go.html#line-25" class="ident">ServerSalt</a>: <label for="r47" class="ident">serverSalt</label>,</code></span>
+<span class="codeline" id="line-207"><code>	}, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-208"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

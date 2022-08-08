@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: time.go in package github.com/gotd/neo</title>
-<link href="../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -94,12 +94,15 @@ input[id=r74]:checked ~pre label[for=r74],
 input[id=r75]:checked ~pre label[for=r75],
 input[id=r76]:checked ~pre label[for=r76],
 input[id=r77]:checked ~pre label[for=r77],
-input[id=r78]:checked ~pre label[for=r78]
+input[id=r78]:checked ~pre label[for=r78],
+input[id=r79]:checked ~pre label[for=r79],
+input[id=r80]:checked ~pre label[for=r80],
+input[id=r81]:checked ~pre label[for=r81],
+input[id=r82]:checked ~pre label[for=r82]
 {background: #226; color: #ff8;}
 input[id=i0]:checked ~pre .i0,
 input[id=i1]:checked ~pre .i1,
-input[id=i2]:checked ~pre .i2,
-input[id=i3]:checked ~pre .i3
+input[id=i2]:checked ~pre .i2
 {background: brown; color: #eed;}
 </style><input id="r0" type="radio" name="g"/>
 <input id="r1" type="radio" name="g"/>
@@ -180,10 +183,13 @@ input[id=i3]:checked ~pre .i3
 <input id="r76" type="radio" name="g"/>
 <input id="r77" type="radio" name="g"/>
 <input id="r78" type="radio" name="g"/>
+<input id="r79" type="radio" name="g"/>
+<input id="r80" type="radio" name="g"/>
+<input id="r81" type="radio" name="g"/>
+<input id="r82" type="radio" name="g"/>
 <input id="i0" type="radio" name="i"/>
 <input id="i1" type="radio" name="i"/>
 <input id="i2" type="radio" name="i"/>
-<input id="i3" type="radio" name="i"/>
 
 <pre class="line-numbers">
 <span class="codeline" id="line-1"><code><span class="keyword">package</span> neo</code></span>
@@ -191,219 +197,216 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
 <span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"sort"</span></label></code></span>
 <span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"sync"</span></label></code></span>
-<span class="codeline" id="line-6"><code>	<label for="i2"><span class="lit-string i2">"sync/atomic"</span></label></code></span>
-<span class="codeline" id="line-7"><code>	<label for="i3"><span class="lit-string i3">"time"</span></label></code></span>
-<span class="codeline" id="line-8"><code>)</code></span>
-<span class="codeline" id="line-9"><code></code></span>
-<span class="codeline" id="line-10"><code><span class="comment">// Timer abstracts a single event.</span></code></span>
-<span class="codeline" id="line-11"><code><span class="keyword">type</span> <a href="../../../../pkg/github.com/gotd/neo.html#name-Timer" class="ident">Timer</a> <span class="keyword">interface</span> {</code></span>
-<span class="codeline" id="line-12"><code>	<a href="../../../../imp/github.com/gotd/neo.Timer.html#name-C" class="ident">C</a>() &lt;-<span class="keyword">chan</span> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a></code></span>
-<span class="codeline" id="line-13"><code>	<a href="../../../../imp/github.com/gotd/neo.Timer.html#name-Stop" class="ident">Stop</a>() <a href="../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
-<span class="codeline" id="line-14"><code>	<a href="../../../../imp/github.com/gotd/neo.Timer.html#name-Reset" class="ident">Reset</a>(d <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-590" class="ident">Duration</a>)</code></span>
-<span class="codeline" id="line-15"><code>}</code></span>
-<span class="codeline" id="line-16"><code></code></span>
-<span class="codeline" id="line-17"><code><span class="comment">// Ticker abstracts a channel that delivers ``ticks'' of a clock at intervals.</span></code></span>
-<span class="codeline" id="line-18"><code><span class="keyword">type</span> <a href="../../../../pkg/github.com/gotd/neo.html#name-Ticker" class="ident">Ticker</a> <span class="keyword">interface</span> {</code></span>
-<span class="codeline" id="line-19"><code>	<a href="../../../../imp/github.com/gotd/neo.Ticker.html#name-C" class="ident">C</a>() &lt;-<span class="keyword">chan</span> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a></code></span>
-<span class="codeline" id="line-20"><code>	<a href="../../../../imp/github.com/gotd/neo.Ticker.html#name-Stop" class="ident">Stop</a>()</code></span>
-<span class="codeline" id="line-21"><code>	<a href="../../../../imp/github.com/gotd/neo.Ticker.html#name-Reset" class="ident">Reset</a>(d <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-590" class="ident">Duration</a>)</code></span>
-<span class="codeline" id="line-22"><code>}</code></span>
-<span class="codeline" id="line-23"><code></code></span>
-<span class="codeline" id="line-24"><code><span class="comment">// NewTime returns new temporal simulator.</span></code></span>
-<span class="codeline" id="line-25"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../pkg/github.com/gotd/neo.html#name-NewTime" class="ident">NewTime</a></label>(<label for="r1" class="ident">now</label> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a>) *<a href="#line-35" class="ident">Time</a> {</code></span>
-<span class="codeline" id="line-26"><code>	<span class="keyword">return</span> &amp;<a href="#line-35" class="ident">Time</a>{</code></span>
-<span class="codeline" id="line-27"><code>		<a href="#line-37" class="ident">now</a>:     <label for="r1" class="ident">now</label>,</code></span>
-<span class="codeline" id="line-28"><code>		<a href="#line-40" class="ident">moments</a>: <span class="keyword">map</span>[<a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>]<a href="moment.go.html#line-5" class="ident">moment</a>{},</code></span>
-<span class="codeline" id="line-29"><code>	}</code></span>
-<span class="codeline" id="line-30"><code>}</code></span>
-<span class="codeline" id="line-31"><code></code></span>
-<span class="codeline" id="line-32"><code><span class="comment">// Time simulates temporal interactions.</span></code></span>
-<span class="codeline" id="line-33"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-34"><code><span class="comment">// All methods are goroutine-safe.</span></code></span>
-<span class="codeline" id="line-35"><code><span class="keyword">type</span> <a href="../../../../pkg/github.com/gotd/neo.html#name-Time" class="ident">Time</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-36"><code>	<a href="../../../../use/github.com/gotd/neo..Time.mux^99830.html" class="ident">mux</a>      <a href="../../../../pkg/sync.html" class="ident i1">sync</a>.<a href="../../../sync/mutex.go.html#line-25" class="ident">Mutex</a></code></span>
-<span class="codeline" id="line-37"><code>	<a href="../../../../use/github.com/gotd/neo..Time.now^ed5eb.html" class="ident">now</a>      <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a></code></span>
-<span class="codeline" id="line-38"><code>	<a href="../../../../use/github.com/gotd/neo..Time.momentID^34910.html" class="ident">momentID</a> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
-<span class="codeline" id="line-39"><code></code></span>
-<span class="codeline" id="line-40"><code>	<a href="../../../../use/github.com/gotd/neo..Time.moments^690a8.html" class="ident">moments</a>   <span class="keyword">map</span>[<a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>]<a href="moment.go.html#line-5" class="ident">moment</a></code></span>
-<span class="codeline" id="line-41"><code>	<a href="../../../../use/github.com/gotd/neo..Time.observers^57ff1.html" class="ident">observers</a> []<span class="keyword">chan</span> <span class="keyword">struct</span>{}</code></span>
-<span class="codeline" id="line-42"><code>}</code></span>
-<span class="codeline" id="line-43"><code></code></span>
-<span class="codeline" id="line-44"><code><span class="keyword">func</span> (<label for="r2" class="ident">t</label> *<a href="#line-35" class="ident">Time</a>) <label for="r3" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.Timer.html" class="ident">Timer</a></label>(<label for="r4" class="ident">d</label> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-590" class="ident">Duration</a>) <a href="#line-11" class="ident">Timer</a> {</code></span>
-<span class="codeline" id="line-45"><code>	<label for="r5" class="ident">done</label> := <a href="../../../runtime/chan.go.html#line-71">make</a>(<span class="keyword">chan</span> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a>, <span class="lit-number">1</span>)</code></span>
-<span class="codeline" id="line-46"><code></code></span>
-<span class="codeline" id="line-47"><code>	<span class="keyword">return</span> <a href="timer.go.html#line-5" class="ident">timer</a>{</code></span>
-<span class="codeline" id="line-48"><code>		<a href="timer.go.html#line-6" class="ident">time</a>: <label for="r2" class="ident">t</label>,</code></span>
-<span class="codeline" id="line-49"><code>		<a href="timer.go.html#line-7" class="ident">ch</a>:   <label for="r5" class="ident">done</label>,</code></span>
-<span class="codeline" id="line-50"><code>		<a href="timer.go.html#line-8" class="ident">id</a>: <label for="r2" class="ident">t</label>.<a href="#line-88" class="ident">plan</a>(<label for="r2" class="ident">t</label>.<a href="#line-186" class="ident">When</a>(<label for="r4" class="ident">d</label>), <span class="keyword">func</span>(<label for="r6" class="ident">now</label> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a>) {</code></span>
-<span class="codeline" id="line-51"><code>			<label for="r5" class="ident">done</label> &lt;- <label for="r6" class="ident">now</label></code></span>
-<span class="codeline" id="line-52"><code>		}),</code></span>
-<span class="codeline" id="line-53"><code>	}</code></span>
-<span class="codeline" id="line-54"><code>}</code></span>
-<span class="codeline" id="line-55"><code></code></span>
-<span class="codeline" id="line-56"><code><span class="keyword">func</span> (<label for="r7" class="ident">t</label> *<a href="#line-35" class="ident">Time</a>) <label for="r8" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.Ticker.html" class="ident">Ticker</a></label>(<label for="r9" class="ident">d</label> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-590" class="ident">Duration</a>) <a href="#line-18" class="ident">Ticker</a> {</code></span>
-<span class="codeline" id="line-57"><code>	<label for="r10" class="ident">done</label> := <a href="../../../runtime/chan.go.html#line-71">make</a>(<span class="keyword">chan</span> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a>, <span class="lit-number">1</span>)</code></span>
-<span class="codeline" id="line-58"><code></code></span>
-<span class="codeline" id="line-59"><code>	<label for="r11" class="ident">tick</label> := &amp;<a href="ticker.go.html#line-8" class="ident">ticker</a>{</code></span>
-<span class="codeline" id="line-60"><code>		<a href="ticker.go.html#line-9" class="ident">time</a>: <label for="r7" class="ident">t</label>,</code></span>
-<span class="codeline" id="line-61"><code>		<a href="ticker.go.html#line-10" class="ident">ch</a>:   <label for="r10" class="ident">done</label>,</code></span>
-<span class="codeline" id="line-62"><code>		<a href="ticker.go.html#line-12" class="ident">dur</a>:  <a href="../../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r9" class="ident">d</label>),</code></span>
-<span class="codeline" id="line-63"><code>	}</code></span>
-<span class="codeline" id="line-64"><code></code></span>
-<span class="codeline" id="line-65"><code>	<span class="keyword">var</span> <label for="r12" class="ident">cb</label> <span class="keyword">func</span>(<label for="r13" class="ident">now</label> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a>)</code></span>
-<span class="codeline" id="line-66"><code>	<label for="r12" class="ident">cb</label> = <span class="keyword">func</span>(<label for="r14" class="ident">now</label> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a>) {</code></span>
-<span class="codeline" id="line-67"><code>		<label for="r10" class="ident">done</label> &lt;- <label for="r14" class="ident">now</label></code></span>
-<span class="codeline" id="line-68"><code></code></span>
-<span class="codeline" id="line-69"><code>		<label for="r15" class="ident">dur</label> := <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-590" class="ident">Duration</a>(<a href="../../../../pkg/sync/atomic.html" class="ident i2">atomic</a>.<a href="../../../sync/atomic/doc.go.html#line-114" class="ident">LoadInt64</a>(&amp;<label for="r11" class="ident">tick</label>.<a href="ticker.go.html#line-12" class="ident">dur</a>))</code></span>
-<span class="codeline" id="line-70"><code>		<label for="r7" class="ident">t</label>.<a href="#line-77" class="ident">planUnlocked</a>(<label for="r14" class="ident">now</label>.<a href="../../../time/time.go.html#line-820" class="ident">Add</a>(<label for="r15" class="ident">dur</label>), <label for="r12" class="ident">cb</label>)</code></span>
-<span class="codeline" id="line-71"><code>	}</code></span>
-<span class="codeline" id="line-72"><code>	<label for="r11" class="ident">tick</label>.<a href="ticker.go.html#line-11" class="ident">id</a> = <label for="r7" class="ident">t</label>.<a href="#line-88" class="ident">plan</a>(<label for="r7" class="ident">t</label>.<a href="#line-186" class="ident">When</a>(<label for="r9" class="ident">d</label>), <label for="r12" class="ident">cb</label>)</code></span>
-<span class="codeline" id="line-73"><code></code></span>
-<span class="codeline" id="line-74"><code>	<span class="keyword">return</span> <label for="r11" class="ident">tick</label></code></span>
-<span class="codeline" id="line-75"><code>}</code></span>
-<span class="codeline" id="line-76"><code></code></span>
-<span class="codeline" id="line-77"><code><span class="keyword">func</span> (<label for="r16" class="ident">t</label> *<a href="#line-35" class="ident">Time</a>) <label for="r17" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.planUnlocked^f2a93.html" class="ident">planUnlocked</a></label>(<label for="r18" class="ident">when</label> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a>, <label for="r19" class="ident">do</label> <span class="keyword">func</span>(<label for="r20" class="ident">now</label> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a>)) <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a> {</code></span>
-<span class="codeline" id="line-78"><code>	<label for="r21" class="ident">id</label> := <label for="r16" class="ident">t</label>.<a href="#line-38" class="ident">momentID</a></code></span>
-<span class="codeline" id="line-79"><code>	<label for="r16" class="ident">t</label>.<a href="#line-38" class="ident">momentID</a>++</code></span>
-<span class="codeline" id="line-80"><code>	<label for="r16" class="ident">t</label>.<a href="#line-40" class="ident">moments</a>[<label for="r16" class="ident">t</label>.<a href="#line-38" class="ident">momentID</a>] = <a href="moment.go.html#line-5" class="ident">moment</a>{</code></span>
-<span class="codeline" id="line-81"><code>		<a href="moment.go.html#line-6" class="ident">when</a>: <label for="r18" class="ident">when</label>,</code></span>
-<span class="codeline" id="line-82"><code>		<a href="moment.go.html#line-7" class="ident">do</a>:   <label for="r19" class="ident">do</label>,</code></span>
-<span class="codeline" id="line-83"><code>	}</code></span>
-<span class="codeline" id="line-84"><code>	<label for="r16" class="ident">t</label>.<a href="#line-210" class="ident">observe</a>()</code></span>
-<span class="codeline" id="line-85"><code>	<span class="keyword">return</span> <label for="r21" class="ident">id</label></code></span>
-<span class="codeline" id="line-86"><code>}</code></span>
+<span class="codeline" id="line-6"><code>	<label for="i2"><span class="lit-string i2">"time"</span></label></code></span>
+<span class="codeline" id="line-7"><code>)</code></span>
+<span class="codeline" id="line-8"><code></code></span>
+<span class="codeline" id="line-9"><code><span class="comment">// Timer abstracts a single event.</span></code></span>
+<span class="codeline" id="line-10"><code><span class="keyword">type</span> <a href="../../../../pkg/github.com/gotd/neo.html#name-Timer" class="ident">Timer</a> <span class="keyword">interface</span> {</code></span>
+<span class="codeline" id="line-11"><code>	<a href="../../../../imp/github.com/gotd/neo.Timer.html#name-C" class="ident">C</a>() &lt;-<span class="keyword">chan</span> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a></code></span>
+<span class="codeline" id="line-12"><code>	<a href="../../../../imp/github.com/gotd/neo.Timer.html#name-Stop" class="ident">Stop</a>() <a href="../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-13"><code>	<a href="../../../../imp/github.com/gotd/neo.Timer.html#name-Reset" class="ident">Reset</a>(d <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-591" class="ident">Duration</a>)</code></span>
+<span class="codeline" id="line-14"><code>}</code></span>
+<span class="codeline" id="line-15"><code></code></span>
+<span class="codeline" id="line-16"><code><span class="comment">// Ticker abstracts a channel that delivers ``ticks'' of a clock at intervals.</span></code></span>
+<span class="codeline" id="line-17"><code><span class="keyword">type</span> <a href="../../../../pkg/github.com/gotd/neo.html#name-Ticker" class="ident">Ticker</a> <span class="keyword">interface</span> {</code></span>
+<span class="codeline" id="line-18"><code>	<a href="../../../../imp/github.com/gotd/neo.Ticker.html#name-C" class="ident">C</a>() &lt;-<span class="keyword">chan</span> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a></code></span>
+<span class="codeline" id="line-19"><code>	<a href="../../../../imp/github.com/gotd/neo.Ticker.html#name-Stop" class="ident">Stop</a>()</code></span>
+<span class="codeline" id="line-20"><code>	<a href="../../../../imp/github.com/gotd/neo.Ticker.html#name-Reset" class="ident">Reset</a>(d <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-591" class="ident">Duration</a>)</code></span>
+<span class="codeline" id="line-21"><code>}</code></span>
+<span class="codeline" id="line-22"><code></code></span>
+<span class="codeline" id="line-23"><code><span class="comment">// NewTime returns new temporal simulator.</span></code></span>
+<span class="codeline" id="line-24"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../pkg/github.com/gotd/neo.html#name-NewTime" class="ident">NewTime</a></label>(<label for="r1" class="ident">now</label> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a>) *<a href="#line-34" class="ident">Time</a> {</code></span>
+<span class="codeline" id="line-25"><code>	<span class="keyword">return</span> &amp;<a href="#line-34" class="ident">Time</a>{</code></span>
+<span class="codeline" id="line-26"><code>		<a href="#line-38" class="ident">now</a>:     <label for="r1" class="ident">now</label>,</code></span>
+<span class="codeline" id="line-27"><code>		<a href="#line-41" class="ident">moments</a>: <span class="keyword">map</span>[<a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>]<a href="moment.go.html#line-5" class="ident">moment</a>{},</code></span>
+<span class="codeline" id="line-28"><code>	}</code></span>
+<span class="codeline" id="line-29"><code>}</code></span>
+<span class="codeline" id="line-30"><code></code></span>
+<span class="codeline" id="line-31"><code><span class="comment">// Time simulates temporal interactions.</span></code></span>
+<span class="codeline" id="line-32"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-33"><code><span class="comment">// All methods are goroutine-safe.</span></code></span>
+<span class="codeline" id="line-34"><code><span class="keyword">type</span> <a href="../../../../pkg/github.com/gotd/neo.html#name-Time" class="ident">Time</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-35"><code>	<span class="comment">// mux guards internal state. Note that all methods without Unlocked</span></code></span>
+<span class="codeline" id="line-36"><code><span class="comment">	// suffix acquire mux.</span></code></span>
+<span class="codeline" id="line-37"><code>	<a href="../../../../use/github.com/gotd/neo..Time.mux^99830.html" class="ident">mux</a>      <a href="../../../../pkg/sync.html" class="ident i1">sync</a>.<a href="../../../sync/mutex.go.html#line-34" class="ident">Mutex</a></code></span>
+<span class="codeline" id="line-38"><code>	<a href="../../../../use/github.com/gotd/neo..Time.now^ed5eb.html" class="ident">now</a>      <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a></code></span>
+<span class="codeline" id="line-39"><code>	<a href="../../../../use/github.com/gotd/neo..Time.momentID^34910.html" class="ident">momentID</a> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-40"><code></code></span>
+<span class="codeline" id="line-41"><code>	<a href="../../../../use/github.com/gotd/neo..Time.moments^690a8.html" class="ident">moments</a>   <span class="keyword">map</span>[<a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>]<a href="moment.go.html#line-5" class="ident">moment</a></code></span>
+<span class="codeline" id="line-42"><code>	<a href="../../../../use/github.com/gotd/neo..Time.observers^57ff1.html" class="ident">observers</a> []<span class="keyword">chan</span> <span class="keyword">struct</span>{}</code></span>
+<span class="codeline" id="line-43"><code>}</code></span>
+<span class="codeline" id="line-44"><code></code></span>
+<span class="codeline" id="line-45"><code><span class="keyword">func</span> (<label for="r2" class="ident">t</label> *<a href="#line-34" class="ident">Time</a>) <label for="r3" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.Timer.html" class="ident">Timer</a></label>(<label for="r4" class="ident">d</label> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-591" class="ident">Duration</a>) <a href="#line-10" class="ident">Timer</a> {</code></span>
+<span class="codeline" id="line-46"><code>	<label for="r5" class="ident">tt</label> := &amp;<a href="timer.go.html#line-5" class="ident">timer</a>{</code></span>
+<span class="codeline" id="line-47"><code>		<a href="timer.go.html#line-6" class="ident">time</a>: <label for="r2" class="ident">t</label>,</code></span>
+<span class="codeline" id="line-48"><code>		<a href="timer.go.html#line-7" class="ident">ch</a>:   <a href="../../../runtime/chan.go.html#line-72">make</a>(<span class="keyword">chan</span> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a>, <span class="lit-number">1</span>),</code></span>
+<span class="codeline" id="line-49"><code>	}</code></span>
+<span class="codeline" id="line-50"><code>	<label for="r5" class="ident">tt</label>.<a href="timer.go.html#line-8" class="ident">id</a> = <label for="r2" class="ident">t</label>.<a href="#line-75" class="ident">plan</a>(<label for="r2" class="ident">t</label>.<a href="#line-182" class="ident">When</a>(<label for="r4" class="ident">d</label>), <label for="r5" class="ident">tt</label>.<a href="timer.go.html#line-25" class="ident">do</a>)</code></span>
+<span class="codeline" id="line-51"><code>	<span class="keyword">return</span> <label for="r5" class="ident">tt</label></code></span>
+<span class="codeline" id="line-52"><code>}</code></span>
+<span class="codeline" id="line-53"><code></code></span>
+<span class="codeline" id="line-54"><code><span class="keyword">func</span> (<label for="r6" class="ident">t</label> *<a href="#line-34" class="ident">Time</a>) <label for="r7" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.Ticker.html" class="ident">Ticker</a></label>(<label for="r8" class="ident">d</label> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-591" class="ident">Duration</a>) <a href="#line-17" class="ident">Ticker</a> {</code></span>
+<span class="codeline" id="line-55"><code>	<label for="r9" class="ident">tt</label> := &amp;<a href="ticker.go.html#line-7" class="ident">ticker</a>{</code></span>
+<span class="codeline" id="line-56"><code>		<a href="ticker.go.html#line-8" class="ident">time</a>: <label for="r6" class="ident">t</label>,</code></span>
+<span class="codeline" id="line-57"><code>		<a href="ticker.go.html#line-9" class="ident">ch</a>:   <a href="../../../runtime/chan.go.html#line-72">make</a>(<span class="keyword">chan</span> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a>, <span class="lit-number">1</span>),</code></span>
+<span class="codeline" id="line-58"><code>		<a href="ticker.go.html#line-11" class="ident">dur</a>:  <label for="r8" class="ident">d</label>,</code></span>
+<span class="codeline" id="line-59"><code>	}</code></span>
+<span class="codeline" id="line-60"><code>	<label for="r9" class="ident">tt</label>.<a href="ticker.go.html#line-10" class="ident">id</a> = <label for="r6" class="ident">t</label>.<a href="#line-75" class="ident">plan</a>(<label for="r6" class="ident">t</label>.<a href="#line-182" class="ident">When</a>(<label for="r8" class="ident">d</label>), <label for="r9" class="ident">tt</label>.<a href="ticker.go.html#line-29" class="ident">do</a>)</code></span>
+<span class="codeline" id="line-61"><code>	<span class="keyword">return</span> <label for="r9" class="ident">tt</label></code></span>
+<span class="codeline" id="line-62"><code>}</code></span>
+<span class="codeline" id="line-63"><code></code></span>
+<span class="codeline" id="line-64"><code><span class="keyword">func</span> (<label for="r10" class="ident">t</label> *<a href="#line-34" class="ident">Time</a>) <label for="r11" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.planUnlocked^f2a93.html" class="ident">planUnlocked</a></label>(<label for="r12" class="ident">when</label> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a>, <label for="r13" class="ident">do</label> <span class="keyword">func</span>(<label for="r14" class="ident">now</label> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a>)) <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a> {</code></span>
+<span class="codeline" id="line-65"><code>	<label for="r15" class="ident">id</label> := <label for="r10" class="ident">t</label>.<a href="#line-39" class="ident">momentID</a></code></span>
+<span class="codeline" id="line-66"><code>	<label for="r10" class="ident">t</label>.<a href="#line-39" class="ident">momentID</a>++</code></span>
+<span class="codeline" id="line-67"><code>	<label for="r10" class="ident">t</label>.<a href="#line-41" class="ident">moments</a>[<label for="r15" class="ident">id</label>] = <a href="moment.go.html#line-5" class="ident">moment</a>{</code></span>
+<span class="codeline" id="line-68"><code>		<a href="moment.go.html#line-6" class="ident">when</a>: <label for="r12" class="ident">when</label>,</code></span>
+<span class="codeline" id="line-69"><code>		<a href="moment.go.html#line-7" class="ident">do</a>:   <label for="r13" class="ident">do</label>,</code></span>
+<span class="codeline" id="line-70"><code>	}</code></span>
+<span class="codeline" id="line-71"><code>	<label for="r10" class="ident">t</label>.<a href="#line-207" class="ident">observeUnlocked</a>()</code></span>
+<span class="codeline" id="line-72"><code>	<span class="keyword">return</span> <label for="r15" class="ident">id</label></code></span>
+<span class="codeline" id="line-73"><code>}</code></span>
+<span class="codeline" id="line-74"><code></code></span>
+<span class="codeline" id="line-75"><code><span class="keyword">func</span> (<label for="r16" class="ident">t</label> *<a href="#line-34" class="ident">Time</a>) <label for="r17" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.plan^64879.html" class="ident">plan</a></label>(<label for="r18" class="ident">when</label> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a>, <label for="r19" class="ident">do</label> <span class="keyword">func</span>(<label for="r20" class="ident">now</label> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a>)) <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a> {</code></span>
+<span class="codeline" id="line-76"><code>	<label for="r16" class="ident">t</label>.<a href="#line-37" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-77"><code>	<span class="keyword">defer</span> <label for="r16" class="ident">t</label>.<a href="#line-37" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-78"><code></code></span>
+<span class="codeline" id="line-79"><code>	<span class="keyword">return</span> <label for="r16" class="ident">t</label>.<a href="#line-64" class="ident">planUnlocked</a>(<label for="r18" class="ident">when</label>, <label for="r19" class="ident">do</label>)</code></span>
+<span class="codeline" id="line-80"><code>}</code></span>
+<span class="codeline" id="line-81"><code></code></span>
+<span class="codeline" id="line-82"><code><span class="comment">// stop removes the moment with the given ID from the list of scheduled moments.</span></code></span>
+<span class="codeline" id="line-83"><code><span class="comment">// It returns true if a moment existed for the given ID, otherwise it is no-op.</span></code></span>
+<span class="codeline" id="line-84"><code><span class="keyword">func</span> (<label for="r21" class="ident">t</label> *<a href="#line-34" class="ident">Time</a>) <label for="r22" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.stop^6c45c.html" class="ident">stop</a></label>(<label for="r23" class="ident">id</label> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-85"><code>	<label for="r21" class="ident">t</label>.<a href="#line-37" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-86"><code>	<span class="keyword">defer</span> <label for="r21" class="ident">t</label>.<a href="#line-37" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-87"><code></code></span>
-<span class="codeline" id="line-88"><code><span class="keyword">func</span> (<label for="r22" class="ident">t</label> *<a href="#line-35" class="ident">Time</a>) <label for="r23" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.plan^64879.html" class="ident">plan</a></label>(<label for="r24" class="ident">when</label> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a>, <label for="r25" class="ident">do</label> <span class="keyword">func</span>(<label for="r26" class="ident">now</label> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a>)) <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a> {</code></span>
-<span class="codeline" id="line-89"><code>	<label for="r22" class="ident">t</label>.<a href="#line-36" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
-<span class="codeline" id="line-90"><code>	<span class="keyword">defer</span> <label for="r22" class="ident">t</label>.<a href="#line-36" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
-<span class="codeline" id="line-91"><code></code></span>
-<span class="codeline" id="line-92"><code>	<span class="keyword">return</span> <label for="r22" class="ident">t</label>.<a href="#line-77" class="ident">planUnlocked</a>(<label for="r24" class="ident">when</label>, <label for="r25" class="ident">do</label>)</code></span>
-<span class="codeline" id="line-93"><code>}</code></span>
-<span class="codeline" id="line-94"><code></code></span>
-<span class="codeline" id="line-95"><code><span class="keyword">func</span> (<label for="r27" class="ident">t</label> *<a href="#line-35" class="ident">Time</a>) <label for="r28" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.stopTimer^b750e.html" class="ident">stopTimer</a></label>(<label for="r29" class="ident">id</label> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-96"><code>	<label for="r27" class="ident">t</label>.<a href="#line-36" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
-<span class="codeline" id="line-97"><code>	<span class="keyword">defer</span> <label for="r27" class="ident">t</label>.<a href="#line-36" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
-<span class="codeline" id="line-98"><code></code></span>
-<span class="codeline" id="line-99"><code>	<label for="r30" class="ident">_</label>, <label for="r31" class="ident">ok</label> := <label for="r27" class="ident">t</label>.<a href="#line-40" class="ident">moments</a>[<label for="r29" class="ident">id</label>]</code></span>
-<span class="codeline" id="line-100"><code>	<a href="../../../../pkg/builtin.html#name-delete" class="ident">delete</a>(<label for="r27" class="ident">t</label>.<a href="#line-40" class="ident">moments</a>, <label for="r29" class="ident">id</label>)</code></span>
-<span class="codeline" id="line-101"><code>	<span class="keyword">return</span> !<label for="r31" class="ident">ok</label></code></span>
-<span class="codeline" id="line-102"><code>}</code></span>
-<span class="codeline" id="line-103"><code></code></span>
-<span class="codeline" id="line-104"><code><span class="keyword">func</span> (<label for="r32" class="ident">t</label> *<a href="#line-35" class="ident">Time</a>) <label for="r33" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.resetTimer^4ad43.html" class="ident">resetTimer</a></label>(<label for="r34" class="ident">d</label> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-590" class="ident">Duration</a>, <label for="r35" class="ident">id</label> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r36" class="ident">ch</label> <span class="keyword">chan</span> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a>) {</code></span>
-<span class="codeline" id="line-105"><code>	<label for="r32" class="ident">t</label>.<a href="#line-36" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
-<span class="codeline" id="line-106"><code>	<span class="keyword">defer</span> <label for="r32" class="ident">t</label>.<a href="#line-36" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-88"><code>	<label for="r24" class="ident">_</label>, <label for="r25" class="ident">ok</label> := <label for="r21" class="ident">t</label>.<a href="#line-41" class="ident">moments</a>[<label for="r23" class="ident">id</label>]</code></span>
+<span class="codeline" id="line-89"><code>	<a href="../../../../pkg/builtin.html#name-delete" class="ident">delete</a>(<label for="r21" class="ident">t</label>.<a href="#line-41" class="ident">moments</a>, <label for="r23" class="ident">id</label>)</code></span>
+<span class="codeline" id="line-90"><code>	<span class="keyword">return</span> <label for="r25" class="ident">ok</label></code></span>
+<span class="codeline" id="line-91"><code>}</code></span>
+<span class="codeline" id="line-92"><code></code></span>
+<span class="codeline" id="line-93"><code><span class="comment">// reset adjusts the moment with the given ID to run after the d duration. It</span></code></span>
+<span class="codeline" id="line-94"><code><span class="comment">// creates a new moment if the moment does not already exist. If durp pointer</span></code></span>
+<span class="codeline" id="line-95"><code><span class="comment">// is not nil, it is updated with d value while reset is holding Time’s lock.</span></code></span>
+<span class="codeline" id="line-96"><code><span class="keyword">func</span> (<label for="r26" class="ident">t</label> *<a href="#line-34" class="ident">Time</a>) <label for="r27" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.reset^01be3.html" class="ident">reset</a></label>(<label for="r28" class="ident">d</label> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-591" class="ident">Duration</a>, <label for="r29" class="ident">id</label> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r30" class="ident">do</label> <span class="keyword">func</span>(<label for="r31" class="ident">now</label> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a>), <label for="r32" class="ident">durp</label> *<a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-591" class="ident">Duration</a>) {</code></span>
+<span class="codeline" id="line-97"><code>	<label for="r26" class="ident">t</label>.<a href="#line-37" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-98"><code>	<span class="keyword">defer</span> <label for="r26" class="ident">t</label>.<a href="#line-37" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-99"><code>	<label for="r26" class="ident">t</label>.<a href="#line-103" class="ident">resetUnlocked</a>(<label for="r28" class="ident">d</label>, <label for="r29" class="ident">id</label>, <label for="r30" class="ident">do</label>, <label for="r32" class="ident">durp</label>)</code></span>
+<span class="codeline" id="line-100"><code>}</code></span>
+<span class="codeline" id="line-101"><code></code></span>
+<span class="codeline" id="line-102"><code><span class="comment">// resetUnlocked is like reset but does not acquire the Time’s lock.</span></code></span>
+<span class="codeline" id="line-103"><code><span class="keyword">func</span> (<label for="r33" class="ident">t</label> *<a href="#line-34" class="ident">Time</a>) <label for="r34" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.resetUnlocked^a2c99.html" class="ident">resetUnlocked</a></label>(<label for="r35" class="ident">d</label> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-591" class="ident">Duration</a>, <label for="r36" class="ident">id</label> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r37" class="ident">do</label> <span class="keyword">func</span>(<label for="r38" class="ident">now</label> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a>), <label for="r39" class="ident">durp</label> *<a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-591" class="ident">Duration</a>) {</code></span>
+<span class="codeline" id="line-104"><code>	<span class="keyword">if</span> <label for="r39" class="ident">durp</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-105"><code>		*<label for="r39" class="ident">durp</label> = <label for="r35" class="ident">d</label></code></span>
+<span class="codeline" id="line-106"><code>	}</code></span>
 <span class="codeline" id="line-107"><code></code></span>
-<span class="codeline" id="line-108"><code>	<label for="r37" class="ident">m</label>, <label for="r38" class="ident">ok</label> := <label for="r32" class="ident">t</label>. <span class="comment">/* bruh */</span> <a href="#line-40" class="ident">moments</a>[<label for="r35" class="ident">id</label>]</code></span>
-<span class="codeline" id="line-109"><code>	<span class="keyword">if</span> !<label for="r38" class="ident">ok</label> {</code></span>
-<span class="codeline" id="line-110"><code>		<label for="r37" class="ident">m</label> = <a href="moment.go.html#line-5" class="ident">moment</a>{</code></span>
-<span class="codeline" id="line-111"><code>			<a href="moment.go.html#line-7" class="ident">do</a>: <span class="keyword">func</span>(<label for="r39" class="ident">now</label> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a>) {</code></span>
-<span class="codeline" id="line-112"><code>				<label for="r36" class="ident">ch</label> &lt;- <label for="r39" class="ident">now</label></code></span>
-<span class="codeline" id="line-113"><code>			},</code></span>
-<span class="codeline" id="line-114"><code>		}</code></span>
-<span class="codeline" id="line-115"><code>	}</code></span>
+<span class="codeline" id="line-108"><code>	<label for="r40" class="ident">m</label>, <label for="r41" class="ident">ok</label> := <label for="r33" class="ident">t</label>.<a href="#line-41" class="ident">moments</a>[<label for="r36" class="ident">id</label>]</code></span>
+<span class="codeline" id="line-109"><code>	<span class="keyword">if</span> !<label for="r41" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-110"><code>		<label for="r40" class="ident">m</label> = <a href="moment.go.html#line-5" class="ident">moment</a>{<a href="moment.go.html#line-7" class="ident">do</a>: <label for="r37" class="ident">do</label>}</code></span>
+<span class="codeline" id="line-111"><code>	}</code></span>
+<span class="codeline" id="line-112"><code></code></span>
+<span class="codeline" id="line-113"><code>	<label for="r40" class="ident">m</label>.<a href="moment.go.html#line-6" class="ident">when</a> = <label for="r33" class="ident">t</label>.<a href="#line-38" class="ident">now</a>.<a href="../../../time/time.go.html#line-835" class="ident">Add</a>(<label for="r35" class="ident">d</label>)</code></span>
+<span class="codeline" id="line-114"><code>	<label for="r33" class="ident">t</label>.<a href="#line-41" class="ident">moments</a>[<label for="r36" class="ident">id</label>] = <label for="r40" class="ident">m</label></code></span>
+<span class="codeline" id="line-115"><code>}</code></span>
 <span class="codeline" id="line-116"><code></code></span>
-<span class="codeline" id="line-117"><code>	<a href="../../../../pkg/builtin.html#name-delete" class="ident">delete</a>(<label for="r32" class="ident">t</label>.<a href="#line-40" class="ident">moments</a>, <label for="r35" class="ident">id</label>)</code></span>
-<span class="codeline" id="line-118"><code>	<label for="r37" class="ident">m</label>.<a href="moment.go.html#line-6" class="ident">when</a> = <label for="r32" class="ident">t</label>.<a href="#line-37" class="ident">now</a>.<a href="../../../time/time.go.html#line-820" class="ident">Add</a>(<label for="r34" class="ident">d</label>)</code></span>
-<span class="codeline" id="line-119"><code>	<label for="r32" class="ident">t</label>.<a href="#line-40" class="ident">moments</a>[<label for="r35" class="ident">id</label>] = <label for="r37" class="ident">m</label></code></span>
-<span class="codeline" id="line-120"><code>}</code></span>
-<span class="codeline" id="line-121"><code></code></span>
-<span class="codeline" id="line-122"><code><span class="comment">// tick applies all scheduled temporal effects.</span></code></span>
-<span class="codeline" id="line-123"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-124"><code><span class="comment">// The mux lock is expected.</span></code></span>
-<span class="codeline" id="line-125"><code><span class="keyword">func</span> (<label for="r40" class="ident">t</label> *<a href="#line-35" class="ident">Time</a>) <label for="r41" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.tick^55a4b.html" class="ident">tick</a></label>() <a href="moment.go.html#line-10" class="ident">moments</a> {</code></span>
-<span class="codeline" id="line-126"><code>	<span class="keyword">var</span> <label for="r42" class="ident">past</label> <a href="moment.go.html#line-10" class="ident">moments</a></code></span>
-<span class="codeline" id="line-127"><code></code></span>
-<span class="codeline" id="line-128"><code>	<span class="keyword">for</span> <label for="r43" class="ident">id</label>, <label for="r44" class="ident">m</label> := <span class="keyword">range</span> <label for="r40" class="ident">t</label>.<a href="#line-40" class="ident">moments</a> {</code></span>
-<span class="codeline" id="line-129"><code>		<span class="keyword">if</span> <label for="r44" class="ident">m</label>.<a href="moment.go.html#line-6" class="ident">when</a>.<a href="../../../time/time.go.html#line-248" class="ident">After</a>(<label for="r40" class="ident">t</label>.<a href="#line-37" class="ident">now</a>) {</code></span>
-<span class="codeline" id="line-130"><code>			<span class="keyword">continue</span></code></span>
-<span class="codeline" id="line-131"><code>		}</code></span>
-<span class="codeline" id="line-132"><code>		<a href="../../../../pkg/builtin.html#name-delete" class="ident">delete</a>(<label for="r40" class="ident">t</label>.<a href="#line-40" class="ident">moments</a>, <label for="r43" class="ident">id</label>)</code></span>
-<span class="codeline" id="line-133"><code>		<label for="r42" class="ident">past</label> = <a href="../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r42" class="ident">past</label>, <label for="r44" class="ident">m</label>)</code></span>
-<span class="codeline" id="line-134"><code>	}</code></span>
-<span class="codeline" id="line-135"><code>	<a href="../../../../pkg/sort.html" class="ident i0">sort</a>.<a href="../../../sort/sort.go.html#line-229" class="ident">Sort</a>(<label for="r42" class="ident">past</label>)</code></span>
-<span class="codeline" id="line-136"><code></code></span>
-<span class="codeline" id="line-137"><code>	<span class="keyword">return</span> <label for="r42" class="ident">past</label></code></span>
+<span class="codeline" id="line-117"><code><span class="comment">// tickUnlocked applies all scheduled temporal effects.</span></code></span>
+<span class="codeline" id="line-118"><code><span class="keyword">func</span> (<label for="r42" class="ident">t</label> *<a href="#line-34" class="ident">Time</a>) <label for="r43" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.tickUnlocked^369e4.html" class="ident">tickUnlocked</a></label>() <a href="moment.go.html#line-10" class="ident">moments</a> {</code></span>
+<span class="codeline" id="line-119"><code>	<span class="keyword">var</span> <label for="r44" class="ident">past</label> <a href="moment.go.html#line-10" class="ident">moments</a></code></span>
+<span class="codeline" id="line-120"><code></code></span>
+<span class="codeline" id="line-121"><code>	<span class="keyword">for</span> <label for="r45" class="ident">id</label>, <label for="r46" class="ident">m</label> := <span class="keyword">range</span> <label for="r42" class="ident">t</label>.<a href="#line-41" class="ident">moments</a> {</code></span>
+<span class="codeline" id="line-122"><code>		<span class="keyword">if</span> <label for="r46" class="ident">m</label>.<a href="moment.go.html#line-6" class="ident">when</a>.<a href="../../../time/time.go.html#line-250" class="ident">After</a>(<label for="r42" class="ident">t</label>.<a href="#line-38" class="ident">now</a>) {</code></span>
+<span class="codeline" id="line-123"><code>			<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-124"><code>		}</code></span>
+<span class="codeline" id="line-125"><code>		<a href="../../../../pkg/builtin.html#name-delete" class="ident">delete</a>(<label for="r42" class="ident">t</label>.<a href="#line-41" class="ident">moments</a>, <label for="r45" class="ident">id</label>)</code></span>
+<span class="codeline" id="line-126"><code>		<label for="r44" class="ident">past</label> = <a href="../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r44" class="ident">past</label>, <label for="r46" class="ident">m</label>)</code></span>
+<span class="codeline" id="line-127"><code>	}</code></span>
+<span class="codeline" id="line-128"><code>	<a href="../../../../pkg/sort.html" class="ident i0">sort</a>.<a href="../../../sort/sort.go.html#line-42" class="ident">Sort</a>(<label for="r44" class="ident">past</label>)</code></span>
+<span class="codeline" id="line-129"><code></code></span>
+<span class="codeline" id="line-130"><code>	<span class="keyword">return</span> <label for="r44" class="ident">past</label></code></span>
+<span class="codeline" id="line-131"><code>}</code></span>
+<span class="codeline" id="line-132"><code></code></span>
+<span class="codeline" id="line-133"><code><span class="comment">// Now returns the current time.</span></code></span>
+<span class="codeline" id="line-134"><code><span class="keyword">func</span> (<label for="r47" class="ident">t</label> *<a href="#line-34" class="ident">Time</a>) <label for="r48" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.Now.html" class="ident">Now</a></label>() <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a> {</code></span>
+<span class="codeline" id="line-135"><code>	<label for="r47" class="ident">t</label>.<a href="#line-37" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-136"><code>	<span class="keyword">defer</span> <label for="r47" class="ident">t</label>.<a href="#line-37" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-137"><code>	<span class="keyword">return</span> <label for="r47" class="ident">t</label>.<a href="#line-38" class="ident">now</a></code></span>
 <span class="codeline" id="line-138"><code>}</code></span>
 <span class="codeline" id="line-139"><code></code></span>
-<span class="codeline" id="line-140"><code><span class="comment">// Now returns the current time.</span></code></span>
-<span class="codeline" id="line-141"><code><span class="keyword">func</span> (<label for="r45" class="ident">t</label> *<a href="#line-35" class="ident">Time</a>) <label for="r46" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.Now.html" class="ident">Now</a></label>() <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a> {</code></span>
-<span class="codeline" id="line-142"><code>	<label for="r45" class="ident">t</label>.<a href="#line-36" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
-<span class="codeline" id="line-143"><code>	<label for="r47" class="ident">now</label> := <label for="r45" class="ident">t</label>.<a href="#line-37" class="ident">now</a></code></span>
-<span class="codeline" id="line-144"><code>	<label for="r45" class="ident">t</label>.<a href="#line-36" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
-<span class="codeline" id="line-145"><code>	<span class="keyword">return</span> <label for="r47" class="ident">now</label></code></span>
-<span class="codeline" id="line-146"><code>}</code></span>
-<span class="codeline" id="line-147"><code></code></span>
-<span class="codeline" id="line-148"><code><span class="comment">// Set travels to specified time.</span></code></span>
-<span class="codeline" id="line-149"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-150"><code><span class="comment">// Also triggers temporal effects.</span></code></span>
-<span class="codeline" id="line-151"><code><span class="keyword">func</span> (<label for="r48" class="ident">t</label> *<a href="#line-35" class="ident">Time</a>) <label for="r49" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.Set.html" class="ident">Set</a></label>(<label for="r50" class="ident">now</label> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a>) {</code></span>
-<span class="codeline" id="line-152"><code>	<label for="r48" class="ident">t</label>.<a href="#line-36" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
-<span class="codeline" id="line-153"><code>	<label for="r48" class="ident">t</label>.<a href="#line-37" class="ident">now</a> = <label for="r50" class="ident">now</label></code></span>
-<span class="codeline" id="line-154"><code>	<label for="r48" class="ident">t</label>.<a href="#line-36" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
-<span class="codeline" id="line-155"><code>	<label for="r48" class="ident">t</label>.<a href="#line-125" class="ident">tick</a>().<a href="moment.go.html#line-12" class="ident">do</a>(<label for="r50" class="ident">now</label>)</code></span>
-<span class="codeline" id="line-156"><code>}</code></span>
-<span class="codeline" id="line-157"><code></code></span>
-<span class="codeline" id="line-158"><code><span class="comment">// Travel adds duration to current time and returns result.</span></code></span>
-<span class="codeline" id="line-159"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-160"><code><span class="comment">// Also triggers temporal effects.</span></code></span>
-<span class="codeline" id="line-161"><code><span class="keyword">func</span> (<label for="r51" class="ident">t</label> *<a href="#line-35" class="ident">Time</a>) <label for="r52" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.Travel.html" class="ident">Travel</a></label>(<label for="r53" class="ident">d</label> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-590" class="ident">Duration</a>) <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a> {</code></span>
-<span class="codeline" id="line-162"><code>	<label for="r51" class="ident">t</label>.<a href="#line-36" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
-<span class="codeline" id="line-163"><code>	<label for="r54" class="ident">now</label> := <label for="r51" class="ident">t</label>.<a href="#line-37" class="ident">now</a>.<a href="../../../time/time.go.html#line-820" class="ident">Add</a>(<label for="r53" class="ident">d</label>)</code></span>
-<span class="codeline" id="line-164"><code>	<label for="r51" class="ident">t</label>.<a href="#line-37" class="ident">now</a> = <label for="r54" class="ident">now</label></code></span>
-<span class="codeline" id="line-165"><code>	<label for="r51" class="ident">t</label>.<a href="#line-125" class="ident">tick</a>().<a href="moment.go.html#line-12" class="ident">do</a>(<label for="r54" class="ident">now</label>)</code></span>
-<span class="codeline" id="line-166"><code>	<label for="r51" class="ident">t</label>.<a href="#line-36" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
-<span class="codeline" id="line-167"><code>	<span class="keyword">return</span> <label for="r54" class="ident">now</label></code></span>
-<span class="codeline" id="line-168"><code>}</code></span>
-<span class="codeline" id="line-169"><code></code></span>
-<span class="codeline" id="line-170"><code><span class="comment">// TravelDate applies AddDate to current time and returns result.</span></code></span>
-<span class="codeline" id="line-171"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-172"><code><span class="comment">// Also triggers temporal effects.</span></code></span>
-<span class="codeline" id="line-173"><code><span class="keyword">func</span> (<label for="r55" class="ident">t</label> *<a href="#line-35" class="ident">Time</a>) <label for="r56" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.TravelDate.html" class="ident">TravelDate</a></label>(<label for="r57" class="ident">years</label>, <label for="r58" class="ident">months</label>, <label for="r59" class="ident">days</label> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a> {</code></span>
-<span class="codeline" id="line-174"><code>	<label for="r55" class="ident">t</label>.<a href="#line-36" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
-<span class="codeline" id="line-175"><code>	<label for="r60" class="ident">now</label> := <label for="r55" class="ident">t</label>.<a href="#line-37" class="ident">now</a>.<a href="../../../time/time.go.html#line-907" class="ident">AddDate</a>(<label for="r57" class="ident">years</label>, <label for="r58" class="ident">months</label>, <label for="r59" class="ident">days</label>)</code></span>
-<span class="codeline" id="line-176"><code>	<label for="r55" class="ident">t</label>.<a href="#line-37" class="ident">now</a> = <label for="r60" class="ident">now</label></code></span>
-<span class="codeline" id="line-177"><code>	<label for="r55" class="ident">t</label>.<a href="#line-125" class="ident">tick</a>().<a href="moment.go.html#line-12" class="ident">do</a>(<label for="r60" class="ident">now</label>)</code></span>
-<span class="codeline" id="line-178"><code>	<label for="r55" class="ident">t</label>.<a href="#line-36" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
-<span class="codeline" id="line-179"><code>	<span class="keyword">return</span> <label for="r60" class="ident">now</label></code></span>
-<span class="codeline" id="line-180"><code>}</code></span>
-<span class="codeline" id="line-181"><code></code></span>
-<span class="codeline" id="line-182"><code><span class="comment">// Sleep blocks until duration is elapsed.</span></code></span>
-<span class="codeline" id="line-183"><code><span class="keyword">func</span> (<label for="r61" class="ident">t</label> *<a href="#line-35" class="ident">Time</a>) <label for="r62" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.Sleep.html" class="ident">Sleep</a></label>(<label for="r63" class="ident">d</label> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-590" class="ident">Duration</a>) { &lt;-<label for="r61" class="ident">t</label>.<a href="#line-192" class="ident">After</a>(<label for="r63" class="ident">d</label>) }</code></span>
-<span class="codeline" id="line-184"><code></code></span>
-<span class="codeline" id="line-185"><code><span class="comment">// When returns relative time point.</span></code></span>
-<span class="codeline" id="line-186"><code><span class="keyword">func</span> (<label for="r64" class="ident">t</label> *<a href="#line-35" class="ident">Time</a>) <label for="r65" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.When.html" class="ident">When</a></label>(<label for="r66" class="ident">d</label> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-590" class="ident">Duration</a>) <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a> {</code></span>
-<span class="codeline" id="line-187"><code>	<span class="keyword">return</span> <label for="r64" class="ident">t</label>.<a href="#line-141" class="ident">Now</a>().<a href="../../../time/time.go.html#line-820" class="ident">Add</a>(<label for="r66" class="ident">d</label>)</code></span>
-<span class="codeline" id="line-188"><code>}</code></span>
-<span class="codeline" id="line-189"><code></code></span>
-<span class="codeline" id="line-190"><code><span class="comment">// After returns new channel that will receive time.Time value with current tme after</span></code></span>
-<span class="codeline" id="line-191"><code><span class="comment">// specified duration.</span></code></span>
-<span class="codeline" id="line-192"><code><span class="keyword">func</span> (<label for="r67" class="ident">t</label> *<a href="#line-35" class="ident">Time</a>) <label for="r68" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.After.html" class="ident">After</a></label>(<label for="r69" class="ident">d</label> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-590" class="ident">Duration</a>) &lt;-<span class="keyword">chan</span> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a> {</code></span>
-<span class="codeline" id="line-193"><code>	<label for="r70" class="ident">done</label> := <a href="../../../runtime/chan.go.html#line-71">make</a>(<span class="keyword">chan</span> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a>, <span class="lit-number">1</span>)</code></span>
-<span class="codeline" id="line-194"><code>	<label for="r67" class="ident">t</label>.<a href="#line-88" class="ident">plan</a>(<label for="r67" class="ident">t</label>.<a href="#line-186" class="ident">When</a>(<label for="r69" class="ident">d</label>), <span class="keyword">func</span>(<label for="r71" class="ident">now</label> <a href="../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a>) {</code></span>
-<span class="codeline" id="line-195"><code>		<label for="r70" class="ident">done</label> &lt;- <label for="r71" class="ident">now</label></code></span>
-<span class="codeline" id="line-196"><code>	})</code></span>
-<span class="codeline" id="line-197"><code>	<span class="keyword">return</span> <label for="r70" class="ident">done</label></code></span>
-<span class="codeline" id="line-198"><code>}</code></span>
-<span class="codeline" id="line-199"><code></code></span>
-<span class="codeline" id="line-200"><code><span class="comment">// Observe return channel that closes on clock calls.</span></code></span>
-<span class="codeline" id="line-201"><code><span class="keyword">func</span> (<label for="r72" class="ident">t</label> *<a href="#line-35" class="ident">Time</a>) <label for="r73" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.Observe.html" class="ident">Observe</a></label>() &lt;-<span class="keyword">chan</span> <span class="keyword">struct</span>{} {</code></span>
-<span class="codeline" id="line-202"><code>	<label for="r74" class="ident">observer</label> := <a href="../../../runtime/chan.go.html#line-71">make</a>(<span class="keyword">chan</span> <span class="keyword">struct</span>{})</code></span>
-<span class="codeline" id="line-203"><code>	<label for="r72" class="ident">t</label>.<a href="#line-36" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
-<span class="codeline" id="line-204"><code>	<label for="r72" class="ident">t</label>.<a href="#line-41" class="ident">observers</a> = <a href="../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r72" class="ident">t</label>.<a href="#line-41" class="ident">observers</a>, <label for="r74" class="ident">observer</label>)</code></span>
-<span class="codeline" id="line-205"><code>	<label for="r72" class="ident">t</label>.<a href="#line-36" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-140"><code><span class="comment">// Set travels to specified time.</span></code></span>
+<span class="codeline" id="line-141"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-142"><code><span class="comment">// Also triggers temporal effects.</span></code></span>
+<span class="codeline" id="line-143"><code><span class="keyword">func</span> (<label for="r49" class="ident">t</label> *<a href="#line-34" class="ident">Time</a>) <label for="r50" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.Set.html" class="ident">Set</a></label>(<label for="r51" class="ident">now</label> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a>) {</code></span>
+<span class="codeline" id="line-144"><code>	<label for="r49" class="ident">t</label>.<a href="#line-37" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-145"><code>	<span class="keyword">defer</span> <label for="r49" class="ident">t</label>.<a href="#line-37" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-146"><code>	<label for="r49" class="ident">t</label>.<a href="#line-173" class="ident">setUnlocked</a>(<label for="r51" class="ident">now</label>)</code></span>
+<span class="codeline" id="line-147"><code>}</code></span>
+<span class="codeline" id="line-148"><code></code></span>
+<span class="codeline" id="line-149"><code><span class="comment">// Travel adds duration to current time and returns result.</span></code></span>
+<span class="codeline" id="line-150"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-151"><code><span class="comment">// Also triggers temporal effects.</span></code></span>
+<span class="codeline" id="line-152"><code><span class="keyword">func</span> (<label for="r52" class="ident">t</label> *<a href="#line-34" class="ident">Time</a>) <label for="r53" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.Travel.html" class="ident">Travel</a></label>(<label for="r54" class="ident">d</label> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-591" class="ident">Duration</a>) <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a> {</code></span>
+<span class="codeline" id="line-153"><code>	<label for="r52" class="ident">t</label>.<a href="#line-37" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-154"><code>	<span class="keyword">defer</span> <label for="r52" class="ident">t</label>.<a href="#line-37" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-155"><code>	<label for="r55" class="ident">now</label> := <label for="r52" class="ident">t</label>.<a href="#line-38" class="ident">now</a>.<a href="../../../time/time.go.html#line-835" class="ident">Add</a>(<label for="r54" class="ident">d</label>)</code></span>
+<span class="codeline" id="line-156"><code>	<label for="r52" class="ident">t</label>.<a href="#line-173" class="ident">setUnlocked</a>(<label for="r55" class="ident">now</label>)</code></span>
+<span class="codeline" id="line-157"><code>	<span class="keyword">return</span> <label for="r55" class="ident">now</label></code></span>
+<span class="codeline" id="line-158"><code>}</code></span>
+<span class="codeline" id="line-159"><code></code></span>
+<span class="codeline" id="line-160"><code><span class="comment">// TravelDate applies AddDate to current time and returns result.</span></code></span>
+<span class="codeline" id="line-161"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-162"><code><span class="comment">// Also triggers temporal effects.</span></code></span>
+<span class="codeline" id="line-163"><code><span class="keyword">func</span> (<label for="r56" class="ident">t</label> *<a href="#line-34" class="ident">Time</a>) <label for="r57" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.TravelDate.html" class="ident">TravelDate</a></label>(<label for="r58" class="ident">years</label>, <label for="r59" class="ident">months</label>, <label for="r60" class="ident">days</label> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a> {</code></span>
+<span class="codeline" id="line-164"><code>	<label for="r56" class="ident">t</label>.<a href="#line-37" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-165"><code>	<span class="keyword">defer</span> <label for="r56" class="ident">t</label>.<a href="#line-37" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-166"><code>	<label for="r61" class="ident">now</label> := <label for="r56" class="ident">t</label>.<a href="#line-38" class="ident">now</a>.<a href="../../../time/time.go.html#line-922" class="ident">AddDate</a>(<label for="r58" class="ident">years</label>, <label for="r59" class="ident">months</label>, <label for="r60" class="ident">days</label>)</code></span>
+<span class="codeline" id="line-167"><code>	<label for="r56" class="ident">t</label>.<a href="#line-173" class="ident">setUnlocked</a>(<label for="r61" class="ident">now</label>)</code></span>
+<span class="codeline" id="line-168"><code>	<span class="keyword">return</span> <label for="r61" class="ident">now</label></code></span>
+<span class="codeline" id="line-169"><code>}</code></span>
+<span class="codeline" id="line-170"><code></code></span>
+<span class="codeline" id="line-171"><code><span class="comment">// setUnlocked sets the current time to the given now time and triggers temporal</span></code></span>
+<span class="codeline" id="line-172"><code><span class="comment">// effects.</span></code></span>
+<span class="codeline" id="line-173"><code><span class="keyword">func</span> (<label for="r62" class="ident">t</label> *<a href="#line-34" class="ident">Time</a>) <label for="r63" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.setUnlocked^21e68.html" class="ident">setUnlocked</a></label>(<label for="r64" class="ident">now</label> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a>) {</code></span>
+<span class="codeline" id="line-174"><code>	<label for="r62" class="ident">t</label>.<a href="#line-38" class="ident">now</a> = <label for="r64" class="ident">now</label></code></span>
+<span class="codeline" id="line-175"><code>	<label for="r62" class="ident">t</label>.<a href="#line-118" class="ident">tickUnlocked</a>().<a href="moment.go.html#line-12" class="ident">do</a>(<label for="r64" class="ident">now</label>)</code></span>
+<span class="codeline" id="line-176"><code>}</code></span>
+<span class="codeline" id="line-177"><code></code></span>
+<span class="codeline" id="line-178"><code><span class="comment">// Sleep blocks until duration is elapsed.</span></code></span>
+<span class="codeline" id="line-179"><code><span class="keyword">func</span> (<label for="r65" class="ident">t</label> *<a href="#line-34" class="ident">Time</a>) <label for="r66" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.Sleep.html" class="ident">Sleep</a></label>(<label for="r67" class="ident">d</label> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-591" class="ident">Duration</a>) { &lt;-<label for="r65" class="ident">t</label>.<a href="#line-188" class="ident">After</a>(<label for="r67" class="ident">d</label>) }</code></span>
+<span class="codeline" id="line-180"><code></code></span>
+<span class="codeline" id="line-181"><code><span class="comment">// When returns relative time point.</span></code></span>
+<span class="codeline" id="line-182"><code><span class="keyword">func</span> (<label for="r68" class="ident">t</label> *<a href="#line-34" class="ident">Time</a>) <label for="r69" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.When.html" class="ident">When</a></label>(<label for="r70" class="ident">d</label> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-591" class="ident">Duration</a>) <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a> {</code></span>
+<span class="codeline" id="line-183"><code>	<span class="keyword">return</span> <label for="r68" class="ident">t</label>.<a href="#line-134" class="ident">Now</a>().<a href="../../../time/time.go.html#line-835" class="ident">Add</a>(<label for="r70" class="ident">d</label>)</code></span>
+<span class="codeline" id="line-184"><code>}</code></span>
+<span class="codeline" id="line-185"><code></code></span>
+<span class="codeline" id="line-186"><code><span class="comment">// After returns new channel that will receive time.Time value with current tme after</span></code></span>
+<span class="codeline" id="line-187"><code><span class="comment">// specified duration.</span></code></span>
+<span class="codeline" id="line-188"><code><span class="keyword">func</span> (<label for="r71" class="ident">t</label> *<a href="#line-34" class="ident">Time</a>) <label for="r72" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.After.html" class="ident">After</a></label>(<label for="r73" class="ident">d</label> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-591" class="ident">Duration</a>) &lt;-<span class="keyword">chan</span> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a> {</code></span>
+<span class="codeline" id="line-189"><code>	<label for="r74" class="ident">done</label> := <a href="../../../runtime/chan.go.html#line-72">make</a>(<span class="keyword">chan</span> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a>, <span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-190"><code>	<label for="r71" class="ident">t</label>.<a href="#line-75" class="ident">plan</a>(<label for="r71" class="ident">t</label>.<a href="#line-182" class="ident">When</a>(<label for="r73" class="ident">d</label>), <span class="keyword">func</span>(<label for="r75" class="ident">now</label> <a href="../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a>) {</code></span>
+<span class="codeline" id="line-191"><code>		<label for="r74" class="ident">done</label> &lt;- <label for="r75" class="ident">now</label></code></span>
+<span class="codeline" id="line-192"><code>	})</code></span>
+<span class="codeline" id="line-193"><code>	<span class="keyword">return</span> <label for="r74" class="ident">done</label></code></span>
+<span class="codeline" id="line-194"><code>}</code></span>
+<span class="codeline" id="line-195"><code></code></span>
+<span class="codeline" id="line-196"><code><span class="comment">// Observe return channel that closes on clock calls. The current implementation</span></code></span>
+<span class="codeline" id="line-197"><code><span class="comment">// also closes the channel on Ticker’s ticks.</span></code></span>
+<span class="codeline" id="line-198"><code><span class="keyword">func</span> (<label for="r76" class="ident">t</label> *<a href="#line-34" class="ident">Time</a>) <label for="r77" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.Observe.html" class="ident">Observe</a></label>() &lt;-<span class="keyword">chan</span> <span class="keyword">struct</span>{} {</code></span>
+<span class="codeline" id="line-199"><code>	<label for="r78" class="ident">observer</label> := <a href="../../../runtime/chan.go.html#line-72">make</a>(<span class="keyword">chan</span> <span class="keyword">struct</span>{})</code></span>
+<span class="codeline" id="line-200"><code>	<label for="r76" class="ident">t</label>.<a href="#line-37" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-201"><code>	<label for="r76" class="ident">t</label>.<a href="#line-42" class="ident">observers</a> = <a href="../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r76" class="ident">t</label>.<a href="#line-42" class="ident">observers</a>, <label for="r78" class="ident">observer</label>)</code></span>
+<span class="codeline" id="line-202"><code>	<label for="r76" class="ident">t</label>.<a href="#line-37" class="ident">mux</a>.<a href="../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-203"><code></code></span>
+<span class="codeline" id="line-204"><code>	<span class="keyword">return</span> <label for="r78" class="ident">observer</label></code></span>
+<span class="codeline" id="line-205"><code>}</code></span>
 <span class="codeline" id="line-206"><code></code></span>
-<span class="codeline" id="line-207"><code>	<span class="keyword">return</span> <label for="r74" class="ident">observer</label></code></span>
-<span class="codeline" id="line-208"><code>}</code></span>
-<span class="codeline" id="line-209"><code></code></span>
-<span class="codeline" id="line-210"><code><span class="keyword">func</span> (<label for="r75" class="ident">t</label> *<a href="#line-35" class="ident">Time</a>) <label for="r76" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.observe^74e89.html" class="ident">observe</a></label>() {</code></span>
-<span class="codeline" id="line-211"><code>	<span class="keyword">for</span> <label for="r77" class="ident">_</label>, <label for="r78" class="ident">observer</label> := <span class="keyword">range</span> <label for="r75" class="ident">t</label>.<a href="#line-41" class="ident">observers</a> {</code></span>
-<span class="codeline" id="line-212"><code>		<a href="../../../../pkg/builtin.html#name-close" class="ident">close</a>(<label for="r78" class="ident">observer</label>)</code></span>
-<span class="codeline" id="line-213"><code>	}</code></span>
-<span class="codeline" id="line-214"><code>	<label for="r75" class="ident">t</label>.<a href="#line-41" class="ident">observers</a> = <label for="r75" class="ident">t</label>.<a href="#line-41" class="ident">observers</a>[:<span class="lit-number">0</span>]</code></span>
-<span class="codeline" id="line-215"><code>}</code></span>
+<span class="codeline" id="line-207"><code><span class="keyword">func</span> (<label for="r79" class="ident">t</label> *<a href="#line-34" class="ident">Time</a>) <label for="r80" class="ident"><a href="../../../../use/github.com/gotd/neo..Time.observeUnlocked^c3cab.html" class="ident">observeUnlocked</a></label>() {</code></span>
+<span class="codeline" id="line-208"><code>	<span class="keyword">for</span> <label for="r81" class="ident">_</label>, <label for="r82" class="ident">observer</label> := <span class="keyword">range</span> <label for="r79" class="ident">t</label>.<a href="#line-42" class="ident">observers</a> {</code></span>
+<span class="codeline" id="line-209"><code>		<a href="../../../../pkg/builtin.html#name-close" class="ident">close</a>(<label for="r82" class="ident">observer</label>)</code></span>
+<span class="codeline" id="line-210"><code>	}</code></span>
+<span class="codeline" id="line-211"><code>	<label for="r79" class="ident">t</label>.<a href="#line-42" class="ident">observers</a> = <label for="r79" class="ident">t</label>.<a href="#line-42" class="ident">observers</a>[:<span class="lit-number">0</span>]</code></span>
+<span class="codeline" id="line-212"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

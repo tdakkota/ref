@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: cipher_encrypt.go in package github.com/gotd/td/internal/crypto</title>
-<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -39,8 +39,7 @@ input[id=r19]:checked ~pre label[for=r19],
 input[id=r20]:checked ~pre label[for=r20],
 input[id=r21]:checked ~pre label[for=r21],
 input[id=r22]:checked ~pre label[for=r22],
-input[id=r23]:checked ~pre label[for=r23],
-input[id=r24]:checked ~pre label[for=r24]
+input[id=r23]:checked ~pre label[for=r23]
 {background: #226; color: #ff8;}
 input[id=i0]:checked ~pre .i0,
 input[id=i1]:checked ~pre .i1,
@@ -71,7 +70,6 @@ input[id=i3]:checked ~pre .i3
 <input id="r21" type="radio" name="g"/>
 <input id="r22" type="radio" name="g"/>
 <input id="r23" type="radio" name="g"/>
-<input id="r24" type="radio" name="g"/>
 <input id="i0" type="radio" name="i"/>
 <input id="i1" type="radio" name="i"/>
 <input id="i2" type="radio" name="i"/>
@@ -92,51 +90,50 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-12"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-countPadding" class="ident">countPadding</a></label>(<label for="r1" class="ident">l</label> <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a> { <span class="keyword">return</span> <span class="lit-number">16</span> + (<span class="lit-number">16</span> - (<label for="r1" class="ident">l</label> % <span class="lit-number">16</span>)) }</code></span>
 <span class="codeline" id="line-13"><code></code></span>
 <span class="codeline" id="line-14"><code><span class="comment">// encryptMessage encrypts plaintext using AES-IGE.</span></code></span>
-<span class="codeline" id="line-15"><code><span class="keyword">func</span> (<label for="r2" class="ident">c</label> <a href="cipher.go.html#line-6" class="ident">Cipher</a>) <label for="r3" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/crypto..Cipher.encryptMessage^72838.html" class="ident">encryptMessage</a></label>(<label for="r4" class="ident">k</label> <a href="key.go.html#line-48" class="ident">AuthKey</a>, <label for="r5" class="ident">plaintext</label> *<a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i3">bin</a>.<a href="../../bin/buffer.go.html#line-8" class="ident">Buffer</a>) (*<a href="encrypted_message.go.html#line-6" class="ident">EncryptedMessage</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-15"><code><span class="keyword">func</span> (<label for="r2" class="ident">c</label> <a href="cipher.go.html#line-6" class="ident">Cipher</a>) <label for="r3" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/crypto..Cipher.encryptMessage^72838.html" class="ident">encryptMessage</a></label>(<label for="r4" class="ident">k</label> <a href="key.go.html#line-54" class="ident">AuthKey</a>, <label for="r5" class="ident">plaintext</label> *<a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i3">bin</a>.<a href="../../bin/buffer.go.html#line-8" class="ident">Buffer</a>) (<a href="encrypted_message.go.html#line-6" class="ident">EncryptedMessage</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
 <span class="codeline" id="line-16"><code>	<label for="r6" class="ident">offset</label> := <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r5" class="ident">plaintext</label>.<a href="../../bin/buffer.go.html#line-9" class="ident">Buf</a>)</code></span>
 <span class="codeline" id="line-17"><code>	<label for="r5" class="ident">plaintext</label>.<a href="../../bin/buffer.go.html#line-9" class="ident">Buf</a> = <a href="../../../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r5" class="ident">plaintext</label>.<a href="../../bin/buffer.go.html#line-9" class="ident">Buf</a>, <a href="../../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="#line-12" class="ident">countPadding</a>(<label for="r6" class="ident">offset</label>))...)</code></span>
-<span class="codeline" id="line-18"><code>	<span class="keyword">if</span> <label for="r7" class="ident">_</label>, <label for="r8" class="ident">err</label> := <a href="../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../io/io.go.html#line-346" class="ident">ReadFull</a>(<label for="r2" class="ident">c</label>.<a href="cipher.go.html#line-7" class="ident">rand</a>, <label for="r5" class="ident">plaintext</label>.<a href="../../bin/buffer.go.html#line-9" class="ident">Buf</a>[<label for="r6" class="ident">offset</label>:]); <label for="r8" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-19"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r8" class="ident">err</label></code></span>
+<span class="codeline" id="line-18"><code>	<span class="keyword">if</span> <label for="r7" class="ident">_</label>, <label for="r8" class="ident">err</label> := <a href="../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../io/io.go.html#line-350" class="ident">ReadFull</a>(<label for="r2" class="ident">c</label>.<a href="cipher.go.html#line-7" class="ident">rand</a>, <label for="r5" class="ident">plaintext</label>.<a href="../../bin/buffer.go.html#line-9" class="ident">Buf</a>[<label for="r6" class="ident">offset</label>:]); <label for="r8" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-19"><code>		<span class="keyword">return</span> <a href="encrypted_message.go.html#line-6" class="ident">EncryptedMessage</a>{}, <label for="r8" class="ident">err</label></code></span>
 <span class="codeline" id="line-20"><code>	}</code></span>
 <span class="codeline" id="line-21"><code></code></span>
-<span class="codeline" id="line-22"><code>	<label for="r9" class="ident">messageKey</label> := <a href="keys.go.html#line-124" class="ident">MessageKey</a>(<label for="r4" class="ident">k</label>.<a href="key.go.html#line-49" class="ident">Value</a>, <label for="r5" class="ident">plaintext</label>.<a href="../../bin/buffer.go.html#line-9" class="ident">Buf</a>, <label for="r2" class="ident">c</label>.<a href="cipher.go.html#line-8" class="ident">encryptSide</a>)</code></span>
-<span class="codeline" id="line-23"><code>	<label for="r10" class="ident">key</label>, <label for="r11" class="ident">iv</label> := <a href="keys.go.html#line-111" class="ident">Keys</a>(<label for="r4" class="ident">k</label>.<a href="key.go.html#line-49" class="ident">Value</a>, <label for="r9" class="ident">messageKey</label>, <label for="r2" class="ident">c</label>.<a href="cipher.go.html#line-8" class="ident">encryptSide</a>)</code></span>
-<span class="codeline" id="line-24"><code>	<label for="r12" class="ident">aesBlock</label>, <label for="r13" class="ident">err</label> := <a href="../../../../../../pkg/crypto/aes.html" class="ident i0">aes</a>.<a href="../../../../../crypto/aes/cipher.go.html#line-32" class="ident">NewCipher</a>(<label for="r10" class="ident">key</label>[:])</code></span>
+<span class="codeline" id="line-22"><code>	<label for="r9" class="ident">messageKey</label> := <a href="keys.go.html#line-123" class="ident">MessageKey</a>(<label for="r4" class="ident">k</label>.<a href="key.go.html#line-55" class="ident">Value</a>, <label for="r5" class="ident">plaintext</label>.<a href="../../bin/buffer.go.html#line-9" class="ident">Buf</a>, <label for="r2" class="ident">c</label>.<a href="cipher.go.html#line-8" class="ident">encryptSide</a>)</code></span>
+<span class="codeline" id="line-23"><code>	<label for="r10" class="ident">key</label>, <label for="r11" class="ident">iv</label> := <a href="keys.go.html#line-108" class="ident">Keys</a>(<label for="r4" class="ident">k</label>.<a href="key.go.html#line-55" class="ident">Value</a>, <label for="r9" class="ident">messageKey</label>, <label for="r2" class="ident">c</label>.<a href="cipher.go.html#line-8" class="ident">encryptSide</a>)</code></span>
+<span class="codeline" id="line-24"><code>	<label for="r12" class="ident">aesBlock</label>, <label for="r13" class="ident">err</label> := <a href="../../../../../../pkg/crypto/aes.html" class="ident i0">aes</a>.<a href="../../../../../crypto/aes/cipher.go.html#line-33" class="ident">NewCipher</a>(<label for="r10" class="ident">key</label>[:])</code></span>
 <span class="codeline" id="line-25"><code>	<span class="keyword">if</span> <label for="r13" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-26"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r13" class="ident">err</label></code></span>
+<span class="codeline" id="line-26"><code>		<span class="keyword">return</span> <a href="encrypted_message.go.html#line-6" class="ident">EncryptedMessage</a>{}, <label for="r13" class="ident">err</label></code></span>
 <span class="codeline" id="line-27"><code>	}</code></span>
-<span class="codeline" id="line-28"><code>	<label for="r14" class="ident">encrypter</label> := <a href="../../../../../../pkg/github.com/gotd/ige.html" class="ident i2">ige</a>.<a href="../../../ige/encrypt.go.html#line-14" class="ident">NewIGEEncrypter</a>(<label for="r12" class="ident">aesBlock</label>, <label for="r11" class="ident">iv</label>[:])</code></span>
-<span class="codeline" id="line-29"><code>	<label for="r15" class="ident">msg</label> := &amp;<a href="encrypted_message.go.html#line-6" class="ident">EncryptedMessage</a>{</code></span>
-<span class="codeline" id="line-30"><code>		<a href="encrypted_message.go.html#line-7" class="ident">AuthKeyID</a>:     <label for="r4" class="ident">k</label>.<a href="key.go.html#line-50" class="ident">ID</a>,</code></span>
-<span class="codeline" id="line-31"><code>		<a href="encrypted_message.go.html#line-8" class="ident">MsgKey</a>:        <label for="r9" class="ident">messageKey</label>,</code></span>
-<span class="codeline" id="line-32"><code>		<a href="encrypted_message.go.html#line-10" class="ident">EncryptedData</a>: <a href="../../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r5" class="ident">plaintext</label>.<a href="../../bin/buffer.go.html#line-9" class="ident">Buf</a>)),</code></span>
-<span class="codeline" id="line-33"><code>	}</code></span>
-<span class="codeline" id="line-34"><code>	<label for="r14" class="ident">encrypter</label>.<a href="../../../ige/ige.go.html#line-24" class="ident">CryptBlocks</a>(<label for="r15" class="ident">msg</label>.<a href="encrypted_message.go.html#line-10" class="ident">EncryptedData</a>, <label for="r5" class="ident">plaintext</label>.<a href="../../bin/buffer.go.html#line-9" class="ident">Buf</a>)</code></span>
-<span class="codeline" id="line-35"><code>	<span class="keyword">return</span> <label for="r15" class="ident">msg</label>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-36"><code>}</code></span>
-<span class="codeline" id="line-37"><code></code></span>
-<span class="codeline" id="line-38"><code><span class="comment">// Encrypt encrypts EncryptedMessageData using AES-IGE to given buffer.</span></code></span>
-<span class="codeline" id="line-39"><code><span class="keyword">func</span> (<label for="r16" class="ident">c</label> <a href="cipher.go.html#line-6" class="ident">Cipher</a>) <label for="r17" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/crypto..Cipher.Encrypt.html" class="ident">Encrypt</a></label>(<label for="r18" class="ident">key</label> <a href="key.go.html#line-48" class="ident">AuthKey</a>, <label for="r19" class="ident">data</label> <a href="encrypted_message_data.go.html#line-12" class="ident">EncryptedMessageData</a>, <label for="r20" class="ident">b</label> *<a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i3">bin</a>.<a href="../../bin/buffer.go.html#line-8" class="ident">Buffer</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-40"><code>	<label for="r20" class="ident">b</label>.<a href="../../bin/encode.go.html#line-100" class="ident">Reset</a>()</code></span>
-<span class="codeline" id="line-41"><code>	<span class="keyword">if</span> <label for="r21" class="ident">err</label> := <label for="r19" class="ident">data</label>.<a href="encrypted_message_data.go.html#line-38" class="ident">EncodeWithoutCopy</a>(<label for="r20" class="ident">b</label>); <label for="r21" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-42"><code>		<span class="keyword">return</span> <label for="r21" class="ident">err</label></code></span>
-<span class="codeline" id="line-43"><code>	}</code></span>
-<span class="codeline" id="line-44"><code></code></span>
-<span class="codeline" id="line-45"><code>	<label for="r22" class="ident">msg</label>, <label for="r23" class="ident">err</label> := <label for="r16" class="ident">c</label>.<a href="#line-15" class="ident">encryptMessage</a>(<label for="r18" class="ident">key</label>, <label for="r20" class="ident">b</label>)</code></span>
-<span class="codeline" id="line-46"><code>	<span class="keyword">if</span> <label for="r23" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-47"><code>		<span class="keyword">return</span> <label for="r23" class="ident">err</label></code></span>
-<span class="codeline" id="line-48"><code>	}</code></span>
-<span class="codeline" id="line-49"><code></code></span>
-<span class="codeline" id="line-50"><code>	<label for="r20" class="ident">b</label>.<a href="../../bin/encode.go.html#line-100" class="ident">Reset</a>()</code></span>
-<span class="codeline" id="line-51"><code>	<span class="keyword">if</span> <label for="r24" class="ident">err</label> := <label for="r22" class="ident">msg</label>.<a href="encrypted_message.go.html#line-52" class="ident">Encode</a>(<label for="r20" class="ident">b</label>); <label for="r24" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-52"><code>		<span class="keyword">return</span> <label for="r24" class="ident">err</label></code></span>
-<span class="codeline" id="line-53"><code>	}</code></span>
-<span class="codeline" id="line-54"><code></code></span>
-<span class="codeline" id="line-55"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-56"><code>}</code></span>
+<span class="codeline" id="line-28"><code>	<label for="r14" class="ident">msg</label> := <a href="encrypted_message.go.html#line-6" class="ident">EncryptedMessage</a>{</code></span>
+<span class="codeline" id="line-29"><code>		<a href="encrypted_message.go.html#line-7" class="ident">AuthKeyID</a>:     <label for="r4" class="ident">k</label>.<a href="key.go.html#line-56" class="ident">ID</a>,</code></span>
+<span class="codeline" id="line-30"><code>		<a href="encrypted_message.go.html#line-8" class="ident">MsgKey</a>:        <label for="r9" class="ident">messageKey</label>,</code></span>
+<span class="codeline" id="line-31"><code>		<a href="encrypted_message.go.html#line-10" class="ident">EncryptedData</a>: <a href="../../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r5" class="ident">plaintext</label>.<a href="../../bin/buffer.go.html#line-9" class="ident">Buf</a>)),</code></span>
+<span class="codeline" id="line-32"><code>	}</code></span>
+<span class="codeline" id="line-33"><code>	<a href="../../../../../../pkg/github.com/gotd/ige.html" class="ident i2">ige</a>.<a href="../../../ige/encrypt.go.html#line-35" class="ident">EncryptBlocks</a>(<label for="r12" class="ident">aesBlock</label>, <label for="r11" class="ident">iv</label>[:], <label for="r14" class="ident">msg</label>.<a href="encrypted_message.go.html#line-10" class="ident">EncryptedData</a>, <label for="r5" class="ident">plaintext</label>.<a href="../../bin/buffer.go.html#line-9" class="ident">Buf</a>)</code></span>
+<span class="codeline" id="line-34"><code>	<span class="keyword">return</span> <label for="r14" class="ident">msg</label>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-35"><code>}</code></span>
+<span class="codeline" id="line-36"><code></code></span>
+<span class="codeline" id="line-37"><code><span class="comment">// Encrypt encrypts EncryptedMessageData using AES-IGE to given buffer.</span></code></span>
+<span class="codeline" id="line-38"><code><span class="keyword">func</span> (<label for="r15" class="ident">c</label> <a href="cipher.go.html#line-6" class="ident">Cipher</a>) <label for="r16" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/crypto..Cipher.Encrypt.html" class="ident">Encrypt</a></label>(<label for="r17" class="ident">key</label> <a href="key.go.html#line-54" class="ident">AuthKey</a>, <label for="r18" class="ident">data</label> <a href="encrypted_message_data.go.html#line-10" class="ident">EncryptedMessageData</a>, <label for="r19" class="ident">b</label> *<a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i3">bin</a>.<a href="../../bin/buffer.go.html#line-8" class="ident">Buffer</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-39"><code>	<label for="r19" class="ident">b</label>.<a href="../../bin/encode.go.html#line-105" class="ident">Reset</a>()</code></span>
+<span class="codeline" id="line-40"><code>	<span class="keyword">if</span> <label for="r20" class="ident">err</label> := <label for="r18" class="ident">data</label>.<a href="encrypted_message_data.go.html#line-36" class="ident">EncodeWithoutCopy</a>(<label for="r19" class="ident">b</label>); <label for="r20" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-41"><code>		<span class="keyword">return</span> <label for="r20" class="ident">err</label></code></span>
+<span class="codeline" id="line-42"><code>	}</code></span>
+<span class="codeline" id="line-43"><code></code></span>
+<span class="codeline" id="line-44"><code>	<label for="r21" class="ident">msg</label>, <label for="r22" class="ident">err</label> := <label for="r15" class="ident">c</label>.<a href="#line-15" class="ident">encryptMessage</a>(<label for="r17" class="ident">key</label>, <label for="r19" class="ident">b</label>)</code></span>
+<span class="codeline" id="line-45"><code>	<span class="keyword">if</span> <label for="r22" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-46"><code>		<span class="keyword">return</span> <label for="r22" class="ident">err</label></code></span>
+<span class="codeline" id="line-47"><code>	}</code></span>
+<span class="codeline" id="line-48"><code></code></span>
+<span class="codeline" id="line-49"><code>	<label for="r19" class="ident">b</label>.<a href="../../bin/encode.go.html#line-105" class="ident">Reset</a>()</code></span>
+<span class="codeline" id="line-50"><code>	<span class="keyword">if</span> <label for="r23" class="ident">err</label> := <label for="r21" class="ident">msg</label>.<a href="encrypted_message.go.html#line-52" class="ident">Encode</a>(<label for="r19" class="ident">b</label>); <label for="r23" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-51"><code>		<span class="keyword">return</span> <label for="r23" class="ident">err</label></code></span>
+<span class="codeline" id="line-52"><code>	}</code></span>
+<span class="codeline" id="line-53"><code></code></span>
+<span class="codeline" id="line-54"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-55"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

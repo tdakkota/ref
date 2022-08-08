@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: gcc_sigaction.c in package runtime/cgo</title>
-<link href="../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -68,13 +68,13 @@
 <span class="codeline" id="line-49"><code>		sigemptyset(&amp;act.sa_mask);</code></span>
 <span class="codeline" id="line-50"><code>		for (i = 0; i &lt; 8 * sizeof(goact-&gt;mask); i++) {</code></span>
 <span class="codeline" id="line-51"><code>			if (goact-&gt;mask &amp; ((uint64_t)(1)&lt;&lt;i)) {</code></span>
-<span class="codeline" id="line-52"><code>				sigaddset(&amp;act.sa_mask, i+1);</code></span>
+<span class="codeline" id="line-52"><code>				sigaddset(&amp;act.sa_mask, (int)(i+1));</code></span>
 <span class="codeline" id="line-53"><code>			}</code></span>
 <span class="codeline" id="line-54"><code>		}</code></span>
-<span class="codeline" id="line-55"><code>		act.sa_flags = goact-&gt;flags &amp; ~SA_RESTORER;</code></span>
+<span class="codeline" id="line-55"><code>		act.sa_flags = (int)(goact-&gt;flags &amp; ~(uint64_t)SA_RESTORER);</code></span>
 <span class="codeline" id="line-56"><code>	}</code></span>
 <span class="codeline" id="line-57"><code></code></span>
-<span class="codeline" id="line-58"><code>	ret = sigaction(signum, goact ? &amp;act : NULL, oldgoact ? &amp;oldact : NULL);</code></span>
+<span class="codeline" id="line-58"><code>	ret = sigaction((int)signum, goact ? &amp;act : NULL, oldgoact ? &amp;oldact : NULL);</code></span>
 <span class="codeline" id="line-59"><code>	if (ret == -1) {</code></span>
 <span class="codeline" id="line-60"><code>		// runtime.rt_sigaction expects _cgo_sigaction to return errno on error.</code></span>
 <span class="codeline" id="line-61"><code>		_cgo_tsan_release();</code></span>
@@ -89,11 +89,11 @@
 <span class="codeline" id="line-70"><code>		}</code></span>
 <span class="codeline" id="line-71"><code>		oldgoact-&gt;mask = 0;</code></span>
 <span class="codeline" id="line-72"><code>		for (i = 0; i &lt; 8 * sizeof(oldgoact-&gt;mask); i++) {</code></span>
-<span class="codeline" id="line-73"><code>			if (sigismember(&amp;oldact.sa_mask, i+1) == 1) {</code></span>
+<span class="codeline" id="line-73"><code>			if (sigismember(&amp;oldact.sa_mask, (int)(i+1)) == 1) {</code></span>
 <span class="codeline" id="line-74"><code>				oldgoact-&gt;mask |= (uint64_t)(1)&lt;&lt;i;</code></span>
 <span class="codeline" id="line-75"><code>			}</code></span>
 <span class="codeline" id="line-76"><code>		}</code></span>
-<span class="codeline" id="line-77"><code>		oldgoact-&gt;flags = oldact.sa_flags;</code></span>
+<span class="codeline" id="line-77"><code>		oldgoact-&gt;flags = (uint64_t)oldact.sa_flags;</code></span>
 <span class="codeline" id="line-78"><code>	}</code></span>
 <span class="codeline" id="line-79"><code></code></span>
 <span class="codeline" id="line-80"><code>	_cgo_tsan_release();</code></span>
@@ -101,7 +101,7 @@
 <span class="codeline" id="line-82"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

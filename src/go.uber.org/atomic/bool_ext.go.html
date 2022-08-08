@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: bool_ext.go in package go.uber.org/atomic</title>
-<link href="../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -24,7 +24,8 @@ input[id=r4]:checked ~pre label[for=r4],
 input[id=r5]:checked ~pre label[for=r5],
 input[id=r6]:checked ~pre label[for=r6],
 input[id=r7]:checked ~pre label[for=r7],
-input[id=r8]:checked ~pre label[for=r8]
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9]
 {background: #226; color: #ff8;}
 input[id=i0]:checked ~pre .i0
 {background: brown; color: #eed;}
@@ -37,6 +38,7 @@ input[id=i0]:checked ~pre .i0
 <input id="r6" type="radio" name="g"/>
 <input id="r7" type="radio" name="g"/>
 <input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
 <input id="i0" type="radio" name="i"/>
 
 <pre class="line-numbers">
@@ -80,22 +82,22 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-38"><code>}</code></span>
 <span class="codeline" id="line-39"><code></code></span>
 <span class="codeline" id="line-40"><code><span class="comment">// Toggle atomically negates the Boolean and returns the previous value.</span></code></span>
-<span class="codeline" id="line-41"><code><span class="keyword">func</span> (<label for="r4" class="ident">b</label> *<a href="bool.go.html#line-30" class="ident">Bool</a>) <label for="r5" class="ident"><a href="../../../use/go.uber.org/atomic..Bool.Toggle.html" class="ident">Toggle</a></label>() <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-41"><code><span class="keyword">func</span> (<label for="r4" class="ident">b</label> *<a href="bool.go.html#line-30" class="ident">Bool</a>) <label for="r5" class="ident"><a href="../../../use/go.uber.org/atomic..Bool.Toggle.html" class="ident">Toggle</a></label>() (<label for="r6" class="ident">old</label> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
 <span class="codeline" id="line-42"><code>	<span class="keyword">for</span> {</code></span>
-<span class="codeline" id="line-43"><code>		<label for="r6" class="ident">old</label> := <label for="r4" class="ident">b</label>.<a href="bool.go.html#line-48" class="ident">Load</a>()</code></span>
-<span class="codeline" id="line-44"><code>		<span class="keyword">if</span> <label for="r4" class="ident">b</label>.<a href="bool.go.html#line-58" class="ident">CAS</a>(<label for="r6" class="ident">old</label>, !<label for="r6" class="ident">old</label>) {</code></span>
-<span class="codeline" id="line-45"><code>			<span class="keyword">return</span> <label for="r6" class="ident">old</label></code></span>
+<span class="codeline" id="line-43"><code>		<label for="r7" class="ident">old</label> := <label for="r4" class="ident">b</label>.<a href="bool.go.html#line-48" class="ident">Load</a>()</code></span>
+<span class="codeline" id="line-44"><code>		<span class="keyword">if</span> <label for="r4" class="ident">b</label>.<a href="bool.go.html#line-58" class="ident">CAS</a>(<label for="r7" class="ident">old</label>, !<label for="r7" class="ident">old</label>) {</code></span>
+<span class="codeline" id="line-45"><code>			<span class="keyword">return</span> <label for="r7" class="ident">old</label></code></span>
 <span class="codeline" id="line-46"><code>		}</code></span>
 <span class="codeline" id="line-47"><code>	}</code></span>
 <span class="codeline" id="line-48"><code>}</code></span>
 <span class="codeline" id="line-49"><code></code></span>
 <span class="codeline" id="line-50"><code><span class="comment">// String encodes the wrapped value as a string.</span></code></span>
-<span class="codeline" id="line-51"><code><span class="keyword">func</span> (<label for="r7" class="ident">b</label> *<a href="bool.go.html#line-30" class="ident">Bool</a>) <label for="r8" class="ident"><a href="../../../use/go.uber.org/atomic..Bool.String.html" class="ident">String</a></label>() <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
-<span class="codeline" id="line-52"><code>	<span class="keyword">return</span> <a href="../../../pkg/strconv.html" class="ident i0">strconv</a>.<a href="../../strconv/atob.go.html#line-21" class="ident">FormatBool</a>(<label for="r7" class="ident">b</label>.<a href="bool.go.html#line-48" class="ident">Load</a>())</code></span>
+<span class="codeline" id="line-51"><code><span class="keyword">func</span> (<label for="r8" class="ident">b</label> *<a href="bool.go.html#line-30" class="ident">Bool</a>) <label for="r9" class="ident"><a href="../../../use/go.uber.org/atomic..Bool.String.html" class="ident">String</a></label>() <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-52"><code>	<span class="keyword">return</span> <a href="../../../pkg/strconv.html" class="ident i0">strconv</a>.<a href="../../strconv/atob.go.html#line-21" class="ident">FormatBool</a>(<label for="r8" class="ident">b</label>.<a href="bool.go.html#line-48" class="ident">Load</a>())</code></span>
 <span class="codeline" id="line-53"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

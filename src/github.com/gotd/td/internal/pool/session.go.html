@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: session.go in package github.com/gotd/td/internal/pool</title>
-<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -68,14 +68,14 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-10"><code><span class="comment">// Session represents DC session.</span></code></span>
 <span class="codeline" id="line-11"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/internal/pool.html#name-Session" class="ident">Session</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-12"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/pool..Session.DC.html" class="ident">DC</a>      <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
-<span class="codeline" id="line-13"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/pool..Session.AuthKey.html" class="ident">AuthKey</a> <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i1">crypto</a>.<a href="../crypto/key.go.html#line-48" class="ident">AuthKey</a></code></span>
+<span class="codeline" id="line-13"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/pool..Session.AuthKey.html" class="ident">AuthKey</a> <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i1">crypto</a>.<a href="../crypto/key.go.html#line-54" class="ident">AuthKey</a></code></span>
 <span class="codeline" id="line-14"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/pool..Session.Salt.html" class="ident">Salt</a>    <a href="../../../../../../pkg/builtin.html#name-int64" class="ident">int64</a></code></span>
 <span class="codeline" id="line-15"><code>}</code></span>
 <span class="codeline" id="line-16"><code></code></span>
 <span class="codeline" id="line-17"><code><span class="comment">// SyncSession is synchronization helper for Session.</span></code></span>
 <span class="codeline" id="line-18"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/internal/pool.html#name-SyncSession" class="ident">SyncSession</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-19"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/pool..SyncSession.data^3a6eb.html" class="ident">data</a> <a href="#line-11" class="ident">Session</a></code></span>
-<span class="codeline" id="line-20"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/pool..SyncSession.mux^99830.html" class="ident">mux</a>  <a href="../../../../../../pkg/sync.html" class="ident i0">sync</a>.<a href="../../../../../sync/rwmutex.go.html#line-28" class="ident">RWMutex</a></code></span>
+<span class="codeline" id="line-20"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/pool..SyncSession.mux^99830.html" class="ident">mux</a>  <a href="../../../../../../pkg/sync.html" class="ident i0">sync</a>.<a href="../../../../../sync/rwmutex.go.html#line-36" class="ident">RWMutex</a></code></span>
 <span class="codeline" id="line-21"><code>}</code></span>
 <span class="codeline" id="line-22"><code></code></span>
 <span class="codeline" id="line-23"><code><span class="comment">// NewSyncSession creates new SyncSession.</span></code></span>
@@ -87,42 +87,42 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-29"><code></code></span>
 <span class="codeline" id="line-30"><code><span class="comment">// Store saves given Session.</span></code></span>
 <span class="codeline" id="line-31"><code><span class="keyword">func</span> (<label for="r2" class="ident">s</label> *<a href="#line-18" class="ident">SyncSession</a>) <label for="r3" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/pool..SyncSession.Store.html" class="ident">Store</a></label>(<label for="r4" class="ident">data</label> <a href="#line-11" class="ident">Session</a>) {</code></span>
-<span class="codeline" id="line-32"><code>	<label for="r2" class="ident">s</label>.<a href="#line-20" class="ident">mux</a>.<a href="../../../../../sync/rwmutex.go.html#line-105" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-32"><code>	<label for="r2" class="ident">s</label>.<a href="#line-20" class="ident">mux</a>.<a href="../../../../../sync/rwmutex.go.html#line-141" class="ident">Lock</a>()</code></span>
 <span class="codeline" id="line-33"><code>	<label for="r2" class="ident">s</label>.<a href="#line-19" class="ident">data</a> = <label for="r4" class="ident">data</label></code></span>
-<span class="codeline" id="line-34"><code>	<label for="r2" class="ident">s</label>.<a href="#line-20" class="ident">mux</a>.<a href="../../../../../sync/rwmutex.go.html#line-131" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-34"><code>	<label for="r2" class="ident">s</label>.<a href="#line-20" class="ident">mux</a>.<a href="../../../../../sync/rwmutex.go.html#line-198" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-35"><code>}</code></span>
 <span class="codeline" id="line-36"><code></code></span>
 <span class="codeline" id="line-37"><code><span class="comment">// Migrate changes current DC and its addr, zeroes AuthKey and Salt.</span></code></span>
 <span class="codeline" id="line-38"><code><span class="keyword">func</span> (<label for="r5" class="ident">s</label> *<a href="#line-18" class="ident">SyncSession</a>) <label for="r6" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/pool..SyncSession.Migrate.html" class="ident">Migrate</a></label>(<label for="r7" class="ident">dc</label> <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a>) {</code></span>
-<span class="codeline" id="line-39"><code>	<label for="r5" class="ident">s</label>.<a href="#line-20" class="ident">mux</a>.<a href="../../../../../sync/rwmutex.go.html#line-105" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-39"><code>	<label for="r5" class="ident">s</label>.<a href="#line-20" class="ident">mux</a>.<a href="../../../../../sync/rwmutex.go.html#line-141" class="ident">Lock</a>()</code></span>
 <span class="codeline" id="line-40"><code>	<label for="r5" class="ident">s</label>.<a href="#line-19" class="ident">data</a>.<a href="#line-12" class="ident">DC</a> = <label for="r7" class="ident">dc</label></code></span>
-<span class="codeline" id="line-41"><code>	<label for="r5" class="ident">s</label>.<a href="#line-19" class="ident">data</a>.<a href="#line-13" class="ident">AuthKey</a> = <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i1">crypto</a>.<a href="../crypto/key.go.html#line-48" class="ident">AuthKey</a>{}</code></span>
+<span class="codeline" id="line-41"><code>	<label for="r5" class="ident">s</label>.<a href="#line-19" class="ident">data</a>.<a href="#line-13" class="ident">AuthKey</a> = <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i1">crypto</a>.<a href="../crypto/key.go.html#line-54" class="ident">AuthKey</a>{}</code></span>
 <span class="codeline" id="line-42"><code>	<label for="r5" class="ident">s</label>.<a href="#line-19" class="ident">data</a>.<a href="#line-14" class="ident">Salt</a> = <span class="lit-number">0</span></code></span>
-<span class="codeline" id="line-43"><code>	<label for="r5" class="ident">s</label>.<a href="#line-20" class="ident">mux</a>.<a href="../../../../../sync/rwmutex.go.html#line-131" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-43"><code>	<label for="r5" class="ident">s</label>.<a href="#line-20" class="ident">mux</a>.<a href="../../../../../sync/rwmutex.go.html#line-198" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-44"><code>}</code></span>
 <span class="codeline" id="line-45"><code></code></span>
 <span class="codeline" id="line-46"><code><span class="comment">// Options fills Key and Salt field of given Options using stored session and returns it.</span></code></span>
-<span class="codeline" id="line-47"><code><span class="keyword">func</span> (<label for="r8" class="ident">s</label> *<a href="#line-18" class="ident">SyncSession</a>) <label for="r9" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/pool..SyncSession.Options.html" class="ident">Options</a></label>(<label for="r10" class="ident">opts</label> <a href="../../../../../../pkg/github.com/gotd/td/internal/mtproto.html" class="ident i2">mtproto</a>.<a href="../mtproto/options.go.html#line-23" class="ident">Options</a>) (<a href="../../../../../../pkg/github.com/gotd/td/internal/mtproto.html" class="ident i2">mtproto</a>.<a href="../mtproto/options.go.html#line-23" class="ident">Options</a>, <a href="#line-11" class="ident">Session</a>) {</code></span>
-<span class="codeline" id="line-48"><code>	<label for="r8" class="ident">s</label>.<a href="#line-20" class="ident">mux</a>.<a href="../../../../../sync/rwmutex.go.html#line-56" class="ident">RLock</a>()</code></span>
+<span class="codeline" id="line-47"><code><span class="keyword">func</span> (<label for="r8" class="ident">s</label> *<a href="#line-18" class="ident">SyncSession</a>) <label for="r9" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/pool..SyncSession.Options.html" class="ident">Options</a></label>(<label for="r10" class="ident">opts</label> <a href="../../../../../../pkg/github.com/gotd/td/internal/mtproto.html" class="ident i2">mtproto</a>.<a href="../mtproto/options.go.html#line-20" class="ident">Options</a>) (<a href="../../../../../../pkg/github.com/gotd/td/internal/mtproto.html" class="ident i2">mtproto</a>.<a href="../mtproto/options.go.html#line-20" class="ident">Options</a>, <a href="#line-11" class="ident">Session</a>) {</code></span>
+<span class="codeline" id="line-48"><code>	<label for="r8" class="ident">s</label>.<a href="#line-20" class="ident">mux</a>.<a href="../../../../../sync/rwmutex.go.html#line-64" class="ident">RLock</a>()</code></span>
 <span class="codeline" id="line-49"><code>	<label for="r11" class="ident">data</label> := <label for="r8" class="ident">s</label>.<a href="#line-19" class="ident">data</a></code></span>
-<span class="codeline" id="line-50"><code>	<label for="r8" class="ident">s</label>.<a href="#line-20" class="ident">mux</a>.<a href="../../../../../sync/rwmutex.go.html#line-75" class="ident">RUnlock</a>()</code></span>
+<span class="codeline" id="line-50"><code>	<label for="r8" class="ident">s</label>.<a href="#line-20" class="ident">mux</a>.<a href="../../../../../sync/rwmutex.go.html#line-111" class="ident">RUnlock</a>()</code></span>
 <span class="codeline" id="line-51"><code></code></span>
-<span class="codeline" id="line-52"><code>	<label for="r10" class="ident">opts</label>.<a href="../mtproto/options.go.html#line-62" class="ident">Key</a> = <label for="r11" class="ident">data</label>.<a href="#line-13" class="ident">AuthKey</a></code></span>
-<span class="codeline" id="line-53"><code>	<label for="r10" class="ident">opts</label>.<a href="../mtproto/options.go.html#line-64" class="ident">Salt</a> = <label for="r11" class="ident">data</label>.<a href="#line-14" class="ident">Salt</a></code></span>
+<span class="codeline" id="line-52"><code>	<label for="r10" class="ident">opts</label>.<a href="../mtproto/options.go.html#line-73" class="ident">Key</a> = <label for="r11" class="ident">data</label>.<a href="#line-13" class="ident">AuthKey</a></code></span>
+<span class="codeline" id="line-53"><code>	<label for="r10" class="ident">opts</label>.<a href="../mtproto/options.go.html#line-75" class="ident">Salt</a> = <label for="r11" class="ident">data</label>.<a href="#line-14" class="ident">Salt</a></code></span>
 <span class="codeline" id="line-54"><code>	<span class="keyword">return</span> <label for="r10" class="ident">opts</label>, <label for="r11" class="ident">data</label></code></span>
 <span class="codeline" id="line-55"><code>}</code></span>
 <span class="codeline" id="line-56"><code></code></span>
 <span class="codeline" id="line-57"><code><span class="comment">// Load gets session and returns it.</span></code></span>
 <span class="codeline" id="line-58"><code><span class="keyword">func</span> (<label for="r12" class="ident">s</label> *<a href="#line-18" class="ident">SyncSession</a>) <label for="r13" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/pool..SyncSession.Load.html" class="ident">Load</a></label>() (<label for="r14" class="ident">data</label> <a href="#line-11" class="ident">Session</a>) {</code></span>
-<span class="codeline" id="line-59"><code>	<label for="r12" class="ident">s</label>.<a href="#line-20" class="ident">mux</a>.<a href="../../../../../sync/rwmutex.go.html#line-56" class="ident">RLock</a>()</code></span>
+<span class="codeline" id="line-59"><code>	<label for="r12" class="ident">s</label>.<a href="#line-20" class="ident">mux</a>.<a href="../../../../../sync/rwmutex.go.html#line-64" class="ident">RLock</a>()</code></span>
 <span class="codeline" id="line-60"><code>	<label for="r14" class="ident">data</label> = <label for="r12" class="ident">s</label>.<a href="#line-19" class="ident">data</a></code></span>
-<span class="codeline" id="line-61"><code>	<label for="r12" class="ident">s</label>.<a href="#line-20" class="ident">mux</a>.<a href="../../../../../sync/rwmutex.go.html#line-75" class="ident">RUnlock</a>()</code></span>
+<span class="codeline" id="line-61"><code>	<label for="r12" class="ident">s</label>.<a href="#line-20" class="ident">mux</a>.<a href="../../../../../sync/rwmutex.go.html#line-111" class="ident">RUnlock</a>()</code></span>
 <span class="codeline" id="line-62"><code></code></span>
 <span class="codeline" id="line-63"><code>	<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-64"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

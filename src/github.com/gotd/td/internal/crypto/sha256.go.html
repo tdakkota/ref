@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: sha256.go in package github.com/gotd/td/internal/crypto</title>
-<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -50,29 +50,28 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-8"><code></code></span>
 <span class="codeline" id="line-9"><code><span class="comment">// SHA256 returns SHA256 hash.</span></code></span>
 <span class="codeline" id="line-10"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-SHA256" class="ident">SHA256</a></label>(<label for="r1" class="ident">from</label> ...[]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) []<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a> {</code></span>
-<span class="codeline" id="line-11"><code>	<label for="r2" class="ident">h</label> := <a href="#line-26" class="ident">getSHA256</a>()</code></span>
-<span class="codeline" id="line-12"><code>	<span class="keyword">defer</span> <a href="#line-20" class="ident">sha256Pool</a>.<a href="../../../../../sync/pool.go.html#line-90" class="ident">Put</a>(<label for="r2" class="ident">h</label>)</code></span>
+<span class="codeline" id="line-11"><code>	<label for="r2" class="ident">h</label> := <a href="#line-25" class="ident">getSHA256</a>()</code></span>
+<span class="codeline" id="line-12"><code>	<span class="keyword">defer</span> <a href="#line-19" class="ident">sha256Pool</a>.<a href="../../../../../sync/pool.go.html#line-95" class="ident">Put</a>(<label for="r2" class="ident">h</label>)</code></span>
 <span class="codeline" id="line-13"><code>	<span class="keyword">for</span> <label for="r3" class="ident">_</label>, <label for="r4" class="ident">b</label> := <span class="keyword">range</span> <label for="r1" class="ident">from</label> {</code></span>
 <span class="codeline" id="line-14"><code>		_, _ = <label for="r2" class="ident">h</label>.<a href="../../../../../io/io.go.html#line-97" class="ident">Write</a>(<label for="r4" class="ident">b</label>)</code></span>
 <span class="codeline" id="line-15"><code>	}</code></span>
 <span class="codeline" id="line-16"><code>	<span class="keyword">return</span> <label for="r2" class="ident">h</label>.<a href="../../../../../hash/hash.go.html#line-33" class="ident">Sum</a>(<a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
 <span class="codeline" id="line-17"><code>}</code></span>
 <span class="codeline" id="line-18"><code></code></span>
-<span class="codeline" id="line-19"><code><span class="comment">// nolint:gochecknoglobals // optimization for sha256-hash reuse</span></code></span>
-<span class="codeline" id="line-20"><code><span class="keyword">var</span> <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-sha256Pool" class="ident">sha256Pool</a> = &amp;<a href="../../../../../../pkg/sync.html" class="ident i2">sync</a>.<a href="../../../../../sync/pool.go.html#line-44" class="ident">Pool</a>{</code></span>
-<span class="codeline" id="line-21"><code>	<a href="../../../../../sync/pool.go.html#line-56" class="ident">New</a>: <span class="keyword">func</span>() <span class="keyword">interface</span>{} {</code></span>
-<span class="codeline" id="line-22"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/crypto/sha256.html" class="ident i0">sha256</a>.<a href="../../../../../crypto/sha256/sha256.go.html#line-161" class="ident">New</a>()</code></span>
-<span class="codeline" id="line-23"><code>	},</code></span>
-<span class="codeline" id="line-24"><code>}</code></span>
-<span class="codeline" id="line-25"><code></code></span>
-<span class="codeline" id="line-26"><code><span class="keyword">func</span> <label for="r5" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-getSHA256" class="ident">getSHA256</a></label>() <a href="../../../../../../pkg/hash.html" class="ident i1">hash</a>.<a href="../../../../../hash/hash.go.html#line-26" class="ident">Hash</a> {</code></span>
-<span class="codeline" id="line-27"><code>	<label for="r6" class="ident">h</label> := <a href="#line-20" class="ident">sha256Pool</a>.<a href="../../../../../sync/pool.go.html#line-124" class="ident">Get</a>().(<a href="../../../../../../pkg/hash.html" class="ident i1">hash</a>.<a href="../../../../../hash/hash.go.html#line-26" class="ident">Hash</a>)</code></span>
-<span class="codeline" id="line-28"><code>	<label for="r6" class="ident">h</label>.<a href="../../../../../hash/hash.go.html#line-36" class="ident">Reset</a>()</code></span>
-<span class="codeline" id="line-29"><code>	<span class="keyword">return</span> <label for="r6" class="ident">h</label></code></span>
-<span class="codeline" id="line-30"><code>}</code></span>
+<span class="codeline" id="line-19"><code><span class="keyword">var</span> <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-sha256Pool" class="ident">sha256Pool</a> = &amp;<a href="../../../../../../pkg/sync.html" class="ident i2">sync</a>.<a href="../../../../../sync/pool.go.html#line-49" class="ident">Pool</a>{</code></span>
+<span class="codeline" id="line-20"><code>	<a href="../../../../../sync/pool.go.html#line-61" class="ident">New</a>: <span class="keyword">func</span>() <span class="keyword">interface</span>{} {</code></span>
+<span class="codeline" id="line-21"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/crypto/sha256.html" class="ident i0">sha256</a>.<a href="../../../../../crypto/sha256/sha256.go.html#line-162" class="ident">New</a>()</code></span>
+<span class="codeline" id="line-22"><code>	},</code></span>
+<span class="codeline" id="line-23"><code>}</code></span>
+<span class="codeline" id="line-24"><code></code></span>
+<span class="codeline" id="line-25"><code><span class="keyword">func</span> <label for="r5" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-getSHA256" class="ident">getSHA256</a></label>() <a href="../../../../../../pkg/hash.html" class="ident i1">hash</a>.<a href="../../../../../hash/hash.go.html#line-26" class="ident">Hash</a> {</code></span>
+<span class="codeline" id="line-26"><code>	<label for="r6" class="ident">h</label> := <a href="#line-19" class="ident">sha256Pool</a>.<a href="../../../../../sync/pool.go.html#line-127" class="ident">Get</a>().(<a href="../../../../../../pkg/hash.html" class="ident i1">hash</a>.<a href="../../../../../hash/hash.go.html#line-26" class="ident">Hash</a>)</code></span>
+<span class="codeline" id="line-27"><code>	<label for="r6" class="ident">h</label>.<a href="../../../../../hash/hash.go.html#line-36" class="ident">Reset</a>()</code></span>
+<span class="codeline" id="line-28"><code>	<span class="keyword">return</span> <label for="r6" class="ident">h</label></code></span>
+<span class="codeline" id="line-29"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

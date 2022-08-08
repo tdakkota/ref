@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: cpu_x86.s in package vendor/golang.org/x/sys/cpu</title>
-<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -45,33 +45,9 @@
 <span class="codeline" id="line-26"><code>	MOVL AX, eax+0(FP)</code></span>
 <span class="codeline" id="line-27"><code>	MOVL DX, edx+4(FP)</code></span>
 <span class="codeline" id="line-28"><code>	RET</code></span>
-<span class="codeline" id="line-29"><code></code></span>
-<span class="codeline" id="line-30"><code>// func darwinSupportsAVX512() bool</code></span>
-<span class="codeline" id="line-31"><code>TEXT ·darwinSupportsAVX512(SB), NOSPLIT, $0-1</code></span>
-<span class="codeline" id="line-32"><code>    MOVB    $0, ret+0(FP) // default to false</code></span>
-<span class="codeline" id="line-33"><code>#ifdef GOOS_darwin   // return if not darwin</code></span>
-<span class="codeline" id="line-34"><code>#ifdef GOARCH_amd64  // return if not amd64</code></span>
-<span class="codeline" id="line-35"><code>// These values from:</code></span>
-<span class="codeline" id="line-36"><code>// https://github.com/apple/darwin-xnu/blob/xnu-4570.1.46/osfmk/i386/cpu_capabilities.h</code></span>
-<span class="codeline" id="line-37"><code>#define commpage64_base_address         0x00007fffffe00000</code></span>
-<span class="codeline" id="line-38"><code>#define commpage64_cpu_capabilities64   (commpage64_base_address+0x010)</code></span>
-<span class="codeline" id="line-39"><code>#define commpage64_version              (commpage64_base_address+0x01E)</code></span>
-<span class="codeline" id="line-40"><code>#define hasAVX512F                      0x0000004000000000</code></span>
-<span class="codeline" id="line-41"><code>    MOVQ    $commpage64_version, BX</code></span>
-<span class="codeline" id="line-42"><code>    CMPW    (BX), $13  // cpu_capabilities64 undefined in versions &lt; 13</code></span>
-<span class="codeline" id="line-43"><code>    JL      no_avx512</code></span>
-<span class="codeline" id="line-44"><code>    MOVQ    $commpage64_cpu_capabilities64, BX</code></span>
-<span class="codeline" id="line-45"><code>    MOVQ    $hasAVX512F, CX</code></span>
-<span class="codeline" id="line-46"><code>    TESTQ   (BX), CX</code></span>
-<span class="codeline" id="line-47"><code>    JZ      no_avx512</code></span>
-<span class="codeline" id="line-48"><code>    MOVB    $1, ret+0(FP)</code></span>
-<span class="codeline" id="line-49"><code>no_avx512:</code></span>
-<span class="codeline" id="line-50"><code>#endif</code></span>
-<span class="codeline" id="line-51"><code>#endif</code></span>
-<span class="codeline" id="line-52"><code>    RET</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

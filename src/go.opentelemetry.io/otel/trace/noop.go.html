@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: noop.go in package go.opentelemetry.io/otel/trace</title>
+<link href="../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../jvs/golds-v0.5.2.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	noop.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../../pkg/go.opentelemetry.io/otel/trace.html">go.opentelemetry.io/otel/trace</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16],
+input[id=r17]:checked ~pre label[for=r17],
+input[id=r18]:checked ~pre label[for=r18],
+input[id=r19]:checked ~pre label[for=r19],
+input[id=r20]:checked ~pre label[for=r20]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1,
+input[id=i2]:checked ~pre .i2
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="r17" type="radio" name="g"/>
+<input id="r18" type="radio" name="g"/>
+<input id="r19" type="radio" name="g"/>
+<input id="r20" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+<input id="i2" type="radio" name="i"/>
+
+<pre class="line-numbers">
+<span class="codeline" id="line-1"><code><span class="comment">// Copyright The OpenTelemetry Authors</span></code></span>
+<span class="codeline" id="line-2"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-3"><code><span class="comment">// Licensed under the Apache License, Version 2.0 (the "License");</span></code></span>
+<span class="codeline" id="line-4"><code><span class="comment">// you may not use this file except in compliance with the License.</span></code></span>
+<span class="codeline" id="line-5"><code><span class="comment">// You may obtain a copy of the License at</span></code></span>
+<span class="codeline" id="line-6"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-7"><code><span class="comment">//     http://www.apache.org/licenses/LICENSE-2.0</span></code></span>
+<span class="codeline" id="line-8"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-9"><code><span class="comment">// Unless required by applicable law or agreed to in writing, software</span></code></span>
+<span class="codeline" id="line-10"><code><span class="comment">// distributed under the License is distributed on an "AS IS" BASIS,</span></code></span>
+<span class="codeline" id="line-11"><code><span class="comment">// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></code></span>
+<span class="codeline" id="line-12"><code><span class="comment">// See the License for the specific language governing permissions and</span></code></span>
+<span class="codeline" id="line-13"><code><span class="comment">// limitations under the License.</span></code></span>
+<span class="codeline" id="line-14"><code></code></span>
+<span class="codeline" id="line-15"><code><span class="keyword">package</span> trace <span class="comment">// import "go.opentelemetry.io/otel/trace"</span></code></span>
+<span class="codeline" id="line-16"><code></code></span>
+<span class="codeline" id="line-17"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-18"><code>	<label for="i0"><span class="lit-string i0">"context"</span></label></code></span>
+<span class="codeline" id="line-19"><code></code></span>
+<span class="codeline" id="line-20"><code>	<label for="i1"><span class="lit-string i1">"go.opentelemetry.io/otel/attribute"</span></label></code></span>
+<span class="codeline" id="line-21"><code>	<label for="i2"><span class="lit-string i2">"go.opentelemetry.io/otel/codes"</span></label></code></span>
+<span class="codeline" id="line-22"><code>)</code></span>
+<span class="codeline" id="line-23"><code></code></span>
+<span class="codeline" id="line-24"><code><span class="comment">// NewNoopTracerProvider returns an implementation of TracerProvider that</span></code></span>
+<span class="codeline" id="line-25"><code><span class="comment">// performs no operations. The Tracer and Spans created from the returned</span></code></span>
+<span class="codeline" id="line-26"><code><span class="comment">// TracerProvider also perform no operations.</span></code></span>
+<span class="codeline" id="line-27"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-NewNoopTracerProvider" class="ident">NewNoopTracerProvider</a></label>() <a href="trace.go.html#line-509" class="ident">TracerProvider</a> {</code></span>
+<span class="codeline" id="line-28"><code>	<span class="keyword">return</span> <a href="#line-31" class="ident">noopTracerProvider</a>{}</code></span>
+<span class="codeline" id="line-29"><code>}</code></span>
+<span class="codeline" id="line-30"><code></code></span>
+<span class="codeline" id="line-31"><code><span class="keyword">type</span> <a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-noopTracerProvider" class="ident">noopTracerProvider</a> <span class="keyword">struct</span>{}</code></span>
+<span class="codeline" id="line-32"><code></code></span>
+<span class="codeline" id="line-33"><code><span class="keyword">var</span> _ <a href="trace.go.html#line-509" class="ident">TracerProvider</a> = <a href="#line-31" class="ident">noopTracerProvider</a>{}</code></span>
+<span class="codeline" id="line-34"><code></code></span>
+<span class="codeline" id="line-35"><code><span class="comment">// Tracer returns noop implementation of Tracer.</span></code></span>
+<span class="codeline" id="line-36"><code><span class="keyword">func</span> (<label for="r1" class="ident">p</label> <a href="#line-31" class="ident">noopTracerProvider</a>) <label for="r2" class="ident"><a href="../../../../use/go.opentelemetry.io/otel/trace..noopTracerProvider^c3c8b.Tracer.html" class="ident">Tracer</a></label>(<a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>, ...<a href="config.go.html#line-50" class="ident">TracerOption</a>) <a href="trace.go.html#line-489" class="ident">Tracer</a> {</code></span>
+<span class="codeline" id="line-37"><code>	<span class="keyword">return</span> <a href="#line-41" class="ident">noopTracer</a>{}</code></span>
+<span class="codeline" id="line-38"><code>}</code></span>
+<span class="codeline" id="line-39"><code></code></span>
+<span class="codeline" id="line-40"><code><span class="comment">// noopTracer is an implementation of Tracer that preforms no operations.</span></code></span>
+<span class="codeline" id="line-41"><code><span class="keyword">type</span> <a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-noopTracer" class="ident">noopTracer</a> <span class="keyword">struct</span>{}</code></span>
+<span class="codeline" id="line-42"><code></code></span>
+<span class="codeline" id="line-43"><code><span class="keyword">var</span> _ <a href="trace.go.html#line-489" class="ident">Tracer</a> = <a href="#line-41" class="ident">noopTracer</a>{}</code></span>
+<span class="codeline" id="line-44"><code></code></span>
+<span class="codeline" id="line-45"><code><span class="comment">// Start carries forward a non-recording Span, if one is present in the context, otherwise it</span></code></span>
+<span class="codeline" id="line-46"><code><span class="comment">// creates a no-op Span.</span></code></span>
+<span class="codeline" id="line-47"><code><span class="keyword">func</span> (<label for="r3" class="ident">t</label> <a href="#line-41" class="ident">noopTracer</a>) <label for="r4" class="ident"><a href="../../../../use/go.opentelemetry.io/otel/trace..noopTracer^9bb15.Start.html" class="ident">Start</a></label>(<label for="r5" class="ident">ctx</label> <a href="../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r6" class="ident">name</label> <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r7" class="ident">_</label> ...<a href="config.go.html#line-128" class="ident">SpanStartOption</a>) (<a href="../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../context/context.go.html#line-62" class="ident">Context</a>, <a href="trace.go.html#line-342" class="ident">Span</a>) {</code></span>
+<span class="codeline" id="line-48"><code>	<label for="r8" class="ident">span</label> := <a href="context.go.html#line-48" class="ident">SpanFromContext</a>(<label for="r5" class="ident">ctx</label>)</code></span>
+<span class="codeline" id="line-49"><code>	<span class="keyword">if</span> <label for="r9" class="ident">_</label>, <label for="r10" class="ident">ok</label> := <label for="r8" class="ident">span</label>.(<a href="nonrecording.go.html#line-20" class="ident">nonRecordingSpan</a>); !<label for="r10" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-50"><code>		<span class="comment">// span is likely already a noopSpan, but let's be sure</span></code></span>
+<span class="codeline" id="line-51"><code>		<label for="r8" class="ident">span</label> = <a href="#line-57" class="ident">noopSpan</a>{}</code></span>
+<span class="codeline" id="line-52"><code>	}</code></span>
+<span class="codeline" id="line-53"><code>	<span class="keyword">return</span> <a href="context.go.html#line-24" class="ident">ContextWithSpan</a>(<label for="r5" class="ident">ctx</label>, <label for="r8" class="ident">span</label>), <label for="r8" class="ident">span</label></code></span>
+<span class="codeline" id="line-54"><code>}</code></span>
+<span class="codeline" id="line-55"><code></code></span>
+<span class="codeline" id="line-56"><code><span class="comment">// noopSpan is an implementation of Span that preforms no operations.</span></code></span>
+<span class="codeline" id="line-57"><code><span class="keyword">type</span> <a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-noopSpan" class="ident">noopSpan</a> <span class="keyword">struct</span>{}</code></span>
+<span class="codeline" id="line-58"><code></code></span>
+<span class="codeline" id="line-59"><code><span class="keyword">var</span> _ <a href="trace.go.html#line-342" class="ident">Span</a> = <a href="#line-57" class="ident">noopSpan</a>{}</code></span>
+<span class="codeline" id="line-60"><code></code></span>
+<span class="codeline" id="line-61"><code><span class="comment">// SpanContext returns an empty span context.</span></code></span>
+<span class="codeline" id="line-62"><code><span class="keyword">func</span> (<a href="#line-57" class="ident">noopSpan</a>) <label for="r11" class="ident"><a href="../../../../use/go.opentelemetry.io/otel/trace..noopSpan^c4d51.SpanContext.html" class="ident">SpanContext</a></label>() <a href="trace.go.html#line-205" class="ident">SpanContext</a> { <span class="keyword">return</span> <a href="trace.go.html#line-205" class="ident">SpanContext</a>{} }</code></span>
+<span class="codeline" id="line-63"><code></code></span>
+<span class="codeline" id="line-64"><code><span class="comment">// IsRecording always returns false.</span></code></span>
+<span class="codeline" id="line-65"><code><span class="keyword">func</span> (<a href="#line-57" class="ident">noopSpan</a>) <label for="r12" class="ident"><a href="../../../../use/go.opentelemetry.io/otel/trace..noopSpan^c4d51.IsRecording.html" class="ident">IsRecording</a></label>() <a href="../../../../pkg/builtin.html#name-bool" class="ident">bool</a> { <span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-false" class="ident">false</a> }</code></span>
+<span class="codeline" id="line-66"><code></code></span>
+<span class="codeline" id="line-67"><code><span class="comment">// SetStatus does nothing.</span></code></span>
+<span class="codeline" id="line-68"><code><span class="keyword">func</span> (<a href="#line-57" class="ident">noopSpan</a>) <label for="r13" class="ident"><a href="../../../../use/go.opentelemetry.io/otel/trace..noopSpan^c4d51.SetStatus.html" class="ident">SetStatus</a></label>(<a href="../../../../pkg/go.opentelemetry.io/otel/codes.html" class="ident i2">codes</a>.<a href="../codes/codes.go.html#line-36" class="ident">Code</a>, <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>) {}</code></span>
+<span class="codeline" id="line-69"><code></code></span>
+<span class="codeline" id="line-70"><code><span class="comment">// SetError does nothing.</span></code></span>
+<span class="codeline" id="line-71"><code><span class="keyword">func</span> (<a href="#line-57" class="ident">noopSpan</a>) <label for="r14" class="ident"><a href="../../../../use/go.opentelemetry.io/otel/trace..noopSpan^c4d51.SetError.html" class="ident">SetError</a></label>(<a href="../../../../pkg/builtin.html#name-bool" class="ident">bool</a>) {}</code></span>
+<span class="codeline" id="line-72"><code></code></span>
+<span class="codeline" id="line-73"><code><span class="comment">// SetAttributes does nothing.</span></code></span>
+<span class="codeline" id="line-74"><code><span class="keyword">func</span> (<a href="#line-57" class="ident">noopSpan</a>) <label for="r15" class="ident"><a href="../../../../use/go.opentelemetry.io/otel/trace..noopSpan^c4d51.SetAttributes.html" class="ident">SetAttributes</a></label>(...<a href="../../../../pkg/go.opentelemetry.io/otel/attribute.html" class="ident i1">attribute</a>.<a href="../attribute/kv.go.html#line-22" class="ident">KeyValue</a>) {}</code></span>
+<span class="codeline" id="line-75"><code></code></span>
+<span class="codeline" id="line-76"><code><span class="comment">// End does nothing.</span></code></span>
+<span class="codeline" id="line-77"><code><span class="keyword">func</span> (<a href="#line-57" class="ident">noopSpan</a>) <label for="r16" class="ident"><a href="../../../../use/go.opentelemetry.io/otel/trace..noopSpan^c4d51.End.html" class="ident">End</a></label>(...<a href="config.go.html#line-140" class="ident">SpanEndOption</a>) {}</code></span>
+<span class="codeline" id="line-78"><code></code></span>
+<span class="codeline" id="line-79"><code><span class="comment">// RecordError does nothing.</span></code></span>
+<span class="codeline" id="line-80"><code><span class="keyword">func</span> (<a href="#line-57" class="ident">noopSpan</a>) <label for="r17" class="ident"><a href="../../../../use/go.opentelemetry.io/otel/trace..noopSpan^c4d51.RecordError.html" class="ident">RecordError</a></label>(<a href="../../../../pkg/builtin.html#name-error" class="ident">error</a>, ...<a href="config.go.html#line-182" class="ident">EventOption</a>) {}</code></span>
+<span class="codeline" id="line-81"><code></code></span>
+<span class="codeline" id="line-82"><code><span class="comment">// AddEvent does nothing.</span></code></span>
+<span class="codeline" id="line-83"><code><span class="keyword">func</span> (<a href="#line-57" class="ident">noopSpan</a>) <label for="r18" class="ident"><a href="../../../../use/go.opentelemetry.io/otel/trace..noopSpan^c4d51.AddEvent.html" class="ident">AddEvent</a></label>(<a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>, ...<a href="config.go.html#line-182" class="ident">EventOption</a>) {}</code></span>
+<span class="codeline" id="line-84"><code></code></span>
+<span class="codeline" id="line-85"><code><span class="comment">// SetName does nothing.</span></code></span>
+<span class="codeline" id="line-86"><code><span class="keyword">func</span> (<a href="#line-57" class="ident">noopSpan</a>) <label for="r19" class="ident"><a href="../../../../use/go.opentelemetry.io/otel/trace..noopSpan^c4d51.SetName.html" class="ident">SetName</a></label>(<a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>) {}</code></span>
+<span class="codeline" id="line-87"><code></code></span>
+<span class="codeline" id="line-88"><code><span class="comment">// TracerProvider returns a no-op TracerProvider.</span></code></span>
+<span class="codeline" id="line-89"><code><span class="keyword">func</span> (<a href="#line-57" class="ident">noopSpan</a>) <label for="r20" class="ident"><a href="../../../../use/go.opentelemetry.io/otel/trace..noopSpan^c4d51.TracerProvider.html" class="ident">TracerProvider</a></label>() <a href="trace.go.html#line-509" class="ident">TracerProvider</a> { <span class="keyword">return</span> <a href="#line-31" class="ident">noopTracerProvider</a>{} }</code></span>
+</pre><pre id="footer">
+<table><tr><td><img src="../../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

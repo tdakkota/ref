@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: cfg.go in package github.com/gotd/td/telegram</title>
-<link href="../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -26,7 +26,8 @@ input[id=r6]:checked ~pre label[for=r6]
 {background: #226; color: #ff8;}
 input[id=i0]:checked ~pre .i0,
 input[id=i1]:checked ~pre .i1,
-input[id=i2]:checked ~pre .i2
+input[id=i2]:checked ~pre .i2,
+input[id=i3]:checked ~pre .i3
 {background: brown; color: #eed;}
 </style><input id="r0" type="radio" name="g"/>
 <input id="r1" type="radio" name="g"/>
@@ -38,6 +39,7 @@ input[id=i2]:checked ~pre .i2
 <input id="i0" type="radio" name="i"/>
 <input id="i1" type="radio" name="i"/>
 <input id="i2" type="radio" name="i"/>
+<input id="i3" type="radio" name="i"/>
 
 <pre class="line-numbers">
 <span class="codeline" id="line-1"><code><span class="keyword">package</span> telegram</code></span>
@@ -47,44 +49,45 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-5"><code></code></span>
 <span class="codeline" id="line-6"><code>	<label for="i1"><span class="lit-string i1">"go.uber.org/zap"</span></label></code></span>
 <span class="codeline" id="line-7"><code></code></span>
-<span class="codeline" id="line-8"><code>	<label for="i2"><span class="lit-string i2">"github.com/gotd/td/tg"</span></label></code></span>
-<span class="codeline" id="line-9"><code>)</code></span>
-<span class="codeline" id="line-10"><code></code></span>
-<span class="codeline" id="line-11"><code><span class="comment">// Available MTProto default server addresses.</span></code></span>
-<span class="codeline" id="line-12"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-13"><code><span class="comment">// See https://my.telegram.org/apps.</span></code></span>
-<span class="codeline" id="line-14"><code><span class="keyword">const</span> (</code></span>
-<span class="codeline" id="line-15"><code>	<a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-AddrProduction" class="ident">AddrProduction</a> = <span class="lit-string">"149.154.167.50:443"</span></code></span>
-<span class="codeline" id="line-16"><code>	<a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-AddrTest" class="ident">AddrTest</a>       = <span class="lit-string">"149.154.167.40:443"</span></code></span>
-<span class="codeline" id="line-17"><code>)</code></span>
-<span class="codeline" id="line-18"><code></code></span>
-<span class="codeline" id="line-19"><code><span class="comment">// Test-only credentials. Can be used with AddrTest and TestAuth to</span></code></span>
-<span class="codeline" id="line-20"><code><span class="comment">// test authentication.</span></code></span>
-<span class="codeline" id="line-21"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-22"><code><span class="comment">// Reference:</span></code></span>
-<span class="codeline" id="line-23"><code><span class="comment">//	* https://github.com/telegramdesktop/tdesktop/blob/5f665b8ecb48802cd13cfb48ec834b946459274a/docs/api_credentials.md</span></code></span>
-<span class="codeline" id="line-24"><code><span class="keyword">const</span> (</code></span>
-<span class="codeline" id="line-25"><code>	<a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-TestAppID" class="ident">TestAppID</a>   = <span class="lit-number">17349</span></code></span>
-<span class="codeline" id="line-26"><code>	<a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-TestAppHash" class="ident">TestAppHash</a> = <span class="lit-string">"344583e45741c457fe1862106095a5eb"</span></code></span>
-<span class="codeline" id="line-27"><code>)</code></span>
-<span class="codeline" id="line-28"><code></code></span>
-<span class="codeline" id="line-29"><code><span class="comment">// Config returns current config.</span></code></span>
-<span class="codeline" id="line-30"><code><span class="keyword">func</span> (<label for="r0" class="ident">c</label> *<a href="client.go.html#line-61" class="ident">Client</a>) <label for="r1" class="ident"><a href="../../../../../use/github.com/gotd/td/telegram..Client.Config.html" class="ident">Config</a></label>() <a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../tg/tl_config_gen.go.html#line-36" class="ident">Config</a> {</code></span>
-<span class="codeline" id="line-31"><code>	<span class="keyword">return</span> <label for="r0" class="ident">c</label>.<a href="client.go.html#line-79" class="ident">cfg</a>.<a href="internal/manager/sync.go.html#line-22" class="ident">Load</a>()</code></span>
-<span class="codeline" id="line-32"><code>}</code></span>
-<span class="codeline" id="line-33"><code></code></span>
-<span class="codeline" id="line-34"><code><span class="keyword">func</span> (<label for="r2" class="ident">c</label> *<a href="client.go.html#line-61" class="ident">Client</a>) <label for="r3" class="ident"><a href="../../../../../use/github.com/gotd/td/telegram..Client.fetchConfig^f8389.html" class="ident">fetchConfig</a></label>(<label for="r4" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>) {</code></span>
-<span class="codeline" id="line-35"><code>	<label for="r5" class="ident">cfg</label>, <label for="r6" class="ident">err</label> := <label for="r2" class="ident">c</label>.<a href="client.go.html#line-63" class="ident">tg</a>.<a href="../tg/tl_help_get_config_gen.go.html#line-147" class="ident">HelpGetConfig</a>(<label for="r4" class="ident">ctx</label>)</code></span>
-<span class="codeline" id="line-36"><code>	<span class="keyword">if</span> <label for="r6" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-37"><code>		<label for="r2" class="ident">c</label>.<a href="client.go.html#line-104" class="ident">log</a>.<a href="../../../../go.uber.org/zap/logger.go.html#line-195" class="ident">Warn</a>(<span class="lit-string">"Got error on config update"</span>, <a href="../../../../../pkg/go.uber.org/zap.html" class="ident i1">zap</a>.<a href="../../../../go.uber.org/zap/error.go.html#line-34" class="ident">Error</a>(<label for="r6" class="ident">err</label>))</code></span>
-<span class="codeline" id="line-38"><code>		<span class="keyword">return</span></code></span>
-<span class="codeline" id="line-39"><code>	}</code></span>
-<span class="codeline" id="line-40"><code></code></span>
-<span class="codeline" id="line-41"><code>	<label for="r2" class="ident">c</label>.<a href="client.go.html#line-79" class="ident">cfg</a>.<a href="internal/manager/sync.go.html#line-27" class="ident">Store</a>(*<label for="r5" class="ident">cfg</label>)</code></span>
-<span class="codeline" id="line-42"><code>}</code></span>
+<span class="codeline" id="line-8"><code>	<label for="i2"><span class="lit-string i2">"github.com/gotd/td/constant"</span></label></code></span>
+<span class="codeline" id="line-9"><code>	<label for="i3"><span class="lit-string i3">"github.com/gotd/td/tg"</span></label></code></span>
+<span class="codeline" id="line-10"><code>)</code></span>
+<span class="codeline" id="line-11"><code></code></span>
+<span class="codeline" id="line-12"><code><span class="comment">// Available MTProto default server addresses.</span></code></span>
+<span class="codeline" id="line-13"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-14"><code><span class="comment">// See https://my.telegram.org/apps.</span></code></span>
+<span class="codeline" id="line-15"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-16"><code>	<a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-AddrProduction" class="ident">AddrProduction</a> = <span class="lit-string">"149.154.167.50:443"</span></code></span>
+<span class="codeline" id="line-17"><code>	<a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-AddrTest" class="ident">AddrTest</a>       = <span class="lit-string">"149.154.167.40:443"</span></code></span>
+<span class="codeline" id="line-18"><code>)</code></span>
+<span class="codeline" id="line-19"><code></code></span>
+<span class="codeline" id="line-20"><code><span class="comment">// Test-only credentials. Can be used with AddrTest and TestAuth to</span></code></span>
+<span class="codeline" id="line-21"><code><span class="comment">// test authentication.</span></code></span>
+<span class="codeline" id="line-22"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-23"><code><span class="comment">// Reference:</span></code></span>
+<span class="codeline" id="line-24"><code><span class="comment">//   - https://github.com/telegramdesktop/tdesktop/blob/5f665b8ecb48802cd13cfb48ec834b946459274a/docs/api_credentials.md</span></code></span>
+<span class="codeline" id="line-25"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-26"><code>	<a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-TestAppID" class="ident">TestAppID</a>   = <a href="../../../../../pkg/github.com/gotd/td/constant.html" class="ident i2">constant</a>.<a href="../constant/credentials.go.html#line-9" class="ident">TestAppID</a></code></span>
+<span class="codeline" id="line-27"><code>	<a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-TestAppHash" class="ident">TestAppHash</a> = <a href="../../../../../pkg/github.com/gotd/td/constant.html" class="ident i2">constant</a>.<a href="../constant/credentials.go.html#line-10" class="ident">TestAppHash</a></code></span>
+<span class="codeline" id="line-28"><code>)</code></span>
+<span class="codeline" id="line-29"><code></code></span>
+<span class="codeline" id="line-30"><code><span class="comment">// Config returns current config.</span></code></span>
+<span class="codeline" id="line-31"><code><span class="keyword">func</span> (<label for="r0" class="ident">c</label> *<a href="client.go.html#line-55" class="ident">Client</a>) <label for="r1" class="ident"><a href="../../../../../use/github.com/gotd/td/telegram..Client.Config.html" class="ident">Config</a></label>() <a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i3">tg</a>.<a href="../tg/tl_config_gen.go.html#line-38" class="ident">Config</a> {</code></span>
+<span class="codeline" id="line-32"><code>	<span class="keyword">return</span> <label for="r0" class="ident">c</label>.<a href="client.go.html#line-77" class="ident">cfg</a>.<a href="internal/manager/sync.go.html#line-22" class="ident">Load</a>()</code></span>
+<span class="codeline" id="line-33"><code>}</code></span>
+<span class="codeline" id="line-34"><code></code></span>
+<span class="codeline" id="line-35"><code><span class="keyword">func</span> (<label for="r2" class="ident">c</label> *<a href="client.go.html#line-55" class="ident">Client</a>) <label for="r3" class="ident"><a href="../../../../../use/github.com/gotd/td/telegram..Client.fetchConfig^f8389.html" class="ident">fetchConfig</a></label>(<label for="r4" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>) {</code></span>
+<span class="codeline" id="line-36"><code>	<label for="r5" class="ident">cfg</label>, <label for="r6" class="ident">err</label> := <label for="r2" class="ident">c</label>.<a href="client.go.html#line-57" class="ident">tg</a>.<a href="../tg/tl_help_get_config_gen.go.html#line-146" class="ident">HelpGetConfig</a>(<label for="r4" class="ident">ctx</label>)</code></span>
+<span class="codeline" id="line-37"><code>	<span class="keyword">if</span> <label for="r6" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-38"><code>		<label for="r2" class="ident">c</label>.<a href="client.go.html#line-101" class="ident">log</a>.<a href="../../../../go.uber.org/zap/logger.go.html#line-198" class="ident">Warn</a>(<span class="lit-string">"Got error on config update"</span>, <a href="../../../../../pkg/go.uber.org/zap.html" class="ident i1">zap</a>.<a href="../../../../go.uber.org/zap/error.go.html#line-34" class="ident">Error</a>(<label for="r6" class="ident">err</label>))</code></span>
+<span class="codeline" id="line-39"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-40"><code>	}</code></span>
+<span class="codeline" id="line-41"><code></code></span>
+<span class="codeline" id="line-42"><code>	<label for="r2" class="ident">c</label>.<a href="client.go.html#line-77" class="ident">cfg</a>.<a href="internal/manager/sync.go.html#line-27" class="ident">Store</a>(*<label for="r5" class="ident">cfg</label>)</code></span>
+<span class="codeline" id="line-43"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: tdesktop.go in package github.com/gotd/td/session</title>
+<link href="../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../jvs/golds-v0.5.2.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	tdesktop.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../../../pkg/github.com/gotd/td/session.html">github.com/gotd/td/session</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16],
+input[id=r17]:checked ~pre label[for=r17],
+input[id=r18]:checked ~pre label[for=r18],
+input[id=r19]:checked ~pre label[for=r19],
+input[id=r20]:checked ~pre label[for=r20],
+input[id=r21]:checked ~pre label[for=r21]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1,
+input[id=i2]:checked ~pre .i2,
+input[id=i3]:checked ~pre .i3
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="r17" type="radio" name="g"/>
+<input id="r18" type="radio" name="g"/>
+<input id="r19" type="radio" name="g"/>
+<input id="r20" type="radio" name="g"/>
+<input id="r21" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+<input id="i2" type="radio" name="i"/>
+<input id="i3" type="radio" name="i"/>
+
+<pre class="line-numbers">
+<span class="codeline" id="line-1"><code><span class="keyword">package</span> session</code></span>
+<span class="codeline" id="line-2"><code></code></span>
+<span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"github.com/go-faster/errors"</span></label></code></span>
+<span class="codeline" id="line-5"><code></code></span>
+<span class="codeline" id="line-6"><code>	<label for="i1"><span class="lit-string i1">"github.com/gotd/td/session/tdesktop"</span></label></code></span>
+<span class="codeline" id="line-7"><code>	<label for="i2"><span class="lit-string i2">"github.com/gotd/td/telegram/dcs"</span></label></code></span>
+<span class="codeline" id="line-8"><code>	<label for="i3"><span class="lit-string i3">"github.com/gotd/td/tg"</span></label></code></span>
+<span class="codeline" id="line-9"><code>)</code></span>
+<span class="codeline" id="line-10"><code></code></span>
+<span class="codeline" id="line-11"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../pkg/github.com/gotd/td/session.html#name-findDCAddr" class="ident">findDCAddr</a></label>(<label for="r1" class="ident">list</label> []<a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i3">tg</a>.<a href="../tg/tl_dc_option_gen.go.html#line-38" class="ident">DCOption</a>, <label for="r2" class="ident">dcID</label> <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-12"><code>	<span class="keyword">for</span> <label for="r3" class="ident">_</label>, <label for="r4" class="ident">opt</label> := <span class="keyword">range</span> <label for="r1" class="ident">list</label> {</code></span>
+<span class="codeline" id="line-13"><code>		<span class="keyword">if</span> <label for="r4" class="ident">opt</label>.<a href="../tg/tl_dc_option_gen.go.html#line-66" class="ident">ID</a> != <label for="r2" class="ident">dcID</label> {</code></span>
+<span class="codeline" id="line-14"><code>			<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-15"><code>		}</code></span>
+<span class="codeline" id="line-16"><code>		<span class="keyword">if</span> <label for="r4" class="ident">opt</label>.<a href="../tg/tl_dc_option_gen.go.html#line-55" class="ident">TCPObfuscatedOnly</a> ||</code></span>
+<span class="codeline" id="line-17"><code>			<label for="r4" class="ident">opt</label>.<a href="../tg/tl_dc_option_gen.go.html#line-60" class="ident">CDN</a> ||</code></span>
+<span class="codeline" id="line-18"><code>			<label for="r4" class="ident">opt</label>.<a href="../tg/tl_dc_option_gen.go.html#line-50" class="ident">MediaOnly</a> {</code></span>
+<span class="codeline" id="line-19"><code>			<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-20"><code>		}</code></span>
+<span class="codeline" id="line-21"><code></code></span>
+<span class="codeline" id="line-22"><code>		<span class="keyword">return</span> <label for="r4" class="ident">opt</label>.<a href="../tg/tl_dc_option_gen.go.html#line-68" class="ident">IPAddress</a></code></span>
+<span class="codeline" id="line-23"><code>	}</code></span>
+<span class="codeline" id="line-24"><code></code></span>
+<span class="codeline" id="line-25"><code>	<span class="keyword">return</span> <span class="lit-string">""</span></code></span>
+<span class="codeline" id="line-26"><code>}</code></span>
+<span class="codeline" id="line-27"><code></code></span>
+<span class="codeline" id="line-28"><code><span class="keyword">func</span> <label for="r5" class="ident"><a href="../../../../../pkg/github.com/gotd/td/session.html#name-mapConfig" class="ident">mapConfig</a></label>(<label for="r6" class="ident">mainDC</label> <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r7" class="ident">cfg</label> <a href="../../../../../pkg/github.com/gotd/td/session/tdesktop.html" class="ident i1">tdesktop</a>.<a href="tdesktop/mtp_config.go.html#line-37" class="ident">MTPConfig</a>) <a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i3">tg</a>.<a href="../tg/tl_config_gen.go.html#line-38" class="ident">Config</a> {</code></span>
+<span class="codeline" id="line-29"><code>	<span class="keyword">var</span> <label for="r8" class="ident">opts</label> []<a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i3">tg</a>.<a href="../tg/tl_dc_option_gen.go.html#line-38" class="ident">DCOption</a></code></span>
+<span class="codeline" id="line-30"><code>	<span class="keyword">for</span> <label for="r9" class="ident">_</label>, <label for="r10" class="ident">dc</label> := <span class="keyword">range</span> <label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-39" class="ident">DCOptions</a>.<a href="tdesktop/mtp_dcoptions.go.html#line-93" class="ident">Options</a> {</code></span>
+<span class="codeline" id="line-31"><code>		<label for="r8" class="ident">opts</label> = <a href="../../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r8" class="ident">opts</label>, <a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i3">tg</a>.<a href="../tg/tl_dc_option_gen.go.html#line-38" class="ident">DCOption</a>{</code></span>
+<span class="codeline" id="line-32"><code>			<a href="../tg/tl_dc_option_gen.go.html#line-43" class="ident">Flags</a>:             <label for="r10" class="ident">dc</label>.<a href="tdesktop/mtp_dcoptions.go.html#line-14" class="ident">Flags</a>,</code></span>
+<span class="codeline" id="line-33"><code>			<a href="../tg/tl_dc_option_gen.go.html#line-45" class="ident">Ipv6</a>:              <label for="r10" class="ident">dc</label>.<a href="tdesktop/mtp_dcoptions.go.html#line-21" class="ident">IPv6</a>(),</code></span>
+<span class="codeline" id="line-34"><code>			<a href="../tg/tl_dc_option_gen.go.html#line-50" class="ident">MediaOnly</a>:         <label for="r10" class="ident">dc</label>.<a href="tdesktop/mtp_dcoptions.go.html#line-26" class="ident">MediaOnly</a>(),</code></span>
+<span class="codeline" id="line-35"><code>			<a href="../tg/tl_dc_option_gen.go.html#line-55" class="ident">TCPObfuscatedOnly</a>: <label for="r10" class="ident">dc</label>.<a href="tdesktop/mtp_dcoptions.go.html#line-31" class="ident">TCPOOnly</a>(),</code></span>
+<span class="codeline" id="line-36"><code>			<a href="../tg/tl_dc_option_gen.go.html#line-60" class="ident">CDN</a>:               <label for="r10" class="ident">dc</label>.<a href="tdesktop/mtp_dcoptions.go.html#line-36" class="ident">CDN</a>(),</code></span>
+<span class="codeline" id="line-37"><code>			<a href="../tg/tl_dc_option_gen.go.html#line-62" class="ident">Static</a>:            <label for="r10" class="ident">dc</label>.<a href="tdesktop/mtp_dcoptions.go.html#line-41" class="ident">Static</a>(),</code></span>
+<span class="codeline" id="line-38"><code>			<a href="../tg/tl_dc_option_gen.go.html#line-66" class="ident">ID</a>:                <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r10" class="ident">dc</label>.<a href="tdesktop/mtp_dcoptions.go.html#line-13" class="ident">ID</a>),</code></span>
+<span class="codeline" id="line-39"><code>			<a href="../tg/tl_dc_option_gen.go.html#line-68" class="ident">IPAddress</a>:         <label for="r10" class="ident">dc</label>.<a href="tdesktop/mtp_dcoptions.go.html#line-16" class="ident">IP</a>,</code></span>
+<span class="codeline" id="line-40"><code>			<a href="../tg/tl_dc_option_gen.go.html#line-70" class="ident">Port</a>:              <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r10" class="ident">dc</label>.<a href="tdesktop/mtp_dcoptions.go.html#line-15" class="ident">Port</a>),</code></span>
+<span class="codeline" id="line-41"><code>			<a href="../tg/tl_dc_option_gen.go.html#line-78" class="ident">Secret</a>:            <label for="r10" class="ident">dc</label>.<a href="tdesktop/mtp_dcoptions.go.html#line-17" class="ident">Secret</a>,</code></span>
+<span class="codeline" id="line-42"><code>		})</code></span>
+<span class="codeline" id="line-43"><code>	}</code></span>
+<span class="codeline" id="line-44"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i3">tg</a>.<a href="../tg/tl_config_gen.go.html#line-38" class="ident">Config</a>{</code></span>
+<span class="codeline" id="line-45"><code>		<a href="../tg/tl_config_gen.go.html#line-79" class="ident">DCOptions</a>:               <label for="r8" class="ident">opts</label>,</code></span>
+<span class="codeline" id="line-46"><code>		<a href="../tg/tl_config_gen.go.html#line-77" class="ident">ThisDC</a>:                  <label for="r6" class="ident">mainDC</label>,</code></span>
+<span class="codeline" id="line-47"><code>		<a href="../tg/tl_config_gen.go.html#line-86" class="ident">ChatSizeMax</a>:             <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-40" class="ident">ChatSizeMax</a>),</code></span>
+<span class="codeline" id="line-48"><code>		<a href="../tg/tl_config_gen.go.html#line-91" class="ident">MegagroupSizeMax</a>:        <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-41" class="ident">MegagroupSizeMax</a>),</code></span>
+<span class="codeline" id="line-49"><code>		<a href="../tg/tl_config_gen.go.html#line-97" class="ident">ForwardedCountMax</a>:       <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-42" class="ident">ForwardedCountMax</a>),</code></span>
+<span class="codeline" id="line-50"><code>		<a href="../tg/tl_config_gen.go.html#line-102" class="ident">OnlineUpdatePeriodMs</a>:    <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-43" class="ident">OnlineUpdatePeriod</a>),</code></span>
+<span class="codeline" id="line-51"><code>		<a href="../tg/tl_config_gen.go.html#line-104" class="ident">OfflineBlurTimeoutMs</a>:    <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-44" class="ident">OfflineBlurTimeout</a>),</code></span>
+<span class="codeline" id="line-52"><code>		<a href="../tg/tl_config_gen.go.html#line-106" class="ident">OfflineIdleTimeoutMs</a>:    <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-45" class="ident">OfflineIdleTimeout</a>),</code></span>
+<span class="codeline" id="line-53"><code>		<a href="../tg/tl_config_gen.go.html#line-110" class="ident">OnlineCloudTimeoutMs</a>:    <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-47" class="ident">OnlineCloudTimeout</a>),</code></span>
+<span class="codeline" id="line-54"><code>		<a href="../tg/tl_config_gen.go.html#line-113" class="ident">NotifyCloudDelayMs</a>:      <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-48" class="ident">NotifyCloudDelay</a>),</code></span>
+<span class="codeline" id="line-55"><code>		<a href="../tg/tl_config_gen.go.html#line-116" class="ident">NotifyDefaultDelayMs</a>:    <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-49" class="ident">NotifyDefaultDelay</a>),</code></span>
+<span class="codeline" id="line-56"><code>		<a href="../tg/tl_config_gen.go.html#line-122" class="ident">SavedGifsLimit</a>:          <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-50" class="ident">SavedGifsLimit</a>),</code></span>
+<span class="codeline" id="line-57"><code>		<a href="../tg/tl_config_gen.go.html#line-124" class="ident">EditTimeLimit</a>:           <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-51" class="ident">EditTimeLimit</a>),</code></span>
+<span class="codeline" id="line-58"><code>		<a href="../tg/tl_config_gen.go.html#line-126" class="ident">RevokeTimeLimit</a>:         <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-52" class="ident">RevokeTimeLimit</a>),</code></span>
+<span class="codeline" id="line-59"><code>		<a href="../tg/tl_config_gen.go.html#line-128" class="ident">RevokePmTimeLimit</a>:       <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-53" class="ident">RevokePrivateTimeLimit</a>),</code></span>
+<span class="codeline" id="line-60"><code>		<a href="../tg/tl_config_gen.go.html#line-56" class="ident">RevokePmInbox</a>:           <label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-54" class="ident">RevokePrivateInbox</a>,</code></span>
+<span class="codeline" id="line-61"><code>		<a href="../tg/tl_config_gen.go.html#line-135" class="ident">StickersRecentLimit</a>:     <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-55" class="ident">StickersRecentLimit</a>),</code></span>
+<span class="codeline" id="line-62"><code>		<a href="../tg/tl_config_gen.go.html#line-137" class="ident">StickersFavedLimit</a>:      <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-56" class="ident">StickersFavedLimit</a>),</code></span>
+<span class="codeline" id="line-63"><code>		<a href="../tg/tl_config_gen.go.html#line-149" class="ident">PinnedDialogsCountMax</a>:   <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-57" class="ident">PinnedDialogsCountMax</a>),</code></span>
+<span class="codeline" id="line-64"><code>		<a href="../tg/tl_config_gen.go.html#line-151" class="ident">PinnedInfolderCountMax</a>:  <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-58" class="ident">PinnedDialogsInFolderMax</a>),</code></span>
+<span class="codeline" id="line-65"><code>		<a href="../tg/tl_config_gen.go.html#line-168" class="ident">MeURLPrefix</a>:             <label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-59" class="ident">InternalLinksDomain</a>,</code></span>
+<span class="codeline" id="line-66"><code>		<a href="../tg/tl_config_gen.go.html#line-140" class="ident">ChannelsReadMediaPeriod</a>: <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-60" class="ident">ChannelsReadMediaPeriod</a>),</code></span>
+<span class="codeline" id="line-67"><code>		<a href="../tg/tl_config_gen.go.html#line-154" class="ident">CallReceiveTimeoutMs</a>:    <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-61" class="ident">CallReceiveTimeoutMs</a>),</code></span>
+<span class="codeline" id="line-68"><code>		<a href="../tg/tl_config_gen.go.html#line-157" class="ident">CallRingTimeoutMs</a>:       <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-62" class="ident">CallRingTimeoutMs</a>),</code></span>
+<span class="codeline" id="line-69"><code>		<a href="../tg/tl_config_gen.go.html#line-161" class="ident">CallConnectTimeoutMs</a>:    <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-63" class="ident">CallConnectTimeoutMs</a>),</code></span>
+<span class="codeline" id="line-70"><code>		<a href="../tg/tl_config_gen.go.html#line-164" class="ident">CallPacketTimeoutMs</a>:     <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-64" class="ident">CallPacketTimeoutMs</a>),</code></span>
+<span class="codeline" id="line-71"><code>		<a href="../tg/tl_config_gen.go.html#line-197" class="ident">WebfileDCID</a>:             <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-65" class="ident">WebFileDCID</a>),</code></span>
+<span class="codeline" id="line-72"><code>		<a href="../tg/tl_config_gen.go.html#line-81" class="ident">DCTxtDomainName</a>:         <label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-66" class="ident">TxtDomainString</a>,</code></span>
+<span class="codeline" id="line-73"><code>		<a href="../tg/tl_config_gen.go.html#line-45" class="ident">PhonecallsEnabled</a>:       <label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-67" class="ident">PhoneCallsEnabled</a>,</code></span>
+<span class="codeline" id="line-74"><code>		<a href="../tg/tl_config_gen.go.html#line-58" class="ident">BlockedMode</a>:             <label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-68" class="ident">BlockedMode</a>,</code></span>
+<span class="codeline" id="line-75"><code>		<a href="../tg/tl_config_gen.go.html#line-190" class="ident">CaptionLengthMax</a>:        <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r7" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-69" class="ident">CaptionLengthMax</a>),</code></span>
+<span class="codeline" id="line-76"><code>	}</code></span>
+<span class="codeline" id="line-77"><code>}</code></span>
+<span class="codeline" id="line-78"><code></code></span>
+<span class="codeline" id="line-79"><code><span class="comment">// TDesktopSession converts TDesktop's Account to Data.</span></code></span>
+<span class="codeline" id="line-80"><code><span class="keyword">func</span> <label for="r11" class="ident"><a href="../../../../../pkg/github.com/gotd/td/session.html#name-TDesktopSession" class="ident">TDesktopSession</a></label>(<label for="r12" class="ident">account</label> <a href="../../../../../pkg/github.com/gotd/td/session/tdesktop.html" class="ident i1">tdesktop</a>.<a href="tdesktop/tdesktop.go.html#line-14" class="ident">Account</a>) (*<a href="session.go.html#line-14" class="ident">Data</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-81"><code>	<label for="r13" class="ident">auth</label> := <label for="r12" class="ident">account</label>.<a href="tdesktop/tdesktop.go.html#line-18" class="ident">Authorization</a></code></span>
+<span class="codeline" id="line-82"><code>	<label for="r14" class="ident">cfg</label> := <label for="r12" class="ident">account</label>.<a href="tdesktop/tdesktop.go.html#line-20" class="ident">Config</a></code></span>
+<span class="codeline" id="line-83"><code>	<label for="r15" class="ident">dc</label> := <label for="r13" class="ident">auth</label>.<a href="tdesktop/mtp_authorization.go.html#line-17" class="ident">MainDC</a></code></span>
+<span class="codeline" id="line-84"><code></code></span>
+<span class="codeline" id="line-85"><code>	<label for="r16" class="ident">key</label>, <label for="r17" class="ident">ok</label> := <label for="r13" class="ident">auth</label>.<a href="tdesktop/mtp_authorization.go.html#line-19" class="ident">Keys</a>[<label for="r15" class="ident">dc</label>]</code></span>
+<span class="codeline" id="line-86"><code>	<span class="keyword">if</span> !<label for="r17" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-87"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i0">errors</a>.<a href="../../../go-faster/errors/format.go.html#line-42" class="ident">Errorf</a>(<span class="lit-string">"key for main DC (%d) not found"</span>, <label for="r15" class="ident">dc</label>)</code></span>
+<span class="codeline" id="line-88"><code>	}</code></span>
+<span class="codeline" id="line-89"><code>	<label for="r18" class="ident">keyID</label> := <label for="r16" class="ident">key</label>.<a href="../internal/crypto/key.go.html#line-30" class="ident">ID</a>()</code></span>
+<span class="codeline" id="line-90"><code></code></span>
+<span class="codeline" id="line-91"><code>	<label for="r19" class="ident">mappedCfg</label> := <a href="#line-28" class="ident">mapConfig</a>(<label for="r15" class="ident">dc</label>, <label for="r14" class="ident">cfg</label>)</code></span>
+<span class="codeline" id="line-92"><code>	<label for="r20" class="ident">addr</label> := <a href="#line-11" class="ident">findDCAddr</a>(<label for="r19" class="ident">mappedCfg</label>.<a href="../tg/tl_config_gen.go.html#line-79" class="ident">DCOptions</a>, <label for="r15" class="ident">dc</label>)</code></span>
+<span class="codeline" id="line-93"><code>	<span class="keyword">if</span> <label for="r20" class="ident">addr</label> == <span class="lit-string">""</span> {</code></span>
+<span class="codeline" id="line-94"><code>		<span class="comment">// Fallback to built-in addrs.</span></code></span>
+<span class="codeline" id="line-95"><code>		<span class="keyword">var</span> <label for="r21" class="ident">list</label> <a href="../../../../../pkg/github.com/gotd/td/telegram/dcs.html" class="ident i2">dcs</a>.<a href="../telegram/dcs/list.go.html#line-6" class="ident">List</a></code></span>
+<span class="codeline" id="line-96"><code>		<span class="keyword">if</span> !<label for="r14" class="ident">cfg</label>.<a href="tdesktop/mtp_config.go.html#line-38" class="ident">Environment</a>.<a href="tdesktop/mtp_config.go.html#line-30" class="ident">Test</a>() {</code></span>
+<span class="codeline" id="line-97"><code>			<label for="r21" class="ident">list</label> = <a href="../../../../../pkg/github.com/gotd/td/telegram/dcs.html" class="ident i2">dcs</a>.<a href="../telegram/dcs/prod.go.html#line-6" class="ident">Prod</a>()</code></span>
+<span class="codeline" id="line-98"><code>		} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-99"><code>			<label for="r21" class="ident">list</label> = <a href="../../../../../pkg/github.com/gotd/td/telegram/dcs.html" class="ident i2">dcs</a>.<a href="../telegram/dcs/test.go.html#line-13" class="ident">Test</a>()</code></span>
+<span class="codeline" id="line-100"><code>		}</code></span>
+<span class="codeline" id="line-101"><code>		<label for="r20" class="ident">addr</label> = <a href="#line-11" class="ident">findDCAddr</a>(<label for="r21" class="ident">list</label>.<a href="../telegram/dcs/list.go.html#line-7" class="ident">Options</a>, <label for="r15" class="ident">dc</label>)</code></span>
+<span class="codeline" id="line-102"><code>		<span class="keyword">if</span> <label for="r20" class="ident">addr</label> == <span class="lit-string">""</span> {</code></span>
+<span class="codeline" id="line-103"><code>			<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i0">errors</a>.<a href="../../../go-faster/errors/format.go.html#line-42" class="ident">Errorf</a>(<span class="lit-string">"can't find address for DC %d"</span>, <label for="r15" class="ident">dc</label>)</code></span>
+<span class="codeline" id="line-104"><code>		}</code></span>
+<span class="codeline" id="line-105"><code>	}</code></span>
+<span class="codeline" id="line-106"><code></code></span>
+<span class="codeline" id="line-107"><code>	<span class="keyword">return</span> &amp;<a href="session.go.html#line-14" class="ident">Data</a>{</code></span>
+<span class="codeline" id="line-108"><code>		<a href="session.go.html#line-16" class="ident">DC</a>:        <label for="r15" class="ident">dc</label>,</code></span>
+<span class="codeline" id="line-109"><code>		<a href="session.go.html#line-17" class="ident">Addr</a>:      <label for="r20" class="ident">addr</label>,</code></span>
+<span class="codeline" id="line-110"><code>		<a href="session.go.html#line-15" class="ident">Config</a>:    <label for="r19" class="ident">mappedCfg</label>,</code></span>
+<span class="codeline" id="line-111"><code>		<a href="session.go.html#line-18" class="ident">AuthKey</a>:   <label for="r16" class="ident">key</label>[:],</code></span>
+<span class="codeline" id="line-112"><code>		<a href="session.go.html#line-19" class="ident">AuthKeyID</a>: <label for="r18" class="ident">keyID</label>[:],</code></span>
+<span class="codeline" id="line-113"><code>	}, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-114"><code>}</code></span>
+</pre><pre id="footer">
+<table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: plain.go in package github.com/gotd/td/telegram/dcs</title>
-<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -74,7 +74,20 @@ input[id=r54]:checked ~pre label[for=r54],
 input[id=r55]:checked ~pre label[for=r55],
 input[id=r56]:checked ~pre label[for=r56],
 input[id=r57]:checked ~pre label[for=r57],
-input[id=r58]:checked ~pre label[for=r58]
+input[id=r58]:checked ~pre label[for=r58],
+input[id=r59]:checked ~pre label[for=r59],
+input[id=r60]:checked ~pre label[for=r60],
+input[id=r61]:checked ~pre label[for=r61],
+input[id=r62]:checked ~pre label[for=r62],
+input[id=r63]:checked ~pre label[for=r63],
+input[id=r64]:checked ~pre label[for=r64],
+input[id=r65]:checked ~pre label[for=r65],
+input[id=r66]:checked ~pre label[for=r66],
+input[id=r67]:checked ~pre label[for=r67],
+input[id=r68]:checked ~pre label[for=r68],
+input[id=r69]:checked ~pre label[for=r69],
+input[id=r70]:checked ~pre label[for=r70],
+input[id=r71]:checked ~pre label[for=r71]
 {background: #226; color: #ff8;}
 input[id=i0]:checked ~pre .i0,
 input[id=i1]:checked ~pre .i1,
@@ -82,7 +95,12 @@ input[id=i2]:checked ~pre .i2,
 input[id=i3]:checked ~pre .i3,
 input[id=i4]:checked ~pre .i4,
 input[id=i5]:checked ~pre .i5,
-input[id=i6]:checked ~pre .i6
+input[id=i6]:checked ~pre .i6,
+input[id=i7]:checked ~pre .i7,
+input[id=i8]:checked ~pre .i8,
+input[id=i9]:checked ~pre .i9,
+input[id=i10]:checked ~pre .i10,
+input[id=i11]:checked ~pre .i11
 {background: brown; color: #eed;}
 </style><input id="r0" type="radio" name="g"/>
 <input id="r1" type="radio" name="g"/>
@@ -143,6 +161,19 @@ input[id=i6]:checked ~pre .i6
 <input id="r56" type="radio" name="g"/>
 <input id="r57" type="radio" name="g"/>
 <input id="r58" type="radio" name="g"/>
+<input id="r59" type="radio" name="g"/>
+<input id="r60" type="radio" name="g"/>
+<input id="r61" type="radio" name="g"/>
+<input id="r62" type="radio" name="g"/>
+<input id="r63" type="radio" name="g"/>
+<input id="r64" type="radio" name="g"/>
+<input id="r65" type="radio" name="g"/>
+<input id="r66" type="radio" name="g"/>
+<input id="r67" type="radio" name="g"/>
+<input id="r68" type="radio" name="g"/>
+<input id="r69" type="radio" name="g"/>
+<input id="r70" type="radio" name="g"/>
+<input id="r71" type="radio" name="g"/>
 <input id="i0" type="radio" name="i"/>
 <input id="i1" type="radio" name="i"/>
 <input id="i2" type="radio" name="i"/>
@@ -150,179 +181,242 @@ input[id=i6]:checked ~pre .i6
 <input id="i4" type="radio" name="i"/>
 <input id="i5" type="radio" name="i"/>
 <input id="i6" type="radio" name="i"/>
+<input id="i7" type="radio" name="i"/>
+<input id="i8" type="radio" name="i"/>
+<input id="i9" type="radio" name="i"/>
+<input id="i10" type="radio" name="i"/>
+<input id="i11" type="radio" name="i"/>
 
 <pre class="line-numbers">
 <span class="codeline" id="line-1"><code><span class="keyword">package</span> dcs</code></span>
 <span class="codeline" id="line-2"><code></code></span>
 <span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
 <span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"context"</span></label></code></span>
-<span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"net"</span></label></code></span>
-<span class="codeline" id="line-6"><code>	<label for="i2"><span class="lit-string i2">"strconv"</span></label></code></span>
-<span class="codeline" id="line-7"><code></code></span>
-<span class="codeline" id="line-8"><code>	<label for="i3"><span class="lit-string i3">"go.uber.org/multierr"</span></label></code></span>
-<span class="codeline" id="line-9"><code>	<label for="i4"><span class="lit-string i4">"golang.org/x/xerrors"</span></label></code></span>
-<span class="codeline" id="line-10"><code></code></span>
-<span class="codeline" id="line-11"><code>	<label for="i5"><span class="lit-string i5">"github.com/gotd/td/tg"</span></label></code></span>
-<span class="codeline" id="line-12"><code>	<label for="i6"><span class="lit-string i6">"github.com/gotd/td/transport"</span></label></code></span>
-<span class="codeline" id="line-13"><code>)</code></span>
-<span class="codeline" id="line-14"><code></code></span>
-<span class="codeline" id="line-15"><code><span class="keyword">var</span> _ <a href="resolver.go.html#line-13" class="ident">Resolver</a> = <a href="#line-17" class="ident">plain</a>{}</code></span>
-<span class="codeline" id="line-16"><code></code></span>
-<span class="codeline" id="line-17"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/telegram/dcs.html#name-plain" class="ident">plain</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-18"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.dial^21446.html" class="ident">dial</a>       <a href="resolver.go.html#line-20" class="ident">DialFunc</a></code></span>
-<span class="codeline" id="line-19"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.protocol^2ea88.html" class="ident">protocol</a>   <a href="resolver.go.html#line-25" class="ident">Protocol</a></code></span>
-<span class="codeline" id="line-20"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.network^3009b.html" class="ident">network</a>    <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
-<span class="codeline" id="line-21"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.preferIPv6^b9e01.html" class="ident">preferIPv6</a> <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
-<span class="codeline" id="line-22"><code>}</code></span>
-<span class="codeline" id="line-23"><code></code></span>
-<span class="codeline" id="line-24"><code><span class="keyword">func</span> (<label for="r0" class="ident">p</label> <a href="#line-17" class="ident">plain</a>) <label for="r1" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.Primary.html" class="ident">Primary</a></label>(<label for="r2" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r3" class="ident">dc</label> <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r4" class="ident">list</label> <a href="list.go.html#line-6" class="ident">List</a>) (<a href="../../../../../../pkg/github.com/gotd/td/transport.html" class="ident i6">transport</a>.<a href="../../transport/connection.go.html#line-15" class="ident">Conn</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-25"><code>	<span class="keyword">return</span> <label for="r0" class="ident">p</label>.<a href="#line-75" class="ident">connect</a>(<label for="r2" class="ident">ctx</label>, <label for="r3" class="ident">dc</label>, <a href="find.go.html#line-49" class="ident">FindPrimaryDCs</a>(<label for="r4" class="ident">list</label>.<a href="list.go.html#line-7" class="ident">Options</a>, <label for="r3" class="ident">dc</label>, <label for="r0" class="ident">p</label>.<a href="#line-21" class="ident">preferIPv6</a>))</code></span>
-<span class="codeline" id="line-26"><code>}</code></span>
-<span class="codeline" id="line-27"><code></code></span>
-<span class="codeline" id="line-28"><code><span class="keyword">func</span> (<label for="r5" class="ident">p</label> <a href="#line-17" class="ident">plain</a>) <label for="r6" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.MediaOnly.html" class="ident">MediaOnly</a></label>(<label for="r7" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r8" class="ident">dc</label> <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r9" class="ident">list</label> <a href="list.go.html#line-6" class="ident">List</a>) (<a href="../../../../../../pkg/github.com/gotd/td/transport.html" class="ident i6">transport</a>.<a href="../../transport/connection.go.html#line-15" class="ident">Conn</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-29"><code>	<label for="r10" class="ident">candidates</label> := <a href="find.go.html#line-10" class="ident">FindDCs</a>(<label for="r9" class="ident">list</label>.<a href="list.go.html#line-7" class="ident">Options</a>, <label for="r8" class="ident">dc</label>, <label for="r5" class="ident">p</label>.<a href="#line-21" class="ident">preferIPv6</a>)</code></span>
-<span class="codeline" id="line-30"><code>	<span class="comment">// Filter (in place) from SliceTricks.</span></code></span>
-<span class="codeline" id="line-31"><code>	<label for="r11" class="ident">n</label> := <span class="lit-number">0</span></code></span>
-<span class="codeline" id="line-32"><code>	<span class="keyword">for</span> <label for="r12" class="ident">_</label>, <label for="r13" class="ident">x</label> := <span class="keyword">range</span> <label for="r10" class="ident">candidates</label> {</code></span>
-<span class="codeline" id="line-33"><code>		<span class="keyword">if</span> <label for="r13" class="ident">x</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-48" class="ident">MediaOnly</a> {</code></span>
-<span class="codeline" id="line-34"><code>			<label for="r10" class="ident">candidates</label>[<label for="r11" class="ident">n</label>] = <label for="r13" class="ident">x</label></code></span>
-<span class="codeline" id="line-35"><code>			<label for="r11" class="ident">n</label>++</code></span>
-<span class="codeline" id="line-36"><code>		}</code></span>
-<span class="codeline" id="line-37"><code>	}</code></span>
-<span class="codeline" id="line-38"><code>	<span class="keyword">return</span> <label for="r5" class="ident">p</label>.<a href="#line-75" class="ident">connect</a>(<label for="r7" class="ident">ctx</label>, <label for="r8" class="ident">dc</label>, <label for="r10" class="ident">candidates</label>[:<label for="r11" class="ident">n</label>])</code></span>
-<span class="codeline" id="line-39"><code>}</code></span>
-<span class="codeline" id="line-40"><code></code></span>
-<span class="codeline" id="line-41"><code><span class="keyword">func</span> (<label for="r14" class="ident">p</label> <a href="#line-17" class="ident">plain</a>) <label for="r15" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.CDN.html" class="ident">CDN</a></label>(<label for="r16" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r17" class="ident">dc</label> <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r18" class="ident">list</label> <a href="list.go.html#line-6" class="ident">List</a>) (<a href="../../../../../../pkg/github.com/gotd/td/transport.html" class="ident i6">transport</a>.<a href="../../transport/connection.go.html#line-15" class="ident">Conn</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-42"><code>	<label for="r19" class="ident">candidates</label> := <a href="find.go.html#line-10" class="ident">FindDCs</a>(<label for="r18" class="ident">list</label>.<a href="list.go.html#line-7" class="ident">Options</a>, <label for="r17" class="ident">dc</label>, <label for="r14" class="ident">p</label>.<a href="#line-21" class="ident">preferIPv6</a>)</code></span>
-<span class="codeline" id="line-43"><code>	<span class="comment">// Filter (in place) from SliceTricks.</span></code></span>
-<span class="codeline" id="line-44"><code>	<label for="r20" class="ident">n</label> := <span class="lit-number">0</span></code></span>
-<span class="codeline" id="line-45"><code>	<span class="keyword">for</span> <label for="r21" class="ident">_</label>, <label for="r22" class="ident">x</label> := <span class="keyword">range</span> <label for="r19" class="ident">candidates</label> {</code></span>
-<span class="codeline" id="line-46"><code>		<span class="keyword">if</span> <label for="r22" class="ident">x</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-58" class="ident">CDN</a> {</code></span>
-<span class="codeline" id="line-47"><code>			<label for="r19" class="ident">candidates</label>[<label for="r20" class="ident">n</label>] = <label for="r22" class="ident">x</label></code></span>
-<span class="codeline" id="line-48"><code>			<label for="r20" class="ident">n</label>++</code></span>
-<span class="codeline" id="line-49"><code>		}</code></span>
-<span class="codeline" id="line-50"><code>	}</code></span>
-<span class="codeline" id="line-51"><code>	<span class="keyword">return</span> <label for="r14" class="ident">p</label>.<a href="#line-75" class="ident">connect</a>(<label for="r16" class="ident">ctx</label>, <label for="r17" class="ident">dc</label>, <label for="r19" class="ident">candidates</label>[:<label for="r20" class="ident">n</label>])</code></span>
-<span class="codeline" id="line-52"><code>}</code></span>
-<span class="codeline" id="line-53"><code></code></span>
-<span class="codeline" id="line-54"><code><span class="keyword">func</span> (<label for="r23" class="ident">p</label> <a href="#line-17" class="ident">plain</a>) <label for="r24" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.dialTransport^1c9f3.html" class="ident">dialTransport</a></label>(<label for="r25" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r26" class="ident">dc</label> <a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i5">tg</a>.<a href="../../tg/tl_dc_option_gen.go.html#line-36" class="ident">DCOption</a>) (<label for="r27" class="ident">_</label> <a href="../../../../../../pkg/github.com/gotd/td/transport.html" class="ident i6">transport</a>.<a href="../../transport/connection.go.html#line-15" class="ident">Conn</a>, <label for="r28" class="ident">rerr</label> <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-55"><code>	<label for="r29" class="ident">addr</label> := <a href="../../../../../../pkg/net.html" class="ident i1">net</a>.<a href="../../../../../net/ipsock.go.html#line-235" class="ident">JoinHostPort</a>(<label for="r26" class="ident">dc</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-64" class="ident">IPAddress</a>, <a href="../../../../../../pkg/strconv.html" class="ident i2">strconv</a>.<a href="../../../../../strconv/itoa.go.html#line-34" class="ident">Itoa</a>(<label for="r26" class="ident">dc</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-66" class="ident">Port</a>))</code></span>
-<span class="codeline" id="line-56"><code></code></span>
-<span class="codeline" id="line-57"><code>	<label for="r30" class="ident">conn</label>, <label for="r31" class="ident">err</label> := <label for="r23" class="ident">p</label>.<a href="#line-18" class="ident">dial</a>(<label for="r25" class="ident">ctx</label>, <label for="r23" class="ident">p</label>.<a href="#line-20" class="ident">network</a>, <label for="r29" class="ident">addr</label>)</code></span>
-<span class="codeline" id="line-58"><code>	<span class="keyword">if</span> <label for="r31" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-59"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r31" class="ident">err</label></code></span>
-<span class="codeline" id="line-60"><code>	}</code></span>
-<span class="codeline" id="line-61"><code>	<span class="keyword">defer</span> <span class="keyword">func</span>() {</code></span>
-<span class="codeline" id="line-62"><code>		<span class="keyword">if</span> <label for="r28" class="ident">rerr</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-63"><code>			<a href="../../../../../../pkg/go.uber.org/multierr.html" class="ident i3">multierr</a>.<a href="../../../../../go.uber.org/multierr/error.go.html#line-515" class="ident">AppendInto</a>(&amp;<label for="r28" class="ident">rerr</label>, <label for="r30" class="ident">conn</label>.<a href="../../../../../net/net.go.html#line-126" class="ident">Close</a>())</code></span>
-<span class="codeline" id="line-64"><code>		}</code></span>
-<span class="codeline" id="line-65"><code>	}()</code></span>
-<span class="codeline" id="line-66"><code></code></span>
-<span class="codeline" id="line-67"><code>	<label for="r32" class="ident">transportConn</label>, <label for="r31" class="ident">err</label> := <label for="r23" class="ident">p</label>.<a href="#line-19" class="ident">protocol</a>.<a href="resolver.go.html#line-27" class="ident">Handshake</a>(<label for="r30" class="ident">conn</label>)</code></span>
-<span class="codeline" id="line-68"><code>	<span class="keyword">if</span> <label for="r31" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-69"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i4">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"transport handshake: %w"</span>, <label for="r31" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-70"><code>	}</code></span>
-<span class="codeline" id="line-71"><code></code></span>
-<span class="codeline" id="line-72"><code>	<span class="keyword">return</span> <label for="r32" class="ident">transportConn</label>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-73"><code>}</code></span>
-<span class="codeline" id="line-74"><code></code></span>
-<span class="codeline" id="line-75"><code><span class="keyword">func</span> (<label for="r33" class="ident">p</label> <a href="#line-17" class="ident">plain</a>) <label for="r34" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.connect^5a638.html" class="ident">connect</a></label>(<label for="r35" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r36" class="ident">dc</label> <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r37" class="ident">dcOptions</label> []<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i5">tg</a>.<a href="../../tg/tl_dc_option_gen.go.html#line-36" class="ident">DCOption</a>) (<a href="../../../../../../pkg/github.com/gotd/td/transport.html" class="ident i6">transport</a>.<a href="../../transport/connection.go.html#line-15" class="ident">Conn</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-76"><code>	<span class="keyword">switch</span> <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r37" class="ident">dcOptions</label>) {</code></span>
-<span class="codeline" id="line-77"><code>	<span class="keyword">case</span> <span class="lit-number">0</span>:</code></span>
-<span class="codeline" id="line-78"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i4">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"no addresses for DC %d"</span>, <label for="r36" class="ident">dc</label>)</code></span>
-<span class="codeline" id="line-79"><code>	<span class="keyword">case</span> <span class="lit-number">1</span>:</code></span>
-<span class="codeline" id="line-80"><code>		<span class="keyword">return</span> <label for="r33" class="ident">p</label>.<a href="#line-54" class="ident">dialTransport</a>(<label for="r35" class="ident">ctx</label>, <label for="r37" class="ident">dcOptions</label>[<span class="lit-number">0</span>])</code></span>
-<span class="codeline" id="line-81"><code>	}</code></span>
-<span class="codeline" id="line-82"><code></code></span>
-<span class="codeline" id="line-83"><code>	<span class="keyword">type</span> <label for="r38" class="ident">dialResult</label> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-84"><code>		<label for="r39" class="ident">conn</label> <a href="../../../../../../pkg/github.com/gotd/td/transport.html" class="ident i6">transport</a>.<a href="../../transport/connection.go.html#line-15" class="ident">Conn</a></code></span>
-<span class="codeline" id="line-85"><code>		<label for="r40" class="ident">err</label>  <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
-<span class="codeline" id="line-86"><code>	}</code></span>
-<span class="codeline" id="line-87"><code></code></span>
-<span class="codeline" id="line-88"><code>	<span class="comment">// We use unbuffered channel to ensure that only one connection will be returned</span></code></span>
-<span class="codeline" id="line-89"><code><span class="comment">	// and all other will be closed.</span></code></span>
-<span class="codeline" id="line-90"><code>	<label for="r41" class="ident">results</label> := <a href="../../../../../runtime/chan.go.html#line-71">make</a>(<span class="keyword">chan</span> <label for="r38" class="ident">dialResult</label>)</code></span>
-<span class="codeline" id="line-91"><code>	<label for="r42" class="ident">tryDial</label> := <span class="keyword">func</span>(<label for="r43" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r44" class="ident">option</label> <a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i5">tg</a>.<a href="../../tg/tl_dc_option_gen.go.html#line-36" class="ident">DCOption</a>) {</code></span>
-<span class="codeline" id="line-92"><code>		<label for="r45" class="ident">conn</label>, <label for="r46" class="ident">err</label> := <label for="r33" class="ident">p</label>.<a href="#line-54" class="ident">dialTransport</a>(<label for="r43" class="ident">ctx</label>, <label for="r44" class="ident">option</label>)</code></span>
-<span class="codeline" id="line-93"><code>		<a href="../../../../../runtime/select.go.html#line-121"><span class="keyword">select</span></a> {</code></span>
-<span class="codeline" id="line-94"><code>		<span class="keyword">case</span> <label for="r41" class="ident">results</label> <a href="../../../../../runtime/chan.go.html#line-158">&lt;-</a> <label for="r38" class="ident">dialResult</label>{</code></span>
-<span class="codeline" id="line-95"><code>			<label for="r39" class="ident">conn</label>: <label for="r45" class="ident">conn</label>,</code></span>
-<span class="codeline" id="line-96"><code>			<label for="r40" class="ident">err</label>:  <label for="r46" class="ident">err</label>,</code></span>
-<span class="codeline" id="line-97"><code>		}:</code></span>
-<span class="codeline" id="line-98"><code>		<span class="keyword">case</span> <a href="../../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r43" class="ident">ctx</label>.<a href="../../../../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
-<span class="codeline" id="line-99"><code>			<span class="keyword">if</span> <label for="r45" class="ident">conn</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-100"><code>				_ = <label for="r45" class="ident">conn</label>.<a href="../../transport/connection.go.html#line-18" class="ident">Close</a>()</code></span>
-<span class="codeline" id="line-101"><code>			}</code></span>
-<span class="codeline" id="line-102"><code>		}</code></span>
-<span class="codeline" id="line-103"><code>	}</code></span>
+<span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"io"</span></label></code></span>
+<span class="codeline" id="line-6"><code>	<label for="i2"><span class="lit-string i2">"net"</span></label></code></span>
+<span class="codeline" id="line-7"><code>	<label for="i3"><span class="lit-string i3">"strconv"</span></label></code></span>
+<span class="codeline" id="line-8"><code></code></span>
+<span class="codeline" id="line-9"><code>	<label for="i4"><span class="lit-string i4">"github.com/go-faster/errors"</span></label></code></span>
+<span class="codeline" id="line-10"><code>	<label for="i5"><span class="lit-string i5">"go.uber.org/multierr"</span></label></code></span>
+<span class="codeline" id="line-11"><code></code></span>
+<span class="codeline" id="line-12"><code>	<label for="i6"><span class="lit-string i6">"github.com/gotd/td/internal/crypto"</span></label></code></span>
+<span class="codeline" id="line-13"><code>	<label for="i7"><span class="lit-string i7">"github.com/gotd/td/internal/mtproxy"</span></label></code></span>
+<span class="codeline" id="line-14"><code>	<label for="i8"><span class="lit-string i8">"github.com/gotd/td/internal/mtproxy/obfuscator"</span></label></code></span>
+<span class="codeline" id="line-15"><code>	<label for="i9"><span class="lit-string i9">"github.com/gotd/td/internal/proto/codec"</span></label></code></span>
+<span class="codeline" id="line-16"><code>	<label for="i10"><span class="lit-string i10">"github.com/gotd/td/tg"</span></label></code></span>
+<span class="codeline" id="line-17"><code>	<label for="i11"><span class="lit-string i11">"github.com/gotd/td/transport"</span></label></code></span>
+<span class="codeline" id="line-18"><code>)</code></span>
+<span class="codeline" id="line-19"><code></code></span>
+<span class="codeline" id="line-20"><code><span class="keyword">var</span> _ <a href="resolver.go.html#line-13" class="ident">Resolver</a> = <a href="#line-22" class="ident">plain</a>{}</code></span>
+<span class="codeline" id="line-21"><code></code></span>
+<span class="codeline" id="line-22"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/telegram/dcs.html#name-plain" class="ident">plain</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-23"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.dial^21446.html" class="ident">dial</a>         <a href="resolver.go.html#line-20" class="ident">DialFunc</a></code></span>
+<span class="codeline" id="line-24"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.protocol^2ea88.html" class="ident">protocol</a>     <a href="resolver.go.html#line-25" class="ident">Protocol</a></code></span>
+<span class="codeline" id="line-25"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.rand^1c1c6.html" class="ident">rand</a>         <a href="../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../io/io.go.html#line-83" class="ident">Reader</a></code></span>
+<span class="codeline" id="line-26"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.network^3009b.html" class="ident">network</a>      <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-27"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.noObfuscated^44dc2.html" class="ident">noObfuscated</a> <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-28"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.preferIPv6^b9e01.html" class="ident">preferIPv6</a>   <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-29"><code>}</code></span>
+<span class="codeline" id="line-30"><code></code></span>
+<span class="codeline" id="line-31"><code><span class="keyword">func</span> (<label for="r0" class="ident">p</label> <a href="#line-22" class="ident">plain</a>) <label for="r1" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.Primary.html" class="ident">Primary</a></label>(<label for="r2" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r3" class="ident">dc</label> <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r4" class="ident">list</label> <a href="list.go.html#line-6" class="ident">List</a>) (<a href="../../../../../../pkg/github.com/gotd/td/transport.html" class="ident i11">transport</a>.<a href="../../transport/connection.go.html#line-15" class="ident">Conn</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-32"><code>	<label for="r5" class="ident">candidates</label> := <a href="find.go.html#line-49" class="ident">FindPrimaryDCs</a>(<label for="r4" class="ident">list</label>.<a href="list.go.html#line-7" class="ident">Options</a>, <label for="r3" class="ident">dc</label>, <label for="r0" class="ident">p</label>.<a href="#line-28" class="ident">preferIPv6</a>)</code></span>
+<span class="codeline" id="line-33"><code>	<span class="keyword">if</span> <label for="r0" class="ident">p</label>.<a href="#line-27" class="ident">noObfuscated</a> {</code></span>
+<span class="codeline" id="line-34"><code>		<label for="r6" class="ident">n</label> := <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-35"><code>		<span class="keyword">for</span> <label for="r7" class="ident">_</label>, <label for="r8" class="ident">x</label> := <span class="keyword">range</span> <label for="r5" class="ident">candidates</label> {</code></span>
+<span class="codeline" id="line-36"><code>			<span class="keyword">if</span> !<label for="r8" class="ident">x</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-55" class="ident">TCPObfuscatedOnly</a> {</code></span>
+<span class="codeline" id="line-37"><code>				<label for="r5" class="ident">candidates</label>[<label for="r6" class="ident">n</label>] = <label for="r8" class="ident">x</label></code></span>
+<span class="codeline" id="line-38"><code>				<label for="r6" class="ident">n</label>++</code></span>
+<span class="codeline" id="line-39"><code>			}</code></span>
+<span class="codeline" id="line-40"><code>		}</code></span>
+<span class="codeline" id="line-41"><code>		<label for="r5" class="ident">candidates</label> = <label for="r5" class="ident">candidates</label>[:<label for="r6" class="ident">n</label>]</code></span>
+<span class="codeline" id="line-42"><code>	}</code></span>
+<span class="codeline" id="line-43"><code>	<span class="keyword">return</span> <label for="r0" class="ident">p</label>.<a href="#line-124" class="ident">connect</a>(<label for="r2" class="ident">ctx</label>, <label for="r3" class="ident">dc</label>, <label for="r4" class="ident">list</label>.<a href="list.go.html#line-9" class="ident">Test</a>, <label for="r5" class="ident">candidates</label>)</code></span>
+<span class="codeline" id="line-44"><code>}</code></span>
+<span class="codeline" id="line-45"><code></code></span>
+<span class="codeline" id="line-46"><code><span class="keyword">func</span> (<label for="r9" class="ident">p</label> <a href="#line-22" class="ident">plain</a>) <label for="r10" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.MediaOnly.html" class="ident">MediaOnly</a></label>(<label for="r11" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r12" class="ident">dc</label> <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r13" class="ident">list</label> <a href="list.go.html#line-6" class="ident">List</a>) (<a href="../../../../../../pkg/github.com/gotd/td/transport.html" class="ident i11">transport</a>.<a href="../../transport/connection.go.html#line-15" class="ident">Conn</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-47"><code>	<label for="r14" class="ident">candidates</label> := <a href="find.go.html#line-10" class="ident">FindDCs</a>(<label for="r13" class="ident">list</label>.<a href="list.go.html#line-7" class="ident">Options</a>, <label for="r12" class="ident">dc</label>, <label for="r9" class="ident">p</label>.<a href="#line-28" class="ident">preferIPv6</a>)</code></span>
+<span class="codeline" id="line-48"><code>	<span class="comment">// Filter (in place) from SliceTricks.</span></code></span>
+<span class="codeline" id="line-49"><code>	<label for="r15" class="ident">n</label> := <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-50"><code>	<span class="keyword">for</span> <label for="r16" class="ident">_</label>, <label for="r17" class="ident">x</label> := <span class="keyword">range</span> <label for="r14" class="ident">candidates</label> {</code></span>
+<span class="codeline" id="line-51"><code>		<span class="keyword">if</span> <label for="r17" class="ident">x</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-50" class="ident">MediaOnly</a> {</code></span>
+<span class="codeline" id="line-52"><code>			<label for="r14" class="ident">candidates</label>[<label for="r15" class="ident">n</label>] = <label for="r17" class="ident">x</label></code></span>
+<span class="codeline" id="line-53"><code>			<label for="r15" class="ident">n</label>++</code></span>
+<span class="codeline" id="line-54"><code>		}</code></span>
+<span class="codeline" id="line-55"><code>	}</code></span>
+<span class="codeline" id="line-56"><code>	<span class="keyword">return</span> <label for="r9" class="ident">p</label>.<a href="#line-124" class="ident">connect</a>(<label for="r11" class="ident">ctx</label>, <label for="r12" class="ident">dc</label>, <label for="r13" class="ident">list</label>.<a href="list.go.html#line-9" class="ident">Test</a>, <label for="r14" class="ident">candidates</label>[:<label for="r15" class="ident">n</label>])</code></span>
+<span class="codeline" id="line-57"><code>}</code></span>
+<span class="codeline" id="line-58"><code></code></span>
+<span class="codeline" id="line-59"><code><span class="keyword">func</span> (<label for="r18" class="ident">p</label> <a href="#line-22" class="ident">plain</a>) <label for="r19" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.CDN.html" class="ident">CDN</a></label>(<label for="r20" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r21" class="ident">dc</label> <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r22" class="ident">list</label> <a href="list.go.html#line-6" class="ident">List</a>) (<a href="../../../../../../pkg/github.com/gotd/td/transport.html" class="ident i11">transport</a>.<a href="../../transport/connection.go.html#line-15" class="ident">Conn</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-60"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i4">errors</a>.<a href="../../../../go-faster/errors/format.go.html#line-42" class="ident">Errorf</a>(<span class="lit-string">"can't resolve %d: CDN is unsupported"</span>, <label for="r21" class="ident">dc</label>)</code></span>
+<span class="codeline" id="line-61"><code>}</code></span>
+<span class="codeline" id="line-62"><code></code></span>
+<span class="codeline" id="line-63"><code><span class="keyword">func</span> (<label for="r23" class="ident">p</label> <a href="#line-22" class="ident">plain</a>) <label for="r24" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.dialTransport^1c9f3.html" class="ident">dialTransport</a></label>(<label for="r25" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r26" class="ident">test</label> <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a>, <label for="r27" class="ident">dc</label> <a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i10">tg</a>.<a href="../../tg/tl_dc_option_gen.go.html#line-38" class="ident">DCOption</a>) (<label for="r28" class="ident">_</label> <a href="../../../../../../pkg/github.com/gotd/td/transport.html" class="ident i11">transport</a>.<a href="../../transport/connection.go.html#line-15" class="ident">Conn</a>, <label for="r29" class="ident">rerr</label> <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-64"><code>	<label for="r30" class="ident">addr</label> := <a href="../../../../../../pkg/net.html" class="ident i2">net</a>.<a href="../../../../../net/ipsock.go.html#line-235" class="ident">JoinHostPort</a>(<label for="r27" class="ident">dc</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-68" class="ident">IPAddress</a>, <a href="../../../../../../pkg/strconv.html" class="ident i3">strconv</a>.<a href="../../../../../strconv/itoa.go.html#line-34" class="ident">Itoa</a>(<label for="r27" class="ident">dc</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-70" class="ident">Port</a>))</code></span>
+<span class="codeline" id="line-65"><code></code></span>
+<span class="codeline" id="line-66"><code>	<label for="r31" class="ident">conn</label>, <label for="r32" class="ident">err</label> := <label for="r23" class="ident">p</label>.<a href="#line-23" class="ident">dial</a>(<label for="r25" class="ident">ctx</label>, <label for="r23" class="ident">p</label>.<a href="#line-26" class="ident">network</a>, <label for="r30" class="ident">addr</label>)</code></span>
+<span class="codeline" id="line-67"><code>	<span class="keyword">if</span> <label for="r32" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-68"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r32" class="ident">err</label></code></span>
+<span class="codeline" id="line-69"><code>	}</code></span>
+<span class="codeline" id="line-70"><code>	<span class="keyword">defer</span> <span class="keyword">func</span>() {</code></span>
+<span class="codeline" id="line-71"><code>		<span class="keyword">if</span> <label for="r29" class="ident">rerr</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-72"><code>			<a href="../../../../../../pkg/go.uber.org/multierr.html" class="ident i5">multierr</a>.<a href="../../../../../go.uber.org/multierr/error.go.html#line-528" class="ident">AppendInto</a>(&amp;<label for="r29" class="ident">rerr</label>, <label for="r31" class="ident">conn</label>.<a href="../../../../../net/net.go.html#line-126" class="ident">Close</a>())</code></span>
+<span class="codeline" id="line-73"><code>		}</code></span>
+<span class="codeline" id="line-74"><code>	}()</code></span>
+<span class="codeline" id="line-75"><code></code></span>
+<span class="codeline" id="line-76"><code>	<label for="r33" class="ident">proto</label> := <label for="r23" class="ident">p</label>.<a href="#line-24" class="ident">protocol</a></code></span>
+<span class="codeline" id="line-77"><code>	<span class="keyword">if</span> <label for="r27" class="ident">dc</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-55" class="ident">TCPObfuscatedOnly</a> {</code></span>
+<span class="codeline" id="line-78"><code>		<label for="r34" class="ident">dcID</label> := <label for="r27" class="ident">dc</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-66" class="ident">ID</a></code></span>
+<span class="codeline" id="line-79"><code>		<span class="keyword">if</span> <label for="r26" class="ident">test</label> {</code></span>
+<span class="codeline" id="line-80"><code>			<span class="keyword">if</span> <label for="r34" class="ident">dcID</label> &lt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-81"><code>				<label for="r34" class="ident">dcID</label> -= <span class="lit-number">10000</span></code></span>
+<span class="codeline" id="line-82"><code>			} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-83"><code>				<label for="r34" class="ident">dcID</label> += <span class="lit-number">10000</span></code></span>
+<span class="codeline" id="line-84"><code>			}</code></span>
+<span class="codeline" id="line-85"><code>		}</code></span>
+<span class="codeline" id="line-86"><code></code></span>
+<span class="codeline" id="line-87"><code>		<span class="keyword">var</span> (</code></span>
+<span class="codeline" id="line-88"><code>			<label for="r35" class="ident">cdc</label>  <a href="../../../../../../pkg/github.com/gotd/td/internal/proto/codec.html" class="ident i9">codec</a>.<a href="../../internal/proto/codec/codec.go.html#line-13" class="ident">Codec</a> = <a href="../../../../../../pkg/github.com/gotd/td/internal/proto/codec.html" class="ident i9">codec</a>.<a href="../../internal/proto/codec/intermediate.go.html#line-19" class="ident">Intermediate</a>{}</code></span>
+<span class="codeline" id="line-89"><code>			<label for="r36" class="ident">tag</label>              = <a href="../../../../../../pkg/github.com/gotd/td/internal/proto/codec.html" class="ident i9">codec</a>.<a href="../../internal/proto/codec/intermediate.go.html#line-14" class="ident">IntermediateClientStart</a></code></span>
+<span class="codeline" id="line-90"><code>			<label for="r37" class="ident">obfs</label>             = <a href="../../../../../../pkg/github.com/gotd/td/internal/mtproxy/obfuscator.html" class="ident i8">obfuscator</a>.<a href="../../internal/mtproxy/obfuscator/dialer.go.html#line-17" class="ident">Obfuscated2</a></code></span>
+<span class="codeline" id="line-91"><code>		)</code></span>
+<span class="codeline" id="line-92"><code></code></span>
+<span class="codeline" id="line-93"><code>		<label for="r38" class="ident">secret</label>, <label for="r39" class="ident">err</label> := <a href="../../../../../../pkg/github.com/gotd/td/internal/mtproxy.html" class="ident i7">mtproxy</a>.<a href="../../internal/mtproxy/secret.go.html#line-47" class="ident">ParseSecret</a>(<label for="r27" class="ident">dc</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-78" class="ident">Secret</a>)</code></span>
+<span class="codeline" id="line-94"><code>		<span class="keyword">if</span> <label for="r39" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-95"><code>			<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i4">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r39" class="ident">err</label>, <span class="lit-string">"check DC secret"</span>)</code></span>
+<span class="codeline" id="line-96"><code>		}</code></span>
+<span class="codeline" id="line-97"><code></code></span>
+<span class="codeline" id="line-98"><code>		<span class="keyword">if</span> <label for="r38" class="ident">secret</label>.<a href="../../internal/mtproxy/secret.go.html#line-27" class="ident">Type</a> == <a href="../../../../../../pkg/github.com/gotd/td/internal/mtproxy.html" class="ident i7">mtproxy</a>.<a href="../../internal/mtproxy/secret.go.html#line-19" class="ident">TLS</a> {</code></span>
+<span class="codeline" id="line-99"><code>			<label for="r37" class="ident">obfs</label> = <a href="../../../../../../pkg/github.com/gotd/td/internal/mtproxy/obfuscator.html" class="ident i8">obfuscator</a>.<a href="../../internal/mtproxy/obfuscator/dialer.go.html#line-25" class="ident">FakeTLS</a></code></span>
+<span class="codeline" id="line-100"><code>		} <span class="keyword">else</span> <span class="keyword">if</span> <label for="r40" class="ident">c</label>, <label for="r41" class="ident">ok</label> := <label for="r38" class="ident">secret</label>.<a href="../../internal/mtproxy/secret.go.html#line-31" class="ident">ExpectedCodec</a>(); <label for="r41" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-101"><code>			<label for="r36" class="ident">tag</label> = [<span class="lit-number">4</span>]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>{<label for="r38" class="ident">secret</label>.<a href="../../internal/mtproxy/secret.go.html#line-25" class="ident">Tag</a>, <label for="r38" class="ident">secret</label>.<a href="../../internal/mtproxy/secret.go.html#line-25" class="ident">Tag</a>, <label for="r38" class="ident">secret</label>.<a href="../../internal/mtproxy/secret.go.html#line-25" class="ident">Tag</a>, <label for="r38" class="ident">secret</label>.<a href="../../internal/mtproxy/secret.go.html#line-25" class="ident">Tag</a>}</code></span>
+<span class="codeline" id="line-102"><code>			<label for="r35" class="ident">cdc</label> = <label for="r40" class="ident">c</label></code></span>
+<span class="codeline" id="line-103"><code>		}</code></span>
 <span class="codeline" id="line-104"><code></code></span>
-<span class="codeline" id="line-105"><code>	<label for="r47" class="ident">dialCtx</label>, <label for="r48" class="ident">dialCancel</label> := <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-232" class="ident">WithCancel</a>(<label for="r35" class="ident">ctx</label>)</code></span>
-<span class="codeline" id="line-106"><code>	<span class="keyword">defer</span> <label for="r48" class="ident">dialCancel</label>()</code></span>
-<span class="codeline" id="line-107"><code></code></span>
-<span class="codeline" id="line-108"><code>	<span class="keyword">for</span> <label for="r49" class="ident">_</label>, <label for="r50" class="ident">dcOption</label> := <span class="keyword">range</span> <label for="r37" class="ident">dcOptions</label> {</code></span>
-<span class="codeline" id="line-109"><code>		<span class="keyword">go</span> <label for="r42" class="ident">tryDial</label>(<label for="r47" class="ident">dialCtx</label>, <label for="r50" class="ident">dcOption</label>)</code></span>
-<span class="codeline" id="line-110"><code>	}</code></span>
-<span class="codeline" id="line-111"><code></code></span>
-<span class="codeline" id="line-112"><code>	<label for="r51" class="ident">remain</label> := <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r37" class="ident">dcOptions</label>)</code></span>
-<span class="codeline" id="line-113"><code>	<span class="keyword">var</span> <label for="r52" class="ident">rErr</label> <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
-<span class="codeline" id="line-114"><code>	<span class="keyword">for</span> {</code></span>
-<span class="codeline" id="line-115"><code>		<a href="../../../../../runtime/select.go.html#line-121"><span class="keyword">select</span></a> {</code></span>
-<span class="codeline" id="line-116"><code>		<span class="keyword">case</span> <a href="../../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r35" class="ident">ctx</label>.<a href="../../../../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
-<span class="codeline" id="line-117"><code>			<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r35" class="ident">ctx</label>.<a href="../../../../../context/context.go.html#line-106" class="ident">Err</a>()</code></span>
-<span class="codeline" id="line-118"><code>		<span class="keyword">case</span> <label for="r53" class="ident">result</label> := <a href="../../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r41" class="ident">results</label>:</code></span>
-<span class="codeline" id="line-119"><code>			<label for="r51" class="ident">remain</label>--</code></span>
-<span class="codeline" id="line-120"><code>			<span class="keyword">if</span> <label for="r53" class="ident">result</label>.<label for="r40" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-121"><code>				<label for="r52" class="ident">rErr</label> = <a href="../../../../../../pkg/go.uber.org/multierr.html" class="ident i3">multierr</a>.<a href="../../../../../go.uber.org/multierr/error.go.html#line-455" class="ident">Append</a>(<label for="r52" class="ident">rErr</label>, <label for="r53" class="ident">result</label>.<label for="r40" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-122"><code>				<span class="keyword">if</span> <label for="r51" class="ident">remain</label> == <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-123"><code>					<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r52" class="ident">rErr</label></code></span>
-<span class="codeline" id="line-124"><code>				}</code></span>
-<span class="codeline" id="line-125"><code>				<span class="keyword">continue</span></code></span>
-<span class="codeline" id="line-126"><code>			}</code></span>
-<span class="codeline" id="line-127"><code>			<span class="keyword">return</span> <label for="r53" class="ident">result</label>.<label for="r39" class="ident">conn</label>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-128"><code>		}</code></span>
-<span class="codeline" id="line-129"><code>	}</code></span>
-<span class="codeline" id="line-130"><code>}</code></span>
+<span class="codeline" id="line-105"><code>		<label for="r42" class="ident">obfsConn</label> := <label for="r37" class="ident">obfs</label>(<label for="r23" class="ident">p</label>.<a href="#line-25" class="ident">rand</a>, <label for="r31" class="ident">conn</label>)</code></span>
+<span class="codeline" id="line-106"><code>		<span class="keyword">if</span> <label for="r43" class="ident">err</label> := <label for="r42" class="ident">obfsConn</label>.<a href="../../internal/mtproxy/obfuscator/obfuscator.go.html#line-17" class="ident">Handshake</a>(<label for="r36" class="ident">tag</label>, <label for="r34" class="ident">dcID</label>, <label for="r38" class="ident">secret</label>); <label for="r43" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-107"><code>			<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r43" class="ident">err</label></code></span>
+<span class="codeline" id="line-108"><code>		}</code></span>
+<span class="codeline" id="line-109"><code>		<label for="r31" class="ident">conn</label> = <label for="r42" class="ident">obfsConn</label></code></span>
+<span class="codeline" id="line-110"><code></code></span>
+<span class="codeline" id="line-111"><code>		<label for="r33" class="ident">proto</label> = <a href="../../../../../../pkg/github.com/gotd/td/transport.html" class="ident i11">transport</a>.<a href="../../transport/protocol.go.html#line-21" class="ident">NewProtocol</a>(<span class="keyword">func</span>() <a href="../../../../../../pkg/github.com/gotd/td/transport.html" class="ident i11">transport</a>.<a href="../../transport/codec.go.html#line-10" class="ident">Codec</a> {</code></span>
+<span class="codeline" id="line-112"><code>			<span class="keyword">return</span> <a href="../../../../../../pkg/github.com/gotd/td/internal/proto/codec.html" class="ident i9">codec</a>.<a href="../../internal/proto/codec/no_header.go.html#line-6" class="ident">NoHeader</a>{<a href="../../internal/proto/codec/no_header.go.html#line-7" class="ident">Codec</a>: <label for="r35" class="ident">cdc</label>}</code></span>
+<span class="codeline" id="line-113"><code>		})</code></span>
+<span class="codeline" id="line-114"><code>	}</code></span>
+<span class="codeline" id="line-115"><code></code></span>
+<span class="codeline" id="line-116"><code>	<label for="r44" class="ident">transportConn</label>, <label for="r32" class="ident">err</label> := <label for="r33" class="ident">proto</label>.<a href="resolver.go.html#line-27" class="ident">Handshake</a>(<label for="r31" class="ident">conn</label>)</code></span>
+<span class="codeline" id="line-117"><code>	<span class="keyword">if</span> <label for="r32" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-118"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i4">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r32" class="ident">err</label>, <span class="lit-string">"transport handshake"</span>)</code></span>
+<span class="codeline" id="line-119"><code>	}</code></span>
+<span class="codeline" id="line-120"><code></code></span>
+<span class="codeline" id="line-121"><code>	<span class="keyword">return</span> <label for="r44" class="ident">transportConn</label>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-122"><code>}</code></span>
+<span class="codeline" id="line-123"><code></code></span>
+<span class="codeline" id="line-124"><code><span class="keyword">func</span> (<label for="r45" class="ident">p</label> <a href="#line-22" class="ident">plain</a>) <label for="r46" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.connect^5a638.html" class="ident">connect</a></label>(<label for="r47" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r48" class="ident">dc</label> <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r49" class="ident">test</label> <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a>, <label for="r50" class="ident">dcOptions</label> []<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i10">tg</a>.<a href="../../tg/tl_dc_option_gen.go.html#line-38" class="ident">DCOption</a>) (<a href="../../../../../../pkg/github.com/gotd/td/transport.html" class="ident i11">transport</a>.<a href="../../transport/connection.go.html#line-15" class="ident">Conn</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-125"><code>	<span class="keyword">switch</span> <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r50" class="ident">dcOptions</label>) {</code></span>
+<span class="codeline" id="line-126"><code>	<span class="keyword">case</span> <span class="lit-number">0</span>:</code></span>
+<span class="codeline" id="line-127"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i4">errors</a>.<a href="../../../../go-faster/errors/format.go.html#line-42" class="ident">Errorf</a>(<span class="lit-string">"no addresses for DC %d"</span>, <label for="r48" class="ident">dc</label>)</code></span>
+<span class="codeline" id="line-128"><code>	<span class="keyword">case</span> <span class="lit-number">1</span>:</code></span>
+<span class="codeline" id="line-129"><code>		<span class="keyword">return</span> <label for="r45" class="ident">p</label>.<a href="#line-63" class="ident">dialTransport</a>(<label for="r47" class="ident">ctx</label>, <label for="r49" class="ident">test</label>, <label for="r50" class="ident">dcOptions</label>[<span class="lit-number">0</span>])</code></span>
+<span class="codeline" id="line-130"><code>	}</code></span>
 <span class="codeline" id="line-131"><code></code></span>
-<span class="codeline" id="line-132"><code><span class="comment">// PlainOptions is plain resolver creation options.</span></code></span>
-<span class="codeline" id="line-133"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/telegram/dcs.html#name-PlainOptions" class="ident">PlainOptions</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-134"><code>	<span class="comment">// Protocol is the transport protocol to use. Defaults to intermediate.</span></code></span>
-<span class="codeline" id="line-135"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/dcs..PlainOptions.Protocol.html" class="ident">Protocol</a> <a href="resolver.go.html#line-25" class="ident">Protocol</a></code></span>
-<span class="codeline" id="line-136"><code>	<span class="comment">// Dial specifies the dial function for creating unencrypted TCP connections.</span></code></span>
-<span class="codeline" id="line-137"><code><span class="comment">	// If Dial is nil, then the resolver dials using package net.</span></code></span>
-<span class="codeline" id="line-138"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/dcs..PlainOptions.Dial.html" class="ident">Dial</a> <a href="resolver.go.html#line-20" class="ident">DialFunc</a></code></span>
-<span class="codeline" id="line-139"><code>	<span class="comment">// Network to use. Defaults to "tcp".</span></code></span>
-<span class="codeline" id="line-140"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/dcs..PlainOptions.Network.html" class="ident">Network</a> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
-<span class="codeline" id="line-141"><code>	<span class="comment">// PreferIPv6 gives IPv6 DCs higher precedence.</span></code></span>
-<span class="codeline" id="line-142"><code><span class="comment">	// Default is to prefer IPv4 DCs over IPv6.</span></code></span>
-<span class="codeline" id="line-143"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/dcs..PlainOptions.PreferIPv6.html" class="ident">PreferIPv6</a> <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
-<span class="codeline" id="line-144"><code>}</code></span>
-<span class="codeline" id="line-145"><code></code></span>
-<span class="codeline" id="line-146"><code><span class="keyword">func</span> (<label for="r54" class="ident">m</label> *<a href="#line-133" class="ident">PlainOptions</a>) <label for="r55" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/dcs..PlainOptions.setDefaults^984b0.html" class="ident">setDefaults</a></label>() {</code></span>
-<span class="codeline" id="line-147"><code>	<span class="keyword">if</span> <label for="r54" class="ident">m</label>.<a href="#line-135" class="ident">Protocol</a> == <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-148"><code>		<label for="r54" class="ident">m</label>.<a href="#line-135" class="ident">Protocol</a> = <a href="../../../../../../pkg/github.com/gotd/td/transport.html" class="ident i6">transport</a>.<a href="../../transport/protocol.go.html#line-39" class="ident">Intermediate</a></code></span>
-<span class="codeline" id="line-149"><code>	}</code></span>
-<span class="codeline" id="line-150"><code>	<span class="keyword">if</span> <label for="r54" class="ident">m</label>.<a href="#line-138" class="ident">Dial</a> == <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-151"><code>		<span class="keyword">var</span> <label for="r56" class="ident">d</label> <a href="../../../../../../pkg/net.html" class="ident i1">net</a>.<a href="../../../../../net/dial.go.html#line-27" class="ident">Dialer</a></code></span>
-<span class="codeline" id="line-152"><code>		<label for="r54" class="ident">m</label>.<a href="#line-138" class="ident">Dial</a> = <label for="r56" class="ident">d</label>.<a href="../../../../../net/dial.go.html#line-372" class="ident">DialContext</a></code></span>
-<span class="codeline" id="line-153"><code>	}</code></span>
-<span class="codeline" id="line-154"><code>	<span class="keyword">if</span> <label for="r54" class="ident">m</label>.<a href="#line-140" class="ident">Network</a> == <span class="lit-string">""</span> {</code></span>
-<span class="codeline" id="line-155"><code>		<label for="r54" class="ident">m</label>.<a href="#line-140" class="ident">Network</a> = <span class="lit-string">"tcp"</span></code></span>
-<span class="codeline" id="line-156"><code>	}</code></span>
-<span class="codeline" id="line-157"><code>}</code></span>
-<span class="codeline" id="line-158"><code></code></span>
-<span class="codeline" id="line-159"><code><span class="comment">// Plain creates plain DC resolver.</span></code></span>
-<span class="codeline" id="line-160"><code><span class="keyword">func</span> <label for="r57" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/telegram/dcs.html#name-Plain" class="ident">Plain</a></label>(<label for="r58" class="ident">opts</label> <a href="#line-133" class="ident">PlainOptions</a>) <a href="resolver.go.html#line-13" class="ident">Resolver</a> {</code></span>
-<span class="codeline" id="line-161"><code>	<label for="r58" class="ident">opts</label>.<a href="#line-146" class="ident">setDefaults</a>()</code></span>
-<span class="codeline" id="line-162"><code>	<span class="keyword">return</span> <a href="#line-17" class="ident">plain</a>{</code></span>
-<span class="codeline" id="line-163"><code>		<a href="#line-19" class="ident">protocol</a>:   <label for="r58" class="ident">opts</label>.<a href="#line-135" class="ident">Protocol</a>,</code></span>
-<span class="codeline" id="line-164"><code>		<a href="#line-18" class="ident">dial</a>:       <label for="r58" class="ident">opts</label>.<a href="#line-138" class="ident">Dial</a>,</code></span>
-<span class="codeline" id="line-165"><code>		<a href="#line-20" class="ident">network</a>:    <label for="r58" class="ident">opts</label>.<a href="#line-140" class="ident">Network</a>,</code></span>
-<span class="codeline" id="line-166"><code>		<a href="#line-21" class="ident">preferIPv6</a>: <label for="r58" class="ident">opts</label>.<a href="#line-143" class="ident">PreferIPv6</a>,</code></span>
-<span class="codeline" id="line-167"><code>	}</code></span>
-<span class="codeline" id="line-168"><code>}</code></span>
+<span class="codeline" id="line-132"><code>	<span class="keyword">type</span> <label for="r51" class="ident">dialResult</label> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-133"><code>		<label for="r52" class="ident">conn</label> <a href="../../../../../../pkg/github.com/gotd/td/transport.html" class="ident i11">transport</a>.<a href="../../transport/connection.go.html#line-15" class="ident">Conn</a></code></span>
+<span class="codeline" id="line-134"><code>		<label for="r53" class="ident">err</label>  <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-135"><code>	}</code></span>
+<span class="codeline" id="line-136"><code></code></span>
+<span class="codeline" id="line-137"><code>	<span class="comment">// We use unbuffered channel to ensure that only one connection will be returned</span></code></span>
+<span class="codeline" id="line-138"><code><span class="comment">	// and all other will be closed.</span></code></span>
+<span class="codeline" id="line-139"><code>	<label for="r54" class="ident">results</label> := <a href="../../../../../runtime/chan.go.html#line-72">make</a>(<span class="keyword">chan</span> <label for="r51" class="ident">dialResult</label>)</code></span>
+<span class="codeline" id="line-140"><code>	<label for="r55" class="ident">tryDial</label> := <span class="keyword">func</span>(<label for="r56" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r57" class="ident">option</label> <a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i10">tg</a>.<a href="../../tg/tl_dc_option_gen.go.html#line-38" class="ident">DCOption</a>) {</code></span>
+<span class="codeline" id="line-141"><code>		<label for="r58" class="ident">conn</label>, <label for="r59" class="ident">err</label> := <label for="r45" class="ident">p</label>.<a href="#line-63" class="ident">dialTransport</a>(<label for="r56" class="ident">ctx</label>, <label for="r49" class="ident">test</label>, <label for="r57" class="ident">option</label>)</code></span>
+<span class="codeline" id="line-142"><code>		<a href="../../../../../runtime/select.go.html#line-122"><span class="keyword">select</span></a> {</code></span>
+<span class="codeline" id="line-143"><code>		<span class="keyword">case</span> <label for="r54" class="ident">results</label> <a href="../../../../../runtime/chan.go.html#line-160">&lt;-</a> <label for="r51" class="ident">dialResult</label>{</code></span>
+<span class="codeline" id="line-144"><code>			<label for="r52" class="ident">conn</label>: <label for="r58" class="ident">conn</label>,</code></span>
+<span class="codeline" id="line-145"><code>			<label for="r53" class="ident">err</label>:  <label for="r59" class="ident">err</label>,</code></span>
+<span class="codeline" id="line-146"><code>		}:</code></span>
+<span class="codeline" id="line-147"><code>		<span class="keyword">case</span> <a href="../../../../../runtime/chan.go.html#line-441">&lt;-</a><label for="r56" class="ident">ctx</label>.<a href="../../../../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
+<span class="codeline" id="line-148"><code>			<span class="keyword">if</span> <label for="r58" class="ident">conn</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-149"><code>				_ = <label for="r58" class="ident">conn</label>.<a href="../../transport/connection.go.html#line-18" class="ident">Close</a>()</code></span>
+<span class="codeline" id="line-150"><code>			}</code></span>
+<span class="codeline" id="line-151"><code>		}</code></span>
+<span class="codeline" id="line-152"><code>	}</code></span>
+<span class="codeline" id="line-153"><code></code></span>
+<span class="codeline" id="line-154"><code>	<label for="r60" class="ident">dialCtx</label>, <label for="r61" class="ident">dialCancel</label> := <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-232" class="ident">WithCancel</a>(<label for="r47" class="ident">ctx</label>)</code></span>
+<span class="codeline" id="line-155"><code>	<span class="keyword">defer</span> <label for="r61" class="ident">dialCancel</label>()</code></span>
+<span class="codeline" id="line-156"><code></code></span>
+<span class="codeline" id="line-157"><code>	<span class="keyword">for</span> <label for="r62" class="ident">_</label>, <label for="r63" class="ident">dcOption</label> := <span class="keyword">range</span> <label for="r50" class="ident">dcOptions</label> {</code></span>
+<span class="codeline" id="line-158"><code>		<span class="keyword">go</span> <label for="r55" class="ident">tryDial</label>(<label for="r60" class="ident">dialCtx</label>, <label for="r63" class="ident">dcOption</label>)</code></span>
+<span class="codeline" id="line-159"><code>	}</code></span>
+<span class="codeline" id="line-160"><code></code></span>
+<span class="codeline" id="line-161"><code>	<label for="r64" class="ident">remain</label> := <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r50" class="ident">dcOptions</label>)</code></span>
+<span class="codeline" id="line-162"><code>	<span class="keyword">var</span> <label for="r65" class="ident">rErr</label> <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-163"><code>	<span class="keyword">for</span> {</code></span>
+<span class="codeline" id="line-164"><code>		<a href="../../../../../runtime/select.go.html#line-122"><span class="keyword">select</span></a> {</code></span>
+<span class="codeline" id="line-165"><code>		<span class="keyword">case</span> <a href="../../../../../runtime/chan.go.html#line-441">&lt;-</a><label for="r47" class="ident">ctx</label>.<a href="../../../../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
+<span class="codeline" id="line-166"><code>			<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r47" class="ident">ctx</label>.<a href="../../../../../context/context.go.html#line-106" class="ident">Err</a>()</code></span>
+<span class="codeline" id="line-167"><code>		<span class="keyword">case</span> <label for="r66" class="ident">result</label> := <a href="../../../../../runtime/chan.go.html#line-441">&lt;-</a><label for="r54" class="ident">results</label>:</code></span>
+<span class="codeline" id="line-168"><code>			<label for="r64" class="ident">remain</label>--</code></span>
+<span class="codeline" id="line-169"><code>			<span class="keyword">if</span> <label for="r66" class="ident">result</label>.<label for="r53" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-170"><code>				<label for="r65" class="ident">rErr</label> = <a href="../../../../../../pkg/go.uber.org/multierr.html" class="ident i5">multierr</a>.<a href="../../../../../go.uber.org/multierr/error.go.html#line-468" class="ident">Append</a>(<label for="r65" class="ident">rErr</label>, <label for="r66" class="ident">result</label>.<label for="r53" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-171"><code>				<span class="keyword">if</span> <label for="r64" class="ident">remain</label> == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-172"><code>					<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r65" class="ident">rErr</label></code></span>
+<span class="codeline" id="line-173"><code>				}</code></span>
+<span class="codeline" id="line-174"><code>				<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-175"><code>			}</code></span>
+<span class="codeline" id="line-176"><code>			<span class="keyword">return</span> <label for="r66" class="ident">result</label>.<label for="r52" class="ident">conn</label>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-177"><code>		}</code></span>
+<span class="codeline" id="line-178"><code>	}</code></span>
+<span class="codeline" id="line-179"><code>}</code></span>
+<span class="codeline" id="line-180"><code></code></span>
+<span class="codeline" id="line-181"><code><span class="comment">// PlainOptions is plain resolver creation options.</span></code></span>
+<span class="codeline" id="line-182"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/telegram/dcs.html#name-PlainOptions" class="ident">PlainOptions</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-183"><code>	<span class="comment">// Protocol is the transport protocol to use. Defaults to intermediate.</span></code></span>
+<span class="codeline" id="line-184"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/dcs..PlainOptions.Protocol.html" class="ident">Protocol</a> <a href="resolver.go.html#line-25" class="ident">Protocol</a></code></span>
+<span class="codeline" id="line-185"><code>	<span class="comment">// Dial specifies the dial function for creating unencrypted TCP connections.</span></code></span>
+<span class="codeline" id="line-186"><code><span class="comment">	// If Dial is nil, then the resolver dials using package net.</span></code></span>
+<span class="codeline" id="line-187"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/dcs..PlainOptions.Dial.html" class="ident">Dial</a> <a href="resolver.go.html#line-20" class="ident">DialFunc</a></code></span>
+<span class="codeline" id="line-188"><code>	<span class="comment">// Random source for TCPObfuscated DCs.</span></code></span>
+<span class="codeline" id="line-189"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/dcs..PlainOptions.Rand.html" class="ident">Rand</a> <a href="../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../io/io.go.html#line-83" class="ident">Reader</a></code></span>
+<span class="codeline" id="line-190"><code>	<span class="comment">// Network to use. Defaults to "tcp".</span></code></span>
+<span class="codeline" id="line-191"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/dcs..PlainOptions.Network.html" class="ident">Network</a> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-192"><code>	<span class="comment">// NoObfuscated denotes to filter out TCP Obfuscated Only DCs.</span></code></span>
+<span class="codeline" id="line-193"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/dcs..PlainOptions.NoObfuscated.html" class="ident">NoObfuscated</a> <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-194"><code>	<span class="comment">// PreferIPv6 gives IPv6 DCs higher precedence.</span></code></span>
+<span class="codeline" id="line-195"><code><span class="comment">	// Default is to prefer IPv4 DCs over IPv6.</span></code></span>
+<span class="codeline" id="line-196"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/dcs..PlainOptions.PreferIPv6.html" class="ident">PreferIPv6</a> <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-197"><code>}</code></span>
+<span class="codeline" id="line-198"><code></code></span>
+<span class="codeline" id="line-199"><code><span class="keyword">func</span> (<label for="r67" class="ident">m</label> *<a href="#line-182" class="ident">PlainOptions</a>) <label for="r68" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/dcs..PlainOptions.setDefaults^984b0.html" class="ident">setDefaults</a></label>() {</code></span>
+<span class="codeline" id="line-200"><code>	<span class="keyword">if</span> <label for="r67" class="ident">m</label>.<a href="#line-184" class="ident">Protocol</a> == <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-201"><code>		<label for="r67" class="ident">m</label>.<a href="#line-184" class="ident">Protocol</a> = <a href="../../../../../../pkg/github.com/gotd/td/transport.html" class="ident i11">transport</a>.<a href="../../transport/protocol.go.html#line-39" class="ident">Intermediate</a></code></span>
+<span class="codeline" id="line-202"><code>	}</code></span>
+<span class="codeline" id="line-203"><code>	<span class="keyword">if</span> <label for="r67" class="ident">m</label>.<a href="#line-187" class="ident">Dial</a> == <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-204"><code>		<span class="keyword">var</span> <label for="r69" class="ident">d</label> <a href="../../../../../../pkg/net.html" class="ident i2">net</a>.<a href="../../../../../net/dial.go.html#line-27" class="ident">Dialer</a></code></span>
+<span class="codeline" id="line-205"><code>		<label for="r67" class="ident">m</label>.<a href="#line-187" class="ident">Dial</a> = <label for="r69" class="ident">d</label>.<a href="../../../../../net/dial.go.html#line-376" class="ident">DialContext</a></code></span>
+<span class="codeline" id="line-206"><code>	}</code></span>
+<span class="codeline" id="line-207"><code>	<span class="keyword">if</span> <label for="r67" class="ident">m</label>.<a href="#line-189" class="ident">Rand</a> == <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-208"><code>		<label for="r67" class="ident">m</label>.<a href="#line-189" class="ident">Rand</a> = <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i6">crypto</a>.<a href="../../internal/crypto/rand_notjs.go.html#line-12" class="ident">DefaultRand</a>()</code></span>
+<span class="codeline" id="line-209"><code>	}</code></span>
+<span class="codeline" id="line-210"><code>	<span class="keyword">if</span> <label for="r67" class="ident">m</label>.<a href="#line-191" class="ident">Network</a> == <span class="lit-string">""</span> {</code></span>
+<span class="codeline" id="line-211"><code>		<label for="r67" class="ident">m</label>.<a href="#line-191" class="ident">Network</a> = <span class="lit-string">"tcp"</span></code></span>
+<span class="codeline" id="line-212"><code>	}</code></span>
+<span class="codeline" id="line-213"><code>}</code></span>
+<span class="codeline" id="line-214"><code></code></span>
+<span class="codeline" id="line-215"><code><span class="comment">// Plain creates plain DC resolver.</span></code></span>
+<span class="codeline" id="line-216"><code><span class="keyword">func</span> <label for="r70" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/telegram/dcs.html#name-Plain" class="ident">Plain</a></label>(<label for="r71" class="ident">opts</label> <a href="#line-182" class="ident">PlainOptions</a>) <a href="resolver.go.html#line-13" class="ident">Resolver</a> {</code></span>
+<span class="codeline" id="line-217"><code>	<label for="r71" class="ident">opts</label>.<a href="#line-199" class="ident">setDefaults</a>()</code></span>
+<span class="codeline" id="line-218"><code>	<span class="keyword">return</span> <a href="#line-22" class="ident">plain</a>{</code></span>
+<span class="codeline" id="line-219"><code>		<a href="#line-23" class="ident">dial</a>:         <label for="r71" class="ident">opts</label>.<a href="#line-187" class="ident">Dial</a>,</code></span>
+<span class="codeline" id="line-220"><code>		<a href="#line-24" class="ident">protocol</a>:     <label for="r71" class="ident">opts</label>.<a href="#line-184" class="ident">Protocol</a>,</code></span>
+<span class="codeline" id="line-221"><code>		<a href="#line-25" class="ident">rand</a>:         <label for="r71" class="ident">opts</label>.<a href="#line-189" class="ident">Rand</a>,</code></span>
+<span class="codeline" id="line-222"><code>		<a href="#line-26" class="ident">network</a>:      <label for="r71" class="ident">opts</label>.<a href="#line-191" class="ident">Network</a>,</code></span>
+<span class="codeline" id="line-223"><code>		<a href="#line-27" class="ident">noObfuscated</a>: <label for="r71" class="ident">opts</label>.<a href="#line-193" class="ident">NoObfuscated</a>,</code></span>
+<span class="codeline" id="line-224"><code>		<a href="#line-28" class="ident">preferIPv6</a>:   <label for="r71" class="ident">opts</label>.<a href="#line-196" class="ident">PreferIPv6</a>,</code></span>
+<span class="codeline" id="line-225"><code>	}</code></span>
+<span class="codeline" id="line-226"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

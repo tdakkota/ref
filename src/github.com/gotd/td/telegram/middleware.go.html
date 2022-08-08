@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: middleware.go in package github.com/gotd/td/telegram</title>
-<link href="../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -69,27 +69,34 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-17"><code></code></span>
 <span class="codeline" id="line-18"><code><span class="comment">// Middleware returns new InvokeFunc for next invoker.</span></code></span>
 <span class="codeline" id="line-19"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-Middleware" class="ident">Middleware</a> <span class="keyword">interface</span> {</code></span>
-<span class="codeline" id="line-20"><code>	<a href="../../../../../imp/github.com/gotd/td/telegram.Middleware.html#name-Handle" class="ident">Handle</a>(next <a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../tg/tl_client_gen.go.html#line-33" class="ident">Invoker</a>) <a href="#line-11" class="ident">InvokeFunc</a></code></span>
+<span class="codeline" id="line-20"><code>	<a href="../../../../../imp/github.com/gotd/td/telegram.Middleware.html#name-Handle" class="ident">Handle</a>(next <a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../tg/tl_client_gen.go.html#line-35" class="ident">Invoker</a>) <a href="#line-11" class="ident">InvokeFunc</a></code></span>
 <span class="codeline" id="line-21"><code>}</code></span>
 <span class="codeline" id="line-22"><code></code></span>
 <span class="codeline" id="line-23"><code><span class="comment">// MiddlewareFunc implements Middleware as function.</span></code></span>
-<span class="codeline" id="line-24"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-MiddlewareFunc" class="ident">MiddlewareFunc</a> <span class="keyword">func</span>(next <a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../tg/tl_client_gen.go.html#line-33" class="ident">Invoker</a>) <a href="#line-11" class="ident">InvokeFunc</a></code></span>
+<span class="codeline" id="line-24"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-MiddlewareFunc" class="ident">MiddlewareFunc</a> <span class="keyword">func</span>(next <a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../tg/tl_client_gen.go.html#line-35" class="ident">Invoker</a>) <a href="#line-11" class="ident">InvokeFunc</a></code></span>
 <span class="codeline" id="line-25"><code></code></span>
 <span class="codeline" id="line-26"><code><span class="comment">// Handle implements Middleware.</span></code></span>
-<span class="codeline" id="line-27"><code><span class="keyword">func</span> (<label for="r5" class="ident">m</label> <a href="#line-24" class="ident">MiddlewareFunc</a>) <label for="r6" class="ident"><a href="../../../../../use/github.com/gotd/td/telegram..MiddlewareFunc.Handle.html" class="ident">Handle</a></label>(<label for="r7" class="ident">next</label> <a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../tg/tl_client_gen.go.html#line-33" class="ident">Invoker</a>) <a href="#line-11" class="ident">InvokeFunc</a> { <span class="keyword">return</span> <label for="r5" class="ident">m</label>(<label for="r7" class="ident">next</label>) }</code></span>
+<span class="codeline" id="line-27"><code><span class="keyword">func</span> (<label for="r5" class="ident">m</label> <a href="#line-24" class="ident">MiddlewareFunc</a>) <label for="r6" class="ident"><a href="../../../../../use/github.com/gotd/td/telegram..MiddlewareFunc.Handle.html" class="ident">Handle</a></label>(<label for="r7" class="ident">next</label> <a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../tg/tl_client_gen.go.html#line-35" class="ident">Invoker</a>) <a href="#line-11" class="ident">InvokeFunc</a> { <span class="keyword">return</span> <label for="r5" class="ident">m</label>(<label for="r7" class="ident">next</label>) }</code></span>
 <span class="codeline" id="line-28"><code></code></span>
-<span class="codeline" id="line-29"><code><span class="keyword">func</span> <label for="r8" class="ident"><a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-chainMiddlewares" class="ident">chainMiddlewares</a></label>(<label for="r9" class="ident">invoker</label> <a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../tg/tl_client_gen.go.html#line-33" class="ident">Invoker</a>, <label for="r10" class="ident">chain</label> ...<a href="#line-19" class="ident">Middleware</a>) <a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../tg/tl_client_gen.go.html#line-33" class="ident">Invoker</a> {</code></span>
-<span class="codeline" id="line-30"><code>	<span class="keyword">if</span> <a href="../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r10" class="ident">chain</label>) == <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-31"><code>		<span class="keyword">return</span> <label for="r9" class="ident">invoker</label></code></span>
-<span class="codeline" id="line-32"><code>	}</code></span>
-<span class="codeline" id="line-33"><code>	<span class="keyword">for</span> <label for="r11" class="ident">i</label> := <a href="../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r10" class="ident">chain</label>) - <span class="lit-number">1</span>; <label for="r11" class="ident">i</label> &gt;= <span class="lit-number">0</span>; <label for="r11" class="ident">i</label>-- {</code></span>
-<span class="codeline" id="line-34"><code>		<label for="r9" class="ident">invoker</label> = <label for="r10" class="ident">chain</label>[<label for="r11" class="ident">i</label>].<a href="#line-20" class="ident">Handle</a>(<label for="r9" class="ident">invoker</label>)</code></span>
-<span class="codeline" id="line-35"><code>	}</code></span>
-<span class="codeline" id="line-36"><code>	<span class="keyword">return</span> <label for="r9" class="ident">invoker</label></code></span>
-<span class="codeline" id="line-37"><code>}</code></span>
+<span class="codeline" id="line-29"><code><span class="comment">// chainMiddlewares composes new invoker in such order that first element in</span></code></span>
+<span class="codeline" id="line-30"><code><span class="comment">// chain is called first, and latest "next" argument will be "invoker".</span></code></span>
+<span class="codeline" id="line-31"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-32"><code><span class="comment">// E.g. we have invoker and two middlewares, so order will be following:</span></code></span>
+<span class="codeline" id="line-33"><code><span class="comment">// 0, 1, (invoker), 1 (after "next"), 0 (after "next").</span></code></span>
+<span class="codeline" id="line-34"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-35"><code><span class="comment">// See TestMiddlewareOrder or ExampleMiddleware.</span></code></span>
+<span class="codeline" id="line-36"><code><span class="keyword">func</span> <label for="r8" class="ident"><a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-chainMiddlewares" class="ident">chainMiddlewares</a></label>(<label for="r9" class="ident">invoker</label> <a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../tg/tl_client_gen.go.html#line-35" class="ident">Invoker</a>, <label for="r10" class="ident">chain</label> ...<a href="#line-19" class="ident">Middleware</a>) <a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../tg/tl_client_gen.go.html#line-35" class="ident">Invoker</a> {</code></span>
+<span class="codeline" id="line-37"><code>	<span class="keyword">if</span> <a href="../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r10" class="ident">chain</label>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-38"><code>		<span class="keyword">return</span> <label for="r9" class="ident">invoker</label></code></span>
+<span class="codeline" id="line-39"><code>	}</code></span>
+<span class="codeline" id="line-40"><code>	<span class="keyword">for</span> <label for="r11" class="ident">i</label> := <a href="../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r10" class="ident">chain</label>) - <span class="lit-number">1</span>; <label for="r11" class="ident">i</label> &gt;= <span class="lit-number">0</span>; <label for="r11" class="ident">i</label>-- {</code></span>
+<span class="codeline" id="line-41"><code>		<label for="r9" class="ident">invoker</label> = <label for="r10" class="ident">chain</label>[<label for="r11" class="ident">i</label>].<a href="#line-20" class="ident">Handle</a>(<label for="r9" class="ident">invoker</label>)</code></span>
+<span class="codeline" id="line-42"><code>	}</code></span>
+<span class="codeline" id="line-43"><code>	<span class="keyword">return</span> <label for="r9" class="ident">invoker</label></code></span>
+<span class="codeline" id="line-44"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

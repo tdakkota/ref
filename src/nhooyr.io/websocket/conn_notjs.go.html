@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: conn_notjs.go in package nhooyr.io/websocket</title>
-<link href="../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -141,12 +141,12 @@ input[id=i8]:checked ~pre .i8
 <span class="codeline" id="line-27"><code><span class="comment">// with an appropriate reason.</span></code></span>
 <span class="codeline" id="line-28"><code><span class="keyword">type</span> <a href="../../../pkg/nhooyr.io/websocket.html#name-Conn" class="ident">Conn</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-29"><code>	<a href="../../../use/nhooyr.io/websocket..Conn.subprotocol^01a49.html" class="ident">subprotocol</a>    <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
-<span class="codeline" id="line-30"><code>	<a href="../../../use/nhooyr.io/websocket..Conn.rwc^4dc3c.html" class="ident">rwc</a>            <a href="../../../pkg/io.html" class="ident i4">io</a>.<a href="../../io/io.go.html#line-144" class="ident">ReadWriteCloser</a></code></span>
+<span class="codeline" id="line-30"><code>	<a href="../../../use/nhooyr.io/websocket..Conn.rwc^4dc3c.html" class="ident">rwc</a>            <a href="../../../pkg/io.html" class="ident i4">io</a>.<a href="../../io/io.go.html#line-146" class="ident">ReadWriteCloser</a></code></span>
 <span class="codeline" id="line-31"><code>	<a href="../../../use/nhooyr.io/websocket..Conn.client^948fe.html" class="ident">client</a>         <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
 <span class="codeline" id="line-32"><code>	<a href="../../../use/nhooyr.io/websocket..Conn.copts^2e312.html" class="ident">copts</a>          *<a href="compress_notjs.go.html#line-20" class="ident">compressionOptions</a></code></span>
 <span class="codeline" id="line-33"><code>	<a href="../../../use/nhooyr.io/websocket..Conn.flateThreshold^802b3.html" class="ident">flateThreshold</a> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
 <span class="codeline" id="line-34"><code>	<a href="../../../use/nhooyr.io/websocket..Conn.br^88503.html" class="ident">br</a>             *<a href="../../../pkg/bufio.html" class="ident i0">bufio</a>.<a href="../../bufio/bufio.go.html#line-32" class="ident">Reader</a></code></span>
-<span class="codeline" id="line-35"><code>	<a href="../../../use/nhooyr.io/websocket..Conn.bw^ab02e.html" class="ident">bw</a>             *<a href="../../../pkg/bufio.html" class="ident i0">bufio</a>.<a href="../../bufio/bufio.go.html#line-558" class="ident">Writer</a></code></span>
+<span class="codeline" id="line-35"><code>	<a href="../../../use/nhooyr.io/websocket..Conn.bw^ab02e.html" class="ident">bw</a>             *<a href="../../../pkg/bufio.html" class="ident i0">bufio</a>.<a href="../../bufio/bufio.go.html#line-573" class="ident">Writer</a></code></span>
 <span class="codeline" id="line-36"><code></code></span>
 <span class="codeline" id="line-37"><code>	<a href="../../../use/nhooyr.io/websocket..Conn.readTimeout^c9ebe.html" class="ident">readTimeout</a>  <span class="keyword">chan</span> <a href="../../../pkg/context.html" class="ident i1">context</a>.<a href="../../context/context.go.html#line-62" class="ident">Context</a></code></span>
 <span class="codeline" id="line-38"><code>	<a href="../../../use/nhooyr.io/websocket..Conn.writeTimeout^94b8f.html" class="ident">writeTimeout</a> <span class="keyword">chan</span> <a href="../../../pkg/context.html" class="ident i1">context</a>.<a href="../../context/context.go.html#line-62" class="ident">Context</a></code></span>
@@ -166,24 +166,24 @@ input[id=i8]:checked ~pre .i8
 <span class="codeline" id="line-52"><code>	<a href="../../../use/nhooyr.io/websocket..Conn.writeHeader^0454f.html" class="ident">writeHeader</a>    <a href="frame.go.html#line-36" class="ident">header</a></code></span>
 <span class="codeline" id="line-53"><code></code></span>
 <span class="codeline" id="line-54"><code>	<a href="../../../use/nhooyr.io/websocket..Conn.closed^c3eef.html" class="ident">closed</a>     <span class="keyword">chan</span> <span class="keyword">struct</span>{}</code></span>
-<span class="codeline" id="line-55"><code>	<a href="../../../use/nhooyr.io/websocket..Conn.closeMu^ea097.html" class="ident">closeMu</a>    <a href="../../../pkg/sync.html" class="ident i7">sync</a>.<a href="../../sync/mutex.go.html#line-25" class="ident">Mutex</a></code></span>
+<span class="codeline" id="line-55"><code>	<a href="../../../use/nhooyr.io/websocket..Conn.closeMu^ea097.html" class="ident">closeMu</a>    <a href="../../../pkg/sync.html" class="ident i7">sync</a>.<a href="../../sync/mutex.go.html#line-34" class="ident">Mutex</a></code></span>
 <span class="codeline" id="line-56"><code>	<a href="../../../use/nhooyr.io/websocket..Conn.closeErr^5a278.html" class="ident">closeErr</a>   <a href="../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
 <span class="codeline" id="line-57"><code>	<a href="../../../use/nhooyr.io/websocket..Conn.wroteClose^1efaf.html" class="ident">wroteClose</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
 <span class="codeline" id="line-58"><code></code></span>
 <span class="codeline" id="line-59"><code>	<a href="../../../use/nhooyr.io/websocket..Conn.pingCounter^0b6c4.html" class="ident">pingCounter</a>   <a href="../../../pkg/builtin.html#name-int32" class="ident">int32</a></code></span>
-<span class="codeline" id="line-60"><code>	<a href="../../../use/nhooyr.io/websocket..Conn.activePingsMu^9b8f3.html" class="ident">activePingsMu</a> <a href="../../../pkg/sync.html" class="ident i7">sync</a>.<a href="../../sync/mutex.go.html#line-25" class="ident">Mutex</a></code></span>
+<span class="codeline" id="line-60"><code>	<a href="../../../use/nhooyr.io/websocket..Conn.activePingsMu^9b8f3.html" class="ident">activePingsMu</a> <a href="../../../pkg/sync.html" class="ident i7">sync</a>.<a href="../../sync/mutex.go.html#line-34" class="ident">Mutex</a></code></span>
 <span class="codeline" id="line-61"><code>	<a href="../../../use/nhooyr.io/websocket..Conn.activePings^9cbf2.html" class="ident">activePings</a>   <span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>]<span class="keyword">chan</span>&lt;- <span class="keyword">struct</span>{}</code></span>
 <span class="codeline" id="line-62"><code>}</code></span>
 <span class="codeline" id="line-63"><code></code></span>
 <span class="codeline" id="line-64"><code><span class="keyword">type</span> <a href="../../../pkg/nhooyr.io/websocket.html#name-connConfig" class="ident">connConfig</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-65"><code>	<a href="../../../use/nhooyr.io/websocket..connConfig^ff741.subprotocol^01a49.html" class="ident">subprotocol</a>    <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
-<span class="codeline" id="line-66"><code>	<a href="../../../use/nhooyr.io/websocket..connConfig^ff741.rwc^4dc3c.html" class="ident">rwc</a>            <a href="../../../pkg/io.html" class="ident i4">io</a>.<a href="../../io/io.go.html#line-144" class="ident">ReadWriteCloser</a></code></span>
+<span class="codeline" id="line-66"><code>	<a href="../../../use/nhooyr.io/websocket..connConfig^ff741.rwc^4dc3c.html" class="ident">rwc</a>            <a href="../../../pkg/io.html" class="ident i4">io</a>.<a href="../../io/io.go.html#line-146" class="ident">ReadWriteCloser</a></code></span>
 <span class="codeline" id="line-67"><code>	<a href="../../../use/nhooyr.io/websocket..connConfig^ff741.client^948fe.html" class="ident">client</a>         <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
 <span class="codeline" id="line-68"><code>	<a href="../../../use/nhooyr.io/websocket..connConfig^ff741.copts^2e312.html" class="ident">copts</a>          *<a href="compress_notjs.go.html#line-20" class="ident">compressionOptions</a></code></span>
 <span class="codeline" id="line-69"><code>	<a href="../../../use/nhooyr.io/websocket..connConfig^ff741.flateThreshold^802b3.html" class="ident">flateThreshold</a> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
 <span class="codeline" id="line-70"><code></code></span>
 <span class="codeline" id="line-71"><code>	<a href="../../../use/nhooyr.io/websocket..connConfig^ff741.br^88503.html" class="ident">br</a> *<a href="../../../pkg/bufio.html" class="ident i0">bufio</a>.<a href="../../bufio/bufio.go.html#line-32" class="ident">Reader</a></code></span>
-<span class="codeline" id="line-72"><code>	<a href="../../../use/nhooyr.io/websocket..connConfig^ff741.bw^ab02e.html" class="ident">bw</a> *<a href="../../../pkg/bufio.html" class="ident i0">bufio</a>.<a href="../../bufio/bufio.go.html#line-558" class="ident">Writer</a></code></span>
+<span class="codeline" id="line-72"><code>	<a href="../../../use/nhooyr.io/websocket..connConfig^ff741.bw^ab02e.html" class="ident">bw</a> *<a href="../../../pkg/bufio.html" class="ident i0">bufio</a>.<a href="../../bufio/bufio.go.html#line-573" class="ident">Writer</a></code></span>
 <span class="codeline" id="line-73"><code>}</code></span>
 <span class="codeline" id="line-74"><code></code></span>
 <span class="codeline" id="line-75"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../pkg/nhooyr.io/websocket.html#name-newConn" class="ident">newConn</a></label>(<label for="r1" class="ident">cfg</label> <a href="#line-64" class="ident">connConfig</a>) *<a href="#line-28" class="ident">Conn</a> {</code></span>
@@ -197,10 +197,10 @@ input[id=i8]:checked ~pre .i8
 <span class="codeline" id="line-83"><code>		<a href="#line-34" class="ident">br</a>: <label for="r1" class="ident">cfg</label>.<a href="#line-71" class="ident">br</a>,</code></span>
 <span class="codeline" id="line-84"><code>		<a href="#line-35" class="ident">bw</a>: <label for="r1" class="ident">cfg</label>.<a href="#line-72" class="ident">bw</a>,</code></span>
 <span class="codeline" id="line-85"><code></code></span>
-<span class="codeline" id="line-86"><code>		<a href="#line-37" class="ident">readTimeout</a>:  <a href="../../runtime/chan.go.html#line-71">make</a>(<span class="keyword">chan</span> <a href="../../../pkg/context.html" class="ident i1">context</a>.<a href="../../context/context.go.html#line-62" class="ident">Context</a>),</code></span>
-<span class="codeline" id="line-87"><code>		<a href="#line-38" class="ident">writeTimeout</a>: <a href="../../runtime/chan.go.html#line-71">make</a>(<span class="keyword">chan</span> <a href="../../../pkg/context.html" class="ident i1">context</a>.<a href="../../context/context.go.html#line-62" class="ident">Context</a>),</code></span>
+<span class="codeline" id="line-86"><code>		<a href="#line-37" class="ident">readTimeout</a>:  <a href="../../runtime/chan.go.html#line-72">make</a>(<span class="keyword">chan</span> <a href="../../../pkg/context.html" class="ident i1">context</a>.<a href="../../context/context.go.html#line-62" class="ident">Context</a>),</code></span>
+<span class="codeline" id="line-87"><code>		<a href="#line-38" class="ident">writeTimeout</a>: <a href="../../runtime/chan.go.html#line-72">make</a>(<span class="keyword">chan</span> <a href="../../../pkg/context.html" class="ident i1">context</a>.<a href="../../context/context.go.html#line-62" class="ident">Context</a>),</code></span>
 <span class="codeline" id="line-88"><code></code></span>
-<span class="codeline" id="line-89"><code>		<a href="#line-54" class="ident">closed</a>:      <a href="../../runtime/chan.go.html#line-71">make</a>(<span class="keyword">chan</span> <span class="keyword">struct</span>{}),</code></span>
+<span class="codeline" id="line-89"><code>		<a href="#line-54" class="ident">closed</a>:      <a href="../../runtime/chan.go.html#line-72">make</a>(<span class="keyword">chan</span> <span class="keyword">struct</span>{}),</code></span>
 <span class="codeline" id="line-90"><code>		<a href="#line-61" class="ident">activePings</a>: <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>(<span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>]<span class="keyword">chan</span>&lt;- <span class="keyword">struct</span>{}),</code></span>
 <span class="codeline" id="line-91"><code>	}</code></span>
 <span class="codeline" id="line-92"><code></code></span>
@@ -221,7 +221,7 @@ input[id=i8]:checked ~pre .i8
 <span class="codeline" id="line-107"><code>		}</code></span>
 <span class="codeline" id="line-108"><code>	}</code></span>
 <span class="codeline" id="line-109"><code></code></span>
-<span class="codeline" id="line-110"><code>	<a href="../../../pkg/runtime.html" class="ident i5">runtime</a>.<a href="../../runtime/mfinal.go.html#line-326" class="ident">SetFinalizer</a>(<label for="r2" class="ident">c</label>, <span class="keyword">func</span>(<label for="r3" class="ident">c</label> *<a href="#line-28" class="ident">Conn</a>) {</code></span>
+<span class="codeline" id="line-110"><code>	<a href="../../../pkg/runtime.html" class="ident i5">runtime</a>.<a href="../../runtime/mfinal.go.html#line-341" class="ident">SetFinalizer</a>(<label for="r2" class="ident">c</label>, <span class="keyword">func</span>(<label for="r3" class="ident">c</label> *<a href="#line-28" class="ident">Conn</a>) {</code></span>
 <span class="codeline" id="line-111"><code>		<label for="r3" class="ident">c</label>.<a href="#line-125" class="ident">close</a>(<a href="../../../pkg/errors.html" class="ident i2">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"connection garbage collected"</span>))</code></span>
 <span class="codeline" id="line-112"><code>	})</code></span>
 <span class="codeline" id="line-113"><code></code></span>
@@ -237,15 +237,15 @@ input[id=i8]:checked ~pre .i8
 <span class="codeline" id="line-123"><code>}</code></span>
 <span class="codeline" id="line-124"><code></code></span>
 <span class="codeline" id="line-125"><code><span class="keyword">func</span> (<label for="r6" class="ident">c</label> *<a href="#line-28" class="ident">Conn</a>) <label for="r7" class="ident"><a href="../../../use/nhooyr.io/websocket..Conn.close^310ff.html" class="ident">close</a></label>(<label for="r8" class="ident">err</label> <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-126"><code>	<label for="r6" class="ident">c</label>.<a href="#line-55" class="ident">closeMu</a>.<a href="../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
-<span class="codeline" id="line-127"><code>	<span class="keyword">defer</span> <label for="r6" class="ident">c</label>.<a href="#line-55" class="ident">closeMu</a>.<a href="../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-126"><code>	<label for="r6" class="ident">c</label>.<a href="#line-55" class="ident">closeMu</a>.<a href="../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-127"><code>	<span class="keyword">defer</span> <label for="r6" class="ident">c</label>.<a href="#line-55" class="ident">closeMu</a>.<a href="../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-128"><code></code></span>
 <span class="codeline" id="line-129"><code>	<span class="keyword">if</span> <label for="r6" class="ident">c</label>.<a href="close_notjs.go.html#line-204" class="ident">isClosed</a>() {</code></span>
 <span class="codeline" id="line-130"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-131"><code>	}</code></span>
 <span class="codeline" id="line-132"><code>	<label for="r6" class="ident">c</label>.<a href="close_notjs.go.html#line-198" class="ident">setCloseErrLocked</a>(<label for="r8" class="ident">err</label>)</code></span>
 <span class="codeline" id="line-133"><code>	<a href="../../../pkg/builtin.html#name-close" class="ident">close</a>(<label for="r6" class="ident">c</label>.<a href="#line-54" class="ident">closed</a>)</code></span>
-<span class="codeline" id="line-134"><code>	<a href="../../../pkg/runtime.html" class="ident i5">runtime</a>.<a href="../../runtime/mfinal.go.html#line-326" class="ident">SetFinalizer</a>(<label for="r6" class="ident">c</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-134"><code>	<a href="../../../pkg/runtime.html" class="ident i5">runtime</a>.<a href="../../runtime/mfinal.go.html#line-341" class="ident">SetFinalizer</a>(<label for="r6" class="ident">c</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
 <span class="codeline" id="line-135"><code></code></span>
 <span class="codeline" id="line-136"><code>	<span class="comment">// Have to close after c.closed is closed to ensure any goroutine that wakes up</span></code></span>
 <span class="codeline" id="line-137"><code><span class="comment">	// from the connection being closed also sees that c.closed is closed and returns</span></code></span>
@@ -264,17 +264,17 @@ input[id=i8]:checked ~pre .i8
 <span class="codeline" id="line-150"><code>	<label for="r12" class="ident">writeCtx</label> := <a href="../../../pkg/context.html" class="ident i1">context</a>.<a href="../../context/context.go.html#line-208" class="ident">Background</a>()</code></span>
 <span class="codeline" id="line-151"><code></code></span>
 <span class="codeline" id="line-152"><code>	<span class="keyword">for</span> {</code></span>
-<span class="codeline" id="line-153"><code>		<a href="../../runtime/select.go.html#line-121"><span class="keyword">select</span></a> {</code></span>
-<span class="codeline" id="line-154"><code>		<span class="keyword">case</span> <a href="../../runtime/chan.go.html#line-438">&lt;-</a><label for="r9" class="ident">c</label>.<a href="#line-54" class="ident">closed</a>:</code></span>
+<span class="codeline" id="line-153"><code>		<a href="../../runtime/select.go.html#line-122"><span class="keyword">select</span></a> {</code></span>
+<span class="codeline" id="line-154"><code>		<span class="keyword">case</span> <a href="../../runtime/chan.go.html#line-441">&lt;-</a><label for="r9" class="ident">c</label>.<a href="#line-54" class="ident">closed</a>:</code></span>
 <span class="codeline" id="line-155"><code>			<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-156"><code></code></span>
-<span class="codeline" id="line-157"><code>		<span class="keyword">case</span> <label for="r12" class="ident">writeCtx</label> = <a href="../../runtime/chan.go.html#line-438">&lt;-</a><label for="r9" class="ident">c</label>.<a href="#line-38" class="ident">writeTimeout</a>:</code></span>
-<span class="codeline" id="line-158"><code>		<span class="keyword">case</span> <label for="r11" class="ident">readCtx</label> = <a href="../../runtime/chan.go.html#line-438">&lt;-</a><label for="r9" class="ident">c</label>.<a href="#line-37" class="ident">readTimeout</a>:</code></span>
+<span class="codeline" id="line-157"><code>		<span class="keyword">case</span> <label for="r12" class="ident">writeCtx</label> = <a href="../../runtime/chan.go.html#line-441">&lt;-</a><label for="r9" class="ident">c</label>.<a href="#line-38" class="ident">writeTimeout</a>:</code></span>
+<span class="codeline" id="line-158"><code>		<span class="keyword">case</span> <label for="r11" class="ident">readCtx</label> = <a href="../../runtime/chan.go.html#line-441">&lt;-</a><label for="r9" class="ident">c</label>.<a href="#line-37" class="ident">readTimeout</a>:</code></span>
 <span class="codeline" id="line-159"><code></code></span>
-<span class="codeline" id="line-160"><code>		<span class="keyword">case</span> <a href="../../runtime/chan.go.html#line-438">&lt;-</a><label for="r11" class="ident">readCtx</label>.<a href="../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
+<span class="codeline" id="line-160"><code>		<span class="keyword">case</span> <a href="../../runtime/chan.go.html#line-441">&lt;-</a><label for="r11" class="ident">readCtx</label>.<a href="../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
 <span class="codeline" id="line-161"><code>			<label for="r9" class="ident">c</label>.<a href="close_notjs.go.html#line-192" class="ident">setCloseErr</a>(<a href="../../../pkg/fmt.html" class="ident i3">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"read timed out: %w"</span>, <label for="r11" class="ident">readCtx</label>.<a href="../../context/context.go.html#line-106" class="ident">Err</a>()))</code></span>
 <span class="codeline" id="line-162"><code>			<span class="keyword">go</span> <label for="r9" class="ident">c</label>.<a href="write.go.html#line-393" class="ident">writeError</a>(<a href="close.go.html#line-39" class="ident">StatusPolicyViolation</a>, <a href="../../../pkg/errors.html" class="ident i2">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"timed out"</span>))</code></span>
-<span class="codeline" id="line-163"><code>		<span class="keyword">case</span> <a href="../../runtime/chan.go.html#line-438">&lt;-</a><label for="r12" class="ident">writeCtx</label>.<a href="../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
+<span class="codeline" id="line-163"><code>		<span class="keyword">case</span> <a href="../../runtime/chan.go.html#line-441">&lt;-</a><label for="r12" class="ident">writeCtx</label>.<a href="../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
 <span class="codeline" id="line-164"><code>			<label for="r9" class="ident">c</label>.<a href="#line-125" class="ident">close</a>(<a href="../../../pkg/fmt.html" class="ident i3">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"write timed out: %w"</span>, <label for="r12" class="ident">writeCtx</label>.<a href="../../context/context.go.html#line-106" class="ident">Err</a>()))</code></span>
 <span class="codeline" id="line-165"><code>			<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-166"><code>		}</code></span>
@@ -293,7 +293,7 @@ input[id=i8]:checked ~pre .i8
 <span class="codeline" id="line-179"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-180"><code><span class="comment">// TCP Keepalives should suffice for most use cases.</span></code></span>
 <span class="codeline" id="line-181"><code><span class="keyword">func</span> (<label for="r15" class="ident">c</label> *<a href="#line-28" class="ident">Conn</a>) <label for="r16" class="ident"><a href="../../../use/nhooyr.io/websocket..Conn.Ping.html" class="ident">Ping</a></label>(<label for="r17" class="ident">ctx</label> <a href="../../../pkg/context.html" class="ident i1">context</a>.<a href="../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-182"><code>	<label for="r18" class="ident">p</label> := <a href="../../../pkg/sync/atomic.html" class="ident i8">atomic</a>.<a href="../../sync/atomic/doc.go.html#line-92" class="ident">AddInt32</a>(&amp;<label for="r15" class="ident">c</label>.<a href="#line-59" class="ident">pingCounter</a>, <span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-182"><code>	<label for="r18" class="ident">p</label> := <a href="../../../pkg/sync/atomic.html" class="ident i8">atomic</a>.<a href="../../sync/atomic/doc.go.html#line-101" class="ident">AddInt32</a>(&amp;<label for="r15" class="ident">c</label>.<a href="#line-59" class="ident">pingCounter</a>, <span class="lit-number">1</span>)</code></span>
 <span class="codeline" id="line-183"><code></code></span>
 <span class="codeline" id="line-184"><code>	<label for="r19" class="ident">err</label> := <label for="r15" class="ident">c</label>.<a href="#line-191" class="ident">ping</a>(<label for="r17" class="ident">ctx</label>, <a href="../../../pkg/strconv.html" class="ident i6">strconv</a>.<a href="../../strconv/itoa.go.html#line-34" class="ident">Itoa</a>(<a href="../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r18" class="ident">p</label>)))</code></span>
 <span class="codeline" id="line-185"><code>	<span class="keyword">if</span> <label for="r19" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
@@ -303,16 +303,16 @@ input[id=i8]:checked ~pre .i8
 <span class="codeline" id="line-189"><code>}</code></span>
 <span class="codeline" id="line-190"><code></code></span>
 <span class="codeline" id="line-191"><code><span class="keyword">func</span> (<label for="r20" class="ident">c</label> *<a href="#line-28" class="ident">Conn</a>) <label for="r21" class="ident"><a href="../../../use/nhooyr.io/websocket..Conn.ping^758d6.html" class="ident">ping</a></label>(<label for="r22" class="ident">ctx</label> <a href="../../../pkg/context.html" class="ident i1">context</a>.<a href="../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r23" class="ident">p</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-192"><code>	<label for="r24" class="ident">pong</label> := <a href="../../runtime/chan.go.html#line-71">make</a>(<span class="keyword">chan</span> <span class="keyword">struct</span>{}, <span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-192"><code>	<label for="r24" class="ident">pong</label> := <a href="../../runtime/chan.go.html#line-72">make</a>(<span class="keyword">chan</span> <span class="keyword">struct</span>{}, <span class="lit-number">1</span>)</code></span>
 <span class="codeline" id="line-193"><code></code></span>
-<span class="codeline" id="line-194"><code>	<label for="r20" class="ident">c</label>.<a href="#line-60" class="ident">activePingsMu</a>.<a href="../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-194"><code>	<label for="r20" class="ident">c</label>.<a href="#line-60" class="ident">activePingsMu</a>.<a href="../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
 <span class="codeline" id="line-195"><code>	<label for="r20" class="ident">c</label>.<a href="#line-61" class="ident">activePings</a>[<label for="r23" class="ident">p</label>] = <label for="r24" class="ident">pong</label></code></span>
-<span class="codeline" id="line-196"><code>	<label for="r20" class="ident">c</label>.<a href="#line-60" class="ident">activePingsMu</a>.<a href="../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-196"><code>	<label for="r20" class="ident">c</label>.<a href="#line-60" class="ident">activePingsMu</a>.<a href="../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-197"><code></code></span>
 <span class="codeline" id="line-198"><code>	<span class="keyword">defer</span> <span class="keyword">func</span>() {</code></span>
-<span class="codeline" id="line-199"><code>		<label for="r20" class="ident">c</label>.<a href="#line-60" class="ident">activePingsMu</a>.<a href="../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-199"><code>		<label for="r20" class="ident">c</label>.<a href="#line-60" class="ident">activePingsMu</a>.<a href="../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
 <span class="codeline" id="line-200"><code>		<a href="../../../pkg/builtin.html#name-delete" class="ident">delete</a>(<label for="r20" class="ident">c</label>.<a href="#line-61" class="ident">activePings</a>, <label for="r23" class="ident">p</label>)</code></span>
-<span class="codeline" id="line-201"><code>		<label for="r20" class="ident">c</label>.<a href="#line-60" class="ident">activePingsMu</a>.<a href="../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-201"><code>		<label for="r20" class="ident">c</label>.<a href="#line-60" class="ident">activePingsMu</a>.<a href="../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-202"><code>	}()</code></span>
 <span class="codeline" id="line-203"><code></code></span>
 <span class="codeline" id="line-204"><code>	<label for="r25" class="ident">err</label> := <label for="r20" class="ident">c</label>.<a href="write.go.html#line-232" class="ident">writeControl</a>(<label for="r22" class="ident">ctx</label>, <a href="frame.go.html#line-29" class="ident">opPing</a>, []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>(<label for="r23" class="ident">p</label>))</code></span>
@@ -320,14 +320,14 @@ input[id=i8]:checked ~pre .i8
 <span class="codeline" id="line-206"><code>		<span class="keyword">return</span> <label for="r25" class="ident">err</label></code></span>
 <span class="codeline" id="line-207"><code>	}</code></span>
 <span class="codeline" id="line-208"><code></code></span>
-<span class="codeline" id="line-209"><code>	<a href="../../runtime/select.go.html#line-121"><span class="keyword">select</span></a> {</code></span>
-<span class="codeline" id="line-210"><code>	<span class="keyword">case</span> <a href="../../runtime/chan.go.html#line-438">&lt;-</a><label for="r20" class="ident">c</label>.<a href="#line-54" class="ident">closed</a>:</code></span>
+<span class="codeline" id="line-209"><code>	<a href="../../runtime/select.go.html#line-122"><span class="keyword">select</span></a> {</code></span>
+<span class="codeline" id="line-210"><code>	<span class="keyword">case</span> <a href="../../runtime/chan.go.html#line-441">&lt;-</a><label for="r20" class="ident">c</label>.<a href="#line-54" class="ident">closed</a>:</code></span>
 <span class="codeline" id="line-211"><code>		<span class="keyword">return</span> <label for="r20" class="ident">c</label>.<a href="#line-56" class="ident">closeErr</a></code></span>
-<span class="codeline" id="line-212"><code>	<span class="keyword">case</span> <a href="../../runtime/chan.go.html#line-438">&lt;-</a><label for="r22" class="ident">ctx</label>.<a href="../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
+<span class="codeline" id="line-212"><code>	<span class="keyword">case</span> <a href="../../runtime/chan.go.html#line-441">&lt;-</a><label for="r22" class="ident">ctx</label>.<a href="../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
 <span class="codeline" id="line-213"><code>		<label for="r26" class="ident">err</label> := <a href="../../../pkg/fmt.html" class="ident i3">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"failed to wait for pong: %w"</span>, <label for="r22" class="ident">ctx</label>.<a href="../../context/context.go.html#line-106" class="ident">Err</a>())</code></span>
 <span class="codeline" id="line-214"><code>		<label for="r20" class="ident">c</label>.<a href="#line-125" class="ident">close</a>(<label for="r26" class="ident">err</label>)</code></span>
 <span class="codeline" id="line-215"><code>		<span class="keyword">return</span> <label for="r26" class="ident">err</label></code></span>
-<span class="codeline" id="line-216"><code>	<span class="keyword">case</span> <a href="../../runtime/chan.go.html#line-438">&lt;-</a><label for="r24" class="ident">pong</label>:</code></span>
+<span class="codeline" id="line-216"><code>	<span class="keyword">case</span> <a href="../../runtime/chan.go.html#line-441">&lt;-</a><label for="r24" class="ident">pong</label>:</code></span>
 <span class="codeline" id="line-217"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-218"><code>	}</code></span>
 <span class="codeline" id="line-219"><code>}</code></span>
@@ -340,7 +340,7 @@ input[id=i8]:checked ~pre .i8
 <span class="codeline" id="line-226"><code><span class="keyword">func</span> <label for="r27" class="ident"><a href="../../../pkg/nhooyr.io/websocket.html#name-newMu" class="ident">newMu</a></label>(<label for="r28" class="ident">c</label> *<a href="#line-28" class="ident">Conn</a>) *<a href="#line-221" class="ident">mu</a> {</code></span>
 <span class="codeline" id="line-227"><code>	<span class="keyword">return</span> &amp;<a href="#line-221" class="ident">mu</a>{</code></span>
 <span class="codeline" id="line-228"><code>		<a href="#line-222" class="ident">c</a>:  <label for="r28" class="ident">c</label>,</code></span>
-<span class="codeline" id="line-229"><code>		<a href="#line-223" class="ident">ch</a>: <a href="../../runtime/chan.go.html#line-71">make</a>(<span class="keyword">chan</span> <span class="keyword">struct</span>{}, <span class="lit-number">1</span>),</code></span>
+<span class="codeline" id="line-229"><code>		<a href="#line-223" class="ident">ch</a>: <a href="../../runtime/chan.go.html#line-72">make</a>(<span class="keyword">chan</span> <span class="keyword">struct</span>{}, <span class="lit-number">1</span>),</code></span>
 <span class="codeline" id="line-230"><code>	}</code></span>
 <span class="codeline" id="line-231"><code>}</code></span>
 <span class="codeline" id="line-232"><code></code></span>
@@ -349,19 +349,19 @@ input[id=i8]:checked ~pre .i8
 <span class="codeline" id="line-235"><code>}</code></span>
 <span class="codeline" id="line-236"><code></code></span>
 <span class="codeline" id="line-237"><code><span class="keyword">func</span> (<label for="r31" class="ident">m</label> *<a href="#line-221" class="ident">mu</a>) <label for="r32" class="ident"><a href="../../../use/nhooyr.io/websocket..mu^19503.lock^0c030.html" class="ident">lock</a></label>(<label for="r33" class="ident">ctx</label> <a href="../../../pkg/context.html" class="ident i1">context</a>.<a href="../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-238"><code>	<a href="../../runtime/select.go.html#line-121"><span class="keyword">select</span></a> {</code></span>
-<span class="codeline" id="line-239"><code>	<span class="keyword">case</span> <a href="../../runtime/chan.go.html#line-438">&lt;-</a><label for="r31" class="ident">m</label>.<a href="#line-222" class="ident">c</a>.<a href="#line-54" class="ident">closed</a>:</code></span>
+<span class="codeline" id="line-238"><code>	<a href="../../runtime/select.go.html#line-122"><span class="keyword">select</span></a> {</code></span>
+<span class="codeline" id="line-239"><code>	<span class="keyword">case</span> <a href="../../runtime/chan.go.html#line-441">&lt;-</a><label for="r31" class="ident">m</label>.<a href="#line-222" class="ident">c</a>.<a href="#line-54" class="ident">closed</a>:</code></span>
 <span class="codeline" id="line-240"><code>		<span class="keyword">return</span> <label for="r31" class="ident">m</label>.<a href="#line-222" class="ident">c</a>.<a href="#line-56" class="ident">closeErr</a></code></span>
-<span class="codeline" id="line-241"><code>	<span class="keyword">case</span> <a href="../../runtime/chan.go.html#line-438">&lt;-</a><label for="r33" class="ident">ctx</label>.<a href="../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
+<span class="codeline" id="line-241"><code>	<span class="keyword">case</span> <a href="../../runtime/chan.go.html#line-441">&lt;-</a><label for="r33" class="ident">ctx</label>.<a href="../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
 <span class="codeline" id="line-242"><code>		<label for="r34" class="ident">err</label> := <a href="../../../pkg/fmt.html" class="ident i3">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"failed to acquire lock: %w"</span>, <label for="r33" class="ident">ctx</label>.<a href="../../context/context.go.html#line-106" class="ident">Err</a>())</code></span>
 <span class="codeline" id="line-243"><code>		<label for="r31" class="ident">m</label>.<a href="#line-222" class="ident">c</a>.<a href="#line-125" class="ident">close</a>(<label for="r34" class="ident">err</label>)</code></span>
 <span class="codeline" id="line-244"><code>		<span class="keyword">return</span> <label for="r34" class="ident">err</label></code></span>
-<span class="codeline" id="line-245"><code>	<span class="keyword">case</span> <label for="r31" class="ident">m</label>.<a href="#line-223" class="ident">ch</a> <a href="../../runtime/chan.go.html#line-158">&lt;-</a> <span class="keyword">struct</span>{}{}:</code></span>
+<span class="codeline" id="line-245"><code>	<span class="keyword">case</span> <label for="r31" class="ident">m</label>.<a href="#line-223" class="ident">ch</a> <a href="../../runtime/chan.go.html#line-160">&lt;-</a> <span class="keyword">struct</span>{}{}:</code></span>
 <span class="codeline" id="line-246"><code>		<span class="comment">// To make sure the connection is certainly alive.</span></code></span>
 <span class="codeline" id="line-247"><code><span class="comment">		// As it's possible the send on m.ch was selected</span></code></span>
 <span class="codeline" id="line-248"><code><span class="comment">		// over the receive on closed.</span></code></span>
-<span class="codeline" id="line-249"><code>		<a href="../../runtime/chan.go.html#line-707"><span class="keyword">select</span></a> {</code></span>
-<span class="codeline" id="line-250"><code>		<span class="keyword">case</span> <a href="../../runtime/chan.go.html#line-438">&lt;-</a><label for="r31" class="ident">m</label>.<a href="#line-222" class="ident">c</a>.<a href="#line-54" class="ident">closed</a>:</code></span>
+<span class="codeline" id="line-249"><code>		<a href="../../runtime/chan.go.html#line-713"><span class="keyword">select</span></a> {</code></span>
+<span class="codeline" id="line-250"><code>		<span class="keyword">case</span> <a href="../../runtime/chan.go.html#line-441">&lt;-</a><label for="r31" class="ident">m</label>.<a href="#line-222" class="ident">c</a>.<a href="#line-54" class="ident">closed</a>:</code></span>
 <span class="codeline" id="line-251"><code>			<span class="comment">// Make sure to release.</span></code></span>
 <span class="codeline" id="line-252"><code>			<label for="r31" class="ident">m</label>.<a href="#line-260" class="ident">unlock</a>()</code></span>
 <span class="codeline" id="line-253"><code>			<span class="keyword">return</span> <label for="r31" class="ident">m</label>.<a href="#line-222" class="ident">c</a>.<a href="#line-56" class="ident">closeErr</a></code></span>
@@ -372,14 +372,14 @@ input[id=i8]:checked ~pre .i8
 <span class="codeline" id="line-258"><code>}</code></span>
 <span class="codeline" id="line-259"><code></code></span>
 <span class="codeline" id="line-260"><code><span class="keyword">func</span> (<label for="r35" class="ident">m</label> *<a href="#line-221" class="ident">mu</a>) <label for="r36" class="ident"><a href="../../../use/nhooyr.io/websocket..mu^19503.unlock^78760.html" class="ident">unlock</a></label>() {</code></span>
-<span class="codeline" id="line-261"><code>	<a href="../../runtime/chan.go.html#line-707"><span class="keyword">select</span></a> {</code></span>
-<span class="codeline" id="line-262"><code>	<span class="keyword">case</span> <a href="../../runtime/chan.go.html#line-438">&lt;-</a><label for="r35" class="ident">m</label>.<a href="#line-223" class="ident">ch</a>:</code></span>
+<span class="codeline" id="line-261"><code>	<a href="../../runtime/chan.go.html#line-713"><span class="keyword">select</span></a> {</code></span>
+<span class="codeline" id="line-262"><code>	<span class="keyword">case</span> <a href="../../runtime/chan.go.html#line-441">&lt;-</a><label for="r35" class="ident">m</label>.<a href="#line-223" class="ident">ch</a>:</code></span>
 <span class="codeline" id="line-263"><code>	<span class="keyword">default</span>:</code></span>
 <span class="codeline" id="line-264"><code>	}</code></span>
 <span class="codeline" id="line-265"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Package: nhooyr.io/websocket</title>
-<link href="../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.3.6.js"></script>
+<link href="../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="package-details"><code><span style="font-size:xx-large;">package <b>websocket</b></span>
@@ -15,7 +15,7 @@
 	<a href="../../index.html#pkg-nhooyr.io/websocket">nhooyr.io/websocket</a><i> (on <a href="https://pkg.go.dev/nhooyr.io/websocket" target="_blank">go.dev</a>)</i>
 
 <span class="title">Dependency Relation</span>
-	imports <a href="../../dep/nhooyr.io/websocket.html">28 packages</a>, and imported by <a href="../../dep/nhooyr.io/websocket.html#imported-by">one package</a>
+	imports <a href="../../dep/nhooyr.io/websocket.html">28 packages</a>, and imported by <a href="../../dep/nhooyr.io/websocket.html#imported-by">3 packages</a>
 
 <div id="files"><span class="title">Involved Source Files</span>
 
@@ -72,9 +72,10 @@
 			"context"
 			"log"
 			"net/http"
+			"time"
+		
 			"nhooyr.io/websocket"
 			"nhooyr.io/websocket/wsjson"
-			"time"
 		)
 		
 		func main() {
@@ -93,7 +94,7 @@
 				defer cancel()
 		
 				var v interface{}
-				err = wsjson.Read(ctx, c, &v)
+				err = wsjson.Read(ctx, c, &amp;v)
 				if err != nil {
 					log.Println(err)
 					return
@@ -112,8 +113,9 @@
 		import (
 			"context"
 			"log"
-			"nhooyr.io/websocket"
 			"time"
+		
+			"nhooyr.io/websocket"
 		)
 		
 		func main() {
@@ -141,9 +143,10 @@
 		import (
 			"context"
 			"log"
+			"time"
+		
 			"nhooyr.io/websocket"
 			"nhooyr.io/websocket/wsjson"
-			"time"
 		)
 		
 		func main() {
@@ -173,6 +176,7 @@
 		import (
 			"log"
 			"net/http"
+		
 			"nhooyr.io/websocket"
 		)
 		
@@ -180,7 +184,7 @@
 			// This handler demonstrates how to safely accept cross origin WebSockets
 			// from the origin example.com.
 			fn := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				c, err := websocket.Accept(w, r, &websocket.AcceptOptions{
+				c, err := websocket.Accept(w, r, &amp;websocket.AcceptOptions{
 					OriginPatterns: []string{"example.com"},
 				})
 				if err != nil {
@@ -219,9 +223,10 @@
 			"context"
 			"log"
 			"net/http"
+			"time"
+		
 			"nhooyr.io/websocket"
 			"nhooyr.io/websocket/wsjson"
-			"time"
 		)
 		
 		func main() {
@@ -245,10 +250,10 @@
 		
 				for {
 					select {
-					case <-ctx.Done():
+					case &lt;-ctx.Done():
 						c.Close(websocket.StatusNormalClosure, "")
 						return
-					case <-t.C:
+					case &lt;-t.C:
 						err = wsjson.Write(ctx, c, "hi")
 						if err != nil {
 							log.Println(err)
@@ -325,12 +330,12 @@
 			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/close.go.html#line-58">Code</a> <i><a href="#name-StatusCode">StatusCode</a></i></span></span><span>
 			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/close.go.html#line-59">Reason</a> <i><a href="../builtin.html#name-string">string</a></i></span></span></span>
 		<input type='checkbox' class="fold" id="CloseError-fold-methods"><label for="CloseError-fold-methods">Methods (<i>total 3, in which 1 are exported</i>)</label><span id='CloseError-fold-methods-items' class="fold-items"><span>
-			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/close.go.html#line-62">Error</a>() <a href="../builtin.html#name-string">string</a></span></span>
+			<span class="nodocs">( CloseError) <a href="../../src/nhooyr.io/websocket/close.go.html#line-62">Error</a>() <a href="../builtin.html#name-string">string</a></span></span>
 			<input type='checkbox' class="showhide" id="CloseError-showhide-methods"><i><label for="CloseError-showhide-methods" class="show-inline">/* 2 unexporteds ... */</label><label for="CloseError-showhide-methods" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
-			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-163">bytes</a>() ([]<a href="../builtin.html#name-byte">byte</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
-			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-177">bytesErr</a>() ([]<a href="../builtin.html#name-byte">byte</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span></span>
+			<span class="nodocs">( CloseError) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-163">bytes</a>() ([]<a href="../builtin.html#name-byte">byte</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">( CloseError) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-177">bytesErr</a>() ([]<a href="../builtin.html#name-byte">byte</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span></span>
 		<input type='checkbox' class="fold" id="CloseError-fold-impls"><label for="CloseError-fold-impls">Implements (<i>at least one exported</i>)</label><span id='CloseError-fold-impls-items' class="fold-items"><span>
-			 T : <a href="../builtin.html#name-error">error</a></span></span>
+			 CloseError : <a href="../builtin.html#name-error">error</a></span></span>
 		<input type='checkbox' class="fold" id="CloseError-fold-results"><label for="CloseError-fold-results">As Outputs Of (<i>at least one unexported</i>)</label><span id='CloseError-fold-results-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="CloseError-showhide-inputofs"><i><label for="CloseError-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="CloseError-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
 			func <a href="#name-parseClosePayload">parseClosePayload</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<b>CloseError</b>, <a href="../builtin.html#name-error">error</a>)</i></span></span>
@@ -347,7 +352,7 @@
 
 		<input type='checkbox' class="fold" id="CompressionMode-fold-methods"><label for="CompressionMode-fold-methods">Methods (<i>only one, which is unexported</i>)</label><span id='CompressionMode-fold-methods-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="CompressionMode-showhide-methods"><i><label for="CompressionMode-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="CompressionMode-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
-			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-13">opts</a>() *<a href="#name-compressionOptions">compressionOptions</a></span></i></span></span>
+			<span class="nodocs">( CompressionMode) <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-13">opts</a>() *<a href="#name-compressionOptions">compressionOptions</a></span></i></span></span>
 		<input type='checkbox' class="fold" id="CompressionMode-fold-params"><label for="CompressionMode-fold-params">As Inputs Of (<i>at least 3, none are exported</i>)</label><span id='CompressionMode-fold-params-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="CompressionMode-showhide-outputofs"><i><label for="CompressionMode-showhide-outputofs" class="show-inline">/* 3+ unexporteds ... */</label><label for="CompressionMode-showhide-outputofs" class="hide-inline">/* 3+ unexporteds: */</label></i><span class="hidden"><i>
 			func <a href="#name-acceptCompression">acceptCompression</a>(r *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Request">Request</a>, w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, mode <b>CompressionMode</b>) (*<a href="#name-compressionOptions">compressionOptions</a>, <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
@@ -404,7 +409,7 @@
 			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-38">writeTimeout</a> <i>chan <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a></i></span></i></span><span class="hidden"><i>
 			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-57">wroteClose</a> <i><a href="../builtin.html#name-bool">bool</a></i></span></i></span></span>
 		<input type='checkbox' class="fold" id="Conn-fold-methods"><label for="Conn-fold-methods">Methods (<i>total 31, in which 9 are exported</i>)</label><span id='Conn-fold-methods-items' class="fold-items"><span>
-			<input type='checkbox' class="fold" id="Conn-fold-method-Close"><label for="Conn-fold-method-Close">(*T) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-30">Close</a>(code <a href="#name-StatusCode">StatusCode</a>, reason <a href="../builtin.html#name-string">string</a>) <a href="../builtin.html#name-error">error</a></label><span id='Conn-fold-method-Close-docs' class="fold-docs">
+			<input type='checkbox' class="fold" id="Conn-fold-method-Close"><label for="Conn-fold-method-Close">(*Conn) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-30">Close</a>(code <a href="#name-StatusCode">StatusCode</a>, reason <a href="../builtin.html#name-string">string</a>) <a href="../builtin.html#name-error">error</a></label><span id='Conn-fold-method-Close-docs' class="fold-docs">
 				Close performs the WebSocket close handshake with the given status code and reason.
 
 				It will write a WebSocket close frame with a timeout of 5s and then wait 5s for
@@ -420,7 +425,7 @@
 				Close will unblock all goroutines interacting with the connection once
 				complete.
 </span></span><span>
-			<input type='checkbox' class="fold" id="Conn-fold-method-CloseRead"><label for="Conn-fold-method-CloseRead">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-56">CloseRead</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a></label><span id='Conn-fold-method-CloseRead-docs' class="fold-docs">
+			<input type='checkbox' class="fold" id="Conn-fold-method-CloseRead"><label for="Conn-fold-method-CloseRead">(*Conn) <a href="../../src/nhooyr.io/websocket/read.go.html#line-56">CloseRead</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a></label><span id='Conn-fold-method-CloseRead-docs' class="fold-docs">
 				CloseRead starts a goroutine to read from the connection until it is closed
 				or a data message is received.
 
@@ -433,7 +438,7 @@
 				Since it actively reads from the connection, it will ensure that ping, pong and close
 				frames are responded to. This means c.Ping and c.Close will still work as expected.
 </span></span><span>
-			<input type='checkbox' class="fold" id="Conn-fold-method-Ping"><label for="Conn-fold-method-Ping">(*T) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-181">Ping</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) <a href="../builtin.html#name-error">error</a></label><span id='Conn-fold-method-Ping-docs' class="fold-docs">
+			<input type='checkbox' class="fold" id="Conn-fold-method-Ping"><label for="Conn-fold-method-Ping">(*Conn) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-181">Ping</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) <a href="../builtin.html#name-error">error</a></label><span id='Conn-fold-method-Ping-docs' class="fold-docs">
 				Ping sends a ping to the peer and waits for a pong.
 				Use this to measure latency or ensure the peer is responsive.
 				Ping must be called concurrently with Reader as it does
@@ -442,11 +447,11 @@
 
 				TCP Keepalives should suffice for most use cases.
 </span></span><span>
-			<input type='checkbox' class="fold" id="Conn-fold-method-Read"><label for="Conn-fold-method-Read">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-35">Read</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (<a href="#name-MessageType">MessageType</a>, []<a href="../builtin.html#name-byte">byte</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Conn-fold-method-Read-docs' class="fold-docs">
+			<input type='checkbox' class="fold" id="Conn-fold-method-Read"><label for="Conn-fold-method-Read">(*Conn) <a href="../../src/nhooyr.io/websocket/read.go.html#line-35">Read</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (<a href="#name-MessageType">MessageType</a>, []<a href="../builtin.html#name-byte">byte</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Conn-fold-method-Read-docs' class="fold-docs">
 				Read is a convenience method around Reader to read a single message
 				from the connection.
 </span></span><span>
-			<input type='checkbox' class="fold" id="Conn-fold-method-Reader"><label for="Conn-fold-method-Reader">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-29">Reader</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (<a href="#name-MessageType">MessageType</a>, <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Conn-fold-method-Reader-docs' class="fold-docs">
+			<input type='checkbox' class="fold" id="Conn-fold-method-Reader"><label for="Conn-fold-method-Reader">(*Conn) <a href="../../src/nhooyr.io/websocket/read.go.html#line-29">Reader</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (<a href="#name-MessageType">MessageType</a>, <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Conn-fold-method-Reader-docs' class="fold-docs">
 				Reader reads from the connection until until there is a WebSocket
 				data message to be read. It will handle ping, pong and close frames as appropriate.
 
@@ -458,7 +463,7 @@
 
 				Only one Reader may be open at a time.
 </span></span><span>
-			<input type='checkbox' class="fold" id="Conn-fold-method-SetReadLimit"><label for="Conn-fold-method-SetReadLimit">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-72">SetReadLimit</a>(n <a href="../builtin.html#name-int64">int64</a>)</label><span id='Conn-fold-method-SetReadLimit-docs' class="fold-docs">
+			<input type='checkbox' class="fold" id="Conn-fold-method-SetReadLimit"><label for="Conn-fold-method-SetReadLimit">(*Conn) <a href="../../src/nhooyr.io/websocket/read.go.html#line-72">SetReadLimit</a>(n <a href="../builtin.html#name-int64">int64</a>)</label><span id='Conn-fold-method-SetReadLimit-docs' class="fold-docs">
 				SetReadLimit sets the max number of bytes to read for a single message.
 				It applies to the Reader and Read methods.
 
@@ -466,11 +471,11 @@
 
 				When the limit is hit, the connection will be closed with StatusMessageTooBig.
 </span></span><span>
-			<input type='checkbox' class="fold" id="Conn-fold-method-Subprotocol"><label for="Conn-fold-method-Subprotocol">(*T) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-121">Subprotocol</a>() <a href="../builtin.html#name-string">string</a></label><span id='Conn-fold-method-Subprotocol-docs' class="fold-docs">
+			<input type='checkbox' class="fold" id="Conn-fold-method-Subprotocol"><label for="Conn-fold-method-Subprotocol">(*Conn) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-121">Subprotocol</a>() <a href="../builtin.html#name-string">string</a></label><span id='Conn-fold-method-Subprotocol-docs' class="fold-docs">
 				Subprotocol returns the negotiated subprotocol.
 				An empty string means the default protocol.
 </span></span><span>
-			<input type='checkbox' class="fold" id="Conn-fold-method-Write"><label for="Conn-fold-method-Write">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-41">Write</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, typ <a href="#name-MessageType">MessageType</a>, p []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-error">error</a></label><span id='Conn-fold-method-Write-docs' class="fold-docs">
+			<input type='checkbox' class="fold" id="Conn-fold-method-Write"><label for="Conn-fold-method-Write">(*Conn) <a href="../../src/nhooyr.io/websocket/write.go.html#line-41">Write</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, typ <a href="#name-MessageType">MessageType</a>, p []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-error">error</a></label><span id='Conn-fold-method-Write-docs' class="fold-docs">
 				Write writes a message to the connection.
 
 				See the Writer method if you want to stream a message.
@@ -478,7 +483,7 @@
 				If compression is disabled or the threshold is not met, then it
 				will write the message in a single frame.
 </span></span><span>
-			<input type='checkbox' class="fold" id="Conn-fold-method-Writer"><label for="Conn-fold-method-Writer">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-27">Writer</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, typ <a href="#name-MessageType">MessageType</a>) (<a href="../io.html">io</a>.<a href="../io.html#name-WriteCloser">WriteCloser</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Conn-fold-method-Writer-docs' class="fold-docs">
+			<input type='checkbox' class="fold" id="Conn-fold-method-Writer"><label for="Conn-fold-method-Writer">(*Conn) <a href="../../src/nhooyr.io/websocket/write.go.html#line-27">Writer</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, typ <a href="#name-MessageType">MessageType</a>) (<a href="../io.html">io</a>.<a href="../io.html#name-WriteCloser">WriteCloser</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Conn-fold-method-Writer-docs' class="fold-docs">
 				Writer returns a writer bounded by the context that will write
 				a WebSocket message of type dataType to the connection.
 
@@ -488,30 +493,30 @@
 				is closed.
 </span></span>
 			<input type='checkbox' class="showhide" id="Conn-showhide-methods"><i><label for="Conn-showhide-methods" class="show-inline">/* 22 unexporteds ... */</label><label for="Conn-showhide-methods" class="hide-inline">/* 22 unexporteds: */</label></i><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-125">close</a>(err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-34">closeHandshake</a>(code <a href="#name-StatusCode">StatusCode</a>, reason <a href="../builtin.html#name-string">string</a>) (err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-170">flate</a>() <a href="../builtin.html#name-bool">bool</a></span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-240">handleControl</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, h <a href="#name-header">header</a>) (err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-204">isClosed</a>() <a href="../builtin.html#name-bool">bool</a></span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-191">ping</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, p <a href="../builtin.html#name-string">string</a>) <a href="../builtin.html#name-error">error</a></span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-181">readFrameHeader</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (<a href="#name-header">header</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-210">readFramePayload</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-144">readLoop</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (<a href="#name-header">header</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-132">readRSV1Illegal</a>(h <a href="#name-header">header</a>) <a href="../builtin.html#name-bool">bool</a></span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-300">reader</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (_ <a href="#name-MessageType">MessageType</a>, _ <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>, err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-192">setCloseErr</a>(err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-198">setCloseErrLocked</a>(err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-148">timeoutLoop</a>()</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-91">waitCloseHandshake</a>() <a href="../builtin.html#name-error">error</a></span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-121">write</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, typ <a href="#name-MessageType">MessageType</a>, p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-53">writeClose</a>(code <a href="#name-StatusCode">StatusCode</a>, reason <a href="../builtin.html#name-string">string</a>) <a href="../builtin.html#name-error">error</a></span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-232">writeControl</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, opcode <a href="#name-opcode">opcode</a>, p []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-error">error</a></span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-393">writeError</a>(code <a href="#name-StatusCode">StatusCode</a>, err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
-			<input type='checkbox' class="fold" id="Conn-fold-method-writeFrame"><label for="Conn-fold-method-writeFrame">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-244">writeFrame</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, fin <a href="../builtin.html#name-bool">bool</a>, flate <a href="../builtin.html#name-bool">bool</a>, opcode <a href="#name-opcode">opcode</a>, p []<a href="../builtin.html#name-byte">byte</a>) (_ <a href="../builtin.html#name-int">int</a>, err <a href="../builtin.html#name-error">error</a>)</label><span id='Conn-fold-method-writeFrame-docs' class="fold-docs">
+			<span class="nodocs">(*Conn) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-125">close</a>(err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*Conn) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-34">closeHandshake</a>(code <a href="#name-StatusCode">StatusCode</a>, reason <a href="../builtin.html#name-string">string</a>) (err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*Conn) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-170">flate</a>() <a href="../builtin.html#name-bool">bool</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*Conn) <a href="../../src/nhooyr.io/websocket/read.go.html#line-240">handleControl</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, h <a href="#name-header">header</a>) (err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*Conn) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-204">isClosed</a>() <a href="../builtin.html#name-bool">bool</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*Conn) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-191">ping</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, p <a href="../builtin.html#name-string">string</a>) <a href="../builtin.html#name-error">error</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*Conn) <a href="../../src/nhooyr.io/websocket/read.go.html#line-181">readFrameHeader</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (<a href="#name-header">header</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*Conn) <a href="../../src/nhooyr.io/websocket/read.go.html#line-210">readFramePayload</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*Conn) <a href="../../src/nhooyr.io/websocket/read.go.html#line-144">readLoop</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (<a href="#name-header">header</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*Conn) <a href="../../src/nhooyr.io/websocket/read.go.html#line-132">readRSV1Illegal</a>(h <a href="#name-header">header</a>) <a href="../builtin.html#name-bool">bool</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*Conn) <a href="../../src/nhooyr.io/websocket/read.go.html#line-300">reader</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (_ <a href="#name-MessageType">MessageType</a>, _ <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>, err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*Conn) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-192">setCloseErr</a>(err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*Conn) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-198">setCloseErrLocked</a>(err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*Conn) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-148">timeoutLoop</a>()</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*Conn) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-91">waitCloseHandshake</a>() <a href="../builtin.html#name-error">error</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*Conn) <a href="../../src/nhooyr.io/websocket/write.go.html#line-121">write</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, typ <a href="#name-MessageType">MessageType</a>, p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*Conn) <a href="../../src/nhooyr.io/websocket/close_notjs.go.html#line-53">writeClose</a>(code <a href="#name-StatusCode">StatusCode</a>, reason <a href="../builtin.html#name-string">string</a>) <a href="../builtin.html#name-error">error</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*Conn) <a href="../../src/nhooyr.io/websocket/write.go.html#line-232">writeControl</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, opcode <a href="#name-opcode">opcode</a>, p []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-error">error</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*Conn) <a href="../../src/nhooyr.io/websocket/write.go.html#line-393">writeError</a>(code <a href="#name-StatusCode">StatusCode</a>, err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<input type='checkbox' class="fold" id="Conn-fold-method-writeFrame"><label for="Conn-fold-method-writeFrame">(*Conn) <a href="../../src/nhooyr.io/websocket/write.go.html#line-244">writeFrame</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, fin <a href="../builtin.html#name-bool">bool</a>, flate <a href="../builtin.html#name-bool">bool</a>, opcode <a href="#name-opcode">opcode</a>, p []<a href="../builtin.html#name-byte">byte</a>) (_ <a href="../builtin.html#name-int">int</a>, err <a href="../builtin.html#name-error">error</a>)</label><span id='Conn-fold-method-writeFrame-docs' class="fold-docs">
 				frame handles all writes to the connection.
 </span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-331">writeFramePayload</a>(p []<a href="../builtin.html#name-byte">byte</a>) (n <a href="../builtin.html#name-int">int</a>, err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-110">writer</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, typ <a href="#name-MessageType">MessageType</a>) (<a href="../io.html">io</a>.<a href="../io.html#name-WriteCloser">WriteCloser</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span></span>
+			<span class="nodocs">(*Conn) <a href="../../src/nhooyr.io/websocket/write.go.html#line-331">writeFramePayload</a>(p []<a href="../builtin.html#name-byte">byte</a>) (n <a href="../builtin.html#name-int">int</a>, err <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*Conn) <a href="../../src/nhooyr.io/websocket/write.go.html#line-110">writer</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, typ <a href="#name-MessageType">MessageType</a>) (<a href="../io.html">io</a>.<a href="../io.html#name-WriteCloser">WriteCloser</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span></span>
 		<input type='checkbox' class="fold" id="Conn-fold-results"><label for="Conn-fold-results">As Outputs Of (<i>at least 5, in which 2 are exported</i>)</label><span id='Conn-fold-results-items' class="fold-items"><span>
 			func <a href="#name-Accept">Accept</a>(w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, r *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Request">Request</a>, opts *<a href="#name-AcceptOptions">AcceptOptions</a>) (*<b>Conn</b>, <a href="../builtin.html#name-error">error</a>)</span><span>
 			func <a href="#name-Dial">Dial</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, u <a href="../builtin.html#name-string">string</a>, opts *<a href="#name-DialOptions">DialOptions</a>) (*<b>Conn</b>, *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Response">Response</a>, <a href="../builtin.html#name-error">error</a>)</span>
@@ -519,14 +524,14 @@
 			func <a href="#name-accept">accept</a>(w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, r *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Request">Request</a>, opts *<a href="#name-AcceptOptions">AcceptOptions</a>) (_ *<b>Conn</b>, err <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
 			func <a href="#name-dial">dial</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, urls <a href="../builtin.html#name-string">string</a>, opts *<a href="#name-DialOptions">DialOptions</a>, rand <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>) (_ *<b>Conn</b>, _ *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Response">Response</a>, err <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
 			func <a href="#name-newConn">newConn</a>(cfg <a href="#name-connConfig">connConfig</a>) *<b>Conn</b></i></span></span>
-		<input type='checkbox' class="fold" id="Conn-fold-params"><label for="Conn-fold-params">As Inputs Of (<i>at least 6, in which 1 are exported</i>)</label><span id='Conn-fold-params-items' class="fold-items"><span>
-			func <a href="#name-NetConn">NetConn</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, c *<b>Conn</b>, msgType <a href="#name-MessageType">MessageType</a>) <a href="../net.html">net</a>.<a href="../net.html#name-Conn">Conn</a></span>
-			<input type='checkbox' class="showhide" id="Conn-showhide-outputofs"><i><label for="Conn-showhide-outputofs" class="show-inline">/* 5+ unexporteds ... */</label><label for="Conn-showhide-outputofs" class="hide-inline">/* 5+ unexporteds: */</label></i><span class="hidden"><i>
+		<input type='checkbox' class="fold" id="Conn-fold-params"><label for="Conn-fold-params">As Inputs Of (<i>at least 6, in which 2 are exported</i>)</label><span id='Conn-fold-params-items' class="fold-items"><span>
+			func <a href="#name-NetConn">NetConn</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, c *<b>Conn</b>, msgType <a href="#name-MessageType">MessageType</a>) <a href="../net.html">net</a>.<a href="../net.html#name-Conn">Conn</a></span><span>
+			func github.com/gotd/td/internal/wsutil.<a href="../github.com/gotd/td/internal/wsutil.html#name-NetConn">NetConn</a>(c *<b>Conn</b>) <a href="../net.html">net</a>.<a href="../net.html#name-Conn">Conn</a></span>
+			<input type='checkbox' class="showhide" id="Conn-showhide-outputofs"><i><label for="Conn-showhide-outputofs" class="show-inline">/* 4+ unexporteds ... */</label><label for="Conn-showhide-outputofs" class="hide-inline">/* 4+ unexporteds: */</label></i><span class="hidden"><i>
 			func <a href="#name-newLimitReader">newLimitReader</a>(c *<b>Conn</b>, r <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>, limit <a href="../builtin.html#name-int64">int64</a>) *<a href="#name-limitReader">limitReader</a></i></span><span class="hidden"><i>
 			func <a href="#name-newMsgReader">newMsgReader</a>(c *<b>Conn</b>) *<a href="#name-msgReader">msgReader</a></i></span><span class="hidden"><i>
 			func <a href="#name-newMsgWriterState">newMsgWriterState</a>(c *<b>Conn</b>) *<a href="#name-msgWriterState">msgWriterState</a></i></span><span class="hidden"><i>
-			func <a href="#name-newMu">newMu</a>(c *<b>Conn</b>) *<a href="#name-mu">mu</a></i></span><span class="hidden"><i>
-			func github.com/gotd/td/telegram/dcs.<a href="../github.com/gotd/td/telegram/dcs.html#name-netConn">netConn</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, c *<b>Conn</b>) <a href="../net.html">net</a>.<a href="../net.html#name-Conn">Conn</a></i></span></span>
+			func <a href="#name-newMu">newMu</a>(c *<b>Conn</b>) *<a href="#name-mu">mu</a></i></span></span>
 
 </span></div><div class="anchor type-res" id="name-DialOptions" data-popularity="140">	<input type='checkbox' class="fold" id="DialOptions-fold-content"><label for="DialOptions-fold-content"> <a href="../../use/nhooyr.io/websocket..DialOptions.html">type</a> <a href="../../src/nhooyr.io/websocket/dial.go.html#line-24">DialOptions</a> <i>(struct)</i></label><span id='DialOptions-fold-content-docs' class="fold-docs">
 		DialOptions represents Dial's options.
@@ -567,12 +572,12 @@
 		See https://tools.ietf.org/html/rfc6455#section-5.6
 
 		<input type='checkbox' class="fold" id="MessageType-fold-methods"><label for="MessageType-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='MessageType-fold-methods-items' class="fold-items"><span>
-			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/stringer.go.html#line-52">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+			<span class="nodocs">( MessageType) <a href="../../src/nhooyr.io/websocket/stringer.go.html#line-52">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
 		<input type='checkbox' class="fold" id="MessageType-fold-impls"><label for="MessageType-fold-impls">Implements (<i>at least 3, in which 1 are exported</i>)</label><span id='MessageType-fold-impls-items' class="fold-items"><span>
-			 T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span>
+			 MessageType : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span>
 			<input type='checkbox' class="showhide" id="MessageType-showhide-impls"><i><label for="MessageType-showhide-impls" class="show-inline">/* 2+ unexporteds ... */</label><label for="MessageType-showhide-impls" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
-			 T : context.<a href="../context.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
-			 T : runtime.<a href="../runtime.html#name-stringer">stringer</a></i></span></span>
+			 MessageType : context.<a href="../context.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
+			 MessageType : runtime.<a href="../runtime.html#name-stringer">stringer</a></i></span></span>
 		<input type='checkbox' class="fold" id="MessageType-fold-results"><label for="MessageType-fold-results">As Outputs Of (<i>at least 3, in which 2 are exported</i>)</label><span id='MessageType-fold-results-items' class="fold-items"><span>
 			func (*<a href="#name-Conn">Conn</a>).<a href="../../src/nhooyr.io/websocket/read.go.html#line-35">Read</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (<b>MessageType</b>, []<a href="../builtin.html#name-byte">byte</a>, <a href="../builtin.html#name-error">error</a>)</span><span>
 			func (*<a href="#name-Conn">Conn</a>).<a href="../../src/nhooyr.io/websocket/read.go.html#line-29">Reader</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) (<b>MessageType</b>, <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>, <a href="../builtin.html#name-error">error</a>)</span>
@@ -594,12 +599,12 @@
 		https://tools.ietf.org/html/rfc6455#section-7.4
 
 		<input type='checkbox' class="fold" id="StatusCode-fold-methods"><label for="StatusCode-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='StatusCode-fold-methods-items' class="fold-items"><span>
-			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/stringer.go.html#line-85">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+			<span class="nodocs">( StatusCode) <a href="../../src/nhooyr.io/websocket/stringer.go.html#line-85">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
 		<input type='checkbox' class="fold" id="StatusCode-fold-impls"><label for="StatusCode-fold-impls">Implements (<i>at least 3, in which 1 are exported</i>)</label><span id='StatusCode-fold-impls-items' class="fold-items"><span>
-			 T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span>
+			 StatusCode : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span>
 			<input type='checkbox' class="showhide" id="StatusCode-showhide-impls"><i><label for="StatusCode-showhide-impls" class="show-inline">/* 2+ unexporteds ... */</label><label for="StatusCode-showhide-impls" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
-			 T : context.<a href="../context.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
-			 T : runtime.<a href="../runtime.html#name-stringer">stringer</a></i></span></span>
+			 StatusCode : context.<a href="../context.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
+			 StatusCode : runtime.<a href="../runtime.html#name-stringer">stringer</a></i></span></span>
 		<input type='checkbox' class="fold" id="StatusCode-fold-results"><label for="StatusCode-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='StatusCode-fold-results-items' class="fold-items"><span>
 			func <a href="#name-CloseStatus">CloseStatus</a>(err <a href="../builtin.html#name-error">error</a>) <b>StatusCode</b></span></span>
 		<input type='checkbox' class="fold" id="StatusCode-fold-params"><label for="StatusCode-fold-params">As Inputs Of (<i>at least 5, in which 1 are exported</i>)</label><span id='StatusCode-fold-params-items' class="fold-items"><span>
@@ -636,7 +641,7 @@
 			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-22">serverNoContextTakeover</a> <i><a href="../builtin.html#name-bool">bool</a></i></span></i></span></span>
 		<input type='checkbox' class="fold" id="compressionOptions-fold-methods"><label for="compressionOptions-fold-methods">Methods (<i>only one, which is unexported</i>)</label><span id='compressionOptions-fold-methods-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="compressionOptions-showhide-methods"><i><label for="compressionOptions-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="compressionOptions-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-25">setHeader</a>(h <a href="../net/http.html">http</a>.<a href="../net/http.html#name-Header">Header</a>)</span></i></span></span>
+			<span class="nodocs">(*compressionOptions) <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-25">setHeader</a>(h <a href="../net/http.html">http</a>.<a href="../net/http.html#name-Header">Header</a>)</span></i></span></span>
 		<input type='checkbox' class="fold" id="compressionOptions-fold-results"><label for="compressionOptions-fold-results">As Outputs Of (<i>at least 6, none are exported</i>)</label><span id='compressionOptions-fold-results-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="compressionOptions-showhide-inputofs"><i><label for="compressionOptions-showhide-inputofs" class="show-inline">/* 6+ unexporteds ... */</label><label for="compressionOptions-showhide-inputofs" class="hide-inline">/* 6+ unexporteds: */</label></i><span class="hidden"><i>
 			func <a href="#name-acceptCompression">acceptCompression</a>(r *<a href="../net/http.html">http</a>.<a href="../net/http.html#name-Request">Request</a>, w <a href="../net/http.html">http</a>.<a href="../net/http.html#name-ResponseWriter">ResponseWriter</a>, mode <a href="#name-CompressionMode">CompressionMode</a>) (*<b>compressionOptions</b>, <a href="../builtin.html#name-error">error</a>)</i></span><span class="hidden"><i>
@@ -700,11 +705,11 @@
 			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/read.go.html#line-438">n</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></i></span><span class="hidden"><i>
 			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/read.go.html#line-436">r</a> <i><a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a></i></span></i></span></span>
 		<input type='checkbox' class="fold" id="limitReader-fold-methods"><label for="limitReader-fold-methods">Methods (<i>total 2, in which 1 are exported</i>)</label><span id='limitReader-fold-methods-items' class="fold-items"><span>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-455">Read</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></span>
+			<span class="nodocs">(*limitReader) <a href="../../src/nhooyr.io/websocket/read.go.html#line-455">Read</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></span>
 			<input type='checkbox' checked class="showhide" id="limitReader-showhide-methods"><i><label for="limitReader-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="limitReader-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-450">reset</a>(r <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>)</span></i></span></span>
+			<span class="nodocs">(*limitReader) <a href="../../src/nhooyr.io/websocket/read.go.html#line-450">reset</a>(r <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>)</span></i></span></span>
 		<input type='checkbox' class="fold" id="limitReader-fold-impls"><label for="limitReader-fold-impls">Implements (<i>at least one exported</i>)</label><span id='limitReader-fold-impls-items' class="fold-items"><span>
-			*T : io.<a href="../io.html#name-Reader">Reader</a></span></span>
+			*limitReader : io.<a href="../io.html#name-Reader">Reader</a></span></span>
 		<input type='checkbox' class="fold" id="limitReader-fold-results"><label for="limitReader-fold-results">As Outputs Of (<i>at least one unexported</i>)</label><span id='limitReader-fold-results-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="limitReader-showhide-inputofs"><i><label for="limitReader-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="limitReader-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
 			func <a href="#name-newLimitReader">newLimitReader</a>(c *<a href="#name-Conn">Conn</a>, r <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>, limit <a href="../builtin.html#name-int64">int64</a>) *<b>limitReader</b></i></span></span>
@@ -728,17 +733,17 @@
 				readerFunc(mr.Read) to avoid continuous allocations.
 </span></i></span></span>
 		<input type='checkbox' class="fold" id="msgReader-fold-methods"><label for="msgReader-fold-methods">Methods (<i>total 8, in which 1 are exported</i>)</label><span id='msgReader-fold-methods-items' class="fold-items"><span>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-368">Read</a>(p []<a href="../builtin.html#name-byte">byte</a>) (n <a href="../builtin.html#name-int">int</a>, err <a href="../builtin.html#name-error">error</a>)</span></span>
+			<span class="nodocs">(*msgReader) <a href="../../src/nhooyr.io/websocket/read.go.html#line-368">Read</a>(p []<a href="../builtin.html#name-byte">byte</a>) (n <a href="../builtin.html#name-int">int</a>, err <a href="../builtin.html#name-error">error</a>)</span></span>
 			<input type='checkbox' checked class="showhide" id="msgReader-showhide-methods"><i><label for="msgReader-showhide-methods" class="show-inline">/* 7 unexporteds ... */</label><label for="msgReader-showhide-methods" class="hide-inline">/* 7 unexporteds: */</label></i><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-111">close</a>()</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-125">flateContextTakeover</a>() <a href="../builtin.html#name-bool">bool</a></span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-104">putFlateReader</a>()</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-391">read</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-350">reset</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, h <a href="#name-header">header</a>)</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-91">resetFlate</a>()</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-362">setFrame</a>(h <a href="#name-header">header</a>)</span></i></span></span>
+			<span class="nodocs">(*msgReader) <a href="../../src/nhooyr.io/websocket/read.go.html#line-111">close</a>()</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*msgReader) <a href="../../src/nhooyr.io/websocket/read.go.html#line-125">flateContextTakeover</a>() <a href="../builtin.html#name-bool">bool</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*msgReader) <a href="../../src/nhooyr.io/websocket/read.go.html#line-104">putFlateReader</a>()</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*msgReader) <a href="../../src/nhooyr.io/websocket/read.go.html#line-391">read</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*msgReader) <a href="../../src/nhooyr.io/websocket/read.go.html#line-350">reset</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, h <a href="#name-header">header</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*msgReader) <a href="../../src/nhooyr.io/websocket/read.go.html#line-91">resetFlate</a>()</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*msgReader) <a href="../../src/nhooyr.io/websocket/read.go.html#line-362">setFrame</a>(h <a href="#name-header">header</a>)</span></i></span></span>
 		<input type='checkbox' class="fold" id="msgReader-fold-impls"><label for="msgReader-fold-impls">Implements (<i>at least one exported</i>)</label><span id='msgReader-fold-impls-items' class="fold-items"><span>
-			*T : io.<a href="../io.html#name-Reader">Reader</a></span></span>
+			*msgReader : io.<a href="../io.html#name-Reader">Reader</a></span></span>
 		<input type='checkbox' class="fold" id="msgReader-fold-results"><label for="msgReader-fold-results">As Outputs Of (<i>at least one unexported</i>)</label><span id='msgReader-fold-results-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="msgReader-showhide-inputofs"><i><label for="msgReader-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="msgReader-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
 			func <a href="#name-newMsgReader">newMsgReader</a>(c *<a href="#name-Conn">Conn</a>) *<b>msgReader</b></i></span></span>
@@ -750,12 +755,12 @@
 			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/write.go.html#line-51">closed</a> <i><a href="../builtin.html#name-bool">bool</a></i></span></i></span><span class="hidden"><i>
 			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/write.go.html#line-50">mw</a> <i>*<a href="#name-msgWriterState">msgWriterState</a></i></span></i></span></span>
 		<input type='checkbox' class="fold" id="msgWriter-fold-methods"><label for="msgWriter-fold-methods">Methods (<i>total 2, both are exported</i>)</label><span id='msgWriter-fold-methods-items' class="fold-items"><span>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-61">Close</a>() <a href="../builtin.html#name-error">error</a></span></span><span>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-54">Write</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></span></span>
+			<span class="nodocs">(*msgWriter) <a href="../../src/nhooyr.io/websocket/write.go.html#line-61">Close</a>() <a href="../builtin.html#name-error">error</a></span></span><span>
+			<span class="nodocs">(*msgWriter) <a href="../../src/nhooyr.io/websocket/write.go.html#line-54">Write</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></span></span>
 		<input type='checkbox' class="fold" id="msgWriter-fold-impls"><label for="msgWriter-fold-impls">Implements (<i>at least 3, all are exported</i>)</label><span id='msgWriter-fold-impls-items' class="fold-items"><span>
-			*T : io.<a href="../io.html#name-Closer">Closer</a></span><span>
-			*T : io.<a href="../io.html#name-WriteCloser">WriteCloser</a></span><span>
-			*T : io.<a href="../io.html#name-Writer">Writer</a></span></span>
+			*msgWriter : io.<a href="../io.html#name-Closer">Closer</a></span><span>
+			*msgWriter : io.<a href="../io.html#name-WriteCloser">WriteCloser</a></span><span>
+			*msgWriter : io.<a href="../io.html#name-Writer">Writer</a></span></span>
 
 </span></div><div class="anchor type-res hidden" id="name-msgWriterState" data-popularity="575">	<input type='checkbox' class="fold" id="msgWriterState-fold-content"><label for="msgWriterState-fold-content"> <a href="../../use/nhooyr.io/websocket..msgWriterState^c44c2.html">type</a> <a href="../../src/nhooyr.io/websocket/write.go.html#line-69">msgWriterState</a> <i>(struct)</i></label><span id='msgWriterState-fold-content-docs' class="fold-docs">
 
@@ -770,22 +775,22 @@
 			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/write.go.html#line-79">trimWriter</a> <i>*<a href="#name-trimLastFourBytesWriter">trimLastFourBytesWriter</a></i></span></i></span><span class="hidden"><i>
 			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/write.go.html#line-73">writeMu</a> <i>*<a href="#name-mu">mu</a></i></span></i></span></span>
 		<input type='checkbox' class="fold" id="msgWriterState-fold-methods"><label for="msgWriterState-fold-methods">Methods (<i>total 7, in which 2 are exported</i>)</label><span id='msgWriterState-fold-methods-items' class="fold-items"><span>
-			<input type='checkbox' class="fold" id="msgWriterState-fold-method-Close"><label for="msgWriterState-fold-method-Close">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-201">Close</a>() (err <a href="../builtin.html#name-error">error</a>)</label><span id='msgWriterState-fold-method-Close-docs' class="fold-docs">
+			<input type='checkbox' class="fold" id="msgWriterState-fold-method-Close"><label for="msgWriterState-fold-method-Close">(*msgWriterState) <a href="../../src/nhooyr.io/websocket/write.go.html#line-201">Close</a>() (err <a href="../builtin.html#name-error">error</a>)</label><span id='msgWriterState-fold-method-Close-docs' class="fold-docs">
 				Close flushes the frame to the connection.
 </span></span><span>
-			<input type='checkbox' class="fold" id="msgWriterState-fold-method-Write"><label for="msgWriterState-fold-method-Write">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-157">Write</a>(p []<a href="../builtin.html#name-byte">byte</a>) (_ <a href="../builtin.html#name-int">int</a>, err <a href="../builtin.html#name-error">error</a>)</label><span id='msgWriterState-fold-method-Write-docs' class="fold-docs">
+			<input type='checkbox' class="fold" id="msgWriterState-fold-method-Write"><label for="msgWriterState-fold-method-Write">(*msgWriterState) <a href="../../src/nhooyr.io/websocket/write.go.html#line-157">Write</a>(p []<a href="../builtin.html#name-byte">byte</a>) (_ <a href="../builtin.html#name-int">int</a>, err <a href="../builtin.html#name-error">error</a>)</label><span id='msgWriterState-fold-method-Write-docs' class="fold-docs">
 				Write writes the given bytes to the WebSocket connection.
 </span></span>
 			<input type='checkbox' checked class="showhide" id="msgWriterState-showhide-methods"><i><label for="msgWriterState-showhide-methods" class="show-inline">/* 5 unexporteds ... */</label><label for="msgWriterState-showhide-methods" class="hide-inline">/* 5 unexporteds: */</label></i><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-222">close</a>()</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-92">ensureFlate</a>()</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-103">flateContextTakeover</a>() <a href="../builtin.html#name-bool">bool</a></span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-141">reset</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, typ <a href="#name-MessageType">MessageType</a>) <a href="../builtin.html#name-error">error</a></span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-191">write</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span></span>
+			<span class="nodocs">(*msgWriterState) <a href="../../src/nhooyr.io/websocket/write.go.html#line-222">close</a>()</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*msgWriterState) <a href="../../src/nhooyr.io/websocket/write.go.html#line-92">ensureFlate</a>()</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*msgWriterState) <a href="../../src/nhooyr.io/websocket/write.go.html#line-103">flateContextTakeover</a>() <a href="../builtin.html#name-bool">bool</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*msgWriterState) <a href="../../src/nhooyr.io/websocket/write.go.html#line-141">reset</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, typ <a href="#name-MessageType">MessageType</a>) <a href="../builtin.html#name-error">error</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*msgWriterState) <a href="../../src/nhooyr.io/websocket/write.go.html#line-191">write</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></i></span></span>
 		<input type='checkbox' class="fold" id="msgWriterState-fold-impls"><label for="msgWriterState-fold-impls">Implements (<i>at least 3, all are exported</i>)</label><span id='msgWriterState-fold-impls-items' class="fold-items"><span>
-			*T : io.<a href="../io.html#name-Closer">Closer</a></span><span>
-			*T : io.<a href="../io.html#name-WriteCloser">WriteCloser</a></span><span>
-			*T : io.<a href="../io.html#name-Writer">Writer</a></span></span>
+			*msgWriterState : io.<a href="../io.html#name-Closer">Closer</a></span><span>
+			*msgWriterState : io.<a href="../io.html#name-WriteCloser">WriteCloser</a></span><span>
+			*msgWriterState : io.<a href="../io.html#name-Writer">Writer</a></span></span>
 		<input type='checkbox' class="fold" id="msgWriterState-fold-results"><label for="msgWriterState-fold-results">As Outputs Of (<i>at least one unexported</i>)</label><span id='msgWriterState-fold-results-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="msgWriterState-showhide-inputofs"><i><label for="msgWriterState-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="msgWriterState-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
 			func <a href="#name-newMsgWriterState">newMsgWriterState</a>(c *<a href="#name-Conn">Conn</a>) *<b>msgWriterState</b></i></span></span>
@@ -798,9 +803,9 @@
 			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-223">ch</a> <i>chan struct{}</i></span></i></span></span>
 		<input type='checkbox' class="fold" id="mu-fold-methods"><label for="mu-fold-methods">Methods (<i>total 3, none are exported</i>)</label><span id='mu-fold-methods-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="mu-showhide-methods"><i><label for="mu-showhide-methods" class="show-inline">/* 3 unexporteds ... */</label><label for="mu-showhide-methods" class="hide-inline">/* 3 unexporteds: */</label></i><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-233">forceLock</a>()</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-237">lock</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) <a href="../builtin.html#name-error">error</a></span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-260">unlock</a>()</span></i></span></span>
+			<span class="nodocs">(*mu) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-233">forceLock</a>()</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*mu) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-237">lock</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>) <a href="../builtin.html#name-error">error</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*mu) <a href="../../src/nhooyr.io/websocket/conn_notjs.go.html#line-260">unlock</a>()</span></i></span></span>
 		<input type='checkbox' class="fold" id="mu-fold-results"><label for="mu-fold-results">As Outputs Of (<i>at least one unexported</i>)</label><span id='mu-fold-results-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="mu-showhide-inputofs"><i><label for="mu-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="mu-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
 			func <a href="#name-newMu">newMu</a>(c *<a href="#name-Conn">Conn</a>) *<b>mu</b></i></span></span>
@@ -819,34 +824,34 @@
 			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/netconn.go.html#line-67">writeContext</a> <i><a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a></i></span></i></span><span class="hidden"><i>
 			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/netconn.go.html#line-66">writeTimer</a> <i>*<a href="../time.html">time</a>.<a href="../time.html#name-Timer">Timer</a></i></span></i></span></span>
 		<input type='checkbox' class="fold" id="netConn-fold-methods"><label for="netConn-fold-methods">Methods (<i>total 8, all are exported</i>)</label><span id='netConn-fold-methods-items' class="fold-items"><span>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-79">Close</a>() <a href="../builtin.html#name-error">error</a></span></span><span>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-140">LocalAddr</a>() <a href="../net.html">net</a>.<a href="../net.html#name-Addr">Addr</a></span></span><span>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-91">Read</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></span><span>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-136">RemoteAddr</a>() <a href="../net.html">net</a>.<a href="../net.html#name-Addr">Addr</a></span></span><span>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-144">SetDeadline</a>(t <a href="../time.html">time</a>.<a href="../time.html#name-Time">Time</a>) <a href="../builtin.html#name-error">error</a></span></span><span>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-159">SetReadDeadline</a>(t <a href="../time.html">time</a>.<a href="../time.html#name-Time">Time</a>) <a href="../builtin.html#name-error">error</a></span></span><span>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-150">SetWriteDeadline</a>(t <a href="../time.html">time</a>.<a href="../time.html#name-Time">Time</a>) <a href="../builtin.html#name-error">error</a></span></span><span>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-83">Write</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></span></span>
+			<span class="nodocs">(*netConn) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-79">Close</a>() <a href="../builtin.html#name-error">error</a></span></span><span>
+			<span class="nodocs">(*netConn) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-140">LocalAddr</a>() <a href="../net.html">net</a>.<a href="../net.html#name-Addr">Addr</a></span></span><span>
+			<span class="nodocs">(*netConn) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-91">Read</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></span><span>
+			<span class="nodocs">(*netConn) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-136">RemoteAddr</a>() <a href="../net.html">net</a>.<a href="../net.html#name-Addr">Addr</a></span></span><span>
+			<span class="nodocs">(*netConn) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-144">SetDeadline</a>(t <a href="../time.html">time</a>.<a href="../time.html#name-Time">Time</a>) <a href="../builtin.html#name-error">error</a></span></span><span>
+			<span class="nodocs">(*netConn) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-159">SetReadDeadline</a>(t <a href="../time.html">time</a>.<a href="../time.html#name-Time">Time</a>) <a href="../builtin.html#name-error">error</a></span></span><span>
+			<span class="nodocs">(*netConn) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-150">SetWriteDeadline</a>(t <a href="../time.html">time</a>.<a href="../time.html#name-Time">Time</a>) <a href="../builtin.html#name-error">error</a></span></span><span>
+			<span class="nodocs">(*netConn) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-83">Write</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></span></span>
 		<input type='checkbox' class="fold" id="netConn-fold-impls"><label for="netConn-fold-impls">Implements (<i>at least 8, all are exported</i>)</label><span id='netConn-fold-impls-items' class="fold-items"><span>
-			*T : io.<a href="../io.html#name-Closer">Closer</a></span><span>
-			*T : io.<a href="../io.html#name-ReadCloser">ReadCloser</a></span><span>
-			*T : io.<a href="../io.html#name-Reader">Reader</a></span><span>
-			*T : io.<a href="../io.html#name-ReadWriteCloser">ReadWriteCloser</a></span><span>
-			*T : io.<a href="../io.html#name-ReadWriter">ReadWriter</a></span><span>
-			*T : io.<a href="../io.html#name-WriteCloser">WriteCloser</a></span><span>
-			*T : io.<a href="../io.html#name-Writer">Writer</a></span><span>
-			*T : net.<a href="../net.html#name-Conn">Conn</a></span></span>
+			*netConn : io.<a href="../io.html#name-Closer">Closer</a></span><span>
+			*netConn : io.<a href="../io.html#name-ReadCloser">ReadCloser</a></span><span>
+			*netConn : io.<a href="../io.html#name-Reader">Reader</a></span><span>
+			*netConn : io.<a href="../io.html#name-ReadWriteCloser">ReadWriteCloser</a></span><span>
+			*netConn : io.<a href="../io.html#name-ReadWriter">ReadWriter</a></span><span>
+			*netConn : io.<a href="../io.html#name-WriteCloser">WriteCloser</a></span><span>
+			*netConn : io.<a href="../io.html#name-Writer">Writer</a></span><span>
+			*netConn : net.<a href="../net.html#name-Conn">Conn</a></span></span>
 
 </span></div><div class="anchor type-res hidden" id="name-opcode" data-popularity="285">	<input type='checkbox' class="fold" id="opcode-fold-content"><label for="opcode-fold-content"> <a href="../../use/nhooyr.io/websocket..opcode^5c14f.html">type</a> <a href="../../src/nhooyr.io/websocket/frame.go.html#line-15">opcode</a> <a href="../builtin.html#name-int">int</a> <i>(basic type)</i></label><span id='opcode-fold-content-docs' class="fold-docs">
 		opcode represents a WebSocket opcode.
 
 		<input type='checkbox' class="fold" id="opcode-fold-methods"><label for="opcode-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='opcode-fold-methods-items' class="fold-items"><span>
-			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/stringer.go.html#line-29">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+			<span class="nodocs">( opcode) <a href="../../src/nhooyr.io/websocket/stringer.go.html#line-29">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
 		<input type='checkbox' class="fold" id="opcode-fold-impls"><label for="opcode-fold-impls">Implements (<i>at least 3, in which 1 are exported</i>)</label><span id='opcode-fold-impls-items' class="fold-items"><span>
-			 T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span>
+			 opcode : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span>
 			<input type='checkbox' checked class="showhide" id="opcode-showhide-impls"><i><label for="opcode-showhide-impls" class="show-inline">/* 2+ unexporteds ... */</label><label for="opcode-showhide-impls" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
-			 T : context.<a href="../context.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
-			 T : runtime.<a href="../runtime.html#name-stringer">stringer</a></i></span></span>
+			 opcode : context.<a href="../context.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
+			 opcode : runtime.<a href="../runtime.html#name-stringer">stringer</a></i></span></span>
 		<input type='checkbox' class="fold" id="opcode-fold-params"><label for="opcode-fold-params">As Inputs Of (<i>at least 2, neither is exported</i>)</label><span id='opcode-fold-params-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="opcode-showhide-outputofs"><i><label for="opcode-showhide-outputofs" class="show-inline">/* 2+ unexporteds ... */</label><label for="opcode-showhide-outputofs" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
 			func (*<a href="#name-Conn">Conn</a>).<a href="../../src/nhooyr.io/websocket/write.go.html#line-232">writeControl</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, opcode <b>opcode</b>, p []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-error">error</a></i></span><span class="hidden"><i>
@@ -863,9 +868,9 @@
 </span></div><div class="anchor type-res hidden" id="name-readerFunc" data-popularity="100">	<input type='checkbox' class="fold" id="readerFunc-fold-content"><label for="readerFunc-fold-content"> <a href="../../use/nhooyr.io/websocket..readerFunc^cc987.html">type</a> <a href="../../src/nhooyr.io/websocket/read.go.html#line-470">readerFunc</a> <i>(func)</i></label><span id='readerFunc-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="readerFunc-fold-methods"><label for="readerFunc-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='readerFunc-fold-methods-items' class="fold-items"><span>
-			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/read.go.html#line-472">Read</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></span></span>
+			<span class="nodocs">( readerFunc) <a href="../../src/nhooyr.io/websocket/read.go.html#line-472">Read</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></span></span>
 		<input type='checkbox' class="fold" id="readerFunc-fold-impls"><label for="readerFunc-fold-impls">Implements (<i>at least one exported</i>)</label><span id='readerFunc-fold-impls-items' class="fold-items"><span>
-			 T : io.<a href="../io.html#name-Reader">Reader</a></span></span>
+			 readerFunc : io.<a href="../io.html#name-Reader">Reader</a></span></span>
 
 </span></div><div class="anchor type-res hidden" id="name-slidingWindow" data-popularity="150">	<input type='checkbox' class="fold" id="slidingWindow-fold-content"><label for="slidingWindow-fold-content"> <a href="../../use/nhooyr.io/websocket..slidingWindow^02df3.html">type</a> <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-111">slidingWindow</a> <i>(struct)</i></label><span id='slidingWindow-fold-content-docs' class="fold-docs">
 
@@ -874,9 +879,9 @@
 			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-112">buf</a> <i>[]<a href="../builtin.html#name-byte">byte</a></i></span></i></span></span>
 		<input type='checkbox' class="fold" id="slidingWindow-fold-methods"><label for="slidingWindow-fold-methods">Methods (<i>total 3, none are exported</i>)</label><span id='slidingWindow-fold-methods-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="slidingWindow-showhide-methods"><i><label for="slidingWindow-showhide-methods" class="show-inline">/* 3 unexporteds ... */</label><label for="slidingWindow-showhide-methods" class="hide-inline">/* 3 unexporteds: */</label></i><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-153">close</a>()</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-135">init</a>(n <a href="../builtin.html#name-int">int</a>)</span></i></span><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-164">write</a>(p []<a href="../builtin.html#name-byte">byte</a>)</span></i></span></span>
+			<span class="nodocs">(*slidingWindow) <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-153">close</a>()</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*slidingWindow) <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-135">init</a>(n <a href="../builtin.html#name-int">int</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*slidingWindow) <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-164">write</a>(p []<a href="../builtin.html#name-byte">byte</a>)</span></i></span></span>
 
 </span></div><div class="anchor type-res hidden" id="name-trimLastFourBytesWriter" data-popularity="150">	<input type='checkbox' class="fold" id="trimLastFourBytesWriter-fold-content"><label for="trimLastFourBytesWriter-fold-content"> <a href="../../use/nhooyr.io/websocket..trimLastFourBytesWriter^78a18.html">type</a> <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-43">trimLastFourBytesWriter</a> <i>(struct)</i></label><span id='trimLastFourBytesWriter-fold-content-docs' class="fold-docs">
 
@@ -885,23 +890,23 @@
 			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-45">tail</a> <i>[]<a href="../builtin.html#name-byte">byte</a></i></span></i></span><span class="hidden"><i>
 			<span class="nodocs"><a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-44">w</a> <i><a href="../io.html">io</a>.<a href="../io.html#name-Writer">Writer</a></i></span></i></span></span>
 		<input type='checkbox' class="fold" id="trimLastFourBytesWriter-fold-methods"><label for="trimLastFourBytesWriter-fold-methods">Methods (<i>total 2, in which 1 are exported</i>)</label><span id='trimLastFourBytesWriter-fold-methods-items' class="fold-items"><span>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-54">Write</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></span>
+			<span class="nodocs">(*trimLastFourBytesWriter) <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-54">Write</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></span>
 			<input type='checkbox' checked class="showhide" id="trimLastFourBytesWriter-showhide-methods"><i><label for="trimLastFourBytesWriter-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="trimLastFourBytesWriter-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-48">reset</a>()</span></i></span></span>
+			<span class="nodocs">(*trimLastFourBytesWriter) <a href="../../src/nhooyr.io/websocket/compress_notjs.go.html#line-48">reset</a>()</span></i></span></span>
 		<input type='checkbox' class="fold" id="trimLastFourBytesWriter-fold-impls"><label for="trimLastFourBytesWriter-fold-impls">Implements (<i>at least one exported</i>)</label><span id='trimLastFourBytesWriter-fold-impls-items' class="fold-items"><span>
-			*T : io.<a href="../io.html#name-Writer">Writer</a></span></span>
+			*trimLastFourBytesWriter : io.<a href="../io.html#name-Writer">Writer</a></span></span>
 
 </span></div><div class="anchor type-res hidden" id="name-websocketAddr" data-popularity="300">	<input type='checkbox' class="fold" id="websocketAddr-fold-content"><label for="websocketAddr-fold-content"> <a href="../../use/nhooyr.io/websocket..websocketAddr^dd18b.html">type</a> <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-125">websocketAddr</a> <i>(struct)</i></label><span id='websocketAddr-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="websocketAddr-fold-methods"><label for="websocketAddr-fold-methods">Methods (<i>total 2, both are exported</i>)</label><span id='websocketAddr-fold-methods-items' class="fold-items"><span>
-			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-128">Network</a>() <a href="../builtin.html#name-string">string</a></span></span><span>
-			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-132">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+			<span class="nodocs">( websocketAddr) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-128">Network</a>() <a href="../builtin.html#name-string">string</a></span></span><span>
+			<span class="nodocs">( websocketAddr) <a href="../../src/nhooyr.io/websocket/netconn.go.html#line-132">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
 		<input type='checkbox' class="fold" id="websocketAddr-fold-impls"><label for="websocketAddr-fold-impls">Implements (<i>at least 4, in which 2 are exported</i>)</label><span id='websocketAddr-fold-impls-items' class="fold-items"><span>
-			 T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span><span>
-			 T : net.<a href="../net.html#name-Addr">Addr</a></span>
+			 websocketAddr : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span><span>
+			 websocketAddr : net.<a href="../net.html#name-Addr">Addr</a></span>
 			<input type='checkbox' checked class="showhide" id="websocketAddr-showhide-impls"><i><label for="websocketAddr-showhide-impls" class="show-inline">/* 2+ unexporteds ... */</label><label for="websocketAddr-showhide-impls" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
-			 T : context.<a href="../context.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
-			 T : runtime.<a href="../runtime.html#name-stringer">stringer</a></i></span></span>
+			 websocketAddr : context.<a href="../context.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
+			 websocketAddr : runtime.<a href="../runtime.html#name-stringer">stringer</a></i></span></span>
 
 </span></div><div class="anchor type-res hidden" id="name-websocketExtension" data-popularity="145">	<input type='checkbox' class="fold" id="websocketExtension-fold-content"><label for="websocketExtension-fold-content"> <a href="../../use/nhooyr.io/websocket..websocketExtension^a2445.html">type</a> <a href="../../src/nhooyr.io/websocket/accept.go.html#line-321">websocketExtension</a> <i>(struct)</i></label><span id='websocketExtension-fold-content-docs' class="fold-docs">
 
@@ -920,9 +925,9 @@
 </span></div><div class="anchor type-res hidden" id="name-writerFunc" data-popularity="100">	<input type='checkbox' class="fold" id="writerFunc-fold-content"><label for="writerFunc-fold-content"> <a href="../../use/nhooyr.io/websocket..writerFunc^49f17.html">type</a> <a href="../../src/nhooyr.io/websocket/write.go.html#line-370">writerFunc</a> <i>(func)</i></label><span id='writerFunc-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="writerFunc-fold-methods"><label for="writerFunc-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='writerFunc-fold-methods-items' class="fold-items"><span>
-			<span class="nodocs">( T) <a href="../../src/nhooyr.io/websocket/write.go.html#line-372">Write</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></span></span>
+			<span class="nodocs">( writerFunc) <a href="../../src/nhooyr.io/websocket/write.go.html#line-372">Write</a>(p []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</span></span></span>
 		<input type='checkbox' class="fold" id="writerFunc-fold-impls"><label for="writerFunc-fold-impls">Implements (<i>at least one exported</i>)</label><span id='writerFunc-fold-impls-items' class="fold-items"><span>
-			 T : io.<a href="../io.html#name-Writer">Writer</a></span></span>
+			 writerFunc : io.<a href="../io.html#name-Writer">Writer</a></span></span>
 
 </span></div></div>
 <div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 40, in which 4 are exported)</i></span></span>
@@ -1210,7 +1215,7 @@
 
 </span></i></div></div></code></pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

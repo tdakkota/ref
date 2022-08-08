@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: req_map.go in package github.com/gotd/td/internal/pool</title>
-<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -61,60 +61,61 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-9"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/internal/pool.html#name-reqKey" class="ident">reqKey</a> <a href="../../../../../../pkg/builtin.html#name-int64" class="ident">int64</a></code></span>
 <span class="codeline" id="line-10"><code></code></span>
 <span class="codeline" id="line-11"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/internal/pool.html#name-reqMap" class="ident">reqMap</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-12"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/pool..reqMap^631ce.m^62c66.html" class="ident">m</a>   <span class="keyword">map</span>[<a href="#line-9" class="ident">reqKey</a>]<span class="keyword">chan</span> *<a href="pool_conn.go.html#line-23" class="ident">poolConn</a></code></span>
-<span class="codeline" id="line-13"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/pool..reqMap^631ce.mux^99830.html" class="ident">mux</a> <a href="../../../../../../pkg/sync.html" class="ident i0">sync</a>.<a href="../../../../../sync/mutex.go.html#line-25" class="ident">Mutex</a></code></span>
-<span class="codeline" id="line-14"><code></code></span>
-<span class="codeline" id="line-15"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/pool..reqMap^631ce.nextRequest^0adeb.html" class="ident">nextRequest</a> <a href="../../../../../../pkg/go.uber.org/atomic.html" class="ident i1">atomic</a>.<a href="../../../../../go.uber.org/atomic/int64.go.html#line-32" class="ident">Int64</a></code></span>
-<span class="codeline" id="line-16"><code>}</code></span>
-<span class="codeline" id="line-17"><code></code></span>
-<span class="codeline" id="line-18"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/pool.html#name-newReqMap" class="ident">newReqMap</a></label>() *<a href="#line-11" class="ident">reqMap</a> {</code></span>
-<span class="codeline" id="line-19"><code>	<span class="keyword">return</span> &amp;<a href="#line-11" class="ident">reqMap</a>{</code></span>
-<span class="codeline" id="line-20"><code>		<a href="#line-12" class="ident">m</a>: <span class="keyword">map</span>[<a href="#line-9" class="ident">reqKey</a>]<span class="keyword">chan</span> *<a href="pool_conn.go.html#line-23" class="ident">poolConn</a>{},</code></span>
-<span class="codeline" id="line-21"><code>	}</code></span>
-<span class="codeline" id="line-22"><code>}</code></span>
-<span class="codeline" id="line-23"><code></code></span>
-<span class="codeline" id="line-24"><code><span class="keyword">func</span> (<label for="r1" class="ident">r</label> *<a href="#line-11" class="ident">reqMap</a>) <label for="r2" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/pool..reqMap^631ce.request^1f58b.html" class="ident">request</a></label>() (<label for="r3" class="ident">key</label> <a href="#line-9" class="ident">reqKey</a>, <label for="r4" class="ident">ch</label> <span class="keyword">chan</span> *<a href="pool_conn.go.html#line-23" class="ident">poolConn</a>) {</code></span>
-<span class="codeline" id="line-25"><code>	<label for="r3" class="ident">key</label> = <a href="#line-9" class="ident">reqKey</a>(<label for="r1" class="ident">r</label>.<a href="#line-15" class="ident">nextRequest</a>.<a href="../../../../../go.uber.org/atomic/int64.go.html#line-59" class="ident">Inc</a>())</code></span>
-<span class="codeline" id="line-26"><code>	<label for="r4" class="ident">ch</label> = <a href="../../../../../runtime/chan.go.html#line-71">make</a>(<span class="keyword">chan</span> *<a href="pool_conn.go.html#line-23" class="ident">poolConn</a>, <span class="lit-number">1</span>)</code></span>
-<span class="codeline" id="line-27"><code></code></span>
-<span class="codeline" id="line-28"><code>	<label for="r1" class="ident">r</label>.<a href="#line-13" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
-<span class="codeline" id="line-29"><code>	<label for="r1" class="ident">r</label>.<a href="#line-12" class="ident">m</a>[<label for="r3" class="ident">key</label>] = <label for="r4" class="ident">ch</label></code></span>
-<span class="codeline" id="line-30"><code>	<label for="r1" class="ident">r</label>.<a href="#line-13" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
-<span class="codeline" id="line-31"><code>	<span class="keyword">return</span> <label for="r3" class="ident">key</label>, <label for="r4" class="ident">ch</label></code></span>
-<span class="codeline" id="line-32"><code>}</code></span>
-<span class="codeline" id="line-33"><code></code></span>
-<span class="codeline" id="line-34"><code><span class="keyword">func</span> (<label for="r5" class="ident">r</label> *<a href="#line-11" class="ident">reqMap</a>) <label for="r6" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/pool..reqMap^631ce.transfer^27f57.html" class="ident">transfer</a></label>(<label for="r7" class="ident">c</label> *<a href="pool_conn.go.html#line-23" class="ident">poolConn</a>) <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-35"><code>	<label for="r5" class="ident">r</label>.<a href="#line-13" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
-<span class="codeline" id="line-36"><code>	<span class="keyword">if</span> <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r5" class="ident">r</label>.<a href="#line-12" class="ident">m</a>) &lt; <span class="lit-number">1</span> { <span class="comment">// no requests</span></code></span>
-<span class="codeline" id="line-37"><code>		<label for="r5" class="ident">r</label>.<a href="#line-13" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
-<span class="codeline" id="line-38"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-39"><code>	}</code></span>
-<span class="codeline" id="line-40"><code></code></span>
-<span class="codeline" id="line-41"><code>	<span class="keyword">var</span> <label for="r8" class="ident">ch</label> <span class="keyword">chan</span> *<a href="pool_conn.go.html#line-23" class="ident">poolConn</a></code></span>
-<span class="codeline" id="line-42"><code>	<span class="keyword">var</span> <label for="r9" class="ident">k</label> <a href="#line-9" class="ident">reqKey</a></code></span>
-<span class="codeline" id="line-43"><code>	<span class="keyword">for</span> <label for="r9" class="ident">k</label>, <label for="r8" class="ident">ch</label> = <span class="keyword">range</span> <label for="r5" class="ident">r</label>.<a href="#line-12" class="ident">m</a> { <span class="comment">// Get one from map.</span></code></span>
-<span class="codeline" id="line-44"><code>		<span class="keyword">break</span></code></span>
-<span class="codeline" id="line-45"><code>	}</code></span>
-<span class="codeline" id="line-46"><code>	<a href="../../../../../../pkg/builtin.html#name-delete" class="ident">delete</a>(<label for="r5" class="ident">r</label>.<a href="#line-12" class="ident">m</a>, <label for="r9" class="ident">k</label>) <span class="comment">// Remove from pending requests.</span></code></span>
-<span class="codeline" id="line-47"><code>	<label for="r5" class="ident">r</label>.<a href="#line-13" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
-<span class="codeline" id="line-48"><code></code></span>
-<span class="codeline" id="line-49"><code>	<span class="keyword">if</span> <label for="r8" class="ident">ch</label> == <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-50"><code>		<a href="../../../../../../pkg/builtin.html#name-panic" class="ident">panic</a>(<span class="lit-string">"unreachable: channel can't be nil due to map not empty"</span>)</code></span>
-<span class="codeline" id="line-51"><code>	}</code></span>
-<span class="codeline" id="line-52"><code></code></span>
-<span class="codeline" id="line-53"><code>	<label for="r8" class="ident">ch</label> &lt;- <label for="r7" class="ident">c</label></code></span>
-<span class="codeline" id="line-54"><code>	<a href="../../../../../../pkg/builtin.html#name-close" class="ident">close</a>(<label for="r8" class="ident">ch</label>)</code></span>
-<span class="codeline" id="line-55"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-56"><code>}</code></span>
-<span class="codeline" id="line-57"><code></code></span>
-<span class="codeline" id="line-58"><code><span class="keyword">func</span> (<label for="r10" class="ident">r</label> *<a href="#line-11" class="ident">reqMap</a>) <label for="r11" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/pool..reqMap^631ce.delete^61975.html" class="ident">delete</a></label>(<label for="r12" class="ident">key</label> <a href="#line-9" class="ident">reqKey</a>) {</code></span>
-<span class="codeline" id="line-59"><code>	<label for="r10" class="ident">r</label>.<a href="#line-13" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
-<span class="codeline" id="line-60"><code>	<a href="../../../../../../pkg/builtin.html#name-delete" class="ident">delete</a>(<label for="r10" class="ident">r</label>.<a href="#line-12" class="ident">m</a>, <label for="r12" class="ident">key</label>)</code></span>
-<span class="codeline" id="line-61"><code>	<label for="r10" class="ident">r</label>.<a href="#line-13" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
-<span class="codeline" id="line-62"><code>}</code></span>
+<span class="codeline" id="line-12"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/pool..reqMap^631ce.m^62c66.html" class="ident">m</a>   <span class="keyword">map</span>[<a href="#line-9" class="ident">reqKey</a>]<span class="keyword">chan</span> *<a href="pool_conn.go.html#line-24" class="ident">poolConn</a></code></span>
+<span class="codeline" id="line-13"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/pool..reqMap^631ce.mux^99830.html" class="ident">mux</a> <a href="../../../../../../pkg/sync.html" class="ident i0">sync</a>.<a href="../../../../../sync/mutex.go.html#line-34" class="ident">Mutex</a></code></span>
+<span class="codeline" id="line-14"><code>	_   [<span class="lit-number">4</span>]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-15"><code></code></span>
+<span class="codeline" id="line-16"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/pool..reqMap^631ce.nextRequest^0adeb.html" class="ident">nextRequest</a> <a href="../../../../../../pkg/go.uber.org/atomic.html" class="ident i1">atomic</a>.<a href="../../../../../go.uber.org/atomic/int64.go.html#line-32" class="ident">Int64</a></code></span>
+<span class="codeline" id="line-17"><code>}</code></span>
+<span class="codeline" id="line-18"><code></code></span>
+<span class="codeline" id="line-19"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/pool.html#name-newReqMap" class="ident">newReqMap</a></label>() *<a href="#line-11" class="ident">reqMap</a> {</code></span>
+<span class="codeline" id="line-20"><code>	<span class="keyword">return</span> &amp;<a href="#line-11" class="ident">reqMap</a>{</code></span>
+<span class="codeline" id="line-21"><code>		<a href="#line-12" class="ident">m</a>: <span class="keyword">map</span>[<a href="#line-9" class="ident">reqKey</a>]<span class="keyword">chan</span> *<a href="pool_conn.go.html#line-24" class="ident">poolConn</a>{},</code></span>
+<span class="codeline" id="line-22"><code>	}</code></span>
+<span class="codeline" id="line-23"><code>}</code></span>
+<span class="codeline" id="line-24"><code></code></span>
+<span class="codeline" id="line-25"><code><span class="keyword">func</span> (<label for="r1" class="ident">r</label> *<a href="#line-11" class="ident">reqMap</a>) <label for="r2" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/pool..reqMap^631ce.request^1f58b.html" class="ident">request</a></label>() (<label for="r3" class="ident">key</label> <a href="#line-9" class="ident">reqKey</a>, <label for="r4" class="ident">ch</label> <span class="keyword">chan</span> *<a href="pool_conn.go.html#line-24" class="ident">poolConn</a>) {</code></span>
+<span class="codeline" id="line-26"><code>	<label for="r3" class="ident">key</label> = <a href="#line-9" class="ident">reqKey</a>(<label for="r1" class="ident">r</label>.<a href="#line-16" class="ident">nextRequest</a>.<a href="../../../../../go.uber.org/atomic/int64.go.html#line-59" class="ident">Inc</a>())</code></span>
+<span class="codeline" id="line-27"><code>	<label for="r4" class="ident">ch</label> = <a href="../../../../../runtime/chan.go.html#line-72">make</a>(<span class="keyword">chan</span> *<a href="pool_conn.go.html#line-24" class="ident">poolConn</a>, <span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-28"><code></code></span>
+<span class="codeline" id="line-29"><code>	<label for="r1" class="ident">r</label>.<a href="#line-13" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-30"><code>	<label for="r1" class="ident">r</label>.<a href="#line-12" class="ident">m</a>[<label for="r3" class="ident">key</label>] = <label for="r4" class="ident">ch</label></code></span>
+<span class="codeline" id="line-31"><code>	<label for="r1" class="ident">r</label>.<a href="#line-13" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-32"><code>	<span class="keyword">return</span> <label for="r3" class="ident">key</label>, <label for="r4" class="ident">ch</label></code></span>
+<span class="codeline" id="line-33"><code>}</code></span>
+<span class="codeline" id="line-34"><code></code></span>
+<span class="codeline" id="line-35"><code><span class="keyword">func</span> (<label for="r5" class="ident">r</label> *<a href="#line-11" class="ident">reqMap</a>) <label for="r6" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/pool..reqMap^631ce.transfer^27f57.html" class="ident">transfer</a></label>(<label for="r7" class="ident">c</label> *<a href="pool_conn.go.html#line-24" class="ident">poolConn</a>) <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-36"><code>	<label for="r5" class="ident">r</label>.<a href="#line-13" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-37"><code>	<span class="keyword">if</span> <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r5" class="ident">r</label>.<a href="#line-12" class="ident">m</a>) &lt; <span class="lit-number">1</span> { <span class="comment">// no requests</span></code></span>
+<span class="codeline" id="line-38"><code>		<label for="r5" class="ident">r</label>.<a href="#line-13" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-39"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-40"><code>	}</code></span>
+<span class="codeline" id="line-41"><code></code></span>
+<span class="codeline" id="line-42"><code>	<span class="keyword">var</span> <label for="r8" class="ident">ch</label> <span class="keyword">chan</span> *<a href="pool_conn.go.html#line-24" class="ident">poolConn</a></code></span>
+<span class="codeline" id="line-43"><code>	<span class="keyword">var</span> <label for="r9" class="ident">k</label> <a href="#line-9" class="ident">reqKey</a></code></span>
+<span class="codeline" id="line-44"><code>	<span class="keyword">for</span> <label for="r9" class="ident">k</label>, <label for="r8" class="ident">ch</label> = <span class="keyword">range</span> <label for="r5" class="ident">r</label>.<a href="#line-12" class="ident">m</a> { <span class="comment">// Get one from map.</span></code></span>
+<span class="codeline" id="line-45"><code>		<span class="keyword">break</span></code></span>
+<span class="codeline" id="line-46"><code>	}</code></span>
+<span class="codeline" id="line-47"><code>	<a href="../../../../../../pkg/builtin.html#name-delete" class="ident">delete</a>(<label for="r5" class="ident">r</label>.<a href="#line-12" class="ident">m</a>, <label for="r9" class="ident">k</label>) <span class="comment">// Remove from pending requests.</span></code></span>
+<span class="codeline" id="line-48"><code>	<label for="r5" class="ident">r</label>.<a href="#line-13" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-49"><code></code></span>
+<span class="codeline" id="line-50"><code>	<span class="keyword">if</span> <label for="r8" class="ident">ch</label> == <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-51"><code>		<a href="../../../../../../pkg/builtin.html#name-panic" class="ident">panic</a>(<span class="lit-string">"unreachable: channel can't be nil due to map not empty"</span>)</code></span>
+<span class="codeline" id="line-52"><code>	}</code></span>
+<span class="codeline" id="line-53"><code></code></span>
+<span class="codeline" id="line-54"><code>	<label for="r8" class="ident">ch</label> &lt;- <label for="r7" class="ident">c</label></code></span>
+<span class="codeline" id="line-55"><code>	<a href="../../../../../../pkg/builtin.html#name-close" class="ident">close</a>(<label for="r8" class="ident">ch</label>)</code></span>
+<span class="codeline" id="line-56"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-57"><code>}</code></span>
+<span class="codeline" id="line-58"><code></code></span>
+<span class="codeline" id="line-59"><code><span class="keyword">func</span> (<label for="r10" class="ident">r</label> *<a href="#line-11" class="ident">reqMap</a>) <label for="r11" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/pool..reqMap^631ce.delete^61975.html" class="ident">delete</a></label>(<label for="r12" class="ident">key</label> <a href="#line-9" class="ident">reqKey</a>) {</code></span>
+<span class="codeline" id="line-60"><code>	<label for="r10" class="ident">r</label>.<a href="#line-13" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-61"><code>	<a href="../../../../../../pkg/builtin.html#name-delete" class="ident">delete</a>(<label for="r10" class="ident">r</label>.<a href="#line-12" class="ident">m</a>, <label for="r12" class="ident">key</label>)</code></span>
+<span class="codeline" id="line-62"><code>	<label for="r10" class="ident">r</label>.<a href="#line-13" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-63"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

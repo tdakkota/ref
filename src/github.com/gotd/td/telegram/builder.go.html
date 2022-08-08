@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: builder.go in package github.com/gotd/td/telegram</title>
-<link href="../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -72,8 +72,7 @@ input[id=i11]:checked ~pre .i11,
 input[id=i12]:checked ~pre .i12,
 input[id=i13]:checked ~pre .i13,
 input[id=i14]:checked ~pre .i14,
-input[id=i15]:checked ~pre .i15,
-input[id=i16]:checked ~pre .i16
+input[id=i15]:checked ~pre .i15
 {background: brown; color: #eed;}
 </style><input id="r0" type="radio" name="g"/>
 <input id="r1" type="radio" name="g"/>
@@ -131,79 +130,78 @@ input[id=i16]:checked ~pre .i16
 <input id="i13" type="radio" name="i"/>
 <input id="i14" type="radio" name="i"/>
 <input id="i15" type="radio" name="i"/>
-<input id="i16" type="radio" name="i"/>
 
 <pre class="line-numbers">
 <span class="codeline" id="line-1"><code><span class="keyword">package</span> telegram</code></span>
 <span class="codeline" id="line-2"><code></code></span>
 <span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
 <span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"context"</span></label></code></span>
-<span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"crypto/rand"</span></label></code></span>
-<span class="codeline" id="line-6"><code>	<label for="i2"><span class="lit-string i2">"errors"</span></label></code></span>
-<span class="codeline" id="line-7"><code>	<label for="i3"><span class="lit-string i3">"io"</span></label></code></span>
-<span class="codeline" id="line-8"><code>	<label for="i4"><span class="lit-string i4">"os"</span></label></code></span>
-<span class="codeline" id="line-9"><code>	<label for="i5"><span class="lit-string i5">"path/filepath"</span></label></code></span>
-<span class="codeline" id="line-10"><code>	<label for="i6"><span class="lit-string i6">"strconv"</span></label></code></span>
-<span class="codeline" id="line-11"><code>	<label for="i7"><span class="lit-string i7">"time"</span></label></code></span>
-<span class="codeline" id="line-12"><code></code></span>
-<span class="codeline" id="line-13"><code>	<label for="i8"><span class="lit-string i8">"github.com/cenkalti/backoff/v4"</span></label></code></span>
-<span class="codeline" id="line-14"><code>	<label for="i9"><span class="lit-string i9">"go.uber.org/zap"</span></label></code></span>
-<span class="codeline" id="line-15"><code>	<label for="i10"><span class="lit-string i10">"golang.org/x/net/proxy"</span></label></code></span>
-<span class="codeline" id="line-16"><code>	<label for="i11"><span class="lit-string i11">"golang.org/x/xerrors"</span></label></code></span>
-<span class="codeline" id="line-17"><code></code></span>
-<span class="codeline" id="line-18"><code>	<label for="i12"><span class="lit-string i12">"github.com/gotd/td/clock"</span></label></code></span>
-<span class="codeline" id="line-19"><code>	<label for="i13"><span class="lit-string i13">"github.com/gotd/td/session"</span></label></code></span>
-<span class="codeline" id="line-20"><code>	<label for="i14"><span class="lit-string i14">"github.com/gotd/td/telegram/auth"</span></label></code></span>
-<span class="codeline" id="line-21"><code>	<label for="i15"><span class="lit-string i15">"github.com/gotd/td/telegram/dcs"</span></label></code></span>
-<span class="codeline" id="line-22"><code>	<label for="i16"><span class="lit-string i16">"github.com/gotd/td/tgerr"</span></label></code></span>
-<span class="codeline" id="line-23"><code>)</code></span>
-<span class="codeline" id="line-24"><code></code></span>
-<span class="codeline" id="line-25"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-sessionDir" class="ident">sessionDir</a></label>() (<a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-26"><code>	<label for="r1" class="ident">dir</label>, <label for="r2" class="ident">ok</label> := <a href="../../../../../pkg/os.html" class="ident i4">os</a>.<a href="../../../../os/env.go.html#line-112" class="ident">LookupEnv</a>(<span class="lit-string">"SESSION_DIR"</span>)</code></span>
-<span class="codeline" id="line-27"><code>	<span class="keyword">if</span> <label for="r2" class="ident">ok</label> {</code></span>
-<span class="codeline" id="line-28"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/path/filepath.html" class="ident i5">filepath</a>.<a href="../../../../path/filepath/path.go.html#line-255" class="ident">Abs</a>(<label for="r1" class="ident">dir</label>)</code></span>
-<span class="codeline" id="line-29"><code>	}</code></span>
-<span class="codeline" id="line-30"><code></code></span>
-<span class="codeline" id="line-31"><code>	<label for="r1" class="ident">dir</label>, <label for="r3" class="ident">err</label> := <a href="../../../../../pkg/os.html" class="ident i4">os</a>.<a href="../../../../os/file.go.html#line-500" class="ident">UserHomeDir</a>()</code></span>
-<span class="codeline" id="line-32"><code>	<span class="keyword">if</span> <label for="r3" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-33"><code>		<label for="r1" class="ident">dir</label> = <span class="lit-string">"."</span></code></span>
-<span class="codeline" id="line-34"><code>	}</code></span>
-<span class="codeline" id="line-35"><code></code></span>
-<span class="codeline" id="line-36"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/path/filepath.html" class="ident i5">filepath</a>.<a href="../../../../path/filepath/path.go.html#line-255" class="ident">Abs</a>(<a href="../../../../../pkg/path/filepath.html" class="ident i5">filepath</a>.<a href="../../../../path/filepath/path.go.html#line-224" class="ident">Join</a>(<label for="r1" class="ident">dir</label>, <span class="lit-string">".td"</span>))</code></span>
-<span class="codeline" id="line-37"><code>}</code></span>
-<span class="codeline" id="line-38"><code></code></span>
-<span class="codeline" id="line-39"><code><span class="comment">// OptionsFromEnvironment fills unfilled field in opts parameter</span></code></span>
-<span class="codeline" id="line-40"><code><span class="comment">// using environment variables.</span></code></span>
-<span class="codeline" id="line-41"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-42"><code><span class="comment">// Variables:</span></code></span>
-<span class="codeline" id="line-43"><code><span class="comment">// 	SESSION_FILE:        path to session file</span></code></span>
-<span class="codeline" id="line-44"><code><span class="comment">// 	SESSION_DIR:         path to session directory, if SESSION_FILE is not set</span></code></span>
-<span class="codeline" id="line-45"><code><span class="comment">// 	ALL_PROXY, NO_PROXY: see https://pkg.go.dev/golang.org/x/net/proxy#FromEnvironment</span></code></span>
-<span class="codeline" id="line-46"><code><span class="keyword">func</span> <label for="r4" class="ident"><a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-OptionsFromEnvironment" class="ident">OptionsFromEnvironment</a></label>(<label for="r5" class="ident">opts</label> <a href="options.go.html#line-21" class="ident">Options</a>) (<a href="options.go.html#line-21" class="ident">Options</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"io"</span></label></code></span>
+<span class="codeline" id="line-6"><code>	<label for="i2"><span class="lit-string i2">"os"</span></label></code></span>
+<span class="codeline" id="line-7"><code>	<label for="i3"><span class="lit-string i3">"path/filepath"</span></label></code></span>
+<span class="codeline" id="line-8"><code>	<label for="i4"><span class="lit-string i4">"strconv"</span></label></code></span>
+<span class="codeline" id="line-9"><code>	<label for="i5"><span class="lit-string i5">"time"</span></label></code></span>
+<span class="codeline" id="line-10"><code></code></span>
+<span class="codeline" id="line-11"><code>	<label for="i6"><span class="lit-string i6">"github.com/cenkalti/backoff/v4"</span></label></code></span>
+<span class="codeline" id="line-12"><code>	<label for="i7"><span class="lit-string i7">"github.com/go-faster/errors"</span></label></code></span>
+<span class="codeline" id="line-13"><code>	<label for="i8"><span class="lit-string i8">"go.uber.org/zap"</span></label></code></span>
+<span class="codeline" id="line-14"><code>	<label for="i9"><span class="lit-string i9">"golang.org/x/net/proxy"</span></label></code></span>
+<span class="codeline" id="line-15"><code></code></span>
+<span class="codeline" id="line-16"><code>	<label for="i10"><span class="lit-string i10">"github.com/gotd/td/clock"</span></label></code></span>
+<span class="codeline" id="line-17"><code>	<label for="i11"><span class="lit-string i11">"github.com/gotd/td/internal/crypto"</span></label></code></span>
+<span class="codeline" id="line-18"><code>	<label for="i12"><span class="lit-string i12">"github.com/gotd/td/session"</span></label></code></span>
+<span class="codeline" id="line-19"><code>	<label for="i13"><span class="lit-string i13">"github.com/gotd/td/telegram/auth"</span></label></code></span>
+<span class="codeline" id="line-20"><code>	<label for="i14"><span class="lit-string i14">"github.com/gotd/td/telegram/dcs"</span></label></code></span>
+<span class="codeline" id="line-21"><code>	<label for="i15"><span class="lit-string i15">"github.com/gotd/td/tgerr"</span></label></code></span>
+<span class="codeline" id="line-22"><code>)</code></span>
+<span class="codeline" id="line-23"><code></code></span>
+<span class="codeline" id="line-24"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-sessionDir" class="ident">sessionDir</a></label>() (<a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-25"><code>	<label for="r1" class="ident">dir</label>, <label for="r2" class="ident">ok</label> := <a href="../../../../../pkg/os.html" class="ident i2">os</a>.<a href="../../../../os/env.go.html#line-112" class="ident">LookupEnv</a>(<span class="lit-string">"SESSION_DIR"</span>)</code></span>
+<span class="codeline" id="line-26"><code>	<span class="keyword">if</span> <label for="r2" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-27"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/path/filepath.html" class="ident i3">filepath</a>.<a href="../../../../path/filepath/path.go.html#line-255" class="ident">Abs</a>(<label for="r1" class="ident">dir</label>)</code></span>
+<span class="codeline" id="line-28"><code>	}</code></span>
+<span class="codeline" id="line-29"><code></code></span>
+<span class="codeline" id="line-30"><code>	<label for="r1" class="ident">dir</label>, <label for="r3" class="ident">err</label> := <a href="../../../../../pkg/os.html" class="ident i2">os</a>.<a href="../../../../os/file.go.html#line-499" class="ident">UserHomeDir</a>()</code></span>
+<span class="codeline" id="line-31"><code>	<span class="keyword">if</span> <label for="r3" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-32"><code>		<label for="r1" class="ident">dir</label> = <span class="lit-string">"."</span></code></span>
+<span class="codeline" id="line-33"><code>	}</code></span>
+<span class="codeline" id="line-34"><code></code></span>
+<span class="codeline" id="line-35"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/path/filepath.html" class="ident i3">filepath</a>.<a href="../../../../path/filepath/path.go.html#line-255" class="ident">Abs</a>(<a href="../../../../../pkg/path/filepath.html" class="ident i3">filepath</a>.<a href="../../../../path/filepath/path.go.html#line-224" class="ident">Join</a>(<label for="r1" class="ident">dir</label>, <span class="lit-string">".td"</span>))</code></span>
+<span class="codeline" id="line-36"><code>}</code></span>
+<span class="codeline" id="line-37"><code></code></span>
+<span class="codeline" id="line-38"><code><span class="comment">// OptionsFromEnvironment fills unfilled field in opts parameter</span></code></span>
+<span class="codeline" id="line-39"><code><span class="comment">// using environment variables.</span></code></span>
+<span class="codeline" id="line-40"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-41"><code><span class="comment">// Variables:</span></code></span>
+<span class="codeline" id="line-42"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-43"><code><span class="comment">//	SESSION_FILE:        path to session file</span></code></span>
+<span class="codeline" id="line-44"><code><span class="comment">//	SESSION_DIR:         path to session directory, if SESSION_FILE is not set</span></code></span>
+<span class="codeline" id="line-45"><code><span class="comment">//	ALL_PROXY, NO_PROXY: see https://pkg.go.dev/golang.org/x/net/proxy#FromEnvironment</span></code></span>
+<span class="codeline" id="line-46"><code><span class="keyword">func</span> <label for="r4" class="ident"><a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-OptionsFromEnvironment" class="ident">OptionsFromEnvironment</a></label>(<label for="r5" class="ident">opts</label> <a href="options.go.html#line-27" class="ident">Options</a>) (<a href="options.go.html#line-27" class="ident">Options</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
 <span class="codeline" id="line-47"><code>	<span class="comment">// Setting up session storage if not provided.</span></code></span>
-<span class="codeline" id="line-48"><code>	<span class="keyword">if</span> <label for="r5" class="ident">opts</label>.<a href="options.go.html#line-49" class="ident">SessionStorage</a> == <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-49"><code>		<label for="r6" class="ident">sessionFile</label>, <label for="r7" class="ident">ok</label> := <a href="../../../../../pkg/os.html" class="ident i4">os</a>.<a href="../../../../os/env.go.html#line-112" class="ident">LookupEnv</a>(<span class="lit-string">"SESSION_FILE"</span>)</code></span>
+<span class="codeline" id="line-48"><code>	<span class="keyword">if</span> <label for="r5" class="ident">opts</label>.<a href="options.go.html#line-60" class="ident">SessionStorage</a> == <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-49"><code>		<label for="r6" class="ident">sessionFile</label>, <label for="r7" class="ident">ok</label> := <a href="../../../../../pkg/os.html" class="ident i2">os</a>.<a href="../../../../os/env.go.html#line-112" class="ident">LookupEnv</a>(<span class="lit-string">"SESSION_FILE"</span>)</code></span>
 <span class="codeline" id="line-50"><code>		<span class="keyword">if</span> !<label for="r7" class="ident">ok</label> {</code></span>
-<span class="codeline" id="line-51"><code>			<label for="r8" class="ident">dir</label>, <label for="r9" class="ident">err</label> := <a href="#line-25" class="ident">sessionDir</a>()</code></span>
+<span class="codeline" id="line-51"><code>			<label for="r8" class="ident">dir</label>, <label for="r9" class="ident">err</label> := <a href="#line-24" class="ident">sessionDir</a>()</code></span>
 <span class="codeline" id="line-52"><code>			<span class="keyword">if</span> <label for="r9" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-53"><code>				<span class="keyword">return</span> <a href="options.go.html#line-21" class="ident">Options</a>{}, <a href="../../../../../pkg/golang.org/x/xerrors.html" class="ident i11">xerrors</a>.<a href="../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"SESSION_DIR not set or invalid: %w"</span>, <label for="r9" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-53"><code>				<span class="keyword">return</span> <a href="options.go.html#line-27" class="ident">Options</a>{}, <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i7">errors</a>.<a href="../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r9" class="ident">err</label>, <span class="lit-string">"SESSION_DIR not set or invalid"</span>)</code></span>
 <span class="codeline" id="line-54"><code>			}</code></span>
-<span class="codeline" id="line-55"><code>			<label for="r6" class="ident">sessionFile</label> = <a href="../../../../../pkg/path/filepath.html" class="ident i5">filepath</a>.<a href="../../../../path/filepath/path.go.html#line-224" class="ident">Join</a>(<label for="r8" class="ident">dir</label>, <span class="lit-string">"session.json"</span>)</code></span>
+<span class="codeline" id="line-55"><code>			<label for="r6" class="ident">sessionFile</label> = <a href="../../../../../pkg/path/filepath.html" class="ident i3">filepath</a>.<a href="../../../../path/filepath/path.go.html#line-224" class="ident">Join</a>(<label for="r8" class="ident">dir</label>, <span class="lit-string">"session.json"</span>)</code></span>
 <span class="codeline" id="line-56"><code>		}</code></span>
 <span class="codeline" id="line-57"><code></code></span>
-<span class="codeline" id="line-58"><code>		<label for="r10" class="ident">dir</label>, <label for="r11" class="ident">_</label> := <a href="../../../../../pkg/path/filepath.html" class="ident i5">filepath</a>.<a href="../../../../path/filepath/path.go.html#line-208" class="ident">Split</a>(<label for="r6" class="ident">sessionFile</label>)</code></span>
-<span class="codeline" id="line-59"><code>		<span class="keyword">if</span> <label for="r12" class="ident">err</label> := <a href="../../../../../pkg/os.html" class="ident i4">os</a>.<a href="../../../../os/path.go.html#line-18" class="ident">MkdirAll</a>(<label for="r10" class="ident">dir</label>, <span class="lit-number">0700</span>); <label for="r12" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-60"><code>			<span class="keyword">return</span> <a href="options.go.html#line-21" class="ident">Options</a>{}, <a href="../../../../../pkg/golang.org/x/xerrors.html" class="ident i11">xerrors</a>.<a href="../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"session dir creation: %w"</span>, <label for="r12" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-58"><code>		<label for="r10" class="ident">dir</label>, <label for="r11" class="ident">_</label> := <a href="../../../../../pkg/path/filepath.html" class="ident i3">filepath</a>.<a href="../../../../path/filepath/path.go.html#line-208" class="ident">Split</a>(<label for="r6" class="ident">sessionFile</label>)</code></span>
+<span class="codeline" id="line-59"><code>		<span class="keyword">if</span> <label for="r12" class="ident">err</label> := <a href="../../../../../pkg/os.html" class="ident i2">os</a>.<a href="../../../../os/path.go.html#line-18" class="ident">MkdirAll</a>(<label for="r10" class="ident">dir</label>, <span class="lit-number">0700</span>); <label for="r12" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-60"><code>			<span class="keyword">return</span> <a href="options.go.html#line-27" class="ident">Options</a>{}, <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i7">errors</a>.<a href="../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r12" class="ident">err</label>, <span class="lit-string">"session dir creation"</span>)</code></span>
 <span class="codeline" id="line-61"><code>		}</code></span>
 <span class="codeline" id="line-62"><code></code></span>
-<span class="codeline" id="line-63"><code>		<label for="r5" class="ident">opts</label>.<a href="options.go.html#line-49" class="ident">SessionStorage</a> = &amp;<a href="../../../../../pkg/github.com/gotd/td/session.html" class="ident i13">session</a>.<a href="../session/storage_file.go.html#line-13" class="ident">FileStorage</a>{</code></span>
+<span class="codeline" id="line-63"><code>		<label for="r5" class="ident">opts</label>.<a href="options.go.html#line-60" class="ident">SessionStorage</a> = &amp;<a href="../../../../../pkg/github.com/gotd/td/session.html" class="ident i12">session</a>.<a href="../session/storage_file.go.html#line-13" class="ident">FileStorage</a>{</code></span>
 <span class="codeline" id="line-64"><code>			<a href="../session/storage_file.go.html#line-14" class="ident">Path</a>: <label for="r6" class="ident">sessionFile</label>,</code></span>
 <span class="codeline" id="line-65"><code>		}</code></span>
 <span class="codeline" id="line-66"><code>	}</code></span>
 <span class="codeline" id="line-67"><code></code></span>
-<span class="codeline" id="line-68"><code>	<span class="keyword">if</span> <label for="r5" class="ident">opts</label>.<a href="options.go.html#line-36" class="ident">Resolver</a> == <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-69"><code>		<label for="r5" class="ident">opts</label>.<a href="options.go.html#line-36" class="ident">Resolver</a> = <a href="../../../../../pkg/github.com/gotd/td/telegram/dcs.html" class="ident i15">dcs</a>.<a href="dcs/plain.go.html#line-160" class="ident">Plain</a>(<a href="../../../../../pkg/github.com/gotd/td/telegram/dcs.html" class="ident i15">dcs</a>.<a href="dcs/plain.go.html#line-133" class="ident">PlainOptions</a>{</code></span>
-<span class="codeline" id="line-70"><code>			<a href="dcs/plain.go.html#line-138" class="ident">Dial</a>: <a href="../../../../../pkg/golang.org/x/net/proxy.html" class="ident i10">proxy</a>.<a href="../../../../golang.org/x/net/proxy/dial.go.html#line-25" class="ident">Dial</a>,</code></span>
+<span class="codeline" id="line-68"><code>	<span class="keyword">if</span> <label for="r5" class="ident">opts</label>.<a href="options.go.html#line-42" class="ident">Resolver</a> == <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-69"><code>		<label for="r5" class="ident">opts</label>.<a href="options.go.html#line-42" class="ident">Resolver</a> = <a href="../../../../../pkg/github.com/gotd/td/telegram/dcs.html" class="ident i14">dcs</a>.<a href="dcs/plain.go.html#line-216" class="ident">Plain</a>(<a href="../../../../../pkg/github.com/gotd/td/telegram/dcs.html" class="ident i14">dcs</a>.<a href="dcs/plain.go.html#line-182" class="ident">PlainOptions</a>{</code></span>
+<span class="codeline" id="line-70"><code>			<a href="dcs/plain.go.html#line-187" class="ident">Dial</a>: <a href="../../../../../pkg/golang.org/x/net/proxy.html" class="ident i9">proxy</a>.<a href="../../../../golang.org/x/net/proxy/dial.go.html#line-25" class="ident">Dial</a>,</code></span>
 <span class="codeline" id="line-71"><code>		})</code></span>
 <span class="codeline" id="line-72"><code>	}</code></span>
 <span class="codeline" id="line-73"><code></code></span>
@@ -214,102 +212,103 @@ input[id=i16]:checked ~pre .i16
 <span class="codeline" id="line-78"><code><span class="comment">// but does not connect to server.</span></code></span>
 <span class="codeline" id="line-79"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-80"><code><span class="comment">// Variables:</span></code></span>
-<span class="codeline" id="line-81"><code><span class="comment">// 	APP_ID:   app_id of Telegram app.</span></code></span>
-<span class="codeline" id="line-82"><code><span class="comment">// 	APP_HASH: app_hash of Telegram app.</span></code></span>
-<span class="codeline" id="line-83"><code><span class="keyword">func</span> <label for="r13" class="ident"><a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-ClientFromEnvironment" class="ident">ClientFromEnvironment</a></label>(<label for="r14" class="ident">opts</label> <a href="options.go.html#line-21" class="ident">Options</a>) (*<a href="client.go.html#line-61" class="ident">Client</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-84"><code>	<label for="r15" class="ident">appID</label>, <label for="r16" class="ident">err</label> := <a href="../../../../../pkg/strconv.html" class="ident i6">strconv</a>.<a href="../../../../strconv/atoi.go.html#line-229" class="ident">Atoi</a>(<a href="../../../../../pkg/os.html" class="ident i4">os</a>.<a href="../../../../os/env.go.html#line-101" class="ident">Getenv</a>(<span class="lit-string">"APP_ID"</span>))</code></span>
-<span class="codeline" id="line-85"><code>	<span class="keyword">if</span> <label for="r16" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-86"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../pkg/golang.org/x/xerrors.html" class="ident i11">xerrors</a>.<a href="../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"APP_ID not set or invalid: %w"</span>, <label for="r16" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-87"><code>	}</code></span>
-<span class="codeline" id="line-88"><code></code></span>
-<span class="codeline" id="line-89"><code>	<label for="r17" class="ident">appHash</label> := <a href="../../../../../pkg/os.html" class="ident i4">os</a>.<a href="../../../../os/env.go.html#line-101" class="ident">Getenv</a>(<span class="lit-string">"APP_HASH"</span>)</code></span>
-<span class="codeline" id="line-90"><code>	<span class="keyword">if</span> <label for="r17" class="ident">appHash</label> == <span class="lit-string">""</span> {</code></span>
-<span class="codeline" id="line-91"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../pkg/golang.org/x/xerrors.html" class="ident i11">xerrors</a>.<a href="../../../../golang.org/x/xerrors/errors.go.html#line-19" class="ident">New</a>(<span class="lit-string">"no APP_HASH provided"</span>)</code></span>
-<span class="codeline" id="line-92"><code>	}</code></span>
-<span class="codeline" id="line-93"><code></code></span>
-<span class="codeline" id="line-94"><code>	<label for="r14" class="ident">opts</label>, <label for="r16" class="ident">err</label> = <a href="#line-46" class="ident">OptionsFromEnvironment</a>(<label for="r14" class="ident">opts</label>)</code></span>
-<span class="codeline" id="line-95"><code>	<span class="keyword">if</span> <label for="r16" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-96"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r16" class="ident">err</label></code></span>
-<span class="codeline" id="line-97"><code>	}</code></span>
-<span class="codeline" id="line-98"><code></code></span>
-<span class="codeline" id="line-99"><code>	<span class="keyword">return</span> <a href="client.go.html#line-157" class="ident">NewClient</a>(<label for="r15" class="ident">appID</label>, <label for="r17" class="ident">appHash</label>, <label for="r14" class="ident">opts</label>), <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-100"><code>}</code></span>
-<span class="codeline" id="line-101"><code></code></span>
-<span class="codeline" id="line-102"><code><span class="keyword">func</span> <label for="r18" class="ident"><a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-retry" class="ident">retry</a></label>(<label for="r19" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r20" class="ident">logger</label> *<a href="../../../../../pkg/go.uber.org/zap.html" class="ident i9">zap</a>.<a href="../../../../go.uber.org/zap/logger.go.html#line-41" class="ident">Logger</a>, <label for="r21" class="ident">cb</label> <span class="keyword">func</span>(<label for="r22" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-103"><code>	<label for="r23" class="ident">b</label> := <a href="../../../../../pkg/github.com/cenkalti/backoff/v4.html" class="ident i8">backoff</a>.<a href="../../../cenkalti/backoff/v4/context.go.html#line-23" class="ident">WithContext</a>(<a href="../../../../../pkg/github.com/cenkalti/backoff/v4.html" class="ident i8">backoff</a>.<a href="../../../cenkalti/backoff/v4/exponential.go.html#line-84" class="ident">NewExponentialBackOff</a>(), <label for="r19" class="ident">ctx</label>)</code></span>
-<span class="codeline" id="line-104"><code></code></span>
-<span class="codeline" id="line-105"><code>	<span class="comment">// List of known retryable RPC error types.</span></code></span>
-<span class="codeline" id="line-106"><code>	<label for="r24" class="ident">retryableErrors</label> := []<a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>{</code></span>
-<span class="codeline" id="line-107"><code>		<span class="lit-string">"NEED_MEMBER_INVALID"</span>,</code></span>
-<span class="codeline" id="line-108"><code>		<span class="lit-string">"AUTH_KEY_UNREGISTERED"</span>,</code></span>
-<span class="codeline" id="line-109"><code>		<span class="lit-string">"API_ID_PUBLISHED_FLOOD"</span>,</code></span>
-<span class="codeline" id="line-110"><code>	}</code></span>
-<span class="codeline" id="line-111"><code></code></span>
-<span class="codeline" id="line-112"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/github.com/cenkalti/backoff/v4.html" class="ident i8">backoff</a>.<a href="../../../cenkalti/backoff/v4/retry.go.html#line-27" class="ident">Retry</a>(<span class="keyword">func</span>() <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-113"><code>		<span class="keyword">if</span> <label for="r25" class="ident">err</label> := <label for="r21" class="ident">cb</label>(<label for="r19" class="ident">ctx</label>); <label for="r25" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-114"><code>			<label for="r20" class="ident">logger</label>.<a href="../../../../go.uber.org/zap/logger.go.html#line-195" class="ident">Warn</a>(<span class="lit-string">"TestClient run failed"</span>, <a href="../../../../../pkg/go.uber.org/zap.html" class="ident i9">zap</a>.<a href="../../../../go.uber.org/zap/error.go.html#line-34" class="ident">Error</a>(<label for="r25" class="ident">err</label>))</code></span>
-<span class="codeline" id="line-115"><code></code></span>
-<span class="codeline" id="line-116"><code>			<span class="keyword">if</span> <a href="../../../../../pkg/github.com/gotd/td/tgerr.html" class="ident i16">tgerr</a>.<a href="../tgerr/error.go.html#line-138" class="ident">Is</a>(<label for="r25" class="ident">err</label>, <label for="r24" class="ident">retryableErrors</label>...) {</code></span>
-<span class="codeline" id="line-117"><code>				<span class="keyword">return</span> <label for="r25" class="ident">err</label></code></span>
-<span class="codeline" id="line-118"><code>			}</code></span>
-<span class="codeline" id="line-119"><code>			<span class="keyword">if</span> <label for="r26" class="ident">timeout</label>, <label for="r27" class="ident">ok</label> := <a href="flood_wait.go.html#line-15" class="ident">AsFloodWait</a>(<label for="r25" class="ident">err</label>); <label for="r27" class="ident">ok</label> {</code></span>
-<span class="codeline" id="line-120"><code>				<label for="r28" class="ident">timer</label> := <a href="../../../../../pkg/github.com/gotd/td/clock.html" class="ident i12">clock</a>.<a href="../clock/system.go.html#line-50" class="ident">System</a>.<a href="../clock/clock.go.html#line-13" class="ident">Timer</a>(<label for="r26" class="ident">timeout</label> + <span class="lit-number">1</span>*<a href="../../../../../pkg/time.html" class="ident i7">time</a>.<a href="../../../../time/time.go.html#line-612" class="ident">Second</a>)</code></span>
-<span class="codeline" id="line-121"><code>				<span class="keyword">defer</span> <a href="../../../../../pkg/github.com/gotd/td/clock.html" class="ident i12">clock</a>.<a href="../clock/clock.go.html#line-21" class="ident">StopTimer</a>(<label for="r28" class="ident">timer</label>)</code></span>
-<span class="codeline" id="line-122"><code></code></span>
-<span class="codeline" id="line-123"><code>				<a href="../../../../runtime/select.go.html#line-121"><span class="keyword">select</span></a> {</code></span>
-<span class="codeline" id="line-124"><code>				<span class="keyword">case</span> <a href="../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r28" class="ident">timer</label>.<a href="../../neo/time.go.html#line-12" class="ident">C</a>():</code></span>
-<span class="codeline" id="line-125"><code>					<span class="keyword">return</span> <label for="r25" class="ident">err</label></code></span>
-<span class="codeline" id="line-126"><code>				<span class="keyword">case</span> <a href="../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r19" class="ident">ctx</label>.<a href="../../../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
-<span class="codeline" id="line-127"><code>					<span class="keyword">return</span> <label for="r19" class="ident">ctx</label>.<a href="../../../../context/context.go.html#line-106" class="ident">Err</a>()</code></span>
-<span class="codeline" id="line-128"><code>				}</code></span>
-<span class="codeline" id="line-129"><code>			}</code></span>
-<span class="codeline" id="line-130"><code>			<span class="keyword">if</span> <a href="../../../../../pkg/errors.html" class="ident i2">errors</a>.<a href="../../../../errors/wrap.go.html#line-39" class="ident">Is</a>(<label for="r25" class="ident">err</label>, <a href="../../../../../pkg/io.html" class="ident i3">io</a>.<a href="../../../../io/io.go.html#line-44" class="ident">EOF</a>) || <a href="../../../../../pkg/errors.html" class="ident i2">errors</a>.<a href="../../../../errors/wrap.go.html#line-39" class="ident">Is</a>(<label for="r25" class="ident">err</label>, <a href="../../../../../pkg/io.html" class="ident i3">io</a>.<a href="../../../../io/io.go.html#line-48" class="ident">ErrUnexpectedEOF</a>) {</code></span>
-<span class="codeline" id="line-131"><code>				<span class="comment">// Possibly server closed connection.</span></code></span>
-<span class="codeline" id="line-132"><code>				<span class="keyword">return</span> <label for="r25" class="ident">err</label></code></span>
-<span class="codeline" id="line-133"><code>			}</code></span>
-<span class="codeline" id="line-134"><code></code></span>
-<span class="codeline" id="line-135"><code>			<span class="keyword">return</span> <a href="../../../../../pkg/github.com/cenkalti/backoff/v4.html" class="ident i8">backoff</a>.<a href="../../../cenkalti/backoff/v4/retry.go.html#line-105" class="ident">Permanent</a>(<label for="r25" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-136"><code>		}</code></span>
-<span class="codeline" id="line-137"><code></code></span>
-<span class="codeline" id="line-138"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-139"><code>	}, <label for="r23" class="ident">b</label>)</code></span>
-<span class="codeline" id="line-140"><code>}</code></span>
-<span class="codeline" id="line-141"><code></code></span>
-<span class="codeline" id="line-142"><code><span class="comment">// TestClient creates and authenticates user telegram.Client</span></code></span>
-<span class="codeline" id="line-143"><code><span class="comment">// using Telegram staging server.</span></code></span>
-<span class="codeline" id="line-144"><code><span class="keyword">func</span> <label for="r29" class="ident"><a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-TestClient" class="ident">TestClient</a></label>(<label for="r30" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r31" class="ident">opts</label> <a href="options.go.html#line-21" class="ident">Options</a>, <label for="r32" class="ident">cb</label> <span class="keyword">func</span>(<label for="r33" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r34" class="ident">client</label> *<a href="client.go.html#line-61" class="ident">Client</a>) <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-145"><code>	<span class="keyword">if</span> <label for="r31" class="ident">opts</label>.<a href="options.go.html#line-30" class="ident">DC</a> == <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-146"><code>		<label for="r31" class="ident">opts</label>.<a href="options.go.html#line-30" class="ident">DC</a> = <span class="lit-number">2</span></code></span>
-<span class="codeline" id="line-147"><code>	}</code></span>
-<span class="codeline" id="line-148"><code>	<span class="keyword">if</span> <label for="r31" class="ident">opts</label>.<a href="options.go.html#line-33" class="ident">DCList</a>.<a href="dcs/list.go.html#line-12" class="ident">Zero</a>() {</code></span>
-<span class="codeline" id="line-149"><code>		<label for="r31" class="ident">opts</label>.<a href="options.go.html#line-33" class="ident">DCList</a> = <a href="../../../../../pkg/github.com/gotd/td/telegram/dcs.html" class="ident i15">dcs</a>.<a href="dcs/staging.go.html#line-6" class="ident">Staging</a>()</code></span>
-<span class="codeline" id="line-150"><code>	}</code></span>
-<span class="codeline" id="line-151"><code></code></span>
-<span class="codeline" id="line-152"><code>	<label for="r35" class="ident">logger</label> := <a href="../../../../../pkg/go.uber.org/zap.html" class="ident i9">zap</a>.<a href="../../../../go.uber.org/zap/logger.go.html#line-83" class="ident">NewNop</a>()</code></span>
-<span class="codeline" id="line-153"><code>	<span class="keyword">if</span> <label for="r31" class="ident">opts</label>.<a href="options.go.html#line-46" class="ident">Logger</a> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-154"><code>		<label for="r35" class="ident">logger</label> = <label for="r31" class="ident">opts</label>.<a href="options.go.html#line-46" class="ident">Logger</a>.<a href="../../../../go.uber.org/zap/logger.go.html#line-136" class="ident">Named</a>(<span class="lit-string">"test"</span>)</code></span>
-<span class="codeline" id="line-155"><code>	}</code></span>
-<span class="codeline" id="line-156"><code></code></span>
-<span class="codeline" id="line-157"><code>	<span class="comment">// Sometimes testing server can return "AUTH_KEY_UNREGISTERED" error.</span></code></span>
-<span class="codeline" id="line-158"><code><span class="comment">	// It is expected and client implementation is unlikely to cause</span></code></span>
-<span class="codeline" id="line-159"><code><span class="comment">	// such errors, so just doing retries using backoff.</span></code></span>
-<span class="codeline" id="line-160"><code>	<span class="keyword">return</span> <a href="#line-102" class="ident">retry</a>(<label for="r30" class="ident">ctx</label>, <label for="r35" class="ident">logger</label>, <span class="keyword">func</span>(<label for="r36" class="ident">retryCtx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-161"><code>		<label for="r37" class="ident">client</label> := <a href="client.go.html#line-157" class="ident">NewClient</a>(<a href="cfg.go.html#line-25" class="ident">TestAppID</a>, <a href="cfg.go.html#line-26" class="ident">TestAppHash</a>, <label for="r31" class="ident">opts</label>)</code></span>
-<span class="codeline" id="line-162"><code>		<span class="keyword">return</span> <label for="r37" class="ident">client</label>.<a href="client.go.html#line-376" class="ident">Run</a>(<label for="r36" class="ident">retryCtx</label>, <span class="keyword">func</span>(<label for="r38" class="ident">runCtx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-163"><code>			<span class="keyword">if</span> <label for="r39" class="ident">err</label> := <label for="r37" class="ident">client</label>.<a href="auth.go.html#line-8" class="ident">Auth</a>().<a href="auth/status.go.html#line-36" class="ident">IfNecessary</a>(<label for="r38" class="ident">runCtx</label>, <a href="../../../../../pkg/github.com/gotd/td/telegram/auth.html" class="ident i14">auth</a>.<a href="auth/flow.go.html#line-19" class="ident">NewFlow</a>(</code></span>
-<span class="codeline" id="line-164"><code>				<a href="../../../../../pkg/github.com/gotd/td/telegram/auth.html" class="ident i14">auth</a>.<a href="auth/flow.go.html#line-260" class="ident">Test</a>(<a href="../../../../../pkg/crypto/rand.html" class="ident i1">rand</a>.<a href="../../../../crypto/rand/rand.go.html#line-19" class="ident">Reader</a>, <label for="r31" class="ident">opts</label>.<a href="options.go.html#line-30" class="ident">DC</a>),</code></span>
-<span class="codeline" id="line-165"><code>				<a href="../../../../../pkg/github.com/gotd/td/telegram/auth.html" class="ident i14">auth</a>.<a href="auth/user.go.html#line-60" class="ident">SendCodeOptions</a>{},</code></span>
-<span class="codeline" id="line-166"><code>			)); <label for="r39" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-167"><code>				<span class="keyword">return</span> <a href="../../../../../pkg/golang.org/x/xerrors.html" class="ident i11">xerrors</a>.<a href="../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"auth flow: %w"</span>, <label for="r39" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-168"><code>			}</code></span>
-<span class="codeline" id="line-169"><code></code></span>
-<span class="codeline" id="line-170"><code>			<span class="keyword">return</span> <label for="r32" class="ident">cb</label>(<label for="r38" class="ident">runCtx</label>, <label for="r37" class="ident">client</label>)</code></span>
-<span class="codeline" id="line-171"><code>		})</code></span>
-<span class="codeline" id="line-172"><code>	})</code></span>
-<span class="codeline" id="line-173"><code>}</code></span>
+<span class="codeline" id="line-81"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-82"><code><span class="comment">//	APP_ID:   app_id of Telegram app.</span></code></span>
+<span class="codeline" id="line-83"><code><span class="comment">//	APP_HASH: app_hash of Telegram app.</span></code></span>
+<span class="codeline" id="line-84"><code><span class="keyword">func</span> <label for="r13" class="ident"><a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-ClientFromEnvironment" class="ident">ClientFromEnvironment</a></label>(<label for="r14" class="ident">opts</label> <a href="options.go.html#line-27" class="ident">Options</a>) (*<a href="client.go.html#line-55" class="ident">Client</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-85"><code>	<label for="r15" class="ident">appID</label>, <label for="r16" class="ident">err</label> := <a href="../../../../../pkg/strconv.html" class="ident i4">strconv</a>.<a href="../../../../strconv/atoi.go.html#line-231" class="ident">Atoi</a>(<a href="../../../../../pkg/os.html" class="ident i2">os</a>.<a href="../../../../os/env.go.html#line-101" class="ident">Getenv</a>(<span class="lit-string">"APP_ID"</span>))</code></span>
+<span class="codeline" id="line-86"><code>	<span class="keyword">if</span> <label for="r16" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-87"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i7">errors</a>.<a href="../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r16" class="ident">err</label>, <span class="lit-string">"APP_ID not set or invalid"</span>)</code></span>
+<span class="codeline" id="line-88"><code>	}</code></span>
+<span class="codeline" id="line-89"><code></code></span>
+<span class="codeline" id="line-90"><code>	<label for="r17" class="ident">appHash</label> := <a href="../../../../../pkg/os.html" class="ident i2">os</a>.<a href="../../../../os/env.go.html#line-101" class="ident">Getenv</a>(<span class="lit-string">"APP_HASH"</span>)</code></span>
+<span class="codeline" id="line-91"><code>	<span class="keyword">if</span> <label for="r17" class="ident">appHash</label> == <span class="lit-string">""</span> {</code></span>
+<span class="codeline" id="line-92"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i7">errors</a>.<a href="../../../go-faster/errors/errors.go.html#line-22" class="ident">New</a>(<span class="lit-string">"no APP_HASH provided"</span>)</code></span>
+<span class="codeline" id="line-93"><code>	}</code></span>
+<span class="codeline" id="line-94"><code></code></span>
+<span class="codeline" id="line-95"><code>	<label for="r14" class="ident">opts</label>, <label for="r16" class="ident">err</label> = <a href="#line-46" class="ident">OptionsFromEnvironment</a>(<label for="r14" class="ident">opts</label>)</code></span>
+<span class="codeline" id="line-96"><code>	<span class="keyword">if</span> <label for="r16" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-97"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r16" class="ident">err</label></code></span>
+<span class="codeline" id="line-98"><code>	}</code></span>
+<span class="codeline" id="line-99"><code></code></span>
+<span class="codeline" id="line-100"><code>	<span class="keyword">return</span> <a href="client.go.html#line-128" class="ident">NewClient</a>(<label for="r15" class="ident">appID</label>, <label for="r17" class="ident">appHash</label>, <label for="r14" class="ident">opts</label>), <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-101"><code>}</code></span>
+<span class="codeline" id="line-102"><code></code></span>
+<span class="codeline" id="line-103"><code><span class="keyword">func</span> <label for="r18" class="ident"><a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-retry" class="ident">retry</a></label>(<label for="r19" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r20" class="ident">logger</label> *<a href="../../../../../pkg/go.uber.org/zap.html" class="ident i8">zap</a>.<a href="../../../../go.uber.org/zap/logger.go.html#line-40" class="ident">Logger</a>, <label for="r21" class="ident">cb</label> <span class="keyword">func</span>(<label for="r22" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-104"><code>	<label for="r23" class="ident">b</label> := <a href="../../../../../pkg/github.com/cenkalti/backoff/v4.html" class="ident i6">backoff</a>.<a href="../../../cenkalti/backoff/v4/context.go.html#line-23" class="ident">WithContext</a>(<a href="../../../../../pkg/github.com/cenkalti/backoff/v4.html" class="ident i6">backoff</a>.<a href="../../../cenkalti/backoff/v4/exponential.go.html#line-84" class="ident">NewExponentialBackOff</a>(), <label for="r19" class="ident">ctx</label>)</code></span>
+<span class="codeline" id="line-105"><code></code></span>
+<span class="codeline" id="line-106"><code>	<span class="comment">// List of known retryable RPC error types.</span></code></span>
+<span class="codeline" id="line-107"><code>	<label for="r24" class="ident">retryableErrors</label> := []<a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>{</code></span>
+<span class="codeline" id="line-108"><code>		<span class="lit-string">"NEED_MEMBER_INVALID"</span>,</code></span>
+<span class="codeline" id="line-109"><code>		<span class="lit-string">"AUTH_KEY_UNREGISTERED"</span>,</code></span>
+<span class="codeline" id="line-110"><code>		<span class="lit-string">"API_ID_PUBLISHED_FLOOD"</span>,</code></span>
+<span class="codeline" id="line-111"><code>	}</code></span>
+<span class="codeline" id="line-112"><code></code></span>
+<span class="codeline" id="line-113"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/github.com/cenkalti/backoff/v4.html" class="ident i6">backoff</a>.<a href="../../../cenkalti/backoff/v4/retry.go.html#line-27" class="ident">Retry</a>(<span class="keyword">func</span>() <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-114"><code>		<span class="keyword">if</span> <label for="r25" class="ident">err</label> := <label for="r21" class="ident">cb</label>(<label for="r19" class="ident">ctx</label>); <label for="r25" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-115"><code>			<label for="r20" class="ident">logger</label>.<a href="../../../../go.uber.org/zap/logger.go.html#line-198" class="ident">Warn</a>(<span class="lit-string">"TestClient run failed"</span>, <a href="../../../../../pkg/go.uber.org/zap.html" class="ident i8">zap</a>.<a href="../../../../go.uber.org/zap/error.go.html#line-34" class="ident">Error</a>(<label for="r25" class="ident">err</label>))</code></span>
+<span class="codeline" id="line-116"><code></code></span>
+<span class="codeline" id="line-117"><code>			<span class="keyword">if</span> <a href="../../../../../pkg/github.com/gotd/td/tgerr.html" class="ident i15">tgerr</a>.<a href="../tgerr/error.go.html#line-139" class="ident">Is</a>(<label for="r25" class="ident">err</label>, <label for="r24" class="ident">retryableErrors</label>...) {</code></span>
+<span class="codeline" id="line-118"><code>				<span class="keyword">return</span> <label for="r25" class="ident">err</label></code></span>
+<span class="codeline" id="line-119"><code>			}</code></span>
+<span class="codeline" id="line-120"><code>			<span class="keyword">if</span> <label for="r26" class="ident">timeout</label>, <label for="r27" class="ident">ok</label> := <a href="flood_wait.go.html#line-15" class="ident">AsFloodWait</a>(<label for="r25" class="ident">err</label>); <label for="r27" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-121"><code>				<label for="r28" class="ident">timer</label> := <a href="../../../../../pkg/github.com/gotd/td/clock.html" class="ident i10">clock</a>.<a href="../clock/system.go.html#line-50" class="ident">System</a>.<a href="../clock/clock.go.html#line-13" class="ident">Timer</a>(<label for="r26" class="ident">timeout</label> + <span class="lit-number">1</span>*<a href="../../../../../pkg/time.html" class="ident i5">time</a>.<a href="../../../../time/time.go.html#line-614" class="ident">Second</a>)</code></span>
+<span class="codeline" id="line-122"><code>				<span class="keyword">defer</span> <a href="../../../../../pkg/github.com/gotd/td/clock.html" class="ident i10">clock</a>.<a href="../clock/clock.go.html#line-21" class="ident">StopTimer</a>(<label for="r28" class="ident">timer</label>)</code></span>
+<span class="codeline" id="line-123"><code></code></span>
+<span class="codeline" id="line-124"><code>				<a href="../../../../runtime/select.go.html#line-122"><span class="keyword">select</span></a> {</code></span>
+<span class="codeline" id="line-125"><code>				<span class="keyword">case</span> <a href="../../../../runtime/chan.go.html#line-441">&lt;-</a><label for="r28" class="ident">timer</label>.<a href="../../neo/time.go.html#line-11" class="ident">C</a>():</code></span>
+<span class="codeline" id="line-126"><code>					<span class="keyword">return</span> <label for="r25" class="ident">err</label></code></span>
+<span class="codeline" id="line-127"><code>				<span class="keyword">case</span> <a href="../../../../runtime/chan.go.html#line-441">&lt;-</a><label for="r19" class="ident">ctx</label>.<a href="../../../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
+<span class="codeline" id="line-128"><code>					<span class="keyword">return</span> <label for="r19" class="ident">ctx</label>.<a href="../../../../context/context.go.html#line-106" class="ident">Err</a>()</code></span>
+<span class="codeline" id="line-129"><code>				}</code></span>
+<span class="codeline" id="line-130"><code>			}</code></span>
+<span class="codeline" id="line-131"><code>			<span class="keyword">if</span> <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i7">errors</a>.<a href="../../../go-faster/errors/wrap.go.html#line-114" class="ident">Is</a>(<label for="r25" class="ident">err</label>, <a href="../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../io/io.go.html#line-44" class="ident">EOF</a>) || <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i7">errors</a>.<a href="../../../go-faster/errors/wrap.go.html#line-114" class="ident">Is</a>(<label for="r25" class="ident">err</label>, <a href="../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../io/io.go.html#line-48" class="ident">ErrUnexpectedEOF</a>) {</code></span>
+<span class="codeline" id="line-132"><code>				<span class="comment">// Possibly server closed connection.</span></code></span>
+<span class="codeline" id="line-133"><code>				<span class="keyword">return</span> <label for="r25" class="ident">err</label></code></span>
+<span class="codeline" id="line-134"><code>			}</code></span>
+<span class="codeline" id="line-135"><code></code></span>
+<span class="codeline" id="line-136"><code>			<span class="keyword">return</span> <a href="../../../../../pkg/github.com/cenkalti/backoff/v4.html" class="ident i6">backoff</a>.<a href="../../../cenkalti/backoff/v4/retry.go.html#line-105" class="ident">Permanent</a>(<label for="r25" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-137"><code>		}</code></span>
+<span class="codeline" id="line-138"><code></code></span>
+<span class="codeline" id="line-139"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-140"><code>	}, <label for="r23" class="ident">b</label>)</code></span>
+<span class="codeline" id="line-141"><code>}</code></span>
+<span class="codeline" id="line-142"><code></code></span>
+<span class="codeline" id="line-143"><code><span class="comment">// TestClient creates and authenticates user telegram.Client</span></code></span>
+<span class="codeline" id="line-144"><code><span class="comment">// using Telegram test server.</span></code></span>
+<span class="codeline" id="line-145"><code><span class="keyword">func</span> <label for="r29" class="ident"><a href="../../../../../pkg/github.com/gotd/td/telegram.html#name-TestClient" class="ident">TestClient</a></label>(<label for="r30" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r31" class="ident">opts</label> <a href="options.go.html#line-27" class="ident">Options</a>, <label for="r32" class="ident">cb</label> <span class="keyword">func</span>(<label for="r33" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r34" class="ident">client</label> *<a href="client.go.html#line-55" class="ident">Client</a>) <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-146"><code>	<span class="keyword">if</span> <label for="r31" class="ident">opts</label>.<a href="options.go.html#line-36" class="ident">DC</a> == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-147"><code>		<label for="r31" class="ident">opts</label>.<a href="options.go.html#line-36" class="ident">DC</a> = <span class="lit-number">2</span></code></span>
+<span class="codeline" id="line-148"><code>	}</code></span>
+<span class="codeline" id="line-149"><code>	<span class="keyword">if</span> <label for="r31" class="ident">opts</label>.<a href="options.go.html#line-39" class="ident">DCList</a>.<a href="dcs/list.go.html#line-13" class="ident">Zero</a>() {</code></span>
+<span class="codeline" id="line-150"><code>		<label for="r31" class="ident">opts</label>.<a href="options.go.html#line-39" class="ident">DCList</a> = <a href="../../../../../pkg/github.com/gotd/td/telegram/dcs.html" class="ident i14">dcs</a>.<a href="dcs/test.go.html#line-13" class="ident">Test</a>()</code></span>
+<span class="codeline" id="line-151"><code>	}</code></span>
+<span class="codeline" id="line-152"><code></code></span>
+<span class="codeline" id="line-153"><code>	<label for="r35" class="ident">logger</label> := <a href="../../../../../pkg/go.uber.org/zap.html" class="ident i8">zap</a>.<a href="../../../../go.uber.org/zap/logger.go.html#line-85" class="ident">NewNop</a>()</code></span>
+<span class="codeline" id="line-154"><code>	<span class="keyword">if</span> <label for="r31" class="ident">opts</label>.<a href="options.go.html#line-57" class="ident">Logger</a> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-155"><code>		<label for="r35" class="ident">logger</label> = <label for="r31" class="ident">opts</label>.<a href="options.go.html#line-57" class="ident">Logger</a>.<a href="../../../../go.uber.org/zap/logger.go.html#line-139" class="ident">Named</a>(<span class="lit-string">"test"</span>)</code></span>
+<span class="codeline" id="line-156"><code>	}</code></span>
+<span class="codeline" id="line-157"><code></code></span>
+<span class="codeline" id="line-158"><code>	<span class="comment">// Sometimes testing server can return "AUTH_KEY_UNREGISTERED" error.</span></code></span>
+<span class="codeline" id="line-159"><code><span class="comment">	// It is expected and client implementation is unlikely to cause</span></code></span>
+<span class="codeline" id="line-160"><code><span class="comment">	// such errors, so just doing retries using backoff.</span></code></span>
+<span class="codeline" id="line-161"><code>	<span class="keyword">return</span> <a href="#line-103" class="ident">retry</a>(<label for="r30" class="ident">ctx</label>, <label for="r35" class="ident">logger</label>, <span class="keyword">func</span>(<label for="r36" class="ident">retryCtx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-162"><code>		<label for="r37" class="ident">client</label> := <a href="client.go.html#line-128" class="ident">NewClient</a>(<a href="cfg.go.html#line-26" class="ident">TestAppID</a>, <a href="cfg.go.html#line-27" class="ident">TestAppHash</a>, <label for="r31" class="ident">opts</label>)</code></span>
+<span class="codeline" id="line-163"><code>		<span class="keyword">return</span> <label for="r37" class="ident">client</label>.<a href="connect.go.html#line-101" class="ident">Run</a>(<label for="r36" class="ident">retryCtx</label>, <span class="keyword">func</span>(<label for="r38" class="ident">runCtx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-164"><code>			<span class="keyword">if</span> <label for="r39" class="ident">err</label> := <label for="r37" class="ident">client</label>.<a href="auth.go.html#line-9" class="ident">Auth</a>().<a href="auth/status.go.html#line-36" class="ident">IfNecessary</a>(<label for="r38" class="ident">runCtx</label>, <a href="../../../../../pkg/github.com/gotd/td/telegram/auth.html" class="ident i13">auth</a>.<a href="auth/flow.go.html#line-18" class="ident">NewFlow</a>(</code></span>
+<span class="codeline" id="line-165"><code>				<a href="../../../../../pkg/github.com/gotd/td/telegram/auth.html" class="ident i13">auth</a>.<a href="auth/flow.go.html#line-263" class="ident">Test</a>(<a href="../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i11">crypto</a>.<a href="../internal/crypto/rand_notjs.go.html#line-12" class="ident">DefaultRand</a>(), <label for="r31" class="ident">opts</label>.<a href="options.go.html#line-36" class="ident">DC</a>),</code></span>
+<span class="codeline" id="line-166"><code>				<a href="../../../../../pkg/github.com/gotd/td/telegram/auth.html" class="ident i13">auth</a>.<a href="auth/user.go.html#line-52" class="ident">SendCodeOptions</a>{},</code></span>
+<span class="codeline" id="line-167"><code>			)); <label for="r39" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-168"><code>				<span class="keyword">return</span> <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i7">errors</a>.<a href="../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r39" class="ident">err</label>, <span class="lit-string">"auth flow"</span>)</code></span>
+<span class="codeline" id="line-169"><code>			}</code></span>
+<span class="codeline" id="line-170"><code></code></span>
+<span class="codeline" id="line-171"><code>			<span class="keyword">return</span> <label for="r32" class="ident">cb</label>(<label for="r38" class="ident">runCtx</label>, <label for="r37" class="ident">client</label>)</code></span>
+<span class="codeline" id="line-172"><code>		})</code></span>
+<span class="codeline" id="line-173"><code>	})</code></span>
+<span class="codeline" id="line-174"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

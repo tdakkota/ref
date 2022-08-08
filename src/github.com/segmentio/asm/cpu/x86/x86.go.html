@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: x86.go in package github.com/segmentio/asm/cpu/x86</title>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	x86.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html">github.com/segmentio/asm/cpu/x86</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+
+<pre class="line-numbers">
+<span class="codeline" id="line-1"><code><span class="keyword">package</span> x86</code></span>
+<span class="codeline" id="line-2"><code></code></span>
+<span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"github.com/segmentio/asm/cpu/cpuid"</span></label></code></span>
+<span class="codeline" id="line-5"><code>	<a href="../../../../../../pkg/golang.org/x/sys/cpu.html" class="ident i1">.</a> <label for="i1"><span class="lit-string i1">"golang.org/x/sys/cpu"</span></label></code></span>
+<span class="codeline" id="line-6"><code>)</code></span>
+<span class="codeline" id="line-7"><code></code></span>
+<span class="codeline" id="line-8"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-CPU" class="ident">CPU</a> <a href="../../../../../../pkg/github.com/segmentio/asm/cpu/cpuid.html" class="ident i0">cpuid</a>.<a href="../cpuid/cpuid.go.html#line-10" class="ident">CPU</a></code></span>
+<span class="codeline" id="line-9"><code></code></span>
+<span class="codeline" id="line-10"><code><span class="keyword">func</span> (<label for="r0" class="ident">cpu</label> <a href="#line-8" class="ident">CPU</a>) <label for="r1" class="ident"><a href="../../../../../../use/github.com/segmentio/asm/cpu/x86..CPU.Has.html" class="ident">Has</a></label>(<label for="r2" class="ident">feature</label> <a href="#line-18" class="ident">Feature</a>) <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-11"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/github.com/segmentio/asm/cpu/cpuid.html" class="ident i0">cpuid</a>.<a href="../cpuid/cpuid.go.html#line-10" class="ident">CPU</a>(<label for="r0" class="ident">cpu</label>).<a href="../cpuid/cpuid.go.html#line-22" class="ident">Has</a>(<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/cpuid.html" class="ident i0">cpuid</a>.<a href="../cpuid/cpuid.go.html#line-13" class="ident">Feature</a>(<label for="r2" class="ident">feature</label>))</code></span>
+<span class="codeline" id="line-12"><code>}</code></span>
+<span class="codeline" id="line-13"><code></code></span>
+<span class="codeline" id="line-14"><code><span class="keyword">func</span> (<label for="r3" class="ident">cpu</label> *<a href="#line-8" class="ident">CPU</a>) <label for="r4" class="ident"><a href="../../../../../../use/github.com/segmentio/asm/cpu/x86..CPU.set^6ee0e.html" class="ident">set</a></label>(<label for="r5" class="ident">feature</label> <a href="#line-18" class="ident">Feature</a>, <label for="r6" class="ident">enable</label> <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
+<span class="codeline" id="line-15"><code>	(*<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/cpuid.html" class="ident i0">cpuid</a>.<a href="../cpuid/cpuid.go.html#line-10" class="ident">CPU</a>)(<label for="r3" class="ident">cpu</label>).<a href="../cpuid/cpuid.go.html#line-26" class="ident">Set</a>(<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/cpuid.html" class="ident i0">cpuid</a>.<a href="../cpuid/cpuid.go.html#line-13" class="ident">Feature</a>(<label for="r5" class="ident">feature</label>), <label for="r6" class="ident">enable</label>)</code></span>
+<span class="codeline" id="line-16"><code>}</code></span>
+<span class="codeline" id="line-17"><code></code></span>
+<span class="codeline" id="line-18"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-Feature" class="ident">Feature</a> <a href="../../../../../../pkg/github.com/segmentio/asm/cpu/cpuid.html" class="ident i0">cpuid</a>.<a href="../cpuid/cpuid.go.html#line-13" class="ident">Feature</a></code></span>
+<span class="codeline" id="line-19"><code></code></span>
+<span class="codeline" id="line-20"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-21"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-SSE" class="ident">SSE</a>                <a href="#line-18" class="ident">Feature</a> = <span class="lit-number">1</span> &lt;&lt; <a href="../../../../../../pkg/builtin.html#name-iota" class="ident">iota</a> <span class="comment">// SSE functions</span></code></span>
+<span class="codeline" id="line-22"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-SSE2" class="ident">SSE2</a>                                   <span class="comment">// P4 SSE functions</span></code></span>
+<span class="codeline" id="line-23"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-SSE3" class="ident">SSE3</a>                                   <span class="comment">// Prescott SSE3 functions</span></code></span>
+<span class="codeline" id="line-24"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-SSE41" class="ident">SSE41</a>                                  <span class="comment">// Penryn SSE4.1 functions</span></code></span>
+<span class="codeline" id="line-25"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-SSE42" class="ident">SSE42</a>                                  <span class="comment">// Nehalem SSE4.2 functions</span></code></span>
+<span class="codeline" id="line-26"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-SSE4A" class="ident">SSE4A</a>                                  <span class="comment">// AMD Barcelona microarchitecture SSE4a instructions</span></code></span>
+<span class="codeline" id="line-27"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-SSSE3" class="ident">SSSE3</a>                                  <span class="comment">// Conroe SSSE3 functions</span></code></span>
+<span class="codeline" id="line-28"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-AVX" class="ident">AVX</a>                                    <span class="comment">// AVX functions</span></code></span>
+<span class="codeline" id="line-29"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-AVX2" class="ident">AVX2</a>                                   <span class="comment">// AVX2 functions</span></code></span>
+<span class="codeline" id="line-30"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-AVX512BF16" class="ident">AVX512BF16</a>                             <span class="comment">// AVX-512 BFLOAT16 Instructions</span></code></span>
+<span class="codeline" id="line-31"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-AVX512BITALG" class="ident">AVX512BITALG</a>                           <span class="comment">// AVX-512 Bit Algorithms</span></code></span>
+<span class="codeline" id="line-32"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-AVX512BW" class="ident">AVX512BW</a>                               <span class="comment">// AVX-512 Byte and Word Instructions</span></code></span>
+<span class="codeline" id="line-33"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-AVX512CD" class="ident">AVX512CD</a>                               <span class="comment">// AVX-512 Conflict Detection Instructions</span></code></span>
+<span class="codeline" id="line-34"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-AVX512DQ" class="ident">AVX512DQ</a>                               <span class="comment">// AVX-512 Doubleword and Quadword Instructions</span></code></span>
+<span class="codeline" id="line-35"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-AVX512ER" class="ident">AVX512ER</a>                               <span class="comment">// AVX-512 Exponential and Reciprocal Instructions</span></code></span>
+<span class="codeline" id="line-36"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-AVX512F" class="ident">AVX512F</a>                                <span class="comment">// AVX-512 Foundation</span></code></span>
+<span class="codeline" id="line-37"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-AVX512IFMA" class="ident">AVX512IFMA</a>                             <span class="comment">// AVX-512 Integer Fused Multiply-Add Instructions</span></code></span>
+<span class="codeline" id="line-38"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-AVX512PF" class="ident">AVX512PF</a>                               <span class="comment">// AVX-512 Prefetch Instructions</span></code></span>
+<span class="codeline" id="line-39"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-AVX512VBMI" class="ident">AVX512VBMI</a>                             <span class="comment">// AVX-512 Vector Bit Manipulation Instructions</span></code></span>
+<span class="codeline" id="line-40"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-AVX512VBMI2" class="ident">AVX512VBMI2</a>                            <span class="comment">// AVX-512 Vector Bit Manipulation Instructions, Version 2</span></code></span>
+<span class="codeline" id="line-41"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-AVX512VL" class="ident">AVX512VL</a>                               <span class="comment">// AVX-512 Vector Length Extensions</span></code></span>
+<span class="codeline" id="line-42"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-AVX512VNNI" class="ident">AVX512VNNI</a>                             <span class="comment">// AVX-512 Vector Neural Network Instructions</span></code></span>
+<span class="codeline" id="line-43"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-AVX512VP2INTERSECT" class="ident">AVX512VP2INTERSECT</a>                     <span class="comment">// AVX-512 Intersect for D/Q</span></code></span>
+<span class="codeline" id="line-44"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-AVX512VPOPCNTDQ" class="ident">AVX512VPOPCNTDQ</a>                        <span class="comment">// AVX-512 Vector Population Count Doubleword and Quadword</span></code></span>
+<span class="codeline" id="line-45"><code>	<a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-CMOV" class="ident">CMOV</a>                                   <span class="comment">// Conditional move</span></code></span>
+<span class="codeline" id="line-46"><code>)</code></span>
+<span class="codeline" id="line-47"><code></code></span>
+<span class="codeline" id="line-48"><code><span class="keyword">func</span> <label for="r7" class="ident"><a href="../../../../../../pkg/github.com/segmentio/asm/cpu/x86.html#name-ABI" class="ident">ABI</a></label>() <a href="#line-8" class="ident">CPU</a> {</code></span>
+<span class="codeline" id="line-49"><code>	<label for="r8" class="ident">cpu</label> := <a href="#line-8" class="ident">CPU</a>(<span class="lit-number">0</span>)</code></span>
+<span class="codeline" id="line-50"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-21" class="ident">SSE</a>, <a href="../../../../../../pkg/builtin.html#name-true" class="ident">true</a>) <span class="comment">// TODO: golang.org/x/sys/cpu assumes all CPUs have SEE?</span></code></span>
+<span class="codeline" id="line-51"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-22" class="ident">SSE2</a>, <a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-31" class="ident">X86</a>.<a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-67" class="ident">HasSSE2</a>)</code></span>
+<span class="codeline" id="line-52"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-23" class="ident">SSE3</a>, <a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-31" class="ident">X86</a>.<a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-68" class="ident">HasSSE3</a>)</code></span>
+<span class="codeline" id="line-53"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-24" class="ident">SSE41</a>, <a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-31" class="ident">X86</a>.<a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-70" class="ident">HasSSE41</a>)</code></span>
+<span class="codeline" id="line-54"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-25" class="ident">SSE42</a>, <a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-31" class="ident">X86</a>.<a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-71" class="ident">HasSSE42</a>)</code></span>
+<span class="codeline" id="line-55"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-26" class="ident">SSE4A</a>, <a href="../../../../../../pkg/builtin.html#name-false" class="ident">false</a>) <span class="comment">// TODO: add upstream support in golang.org/x/sys/cpu?</span></code></span>
+<span class="codeline" id="line-56"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-27" class="ident">SSSE3</a>, <a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-31" class="ident">X86</a>.<a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-69" class="ident">HasSSSE3</a>)</code></span>
+<span class="codeline" id="line-57"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-28" class="ident">AVX</a>, <a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-31" class="ident">X86</a>.<a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-35" class="ident">HasAVX</a>)</code></span>
+<span class="codeline" id="line-58"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-29" class="ident">AVX2</a>, <a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-31" class="ident">X86</a>.<a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-36" class="ident">HasAVX2</a>)</code></span>
+<span class="codeline" id="line-59"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-30" class="ident">AVX512BF16</a>, <a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-31" class="ident">X86</a>.<a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-56" class="ident">HasAVX512BF16</a>)</code></span>
+<span class="codeline" id="line-60"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-31" class="ident">AVX512BITALG</a>, <a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-31" class="ident">X86</a>.<a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-55" class="ident">HasAVX512BITALG</a>)</code></span>
+<span class="codeline" id="line-61"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-32" class="ident">AVX512BW</a>, <a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-31" class="ident">X86</a>.<a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-43" class="ident">HasAVX512BW</a>)</code></span>
+<span class="codeline" id="line-62"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-33" class="ident">AVX512CD</a>, <a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-31" class="ident">X86</a>.<a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-39" class="ident">HasAVX512CD</a>)</code></span>
+<span class="codeline" id="line-63"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-34" class="ident">AVX512DQ</a>, <a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-31" class="ident">X86</a>.<a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-44" class="ident">HasAVX512DQ</a>)</code></span>
+<span class="codeline" id="line-64"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-35" class="ident">AVX512ER</a>, <a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-31" class="ident">X86</a>.<a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-40" class="ident">HasAVX512ER</a>)</code></span>
+<span class="codeline" id="line-65"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-36" class="ident">AVX512F</a>, <a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-31" class="ident">X86</a>.<a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-38" class="ident">HasAVX512F</a>)</code></span>
+<span class="codeline" id="line-66"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-37" class="ident">AVX512IFMA</a>, <a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-31" class="ident">X86</a>.<a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-45" class="ident">HasAVX512IFMA</a>)</code></span>
+<span class="codeline" id="line-67"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-38" class="ident">AVX512PF</a>, <a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-31" class="ident">X86</a>.<a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-41" class="ident">HasAVX512PF</a>)</code></span>
+<span class="codeline" id="line-68"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-39" class="ident">AVX512VBMI</a>, <a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-31" class="ident">X86</a>.<a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-46" class="ident">HasAVX512VBMI</a>)</code></span>
+<span class="codeline" id="line-69"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-40" class="ident">AVX512VBMI2</a>, <a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-31" class="ident">X86</a>.<a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-54" class="ident">HasAVX512VBMI2</a>)</code></span>
+<span class="codeline" id="line-70"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-41" class="ident">AVX512VL</a>, <a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-31" class="ident">X86</a>.<a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-42" class="ident">HasAVX512VL</a>)</code></span>
+<span class="codeline" id="line-71"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-42" class="ident">AVX512VNNI</a>, <a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-31" class="ident">X86</a>.<a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-51" class="ident">HasAVX512VNNI</a>)</code></span>
+<span class="codeline" id="line-72"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-43" class="ident">AVX512VP2INTERSECT</a>, <a href="../../../../../../pkg/builtin.html#name-false" class="ident">false</a>) <span class="comment">// TODO: add upstream support in golang.org/x/sys/cpu?</span></code></span>
+<span class="codeline" id="line-73"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-44" class="ident">AVX512VPOPCNTDQ</a>, <a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-31" class="ident">X86</a>.<a href="../../../../../golang.org/x/sys/cpu/cpu.go.html#line-49" class="ident">HasAVX512VPOPCNTDQ</a>)</code></span>
+<span class="codeline" id="line-74"><code>	<label for="r8" class="ident">cpu</label>.<a href="#line-14" class="ident">set</a>(<a href="#line-45" class="ident">CMOV</a>, <a href="../../../../../../pkg/builtin.html#name-true" class="ident">true</a>) <span class="comment">// TODO: golang.org/x/sys/cpu assumes all CPUs have CMOV?</span></code></span>
+<span class="codeline" id="line-75"><code>	<span class="keyword">return</span> <label for="r8" class="ident">cpu</label></code></span>
+<span class="codeline" id="line-76"><code>}</code></span>
+</pre><pre id="footer">
+<table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

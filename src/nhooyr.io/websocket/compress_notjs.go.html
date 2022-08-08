@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: compress_notjs.go in package nhooyr.io/websocket</title>
-<link href="../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -134,7 +134,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-22"><code>	<a href="../../../use/nhooyr.io/websocket..compressionOptions^ecbb9.serverNoContextTakeover^03590.html" class="ident">serverNoContextTakeover</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
 <span class="codeline" id="line-23"><code>}</code></span>
 <span class="codeline" id="line-24"><code></code></span>
-<span class="codeline" id="line-25"><code><span class="keyword">func</span> (<label for="r2" class="ident">copts</label> *<a href="#line-20" class="ident">compressionOptions</a>) <label for="r3" class="ident"><a href="../../../use/nhooyr.io/websocket..compressionOptions^ecbb9.setHeader^8664c.html" class="ident">setHeader</a></label>(<label for="r4" class="ident">h</label> <a href="../../../pkg/net/http.html" class="ident i1">http</a>.<a href="../../net/http/header.go.html#line-22" class="ident">Header</a>) {</code></span>
+<span class="codeline" id="line-25"><code><span class="keyword">func</span> (<label for="r2" class="ident">copts</label> *<a href="#line-20" class="ident">compressionOptions</a>) <label for="r3" class="ident"><a href="../../../use/nhooyr.io/websocket..compressionOptions^ecbb9.setHeader^8664c.html" class="ident">setHeader</a></label>(<label for="r4" class="ident">h</label> <a href="../../../pkg/net/http.html" class="ident i1">http</a>.<a href="../../net/http/header.go.html#line-24" class="ident">Header</a>) {</code></span>
 <span class="codeline" id="line-26"><code>	<label for="r5" class="ident">s</label> := <span class="lit-string">"permessage-deflate"</span></code></span>
 <span class="codeline" id="line-27"><code>	<span class="keyword">if</span> <label for="r2" class="ident">copts</label>.<a href="#line-21" class="ident">clientNoContextTakeover</a> {</code></span>
 <span class="codeline" id="line-28"><code>		<label for="r5" class="ident">s</label> += <span class="lit-string">"; client_no_context_takeover"</span></code></span>
@@ -142,7 +142,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-30"><code>	<span class="keyword">if</span> <label for="r2" class="ident">copts</label>.<a href="#line-22" class="ident">serverNoContextTakeover</a> {</code></span>
 <span class="codeline" id="line-31"><code>		<label for="r5" class="ident">s</label> += <span class="lit-string">"; server_no_context_takeover"</span></code></span>
 <span class="codeline" id="line-32"><code>	}</code></span>
-<span class="codeline" id="line-33"><code>	<label for="r4" class="ident">h</label>.<a href="../../net/http/header.go.html#line-37" class="ident">Set</a>(<span class="lit-string">"Sec-WebSocket-Extensions"</span>, <label for="r5" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-33"><code>	<label for="r4" class="ident">h</label>.<a href="../../net/http/header.go.html#line-39" class="ident">Set</a>(<span class="lit-string">"Sec-WebSocket-Extensions"</span>, <label for="r5" class="ident">s</label>)</code></span>
 <span class="codeline" id="line-34"><code>}</code></span>
 <span class="codeline" id="line-35"><code></code></span>
 <span class="codeline" id="line-36"><code><span class="comment">// These bytes are required to get flate.Reader to return.</span></code></span>
@@ -205,41 +205,41 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-93"><code>	<span class="keyword">return</span> <label for="r15" class="ident">n</label> + <span class="lit-number">4</span>, <label for="r16" class="ident">err</label></code></span>
 <span class="codeline" id="line-94"><code>}</code></span>
 <span class="codeline" id="line-95"><code></code></span>
-<span class="codeline" id="line-96"><code><span class="keyword">var</span> <a href="../../../pkg/nhooyr.io/websocket.html#name-flateReaderPool" class="ident">flateReaderPool</a> <a href="../../../pkg/sync.html" class="ident i2">sync</a>.<a href="../../sync/pool.go.html#line-44" class="ident">Pool</a></code></span>
+<span class="codeline" id="line-96"><code><span class="keyword">var</span> <a href="../../../pkg/nhooyr.io/websocket.html#name-flateReaderPool" class="ident">flateReaderPool</a> <a href="../../../pkg/sync.html" class="ident i2">sync</a>.<a href="../../sync/pool.go.html#line-49" class="ident">Pool</a></code></span>
 <span class="codeline" id="line-97"><code></code></span>
 <span class="codeline" id="line-98"><code><span class="keyword">func</span> <label for="r17" class="ident"><a href="../../../pkg/nhooyr.io/websocket.html#name-getFlateReader" class="ident">getFlateReader</a></label>(<label for="r18" class="ident">r</label> <a href="../../../pkg/io.html" class="ident i0">io</a>.<a href="../../io/io.go.html#line-83" class="ident">Reader</a>, <label for="r19" class="ident">dict</label> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>) <a href="../../../pkg/io.html" class="ident i0">io</a>.<a href="../../io/io.go.html#line-83" class="ident">Reader</a> {</code></span>
-<span class="codeline" id="line-99"><code>	<label for="r20" class="ident">fr</label>, <label for="r21" class="ident">ok</label> := <a href="#line-96" class="ident">flateReaderPool</a>.<a href="../../sync/pool.go.html#line-124" class="ident">Get</a>().(<a href="../../../pkg/io.html" class="ident i0">io</a>.<a href="../../io/io.go.html#line-83" class="ident">Reader</a>)</code></span>
+<span class="codeline" id="line-99"><code>	<label for="r20" class="ident">fr</label>, <label for="r21" class="ident">ok</label> := <a href="#line-96" class="ident">flateReaderPool</a>.<a href="../../sync/pool.go.html#line-127" class="ident">Get</a>().(<a href="../../../pkg/io.html" class="ident i0">io</a>.<a href="../../io/io.go.html#line-83" class="ident">Reader</a>)</code></span>
 <span class="codeline" id="line-100"><code>	<span class="keyword">if</span> !<label for="r21" class="ident">ok</label> {</code></span>
-<span class="codeline" id="line-101"><code>		<span class="keyword">return</span> <a href="../../../pkg/github.com/klauspost/compress/flate.html" class="ident i3">flate</a>.<a href="../../github.com/klauspost/compress/flate/inflate.go.html#line-990" class="ident">NewReaderDict</a>(<label for="r18" class="ident">r</label>, <label for="r19" class="ident">dict</label>)</code></span>
+<span class="codeline" id="line-101"><code>		<span class="keyword">return</span> <a href="../../../pkg/github.com/klauspost/compress/flate.html" class="ident i3">flate</a>.<a href="../../github.com/klauspost/compress/flate/inflate.go.html#line-783" class="ident">NewReaderDict</a>(<label for="r18" class="ident">r</label>, <label for="r19" class="ident">dict</label>)</code></span>
 <span class="codeline" id="line-102"><code>	}</code></span>
-<span class="codeline" id="line-103"><code>	<label for="r20" class="ident">fr</label>.(<a href="../../../pkg/github.com/klauspost/compress/flate.html" class="ident i3">flate</a>.<a href="../../github.com/klauspost/compress/flate/inflate.go.html#line-75" class="ident">Resetter</a>).<a href="../../github.com/klauspost/compress/flate/inflate.go.html#line-78" class="ident">Reset</a>(<label for="r18" class="ident">r</label>, <label for="r19" class="ident">dict</label>)</code></span>
+<span class="codeline" id="line-103"><code>	<label for="r20" class="ident">fr</label>.(<a href="../../../pkg/github.com/klauspost/compress/flate.html" class="ident i3">flate</a>.<a href="../../github.com/klauspost/compress/flate/inflate.go.html#line-71" class="ident">Resetter</a>).<a href="../../github.com/klauspost/compress/flate/inflate.go.html#line-74" class="ident">Reset</a>(<label for="r18" class="ident">r</label>, <label for="r19" class="ident">dict</label>)</code></span>
 <span class="codeline" id="line-104"><code>	<span class="keyword">return</span> <label for="r20" class="ident">fr</label></code></span>
 <span class="codeline" id="line-105"><code>}</code></span>
 <span class="codeline" id="line-106"><code></code></span>
 <span class="codeline" id="line-107"><code><span class="keyword">func</span> <label for="r22" class="ident"><a href="../../../pkg/nhooyr.io/websocket.html#name-putFlateReader" class="ident">putFlateReader</a></label>(<label for="r23" class="ident">fr</label> <a href="../../../pkg/io.html" class="ident i0">io</a>.<a href="../../io/io.go.html#line-83" class="ident">Reader</a>) {</code></span>
-<span class="codeline" id="line-108"><code>	<a href="#line-96" class="ident">flateReaderPool</a>.<a href="../../sync/pool.go.html#line-90" class="ident">Put</a>(<label for="r23" class="ident">fr</label>)</code></span>
+<span class="codeline" id="line-108"><code>	<a href="#line-96" class="ident">flateReaderPool</a>.<a href="../../sync/pool.go.html#line-95" class="ident">Put</a>(<label for="r23" class="ident">fr</label>)</code></span>
 <span class="codeline" id="line-109"><code>}</code></span>
 <span class="codeline" id="line-110"><code></code></span>
 <span class="codeline" id="line-111"><code><span class="keyword">type</span> <a href="../../../pkg/nhooyr.io/websocket.html#name-slidingWindow" class="ident">slidingWindow</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-112"><code>	<a href="../../../use/nhooyr.io/websocket..slidingWindow^02df3.buf^3ef31.html" class="ident">buf</a> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
 <span class="codeline" id="line-113"><code>}</code></span>
 <span class="codeline" id="line-114"><code></code></span>
-<span class="codeline" id="line-115"><code><span class="keyword">var</span> <a href="../../../pkg/nhooyr.io/websocket.html#name-swPoolMu" class="ident">swPoolMu</a> <a href="../../../pkg/sync.html" class="ident i2">sync</a>.<a href="../../sync/rwmutex.go.html#line-28" class="ident">RWMutex</a></code></span>
-<span class="codeline" id="line-116"><code><span class="keyword">var</span> <a href="../../../pkg/nhooyr.io/websocket.html#name-swPool" class="ident">swPool</a> = <span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-int" class="ident">int</a>]*<a href="../../../pkg/sync.html" class="ident i2">sync</a>.<a href="../../sync/pool.go.html#line-44" class="ident">Pool</a>{}</code></span>
+<span class="codeline" id="line-115"><code><span class="keyword">var</span> <a href="../../../pkg/nhooyr.io/websocket.html#name-swPoolMu" class="ident">swPoolMu</a> <a href="../../../pkg/sync.html" class="ident i2">sync</a>.<a href="../../sync/rwmutex.go.html#line-36" class="ident">RWMutex</a></code></span>
+<span class="codeline" id="line-116"><code><span class="keyword">var</span> <a href="../../../pkg/nhooyr.io/websocket.html#name-swPool" class="ident">swPool</a> = <span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-int" class="ident">int</a>]*<a href="../../../pkg/sync.html" class="ident i2">sync</a>.<a href="../../sync/pool.go.html#line-49" class="ident">Pool</a>{}</code></span>
 <span class="codeline" id="line-117"><code></code></span>
-<span class="codeline" id="line-118"><code><span class="keyword">func</span> <label for="r24" class="ident"><a href="../../../pkg/nhooyr.io/websocket.html#name-slidingWindowPool" class="ident">slidingWindowPool</a></label>(<label for="r25" class="ident">n</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>) *<a href="../../../pkg/sync.html" class="ident i2">sync</a>.<a href="../../sync/pool.go.html#line-44" class="ident">Pool</a> {</code></span>
-<span class="codeline" id="line-119"><code>	<a href="#line-115" class="ident">swPoolMu</a>.<a href="../../sync/rwmutex.go.html#line-56" class="ident">RLock</a>()</code></span>
+<span class="codeline" id="line-118"><code><span class="keyword">func</span> <label for="r24" class="ident"><a href="../../../pkg/nhooyr.io/websocket.html#name-slidingWindowPool" class="ident">slidingWindowPool</a></label>(<label for="r25" class="ident">n</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>) *<a href="../../../pkg/sync.html" class="ident i2">sync</a>.<a href="../../sync/pool.go.html#line-49" class="ident">Pool</a> {</code></span>
+<span class="codeline" id="line-119"><code>	<a href="#line-115" class="ident">swPoolMu</a>.<a href="../../sync/rwmutex.go.html#line-64" class="ident">RLock</a>()</code></span>
 <span class="codeline" id="line-120"><code>	<label for="r26" class="ident">p</label>, <label for="r27" class="ident">ok</label> := <a href="#line-116" class="ident">swPool</a>[<label for="r25" class="ident">n</label>]</code></span>
-<span class="codeline" id="line-121"><code>	<a href="#line-115" class="ident">swPoolMu</a>.<a href="../../sync/rwmutex.go.html#line-75" class="ident">RUnlock</a>()</code></span>
+<span class="codeline" id="line-121"><code>	<a href="#line-115" class="ident">swPoolMu</a>.<a href="../../sync/rwmutex.go.html#line-111" class="ident">RUnlock</a>()</code></span>
 <span class="codeline" id="line-122"><code>	<span class="keyword">if</span> <label for="r27" class="ident">ok</label> {</code></span>
 <span class="codeline" id="line-123"><code>		<span class="keyword">return</span> <label for="r26" class="ident">p</label></code></span>
 <span class="codeline" id="line-124"><code>	}</code></span>
 <span class="codeline" id="line-125"><code></code></span>
-<span class="codeline" id="line-126"><code>	<label for="r26" class="ident">p</label> = &amp;<a href="../../../pkg/sync.html" class="ident i2">sync</a>.<a href="../../sync/pool.go.html#line-44" class="ident">Pool</a>{}</code></span>
+<span class="codeline" id="line-126"><code>	<label for="r26" class="ident">p</label> = &amp;<a href="../../../pkg/sync.html" class="ident i2">sync</a>.<a href="../../sync/pool.go.html#line-49" class="ident">Pool</a>{}</code></span>
 <span class="codeline" id="line-127"><code></code></span>
-<span class="codeline" id="line-128"><code>	<a href="#line-115" class="ident">swPoolMu</a>.<a href="../../sync/rwmutex.go.html#line-105" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-128"><code>	<a href="#line-115" class="ident">swPoolMu</a>.<a href="../../sync/rwmutex.go.html#line-141" class="ident">Lock</a>()</code></span>
 <span class="codeline" id="line-129"><code>	<a href="#line-116" class="ident">swPool</a>[<label for="r25" class="ident">n</label>] = <label for="r26" class="ident">p</label></code></span>
-<span class="codeline" id="line-130"><code>	<a href="#line-115" class="ident">swPoolMu</a>.<a href="../../sync/rwmutex.go.html#line-131" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-130"><code>	<a href="#line-115" class="ident">swPoolMu</a>.<a href="../../sync/rwmutex.go.html#line-198" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-131"><code></code></span>
 <span class="codeline" id="line-132"><code>	<span class="keyword">return</span> <label for="r26" class="ident">p</label></code></span>
 <span class="codeline" id="line-133"><code>}</code></span>
@@ -254,7 +254,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-142"><code>	}</code></span>
 <span class="codeline" id="line-143"><code></code></span>
 <span class="codeline" id="line-144"><code>	<label for="r31" class="ident">p</label> := <a href="#line-118" class="ident">slidingWindowPool</a>(<label for="r30" class="ident">n</label>)</code></span>
-<span class="codeline" id="line-145"><code>	<label for="r32" class="ident">buf</label>, <label for="r33" class="ident">ok</label> := <label for="r31" class="ident">p</label>.<a href="../../sync/pool.go.html#line-124" class="ident">Get</a>().([]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>)</code></span>
+<span class="codeline" id="line-145"><code>	<label for="r32" class="ident">buf</label>, <label for="r33" class="ident">ok</label> := <label for="r31" class="ident">p</label>.<a href="../../sync/pool.go.html#line-127" class="ident">Get</a>().([]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>)</code></span>
 <span class="codeline" id="line-146"><code>	<span class="keyword">if</span> <label for="r33" class="ident">ok</label> {</code></span>
 <span class="codeline" id="line-147"><code>		<label for="r28" class="ident">sw</label>.<a href="#line-112" class="ident">buf</a> = <label for="r32" class="ident">buf</label>[:<span class="lit-number">0</span>]</code></span>
 <span class="codeline" id="line-148"><code>	} <span class="keyword">else</span> {</code></span>
@@ -267,9 +267,9 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-155"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-156"><code>	}</code></span>
 <span class="codeline" id="line-157"><code></code></span>
-<span class="codeline" id="line-158"><code>	<a href="#line-115" class="ident">swPoolMu</a>.<a href="../../sync/rwmutex.go.html#line-105" class="ident">Lock</a>()</code></span>
-<span class="codeline" id="line-159"><code>	<a href="#line-116" class="ident">swPool</a>[<a href="../../../pkg/builtin.html#name-cap" class="ident">cap</a>(<label for="r34" class="ident">sw</label>.<a href="#line-112" class="ident">buf</a>)].<a href="../../sync/pool.go.html#line-90" class="ident">Put</a>(<label for="r34" class="ident">sw</label>.<a href="#line-112" class="ident">buf</a>)</code></span>
-<span class="codeline" id="line-160"><code>	<a href="#line-115" class="ident">swPoolMu</a>.<a href="../../sync/rwmutex.go.html#line-131" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-158"><code>	<a href="#line-115" class="ident">swPoolMu</a>.<a href="../../sync/rwmutex.go.html#line-141" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-159"><code>	<a href="#line-116" class="ident">swPool</a>[<a href="../../../pkg/builtin.html#name-cap" class="ident">cap</a>(<label for="r34" class="ident">sw</label>.<a href="#line-112" class="ident">buf</a>)].<a href="../../sync/pool.go.html#line-95" class="ident">Put</a>(<label for="r34" class="ident">sw</label>.<a href="#line-112" class="ident">buf</a>)</code></span>
+<span class="codeline" id="line-160"><code>	<a href="#line-115" class="ident">swPoolMu</a>.<a href="../../sync/rwmutex.go.html#line-198" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-161"><code>	<label for="r34" class="ident">sw</label>.<a href="#line-112" class="ident">buf</a> = <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-162"><code>}</code></span>
 <span class="codeline" id="line-163"><code></code></span>
@@ -293,7 +293,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-181"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

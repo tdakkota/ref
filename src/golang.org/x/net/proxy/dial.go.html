@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: dial.go in package golang.org/x/net/proxy</title>
-<link href="../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -91,7 +91,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-35"><code><span class="keyword">func</span> <label for="r7" class="ident"><a href="../../../../../pkg/golang.org/x/net/proxy.html#name-dialContext" class="ident">dialContext</a></label>(<label for="r8" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r9" class="ident">d</label> <a href="proxy.go.html#line-19" class="ident">Dialer</a>, <label for="r10" class="ident">network</label>, <label for="r11" class="ident">address</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) (<a href="../../../../../pkg/net.html" class="ident i1">net</a>.<a href="../../../../net/net.go.html#line-113" class="ident">Conn</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
 <span class="codeline" id="line-36"><code>	<span class="keyword">var</span> (</code></span>
 <span class="codeline" id="line-37"><code>		<label for="r12" class="ident">conn</label> <a href="../../../../../pkg/net.html" class="ident i1">net</a>.<a href="../../../../net/net.go.html#line-113" class="ident">Conn</a></code></span>
-<span class="codeline" id="line-38"><code>		<label for="r13" class="ident">done</label> = <a href="../../../../runtime/chan.go.html#line-71">make</a>(<span class="keyword">chan</span> <span class="keyword">struct</span>{}, <span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-38"><code>		<label for="r13" class="ident">done</label> = <a href="../../../../runtime/chan.go.html#line-72">make</a>(<span class="keyword">chan</span> <span class="keyword">struct</span>{}, <span class="lit-number">1</span>)</code></span>
 <span class="codeline" id="line-39"><code>		<label for="r14" class="ident">err</label>  <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
 <span class="codeline" id="line-40"><code>	)</code></span>
 <span class="codeline" id="line-41"><code>	<span class="keyword">go</span> <span class="keyword">func</span>() {</code></span>
@@ -101,16 +101,16 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-45"><code>			<label for="r12" class="ident">conn</label>.<a href="../../../../net/net.go.html#line-126" class="ident">Close</a>()</code></span>
 <span class="codeline" id="line-46"><code>		}</code></span>
 <span class="codeline" id="line-47"><code>	}()</code></span>
-<span class="codeline" id="line-48"><code>	<a href="../../../../runtime/select.go.html#line-121"><span class="keyword">select</span></a> {</code></span>
-<span class="codeline" id="line-49"><code>	<span class="keyword">case</span> <a href="../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r8" class="ident">ctx</label>.<a href="../../../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
+<span class="codeline" id="line-48"><code>	<a href="../../../../runtime/select.go.html#line-122"><span class="keyword">select</span></a> {</code></span>
+<span class="codeline" id="line-49"><code>	<span class="keyword">case</span> <a href="../../../../runtime/chan.go.html#line-441">&lt;-</a><label for="r8" class="ident">ctx</label>.<a href="../../../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
 <span class="codeline" id="line-50"><code>		<label for="r14" class="ident">err</label> = <label for="r8" class="ident">ctx</label>.<a href="../../../../context/context.go.html#line-106" class="ident">Err</a>()</code></span>
-<span class="codeline" id="line-51"><code>	<span class="keyword">case</span> <a href="../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r13" class="ident">done</label>:</code></span>
+<span class="codeline" id="line-51"><code>	<span class="keyword">case</span> <a href="../../../../runtime/chan.go.html#line-441">&lt;-</a><label for="r13" class="ident">done</label>:</code></span>
 <span class="codeline" id="line-52"><code>	}</code></span>
 <span class="codeline" id="line-53"><code>	<span class="keyword">return</span> <label for="r12" class="ident">conn</label>, <label for="r14" class="ident">err</label></code></span>
 <span class="codeline" id="line-54"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

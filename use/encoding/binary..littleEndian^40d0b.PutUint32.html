@@ -5,16 +5,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>References: encoding/binary.littleEndian.PutUint32</title>
-<link href="../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.3.6.js"></script>
+<link href="../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
-<pre><code><span style="font-size:x-large;"><b><a href="../../pkg/encoding/binary.html">encoding/binary</a>.<a href="../../src/encoding/binary/binary.go.html#line-50">littleEndian</a>.<a href="../../src/encoding/binary/binary.go.html#line-68">PutUint32</a></b></span><span style="font-size: large;"><i> (method, <a href="../../imp/encoding/binary.littleEndian^40d0b.html#name-PutUint32">view implemented interface methods</a>)</i></span>
+<pre><code><span style="font-size:x-large;"><b><a href="../../pkg/encoding/binary.html">encoding/binary</a>.<a href="../../src/encoding/binary/binary.go.html#line-59">littleEndian</a>.<a href="../../src/encoding/binary/binary.go.html#line-84">PutUint32</a></b></span><span style="font-size: large;"><i> (method, <a href="../../imp/encoding/binary.littleEndian^40d0b.html#name-PutUint32">view implemented interface methods</a>)</i></span>
 
-<span class="title">21 uses</span>
+<span class="title">25 uses</span>
 
 	encoding/binary (current package)
-		<a href="../../src/encoding/binary/binary.go.html#line-68">binary.go#L68</a>: func (littleEndian) <b>PutUint32</b>(b []byte, v uint32) {
+		<a href="../../src/encoding/binary/binary.go.html#line-84">binary.go#L84</a>: func (littleEndian) <b>PutUint32</b>(b []byte, v uint32) {
 
 	<a href="../../pkg/compress/gzip.html">compress/gzip</a>
 		<a href="../../src/compress/gzip/gzip.go.html#line-160">gzip.go#L160</a>: 			le.<b>PutUint32</b>(z.buf[4:8], uint32(z.ModTime.Unix()))
@@ -31,10 +31,18 @@
 		<a href="../../src/github.com/gotd/td/bin/encode.go.html#line-68">encode.go#L68</a>: 	binary.LittleEndian.<b>PutUint32</b>(t, v)
 
 	<a href="../../pkg/github.com/gotd/td/internal/mtproxy/faketls.html">github.com/gotd/td/internal/mtproxy/faketls</a>
-		<a href="../../src/github.com/gotd/td/internal/mtproxy/faketls/client_hello.go.html#line-75">client_hello.go#L75</a>: 	binary.LittleEndian.<b>PutUint32</b>(b.Buf[cur+28:cur+32], old)
+		<a href="../../src/github.com/gotd/td/internal/mtproxy/faketls/client_hello.go.html#line-118">client_hello.go#L118</a>: 	binary.LittleEndian.<b>PutUint32</b>(b.Buf[randomOffset+28:randomOffset+32], old)
 
 	<a href="../../pkg/github.com/gotd/td/internal/proto/codec.html">github.com/gotd/td/internal/proto/codec</a>
-		<a href="../../src/github.com/gotd/td/internal/proto/codec/abridged.go.html#line-93">abridged.go#L93</a>: 		binary.LittleEndian.<b>PutUint32</b>(buf[1:], uint32(length))
+		<a href="../../src/github.com/gotd/td/internal/proto/codec/abridged.go.html#line-106">abridged.go#L106</a>: 		binary.LittleEndian.<b>PutUint32</b>(buf[1:], uint32(encodeLength))
+
+	<a href="../../pkg/github.com/gotd/td/session/tdesktop.html">github.com/gotd/td/session/tdesktop</a>
+		<a href="../../src/github.com/gotd/td/session/tdesktop/file.go.html#line-126">file.go#L126</a>: 	binary.LittleEndian.<b>PutUint32</b>(packedLength[:], uint32(len(data)))
+
+	<a href="../../pkg/github.com/klauspost/compress/gzip.html">github.com/klauspost/compress/gzip</a>
+		<a href="../../src/github.com/klauspost/compress/gzip/gzip.go.html#line-171">gzip.go#L171</a>: 		le.<b>PutUint32</b>(z.buf[4:8], uint32(z.ModTime.Unix()))
+		<a href="../../src/github.com/klauspost/compress/gzip/gzip.go.html#line-265" class="path-duplicate">gzip.go</a><a href="../../src/github.com/klauspost/compress/gzip/gzip.go.html#line-265">#L265</a>: 	le.<b>PutUint32</b>(z.buf[:4], z.digest)
+		<a href="../../src/github.com/klauspost/compress/gzip/gzip.go.html#line-266" class="path-duplicate">gzip.go</a><a href="../../src/github.com/klauspost/compress/gzip/gzip.go.html#line-266">#L266</a>: 	le.<b>PutUint32</b>(z.buf[4:8], z.size)
 
 	<a href="../../pkg/nhooyr.io/websocket.html">nhooyr.io/websocket</a>
 		<a href="../../src/nhooyr.io/websocket/frame.go.html#line-164">frame.go#L164</a>: 		binary.LittleEndian.<b>PutUint32</b>(buf, h.maskKey)
@@ -51,7 +59,7 @@
 		<a href="../../src/vendor/golang.org/x/crypto/chacha20/chacha_generic.go.html#line-396" class="path-duplicate">chacha_generic.go</a><a href="../../src/vendor/golang.org/x/crypto/chacha20/chacha_generic.go.html#line-396">#L396</a>: 	binary.LittleEndian.<b>PutUint32</b>(out[28:32], x15)
 </code></pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

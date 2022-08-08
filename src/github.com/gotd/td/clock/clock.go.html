@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: clock.go in package github.com/gotd/td/clock</title>
-<link href="../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -38,29 +38,29 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-9"><code></code></span>
 <span class="codeline" id="line-10"><code><span class="comment">// Clock is current time source.</span></code></span>
 <span class="codeline" id="line-11"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/clock.html#name-Clock" class="ident">Clock</a> <span class="keyword">interface</span> {</code></span>
-<span class="codeline" id="line-12"><code>	<a href="../../../../../imp/github.com/gotd/td/clock.Clock.html#name-Now" class="ident">Now</a>() <a href="../../../../../pkg/time.html" class="ident i0">time</a>.<a href="../../../../time/time.go.html#line-127" class="ident">Time</a></code></span>
-<span class="codeline" id="line-13"><code>	<a href="../../../../../imp/github.com/gotd/td/clock.Clock.html#name-Timer" class="ident">Timer</a>(d <a href="../../../../../pkg/time.html" class="ident i0">time</a>.<a href="../../../../time/time.go.html#line-590" class="ident">Duration</a>) <a href="#line-18" class="ident">Timer</a></code></span>
-<span class="codeline" id="line-14"><code>	<a href="../../../../../imp/github.com/gotd/td/clock.Clock.html#name-Ticker" class="ident">Ticker</a>(d <a href="../../../../../pkg/time.html" class="ident i0">time</a>.<a href="../../../../time/time.go.html#line-590" class="ident">Duration</a>) <a href="#line-31" class="ident">Ticker</a></code></span>
+<span class="codeline" id="line-12"><code>	<a href="../../../../../imp/github.com/gotd/td/clock.Clock.html#name-Now" class="ident">Now</a>() <a href="../../../../../pkg/time.html" class="ident i0">time</a>.<a href="../../../../time/time.go.html#line-129" class="ident">Time</a></code></span>
+<span class="codeline" id="line-13"><code>	<a href="../../../../../imp/github.com/gotd/td/clock.Clock.html#name-Timer" class="ident">Timer</a>(d <a href="../../../../../pkg/time.html" class="ident i0">time</a>.<a href="../../../../time/time.go.html#line-591" class="ident">Duration</a>) <a href="#line-18" class="ident">Timer</a></code></span>
+<span class="codeline" id="line-14"><code>	<a href="../../../../../imp/github.com/gotd/td/clock.Clock.html#name-Ticker" class="ident">Ticker</a>(d <a href="../../../../../pkg/time.html" class="ident i0">time</a>.<a href="../../../../time/time.go.html#line-591" class="ident">Duration</a>) <a href="#line-31" class="ident">Ticker</a></code></span>
 <span class="codeline" id="line-15"><code>}</code></span>
 <span class="codeline" id="line-16"><code></code></span>
 <span class="codeline" id="line-17"><code><span class="comment">// Timer abstracts a single event.</span></code></span>
-<span class="codeline" id="line-18"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/clock.html#name-Timer" class="ident">Timer</a> = <a href="../../../../../pkg/github.com/gotd/neo.html" class="ident i1">neo</a>.<a href="../../neo/time.go.html#line-11" class="ident">Timer</a></code></span>
+<span class="codeline" id="line-18"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/clock.html#name-Timer" class="ident">Timer</a> = <a href="../../../../../pkg/github.com/gotd/neo.html" class="ident i1">neo</a>.<a href="../../neo/time.go.html#line-10" class="ident">Timer</a></code></span>
 <span class="codeline" id="line-19"><code></code></span>
 <span class="codeline" id="line-20"><code><span class="comment">// StopTimer stops timer and drains timer channel if Stop() returned false.</span></code></span>
 <span class="codeline" id="line-21"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../pkg/github.com/gotd/td/clock.html#name-StopTimer" class="ident">StopTimer</a></label>(<label for="r1" class="ident">t</label> <a href="#line-18" class="ident">Timer</a>) {</code></span>
-<span class="codeline" id="line-22"><code>	<span class="keyword">if</span> !<label for="r1" class="ident">t</label>.<a href="../../neo/time.go.html#line-13" class="ident">Stop</a>() {</code></span>
-<span class="codeline" id="line-23"><code>		<a href="../../../../runtime/chan.go.html#line-707"><span class="keyword">select</span></a> {</code></span>
-<span class="codeline" id="line-24"><code>		<span class="keyword">case</span> <a href="../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r1" class="ident">t</label>.<a href="../../neo/time.go.html#line-12" class="ident">C</a>():</code></span>
+<span class="codeline" id="line-22"><code>	<span class="keyword">if</span> !<label for="r1" class="ident">t</label>.<a href="../../neo/time.go.html#line-12" class="ident">Stop</a>() {</code></span>
+<span class="codeline" id="line-23"><code>		<a href="../../../../runtime/chan.go.html#line-713"><span class="keyword">select</span></a> {</code></span>
+<span class="codeline" id="line-24"><code>		<span class="keyword">case</span> <a href="../../../../runtime/chan.go.html#line-441">&lt;-</a><label for="r1" class="ident">t</label>.<a href="../../neo/time.go.html#line-11" class="ident">C</a>():</code></span>
 <span class="codeline" id="line-25"><code>		<span class="keyword">default</span>:</code></span>
 <span class="codeline" id="line-26"><code>		}</code></span>
 <span class="codeline" id="line-27"><code>	}</code></span>
 <span class="codeline" id="line-28"><code>}</code></span>
 <span class="codeline" id="line-29"><code></code></span>
-<span class="codeline" id="line-30"><code><span class="comment">// Ticker abstracts a channel that delivers ``ticks'' of a clock at intervals.</span></code></span>
-<span class="codeline" id="line-31"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/clock.html#name-Ticker" class="ident">Ticker</a> = <a href="../../../../../pkg/github.com/gotd/neo.html" class="ident i1">neo</a>.<a href="../../neo/time.go.html#line-18" class="ident">Ticker</a></code></span>
+<span class="codeline" id="line-30"><code><span class="comment">// Ticker abstracts a channel that delivers “ticks” of a clock at intervals.</span></code></span>
+<span class="codeline" id="line-31"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/clock.html#name-Ticker" class="ident">Ticker</a> = <a href="../../../../../pkg/github.com/gotd/neo.html" class="ident i1">neo</a>.<a href="../../neo/time.go.html#line-17" class="ident">Ticker</a></code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

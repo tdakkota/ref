@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: pipeline.go in package net/textproto</title>
-<link href="../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -98,7 +98,7 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-26"><code><span class="comment">// A pipelined server can use the same calls to ensure that</span></code></span>
 <span class="codeline" id="line-27"><code><span class="comment">// responses computed in parallel are written in the correct order.</span></code></span>
 <span class="codeline" id="line-28"><code><span class="keyword">type</span> <a href="../../../pkg/net/textproto.html#name-Pipeline" class="ident">Pipeline</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-29"><code>	<a href="../../../use/net/textproto..Pipeline.mu^19503.html" class="ident">mu</a>       <a href="../../../pkg/sync.html" class="ident i0">sync</a>.<a href="../../sync/mutex.go.html#line-25" class="ident">Mutex</a></code></span>
+<span class="codeline" id="line-29"><code>	<a href="../../../use/net/textproto..Pipeline.mu^19503.html" class="ident">mu</a>       <a href="../../../pkg/sync.html" class="ident i0">sync</a>.<a href="../../sync/mutex.go.html#line-34" class="ident">Mutex</a></code></span>
 <span class="codeline" id="line-30"><code>	<a href="../../../use/net/textproto..Pipeline.id^a5614.html" class="ident">id</a>       <a href="../../../pkg/builtin.html#name-uint" class="ident">uint</a></code></span>
 <span class="codeline" id="line-31"><code>	<a href="../../../use/net/textproto..Pipeline.request^1f58b.html" class="ident">request</a>  <a href="#line-72" class="ident">sequencer</a></code></span>
 <span class="codeline" id="line-32"><code>	<a href="../../../use/net/textproto..Pipeline.response^a9f4b.html" class="ident">response</a> <a href="#line-72" class="ident">sequencer</a></code></span>
@@ -106,10 +106,10 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-34"><code></code></span>
 <span class="codeline" id="line-35"><code><span class="comment">// Next returns the next id for a request/response pair.</span></code></span>
 <span class="codeline" id="line-36"><code><span class="keyword">func</span> (<label for="r0" class="ident">p</label> *<a href="#line-28" class="ident">Pipeline</a>) <label for="r1" class="ident"><a href="../../../use/net/textproto..Pipeline.Next.html" class="ident">Next</a></label>() <a href="../../../pkg/builtin.html#name-uint" class="ident">uint</a> {</code></span>
-<span class="codeline" id="line-37"><code>	<label for="r0" class="ident">p</label>.<a href="#line-29" class="ident">mu</a>.<a href="../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-37"><code>	<label for="r0" class="ident">p</label>.<a href="#line-29" class="ident">mu</a>.<a href="../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
 <span class="codeline" id="line-38"><code>	<label for="r2" class="ident">id</label> := <label for="r0" class="ident">p</label>.<a href="#line-30" class="ident">id</a></code></span>
 <span class="codeline" id="line-39"><code>	<label for="r0" class="ident">p</label>.<a href="#line-30" class="ident">id</a>++</code></span>
-<span class="codeline" id="line-40"><code>	<label for="r0" class="ident">p</label>.<a href="#line-29" class="ident">mu</a>.<a href="../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-40"><code>	<label for="r0" class="ident">p</label>.<a href="#line-29" class="ident">mu</a>.<a href="../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-41"><code>	<span class="keyword">return</span> <label for="r2" class="ident">id</label></code></span>
 <span class="codeline" id="line-42"><code>}</code></span>
 <span class="codeline" id="line-43"><code></code></span>
@@ -142,7 +142,7 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-70"><code><span class="comment">// at 0 and increment without skipping. The event number wraps around</span></code></span>
 <span class="codeline" id="line-71"><code><span class="comment">// safely as long as there are not 2^32 simultaneous events pending.</span></code></span>
 <span class="codeline" id="line-72"><code><span class="keyword">type</span> <a href="../../../pkg/net/textproto.html#name-sequencer" class="ident">sequencer</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-73"><code>	<a href="../../../use/net/textproto..sequencer^8daeb.mu^19503.html" class="ident">mu</a>   <a href="../../../pkg/sync.html" class="ident i0">sync</a>.<a href="../../sync/mutex.go.html#line-25" class="ident">Mutex</a></code></span>
+<span class="codeline" id="line-73"><code>	<a href="../../../use/net/textproto..sequencer^8daeb.mu^19503.html" class="ident">mu</a>   <a href="../../../pkg/sync.html" class="ident i0">sync</a>.<a href="../../sync/mutex.go.html#line-34" class="ident">Mutex</a></code></span>
 <span class="codeline" id="line-74"><code>	<a href="../../../use/net/textproto..sequencer^8daeb.id^a5614.html" class="ident">id</a>   <a href="../../../pkg/builtin.html#name-uint" class="ident">uint</a></code></span>
 <span class="codeline" id="line-75"><code>	<a href="../../../use/net/textproto..sequencer^8daeb.wait^716ec.html" class="ident">wait</a> <span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-uint" class="ident">uint</a>]<span class="keyword">chan</span> <span class="keyword">struct</span>{}</code></span>
 <span class="codeline" id="line-76"><code>}</code></span>
@@ -151,17 +151,17 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-79"><code><span class="comment">// That is, except for the first event, it waits until End(id-1) has</span></code></span>
 <span class="codeline" id="line-80"><code><span class="comment">// been called.</span></code></span>
 <span class="codeline" id="line-81"><code><span class="keyword">func</span> (<label for="r15" class="ident">s</label> *<a href="#line-72" class="ident">sequencer</a>) <label for="r16" class="ident"><a href="../../../use/net/textproto..sequencer^8daeb.Start.html" class="ident">Start</a></label>(<label for="r17" class="ident">id</label> <a href="../../../pkg/builtin.html#name-uint" class="ident">uint</a>) {</code></span>
-<span class="codeline" id="line-82"><code>	<label for="r15" class="ident">s</label>.<a href="#line-73" class="ident">mu</a>.<a href="../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-82"><code>	<label for="r15" class="ident">s</label>.<a href="#line-73" class="ident">mu</a>.<a href="../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
 <span class="codeline" id="line-83"><code>	<span class="keyword">if</span> <label for="r15" class="ident">s</label>.<a href="#line-74" class="ident">id</a> == <label for="r17" class="ident">id</label> {</code></span>
-<span class="codeline" id="line-84"><code>		<label for="r15" class="ident">s</label>.<a href="#line-73" class="ident">mu</a>.<a href="../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-84"><code>		<label for="r15" class="ident">s</label>.<a href="#line-73" class="ident">mu</a>.<a href="../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-85"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-86"><code>	}</code></span>
-<span class="codeline" id="line-87"><code>	<label for="r18" class="ident">c</label> := <a href="../../runtime/chan.go.html#line-71">make</a>(<span class="keyword">chan</span> <span class="keyword">struct</span>{})</code></span>
+<span class="codeline" id="line-87"><code>	<label for="r18" class="ident">c</label> := <a href="../../runtime/chan.go.html#line-72">make</a>(<span class="keyword">chan</span> <span class="keyword">struct</span>{})</code></span>
 <span class="codeline" id="line-88"><code>	<span class="keyword">if</span> <label for="r15" class="ident">s</label>.<a href="#line-75" class="ident">wait</a> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-89"><code>		<label for="r15" class="ident">s</label>.<a href="#line-75" class="ident">wait</a> = <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>(<span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-uint" class="ident">uint</a>]<span class="keyword">chan</span> <span class="keyword">struct</span>{})</code></span>
 <span class="codeline" id="line-90"><code>	}</code></span>
 <span class="codeline" id="line-91"><code>	<label for="r15" class="ident">s</label>.<a href="#line-75" class="ident">wait</a>[<label for="r17" class="ident">id</label>] = <label for="r18" class="ident">c</label></code></span>
-<span class="codeline" id="line-92"><code>	<label for="r15" class="ident">s</label>.<a href="#line-73" class="ident">mu</a>.<a href="../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-92"><code>	<label for="r15" class="ident">s</label>.<a href="#line-73" class="ident">mu</a>.<a href="../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-93"><code>	&lt;-<label for="r18" class="ident">c</label></code></span>
 <span class="codeline" id="line-94"><code>}</code></span>
 <span class="codeline" id="line-95"><code></code></span>
@@ -169,9 +169,9 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-97"><code><span class="comment">// allowing it to schedule the event numbered id+1.  It is a run-time error</span></code></span>
 <span class="codeline" id="line-98"><code><span class="comment">// to call End with an id that is not the number of the active event.</span></code></span>
 <span class="codeline" id="line-99"><code><span class="keyword">func</span> (<label for="r19" class="ident">s</label> *<a href="#line-72" class="ident">sequencer</a>) <label for="r20" class="ident"><a href="../../../use/net/textproto..sequencer^8daeb.End.html" class="ident">End</a></label>(<label for="r21" class="ident">id</label> <a href="../../../pkg/builtin.html#name-uint" class="ident">uint</a>) {</code></span>
-<span class="codeline" id="line-100"><code>	<label for="r19" class="ident">s</label>.<a href="#line-73" class="ident">mu</a>.<a href="../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-100"><code>	<label for="r19" class="ident">s</label>.<a href="#line-73" class="ident">mu</a>.<a href="../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
 <span class="codeline" id="line-101"><code>	<span class="keyword">if</span> <label for="r19" class="ident">s</label>.<a href="#line-74" class="ident">id</a> != <label for="r21" class="ident">id</label> {</code></span>
-<span class="codeline" id="line-102"><code>		<label for="r19" class="ident">s</label>.<a href="#line-73" class="ident">mu</a>.<a href="../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-102"><code>		<label for="r19" class="ident">s</label>.<a href="#line-73" class="ident">mu</a>.<a href="../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-103"><code>		<a href="../../../pkg/builtin.html#name-panic" class="ident">panic</a>(<span class="lit-string">"out of sync"</span>)</code></span>
 <span class="codeline" id="line-104"><code>	}</code></span>
 <span class="codeline" id="line-105"><code>	<label for="r21" class="ident">id</label>++</code></span>
@@ -183,14 +183,14 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-111"><code>	<span class="keyword">if</span> <label for="r23" class="ident">ok</label> {</code></span>
 <span class="codeline" id="line-112"><code>		<a href="../../../pkg/builtin.html#name-delete" class="ident">delete</a>(<label for="r19" class="ident">s</label>.<a href="#line-75" class="ident">wait</a>, <label for="r21" class="ident">id</label>)</code></span>
 <span class="codeline" id="line-113"><code>	}</code></span>
-<span class="codeline" id="line-114"><code>	<label for="r19" class="ident">s</label>.<a href="#line-73" class="ident">mu</a>.<a href="../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-114"><code>	<label for="r19" class="ident">s</label>.<a href="#line-73" class="ident">mu</a>.<a href="../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-115"><code>	<span class="keyword">if</span> <label for="r23" class="ident">ok</label> {</code></span>
 <span class="codeline" id="line-116"><code>		<a href="../../../pkg/builtin.html#name-close" class="ident">close</a>(<label for="r22" class="ident">c</label>)</code></span>
 <span class="codeline" id="line-117"><code>	}</code></span>
 <span class="codeline" id="line-118"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

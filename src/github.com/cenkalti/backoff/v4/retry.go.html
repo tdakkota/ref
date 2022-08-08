@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: retry.go in package github.com/cenkalti/backoff/v4</title>
-<link href="../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -96,7 +96,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-14"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-15"><code><span class="comment">// NOTE that if the backoff policy stated to stop retrying,</span></code></span>
 <span class="codeline" id="line-16"><code><span class="comment">// the notify function isn't called.</span></code></span>
-<span class="codeline" id="line-17"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/cenkalti/backoff/v4.html#name-Notify" class="ident">Notify</a> <span class="keyword">func</span>(<a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>, <a href="../../../../../pkg/time.html" class="ident i1">time</a>.<a href="../../../../time/time.go.html#line-590" class="ident">Duration</a>)</code></span>
+<span class="codeline" id="line-17"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/cenkalti/backoff/v4.html#name-Notify" class="ident">Notify</a> <span class="keyword">func</span>(<a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>, <a href="../../../../../pkg/time.html" class="ident i1">time</a>.<a href="../../../../time/time.go.html#line-591" class="ident">Duration</a>)</code></span>
 <span class="codeline" id="line-18"><code></code></span>
 <span class="codeline" id="line-19"><code><span class="comment">// Retry the operation o until it does not return error or BackOff stops.</span></code></span>
 <span class="codeline" id="line-20"><code><span class="comment">// o is guaranteed to be run at least once.</span></code></span>
@@ -121,7 +121,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-39"><code><span class="comment">// A default timer that uses system timer is used when nil is passed.</span></code></span>
 <span class="codeline" id="line-40"><code><span class="keyword">func</span> <label for="r7" class="ident"><a href="../../../../../pkg/github.com/cenkalti/backoff/v4.html#name-RetryNotifyWithTimer" class="ident">RetryNotifyWithTimer</a></label>(<label for="r8" class="ident">operation</label> <a href="#line-10" class="ident">Operation</a>, <label for="r9" class="ident">b</label> <a href="backoff.go.html#line-16" class="ident">BackOff</a>, <label for="r10" class="ident">notify</label> <a href="#line-17" class="ident">Notify</a>, <label for="r11" class="ident">t</label> <a href="timer.go.html#line-5" class="ident">Timer</a>) <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
 <span class="codeline" id="line-41"><code>	<span class="keyword">var</span> <label for="r12" class="ident">err</label> <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
-<span class="codeline" id="line-42"><code>	<span class="keyword">var</span> <label for="r13" class="ident">next</label> <a href="../../../../../pkg/time.html" class="ident i1">time</a>.<a href="../../../../time/time.go.html#line-590" class="ident">Duration</a></code></span>
+<span class="codeline" id="line-42"><code>	<span class="keyword">var</span> <label for="r13" class="ident">next</label> <a href="../../../../../pkg/time.html" class="ident i1">time</a>.<a href="../../../../time/time.go.html#line-591" class="ident">Duration</a></code></span>
 <span class="codeline" id="line-43"><code>	<span class="keyword">if</span> <label for="r11" class="ident">t</label> == <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-44"><code>		<label for="r11" class="ident">t</label> = &amp;<a href="timer.go.html#line-12" class="ident">defaultTimer</a>{}</code></span>
 <span class="codeline" id="line-45"><code>	}</code></span>
@@ -139,7 +139,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-57"><code>		}</code></span>
 <span class="codeline" id="line-58"><code></code></span>
 <span class="codeline" id="line-59"><code>		<span class="keyword">var</span> <label for="r15" class="ident">permanent</label> *<a href="#line-87" class="ident">PermanentError</a></code></span>
-<span class="codeline" id="line-60"><code>		<span class="keyword">if</span> <a href="../../../../../pkg/errors.html" class="ident i0">errors</a>.<a href="../../../../errors/wrap.go.html#line-77" class="ident">As</a>(<label for="r12" class="ident">err</label>, &amp;<label for="r15" class="ident">permanent</label>) {</code></span>
+<span class="codeline" id="line-60"><code>		<span class="keyword">if</span> <a href="../../../../../pkg/errors.html" class="ident i0">errors</a>.<a href="../../../../errors/wrap.go.html#line-78" class="ident">As</a>(<label for="r12" class="ident">err</label>, &amp;<label for="r15" class="ident">permanent</label>) {</code></span>
 <span class="codeline" id="line-61"><code>			<span class="keyword">return</span> <label for="r15" class="ident">permanent</label>.<a href="#line-88" class="ident">Err</a></code></span>
 <span class="codeline" id="line-62"><code>		}</code></span>
 <span class="codeline" id="line-63"><code></code></span>
@@ -157,10 +157,10 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-75"><code></code></span>
 <span class="codeline" id="line-76"><code>		<label for="r11" class="ident">t</label>.<a href="timer.go.html#line-6" class="ident">Start</a>(<label for="r13" class="ident">next</label>)</code></span>
 <span class="codeline" id="line-77"><code></code></span>
-<span class="codeline" id="line-78"><code>		<a href="../../../../runtime/select.go.html#line-121"><span class="keyword">select</span></a> {</code></span>
-<span class="codeline" id="line-79"><code>		<span class="keyword">case</span> <a href="../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r14" class="ident">ctx</label>.<a href="../../../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
+<span class="codeline" id="line-78"><code>		<a href="../../../../runtime/select.go.html#line-122"><span class="keyword">select</span></a> {</code></span>
+<span class="codeline" id="line-79"><code>		<span class="keyword">case</span> <a href="../../../../runtime/chan.go.html#line-441">&lt;-</a><label for="r14" class="ident">ctx</label>.<a href="../../../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
 <span class="codeline" id="line-80"><code>			<span class="keyword">return</span> <label for="r14" class="ident">ctx</label>.<a href="../../../../context/context.go.html#line-106" class="ident">Err</a>()</code></span>
-<span class="codeline" id="line-81"><code>		<span class="keyword">case</span> <a href="../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r11" class="ident">t</label>.<a href="timer.go.html#line-8" class="ident">C</a>():</code></span>
+<span class="codeline" id="line-81"><code>		<span class="keyword">case</span> <a href="../../../../runtime/chan.go.html#line-441">&lt;-</a><label for="r11" class="ident">t</label>.<a href="timer.go.html#line-8" class="ident">C</a>():</code></span>
 <span class="codeline" id="line-82"><code>		}</code></span>
 <span class="codeline" id="line-83"><code>	}</code></span>
 <span class="codeline" id="line-84"><code>}</code></span>
@@ -194,7 +194,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-112"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

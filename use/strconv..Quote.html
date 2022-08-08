@@ -5,32 +5,50 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>References: strconv.Quote</title>
-<link href="../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../jvs/golds-v0.3.6.js"></script>
+<link href="../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre><code><span style="font-size:x-large;">func <b><a href="../pkg/strconv.html">strconv</a>.<a href="../src/strconv/quote.go.html#line-128">Quote</a></b></span>
 
-<span class="title">8 uses</span>
+<span class="title">22 uses</span>
 
 	strconv (current package)
 		<a href="../src/strconv/atoi.go.html#line-31">atoi.go#L31</a>: 	return "strconv." + e.Func + ": " + "parsing " + <b>Quote</b>(e.Num) + ": " + e.Err.Error()
 		<a href="../src/strconv/quote.go.html#line-128">quote.go#L128</a>: func <b>Quote</b>(s string) string {
 
 	<a href="../pkg/encoding/json.html">encoding/json</a>
-		<a href="../src/encoding/json/decode.go.html#line-150">decode.go#L150</a>: 	return "json: cannot unmarshal object key " + strconv.<b>Quote</b>(e.Key) + " into unexported field " + e.Field.Name + " of type " + e.Type.String()
-		<a href="../src/encoding/json/encode.go.html#line-261">encode.go#L261</a>: 	return "json: invalid UTF-8 in string: " + strconv.<b>Quote</b>(e.S)
-		<a href="../src/encoding/json/scanner.go.html#line-606">scanner.go#L606</a>: 	s := strconv.<b>Quote</b>(string(c))
+		<a href="../src/encoding/json/decode.go.html#line-151">decode.go#L151</a>: 	return "json: cannot unmarshal object key " + strconv.<b>Quote</b>(e.Key) + " into unexported field " + e.Field.Name + " of type " + e.Type.String()
+		<a href="../src/encoding/json/encode.go.html#line-260">encode.go#L260</a>: 	return "json: invalid UTF-8 in string: " + strconv.<b>Quote</b>(e.S)
+		<a href="../src/encoding/json/scanner.go.html#line-608">scanner.go#L608</a>: 	s := strconv.<b>Quote</b>(string(c))
+
+	<a href="../pkg/net/netip.html">net/netip</a>
+		<a href="../src/net/netip/netip.go.html#line-153">netip.go#L153</a>: 	q := strconv.<b>Quote</b>
+		<a href="../src/net/netip/netip.go.html#line-1089" class="path-duplicate">netip.go</a><a href="../src/net/netip/netip.go.html#line-1089">#L1089</a>: 		return ipp, errors.New("invalid port " + strconv.<b>Quote</b>(port) + " parsing " + strconv.<b>Quote</b>(s))
+		<a href="../src/net/netip/netip.go.html#line-1097" class="path-duplicate">netip.go</a><a href="../src/net/netip/netip.go.html#line-1097">#L1097</a>: 		return AddrPort{}, errors.New("invalid ip:port " + strconv.<b>Quote</b>(s) + ", square brackets can only be used with IPv6 addresses")
+		<a href="../src/net/netip/netip.go.html#line-1099" class="path-duplicate">netip.go</a><a href="../src/net/netip/netip.go.html#line-1099">#L1099</a>: 		return AddrPort{}, errors.New("invalid ip:port " + strconv.<b>Quote</b>(s) + ", IPv6 addresses must be surrounded by square brackets")
+		<a href="../src/net/netip/netip.go.html#line-1299" class="path-duplicate">netip.go</a><a href="../src/net/netip/netip.go.html#line-1299">#L1299</a>: 		return Prefix{}, errors.New("netip.ParsePrefix(" + strconv.<b>Quote</b>(s) + "): no '/'")
+		<a href="../src/net/netip/netip.go.html#line-1303" class="path-duplicate">netip.go</a><a href="../src/net/netip/netip.go.html#line-1303">#L1303</a>: 		return Prefix{}, errors.New("netip.ParsePrefix(" + strconv.<b>Quote</b>(s) + "): " + err.Error())
+		<a href="../src/net/netip/netip.go.html#line-1307" class="path-duplicate">netip.go</a><a href="../src/net/netip/netip.go.html#line-1307">#L1307</a>: 		return Prefix{}, errors.New("netip.ParsePrefix(" + strconv.<b>Quote</b>(s) + "): IPv6 zones cannot be present in a prefix")
+		<a href="../src/net/netip/netip.go.html#line-1313" class="path-duplicate">netip.go</a><a href="../src/net/netip/netip.go.html#line-1313">#L1313</a>: 		return Prefix{}, errors.New("netip.ParsePrefix(" + strconv.<b>Quote</b>(s) + "): bad bits after slash: " + strconv.<b>Quote</b>(bitsStr))
+		<a href="../src/net/netip/netip.go.html#line-1320" class="path-duplicate">netip.go</a><a href="../src/net/netip/netip.go.html#line-1320">#L1320</a>: 		return Prefix{}, errors.New("netip.ParsePrefix(" + strconv.<b>Quote</b>(s) + "): prefix length out of range")
 
 	<a href="../pkg/net/url.html">net/url</a>
-		<a href="../src/net/url/url.go.html#line-86">url.go#L86</a>: 	return "invalid URL escape " + strconv.<b>Quote</b>(string(e))
-		<a href="../src/net/url/url.go.html#line-92" class="path-duplicate">url.go</a><a href="../src/net/url/url.go.html#line-92">#L92</a>: 	return "invalid character " + strconv.<b>Quote</b>(string(e)) + " in host name"
+		<a href="../src/net/url/url.go.html#line-87">url.go#L87</a>: 	return "invalid URL escape " + strconv.<b>Quote</b>(string(e))
+		<a href="../src/net/url/url.go.html#line-93" class="path-duplicate">url.go</a><a href="../src/net/url/url.go.html#line-93">#L93</a>: 	return "invalid character " + strconv.<b>Quote</b>(string(e)) + " in host name"
 
 	<a href="../pkg/reflect.html">reflect</a>
-		<a href="../src/reflect/type.go.html#line-2606">type.go#L2606</a>: 			repr = append(repr, (" " + strconv.<b>Quote</b>(f.name.tag()))...)
+		<a href="../src/reflect/type.go.html#line-2629">type.go#L2629</a>: 			repr = append(repr, (" " + strconv.<b>Quote</b>(f.name.tag()))...)
+
+	<a href="../pkg/regexp.html">regexp</a>
+		<a href="../src/regexp/regexp.go.html#line-339">regexp.go#L339</a>: 	return strconv.<b>Quote</b>(s)
+
+	<a href="../pkg/runtime/debug.html">runtime/debug</a>
+		<a href="../src/runtime/debug/mod.go.html#line-109">mod.go#L109</a>: 			key = strconv.<b>Quote</b>(key)
+		<a href="../src/runtime/debug/mod.go.html#line-113" class="path-duplicate">mod.go</a><a href="../src/runtime/debug/mod.go.html#line-113">#L113</a>: 			value = strconv.<b>Quote</b>(value)
 </code></pre><pre id="footer">
 <table><tr><td><img src="../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

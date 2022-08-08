@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: check_gp.go in package github.com/gotd/td/internal/crypto</title>
-<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -51,16 +51,16 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
 <span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"math/big"</span></label></code></span>
 <span class="codeline" id="line-5"><code></code></span>
-<span class="codeline" id="line-6"><code>	<label for="i1"><span class="lit-string i1">"golang.org/x/xerrors"</span></label></code></span>
+<span class="codeline" id="line-6"><code>	<label for="i1"><span class="lit-string i1">"github.com/go-faster/errors"</span></label></code></span>
 <span class="codeline" id="line-7"><code>)</code></span>
 <span class="codeline" id="line-8"><code></code></span>
-<span class="codeline" id="line-9"><code><span class="comment">// CheckGP checks whether p = dh_prime is a safe 2048-bit prime</span></code></span>
-<span class="codeline" id="line-10"><code><span class="comment">// (meaning that both p and (p-1)/2 are prime, and that 2^2047 &lt; p &lt; 2^2048),</span></code></span>
-<span class="codeline" id="line-11"><code><span class="comment">// and that g generates a cyclic subgroup of prime order (p-1)/2, i.e. is a quadratic residue mod p.</span></code></span>
-<span class="codeline" id="line-12"><code><span class="comment">// Also check that g is 2, 3, 4, 5, 6 or 7.</span></code></span>
+<span class="codeline" id="line-9"><code><span class="comment">// CheckGP checks whether g generates a cyclic subgroup of prime order (p-1)/2, i.e. is a quadratic residue mod p.</span></code></span>
+<span class="codeline" id="line-10"><code><span class="comment">// Also check that g is 2, 3, 4, 5, 6 or 7.</span></code></span>
+<span class="codeline" id="line-11"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-12"><code><span class="comment">// This function is needed by some Telegram algorithms(Key generation, SRP 2FA).</span></code></span>
 <span class="codeline" id="line-13"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-14"><code><span class="comment">// This function is needed by some Telegram algorithms(Key generation, SRP 2FA).</span></code></span>
-<span class="codeline" id="line-15"><code><span class="comment">// See https://core.telegram.org/mtproto/auth_key.</span></code></span>
+<span class="codeline" id="line-14"><code><span class="comment">// See https://core.telegram.org/mtproto/auth_key.</span></code></span>
+<span class="codeline" id="line-15"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-16"><code><span class="comment">// See https://core.telegram.org/api/srp.</span></code></span>
 <span class="codeline" id="line-17"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-CheckGP" class="ident">CheckGP</a></label>(<label for="r1" class="ident">g</label> <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r2" class="ident">p</label> *<a href="../../../../../../pkg/math/big.html" class="ident i0">big</a>.<a href="../../../../../math/big/int.go.html#line-25" class="ident">Int</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
 <span class="codeline" id="line-18"><code>	<span class="comment">// Since g is always equal to 2, 3, 4, 5, 6 or 7,</span></code></span>
@@ -86,18 +86,18 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-38"><code>		<span class="comment">// and p mod 7 = 3, 5 or 6 for g = 7.</span></code></span>
 <span class="codeline" id="line-39"><code>		<label for="r3" class="ident">result</label> = <a href="#line-51" class="ident">checkSubgroup</a>(<label for="r2" class="ident">p</label>, <span class="lit-number">7</span>, <span class="lit-number">3</span>, <span class="lit-number">5</span>, <span class="lit-number">6</span>)</code></span>
 <span class="codeline" id="line-40"><code>	<span class="keyword">default</span>:</code></span>
-<span class="codeline" id="line-41"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i1">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"unexpected g = %d: g should be equal to 2, 3, 4, 5, 6 or 7"</span>, <label for="r1" class="ident">g</label>)</code></span>
+<span class="codeline" id="line-41"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i1">errors</a>.<a href="../../../../go-faster/errors/format.go.html#line-42" class="ident">Errorf</a>(<span class="lit-string">"unexpected g = %d: g should be equal to 2, 3, 4, 5, 6 or 7"</span>, <label for="r1" class="ident">g</label>)</code></span>
 <span class="codeline" id="line-42"><code>	}</code></span>
 <span class="codeline" id="line-43"><code></code></span>
 <span class="codeline" id="line-44"><code>	<span class="keyword">if</span> !<label for="r3" class="ident">result</label> {</code></span>
-<span class="codeline" id="line-45"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i1">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/errors.go.html#line-19" class="ident">New</a>(<span class="lit-string">"g should be a quadratic residue mod p"</span>)</code></span>
+<span class="codeline" id="line-45"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i1">errors</a>.<a href="../../../../go-faster/errors/errors.go.html#line-22" class="ident">New</a>(<span class="lit-string">"g should be a quadratic residue mod p"</span>)</code></span>
 <span class="codeline" id="line-46"><code>	}</code></span>
 <span class="codeline" id="line-47"><code></code></span>
 <span class="codeline" id="line-48"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-49"><code>}</code></span>
 <span class="codeline" id="line-50"><code></code></span>
 <span class="codeline" id="line-51"><code><span class="keyword">func</span> <label for="r4" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-checkSubgroup" class="ident">checkSubgroup</a></label>(<label for="r5" class="ident">p</label> *<a href="../../../../../../pkg/math/big.html" class="ident i0">big</a>.<a href="../../../../../math/big/int.go.html#line-25" class="ident">Int</a>, <label for="r6" class="ident">divider</label> <a href="../../../../../../pkg/builtin.html#name-int64" class="ident">int64</a>, <label for="r7" class="ident">expected</label> ...<a href="../../../../../../pkg/builtin.html#name-int64" class="ident">int64</a>) <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-52"><code>	<label for="r8" class="ident">rem</label> := <a href="../../../../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="../../../../../../pkg/math/big.html" class="ident i0">big</a>.<a href="../../../../../math/big/int.go.html#line-25" class="ident">Int</a>).<a href="../../../../../math/big/int.go.html#line-220" class="ident">Rem</a>(<label for="r5" class="ident">p</label>, <a href="../../../../../../pkg/math/big.html" class="ident i0">big</a>.<a href="../../../../../math/big/int.go.html#line-68" class="ident">NewInt</a>(<label for="r6" class="ident">divider</label>)).<a href="../../../../../math/big/int.go.html#line-373" class="ident">Int64</a>()</code></span>
+<span class="codeline" id="line-52"><code>	<label for="r8" class="ident">rem</label> := <a href="../../../../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="../../../../../../pkg/math/big.html" class="ident i0">big</a>.<a href="../../../../../math/big/int.go.html#line-25" class="ident">Int</a>).<a href="../../../../../math/big/int.go.html#line-219" class="ident">Rem</a>(<label for="r5" class="ident">p</label>, <a href="../../../../../../pkg/math/big.html" class="ident i0">big</a>.<a href="../../../../../math/big/int.go.html#line-67" class="ident">NewInt</a>(<label for="r6" class="ident">divider</label>)).<a href="../../../../../math/big/int.go.html#line-368" class="ident">Int64</a>()</code></span>
 <span class="codeline" id="line-53"><code></code></span>
 <span class="codeline" id="line-54"><code>	<span class="keyword">for</span> <label for="r9" class="ident">_</label>, <label for="r10" class="ident">e</label> := <span class="keyword">range</span> <label for="r7" class="ident">expected</label> {</code></span>
 <span class="codeline" id="line-55"><code>		<span class="keyword">if</span> <label for="r8" class="ident">rem</label> == <label for="r10" class="ident">e</label> {</code></span>
@@ -109,7 +109,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-61"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

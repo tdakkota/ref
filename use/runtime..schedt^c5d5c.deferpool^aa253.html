@@ -5,28 +5,27 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>References: runtime.schedt.deferpool</title>
-<link href="../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../jvs/golds-v0.3.6.js"></script>
+<link href="../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
-<pre><code><span style="font-size:x-large;"><b><a href="../pkg/runtime.html">runtime</a>.<a href="../src/runtime/runtime2.go.html#line-747">schedt</a>.<a href="../src/runtime/runtime2.go.html#line-802">deferpool</a></b></span><span style="font-size: large;"><i> (field)</i></span>
+<pre><code><span style="font-size:x-large;"><b><a href="../pkg/runtime.html">runtime</a>.<a href="../src/runtime/runtime2.go.html#line-760">schedt</a>.<a href="../src/runtime/runtime2.go.html#line-815">deferpool</a></b></span><span style="font-size: large;"><i> (field)</i></span>
 
-<span class="title">10 uses</span>
+<span class="title">9 uses</span>
 
 	runtime (current package)
-		<a href="../src/runtime/mgc.go.html#line-1569">mgc.go#L1569</a>: 	for i := range sched.<b>deferpool</b> {
-		<a href="../src/runtime/mgc.go.html#line-1573" class="path-duplicate">mgc.go</a><a href="../src/runtime/mgc.go.html#line-1573">#L1573</a>: 		for d = sched.<b>deferpool</b>[i]; d != nil; d = dlink {
-		<a href="../src/runtime/mgc.go.html#line-1577" class="path-duplicate">mgc.go</a><a href="../src/runtime/mgc.go.html#line-1577">#L1577</a>: 		sched.<b>deferpool</b>[i] = nil
-		<a href="../src/runtime/panic.go.html#line-428">panic.go#L428</a>: 		if len(pp.deferpool[sc]) == 0 &amp;&amp; sched.<b>deferpool</b>[sc] != nil {
-		<a href="../src/runtime/panic.go.html#line-433" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-433">#L433</a>: 				for len(pp.deferpool[sc]) &lt; cap(pp.deferpool[sc])/2 &amp;&amp; sched.<b>deferpool</b>[sc] != nil {
-		<a href="../src/runtime/panic.go.html#line-434" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-434">#L434</a>: 					d := sched.<b>deferpool</b>[sc]
-		<a href="../src/runtime/panic.go.html#line-435" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-435">#L435</a>: 					sched.<b>deferpool</b>[sc] = d.link
-		<a href="../src/runtime/panic.go.html#line-502" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-502">#L502</a>: 			last.link = sched.<b>deferpool</b>[sc]
-		<a href="../src/runtime/panic.go.html#line-503" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-503">#L503</a>: 			sched.<b>deferpool</b>[sc] = first
-		<a href="../src/runtime/runtime2.go.html#line-802">runtime2.go#L802</a>: 	<b>deferpool</b> [5]*_defer
+		<a href="../src/runtime/mgc.go.html#line-1617">mgc.go#L1617</a>: 	for d = sched.<b>deferpool</b>; d != nil; d = dlink {
+		<a href="../src/runtime/mgc.go.html#line-1621" class="path-duplicate">mgc.go</a><a href="../src/runtime/mgc.go.html#line-1621">#L1621</a>: 	sched.<b>deferpool</b> = nil
+		<a href="../src/runtime/panic.go.html#line-353">panic.go#L353</a>: 	if len(pp.deferpool) == 0 &amp;&amp; sched.<b>deferpool</b> != nil {
+		<a href="../src/runtime/panic.go.html#line-355" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-355">#L355</a>: 		for len(pp.deferpool) &lt; cap(pp.deferpool)/2 &amp;&amp; sched.<b>deferpool</b> != nil {
+		<a href="../src/runtime/panic.go.html#line-356" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-356">#L356</a>: 			d := sched.<b>deferpool</b>
+		<a href="../src/runtime/panic.go.html#line-357" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-357">#L357</a>: 			sched.<b>deferpool</b> = d.link
+		<a href="../src/runtime/panic.go.html#line-420" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-420">#L420</a>: 		last.link = sched.<b>deferpool</b>
+		<a href="../src/runtime/panic.go.html#line-421" class="path-duplicate">panic.go</a><a href="../src/runtime/panic.go.html#line-421">#L421</a>: 		sched.<b>deferpool</b> = first
+		<a href="../src/runtime/runtime2.go.html#line-815">runtime2.go#L815</a>: 	<b>deferpool</b> *_defer
 </code></pre><pre id="footer">
 <table><tr><td><img src="../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

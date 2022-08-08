@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: flags.go in package internal/goexperiment</title>
-<link href="../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -76,42 +76,38 @@
 <span class="codeline" id="line-58"><code>	<a href="../../../use/internal/goexperiment..Flags.FieldTrack.html" class="ident">FieldTrack</a>        <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
 <span class="codeline" id="line-59"><code>	<a href="../../../use/internal/goexperiment..Flags.PreemptibleLoops.html" class="ident">PreemptibleLoops</a>  <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
 <span class="codeline" id="line-60"><code>	<a href="../../../use/internal/goexperiment..Flags.StaticLockRanking.html" class="ident">StaticLockRanking</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
-<span class="codeline" id="line-61"><code></code></span>
-<span class="codeline" id="line-62"><code>	<span class="comment">// Regabi is split into several sub-experiments that can be</span></code></span>
-<span class="codeline" id="line-63"><code><span class="comment">	// enabled individually. Not all combinations work.</span></code></span>
-<span class="codeline" id="line-64"><code><span class="comment">	// The "regabi" GOEXPERIMENT is an alias for all "working"</span></code></span>
-<span class="codeline" id="line-65"><code><span class="comment">	// subexperiments.</span></code></span>
+<span class="codeline" id="line-61"><code>	<a href="../../../use/internal/goexperiment..Flags.BoringCrypto.html" class="ident">BoringCrypto</a>      <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-62"><code></code></span>
+<span class="codeline" id="line-63"><code>	<span class="comment">// Unified enables the compiler's unified IR construction</span></code></span>
+<span class="codeline" id="line-64"><code><span class="comment">	// experiment.</span></code></span>
+<span class="codeline" id="line-65"><code>	<a href="../../../use/internal/goexperiment..Flags.Unified.html" class="ident">Unified</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
 <span class="codeline" id="line-66"><code></code></span>
-<span class="codeline" id="line-67"><code>	<span class="comment">// RegabiWrappers enables ABI wrappers for calling between</span></code></span>
-<span class="codeline" id="line-68"><code><span class="comment">	// ABI0 and ABIInternal functions. Without this, the ABIs are</span></code></span>
-<span class="codeline" id="line-69"><code><span class="comment">	// assumed to be identical so cross-ABI calls are direct.</span></code></span>
-<span class="codeline" id="line-70"><code>	<a href="../../../use/internal/goexperiment..Flags.RegabiWrappers.html" class="ident">RegabiWrappers</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
-<span class="codeline" id="line-71"><code>	<span class="comment">// RegabiG enables dedicated G and zero registers in</span></code></span>
-<span class="codeline" id="line-72"><code><span class="comment">	// ABIInternal.</span></code></span>
-<span class="codeline" id="line-73"><code><span class="comment">	//</span></code></span>
-<span class="codeline" id="line-74"><code><span class="comment">	// Requires wrappers because it makes the ABIs incompatible.</span></code></span>
-<span class="codeline" id="line-75"><code>	<a href="../../../use/internal/goexperiment..Flags.RegabiG.html" class="ident">RegabiG</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
-<span class="codeline" id="line-76"><code>	<span class="comment">// RegabiReflect enables the register-passing paths in</span></code></span>
-<span class="codeline" id="line-77"><code><span class="comment">	// reflection calls. This is also gated by intArgRegs in</span></code></span>
-<span class="codeline" id="line-78"><code><span class="comment">	// reflect and runtime (which are disabled by default) so it</span></code></span>
-<span class="codeline" id="line-79"><code><span class="comment">	// can be used in targeted tests.</span></code></span>
-<span class="codeline" id="line-80"><code>	<a href="../../../use/internal/goexperiment..Flags.RegabiReflect.html" class="ident">RegabiReflect</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
-<span class="codeline" id="line-81"><code>	<span class="comment">// RegabiDefer enables desugaring defer and go calls</span></code></span>
-<span class="codeline" id="line-82"><code><span class="comment">	// into argument-less closures.</span></code></span>
-<span class="codeline" id="line-83"><code>	<a href="../../../use/internal/goexperiment..Flags.RegabiDefer.html" class="ident">RegabiDefer</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
-<span class="codeline" id="line-84"><code>	<span class="comment">// RegabiArgs enables register arguments/results in all</span></code></span>
-<span class="codeline" id="line-85"><code><span class="comment">	// compiled Go functions.</span></code></span>
-<span class="codeline" id="line-86"><code><span class="comment">	//</span></code></span>
-<span class="codeline" id="line-87"><code><span class="comment">	// Requires wrappers (to do ABI translation), g (because</span></code></span>
-<span class="codeline" id="line-88"><code><span class="comment">	// runtime assembly that's been ported to ABIInternal uses the</span></code></span>
-<span class="codeline" id="line-89"><code><span class="comment">	// G register), reflect (so reflection calls use registers),</span></code></span>
-<span class="codeline" id="line-90"><code><span class="comment">	// and defer (because the runtime doesn't support passing</span></code></span>
-<span class="codeline" id="line-91"><code><span class="comment">	// register arguments to defer/go).</span></code></span>
-<span class="codeline" id="line-92"><code>	<a href="../../../use/internal/goexperiment..Flags.RegabiArgs.html" class="ident">RegabiArgs</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
-<span class="codeline" id="line-93"><code>}</code></span>
+<span class="codeline" id="line-67"><code>	<span class="comment">// Regabi is split into several sub-experiments that can be</span></code></span>
+<span class="codeline" id="line-68"><code><span class="comment">	// enabled individually. Not all combinations work.</span></code></span>
+<span class="codeline" id="line-69"><code><span class="comment">	// The "regabi" GOEXPERIMENT is an alias for all "working"</span></code></span>
+<span class="codeline" id="line-70"><code><span class="comment">	// subexperiments.</span></code></span>
+<span class="codeline" id="line-71"><code></code></span>
+<span class="codeline" id="line-72"><code>	<span class="comment">// RegabiWrappers enables ABI wrappers for calling between</span></code></span>
+<span class="codeline" id="line-73"><code><span class="comment">	// ABI0 and ABIInternal functions. Without this, the ABIs are</span></code></span>
+<span class="codeline" id="line-74"><code><span class="comment">	// assumed to be identical so cross-ABI calls are direct.</span></code></span>
+<span class="codeline" id="line-75"><code>	<a href="../../../use/internal/goexperiment..Flags.RegabiWrappers.html" class="ident">RegabiWrappers</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-76"><code>	<span class="comment">// RegabiArgs enables register arguments/results in all</span></code></span>
+<span class="codeline" id="line-77"><code><span class="comment">	// compiled Go functions.</span></code></span>
+<span class="codeline" id="line-78"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-79"><code><span class="comment">	// Requires wrappers (to do ABI translation), and reflect (so</span></code></span>
+<span class="codeline" id="line-80"><code><span class="comment">	// reflection calls use registers).</span></code></span>
+<span class="codeline" id="line-81"><code>	<a href="../../../use/internal/goexperiment..Flags.RegabiArgs.html" class="ident">RegabiArgs</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-82"><code></code></span>
+<span class="codeline" id="line-83"><code>	<span class="comment">// HeapMinimum512KiB reduces the minimum heap size to 512 KiB.</span></code></span>
+<span class="codeline" id="line-84"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-85"><code><span class="comment">	// This was originally reduced as part of PacerRedesign, but</span></code></span>
+<span class="codeline" id="line-86"><code><span class="comment">	// has been broken out to its own experiment that is disabled</span></code></span>
+<span class="codeline" id="line-87"><code><span class="comment">	// by default.</span></code></span>
+<span class="codeline" id="line-88"><code>	<a href="../../../use/internal/goexperiment..Flags.HeapMinimum512KiB.html" class="ident">HeapMinimum512KiB</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-89"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

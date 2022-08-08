@@ -5,47 +5,54 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>References: sync/atomic.Value.Store</title>
-<link href="../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.3.6.js"></script>
+<link href="../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
-<pre><code><span style="font-size:x-large;"><b><a href="../../pkg/sync/atomic.html">sync/atomic</a>.<a href="../../src/sync/atomic/value.go.html#line-16">Value</a>.<a href="../../src/sync/atomic/value.go.html#line-45">Store</a></b></span><span style="font-size: large;"><i> (method)</i></span>
+<pre><code><span style="font-size:x-large;"><b><a href="../../pkg/sync/atomic.html">sync/atomic</a>.<a href="../../src/sync/atomic/value.go.html#line-16">Value</a>.<a href="../../src/sync/atomic/value.go.html#line-47">Store</a></b></span><span style="font-size: large;"><i> (method)</i></span>
 
-<span class="title">15 uses</span>
+<span class="title">18 uses</span>
 
 	sync/atomic (current package)
-		<a href="../../src/sync/atomic/value.go.html#line-45">value.go#L45</a>: func (v *Value) <b>Store</b>(val interface{}) {
+		<a href="../../src/sync/atomic/value.go.html#line-47">value.go#L47</a>: func (v *Value) <b>Store</b>(val any) {
 
 	<a href="../../pkg/sync.html">sync</a>
-		<a href="../../src/sync/map.go.html#line-159">map.go#L159</a>: 			m.read.<b>Store</b>(readOnly{m: read.m, amended: true})
-		<a href="../../src/sync/map.go.html#line-225" class="path-duplicate">map.go</a><a href="../../src/sync/map.go.html#line-225">#L225</a>: 			m.read.<b>Store</b>(readOnly{m: read.m, amended: true})
-		<a href="../../src/sync/map.go.html#line-334" class="path-duplicate">map.go</a><a href="../../src/sync/map.go.html#line-334">#L334</a>: 			m.read.<b>Store</b>(read)
-		<a href="../../src/sync/map.go.html#line-357" class="path-duplicate">map.go</a><a href="../../src/sync/map.go.html#line-357">#L357</a>: 	m.read.<b>Store</b>(readOnly{m: m.dirty})
+		<a href="../../src/sync/map.go.html#line-166">map.go#L166</a>: 			m.read.<b>Store</b>(readOnly{m: read.m, amended: true})
+		<a href="../../src/sync/map.go.html#line-232" class="path-duplicate">map.go</a><a href="../../src/sync/map.go.html#line-232">#L232</a>: 			m.read.<b>Store</b>(readOnly{m: read.m, amended: true})
+		<a href="../../src/sync/map.go.html#line-342" class="path-duplicate">map.go</a><a href="../../src/sync/map.go.html#line-342">#L342</a>: 			m.read.<b>Store</b>(read)
+		<a href="../../src/sync/map.go.html#line-365" class="path-duplicate">map.go</a><a href="../../src/sync/map.go.html#line-365">#L365</a>: 	m.read.<b>Store</b>(readOnly{m: m.dirty})
 
 	<a href="../../pkg/context.html">context</a>
 		<a href="../../src/context/context.go.html#line-368">context.go#L368</a>: 		c.done.<b>Store</b>(d)
 		<a href="../../src/context/context.go.html#line-409" class="path-duplicate">context.go</a><a href="../../src/context/context.go.html#line-409">#L409</a>: 		c.done.<b>Store</b>(closedchan)
 
+	<a href="../../pkg/github.com/gotd/td/internal/mtproto.html">github.com/gotd/td/internal/mtproto</a>
+		<a href="../../src/github.com/gotd/td/internal/mtproto/read.go.html#line-209">read.go#L209</a>: 				lastErr.<b>Store</b>(errors.Wrap(err, "consume"))
+
 	<a href="../../pkg/github.com/gotd/td/telegram/internal/manager.html">github.com/gotd/td/telegram/internal/manager</a>
 		<a href="../../src/github.com/gotd/td/telegram/internal/manager/sync.go.html#line-28">sync.go#L28</a>: 	c.Value.<b>Store</b>(cfg)
 
 	<a href="../../pkg/go.uber.org/atomic.html">go.uber.org/atomic</a>
-		<a href="../../src/go.uber.org/atomic/error.go.html#line-50">error.go#L50</a>: 	x.v.<b>Store</b>(packError(v))
-		<a href="../../src/go.uber.org/atomic/string.go.html#line-53">string.go#L53</a>: 	x.v.<b>Store</b>(v)
+		<a href="../../src/go.uber.org/atomic/error.go.html#line-50">error.go#L50</a>: 	x.v.<b>Store</b>(packError(val))
+		<a href="../../src/go.uber.org/atomic/string.go.html#line-53">string.go#L53</a>: 	x.v.<b>Store</b>(val)
+		<a href="../../src/go.uber.org/atomic/time.go.html#line-54">time.go#L54</a>: 	x.v.<b>Store</b>(packTime(val))
+
+	<a href="../../pkg/image.html">image</a>
+		<a href="../../src/image/format.go.html#line-40">format.go#L40</a>: 	atomicFormats.<b>Store</b>(append(formats, format{name, magic, decode, decodeConfig}))
 
 	<a href="../../pkg/internal/testlog.html">internal/testlog</a>
-		<a href="../../src/internal/testlog/log.go.html#line-37">log.go#L37</a>: 	logger.<b>Store</b>(&impl)
+		<a href="../../src/internal/testlog/log.go.html#line-37">log.go#L37</a>: 	logger.<b>Store</b>(&amp;impl)
 
 	<a href="../../pkg/net/http.html">net/http</a>
-		<a href="../../src/net/http/server.go.html#line-1915">server.go#L1915</a>: 		c.curReq.<b>Store</b>(w)
-		<a href="../../src/net/http/server.go.html#line-1943" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-1943">#L1943</a>: 		c.curReq.<b>Store</b>((*response)(nil))
-		<a href="../../src/net/http/transport.go.html#line-753">transport.go#L753</a>: 	t.altProto.<b>Store</b>(newMap)
+		<a href="../../src/net/http/server.go.html#line-1975">server.go#L1975</a>: 		c.curReq.<b>Store</b>(w)
+		<a href="../../src/net/http/server.go.html#line-2005" class="path-duplicate">server.go</a><a href="../../src/net/http/server.go.html#line-2005">#L2005</a>: 		c.curReq.<b>Store</b>((*response)(nil))
+		<a href="../../src/net/http/transport.go.html#line-757">transport.go#L757</a>: 	t.altProto.<b>Store</b>(newMap)
 
 	<a href="../../pkg/nhooyr.io/websocket/internal/xsync.html">nhooyr.io/websocket/internal/xsync</a>
 		<a href="../../src/nhooyr.io/websocket/internal/xsync/int64.go.html#line-22">int64.go#L22</a>: 	v.i.<b>Store</b>(i)
 </code></pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

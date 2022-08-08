@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: write_syncer.go in package go.uber.org/zap/zapcore</title>
-<link href="../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -143,7 +143,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-47"><code>}</code></span>
 <span class="codeline" id="line-48"><code></code></span>
 <span class="codeline" id="line-49"><code><span class="keyword">type</span> <a href="../../../../pkg/go.uber.org/zap/zapcore.html#name-lockedWriteSyncer" class="ident">lockedWriteSyncer</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-50"><code>	<a href="../../../../pkg/sync.html" class="ident i1">sync</a>.<a href="../../../sync/mutex.go.html#line-25" class="ident">Mutex</a></code></span>
+<span class="codeline" id="line-50"><code>	<a href="../../../../pkg/sync.html" class="ident i1">sync</a>.<a href="../../../sync/mutex.go.html#line-34" class="ident">Mutex</a></code></span>
 <span class="codeline" id="line-51"><code>	<a href="../../../../use/go.uber.org/zap/zapcore..lockedWriteSyncer^24ced.ws^50a66.html" class="ident">ws</a> <a href="#line-32" class="ident">WriteSyncer</a></code></span>
 <span class="codeline" id="line-52"><code>}</code></span>
 <span class="codeline" id="line-53"><code></code></span>
@@ -158,16 +158,16 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-62"><code>}</code></span>
 <span class="codeline" id="line-63"><code></code></span>
 <span class="codeline" id="line-64"><code><span class="keyword">func</span> (<label for="r8" class="ident">s</label> *<a href="#line-49" class="ident">lockedWriteSyncer</a>) <label for="r9" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..lockedWriteSyncer^24ced.Write.html" class="ident">Write</a></label>(<label for="r10" class="ident">bs</label> []<a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) (<a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>, <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-65"><code>	<label for="r8" class="ident">s</label>.<a href="../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-65"><code>	<label for="r8" class="ident">s</label>.<a href="../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
 <span class="codeline" id="line-66"><code>	<label for="r11" class="ident">n</label>, <label for="r12" class="ident">err</label> := <label for="r8" class="ident">s</label>.<a href="#line-51" class="ident">ws</a>.<a href="../../../io/io.go.html#line-97" class="ident">Write</a>(<label for="r10" class="ident">bs</label>)</code></span>
-<span class="codeline" id="line-67"><code>	<label for="r8" class="ident">s</label>.<a href="../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-67"><code>	<label for="r8" class="ident">s</label>.<a href="../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-68"><code>	<span class="keyword">return</span> <label for="r11" class="ident">n</label>, <label for="r12" class="ident">err</label></code></span>
 <span class="codeline" id="line-69"><code>}</code></span>
 <span class="codeline" id="line-70"><code></code></span>
 <span class="codeline" id="line-71"><code><span class="keyword">func</span> (<label for="r13" class="ident">s</label> *<a href="#line-49" class="ident">lockedWriteSyncer</a>) <label for="r14" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..lockedWriteSyncer^24ced.Sync.html" class="ident">Sync</a></label>() <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-72"><code>	<label for="r13" class="ident">s</label>.<a href="../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-72"><code>	<label for="r13" class="ident">s</label>.<a href="../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
 <span class="codeline" id="line-73"><code>	<label for="r15" class="ident">err</label> := <label for="r13" class="ident">s</label>.<a href="#line-51" class="ident">ws</a>.<a href="#line-34" class="ident">Sync</a>()</code></span>
-<span class="codeline" id="line-74"><code>	<label for="r13" class="ident">s</label>.<a href="../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-74"><code>	<label for="r13" class="ident">s</label>.<a href="../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-75"><code>	<span class="keyword">return</span> <label for="r15" class="ident">err</label></code></span>
 <span class="codeline" id="line-76"><code>}</code></span>
 <span class="codeline" id="line-77"><code></code></span>
@@ -199,7 +199,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-103"><code>	<label for="r24" class="ident">nWritten</label> := <span class="lit-number">0</span></code></span>
 <span class="codeline" id="line-104"><code>	<span class="keyword">for</span> <label for="r25" class="ident">_</label>, <label for="r26" class="ident">w</label> := <span class="keyword">range</span> <label for="r20" class="ident">ws</label> {</code></span>
 <span class="codeline" id="line-105"><code>		<label for="r27" class="ident">n</label>, <label for="r28" class="ident">err</label> := <label for="r26" class="ident">w</label>.<a href="../../../io/io.go.html#line-97" class="ident">Write</a>(<label for="r22" class="ident">p</label>)</code></span>
-<span class="codeline" id="line-106"><code>		<label for="r23" class="ident">writeErr</label> = <a href="../../../../pkg/go.uber.org/multierr.html" class="ident i2">multierr</a>.<a href="../../multierr/error.go.html#line-455" class="ident">Append</a>(<label for="r23" class="ident">writeErr</label>, <label for="r28" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-106"><code>		<label for="r23" class="ident">writeErr</label> = <a href="../../../../pkg/go.uber.org/multierr.html" class="ident i2">multierr</a>.<a href="../../multierr/error.go.html#line-468" class="ident">Append</a>(<label for="r23" class="ident">writeErr</label>, <label for="r28" class="ident">err</label>)</code></span>
 <span class="codeline" id="line-107"><code>		<span class="keyword">if</span> <label for="r24" class="ident">nWritten</label> == <span class="lit-number">0</span> &amp;&amp; <label for="r27" class="ident">n</label> != <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-108"><code>			<label for="r24" class="ident">nWritten</label> = <label for="r27" class="ident">n</label></code></span>
 <span class="codeline" id="line-109"><code>		} <span class="keyword">else</span> <span class="keyword">if</span> <label for="r27" class="ident">n</label> &lt; <label for="r24" class="ident">nWritten</label> {</code></span>
@@ -212,13 +212,13 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-116"><code><span class="keyword">func</span> (<label for="r29" class="ident">ws</label> <a href="#line-86" class="ident">multiWriteSyncer</a>) <label for="r30" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..multiWriteSyncer^35e20.Sync.html" class="ident">Sync</a></label>() <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
 <span class="codeline" id="line-117"><code>	<span class="keyword">var</span> <label for="r31" class="ident">err</label> <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
 <span class="codeline" id="line-118"><code>	<span class="keyword">for</span> <label for="r32" class="ident">_</label>, <label for="r33" class="ident">w</label> := <span class="keyword">range</span> <label for="r29" class="ident">ws</label> {</code></span>
-<span class="codeline" id="line-119"><code>		<label for="r31" class="ident">err</label> = <a href="../../../../pkg/go.uber.org/multierr.html" class="ident i2">multierr</a>.<a href="../../multierr/error.go.html#line-455" class="ident">Append</a>(<label for="r31" class="ident">err</label>, <label for="r33" class="ident">w</label>.<a href="#line-34" class="ident">Sync</a>())</code></span>
+<span class="codeline" id="line-119"><code>		<label for="r31" class="ident">err</label> = <a href="../../../../pkg/go.uber.org/multierr.html" class="ident i2">multierr</a>.<a href="../../multierr/error.go.html#line-468" class="ident">Append</a>(<label for="r31" class="ident">err</label>, <label for="r33" class="ident">w</label>.<a href="#line-34" class="ident">Sync</a>())</code></span>
 <span class="codeline" id="line-120"><code>	}</code></span>
 <span class="codeline" id="line-121"><code>	<span class="keyword">return</span> <label for="r31" class="ident">err</label></code></span>
 <span class="codeline" id="line-122"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

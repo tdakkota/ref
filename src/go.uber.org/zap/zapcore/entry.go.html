@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: entry.go in package go.uber.org/zap/zapcore</title>
-<link href="../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -148,7 +148,7 @@ input[id=i7]:checked ~pre .i7
 <span class="codeline" id="line-34"><code>)</code></span>
 <span class="codeline" id="line-35"><code></code></span>
 <span class="codeline" id="line-36"><code><span class="keyword">var</span> (</code></span>
-<span class="codeline" id="line-37"><code>	<a href="../../../../pkg/go.uber.org/zap/zapcore.html#name-_cePool" class="ident">_cePool</a> = <a href="../../../../pkg/sync.html" class="ident i3">sync</a>.<a href="../../../sync/pool.go.html#line-44" class="ident">Pool</a>{<a href="../../../sync/pool.go.html#line-56" class="ident">New</a>: <span class="keyword">func</span>() <span class="keyword">interface</span>{} {</code></span>
+<span class="codeline" id="line-37"><code>	<a href="../../../../pkg/go.uber.org/zap/zapcore.html#name-_cePool" class="ident">_cePool</a> = <a href="../../../../pkg/sync.html" class="ident i3">sync</a>.<a href="../../../sync/pool.go.html#line-49" class="ident">Pool</a>{<a href="../../../sync/pool.go.html#line-61" class="ident">New</a>: <span class="keyword">func</span>() <span class="keyword">interface</span>{} {</code></span>
 <span class="codeline" id="line-38"><code>		<span class="comment">// Pre-allocate some space for cores.</span></code></span>
 <span class="codeline" id="line-39"><code>		<span class="keyword">return</span> &amp;<a href="#line-177" class="ident">CheckedEntry</a>{</code></span>
 <span class="codeline" id="line-40"><code>			<a href="#line-182" class="ident">cores</a>: <a href="../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="core.go.html#line-25" class="ident">Core</a>, <span class="lit-number">4</span>),</code></span>
@@ -157,7 +157,7 @@ input[id=i7]:checked ~pre .i7
 <span class="codeline" id="line-43"><code>)</code></span>
 <span class="codeline" id="line-44"><code></code></span>
 <span class="codeline" id="line-45"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../pkg/go.uber.org/zap/zapcore.html#name-getCheckedEntry" class="ident">getCheckedEntry</a></label>() *<a href="#line-177" class="ident">CheckedEntry</a> {</code></span>
-<span class="codeline" id="line-46"><code>	<label for="r1" class="ident">ce</label> := <a href="#line-37" class="ident">_cePool</a>.<a href="../../../sync/pool.go.html#line-124" class="ident">Get</a>().(*<a href="#line-177" class="ident">CheckedEntry</a>)</code></span>
+<span class="codeline" id="line-46"><code>	<label for="r1" class="ident">ce</label> := <a href="#line-37" class="ident">_cePool</a>.<a href="../../../sync/pool.go.html#line-127" class="ident">Get</a>().(*<a href="#line-177" class="ident">CheckedEntry</a>)</code></span>
 <span class="codeline" id="line-47"><code>	<label for="r1" class="ident">ce</label>.<a href="#line-185" class="ident">reset</a>()</code></span>
 <span class="codeline" id="line-48"><code>	<span class="keyword">return</span> <label for="r1" class="ident">ce</label></code></span>
 <span class="codeline" id="line-49"><code>}</code></span>
@@ -166,7 +166,7 @@ input[id=i7]:checked ~pre .i7
 <span class="codeline" id="line-52"><code>	<span class="keyword">if</span> <label for="r3" class="ident">ce</label> == <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-53"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-54"><code>	}</code></span>
-<span class="codeline" id="line-55"><code>	<a href="#line-37" class="ident">_cePool</a>.<a href="../../../sync/pool.go.html#line-90" class="ident">Put</a>(<label for="r3" class="ident">ce</label>)</code></span>
+<span class="codeline" id="line-55"><code>	<a href="#line-37" class="ident">_cePool</a>.<a href="../../../sync/pool.go.html#line-95" class="ident">Put</a>(<label for="r3" class="ident">ce</label>)</code></span>
 <span class="codeline" id="line-56"><code>}</code></span>
 <span class="codeline" id="line-57"><code></code></span>
 <span class="codeline" id="line-58"><code><span class="comment">// NewEntryCaller makes an EntryCaller from the return signature of</span></code></span>
@@ -208,7 +208,7 @@ input[id=i7]:checked ~pre .i7
 <span class="codeline" id="line-94"><code>	<label for="r13" class="ident">buf</label>.<a href="../buffer/buffer.go.html#line-41" class="ident">AppendByte</a>(<span class="lit-number">':'</span>)</code></span>
 <span class="codeline" id="line-95"><code>	<label for="r13" class="ident">buf</label>.<a href="../buffer/buffer.go.html#line-51" class="ident">AppendInt</a>(<a href="../../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r11" class="ident">ec</label>.<a href="#line-77" class="ident">Line</a>))</code></span>
 <span class="codeline" id="line-96"><code>	<label for="r14" class="ident">caller</label> := <label for="r13" class="ident">buf</label>.<a href="../buffer/buffer.go.html#line-93" class="ident">String</a>()</code></span>
-<span class="codeline" id="line-97"><code>	<label for="r13" class="ident">buf</label>.<a href="../buffer/buffer.go.html#line-121" class="ident">Free</a>()</code></span>
+<span class="codeline" id="line-97"><code>	<label for="r13" class="ident">buf</label>.<a href="../buffer/buffer.go.html#line-139" class="ident">Free</a>()</code></span>
 <span class="codeline" id="line-98"><code>	<span class="keyword">return</span> <label for="r14" class="ident">caller</label></code></span>
 <span class="codeline" id="line-99"><code>}</code></span>
 <span class="codeline" id="line-100"><code></code></span>
@@ -246,7 +246,7 @@ input[id=i7]:checked ~pre .i7
 <span class="codeline" id="line-132"><code>	<label for="r18" class="ident">buf</label>.<a href="../buffer/buffer.go.html#line-41" class="ident">AppendByte</a>(<span class="lit-number">':'</span>)</code></span>
 <span class="codeline" id="line-133"><code>	<label for="r18" class="ident">buf</label>.<a href="../buffer/buffer.go.html#line-51" class="ident">AppendInt</a>(<a href="../../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r15" class="ident">ec</label>.<a href="#line-77" class="ident">Line</a>))</code></span>
 <span class="codeline" id="line-134"><code>	<label for="r19" class="ident">caller</label> := <label for="r18" class="ident">buf</label>.<a href="../buffer/buffer.go.html#line-93" class="ident">String</a>()</code></span>
-<span class="codeline" id="line-135"><code>	<label for="r18" class="ident">buf</label>.<a href="../buffer/buffer.go.html#line-121" class="ident">Free</a>()</code></span>
+<span class="codeline" id="line-135"><code>	<label for="r18" class="ident">buf</label>.<a href="../buffer/buffer.go.html#line-139" class="ident">Free</a>()</code></span>
 <span class="codeline" id="line-136"><code>	<span class="keyword">return</span> <label for="r19" class="ident">caller</label></code></span>
 <span class="codeline" id="line-137"><code>}</code></span>
 <span class="codeline" id="line-138"><code></code></span>
@@ -259,7 +259,7 @@ input[id=i7]:checked ~pre .i7
 <span class="codeline" id="line-145"><code><span class="comment">// retain references to them.</span></code></span>
 <span class="codeline" id="line-146"><code><span class="keyword">type</span> <a href="../../../../pkg/go.uber.org/zap/zapcore.html#name-Entry" class="ident">Entry</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-147"><code>	<a href="../../../../use/go.uber.org/zap/zapcore..Entry.Level.html" class="ident">Level</a>      <a href="level.go.html#line-32" class="ident">Level</a></code></span>
-<span class="codeline" id="line-148"><code>	<a href="../../../../use/go.uber.org/zap/zapcore..Entry.Time.html" class="ident">Time</a>       <a href="../../../../pkg/time.html" class="ident i4">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a></code></span>
+<span class="codeline" id="line-148"><code>	<a href="../../../../use/go.uber.org/zap/zapcore..Entry.Time.html" class="ident">Time</a>       <a href="../../../../pkg/time.html" class="ident i4">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a></code></span>
 <span class="codeline" id="line-149"><code>	<a href="../../../../use/go.uber.org/zap/zapcore..Entry.LoggerName.html" class="ident">LoggerName</a> <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
 <span class="codeline" id="line-150"><code>	<a href="../../../../use/go.uber.org/zap/zapcore..Entry.Message.html" class="ident">Message</a>    <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
 <span class="codeline" id="line-151"><code>	<a href="../../../../use/go.uber.org/zap/zapcore..Entry.Caller.html" class="ident">Caller</a>     <a href="#line-73" class="ident">EntryCaller</a></code></span>
@@ -322,7 +322,7 @@ input[id=i7]:checked ~pre .i7
 <span class="codeline" id="line-208"><code><span class="comment">			// If the entry is dirty, log an internal error; because the</span></code></span>
 <span class="codeline" id="line-209"><code><span class="comment">			// CheckedEntry is being used after it was returned to the pool,</span></code></span>
 <span class="codeline" id="line-210"><code><span class="comment">			// the message may be an amalgamation from multiple call sites.</span></code></span>
-<span class="codeline" id="line-211"><code>			<a href="../../../../pkg/fmt.html" class="ident i0">fmt</a>.<a href="../../../fmt/print.go.html#line-202" class="ident">Fprintf</a>(<label for="r23" class="ident">ce</label>.<a href="#line-179" class="ident">ErrorOutput</a>, <span class="lit-string">"%v Unsafe CheckedEntry re-use near Entry %+v.\n"</span>, <a href="../../../../pkg/time.html" class="ident i4">time</a>.<a href="../../../time/time.go.html#line-1073" class="ident">Now</a>(), <label for="r23" class="ident">ce</label>.<a href="#line-178" class="ident">Entry</a>)</code></span>
+<span class="codeline" id="line-211"><code>			<a href="../../../../pkg/fmt.html" class="ident i0">fmt</a>.<a href="../../../fmt/print.go.html#line-202" class="ident">Fprintf</a>(<label for="r23" class="ident">ce</label>.<a href="#line-179" class="ident">ErrorOutput</a>, <span class="lit-string">"%v Unsafe CheckedEntry re-use near Entry %+v.\n"</span>, <label for="r23" class="ident">ce</label>.<a href="#line-148" class="ident">Time</a>, <label for="r23" class="ident">ce</label>.<a href="#line-178" class="ident">Entry</a>)</code></span>
 <span class="codeline" id="line-212"><code>			<label for="r23" class="ident">ce</label>.<a href="#line-179" class="ident">ErrorOutput</a>.<a href="write_syncer.go.html#line-34" class="ident">Sync</a>()</code></span>
 <span class="codeline" id="line-213"><code>		}</code></span>
 <span class="codeline" id="line-214"><code>		<span class="keyword">return</span></code></span>
@@ -331,54 +331,52 @@ input[id=i7]:checked ~pre .i7
 <span class="codeline" id="line-217"><code></code></span>
 <span class="codeline" id="line-218"><code>	<span class="keyword">var</span> <label for="r26" class="ident">err</label> <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
 <span class="codeline" id="line-219"><code>	<span class="keyword">for</span> <label for="r27" class="ident">i</label> := <span class="keyword">range</span> <label for="r23" class="ident">ce</label>.<a href="#line-182" class="ident">cores</a> {</code></span>
-<span class="codeline" id="line-220"><code>		<label for="r26" class="ident">err</label> = <a href="../../../../pkg/go.uber.org/multierr.html" class="ident i7">multierr</a>.<a href="../../multierr/error.go.html#line-455" class="ident">Append</a>(<label for="r26" class="ident">err</label>, <label for="r23" class="ident">ce</label>.<a href="#line-182" class="ident">cores</a>[<label for="r27" class="ident">i</label>].<a href="core.go.html#line-42" class="ident">Write</a>(<label for="r23" class="ident">ce</label>.<a href="#line-178" class="ident">Entry</a>, <label for="r25" class="ident">fields</label>))</code></span>
+<span class="codeline" id="line-220"><code>		<label for="r26" class="ident">err</label> = <a href="../../../../pkg/go.uber.org/multierr.html" class="ident i7">multierr</a>.<a href="../../multierr/error.go.html#line-468" class="ident">Append</a>(<label for="r26" class="ident">err</label>, <label for="r23" class="ident">ce</label>.<a href="#line-182" class="ident">cores</a>[<label for="r27" class="ident">i</label>].<a href="core.go.html#line-42" class="ident">Write</a>(<label for="r23" class="ident">ce</label>.<a href="#line-178" class="ident">Entry</a>, <label for="r25" class="ident">fields</label>))</code></span>
 <span class="codeline" id="line-221"><code>	}</code></span>
-<span class="codeline" id="line-222"><code>	<span class="keyword">if</span> <label for="r23" class="ident">ce</label>.<a href="#line-179" class="ident">ErrorOutput</a> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-223"><code>		<span class="keyword">if</span> <label for="r26" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-224"><code>			<a href="../../../../pkg/fmt.html" class="ident i0">fmt</a>.<a href="../../../fmt/print.go.html#line-202" class="ident">Fprintf</a>(<label for="r23" class="ident">ce</label>.<a href="#line-179" class="ident">ErrorOutput</a>, <span class="lit-string">"%v write error: %v\n"</span>, <a href="../../../../pkg/time.html" class="ident i4">time</a>.<a href="../../../time/time.go.html#line-1073" class="ident">Now</a>(), <label for="r26" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-225"><code>			<label for="r23" class="ident">ce</label>.<a href="#line-179" class="ident">ErrorOutput</a>.<a href="write_syncer.go.html#line-34" class="ident">Sync</a>()</code></span>
-<span class="codeline" id="line-226"><code>		}</code></span>
-<span class="codeline" id="line-227"><code>	}</code></span>
-<span class="codeline" id="line-228"><code></code></span>
-<span class="codeline" id="line-229"><code>	<label for="r28" class="ident">should</label>, <label for="r29" class="ident">msg</label> := <label for="r23" class="ident">ce</label>.<a href="#line-181" class="ident">should</a>, <label for="r23" class="ident">ce</label>.<a href="#line-150" class="ident">Message</a></code></span>
-<span class="codeline" id="line-230"><code>	<a href="#line-51" class="ident">putCheckedEntry</a>(<label for="r23" class="ident">ce</label>)</code></span>
-<span class="codeline" id="line-231"><code></code></span>
-<span class="codeline" id="line-232"><code>	<span class="keyword">switch</span> <label for="r28" class="ident">should</label> {</code></span>
-<span class="codeline" id="line-233"><code>	<span class="keyword">case</span> <a href="#line-166" class="ident">WriteThenPanic</a>:</code></span>
-<span class="codeline" id="line-234"><code>		<a href="../../../../pkg/builtin.html#name-panic" class="ident">panic</a>(<label for="r29" class="ident">msg</label>)</code></span>
-<span class="codeline" id="line-235"><code>	<span class="keyword">case</span> <a href="#line-168" class="ident">WriteThenFatal</a>:</code></span>
-<span class="codeline" id="line-236"><code>		<a href="../../../../pkg/go.uber.org/zap/internal/exit.html" class="ident i6">exit</a>.<a href="../internal/exit/exit.go.html#line-31" class="ident">Exit</a>()</code></span>
-<span class="codeline" id="line-237"><code>	<span class="keyword">case</span> <a href="#line-164" class="ident">WriteThenGoexit</a>:</code></span>
-<span class="codeline" id="line-238"><code>		<a href="../../../../pkg/runtime.html" class="ident i1">runtime</a>.<a href="../../../runtime/panic.go.html#line-608" class="ident">Goexit</a>()</code></span>
-<span class="codeline" id="line-239"><code>	}</code></span>
-<span class="codeline" id="line-240"><code>}</code></span>
-<span class="codeline" id="line-241"><code></code></span>
-<span class="codeline" id="line-242"><code><span class="comment">// AddCore adds a Core that has agreed to log this CheckedEntry. It's intended to be</span></code></span>
-<span class="codeline" id="line-243"><code><span class="comment">// used by Core.Check implementations, and is safe to call on nil CheckedEntry</span></code></span>
-<span class="codeline" id="line-244"><code><span class="comment">// references.</span></code></span>
-<span class="codeline" id="line-245"><code><span class="keyword">func</span> (<label for="r30" class="ident">ce</label> *<a href="#line-177" class="ident">CheckedEntry</a>) <label for="r31" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..CheckedEntry.AddCore.html" class="ident">AddCore</a></label>(<label for="r32" class="ident">ent</label> <a href="#line-146" class="ident">Entry</a>, <label for="r33" class="ident">core</label> <a href="core.go.html#line-25" class="ident">Core</a>) *<a href="#line-177" class="ident">CheckedEntry</a> {</code></span>
-<span class="codeline" id="line-246"><code>	<span class="keyword">if</span> <label for="r30" class="ident">ce</label> == <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-247"><code>		<label for="r30" class="ident">ce</label> = <a href="#line-45" class="ident">getCheckedEntry</a>()</code></span>
-<span class="codeline" id="line-248"><code>		<label for="r30" class="ident">ce</label>.<a href="#line-178" class="ident">Entry</a> = <label for="r32" class="ident">ent</label></code></span>
-<span class="codeline" id="line-249"><code>	}</code></span>
-<span class="codeline" id="line-250"><code>	<label for="r30" class="ident">ce</label>.<a href="#line-182" class="ident">cores</a> = <a href="../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r30" class="ident">ce</label>.<a href="#line-182" class="ident">cores</a>, <label for="r33" class="ident">core</label>)</code></span>
-<span class="codeline" id="line-251"><code>	<span class="keyword">return</span> <label for="r30" class="ident">ce</label></code></span>
-<span class="codeline" id="line-252"><code>}</code></span>
-<span class="codeline" id="line-253"><code></code></span>
-<span class="codeline" id="line-254"><code><span class="comment">// Should sets this CheckedEntry's CheckWriteAction, which controls whether a</span></code></span>
-<span class="codeline" id="line-255"><code><span class="comment">// Core will panic or fatal after writing this log entry. Like AddCore, it's</span></code></span>
-<span class="codeline" id="line-256"><code><span class="comment">// safe to call on nil CheckedEntry references.</span></code></span>
-<span class="codeline" id="line-257"><code><span class="keyword">func</span> (<label for="r34" class="ident">ce</label> *<a href="#line-177" class="ident">CheckedEntry</a>) <label for="r35" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..CheckedEntry.Should.html" class="ident">Should</a></label>(<label for="r36" class="ident">ent</label> <a href="#line-146" class="ident">Entry</a>, <label for="r37" class="ident">should</label> <a href="#line-157" class="ident">CheckWriteAction</a>) *<a href="#line-177" class="ident">CheckedEntry</a> {</code></span>
-<span class="codeline" id="line-258"><code>	<span class="keyword">if</span> <label for="r34" class="ident">ce</label> == <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-259"><code>		<label for="r34" class="ident">ce</label> = <a href="#line-45" class="ident">getCheckedEntry</a>()</code></span>
-<span class="codeline" id="line-260"><code>		<label for="r34" class="ident">ce</label>.<a href="#line-178" class="ident">Entry</a> = <label for="r36" class="ident">ent</label></code></span>
-<span class="codeline" id="line-261"><code>	}</code></span>
-<span class="codeline" id="line-262"><code>	<label for="r34" class="ident">ce</label>.<a href="#line-181" class="ident">should</a> = <label for="r37" class="ident">should</label></code></span>
-<span class="codeline" id="line-263"><code>	<span class="keyword">return</span> <label for="r34" class="ident">ce</label></code></span>
-<span class="codeline" id="line-264"><code>}</code></span>
+<span class="codeline" id="line-222"><code>	<span class="keyword">if</span> <label for="r26" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> &amp;&amp; <label for="r23" class="ident">ce</label>.<a href="#line-179" class="ident">ErrorOutput</a> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-223"><code>		<a href="../../../../pkg/fmt.html" class="ident i0">fmt</a>.<a href="../../../fmt/print.go.html#line-202" class="ident">Fprintf</a>(<label for="r23" class="ident">ce</label>.<a href="#line-179" class="ident">ErrorOutput</a>, <span class="lit-string">"%v write error: %v\n"</span>, <label for="r23" class="ident">ce</label>.<a href="#line-148" class="ident">Time</a>, <label for="r26" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-224"><code>		<label for="r23" class="ident">ce</label>.<a href="#line-179" class="ident">ErrorOutput</a>.<a href="write_syncer.go.html#line-34" class="ident">Sync</a>()</code></span>
+<span class="codeline" id="line-225"><code>	}</code></span>
+<span class="codeline" id="line-226"><code></code></span>
+<span class="codeline" id="line-227"><code>	<label for="r28" class="ident">should</label>, <label for="r29" class="ident">msg</label> := <label for="r23" class="ident">ce</label>.<a href="#line-181" class="ident">should</a>, <label for="r23" class="ident">ce</label>.<a href="#line-150" class="ident">Message</a></code></span>
+<span class="codeline" id="line-228"><code>	<a href="#line-51" class="ident">putCheckedEntry</a>(<label for="r23" class="ident">ce</label>)</code></span>
+<span class="codeline" id="line-229"><code></code></span>
+<span class="codeline" id="line-230"><code>	<span class="keyword">switch</span> <label for="r28" class="ident">should</label> {</code></span>
+<span class="codeline" id="line-231"><code>	<span class="keyword">case</span> <a href="#line-166" class="ident">WriteThenPanic</a>:</code></span>
+<span class="codeline" id="line-232"><code>		<a href="../../../../pkg/builtin.html#name-panic" class="ident">panic</a>(<label for="r29" class="ident">msg</label>)</code></span>
+<span class="codeline" id="line-233"><code>	<span class="keyword">case</span> <a href="#line-168" class="ident">WriteThenFatal</a>:</code></span>
+<span class="codeline" id="line-234"><code>		<a href="../../../../pkg/go.uber.org/zap/internal/exit.html" class="ident i6">exit</a>.<a href="../internal/exit/exit.go.html#line-31" class="ident">Exit</a>()</code></span>
+<span class="codeline" id="line-235"><code>	<span class="keyword">case</span> <a href="#line-164" class="ident">WriteThenGoexit</a>:</code></span>
+<span class="codeline" id="line-236"><code>		<a href="../../../../pkg/runtime.html" class="ident i1">runtime</a>.<a href="../../../runtime/panic.go.html#line-488" class="ident">Goexit</a>()</code></span>
+<span class="codeline" id="line-237"><code>	}</code></span>
+<span class="codeline" id="line-238"><code>}</code></span>
+<span class="codeline" id="line-239"><code></code></span>
+<span class="codeline" id="line-240"><code><span class="comment">// AddCore adds a Core that has agreed to log this CheckedEntry. It's intended to be</span></code></span>
+<span class="codeline" id="line-241"><code><span class="comment">// used by Core.Check implementations, and is safe to call on nil CheckedEntry</span></code></span>
+<span class="codeline" id="line-242"><code><span class="comment">// references.</span></code></span>
+<span class="codeline" id="line-243"><code><span class="keyword">func</span> (<label for="r30" class="ident">ce</label> *<a href="#line-177" class="ident">CheckedEntry</a>) <label for="r31" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..CheckedEntry.AddCore.html" class="ident">AddCore</a></label>(<label for="r32" class="ident">ent</label> <a href="#line-146" class="ident">Entry</a>, <label for="r33" class="ident">core</label> <a href="core.go.html#line-25" class="ident">Core</a>) *<a href="#line-177" class="ident">CheckedEntry</a> {</code></span>
+<span class="codeline" id="line-244"><code>	<span class="keyword">if</span> <label for="r30" class="ident">ce</label> == <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-245"><code>		<label for="r30" class="ident">ce</label> = <a href="#line-45" class="ident">getCheckedEntry</a>()</code></span>
+<span class="codeline" id="line-246"><code>		<label for="r30" class="ident">ce</label>.<a href="#line-178" class="ident">Entry</a> = <label for="r32" class="ident">ent</label></code></span>
+<span class="codeline" id="line-247"><code>	}</code></span>
+<span class="codeline" id="line-248"><code>	<label for="r30" class="ident">ce</label>.<a href="#line-182" class="ident">cores</a> = <a href="../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r30" class="ident">ce</label>.<a href="#line-182" class="ident">cores</a>, <label for="r33" class="ident">core</label>)</code></span>
+<span class="codeline" id="line-249"><code>	<span class="keyword">return</span> <label for="r30" class="ident">ce</label></code></span>
+<span class="codeline" id="line-250"><code>}</code></span>
+<span class="codeline" id="line-251"><code></code></span>
+<span class="codeline" id="line-252"><code><span class="comment">// Should sets this CheckedEntry's CheckWriteAction, which controls whether a</span></code></span>
+<span class="codeline" id="line-253"><code><span class="comment">// Core will panic or fatal after writing this log entry. Like AddCore, it's</span></code></span>
+<span class="codeline" id="line-254"><code><span class="comment">// safe to call on nil CheckedEntry references.</span></code></span>
+<span class="codeline" id="line-255"><code><span class="keyword">func</span> (<label for="r34" class="ident">ce</label> *<a href="#line-177" class="ident">CheckedEntry</a>) <label for="r35" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..CheckedEntry.Should.html" class="ident">Should</a></label>(<label for="r36" class="ident">ent</label> <a href="#line-146" class="ident">Entry</a>, <label for="r37" class="ident">should</label> <a href="#line-157" class="ident">CheckWriteAction</a>) *<a href="#line-177" class="ident">CheckedEntry</a> {</code></span>
+<span class="codeline" id="line-256"><code>	<span class="keyword">if</span> <label for="r34" class="ident">ce</label> == <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-257"><code>		<label for="r34" class="ident">ce</label> = <a href="#line-45" class="ident">getCheckedEntry</a>()</code></span>
+<span class="codeline" id="line-258"><code>		<label for="r34" class="ident">ce</label>.<a href="#line-178" class="ident">Entry</a> = <label for="r36" class="ident">ent</label></code></span>
+<span class="codeline" id="line-259"><code>	}</code></span>
+<span class="codeline" id="line-260"><code>	<label for="r34" class="ident">ce</label>.<a href="#line-181" class="ident">should</a> = <label for="r37" class="ident">should</label></code></span>
+<span class="codeline" id="line-261"><code>	<span class="keyword">return</span> <label for="r34" class="ident">ce</label></code></span>
+<span class="codeline" id="line-262"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

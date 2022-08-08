@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: user.go in package github.com/gotd/td/telegram/auth</title>
-<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -54,17 +54,12 @@ input[id=r34]:checked ~pre label[for=r34],
 input[id=r35]:checked ~pre label[for=r35],
 input[id=r36]:checked ~pre label[for=r36],
 input[id=r37]:checked ~pre label[for=r37],
-input[id=r38]:checked ~pre label[for=r38],
-input[id=r39]:checked ~pre label[for=r39],
-input[id=r40]:checked ~pre label[for=r40],
-input[id=r41]:checked ~pre label[for=r41]
+input[id=r38]:checked ~pre label[for=r38]
 {background: #226; color: #ff8;}
 input[id=i0]:checked ~pre .i0,
 input[id=i1]:checked ~pre .i1,
 input[id=i2]:checked ~pre .i2,
-input[id=i3]:checked ~pre .i3,
-input[id=i4]:checked ~pre .i4,
-input[id=i5]:checked ~pre .i5
+input[id=i3]:checked ~pre .i3
 {background: brown; color: #eed;}
 </style><input id="r0" type="radio" name="g"/>
 <input id="r1" type="radio" name="g"/>
@@ -105,182 +100,169 @@ input[id=i5]:checked ~pre .i5
 <input id="r36" type="radio" name="g"/>
 <input id="r37" type="radio" name="g"/>
 <input id="r38" type="radio" name="g"/>
-<input id="r39" type="radio" name="g"/>
-<input id="r40" type="radio" name="g"/>
-<input id="r41" type="radio" name="g"/>
 <input id="i0" type="radio" name="i"/>
 <input id="i1" type="radio" name="i"/>
 <input id="i2" type="radio" name="i"/>
 <input id="i3" type="radio" name="i"/>
-<input id="i4" type="radio" name="i"/>
-<input id="i5" type="radio" name="i"/>
 
 <pre class="line-numbers">
 <span class="codeline" id="line-1"><code><span class="keyword">package</span> auth</code></span>
 <span class="codeline" id="line-2"><code></code></span>
 <span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
 <span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"context"</span></label></code></span>
-<span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"errors"</span></label></code></span>
-<span class="codeline" id="line-6"><code></code></span>
-<span class="codeline" id="line-7"><code>	<label for="i2"><span class="lit-string i2">"golang.org/x/xerrors"</span></label></code></span>
-<span class="codeline" id="line-8"><code></code></span>
-<span class="codeline" id="line-9"><code>	<label for="i3"><span class="lit-string i3">"github.com/gotd/td/internal/crypto/srp"</span></label></code></span>
-<span class="codeline" id="line-10"><code>	<label for="i4"><span class="lit-string i4">"github.com/gotd/td/tg"</span></label></code></span>
-<span class="codeline" id="line-11"><code>	<label for="i5"><span class="lit-string i5">"github.com/gotd/td/tgerr"</span></label></code></span>
-<span class="codeline" id="line-12"><code>)</code></span>
-<span class="codeline" id="line-13"><code></code></span>
-<span class="codeline" id="line-14"><code><span class="comment">// ErrPasswordInvalid means that password provided to Password is invalid.</span></code></span>
-<span class="codeline" id="line-15"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-16"><code><span class="comment">// Note that telegram does not trim whitespace characters by default, check</span></code></span>
-<span class="codeline" id="line-17"><code><span class="comment">// that provided password is expected and clean whitespaces if needed.</span></code></span>
-<span class="codeline" id="line-18"><code><span class="comment">// You can use strings.TrimSpace(password) for this.</span></code></span>
-<span class="codeline" id="line-19"><code><span class="keyword">var</span> <a href="../../../../../../pkg/github.com/gotd/td/telegram/auth.html#name-ErrPasswordInvalid" class="ident">ErrPasswordInvalid</a> = <a href="../../../../../../pkg/errors.html" class="ident i1">errors</a>.<a href="../../../../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"invalid password"</span>)</code></span>
-<span class="codeline" id="line-20"><code></code></span>
-<span class="codeline" id="line-21"><code><span class="comment">// Password performs login via secure remote password (aka 2FA).</span></code></span>
-<span class="codeline" id="line-22"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-23"><code><span class="comment">// Method can be called after SignIn to provide password if requested.</span></code></span>
-<span class="codeline" id="line-24"><code><span class="keyword">func</span> (<label for="r0" class="ident">c</label> *<a href="client.go.html#line-10" class="ident">Client</a>) <label for="r1" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/auth..Client.Password.html" class="ident">Password</a></label>(<label for="r2" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r3" class="ident">password</label> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) (*<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i4">tg</a>.<a href="../../tg/tl_auth_authorization_gen.go.html#line-36" class="ident">AuthAuthorization</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-25"><code>	<label for="r4" class="ident">p</label>, <label for="r5" class="ident">err</label> := <label for="r0" class="ident">c</label>.<a href="client.go.html#line-11" class="ident">api</a>.<a href="../../tg/tl_account_get_password_gen.go.html#line-133" class="ident">AccountGetPassword</a>(<label for="r2" class="ident">ctx</label>)</code></span>
-<span class="codeline" id="line-26"><code>	<span class="keyword">if</span> <label for="r5" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-27"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i2">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"get SRP parameters: %w"</span>, <label for="r5" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-28"><code>	}</code></span>
-<span class="codeline" id="line-29"><code></code></span>
-<span class="codeline" id="line-30"><code>	<label for="r6" class="ident">algo</label>, <label for="r7" class="ident">ok</label> := <label for="r4" class="ident">p</label>.<a href="../../tg/tl_account_password_gen.go.html#line-57" class="ident">CurrentAlgo</a>.(*<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i4">tg</a>.<a href="../../tg/tl_password_kdf_algo_gen.go.html#line-142" class="ident">PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow</a>)</code></span>
-<span class="codeline" id="line-31"><code>	<span class="keyword">if</span> !<label for="r7" class="ident">ok</label> {</code></span>
-<span class="codeline" id="line-32"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i2">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"unsupported algo: %T"</span>, <label for="r4" class="ident">p</label>.<a href="../../tg/tl_account_password_gen.go.html#line-57" class="ident">CurrentAlgo</a>)</code></span>
-<span class="codeline" id="line-33"><code>	}</code></span>
-<span class="codeline" id="line-34"><code></code></span>
-<span class="codeline" id="line-35"><code>	<label for="r8" class="ident">s</label> := <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto/srp.html" class="ident i3">srp</a>.<a href="../../internal/crypto/srp/srp.go.html#line-24" class="ident">NewSRP</a>(<label for="r0" class="ident">c</label>.<a href="client.go.html#line-12" class="ident">rand</a>)</code></span>
-<span class="codeline" id="line-36"><code>	<label for="r9" class="ident">a</label>, <label for="r5" class="ident">err</label> := <label for="r8" class="ident">s</label>.<a href="../../internal/crypto/srp/srp.go.html#line-54" class="ident">Hash</a>([]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>(<label for="r3" class="ident">password</label>), <label for="r4" class="ident">p</label>.<a href="../../tg/tl_account_password_gen.go.html#line-64" class="ident">SRPB</a>, <label for="r4" class="ident">p</label>.<a href="../../tg/tl_account_password_gen.go.html#line-97" class="ident">SecureRandom</a>, <a href="../../../../../../pkg/github.com/gotd/td/internal/crypto/srp.html" class="ident i3">srp</a>.<a href="../../internal/crypto/srp/srp.go.html#line-31" class="ident">Input</a>(*<label for="r6" class="ident">algo</label>))</code></span>
-<span class="codeline" id="line-37"><code>	<span class="keyword">if</span> <label for="r5" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-38"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i2">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"create SRP answer: %w"</span>, <label for="r5" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-39"><code>	}</code></span>
-<span class="codeline" id="line-40"><code></code></span>
-<span class="codeline" id="line-41"><code>	<label for="r10" class="ident">auth</label>, <label for="r5" class="ident">err</label> := <label for="r0" class="ident">c</label>.<a href="client.go.html#line-11" class="ident">api</a>.<a href="../../tg/tl_auth_check_password_gen.go.html#line-187" class="ident">AuthCheckPassword</a>(<label for="r2" class="ident">ctx</label>, &amp;<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i4">tg</a>.<a href="../../tg/tl_input_check_password_srp_gen.go.html#line-141" class="ident">InputCheckPasswordSRP</a>{</code></span>
-<span class="codeline" id="line-42"><code>		<a href="../../tg/tl_input_check_password_srp_gen.go.html#line-146" class="ident">SRPID</a>: <label for="r4" class="ident">p</label>.<a href="../../tg/tl_account_password_gen.go.html#line-71" class="ident">SRPID</a>,</code></span>
-<span class="codeline" id="line-43"><code>		<a href="../../tg/tl_input_check_password_srp_gen.go.html#line-151" class="ident">A</a>:     <label for="r9" class="ident">a</label>.<a href="../../internal/crypto/srp/srp.go.html#line-45" class="ident">A</a>,</code></span>
-<span class="codeline" id="line-44"><code>		<a href="../../tg/tl_input_check_password_srp_gen.go.html#line-156" class="ident">M1</a>:    <label for="r9" class="ident">a</label>.<a href="../../internal/crypto/srp/srp.go.html#line-47" class="ident">M1</a>,</code></span>
-<span class="codeline" id="line-45"><code>	})</code></span>
-<span class="codeline" id="line-46"><code>	<span class="keyword">if</span> <a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i4">tg</a>.<a href="../../tg/tl_errors_gen.go.html#line-1172" class="ident">IsPasswordHashInvalid</a>(<label for="r5" class="ident">err</label>) {</code></span>
-<span class="codeline" id="line-47"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="#line-19" class="ident">ErrPasswordInvalid</a></code></span>
-<span class="codeline" id="line-48"><code>	}</code></span>
-<span class="codeline" id="line-49"><code>	<span class="keyword">if</span> <label for="r5" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-50"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i2">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"check password: %w"</span>, <label for="r5" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-51"><code>	}</code></span>
-<span class="codeline" id="line-52"><code>	<label for="r11" class="ident">result</label>, <label for="r5" class="ident">err</label> := <a href="signup.go.html#line-26" class="ident">checkResult</a>(<label for="r10" class="ident">auth</label>)</code></span>
-<span class="codeline" id="line-53"><code>	<span class="keyword">if</span> <label for="r5" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-54"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i2">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"check: %w"</span>, <label for="r5" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-55"><code>	}</code></span>
-<span class="codeline" id="line-56"><code>	<span class="keyword">return</span> <label for="r11" class="ident">result</label>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-57"><code>}</code></span>
-<span class="codeline" id="line-58"><code></code></span>
-<span class="codeline" id="line-59"><code><span class="comment">// SendCodeOptions defines how to send auth code to user.</span></code></span>
-<span class="codeline" id="line-60"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/telegram/auth.html#name-SendCodeOptions" class="ident">SendCodeOptions</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-61"><code>	<span class="comment">// AllowFlashCall allows phone verification via phone calls.</span></code></span>
-<span class="codeline" id="line-62"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/auth..SendCodeOptions.AllowFlashCall.html" class="ident">AllowFlashCall</a> <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
-<span class="codeline" id="line-63"><code>	<span class="comment">// Pass true if the phone number is used on the current device.</span></code></span>
-<span class="codeline" id="line-64"><code><span class="comment">	// Ignored if AllowFlashCall is not set.</span></code></span>
-<span class="codeline" id="line-65"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/auth..SendCodeOptions.CurrentNumber.html" class="ident">CurrentNumber</a> <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
-<span class="codeline" id="line-66"><code>	<span class="comment">// If a token that will be included in eventually sent SMSs is required:</span></code></span>
-<span class="codeline" id="line-67"><code><span class="comment">	// required in newer versions of android, to use the android SMS receiver APIs.</span></code></span>
-<span class="codeline" id="line-68"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/auth..SendCodeOptions.AllowAppHash.html" class="ident">AllowAppHash</a> <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
-<span class="codeline" id="line-69"><code>}</code></span>
-<span class="codeline" id="line-70"><code></code></span>
-<span class="codeline" id="line-71"><code><span class="comment">// SendCode requests code for provided phone number, returning code hash</span></code></span>
-<span class="codeline" id="line-72"><code><span class="comment">// and error if any. Use AuthFlow to reduce boilerplate.</span></code></span>
-<span class="codeline" id="line-73"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-74"><code><span class="comment">// This method should be called first in user authentication flow.</span></code></span>
-<span class="codeline" id="line-75"><code><span class="keyword">func</span> (<label for="r12" class="ident">c</label> *<a href="client.go.html#line-10" class="ident">Client</a>) <label for="r13" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/auth..Client.SendCode.html" class="ident">SendCode</a></label>(<label for="r14" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r15" class="ident">phone</label> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r16" class="ident">options</label> <a href="#line-60" class="ident">SendCodeOptions</a>) (*<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i4">tg</a>.<a href="../../tg/tl_auth_sent_code_gen.go.html#line-36" class="ident">AuthSentCode</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-76"><code>	<span class="keyword">var</span> <label for="r17" class="ident">settings</label> <a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i4">tg</a>.<a href="../../tg/tl_code_settings_gen.go.html#line-41" class="ident">CodeSettings</a></code></span>
-<span class="codeline" id="line-77"><code>	<span class="keyword">if</span> <label for="r16" class="ident">options</label>.<a href="#line-68" class="ident">AllowAppHash</a> {</code></span>
-<span class="codeline" id="line-78"><code>		<label for="r17" class="ident">settings</label>.<a href="../../tg/tl_code_settings_gen.go.html#line-210" class="ident">SetAllowAppHash</a>(<a href="../../../../../../pkg/builtin.html#name-true" class="ident">true</a>)</code></span>
-<span class="codeline" id="line-79"><code>	}</code></span>
-<span class="codeline" id="line-80"><code>	<span class="keyword">if</span> <label for="r16" class="ident">options</label>.<a href="#line-62" class="ident">AllowFlashCall</a> {</code></span>
-<span class="codeline" id="line-81"><code>		<label for="r17" class="ident">settings</label>.<a href="../../tg/tl_code_settings_gen.go.html#line-178" class="ident">SetAllowFlashcall</a>(<a href="../../../../../../pkg/builtin.html#name-true" class="ident">true</a>)</code></span>
-<span class="codeline" id="line-82"><code>	}</code></span>
-<span class="codeline" id="line-83"><code>	<span class="keyword">if</span> <label for="r16" class="ident">options</label>.<a href="#line-65" class="ident">CurrentNumber</a> {</code></span>
-<span class="codeline" id="line-84"><code>		<label for="r17" class="ident">settings</label>.<a href="../../tg/tl_code_settings_gen.go.html#line-194" class="ident">SetCurrentNumber</a>(<a href="../../../../../../pkg/builtin.html#name-true" class="ident">true</a>)</code></span>
-<span class="codeline" id="line-85"><code>	}</code></span>
-<span class="codeline" id="line-86"><code></code></span>
-<span class="codeline" id="line-87"><code>	<label for="r18" class="ident">sentCode</label>, <label for="r19" class="ident">err</label> := <label for="r12" class="ident">c</label>.<a href="client.go.html#line-11" class="ident">api</a>.<a href="../../tg/tl_auth_send_code_gen.go.html#line-256" class="ident">AuthSendCode</a>(<label for="r14" class="ident">ctx</label>, &amp;<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i4">tg</a>.<a href="../../tg/tl_auth_send_code_gen.go.html#line-36" class="ident">AuthSendCodeRequest</a>{</code></span>
-<span class="codeline" id="line-88"><code>		<a href="../../tg/tl_auth_send_code_gen.go.html#line-38" class="ident">PhoneNumber</a>: <label for="r15" class="ident">phone</label>,</code></span>
-<span class="codeline" id="line-89"><code>		<a href="../../tg/tl_auth_send_code_gen.go.html#line-43" class="ident">APIID</a>:       <label for="r12" class="ident">c</label>.<a href="client.go.html#line-13" class="ident">appID</a>,</code></span>
-<span class="codeline" id="line-90"><code>		<a href="../../tg/tl_auth_send_code_gen.go.html#line-48" class="ident">APIHash</a>:     <label for="r12" class="ident">c</label>.<a href="client.go.html#line-14" class="ident">appHash</a>,</code></span>
-<span class="codeline" id="line-91"><code>		<a href="../../tg/tl_auth_send_code_gen.go.html#line-50" class="ident">Settings</a>:    <label for="r17" class="ident">settings</label>,</code></span>
-<span class="codeline" id="line-92"><code>	})</code></span>
-<span class="codeline" id="line-93"><code>	<span class="keyword">if</span> <label for="r19" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-94"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i2">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"send code: %w"</span>, <label for="r19" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-95"><code>	}</code></span>
-<span class="codeline" id="line-96"><code>	<span class="keyword">return</span> <label for="r18" class="ident">sentCode</label>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-97"><code>}</code></span>
-<span class="codeline" id="line-98"><code></code></span>
-<span class="codeline" id="line-99"><code><span class="comment">// ErrPasswordAuthNeeded means that 2FA auth is required.</span></code></span>
+<span class="codeline" id="line-5"><code></code></span>
+<span class="codeline" id="line-6"><code>	<label for="i1"><span class="lit-string i1">"github.com/go-faster/errors"</span></label></code></span>
+<span class="codeline" id="line-7"><code></code></span>
+<span class="codeline" id="line-8"><code>	<label for="i2"><span class="lit-string i2">"github.com/gotd/td/tg"</span></label></code></span>
+<span class="codeline" id="line-9"><code>	<label for="i3"><span class="lit-string i3">"github.com/gotd/td/tgerr"</span></label></code></span>
+<span class="codeline" id="line-10"><code>)</code></span>
+<span class="codeline" id="line-11"><code></code></span>
+<span class="codeline" id="line-12"><code><span class="comment">// ErrPasswordInvalid means that password provided to Password is invalid.</span></code></span>
+<span class="codeline" id="line-13"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-14"><code><span class="comment">// Note that telegram does not trim whitespace characters by default, check</span></code></span>
+<span class="codeline" id="line-15"><code><span class="comment">// that provided password is expected and clean whitespaces if needed.</span></code></span>
+<span class="codeline" id="line-16"><code><span class="comment">// You can use strings.TrimSpace(password) for this.</span></code></span>
+<span class="codeline" id="line-17"><code><span class="keyword">var</span> <a href="../../../../../../pkg/github.com/gotd/td/telegram/auth.html#name-ErrPasswordInvalid" class="ident">ErrPasswordInvalid</a> = <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i1">errors</a>.<a href="../../../../go-faster/errors/errors.go.html#line-22" class="ident">New</a>(<span class="lit-string">"invalid password"</span>)</code></span>
+<span class="codeline" id="line-18"><code></code></span>
+<span class="codeline" id="line-19"><code><span class="comment">// Password performs login via secure remote password (aka 2FA).</span></code></span>
+<span class="codeline" id="line-20"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-21"><code><span class="comment">// Method can be called after SignIn to provide password if requested.</span></code></span>
+<span class="codeline" id="line-22"><code><span class="keyword">func</span> (<label for="r0" class="ident">c</label> *<a href="client.go.html#line-10" class="ident">Client</a>) <label for="r1" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/auth..Client.Password.html" class="ident">Password</a></label>(<label for="r2" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r3" class="ident">password</label> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) (*<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../../tg/tl_auth_authorization_gen.go.html#line-38" class="ident">AuthAuthorization</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-23"><code>	<label for="r4" class="ident">p</label>, <label for="r5" class="ident">err</label> := <label for="r0" class="ident">c</label>.<a href="client.go.html#line-11" class="ident">api</a>.<a href="../../tg/tl_account_get_password_gen.go.html#line-135" class="ident">AccountGetPassword</a>(<label for="r2" class="ident">ctx</label>)</code></span>
+<span class="codeline" id="line-24"><code>	<span class="keyword">if</span> <label for="r5" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-25"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i1">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r5" class="ident">err</label>, <span class="lit-string">"get SRP parameters"</span>)</code></span>
+<span class="codeline" id="line-26"><code>	}</code></span>
+<span class="codeline" id="line-27"><code></code></span>
+<span class="codeline" id="line-28"><code>	<label for="r6" class="ident">a</label>, <label for="r5" class="ident">err</label> := <a href="password.go.html#line-18" class="ident">PasswordHash</a>([]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>(<label for="r3" class="ident">password</label>), <label for="r4" class="ident">p</label>.<a href="../../tg/tl_account_password_gen.go.html#line-73" class="ident">SRPID</a>, <label for="r4" class="ident">p</label>.<a href="../../tg/tl_account_password_gen.go.html#line-66" class="ident">SRPB</a>, <label for="r4" class="ident">p</label>.<a href="../../tg/tl_account_password_gen.go.html#line-99" class="ident">SecureRandom</a>, <label for="r4" class="ident">p</label>.<a href="../../tg/tl_account_password_gen.go.html#line-59" class="ident">CurrentAlgo</a>)</code></span>
+<span class="codeline" id="line-29"><code>	<span class="keyword">if</span> <label for="r5" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-30"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i1">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r5" class="ident">err</label>, <span class="lit-string">"compute password hash"</span>)</code></span>
+<span class="codeline" id="line-31"><code>	}</code></span>
+<span class="codeline" id="line-32"><code></code></span>
+<span class="codeline" id="line-33"><code>	<label for="r7" class="ident">auth</label>, <label for="r5" class="ident">err</label> := <label for="r0" class="ident">c</label>.<a href="client.go.html#line-11" class="ident">api</a>.<a href="../../tg/tl_auth_check_password_gen.go.html#line-193" class="ident">AuthCheckPassword</a>(<label for="r2" class="ident">ctx</label>, &amp;<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../../tg/tl_input_check_password_srp_gen.go.html#line-143" class="ident">InputCheckPasswordSRP</a>{</code></span>
+<span class="codeline" id="line-34"><code>		<a href="../../tg/tl_input_check_password_srp_gen.go.html#line-148" class="ident">SRPID</a>: <label for="r4" class="ident">p</label>.<a href="../../tg/tl_account_password_gen.go.html#line-73" class="ident">SRPID</a>,</code></span>
+<span class="codeline" id="line-35"><code>		<a href="../../tg/tl_input_check_password_srp_gen.go.html#line-153" class="ident">A</a>:     <label for="r6" class="ident">a</label>.<a href="../../tg/tl_input_check_password_srp_gen.go.html#line-153" class="ident">A</a>,</code></span>
+<span class="codeline" id="line-36"><code>		<a href="../../tg/tl_input_check_password_srp_gen.go.html#line-158" class="ident">M1</a>:    <label for="r6" class="ident">a</label>.<a href="../../tg/tl_input_check_password_srp_gen.go.html#line-158" class="ident">M1</a>,</code></span>
+<span class="codeline" id="line-37"><code>	})</code></span>
+<span class="codeline" id="line-38"><code>	<span class="keyword">if</span> <a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../../tg/tl_errors_gen.go.html#line-1533" class="ident">IsPasswordHashInvalid</a>(<label for="r5" class="ident">err</label>) {</code></span>
+<span class="codeline" id="line-39"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="#line-17" class="ident">ErrPasswordInvalid</a></code></span>
+<span class="codeline" id="line-40"><code>	}</code></span>
+<span class="codeline" id="line-41"><code>	<span class="keyword">if</span> <label for="r5" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-42"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i1">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r5" class="ident">err</label>, <span class="lit-string">"check password"</span>)</code></span>
+<span class="codeline" id="line-43"><code>	}</code></span>
+<span class="codeline" id="line-44"><code>	<label for="r8" class="ident">result</label>, <label for="r5" class="ident">err</label> := <a href="signup.go.html#line-26" class="ident">checkResult</a>(<label for="r7" class="ident">auth</label>)</code></span>
+<span class="codeline" id="line-45"><code>	<span class="keyword">if</span> <label for="r5" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-46"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i1">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r5" class="ident">err</label>, <span class="lit-string">"check"</span>)</code></span>
+<span class="codeline" id="line-47"><code>	}</code></span>
+<span class="codeline" id="line-48"><code>	<span class="keyword">return</span> <label for="r8" class="ident">result</label>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-49"><code>}</code></span>
+<span class="codeline" id="line-50"><code></code></span>
+<span class="codeline" id="line-51"><code><span class="comment">// SendCodeOptions defines how to send auth code to user.</span></code></span>
+<span class="codeline" id="line-52"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/telegram/auth.html#name-SendCodeOptions" class="ident">SendCodeOptions</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-53"><code>	<span class="comment">// AllowFlashCall allows phone verification via phone calls.</span></code></span>
+<span class="codeline" id="line-54"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/auth..SendCodeOptions.AllowFlashCall.html" class="ident">AllowFlashCall</a> <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-55"><code>	<span class="comment">// Pass true if the phone number is used on the current device.</span></code></span>
+<span class="codeline" id="line-56"><code><span class="comment">	// Ignored if AllowFlashCall is not set.</span></code></span>
+<span class="codeline" id="line-57"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/auth..SendCodeOptions.CurrentNumber.html" class="ident">CurrentNumber</a> <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-58"><code>	<span class="comment">// If a token that will be included in eventually sent SMSs is required:</span></code></span>
+<span class="codeline" id="line-59"><code><span class="comment">	// required in newer versions of android, to use the android SMS receiver APIs.</span></code></span>
+<span class="codeline" id="line-60"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/auth..SendCodeOptions.AllowAppHash.html" class="ident">AllowAppHash</a> <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-61"><code>}</code></span>
+<span class="codeline" id="line-62"><code></code></span>
+<span class="codeline" id="line-63"><code><span class="comment">// SendCode requests code for provided phone number, returning code hash</span></code></span>
+<span class="codeline" id="line-64"><code><span class="comment">// and error if any. Use AuthFlow to reduce boilerplate.</span></code></span>
+<span class="codeline" id="line-65"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-66"><code><span class="comment">// This method should be called first in user authentication flow.</span></code></span>
+<span class="codeline" id="line-67"><code><span class="keyword">func</span> (<label for="r9" class="ident">c</label> *<a href="client.go.html#line-10" class="ident">Client</a>) <label for="r10" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/auth..Client.SendCode.html" class="ident">SendCode</a></label>(<label for="r11" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r12" class="ident">phone</label> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r13" class="ident">options</label> <a href="#line-52" class="ident">SendCodeOptions</a>) (*<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../../tg/tl_auth_sent_code_gen.go.html#line-38" class="ident">AuthSentCode</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-68"><code>	<span class="keyword">var</span> <label for="r14" class="ident">settings</label> <a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../../tg/tl_code_settings_gen.go.html#line-43" class="ident">CodeSettings</a></code></span>
+<span class="codeline" id="line-69"><code>	<span class="keyword">if</span> <label for="r13" class="ident">options</label>.<a href="#line-60" class="ident">AllowAppHash</a> {</code></span>
+<span class="codeline" id="line-70"><code>		<label for="r14" class="ident">settings</label>.<a href="../../tg/tl_code_settings_gen.go.html#line-324" class="ident">SetAllowAppHash</a>(<a href="../../../../../../pkg/builtin.html#name-true" class="ident">true</a>)</code></span>
+<span class="codeline" id="line-71"><code>	}</code></span>
+<span class="codeline" id="line-72"><code>	<span class="keyword">if</span> <label for="r13" class="ident">options</label>.<a href="#line-54" class="ident">AllowFlashCall</a> {</code></span>
+<span class="codeline" id="line-73"><code>		<label for="r14" class="ident">settings</label>.<a href="../../tg/tl_code_settings_gen.go.html#line-286" class="ident">SetAllowFlashcall</a>(<a href="../../../../../../pkg/builtin.html#name-true" class="ident">true</a>)</code></span>
+<span class="codeline" id="line-74"><code>	}</code></span>
+<span class="codeline" id="line-75"><code>	<span class="keyword">if</span> <label for="r13" class="ident">options</label>.<a href="#line-57" class="ident">CurrentNumber</a> {</code></span>
+<span class="codeline" id="line-76"><code>		<label for="r14" class="ident">settings</label>.<a href="../../tg/tl_code_settings_gen.go.html#line-305" class="ident">SetCurrentNumber</a>(<a href="../../../../../../pkg/builtin.html#name-true" class="ident">true</a>)</code></span>
+<span class="codeline" id="line-77"><code>	}</code></span>
+<span class="codeline" id="line-78"><code></code></span>
+<span class="codeline" id="line-79"><code>	<label for="r15" class="ident">sentCode</label>, <label for="r16" class="ident">err</label> := <label for="r9" class="ident">c</label>.<a href="client.go.html#line-11" class="ident">api</a>.<a href="../../tg/tl_auth_send_code_gen.go.html#line-268" class="ident">AuthSendCode</a>(<label for="r11" class="ident">ctx</label>, &amp;<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../../tg/tl_auth_send_code_gen.go.html#line-38" class="ident">AuthSendCodeRequest</a>{</code></span>
+<span class="codeline" id="line-80"><code>		<a href="../../tg/tl_auth_send_code_gen.go.html#line-40" class="ident">PhoneNumber</a>: <label for="r12" class="ident">phone</label>,</code></span>
+<span class="codeline" id="line-81"><code>		<a href="../../tg/tl_auth_send_code_gen.go.html#line-45" class="ident">APIID</a>:       <label for="r9" class="ident">c</label>.<a href="client.go.html#line-13" class="ident">appID</a>,</code></span>
+<span class="codeline" id="line-82"><code>		<a href="../../tg/tl_auth_send_code_gen.go.html#line-50" class="ident">APIHash</a>:     <label for="r9" class="ident">c</label>.<a href="client.go.html#line-14" class="ident">appHash</a>,</code></span>
+<span class="codeline" id="line-83"><code>		<a href="../../tg/tl_auth_send_code_gen.go.html#line-52" class="ident">Settings</a>:    <label for="r14" class="ident">settings</label>,</code></span>
+<span class="codeline" id="line-84"><code>	})</code></span>
+<span class="codeline" id="line-85"><code>	<span class="keyword">if</span> <label for="r16" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-86"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i1">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r16" class="ident">err</label>, <span class="lit-string">"send code"</span>)</code></span>
+<span class="codeline" id="line-87"><code>	}</code></span>
+<span class="codeline" id="line-88"><code>	<span class="keyword">return</span> <label for="r15" class="ident">sentCode</label>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-89"><code>}</code></span>
+<span class="codeline" id="line-90"><code></code></span>
+<span class="codeline" id="line-91"><code><span class="comment">// ErrPasswordAuthNeeded means that 2FA auth is required.</span></code></span>
+<span class="codeline" id="line-92"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-93"><code><span class="comment">// Call Client.Password to provide 2FA password.</span></code></span>
+<span class="codeline" id="line-94"><code><span class="keyword">var</span> <a href="../../../../../../pkg/github.com/gotd/td/telegram/auth.html#name-ErrPasswordAuthNeeded" class="ident">ErrPasswordAuthNeeded</a> = <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i1">errors</a>.<a href="../../../../go-faster/errors/errors.go.html#line-22" class="ident">New</a>(<span class="lit-string">"2FA required"</span>)</code></span>
+<span class="codeline" id="line-95"><code></code></span>
+<span class="codeline" id="line-96"><code><span class="comment">// SignIn performs sign in with provided user phone, code and code hash.</span></code></span>
+<span class="codeline" id="line-97"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-98"><code><span class="comment">// If ErrPasswordAuthNeeded is returned, call Password to provide 2FA</span></code></span>
+<span class="codeline" id="line-99"><code><span class="comment">// password.</span></code></span>
 <span class="codeline" id="line-100"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-101"><code><span class="comment">// Call Client.Password to provide 2FA password.</span></code></span>
-<span class="codeline" id="line-102"><code><span class="keyword">var</span> <a href="../../../../../../pkg/github.com/gotd/td/telegram/auth.html#name-ErrPasswordAuthNeeded" class="ident">ErrPasswordAuthNeeded</a> = <a href="../../../../../../pkg/errors.html" class="ident i1">errors</a>.<a href="../../../../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"2FA required"</span>)</code></span>
-<span class="codeline" id="line-103"><code></code></span>
-<span class="codeline" id="line-104"><code><span class="comment">// SignIn performs sign in with provided user phone, code and code hash.</span></code></span>
-<span class="codeline" id="line-105"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-106"><code><span class="comment">// If ErrPasswordAuthNeeded is returned, call Password to provide 2FA</span></code></span>
-<span class="codeline" id="line-107"><code><span class="comment">// password.</span></code></span>
-<span class="codeline" id="line-108"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-109"><code><span class="comment">// To obtain codeHash, use SendCode.</span></code></span>
-<span class="codeline" id="line-110"><code><span class="keyword">func</span> (<label for="r20" class="ident">c</label> *<a href="client.go.html#line-10" class="ident">Client</a>) <label for="r21" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/auth..Client.SignIn.html" class="ident">SignIn</a></label>(<label for="r22" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r23" class="ident">phone</label>, <label for="r24" class="ident">code</label>, <label for="r25" class="ident">codeHash</label> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) (*<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i4">tg</a>.<a href="../../tg/tl_auth_authorization_gen.go.html#line-36" class="ident">AuthAuthorization</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-111"><code>	<label for="r26" class="ident">auth</label>, <label for="r27" class="ident">err</label> := <label for="r20" class="ident">c</label>.<a href="client.go.html#line-11" class="ident">api</a>.<a href="../../tg/tl_auth_sign_in_gen.go.html#line-221" class="ident">AuthSignIn</a>(<label for="r22" class="ident">ctx</label>, &amp;<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i4">tg</a>.<a href="../../tg/tl_auth_sign_in_gen.go.html#line-36" class="ident">AuthSignInRequest</a>{</code></span>
-<span class="codeline" id="line-112"><code>		<a href="../../tg/tl_auth_sign_in_gen.go.html#line-38" class="ident">PhoneNumber</a>:   <label for="r23" class="ident">phone</label>,</code></span>
-<span class="codeline" id="line-113"><code>		<a href="../../tg/tl_auth_sign_in_gen.go.html#line-43" class="ident">PhoneCodeHash</a>: <label for="r25" class="ident">codeHash</label>,</code></span>
-<span class="codeline" id="line-114"><code>		<a href="../../tg/tl_auth_sign_in_gen.go.html#line-45" class="ident">PhoneCode</a>:     <label for="r24" class="ident">code</label>,</code></span>
-<span class="codeline" id="line-115"><code>	})</code></span>
-<span class="codeline" id="line-116"><code>	<span class="keyword">if</span> <a href="../../../../../../pkg/github.com/gotd/td/tgerr.html" class="ident i5">tgerr</a>.<a href="../../tgerr/error.go.html#line-138" class="ident">Is</a>(<label for="r27" class="ident">err</label>, <span class="lit-string">"SESSION_PASSWORD_NEEDED"</span>) {</code></span>
-<span class="codeline" id="line-117"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="#line-102" class="ident">ErrPasswordAuthNeeded</a></code></span>
-<span class="codeline" id="line-118"><code>	}</code></span>
-<span class="codeline" id="line-119"><code>	<span class="keyword">if</span> <label for="r27" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-120"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i2">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"sign in: %w"</span>, <label for="r27" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-121"><code>	}</code></span>
-<span class="codeline" id="line-122"><code>	<label for="r28" class="ident">result</label>, <label for="r27" class="ident">err</label> := <a href="signup.go.html#line-26" class="ident">checkResult</a>(<label for="r26" class="ident">auth</label>)</code></span>
-<span class="codeline" id="line-123"><code>	<span class="keyword">if</span> <label for="r27" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-124"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i2">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"check: %w"</span>, <label for="r27" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-125"><code>	}</code></span>
-<span class="codeline" id="line-126"><code>	<span class="keyword">return</span> <label for="r28" class="ident">result</label>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-127"><code>}</code></span>
-<span class="codeline" id="line-128"><code></code></span>
-<span class="codeline" id="line-129"><code><span class="comment">// AcceptTOS accepts version of Terms Of Service.</span></code></span>
-<span class="codeline" id="line-130"><code><span class="keyword">func</span> (<label for="r29" class="ident">c</label> *<a href="client.go.html#line-10" class="ident">Client</a>) <label for="r30" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/auth..Client.AcceptTOS.html" class="ident">AcceptTOS</a></label>(<label for="r31" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r32" class="ident">id</label> <a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i4">tg</a>.<a href="../../tg/tl_data_json_gen.go.html#line-36" class="ident">DataJSON</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-131"><code>	<label for="r33" class="ident">_</label>, <label for="r34" class="ident">err</label> := <label for="r29" class="ident">c</label>.<a href="client.go.html#line-11" class="ident">api</a>.<a href="../../tg/tl_help_accept_terms_of_service_gen.go.html#line-163" class="ident">HelpAcceptTermsOfService</a>(<label for="r31" class="ident">ctx</label>, <label for="r32" class="ident">id</label>)</code></span>
-<span class="codeline" id="line-132"><code>	<span class="keyword">return</span> <label for="r34" class="ident">err</label></code></span>
+<span class="codeline" id="line-101"><code><span class="comment">// To obtain codeHash, use SendCode.</span></code></span>
+<span class="codeline" id="line-102"><code><span class="keyword">func</span> (<label for="r17" class="ident">c</label> *<a href="client.go.html#line-10" class="ident">Client</a>) <label for="r18" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/auth..Client.SignIn.html" class="ident">SignIn</a></label>(<label for="r19" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r20" class="ident">phone</label>, <label for="r21" class="ident">code</label>, <label for="r22" class="ident">codeHash</label> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) (*<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../../tg/tl_auth_authorization_gen.go.html#line-38" class="ident">AuthAuthorization</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-103"><code>	<label for="r23" class="ident">auth</label>, <label for="r24" class="ident">err</label> := <label for="r17" class="ident">c</label>.<a href="client.go.html#line-11" class="ident">api</a>.<a href="../../tg/tl_auth_sign_in_gen.go.html#line-234" class="ident">AuthSignIn</a>(<label for="r19" class="ident">ctx</label>, &amp;<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../../tg/tl_auth_sign_in_gen.go.html#line-38" class="ident">AuthSignInRequest</a>{</code></span>
+<span class="codeline" id="line-104"><code>		<a href="../../tg/tl_auth_sign_in_gen.go.html#line-40" class="ident">PhoneNumber</a>:   <label for="r20" class="ident">phone</label>,</code></span>
+<span class="codeline" id="line-105"><code>		<a href="../../tg/tl_auth_sign_in_gen.go.html#line-45" class="ident">PhoneCodeHash</a>: <label for="r22" class="ident">codeHash</label>,</code></span>
+<span class="codeline" id="line-106"><code>		<a href="../../tg/tl_auth_sign_in_gen.go.html#line-47" class="ident">PhoneCode</a>:     <label for="r21" class="ident">code</label>,</code></span>
+<span class="codeline" id="line-107"><code>	})</code></span>
+<span class="codeline" id="line-108"><code>	<span class="keyword">if</span> <a href="../../../../../../pkg/github.com/gotd/td/tgerr.html" class="ident i3">tgerr</a>.<a href="../../tgerr/error.go.html#line-139" class="ident">Is</a>(<label for="r24" class="ident">err</label>, <span class="lit-string">"SESSION_PASSWORD_NEEDED"</span>) {</code></span>
+<span class="codeline" id="line-109"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="#line-94" class="ident">ErrPasswordAuthNeeded</a></code></span>
+<span class="codeline" id="line-110"><code>	}</code></span>
+<span class="codeline" id="line-111"><code>	<span class="keyword">if</span> <label for="r24" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-112"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i1">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r24" class="ident">err</label>, <span class="lit-string">"sign in"</span>)</code></span>
+<span class="codeline" id="line-113"><code>	}</code></span>
+<span class="codeline" id="line-114"><code>	<label for="r25" class="ident">result</label>, <label for="r24" class="ident">err</label> := <a href="signup.go.html#line-26" class="ident">checkResult</a>(<label for="r23" class="ident">auth</label>)</code></span>
+<span class="codeline" id="line-115"><code>	<span class="keyword">if</span> <label for="r24" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-116"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i1">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r24" class="ident">err</label>, <span class="lit-string">"check"</span>)</code></span>
+<span class="codeline" id="line-117"><code>	}</code></span>
+<span class="codeline" id="line-118"><code>	<span class="keyword">return</span> <label for="r25" class="ident">result</label>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-119"><code>}</code></span>
+<span class="codeline" id="line-120"><code></code></span>
+<span class="codeline" id="line-121"><code><span class="comment">// AcceptTOS accepts version of Terms Of Service.</span></code></span>
+<span class="codeline" id="line-122"><code><span class="keyword">func</span> (<label for="r26" class="ident">c</label> *<a href="client.go.html#line-10" class="ident">Client</a>) <label for="r27" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/auth..Client.AcceptTOS.html" class="ident">AcceptTOS</a></label>(<label for="r28" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r29" class="ident">id</label> <a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../../tg/tl_data_json_gen.go.html#line-38" class="ident">DataJSON</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-123"><code>	<label for="r30" class="ident">_</label>, <label for="r31" class="ident">err</label> := <label for="r26" class="ident">c</label>.<a href="client.go.html#line-11" class="ident">api</a>.<a href="../../tg/tl_help_accept_terms_of_service_gen.go.html#line-168" class="ident">HelpAcceptTermsOfService</a>(<label for="r28" class="ident">ctx</label>, <label for="r29" class="ident">id</label>)</code></span>
+<span class="codeline" id="line-124"><code>	<span class="keyword">return</span> <label for="r31" class="ident">err</label></code></span>
+<span class="codeline" id="line-125"><code>}</code></span>
+<span class="codeline" id="line-126"><code></code></span>
+<span class="codeline" id="line-127"><code><span class="comment">// SignUp wraps parameters for SignUp.</span></code></span>
+<span class="codeline" id="line-128"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/telegram/auth.html#name-SignUp" class="ident">SignUp</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-129"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/auth..SignUp.PhoneNumber.html" class="ident">PhoneNumber</a>   <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-130"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/auth..SignUp.PhoneCodeHash.html" class="ident">PhoneCodeHash</a> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-131"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/auth..SignUp.FirstName.html" class="ident">FirstName</a>     <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-132"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/auth..SignUp.LastName.html" class="ident">LastName</a>      <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
 <span class="codeline" id="line-133"><code>}</code></span>
 <span class="codeline" id="line-134"><code></code></span>
-<span class="codeline" id="line-135"><code><span class="comment">// SignUp wraps parameters for SignUp.</span></code></span>
-<span class="codeline" id="line-136"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/telegram/auth.html#name-SignUp" class="ident">SignUp</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-137"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/auth..SignUp.PhoneNumber.html" class="ident">PhoneNumber</a>   <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
-<span class="codeline" id="line-138"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/auth..SignUp.PhoneCodeHash.html" class="ident">PhoneCodeHash</a> <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
-<span class="codeline" id="line-139"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/auth..SignUp.FirstName.html" class="ident">FirstName</a>     <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
-<span class="codeline" id="line-140"><code>	<a href="../../../../../../use/github.com/gotd/td/telegram/auth..SignUp.LastName.html" class="ident">LastName</a>      <a href="../../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
-<span class="codeline" id="line-141"><code>}</code></span>
-<span class="codeline" id="line-142"><code></code></span>
-<span class="codeline" id="line-143"><code><span class="comment">// SignUp registers a validated phone number in the system.</span></code></span>
-<span class="codeline" id="line-144"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-145"><code><span class="comment">// To obtain codeHash, use SendCode.</span></code></span>
-<span class="codeline" id="line-146"><code><span class="comment">// Use AuthFlow helper to handle authentication flow.</span></code></span>
-<span class="codeline" id="line-147"><code><span class="keyword">func</span> (<label for="r35" class="ident">c</label> *<a href="client.go.html#line-10" class="ident">Client</a>) <label for="r36" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/auth..Client.SignUp.html" class="ident">SignUp</a></label>(<label for="r37" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r38" class="ident">s</label> <a href="#line-136" class="ident">SignUp</a>) (*<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i4">tg</a>.<a href="../../tg/tl_auth_authorization_gen.go.html#line-36" class="ident">AuthAuthorization</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-148"><code>	<label for="r39" class="ident">auth</label>, <label for="r40" class="ident">err</label> := <label for="r35" class="ident">c</label>.<a href="client.go.html#line-11" class="ident">api</a>.<a href="../../tg/tl_auth_sign_up_gen.go.html#line-246" class="ident">AuthSignUp</a>(<label for="r37" class="ident">ctx</label>, &amp;<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i4">tg</a>.<a href="../../tg/tl_auth_sign_up_gen.go.html#line-36" class="ident">AuthSignUpRequest</a>{</code></span>
-<span class="codeline" id="line-149"><code>		<a href="../../tg/tl_auth_sign_up_gen.go.html#line-44" class="ident">LastName</a>:      <label for="r38" class="ident">s</label>.<a href="#line-140" class="ident">LastName</a>,</code></span>
-<span class="codeline" id="line-150"><code>		<a href="../../tg/tl_auth_sign_up_gen.go.html#line-40" class="ident">PhoneCodeHash</a>: <label for="r38" class="ident">s</label>.<a href="#line-138" class="ident">PhoneCodeHash</a>,</code></span>
-<span class="codeline" id="line-151"><code>		<a href="../../tg/tl_auth_sign_up_gen.go.html#line-38" class="ident">PhoneNumber</a>:   <label for="r38" class="ident">s</label>.<a href="#line-137" class="ident">PhoneNumber</a>,</code></span>
-<span class="codeline" id="line-152"><code>		<a href="../../tg/tl_auth_sign_up_gen.go.html#line-42" class="ident">FirstName</a>:     <label for="r38" class="ident">s</label>.<a href="#line-139" class="ident">FirstName</a>,</code></span>
-<span class="codeline" id="line-153"><code>	})</code></span>
-<span class="codeline" id="line-154"><code>	<span class="keyword">if</span> <label for="r40" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-155"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i2">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"request: %w"</span>, <label for="r40" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-156"><code>	}</code></span>
-<span class="codeline" id="line-157"><code>	<label for="r41" class="ident">result</label>, <label for="r40" class="ident">err</label> := <a href="signup.go.html#line-26" class="ident">checkResult</a>(<label for="r39" class="ident">auth</label>)</code></span>
-<span class="codeline" id="line-158"><code>	<span class="keyword">if</span> <label for="r40" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-159"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i2">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"check: %w"</span>, <label for="r40" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-160"><code>	}</code></span>
-<span class="codeline" id="line-161"><code>	<span class="keyword">return</span> <label for="r41" class="ident">result</label>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-162"><code>}</code></span>
+<span class="codeline" id="line-135"><code><span class="comment">// SignUp registers a validated phone number in the system.</span></code></span>
+<span class="codeline" id="line-136"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-137"><code><span class="comment">// To obtain codeHash, use SendCode.</span></code></span>
+<span class="codeline" id="line-138"><code><span class="comment">// Use AuthFlow helper to handle authentication flow.</span></code></span>
+<span class="codeline" id="line-139"><code><span class="keyword">func</span> (<label for="r32" class="ident">c</label> *<a href="client.go.html#line-10" class="ident">Client</a>) <label for="r33" class="ident"><a href="../../../../../../use/github.com/gotd/td/telegram/auth..Client.SignUp.html" class="ident">SignUp</a></label>(<label for="r34" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r35" class="ident">s</label> <a href="#line-128" class="ident">SignUp</a>) (*<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../../tg/tl_auth_authorization_gen.go.html#line-38" class="ident">AuthAuthorization</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-140"><code>	<label for="r36" class="ident">auth</label>, <label for="r37" class="ident">err</label> := <label for="r32" class="ident">c</label>.<a href="client.go.html#line-11" class="ident">api</a>.<a href="../../tg/tl_auth_sign_up_gen.go.html#line-260" class="ident">AuthSignUp</a>(<label for="r34" class="ident">ctx</label>, &amp;<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i2">tg</a>.<a href="../../tg/tl_auth_sign_up_gen.go.html#line-38" class="ident">AuthSignUpRequest</a>{</code></span>
+<span class="codeline" id="line-141"><code>		<a href="../../tg/tl_auth_sign_up_gen.go.html#line-46" class="ident">LastName</a>:      <label for="r35" class="ident">s</label>.<a href="#line-132" class="ident">LastName</a>,</code></span>
+<span class="codeline" id="line-142"><code>		<a href="../../tg/tl_auth_sign_up_gen.go.html#line-42" class="ident">PhoneCodeHash</a>: <label for="r35" class="ident">s</label>.<a href="#line-130" class="ident">PhoneCodeHash</a>,</code></span>
+<span class="codeline" id="line-143"><code>		<a href="../../tg/tl_auth_sign_up_gen.go.html#line-40" class="ident">PhoneNumber</a>:   <label for="r35" class="ident">s</label>.<a href="#line-129" class="ident">PhoneNumber</a>,</code></span>
+<span class="codeline" id="line-144"><code>		<a href="../../tg/tl_auth_sign_up_gen.go.html#line-44" class="ident">FirstName</a>:     <label for="r35" class="ident">s</label>.<a href="#line-131" class="ident">FirstName</a>,</code></span>
+<span class="codeline" id="line-145"><code>	})</code></span>
+<span class="codeline" id="line-146"><code>	<span class="keyword">if</span> <label for="r37" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-147"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i1">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r37" class="ident">err</label>, <span class="lit-string">"request"</span>)</code></span>
+<span class="codeline" id="line-148"><code>	}</code></span>
+<span class="codeline" id="line-149"><code>	<label for="r38" class="ident">result</label>, <label for="r37" class="ident">err</label> := <a href="signup.go.html#line-26" class="ident">checkResult</a>(<label for="r36" class="ident">auth</label>)</code></span>
+<span class="codeline" id="line-150"><code>	<span class="keyword">if</span> <label for="r37" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-151"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i1">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r37" class="ident">err</label>, <span class="lit-string">"check"</span>)</code></span>
+<span class="codeline" id="line-152"><code>	}</code></span>
+<span class="codeline" id="line-153"><code>	<span class="keyword">return</span> <label for="r38" class="ident">result</label>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-154"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Package: github.com/gotd/td/telegram/dcs</title>
-<link href="../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="package-details"><code><span style="font-size:xx-large;">package <b>dcs</b></span>
@@ -15,11 +15,12 @@
 	<a href="../../../../../index.html#pkg-github.com/gotd/td/telegram/dcs">github.com/gotd/td/telegram/dcs</a><i> (on <a href="https://pkg.go.dev/github.com/gotd/td/telegram/dcs" target="_blank">go.dev</a>)</i>
 
 <span class="title">Dependency Relation</span>
-	imports <a href="../../../../../dep/github.com/gotd/td/telegram/dcs.html">17 packages</a>, and imported by <a href="../../../../../dep/github.com/gotd/td/telegram/dcs.html#imported-by">one package</a>
+	imports <a href="../../../../../dep/github.com/gotd/td/telegram/dcs.html">24 packages</a>, and imported by <a href="../../../../../dep/github.com/gotd/td/telegram/dcs.html#imported-by">2 packages</a>
 
 <div id="files"><span class="title">Involved Source Files</span>
 
-	<input type='checkbox' checked class="fold" id="file-0-fold-content"><label for="file-0-fold-content">   <a href="../../../../../src/github.com/gotd/td/telegram/dcs/doc.go.html#doc">#d</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/doc.go.html">doc.go</a></label><span id='file-0-fold-content-items' class="fold-items">
+	<span class="nodocs">      <a href="../../../../../src/github.com/gotd/td/telegram/dcs/dns.go.html">dns.go</a></span>
+	<input type='checkbox' checked class="fold" id="file-1-fold-content"><label for="file-1-fold-content">   <a href="../../../../../src/github.com/gotd/td/telegram/dcs/doc.go.html#doc">#d</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/doc.go.html">doc.go</a></label><span id='file-1-fold-content-items' class="fold-items">
 		Package dcs contains Telegram DCs list and some helpers.
 </span>
 	<span class="nodocs">      <a href="../../../../../src/github.com/gotd/td/telegram/dcs/find.go.html">find.go</a></span>
@@ -30,9 +31,8 @@
 	<span class="nodocs">      <a href="../../../../../src/github.com/gotd/td/telegram/dcs/protocol.go.html">protocol.go</a></span>
 	<span class="nodocs">      <a href="../../../../../src/github.com/gotd/td/telegram/dcs/resolver.go.html">resolver.go</a></span>
 	<span class="nodocs">      <a href="../../../../../src/github.com/gotd/td/telegram/dcs/resolver_notjs.go.html">resolver_notjs.go</a></span>
-	<span class="nodocs">      <a href="../../../../../src/github.com/gotd/td/telegram/dcs/staging.go.html">staging.go</a></span>
-	<span class="nodocs">      <a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html">websocket.go</a></span>
-	<span class="nodocs">      <a href="../../../../../src/github.com/gotd/td/telegram/dcs/wsconn.go.html">wsconn.go</a></span></div>
+	<span class="nodocs">      <a href="../../../../../src/github.com/gotd/td/telegram/dcs/test.go.html">test.go</a></span>
+	<span class="nodocs">      <a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html">websocket.go</a></span></div>
 <div id="examples"><span class="title">Code Examples</span>
 
 	<input type='checkbox' class="fold" id="example-0-fold-content"><label for="example-0-fold-content">DialFunc</label><span id='example-0-fold-content-items' class="fold-items">
@@ -41,10 +41,12 @@
 		import (
 			"context"
 			"fmt"
+			"time"
+		
+			"golang.org/x/net/proxy"
+		
 			"github.com/gotd/td/telegram"
 			"github.com/gotd/td/telegram/dcs"
-			"golang.org/x/net/proxy"
-			"time"
 		)
 		
 		func main() {
@@ -69,16 +71,18 @@
 		import (
 			"context"
 			"fmt"
+			"time"
+		
+			"golang.org/x/net/proxy"
+		
 			"github.com/gotd/td/telegram"
 			"github.com/gotd/td/telegram/dcs"
-			"golang.org/x/net/proxy"
-			"time"
 		)
 		
 		func main() {
 			// Dial using SOCKS5 proxy.
 		
-			sock5, _ := proxy.SOCKS5("tcp", "IP:PORT", &proxy.Auth{
+			sock5, _ := proxy.SOCKS5("tcp", "IP:PORT", &amp;proxy.Auth{
 				User:     "YOURUSERNAME",
 				Password: "YOURPASSWORD",
 			}, proxy.Direct)
@@ -100,24 +104,46 @@
 		}
 </span>
 </div>
-<div id="exported-types"><span class="title">Package-Level Type Names<span class="title-stat"><i> (total 13, in which 7 are exported)</i></span></span>
+<div id="exported-types"><span class="title">Package-Level Type Names<span class="title-stat"><i> (total 13, in which 8 are exported)</i></span></span>
 
 <div id="exported-types-buttons" class="js-on">	/* sort exporteds by: <label id="sort-types-by-alphabet" class="button">alphabet</label> | <label id="sort-types-by-popularity" class="button">popularity</label> */</div><div class="anchor type-res" id="name-DialFunc" data-popularity="0">	<input type='checkbox' class="fold" id="DialFunc-fold-content"><label for="DialFunc-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..DialFunc.html">type</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/resolver.go.html#line-20">DialFunc</a> <i>(func)</i></label><span id='DialFunc-fold-content-docs' class="fold-docs">
 		DialFunc connects to the address on the named network.
 
-</span></div><div class="anchor type-res" id="name-List" data-popularity="380">	<input type='checkbox' class="fold" id="List-fold-content"><label for="List-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..List.html">type</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/list.go.html#line-6">List</a> <i>(struct)</i></label><span id='List-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res" id="name-DNSConfig" data-popularity="125">	<input type='checkbox' class="fold" id="DNSConfig-fold-content"><label for="DNSConfig-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..DNSConfig.html">type</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/dns.go.html#line-99">DNSConfig</a> <i>(struct)</i></label><span id='DNSConfig-fold-content-docs' class="fold-docs">
+		DNSConfig is DC connection config obtained from DNS.
+
+		<input type='checkbox' class="fold" id="DNSConfig-fold-fields"><label for="DNSConfig-fold-fields">Fields (<i>total 3, all are exported</i>)</label><span id='DNSConfig-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="DNSConfig-fold-field-Date"><label for="DNSConfig-fold-field-Date"><a href="../../../../../src/github.com/gotd/td/tg/tl_help_config_simple_gen.go.html#line-39">Date</a> <i><a href="../../../../builtin.html#name-int">int</a></i></label><span id='DNSConfig-fold-field-Date-docs' class="fold-docs">
+				Date field of HelpConfigSimple.
+</span></span><span>
+			<input type='checkbox' class="fold" id="DNSConfig-fold-field-Expires"><label for="DNSConfig-fold-field-Expires"><a href="../../../../../src/github.com/gotd/td/tg/tl_help_config_simple_gen.go.html#line-41">Expires</a> <i><a href="../../../../builtin.html#name-int">int</a></i></label><span id='DNSConfig-fold-field-Expires-docs' class="fold-docs">
+				Expires field of HelpConfigSimple.
+</span></span><span>
+			<input type='checkbox' class="fold" id="DNSConfig-fold-field-Rules"><label for="DNSConfig-fold-field-Rules"><a href="../../../../../src/github.com/gotd/td/tg/tl_help_config_simple_gen.go.html#line-43">Rules</a> <i>[]<a href="../tg.html">tg</a>.<a href="../tg.html#name-AccessPointRule">AccessPointRule</a></i></label><span id='DNSConfig-fold-field-Rules-docs' class="fold-docs">
+				Rules field of HelpConfigSimple.
+</span></span></span>
+		<input type='checkbox' class="fold" id="DNSConfig-fold-methods"><label for="DNSConfig-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='DNSConfig-fold-methods-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="DNSConfig-fold-method-Options"><label for="DNSConfig-fold-method-Options">( DNSConfig) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/dns.go.html#line-109">Options</a>() (r []<a href="../tg.html">tg</a>.<a href="../tg.html#name-DCOption">DCOption</a>)</label><span id='DNSConfig-fold-method-Options-docs' class="fold-docs">
+				Options returns DC options from this config.
+</span></span></span>
+		<input type='checkbox' class="fold" id="DNSConfig-fold-results"><label for="DNSConfig-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='DNSConfig-fold-results-items' class="fold-items"><span>
+			func <a href="#name-ParseDNSConfig">ParseDNSConfig</a>(txt []<a href="../../../../builtin.html#name-string">string</a>) (<b>DNSConfig</b>, <a href="../../../../builtin.html#name-error">error</a>)</span></span>
+
+</span></div><div class="anchor type-res" id="name-List" data-popularity="455">	<input type='checkbox' class="fold" id="List-fold-content"><label for="List-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..List.html">type</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/list.go.html#line-6">List</a> <i>(struct)</i></label><span id='List-fold-content-docs' class="fold-docs">
 		List is a list of Telegram DC addresses and domains.
 
-		<input type='checkbox' class="fold" id="List-fold-fields"><label for="List-fold-fields">Fields (<i>total 2, both are exported</i>)</label><span id='List-fold-fields-items' class="fold-items"><span>
+		<input type='checkbox' class="fold" id="List-fold-fields"><label for="List-fold-fields">Fields (<i>total 3, all are exported</i>)</label><span id='List-fold-fields-items' class="fold-items"><span>
 			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/list.go.html#line-8">Domains</a> <i>map[<a href="../../../../builtin.html#name-int">int</a>]<a href="../../../../builtin.html#name-string">string</a></i></span></span><span>
-			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/list.go.html#line-7">Options</a> <i>[]<a href="../tg.html">tg</a>.<a href="../tg.html#name-DCOption">DCOption</a></i></span></span></span>
+			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/list.go.html#line-7">Options</a> <i>[]<a href="../tg.html">tg</a>.<a href="../tg.html#name-DCOption">DCOption</a></i></span></span><span>
+			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/list.go.html#line-9">Test</a> <i><a href="../../../../builtin.html#name-bool">bool</a></i></span></span></span>
 		<input type='checkbox' class="fold" id="List-fold-methods"><label for="List-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='List-fold-methods-items' class="fold-items"><span>
-			<input type='checkbox' class="fold" id="List-fold-method-Zero"><label for="List-fold-method-Zero">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/list.go.html#line-12">Zero</a>() <a href="../../../../builtin.html#name-bool">bool</a></label><span id='List-fold-method-Zero-docs' class="fold-docs">
+			<input type='checkbox' class="fold" id="List-fold-method-Zero"><label for="List-fold-method-Zero">( List) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/list.go.html#line-13">Zero</a>() <a href="../../../../builtin.html#name-bool">bool</a></label><span id='List-fold-method-Zero-docs' class="fold-docs">
 				Zero returns true if this List is zero value.
 </span></span></span>
-		<input type='checkbox' class="fold" id="List-fold-results"><label for="List-fold-results">As Outputs Of (<i>at least 3, in which 2 are exported</i>)</label><span id='List-fold-results-items' class="fold-items"><span>
+		<input type='checkbox' class="fold" id="List-fold-results"><label for="List-fold-results">As Outputs Of (<i>at least 4, in which 3 are exported</i>)</label><span id='List-fold-results-items' class="fold-items"><span>
 			func <a href="#name-Prod">Prod</a>() <b>List</b></span><span>
-			func <a href="#name-Staging">Staging</a>() <b>List</b></span>
+			func <a href="#name-Staging">Staging</a>() <b>List</b></span><span>
+			func <a href="#name-Test">Test</a>() <b>List</b></span>
 			<input type='checkbox' class="showhide" id="List-showhide-inputofs"><i><label for="List-showhide-inputofs" class="show-inline">/* at least one unexported ... */</label><label for="List-showhide-inputofs" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
 			func github.com/gotd/td/telegram.(*<a href="../telegram.html#name-Client">Client</a>).<a href="../../../../../src/github.com/gotd/td/telegram/conn_builder.go.html#line-55">dcList</a>() <b>List</b></i></span></span>
 		<input type='checkbox' class="fold" id="List-fold-params"><label for="List-fold-params">As Inputs Of (<i>at least 3, all are exported</i>)</label><span id='List-fold-params-items' class="fold-items"><span>
@@ -125,47 +151,53 @@
 			func <a href="#name-Resolver">Resolver</a>.<a href="../../../../../src/github.com/gotd/td/telegram/dcs/resolver.go.html#line-15">MediaOnly</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, list <b>List</b>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span><span>
 			func <a href="#name-Resolver">Resolver</a>.<a href="../../../../../src/github.com/gotd/td/telegram/dcs/resolver.go.html#line-14">Primary</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, list <b>List</b>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span>
 
-</span></div><div class="anchor type-res" id="name-MTProxyOptions" data-popularity="85">	<input type='checkbox' class="fold" id="MTProxyOptions-fold-content"><label for="MTProxyOptions-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..MTProxyOptions.html">type</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-84">MTProxyOptions</a> <i>(struct)</i></label><span id='MTProxyOptions-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res" id="name-MTProxyOptions" data-popularity="85">	<input type='checkbox' class="fold" id="MTProxyOptions-fold-content"><label for="MTProxyOptions-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..MTProxyOptions.html">type</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-86">MTProxyOptions</a> <i>(struct)</i></label><span id='MTProxyOptions-fold-content-docs' class="fold-docs">
 		MTProxyOptions is MTProxy resolver creation options.
 
 		<input type='checkbox' class="fold" id="MTProxyOptions-fold-fields"><label for="MTProxyOptions-fold-fields">Fields (<i>total 3, all are exported</i>)</label><span id='MTProxyOptions-fold-fields-items' class="fold-items"><span>
-			<input type='checkbox' class="fold" id="MTProxyOptions-fold-field-Dial"><label for="MTProxyOptions-fold-field-Dial"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-87">Dial</a> <i><a href="#name-DialFunc">DialFunc</a></i></label><span id='MTProxyOptions-fold-field-Dial-docs' class="fold-docs">
+			<input type='checkbox' class="fold" id="MTProxyOptions-fold-field-Dial"><label for="MTProxyOptions-fold-field-Dial"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-89">Dial</a> <i><a href="#name-DialFunc">DialFunc</a></i></label><span id='MTProxyOptions-fold-field-Dial-docs' class="fold-docs">
 				Dial specifies the dial function for creating unencrypted TCP connections.
 				If Dial is nil, then the resolver dials using package net.
 </span></span><span>
-			<input type='checkbox' class="fold" id="MTProxyOptions-fold-field-Network"><label for="MTProxyOptions-fold-field-Network"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-89">Network</a> <i><a href="../../../../builtin.html#name-string">string</a></i></label><span id='MTProxyOptions-fold-field-Network-docs' class="fold-docs">
+			<input type='checkbox' class="fold" id="MTProxyOptions-fold-field-Network"><label for="MTProxyOptions-fold-field-Network"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-91">Network</a> <i><a href="../../../../builtin.html#name-string">string</a></i></label><span id='MTProxyOptions-fold-field-Network-docs' class="fold-docs">
 				Network to use. Defaults to "tcp"
 </span></span><span>
-			<input type='checkbox' class="fold" id="MTProxyOptions-fold-field-Rand"><label for="MTProxyOptions-fold-field-Rand"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-91">Rand</a> <i><a href="../../../../io.html">io</a>.<a href="../../../../io.html#name-Reader">Reader</a></i></label><span id='MTProxyOptions-fold-field-Rand-docs' class="fold-docs">
+			<input type='checkbox' class="fold" id="MTProxyOptions-fold-field-Rand"><label for="MTProxyOptions-fold-field-Rand"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-93">Rand</a> <i><a href="../../../../io.html">io</a>.<a href="../../../../io.html#name-Reader">Reader</a></i></label><span id='MTProxyOptions-fold-field-Rand-docs' class="fold-docs">
 				Random source for MTProxy obfuscator.
 </span></span></span>
 		<input type='checkbox' class="fold" id="MTProxyOptions-fold-methods"><label for="MTProxyOptions-fold-methods">Methods (<i>only one, which is unexported</i>)</label><span id='MTProxyOptions-fold-methods-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="MTProxyOptions-showhide-methods"><i><label for="MTProxyOptions-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="MTProxyOptions-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-94">setDefaults</a>()</span></i></span></span>
+			<span class="nodocs">(*MTProxyOptions) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-96">setDefaults</a>()</span></i></span></span>
 		<input type='checkbox' class="fold" id="MTProxyOptions-fold-params"><label for="MTProxyOptions-fold-params">As Inputs Of (<i>at least one exported</i>)</label><span id='MTProxyOptions-fold-params-items' class="fold-items"><span>
 			func <a href="#name-MTProxy">MTProxy</a>(addr <a href="../../../../builtin.html#name-string">string</a>, secret []<a href="../../../../builtin.html#name-byte">byte</a>, opts <b>MTProxyOptions</b>) (<a href="#name-Resolver">Resolver</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span>
 
-</span></div><div class="anchor type-res" id="name-PlainOptions" data-popularity="85">	<input type='checkbox' class="fold" id="PlainOptions-fold-content"><label for="PlainOptions-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..PlainOptions.html">type</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-133">PlainOptions</a> <i>(struct)</i></label><span id='PlainOptions-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res" id="name-PlainOptions" data-popularity="85">	<input type='checkbox' class="fold" id="PlainOptions-fold-content"><label for="PlainOptions-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..PlainOptions.html">type</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-182">PlainOptions</a> <i>(struct)</i></label><span id='PlainOptions-fold-content-docs' class="fold-docs">
 		PlainOptions is plain resolver creation options.
 
-		<input type='checkbox' class="fold" id="PlainOptions-fold-fields"><label for="PlainOptions-fold-fields">Fields (<i>total 4, all are exported</i>)</label><span id='PlainOptions-fold-fields-items' class="fold-items"><span>
-			<input type='checkbox' class="fold" id="PlainOptions-fold-field-Dial"><label for="PlainOptions-fold-field-Dial"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-138">Dial</a> <i><a href="#name-DialFunc">DialFunc</a></i></label><span id='PlainOptions-fold-field-Dial-docs' class="fold-docs">
+		<input type='checkbox' class="fold" id="PlainOptions-fold-fields"><label for="PlainOptions-fold-fields">Fields (<i>total 6, all are exported</i>)</label><span id='PlainOptions-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="PlainOptions-fold-field-Dial"><label for="PlainOptions-fold-field-Dial"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-187">Dial</a> <i><a href="#name-DialFunc">DialFunc</a></i></label><span id='PlainOptions-fold-field-Dial-docs' class="fold-docs">
 				Dial specifies the dial function for creating unencrypted TCP connections.
 				If Dial is nil, then the resolver dials using package net.
 </span></span><span>
-			<input type='checkbox' class="fold" id="PlainOptions-fold-field-Network"><label for="PlainOptions-fold-field-Network"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-140">Network</a> <i><a href="../../../../builtin.html#name-string">string</a></i></label><span id='PlainOptions-fold-field-Network-docs' class="fold-docs">
+			<input type='checkbox' class="fold" id="PlainOptions-fold-field-Network"><label for="PlainOptions-fold-field-Network"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-191">Network</a> <i><a href="../../../../builtin.html#name-string">string</a></i></label><span id='PlainOptions-fold-field-Network-docs' class="fold-docs">
 				Network to use. Defaults to "tcp".
 </span></span><span>
-			<input type='checkbox' class="fold" id="PlainOptions-fold-field-PreferIPv6"><label for="PlainOptions-fold-field-PreferIPv6"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-143">PreferIPv6</a> <i><a href="../../../../builtin.html#name-bool">bool</a></i></label><span id='PlainOptions-fold-field-PreferIPv6-docs' class="fold-docs">
+			<input type='checkbox' class="fold" id="PlainOptions-fold-field-NoObfuscated"><label for="PlainOptions-fold-field-NoObfuscated"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-193">NoObfuscated</a> <i><a href="../../../../builtin.html#name-bool">bool</a></i></label><span id='PlainOptions-fold-field-NoObfuscated-docs' class="fold-docs">
+				NoObfuscated denotes to filter out TCP Obfuscated Only DCs.
+</span></span><span>
+			<input type='checkbox' class="fold" id="PlainOptions-fold-field-PreferIPv6"><label for="PlainOptions-fold-field-PreferIPv6"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-196">PreferIPv6</a> <i><a href="../../../../builtin.html#name-bool">bool</a></i></label><span id='PlainOptions-fold-field-PreferIPv6-docs' class="fold-docs">
 				PreferIPv6 gives IPv6 DCs higher precedence.
 				Default is to prefer IPv4 DCs over IPv6.
 </span></span><span>
-			<input type='checkbox' class="fold" id="PlainOptions-fold-field-Protocol"><label for="PlainOptions-fold-field-Protocol"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-135">Protocol</a> <i><a href="#name-Protocol">Protocol</a></i></label><span id='PlainOptions-fold-field-Protocol-docs' class="fold-docs">
+			<input type='checkbox' class="fold" id="PlainOptions-fold-field-Protocol"><label for="PlainOptions-fold-field-Protocol"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-184">Protocol</a> <i><a href="#name-Protocol">Protocol</a></i></label><span id='PlainOptions-fold-field-Protocol-docs' class="fold-docs">
 				Protocol is the transport protocol to use. Defaults to intermediate.
+</span></span><span>
+			<input type='checkbox' class="fold" id="PlainOptions-fold-field-Rand"><label for="PlainOptions-fold-field-Rand"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-189">Rand</a> <i><a href="../../../../io.html">io</a>.<a href="../../../../io.html#name-Reader">Reader</a></i></label><span id='PlainOptions-fold-field-Rand-docs' class="fold-docs">
+				Random source for TCPObfuscated DCs.
 </span></span></span>
 		<input type='checkbox' class="fold" id="PlainOptions-fold-methods"><label for="PlainOptions-fold-methods">Methods (<i>only one, which is unexported</i>)</label><span id='PlainOptions-fold-methods-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="PlainOptions-showhide-methods"><i><label for="PlainOptions-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="PlainOptions-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-146">setDefaults</a>()</span></i></span></span>
+			<span class="nodocs">(*PlainOptions) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-199">setDefaults</a>()</span></i></span></span>
 		<input type='checkbox' class="fold" id="PlainOptions-fold-params"><label for="PlainOptions-fold-params">As Inputs Of (<i>at least one exported</i>)</label><span id='PlainOptions-fold-params-items' class="fold-items"><span>
 			func <a href="#name-Plain">Plain</a>(opts <b>PlainOptions</b>) <a href="#name-Resolver">Resolver</a></span></span>
 
@@ -175,21 +207,21 @@
 		See https://core.telegram.org/mtproto/mtproto-transports
 
 		<input type='checkbox' class="fold" id="Protocol-fold-methods"><label for="Protocol-fold-methods">Methods (<i>total 2, both are exported</i>)</label><span id='Protocol-fold-methods-items' class="fold-items"><span>
-			<span class="nodocs">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/resolver.go.html#line-26">Codec</a>() <a href="../transport.html">transport</a>.<a href="../transport.html#name-Codec">Codec</a></span></span><span>
-			<span class="nodocs">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/resolver.go.html#line-27">Handshake</a>(conn <a href="../../../../net.html">net</a>.<a href="../../../../net.html#name-Conn">Conn</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span></span>
+			<span class="nodocs">( Protocol) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/resolver.go.html#line-26">Codec</a>() <a href="../transport.html">transport</a>.<a href="../transport.html#name-Codec">Codec</a></span></span><span>
+			<span class="nodocs">( Protocol) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/resolver.go.html#line-27">Handshake</a>(conn <a href="../../../../net.html">net</a>.<a href="../../../../net.html#name-Conn">Conn</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span></span>
 		<input type='checkbox' class="fold" id="Protocol-fold-impledby"><label for="Protocol-fold-impledby">Implemented By (<i>at least one exported</i>)</label><span id='Protocol-fold-impledby-items' class="fold-items"><span>
 			 github.com/gotd/td/transport.<a href="../transport.html#name-Protocol">Protocol</a></span></span>
 		<input type='checkbox' class="fold" id="Protocol-fold-impls"><label for="Protocol-fold-impls">Implements (<i>at least one unexported</i>)</label><span id='Protocol-fold-impls-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="Protocol-showhide-impls"><i><label for="Protocol-showhide-impls" class="show-inline">/* at least one unexported ... */</label><label for="Protocol-showhide-impls" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
-			 T : <a href="#name-protocol">protocol</a></i></span></span>
+			 Protocol : <a href="#name-protocol">protocol</a></i></span></span>
 
 </span></div><div class="anchor type-res" id="name-Resolver" data-popularity="900">	<input type='checkbox' class="fold" id="Resolver-fold-content"><label for="Resolver-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..Resolver.html">type</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/resolver.go.html#line-13">Resolver</a> <b><i>(interface)</i></b></label><span id='Resolver-fold-content-docs' class="fold-docs">
 		Resolver resolves DC and creates transport MTProto connection.
 
 		<input type='checkbox' class="fold" id="Resolver-fold-methods"><label for="Resolver-fold-methods">Methods (<i>total 3, all are exported</i>)</label><span id='Resolver-fold-methods-items' class="fold-items"><span>
-			<span class="nodocs">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/resolver.go.html#line-16">CDN</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, list <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span><span>
-			<span class="nodocs">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/resolver.go.html#line-15">MediaOnly</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, list <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span><span>
-			<span class="nodocs">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/resolver.go.html#line-14">Primary</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, list <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span></span>
+			<span class="nodocs">( Resolver) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/resolver.go.html#line-16">CDN</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, list <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span><span>
+			<span class="nodocs">( Resolver) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/resolver.go.html#line-15">MediaOnly</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, list <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span><span>
+			<span class="nodocs">( Resolver) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/resolver.go.html#line-14">Primary</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, list <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span></span>
 		<input type='checkbox' class="fold" id="Resolver-fold-impledby"><label for="Resolver-fold-impledby">Implemented By (<i>at least 3, none are exported</i>)</label><span id='Resolver-fold-impledby-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="Resolver-showhide-impedBys"><i><label for="Resolver-showhide-impedBys" class="show-inline">/* 3+ unexporteds ... */</label><label for="Resolver-showhide-impedBys" class="hide-inline">/* 3+ unexporteds: */</label></i><span class="hidden"><i>
 			 <a href="#name-mtProxy">mtProxy</a></i></span><span class="hidden"><i>
@@ -214,11 +246,11 @@
 </span></span></span>
 		<input type='checkbox' class="fold" id="WebsocketOptions-fold-methods"><label for="WebsocketOptions-fold-methods">Methods (<i>only one, which is unexported</i>)</label><span id='WebsocketOptions-fold-methods-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="WebsocketOptions-showhide-methods"><i><label for="WebsocketOptions-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="WebsocketOptions-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
-			<span class="nodocs">(*T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html#line-79">setDefaults</a>()</span></i></span></span>
+			<span class="nodocs">(*WebsocketOptions) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html#line-79">setDefaults</a>()</span></i></span></span>
 		<input type='checkbox' class="fold" id="WebsocketOptions-fold-params"><label for="WebsocketOptions-fold-params">As Inputs Of (<i>at least one exported</i>)</label><span id='WebsocketOptions-fold-params-items' class="fold-items"><span>
 			func <a href="#name-Websocket">Websocket</a>(opts <b>WebsocketOptions</b>) <a href="#name-Resolver">Resolver</a></span></span>
 
-</span></div></div><div>	<input type='checkbox' class="showhide" id="unexported-typenames-showhide"><i><label for="unexported-typenames-showhide" class="show-inline">/* 6 unexporteds ... */</label><label for="unexported-typenames-showhide" class="hide-inline">/* 6 unexporteds: */</label></i><div class="anchor type-res hidden" id="name-mtProxy" data-popularity="300">	<input type='checkbox' class="fold" id="mtProxy-fold-content"><label for="mtProxy-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..mtProxy^e77c2.html">type</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-20">mtProxy</a> <i>(struct)</i></label><span id='mtProxy-fold-content-docs' class="fold-docs">
+</span></div></div><div>	<input type='checkbox' class="showhide" id="unexported-typenames-showhide"><i><label for="unexported-typenames-showhide" class="show-inline">/* 5 unexporteds ... */</label><label for="unexported-typenames-showhide" class="hide-inline">/* 5 unexporteds: */</label></i><div class="anchor type-res hidden" id="name-mtProxy" data-popularity="300">	<input type='checkbox' class="fold" id="mtProxy-fold-content"><label for="mtProxy-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..mtProxy^e77c2.html">type</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-20">mtProxy</a> <i>(struct)</i></label><span id='mtProxy-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="mtProxy-fold-fields"><label for="mtProxy-fold-fields">Fields (<i>total 7, none are exported</i>)</label><span id='mtProxy-fold-fields-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="mtProxy-showhide-fields"><i><label for="mtProxy-showhide-fields" class="show-inline">/* 7 unexporteds ... */</label><label for="mtProxy-showhide-fields" class="hide-inline">/* 7 unexporteds: */</label></i><span class="hidden"><i>
@@ -230,106 +262,75 @@
 			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-25">secret</a> <i><a href="../internal/mtproxy.html">mtproxy</a>.<a href="../internal/mtproxy.html#name-Secret">Secret</a></i></span></i></span><span class="hidden"><i>
 			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-26">tag</a> <i>[4]<a href="../../../../builtin.html#name-byte">byte</a></i></span></i></span></span>
 		<input type='checkbox' class="fold" id="mtProxy-fold-methods"><label for="mtProxy-fold-methods">Methods (<i>total 5, in which 3 are exported</i>)</label><span id='mtProxy-fold-methods-items' class="fold-items"><span>
-			<span class="nodocs">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-38">CDN</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, _ <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span><span>
-			<span class="nodocs">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-34">MediaOnly</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, _ <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span><span>
-			<span class="nodocs">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-30">Primary</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, _ <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span>
+			<span class="nodocs">( mtProxy) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-41">CDN</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, _ <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span><span>
+			<span class="nodocs">( mtProxy) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-34">MediaOnly</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, _ <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span><span>
+			<span class="nodocs">( mtProxy) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-30">Primary</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, _ <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span>
 			<input type='checkbox' checked class="showhide" id="mtProxy-showhide-methods"><i><label for="mtProxy-showhide-methods" class="show-inline">/* 2 unexporteds ... */</label><label for="mtProxy-showhide-methods" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
-			<input type='checkbox' class="fold" id="mtProxy-fold-method-handshakeConn"><label for="mtProxy-fold-method-handshakeConn">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-58">handshakeConn</a>(c <a href="../../../../net.html">net</a>.<a href="../../../../net.html#name-Conn">Conn</a>, dc <a href="../../../../builtin.html#name-int">int</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</label><span id='mtProxy-fold-method-handshakeConn-docs' class="fold-docs">
+			<input type='checkbox' class="fold" id="mtProxy-fold-method-handshakeConn"><label for="mtProxy-fold-method-handshakeConn">( mtProxy) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-61">handshakeConn</a>(c <a href="../../../../net.html">net</a>.<a href="../../../../net.html#name-Conn">Conn</a>, dc <a href="../../../../builtin.html#name-int">int</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</label><span id='mtProxy-fold-method-handshakeConn-docs' class="fold-docs">
 				handshakeConn inits given net.Conn as MTProto connection.
 </span></i></span><span class="hidden"><i>
-			<span class="nodocs">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-42">resolve</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></i></span></span>
+			<span class="nodocs">( mtProxy) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-45">resolve</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></i></span></span>
 		<input type='checkbox' class="fold" id="mtProxy-fold-impls"><label for="mtProxy-fold-impls">Implements (<i>at least one exported</i>)</label><span id='mtProxy-fold-impls-items' class="fold-items"><span>
-			 T : <a href="#name-Resolver">Resolver</a></span></span>
+			 mtProxy : <a href="#name-Resolver">Resolver</a></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-plain" data-popularity="300">	<input type='checkbox' class="fold" id="plain-fold-content"><label for="plain-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.html">type</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-17">plain</a> <i>(struct)</i></label><span id='plain-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-plain" data-popularity="300">	<input type='checkbox' class="fold" id="plain-fold-content"><label for="plain-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..plain^a116c.html">type</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-22">plain</a> <i>(struct)</i></label><span id='plain-fold-content-docs' class="fold-docs">
 
-		<input type='checkbox' class="fold" id="plain-fold-fields"><label for="plain-fold-fields">Fields (<i>total 4, none are exported</i>)</label><span id='plain-fold-fields-items' class="fold-items">
-			<input type='checkbox' checked class="showhide" id="plain-showhide-fields"><i><label for="plain-showhide-fields" class="show-inline">/* 4 unexporteds ... */</label><label for="plain-showhide-fields" class="hide-inline">/* 4 unexporteds: */</label></i><span class="hidden"><i>
-			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-18">dial</a> <i><a href="#name-DialFunc">DialFunc</a></i></span></i></span><span class="hidden"><i>
-			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-20">network</a> <i><a href="../../../../builtin.html#name-string">string</a></i></span></i></span><span class="hidden"><i>
-			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-21">preferIPv6</a> <i><a href="../../../../builtin.html#name-bool">bool</a></i></span></i></span><span class="hidden"><i>
-			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-19">protocol</a> <i><a href="#name-Protocol">Protocol</a></i></span></i></span></span>
+		<input type='checkbox' class="fold" id="plain-fold-fields"><label for="plain-fold-fields">Fields (<i>total 6, none are exported</i>)</label><span id='plain-fold-fields-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="plain-showhide-fields"><i><label for="plain-showhide-fields" class="show-inline">/* 6 unexporteds ... */</label><label for="plain-showhide-fields" class="hide-inline">/* 6 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-23">dial</a> <i><a href="#name-DialFunc">DialFunc</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-26">network</a> <i><a href="../../../../builtin.html#name-string">string</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-27">noObfuscated</a> <i><a href="../../../../builtin.html#name-bool">bool</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-28">preferIPv6</a> <i><a href="../../../../builtin.html#name-bool">bool</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-24">protocol</a> <i><a href="#name-Protocol">Protocol</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-25">rand</a> <i><a href="../../../../io.html">io</a>.<a href="../../../../io.html#name-Reader">Reader</a></i></span></i></span></span>
 		<input type='checkbox' class="fold" id="plain-fold-methods"><label for="plain-fold-methods">Methods (<i>total 5, in which 3 are exported</i>)</label><span id='plain-fold-methods-items' class="fold-items"><span>
-			<span class="nodocs">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-41">CDN</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, list <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span><span>
-			<span class="nodocs">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-28">MediaOnly</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, list <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span><span>
-			<span class="nodocs">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-24">Primary</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, list <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span>
+			<span class="nodocs">( plain) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-59">CDN</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, list <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span><span>
+			<span class="nodocs">( plain) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-46">MediaOnly</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, list <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span><span>
+			<span class="nodocs">( plain) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-31">Primary</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, list <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span>
 			<input type='checkbox' checked class="showhide" id="plain-showhide-methods"><i><label for="plain-showhide-methods" class="show-inline">/* 2 unexporteds ... */</label><label for="plain-showhide-methods" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
-			<span class="nodocs">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-75">connect</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, dcOptions []<a href="../tg.html">tg</a>.<a href="../tg.html#name-DCOption">DCOption</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
-			<span class="nodocs">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-54">dialTransport</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../tg.html">tg</a>.<a href="../tg.html#name-DCOption">DCOption</a>) (_ <a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, rerr <a href="../../../../builtin.html#name-error">error</a>)</span></i></span></span>
+			<span class="nodocs">( plain) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-124">connect</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, test <a href="../../../../builtin.html#name-bool">bool</a>, dcOptions []<a href="../tg.html">tg</a>.<a href="../tg.html#name-DCOption">DCOption</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">( plain) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-63">dialTransport</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, test <a href="../../../../builtin.html#name-bool">bool</a>, dc <a href="../tg.html">tg</a>.<a href="../tg.html#name-DCOption">DCOption</a>) (_ <a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, rerr <a href="../../../../builtin.html#name-error">error</a>)</span></i></span></span>
 		<input type='checkbox' class="fold" id="plain-fold-impls"><label for="plain-fold-impls">Implements (<i>at least one exported</i>)</label><span id='plain-fold-impls-items' class="fold-items"><span>
-			 T : <a href="#name-Resolver">Resolver</a></span></span>
+			 plain : <a href="#name-Resolver">Resolver</a></span></span>
 
 </span></div><div class="anchor type-res hidden" id="name-protocol" data-popularity="350">	<input type='checkbox' class="fold" id="protocol-fold-content"><label for="protocol-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..protocol^2ea88.html">type</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/protocol.go.html#line-9">protocol</a> <b><i>(interface)</i></b></label><span id='protocol-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="protocol-fold-methods"><label for="protocol-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='protocol-fold-methods-items' class="fold-items"><span>
-			<span class="nodocs">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/protocol.go.html#line-10">Handshake</a>(conn <a href="../../../../net.html">net</a>.<a href="../../../../net.html#name-Conn">Conn</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span></span>
+			<span class="nodocs">( protocol) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/protocol.go.html#line-10">Handshake</a>(conn <a href="../../../../net.html">net</a>.<a href="../../../../net.html#name-Conn">Conn</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span></span>
 		<input type='checkbox' class="fold" id="protocol-fold-impledby"><label for="protocol-fold-impledby">Implemented By (<i>at least 2, both are exported</i>)</label><span id='protocol-fold-impledby-items' class="fold-items"><span>
 			 <a href="#name-Protocol">Protocol</a> <i>(interface)</i></span><span>
 			 github.com/gotd/td/transport.<a href="../transport.html#name-Protocol">Protocol</a></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-websocketAddr" data-popularity="300">	<input type='checkbox' class="fold" id="websocketAddr-fold-content"><label for="websocketAddr-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..websocketAddr^dd18b.html">type</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-93">websocketAddr</a> <i>(struct)</i></label><span id='websocketAddr-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-sortByLen" data-popularity="200">	<input type='checkbox' class="fold" id="sortByLen-fold-content"><label for="sortByLen-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..sortByLen^80f7b.html">type</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/dns.go.html#line-84">sortByLen</a> <i>([])</i></label><span id='sortByLen-fold-content-docs' class="fold-docs">
 
-		<input type='checkbox' class="fold" id="websocketAddr-fold-methods"><label for="websocketAddr-fold-methods">Methods (<i>total 2, both are exported</i>)</label><span id='websocketAddr-fold-methods-items' class="fold-items"><span>
-			<span class="nodocs">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-96">Network</a>() <a href="../../../../builtin.html#name-string">string</a></span></span><span>
-			<span class="nodocs">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-100">String</a>() <a href="../../../../builtin.html#name-string">string</a></span></span></span>
-		<input type='checkbox' class="fold" id="websocketAddr-fold-impls"><label for="websocketAddr-fold-impls">Implements (<i>at least 4, in which 2 are exported</i>)</label><span id='websocketAddr-fold-impls-items' class="fold-items"><span>
-			 T : fmt.<a href="../../../../fmt.html#name-Stringer">Stringer</a></span><span>
-			 T : net.<a href="../../../../net.html#name-Addr">Addr</a></span>
-			<input type='checkbox' checked class="showhide" id="websocketAddr-showhide-impls"><i><label for="websocketAddr-showhide-impls" class="show-inline">/* 2+ unexporteds ... */</label><label for="websocketAddr-showhide-impls" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
-			 T : context.<a href="../../../../context.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
-			 T : runtime.<a href="../../../../runtime.html#name-stringer">stringer</a></i></span></span>
+		<input type='checkbox' class="fold" id="sortByLen-fold-methods"><label for="sortByLen-fold-methods">Methods (<i>total 3, all are exported</i>)</label><span id='sortByLen-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">( sortByLen) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/dns.go.html#line-86">Len</a>() <a href="../../../../builtin.html#name-int">int</a></span></span><span>
+			<span class="nodocs">( sortByLen) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/dns.go.html#line-90">Less</a>(i, j <a href="../../../../builtin.html#name-int">int</a>) <a href="../../../../builtin.html#name-bool">bool</a></span></span><span>
+			<span class="nodocs">( sortByLen) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/dns.go.html#line-94">Swap</a>(i, j <a href="../../../../builtin.html#name-int">int</a>)</span></span></span>
+		<input type='checkbox' class="fold" id="sortByLen-fold-impls"><label for="sortByLen-fold-impls">Implements (<i>at least one exported</i>)</label><span id='sortByLen-fold-impls-items' class="fold-items"><span>
+			 sortByLen : sort.<a href="../../../../sort.html#name-Interface">Interface</a></span></span>
 
-</span></div><div class="anchor type-res hidden" id="name-ws" data-popularity="250">	<input type='checkbox' class="fold" id="ws-fold-content"><label for="ws-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..ws^50a66.html">type</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html#line-19">ws</a> <i>(struct)</i></label><span id='ws-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor type-res hidden" id="name-ws" data-popularity="250">	<input type='checkbox' class="fold" id="ws-fold-content"><label for="ws-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..ws^50a66.html">type</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html#line-20">ws</a> <i>(struct)</i></label><span id='ws-fold-content-docs' class="fold-docs">
 
 		<input type='checkbox' class="fold" id="ws-fold-fields"><label for="ws-fold-fields">Fields (<i>total 4, none are exported</i>)</label><span id='ws-fold-fields-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="ws-showhide-fields"><i><label for="ws-showhide-fields" class="show-inline">/* 4 unexporteds ... */</label><label for="ws-showhide-fields" class="hide-inline">/* 4 unexporteds: */</label></i><span class="hidden"><i>
-			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html#line-20">dialOptions</a> <i>*<a href="../../../../nhooyr.io/websocket.html">websocket</a>.<a href="../../../../nhooyr.io/websocket.html#name-DialOptions">DialOptions</a></i></span></i></span><span class="hidden"><i>
-			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html#line-21">protocol</a> <i><a href="#name-protocol">protocol</a></i></span></i></span><span class="hidden"><i>
-			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html#line-24">rand</a> <i><a href="../../../../io.html">io</a>.<a href="../../../../io.html#name-Reader">Reader</a></i></span></i></span><span class="hidden"><i>
-			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html#line-23">tag</a> <i>[4]<a href="../../../../builtin.html#name-byte">byte</a></i></span></i></span></span>
+			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html#line-21">dialOptions</a> <i>*<a href="../../../../nhooyr.io/websocket.html">websocket</a>.<a href="../../../../nhooyr.io/websocket.html#name-DialOptions">DialOptions</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html#line-22">protocol</a> <i><a href="#name-protocol">protocol</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html#line-25">rand</a> <i><a href="../../../../io.html">io</a>.<a href="../../../../io.html#name-Reader">Reader</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html#line-24">tag</a> <i>[4]<a href="../../../../builtin.html#name-byte">byte</a></i></span></i></span></span>
 		<input type='checkbox' class="fold" id="ws-fold-methods"><label for="ws-fold-methods">Methods (<i>total 4, in which 3 are exported</i>)</label><span id='ws-fold-methods-items' class="fold-items"><span>
-			<span class="nodocs">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html#line-66">CDN</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, list <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span><span>
-			<span class="nodocs">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html#line-62">MediaOnly</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, list <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span><span>
-			<span class="nodocs">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html#line-58">Primary</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, list <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span>
+			<span class="nodocs">( ws) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html#line-66">CDN</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, list <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span><span>
+			<span class="nodocs">( ws) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html#line-62">MediaOnly</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, list <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span><span>
+			<span class="nodocs">( ws) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html#line-58">Primary</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, list <a href="#name-List">List</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span>
 			<input type='checkbox' checked class="showhide" id="ws-showhide-methods"><i><label for="ws-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="ws-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
-			<span class="nodocs">( T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html#line-27">connect</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, domains map[<a href="../../../../builtin.html#name-int">int</a>]<a href="../../../../builtin.html#name-string">string</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></i></span></span>
+			<span class="nodocs">( ws) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html#line-28">connect</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, dc <a href="../../../../builtin.html#name-int">int</a>, domains map[<a href="../../../../builtin.html#name-int">int</a>]<a href="../../../../builtin.html#name-string">string</a>) (<a href="../transport.html">transport</a>.<a href="../transport.html#name-Conn">Conn</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></i></span></span>
 		<input type='checkbox' class="fold" id="ws-fold-impls"><label for="ws-fold-impls">Implements (<i>at least one exported</i>)</label><span id='ws-fold-impls-items' class="fold-items"><span>
-			 T : <a href="#name-Resolver">Resolver</a></span></span>
-
-</span></div><div class="anchor type-res hidden" id="name-wsConn" data-popularity="800">	<input type='checkbox' class="fold" id="wsConn-fold-content"><label for="wsConn-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..wsConn^9d3e9.html">type</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-17">wsConn</a> <i>(struct)</i></label><span id='wsConn-fold-content-docs' class="fold-docs">
-
-		<input type='checkbox' class="fold" id="wsConn-fold-fields"><label for="wsConn-fold-fields">Fields (<i>total 7, none are exported</i>)</label><span id='wsConn-fold-fields-items' class="fold-items">
-			<input type='checkbox' checked class="showhide" id="wsConn-showhide-fields"><i><label for="wsConn-showhide-fields" class="show-inline">/* 7 unexporteds ... */</label><label for="wsConn-showhide-fields" class="hide-inline">/* 7 unexporteds: */</label></i><span class="hidden"><i>
-			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-18">conn</a> <i>*<a href="../../../../nhooyr.io/websocket.html">websocket</a>.<a href="../../../../nhooyr.io/websocket.html#name-Conn">Conn</a></i></span></i></span><span class="hidden"><i>
-			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-24">readContext</a> <i><a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a></i></span></i></span><span class="hidden"><i>
-			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-26">readMu</a> <i><a href="../../../../sync.html">sync</a>.<a href="../../../../sync.html#name-Mutex">Mutex</a></i></span></i></span><span class="hidden"><i>
-			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-23">readTimer</a> <i>*<a href="../../../../time.html">time</a>.<a href="../../../../time.html#name-Timer">Timer</a></i></span></i></span><span class="hidden"><i>
-			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-27">reader</a> <i><a href="../../../../io.html">io</a>.<a href="../../../../io.html#name-Reader">Reader</a></i></span></i></span><span class="hidden"><i>
-			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-21">writeContext</a> <i><a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a></i></span></i></span><span class="hidden"><i>
-			<span class="nodocs"><a href="../../../../../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-20">writeTimer</a> <i>*<a href="../../../../time.html">time</a>.<a href="../../../../time.html#name-Timer">Timer</a></i></span></i></span></span>
-		<input type='checkbox' class="fold" id="wsConn-fold-methods"><label for="wsConn-fold-methods">Methods (<i>total 8, all are exported</i>)</label><span id='wsConn-fold-methods-items' class="fold-items"><span>
-			<span class="nodocs">(*T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-87">Close</a>() <a href="../../../../builtin.html#name-error">error</a></span></span><span>
-			<span class="nodocs">(*T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-104">LocalAddr</a>() <a href="../../../../net.html">net</a>.<a href="../../../../net.html#name-Addr">Addr</a></span></span><span>
-			<span class="nodocs">(*T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-59">Read</a>(b []<a href="../../../../builtin.html#name-byte">byte</a>) (<a href="../../../../builtin.html#name-int">int</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span><span>
-			<span class="nodocs">(*T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-108">RemoteAddr</a>() <a href="../../../../net.html">net</a>.<a href="../../../../net.html#name-Addr">Addr</a></span></span><span>
-			<span class="nodocs">(*T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-112">SetDeadline</a>(t <a href="../../../../time.html">time</a>.<a href="../../../../time.html#name-Time">Time</a>) <a href="../../../../builtin.html#name-error">error</a></span></span><span>
-			<span class="nodocs">(*T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-125">SetReadDeadline</a>(t <a href="../../../../time.html">time</a>.<a href="../../../../time.html#name-Time">Time</a>) <a href="../../../../builtin.html#name-error">error</a></span></span><span>
-			<span class="nodocs">(*T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-116">SetWriteDeadline</a>(t <a href="../../../../time.html">time</a>.<a href="../../../../time.html#name-Time">Time</a>) <a href="../../../../builtin.html#name-error">error</a></span></span><span>
-			<span class="nodocs">(*T) <a href="../../../../../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-51">Write</a>(b []<a href="../../../../builtin.html#name-byte">byte</a>) (<a href="../../../../builtin.html#name-int">int</a>, <a href="../../../../builtin.html#name-error">error</a>)</span></span></span>
-		<input type='checkbox' class="fold" id="wsConn-fold-impls"><label for="wsConn-fold-impls">Implements (<i>at least 8, all are exported</i>)</label><span id='wsConn-fold-impls-items' class="fold-items"><span>
-			*T : io.<a href="../../../../io.html#name-Closer">Closer</a></span><span>
-			*T : io.<a href="../../../../io.html#name-ReadCloser">ReadCloser</a></span><span>
-			*T : io.<a href="../../../../io.html#name-Reader">Reader</a></span><span>
-			*T : io.<a href="../../../../io.html#name-ReadWriteCloser">ReadWriteCloser</a></span><span>
-			*T : io.<a href="../../../../io.html#name-ReadWriter">ReadWriter</a></span><span>
-			*T : io.<a href="../../../../io.html#name-WriteCloser">WriteCloser</a></span><span>
-			*T : io.<a href="../../../../io.html#name-Writer">Writer</a></span><span>
-			*T : net.<a href="../../../../net.html#name-Conn">Conn</a></span></span>
+			 ws : <a href="#name-Resolver">Resolver</a></span></span>
 
 </span></div></div>
-<div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 9, in which 8 are exported)</i></span></span>
+<div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 12, in which 10 are exported)</i></span></span>
 
-<div class="anchor value-res" id="name-DefaultResolver">	<input type='checkbox' class="fold" id="DefaultResolver-fold-content"><label for="DefaultResolver-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..DefaultResolver.html">func</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/resolver_notjs.go.html#line-6">DefaultResolver</a>() <a href="#name-Resolver">Resolver</a></label><span id='DefaultResolver-fold-content-docs' class="fold-docs">
+<div class="anchor value-res" id="name-DefaultResolver">	<input type='checkbox' class="fold" id="DefaultResolver-fold-content"><label for="DefaultResolver-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..DefaultResolver.html">func</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/resolver_notjs.go.html#line-7">DefaultResolver</a>() <a href="#name-Resolver">Resolver</a></label><span id='DefaultResolver-fold-content-docs' class="fold-docs">
 		DefaultResolver returns default DC resolver for current platform.
 
 </span></div><div class="anchor value-res" id="name-FindDCs">	<input type='checkbox' class="fold" id="FindDCs-fold-content"><label for="FindDCs-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..FindDCs.html">func</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/find.go.html#line-10">FindDCs</a>(opts []<a href="../tg.html">tg</a>.<a href="../tg.html#name-DCOption">DCOption</a>, dcID <a href="../../../../builtin.html#name-int">int</a>, preferIPv6 <a href="../../../../builtin.html#name-bool">bool</a>) []<a href="../tg.html">tg</a>.<a href="../tg.html#name-DCOption">DCOption</a></label><span id='FindDCs-fold-content-docs' class="fold-docs">
@@ -340,28 +341,44 @@
 		Unlike FindDC, it filters CDNs and MediaOnly servers, returns error
 		if not found.
 
-</span></div><div class="anchor value-res" id="name-MTProxy">	<input type='checkbox' class="fold" id="MTProxy-fold-content"><label for="MTProxy-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..MTProxy.html">func</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-110">MTProxy</a>(addr <a href="../../../../builtin.html#name-string">string</a>, secret []<a href="../../../../builtin.html#name-byte">byte</a>, opts <a href="#name-MTProxyOptions">MTProxyOptions</a>) (<a href="#name-Resolver">Resolver</a>, <a href="../../../../builtin.html#name-error">error</a>)</label><span id='MTProxy-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor value-res" id="name-MTProxy">	<input type='checkbox' class="fold" id="MTProxy-fold-content"><label for="MTProxy-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..MTProxy.html">func</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/mtproxy.go.html#line-112">MTProxy</a>(addr <a href="../../../../builtin.html#name-string">string</a>, secret []<a href="../../../../builtin.html#name-byte">byte</a>, opts <a href="#name-MTProxyOptions">MTProxyOptions</a>) (<a href="#name-Resolver">Resolver</a>, <a href="../../../../builtin.html#name-error">error</a>)</label><span id='MTProxy-fold-content-docs' class="fold-docs">
 		MTProxy creates MTProxy obfuscated DC resolver.
 
 		See https://core.telegram.org/mtproto/mtproto-transports#transport-obfuscation.
 
-</span></div><div class="anchor value-res" id="name-Plain">	<input type='checkbox' class="fold" id="Plain-fold-content"><label for="Plain-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..Plain.html">func</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-160">Plain</a>(opts <a href="#name-PlainOptions">PlainOptions</a>) <a href="#name-Resolver">Resolver</a></label><span id='Plain-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor value-res" id="name-ParseDNSConfig">	<input type='checkbox' class="fold" id="ParseDNSConfig-fold-content"><label for="ParseDNSConfig-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..ParseDNSConfig.html">func</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/dns.go.html#line-142">ParseDNSConfig</a>(txt []<a href="../../../../builtin.html#name-string">string</a>) (<a href="#name-DNSConfig">DNSConfig</a>, <a href="../../../../builtin.html#name-error">error</a>)</label><span id='ParseDNSConfig-fold-content-docs' class="fold-docs">
+		ParseDNSConfig parses tg.HelpConfigSimple from TXT response.
+
+</span></div><div class="anchor value-res" id="name-Plain">	<input type='checkbox' class="fold" id="Plain-fold-content"><label for="Plain-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..Plain.html">func</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/plain.go.html#line-216">Plain</a>(opts <a href="#name-PlainOptions">PlainOptions</a>) <a href="#name-Resolver">Resolver</a></label><span id='Plain-fold-content-docs' class="fold-docs">
 		Plain creates plain DC resolver.
 
 </span></div><div class="anchor value-res" id="name-Prod">	<input type='checkbox' class="fold" id="Prod-fold-content"><label for="Prod-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..Prod.html">func</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/prod.go.html#line-6">Prod</a>() <a href="#name-List">List</a></label><span id='Prod-fold-content-docs' class="fold-docs">
 		Prod returns production DC list.
 
-</span></div><div class="anchor value-res" id="name-Staging">	<input type='checkbox' class="fold" id="Staging-fold-content"><label for="Staging-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..Staging.html">func</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/staging.go.html#line-6">Staging</a>() <a href="#name-List">List</a></label><span id='Staging-fold-content-docs' class="fold-docs">
+</span></div><div class="anchor value-res" id="name-Staging">	<input type='checkbox' class="fold" id="Staging-fold-content"><label for="Staging-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..Staging.html">func</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/test.go.html#line-8">Staging</a>() <a href="#name-List">List</a></label><span id='Staging-fold-content-docs' class="fold-docs">
 		Staging returns staging DC list.
+
+		Deprecated: Use Test().
+
+</span></div><div class="anchor value-res" id="name-Test">	<input type='checkbox' class="fold" id="Test-fold-content"><label for="Test-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..Test.html">func</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/test.go.html#line-13">Test</a>() <a href="#name-List">List</a></label><span id='Test-fold-content-docs' class="fold-docs">
+		Test returns test DC list.
 
 </span></div><div class="anchor value-res" id="name-Websocket">	<input type='checkbox' class="fold" id="Websocket-fold-content"><label for="Websocket-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..Websocket.html">func</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/websocket.go.html#line-93">Websocket</a>(opts <a href="#name-WebsocketOptions">WebsocketOptions</a>) <a href="#name-Resolver">Resolver</a></label><span id='Websocket-fold-content-docs' class="fold-docs">
 		Websocket creates Websocket DC resolver.
 
 		See https://core.telegram.org/mtproto/transports#websocket.
 
-</span></div>	<input type='checkbox' class="showhide" id="unexported-functions-showhide"><i><label for="unexported-functions-showhide" class="show-inline">/* one unexported ... */</label><label for="unexported-functions-showhide" class="hide-inline">/* one unexported: */</label></i><div class="anchor value-res hidden" id="name-netConn"><i>	<span class="nodocs"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..netConn^a3596.html">func</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/wsconn.go.html#line-30">netConn</a>(ctx <a href="../../../../context.html">context</a>.<a href="../../../../context.html#name-Context">Context</a>, c *<a href="../../../../nhooyr.io/websocket.html">websocket</a>.<a href="../../../../nhooyr.io/websocket.html#name-Conn">Conn</a>) <a href="../../../../net.html">net</a>.<a href="../../../../net.html#name-Conn">Conn</a></span></i></div></div></code></pre><pre id="footer">
+</span></div>	<input type='checkbox' class="showhide" id="unexported-functions-showhide"><i><label for="unexported-functions-showhide" class="show-inline">/* 2 unexporteds ... */</label><label for="unexported-functions-showhide" class="hide-inline">/* 2 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-init"><i>	<span class="nodocs"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..init^bb540.html">func</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/dns.go.html#line-29">init</a>()</span></i></div><div class="anchor value-res hidden" id="name-parseDNSList"><i>	<input type='checkbox' class="fold" id="parseDNSList-fold-content"><label for="parseDNSList-fold-content"> <a href="../../../../../use/github.com/gotd/td/telegram/dcs..parseDNSList^07827.html">func</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/dns.go.html#line-51">parseDNSList</a>(input [256]<a href="../../../../builtin.html#name-byte">byte</a>) (<a href="../tg.html">tg</a>.<a href="../tg.html#name-HelpConfigSimple">HelpConfigSimple</a>, <a href="../../../../builtin.html#name-error">error</a>)</label><span id='parseDNSList-fold-content-docs' class="fold-docs">
+		parseDNSList decodes raw encrypted simple config.
+
+		Notice that parseDNSList does not decode base64, user should do it manually.
+
+</span></i></div></div>
+<div id="exported-variables"><span class="title">Package-Level Variables<span class="title-stat"><i> (only one, which is unexported)</i></span></span>
+
+	<input type='checkbox' class="showhide" id="unexported-variables-showhide"><i><label for="unexported-variables-showhide" class="show-inline">/* one unexported ... */</label><label for="unexported-variables-showhide" class="hide-inline">/* one unexported: */</label></i><div class="anchor value-res hidden" id="name-dnsKey"><i>	<span class="nodocs">  <a href="../../../../../use/github.com/gotd/td/telegram/dcs..dnsKey^d8f27.html">var</a> <a href="../../../../../src/github.com/gotd/td/telegram/dcs/dns.go.html#line-22">dnsKey</a> struct{<a href="../../../../crypto/rsa.html">rsa</a>.<a href="../../../../crypto/rsa.html#name-PublicKey">PublicKey</a>; once <a href="../../../../sync.html">sync</a>.<a href="../../../../sync.html#name-Once">Once</a>; eBig *<a href="../../../../math/big.html">big</a>.<a href="../../../../math/big.html#name-Int">Int</a>}</span></i></div></div></code></pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

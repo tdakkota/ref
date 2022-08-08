@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: find.go in package github.com/gotd/td/telegram/dcs</title>
-<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -71,12 +71,12 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-7"><code>)</code></span>
 <span class="codeline" id="line-8"><code></code></span>
 <span class="codeline" id="line-9"><code><span class="comment">// FindDCs searches DCs candidates from given config.</span></code></span>
-<span class="codeline" id="line-10"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/telegram/dcs.html#name-FindDCs" class="ident">FindDCs</a></label>(<label for="r1" class="ident">opts</label> []<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i1">tg</a>.<a href="../../tg/tl_dc_option_gen.go.html#line-36" class="ident">DCOption</a>, <label for="r2" class="ident">dcID</label> <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r3" class="ident">preferIPv6</label> <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a>) []<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i1">tg</a>.<a href="../../tg/tl_dc_option_gen.go.html#line-36" class="ident">DCOption</a> {</code></span>
+<span class="codeline" id="line-10"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/telegram/dcs.html#name-FindDCs" class="ident">FindDCs</a></label>(<label for="r1" class="ident">opts</label> []<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i1">tg</a>.<a href="../../tg/tl_dc_option_gen.go.html#line-38" class="ident">DCOption</a>, <label for="r2" class="ident">dcID</label> <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r3" class="ident">preferIPv6</label> <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a>) []<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i1">tg</a>.<a href="../../tg/tl_dc_option_gen.go.html#line-38" class="ident">DCOption</a> {</code></span>
 <span class="codeline" id="line-11"><code>	<span class="comment">// Preallocate slice.</span></code></span>
-<span class="codeline" id="line-12"><code>	<label for="r4" class="ident">candidates</label> := <a href="../../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i1">tg</a>.<a href="../../tg/tl_dc_option_gen.go.html#line-36" class="ident">DCOption</a>, <span class="lit-number">0</span>, <span class="lit-number">32</span>)</code></span>
+<span class="codeline" id="line-12"><code>	<label for="r4" class="ident">candidates</label> := <a href="../../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i1">tg</a>.<a href="../../tg/tl_dc_option_gen.go.html#line-38" class="ident">DCOption</a>, <span class="lit-number">0</span>, <span class="lit-number">32</span>)</code></span>
 <span class="codeline" id="line-13"><code></code></span>
 <span class="codeline" id="line-14"><code>	<span class="keyword">for</span> <label for="r5" class="ident">_</label>, <label for="r6" class="ident">candidateDC</label> := <span class="keyword">range</span> <label for="r1" class="ident">opts</label> {</code></span>
-<span class="codeline" id="line-15"><code>		<span class="keyword">if</span> <label for="r6" class="ident">candidateDC</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-62" class="ident">ID</a> != <label for="r2" class="ident">dcID</label> {</code></span>
+<span class="codeline" id="line-15"><code>		<span class="keyword">if</span> <label for="r6" class="ident">candidateDC</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-66" class="ident">ID</a> != <label for="r2" class="ident">dcID</label> {</code></span>
 <span class="codeline" id="line-16"><code>			<span class="keyword">continue</span></code></span>
 <span class="codeline" id="line-17"><code>		}</code></span>
 <span class="codeline" id="line-18"><code>		<label for="r4" class="ident">candidates</label> = <a href="../../../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r4" class="ident">candidates</label>, <label for="r6" class="ident">candidateDC</label>)</code></span>
@@ -86,22 +86,22 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-22"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-23"><code>	}</code></span>
 <span class="codeline" id="line-24"><code></code></span>
-<span class="codeline" id="line-25"><code>	<a href="../../../../../../pkg/sort.html" class="ident i0">sort</a>.<a href="../../../../../sort/slice.go.html#line-16" class="ident">Slice</a>(<label for="r4" class="ident">candidates</label>, <span class="keyword">func</span>(<label for="r7" class="ident">i</label>, <label for="r8" class="ident">j</label> <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-25"><code>	<a href="../../../../../../pkg/sort.html" class="ident i0">sort</a>.<a href="../../../../../sort/slice.go.html#line-18" class="ident">Slice</a>(<label for="r4" class="ident">candidates</label>, <span class="keyword">func</span>(<label for="r7" class="ident">i</label>, <label for="r8" class="ident">j</label> <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
 <span class="codeline" id="line-26"><code>		<label for="r9" class="ident">l</label>, <label for="r10" class="ident">r</label> := <label for="r4" class="ident">candidates</label>[<label for="r7" class="ident">i</label>], <label for="r4" class="ident">candidates</label>[<label for="r8" class="ident">j</label>]</code></span>
 <span class="codeline" id="line-27"><code></code></span>
 <span class="codeline" id="line-28"><code>		<span class="comment">// If we prefer IPv6 and left is IPv6 and right is not, so then</span></code></span>
 <span class="codeline" id="line-29"><code><span class="comment">		// left is smaller (would be before right).</span></code></span>
 <span class="codeline" id="line-30"><code>		<span class="keyword">if</span> <label for="r3" class="ident">preferIPv6</label> {</code></span>
-<span class="codeline" id="line-31"><code>			<span class="keyword">if</span> <label for="r9" class="ident">l</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-43" class="ident">Ipv6</a> &amp;&amp; !<label for="r10" class="ident">r</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-43" class="ident">Ipv6</a> {</code></span>
+<span class="codeline" id="line-31"><code>			<span class="keyword">if</span> <label for="r9" class="ident">l</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-45" class="ident">Ipv6</a> &amp;&amp; !<label for="r10" class="ident">r</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-45" class="ident">Ipv6</a> {</code></span>
 <span class="codeline" id="line-32"><code>				<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
 <span class="codeline" id="line-33"><code>			}</code></span>
-<span class="codeline" id="line-34"><code>			<span class="keyword">if</span> !<label for="r9" class="ident">l</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-43" class="ident">Ipv6</a> &amp;&amp; <label for="r10" class="ident">r</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-43" class="ident">Ipv6</a> {</code></span>
+<span class="codeline" id="line-34"><code>			<span class="keyword">if</span> !<label for="r9" class="ident">l</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-45" class="ident">Ipv6</a> &amp;&amp; <label for="r10" class="ident">r</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-45" class="ident">Ipv6</a> {</code></span>
 <span class="codeline" id="line-35"><code>				<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
 <span class="codeline" id="line-36"><code>			}</code></span>
 <span class="codeline" id="line-37"><code>		}</code></span>
 <span class="codeline" id="line-38"><code></code></span>
 <span class="codeline" id="line-39"><code>		<span class="comment">// Also we prefer static addresses.</span></code></span>
-<span class="codeline" id="line-40"><code>		<span class="keyword">return</span> <label for="r9" class="ident">l</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-60" class="ident">Static</a> &amp;&amp; !<label for="r10" class="ident">r</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-60" class="ident">Static</a></code></span>
+<span class="codeline" id="line-40"><code>		<span class="keyword">return</span> <label for="r9" class="ident">l</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-62" class="ident">Static</a> &amp;&amp; !<label for="r10" class="ident">r</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-62" class="ident">Static</a></code></span>
 <span class="codeline" id="line-41"><code>	})</code></span>
 <span class="codeline" id="line-42"><code></code></span>
 <span class="codeline" id="line-43"><code>	<span class="keyword">return</span> <label for="r4" class="ident">candidates</label></code></span>
@@ -110,12 +110,12 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-46"><code><span class="comment">// FindPrimaryDCs searches new primary DC from given config.</span></code></span>
 <span class="codeline" id="line-47"><code><span class="comment">// Unlike FindDC, it filters CDNs and MediaOnly servers, returns error</span></code></span>
 <span class="codeline" id="line-48"><code><span class="comment">// if not found.</span></code></span>
-<span class="codeline" id="line-49"><code><span class="keyword">func</span> <label for="r11" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/telegram/dcs.html#name-FindPrimaryDCs" class="ident">FindPrimaryDCs</a></label>(<label for="r12" class="ident">opts</label> []<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i1">tg</a>.<a href="../../tg/tl_dc_option_gen.go.html#line-36" class="ident">DCOption</a>, <label for="r13" class="ident">dcID</label> <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r14" class="ident">preferIPv6</label> <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a>) []<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i1">tg</a>.<a href="../../tg/tl_dc_option_gen.go.html#line-36" class="ident">DCOption</a> {</code></span>
+<span class="codeline" id="line-49"><code><span class="keyword">func</span> <label for="r11" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/telegram/dcs.html#name-FindPrimaryDCs" class="ident">FindPrimaryDCs</a></label>(<label for="r12" class="ident">opts</label> []<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i1">tg</a>.<a href="../../tg/tl_dc_option_gen.go.html#line-38" class="ident">DCOption</a>, <label for="r13" class="ident">dcID</label> <a href="../../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r14" class="ident">preferIPv6</label> <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a>) []<a href="../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i1">tg</a>.<a href="../../tg/tl_dc_option_gen.go.html#line-38" class="ident">DCOption</a> {</code></span>
 <span class="codeline" id="line-50"><code>	<label for="r15" class="ident">candidates</label> := <a href="#line-10" class="ident">FindDCs</a>(<label for="r12" class="ident">opts</label>, <label for="r13" class="ident">dcID</label>, <label for="r14" class="ident">preferIPv6</label>)</code></span>
 <span class="codeline" id="line-51"><code>	<span class="comment">// Filter (in place) from SliceTricks.</span></code></span>
 <span class="codeline" id="line-52"><code>	<label for="r16" class="ident">n</label> := <span class="lit-number">0</span></code></span>
 <span class="codeline" id="line-53"><code>	<span class="keyword">for</span> <label for="r17" class="ident">_</label>, <label for="r18" class="ident">opt</label> := <span class="keyword">range</span> <label for="r15" class="ident">candidates</label> {</code></span>
-<span class="codeline" id="line-54"><code>		<span class="keyword">if</span> !<label for="r18" class="ident">opt</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-48" class="ident">MediaOnly</a> &amp;&amp; !<label for="r18" class="ident">opt</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-58" class="ident">CDN</a> &amp;&amp; !<label for="r18" class="ident">opt</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-53" class="ident">TCPObfuscatedOnly</a> {</code></span>
+<span class="codeline" id="line-54"><code>		<span class="keyword">if</span> !<label for="r18" class="ident">opt</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-50" class="ident">MediaOnly</a> &amp;&amp; !<label for="r18" class="ident">opt</label>.<a href="../../tg/tl_dc_option_gen.go.html#line-60" class="ident">CDN</a> {</code></span>
 <span class="codeline" id="line-55"><code>			<label for="r15" class="ident">candidates</label>[<label for="r16" class="ident">n</label>] = <label for="r18" class="ident">opt</label></code></span>
 <span class="codeline" id="line-56"><code>			<label for="r16" class="ident">n</label>++</code></span>
 <span class="codeline" id="line-57"><code>		}</code></span>
@@ -124,7 +124,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-60"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

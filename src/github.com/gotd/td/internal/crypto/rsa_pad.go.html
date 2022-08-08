@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: rsa_pad.go in package github.com/gotd/td/internal/crypto</title>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	rsa_pad.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html">github.com/gotd/td/internal/crypto</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16],
+input[id=r17]:checked ~pre label[for=r17],
+input[id=r18]:checked ~pre label[for=r18],
+input[id=r19]:checked ~pre label[for=r19],
+input[id=r20]:checked ~pre label[for=r20],
+input[id=r21]:checked ~pre label[for=r21],
+input[id=r22]:checked ~pre label[for=r22],
+input[id=r23]:checked ~pre label[for=r23],
+input[id=r24]:checked ~pre label[for=r24],
+input[id=r25]:checked ~pre label[for=r25],
+input[id=r26]:checked ~pre label[for=r26],
+input[id=r27]:checked ~pre label[for=r27],
+input[id=r28]:checked ~pre label[for=r28],
+input[id=r29]:checked ~pre label[for=r29],
+input[id=r30]:checked ~pre label[for=r30],
+input[id=r31]:checked ~pre label[for=r31],
+input[id=r32]:checked ~pre label[for=r32],
+input[id=r33]:checked ~pre label[for=r33],
+input[id=r34]:checked ~pre label[for=r34],
+input[id=r35]:checked ~pre label[for=r35],
+input[id=r36]:checked ~pre label[for=r36],
+input[id=r37]:checked ~pre label[for=r37],
+input[id=r38]:checked ~pre label[for=r38],
+input[id=r39]:checked ~pre label[for=r39],
+input[id=r40]:checked ~pre label[for=r40]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1,
+input[id=i2]:checked ~pre .i2,
+input[id=i3]:checked ~pre .i3,
+input[id=i4]:checked ~pre .i4,
+input[id=i5]:checked ~pre .i5,
+input[id=i6]:checked ~pre .i6,
+input[id=i7]:checked ~pre .i7,
+input[id=i8]:checked ~pre .i8,
+input[id=i9]:checked ~pre .i9
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="r17" type="radio" name="g"/>
+<input id="r18" type="radio" name="g"/>
+<input id="r19" type="radio" name="g"/>
+<input id="r20" type="radio" name="g"/>
+<input id="r21" type="radio" name="g"/>
+<input id="r22" type="radio" name="g"/>
+<input id="r23" type="radio" name="g"/>
+<input id="r24" type="radio" name="g"/>
+<input id="r25" type="radio" name="g"/>
+<input id="r26" type="radio" name="g"/>
+<input id="r27" type="radio" name="g"/>
+<input id="r28" type="radio" name="g"/>
+<input id="r29" type="radio" name="g"/>
+<input id="r30" type="radio" name="g"/>
+<input id="r31" type="radio" name="g"/>
+<input id="r32" type="radio" name="g"/>
+<input id="r33" type="radio" name="g"/>
+<input id="r34" type="radio" name="g"/>
+<input id="r35" type="radio" name="g"/>
+<input id="r36" type="radio" name="g"/>
+<input id="r37" type="radio" name="g"/>
+<input id="r38" type="radio" name="g"/>
+<input id="r39" type="radio" name="g"/>
+<input id="r40" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+<input id="i2" type="radio" name="i"/>
+<input id="i3" type="radio" name="i"/>
+<input id="i4" type="radio" name="i"/>
+<input id="i5" type="radio" name="i"/>
+<input id="i6" type="radio" name="i"/>
+<input id="i7" type="radio" name="i"/>
+<input id="i8" type="radio" name="i"/>
+<input id="i9" type="radio" name="i"/>
+
+<pre class="line-numbers">
+<span class="codeline" id="line-1"><code><span class="keyword">package</span> crypto</code></span>
+<span class="codeline" id="line-2"><code></code></span>
+<span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"bytes"</span></label></code></span>
+<span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"crypto/aes"</span></label></code></span>
+<span class="codeline" id="line-6"><code>	<label for="i2"><span class="lit-string i2">"crypto/rsa"</span></label></code></span>
+<span class="codeline" id="line-7"><code>	<label for="i3"><span class="lit-string i3">"crypto/sha256"</span></label></code></span>
+<span class="codeline" id="line-8"><code>	<label for="i4"><span class="lit-string i4">"io"</span></label></code></span>
+<span class="codeline" id="line-9"><code>	<label for="i5"><span class="lit-string i5">"math/big"</span></label></code></span>
+<span class="codeline" id="line-10"><code></code></span>
+<span class="codeline" id="line-11"><code>	<label for="i6"><span class="lit-string i6">"github.com/go-faster/errors"</span></label></code></span>
+<span class="codeline" id="line-12"><code></code></span>
+<span class="codeline" id="line-13"><code>	<label for="i7"><span class="lit-string i7">"github.com/go-faster/xor"</span></label></code></span>
+<span class="codeline" id="line-14"><code></code></span>
+<span class="codeline" id="line-15"><code>	<label for="i8"><span class="lit-string i8">"github.com/gotd/ige"</span></label></code></span>
+<span class="codeline" id="line-16"><code></code></span>
+<span class="codeline" id="line-17"><code>	<label for="i9"><span class="lit-string i9">"github.com/gotd/td/bin"</span></label></code></span>
+<span class="codeline" id="line-18"><code>)</code></span>
+<span class="codeline" id="line-19"><code></code></span>
+<span class="codeline" id="line-20"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-reverseBytes" class="ident">reverseBytes</a></label>(<label for="r1" class="ident">s</label> []<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) {</code></span>
+<span class="codeline" id="line-21"><code>	<span class="keyword">for</span> <label for="r2" class="ident">i</label>, <label for="r3" class="ident">j</label> := <span class="lit-number">0</span>, <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r1" class="ident">s</label>)-<span class="lit-number">1</span>; <label for="r2" class="ident">i</label> &lt; <label for="r3" class="ident">j</label>; <label for="r2" class="ident">i</label>, <label for="r3" class="ident">j</label> = <label for="r2" class="ident">i</label>+<span class="lit-number">1</span>, <label for="r3" class="ident">j</label>-<span class="lit-number">1</span> {</code></span>
+<span class="codeline" id="line-22"><code>		<label for="r1" class="ident">s</label>[<label for="r2" class="ident">i</label>], <label for="r1" class="ident">s</label>[<label for="r3" class="ident">j</label>] = <label for="r1" class="ident">s</label>[<label for="r3" class="ident">j</label>], <label for="r1" class="ident">s</label>[<label for="r2" class="ident">i</label>]</code></span>
+<span class="codeline" id="line-23"><code>	}</code></span>
+<span class="codeline" id="line-24"><code>}</code></span>
+<span class="codeline" id="line-25"><code></code></span>
+<span class="codeline" id="line-26"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-27"><code>	<a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-rsaPadDataLimit" class="ident">rsaPadDataLimit</a>       = <span class="lit-number">144</span></code></span>
+<span class="codeline" id="line-28"><code>	<a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-dataWithPaddingLength" class="ident">dataWithPaddingLength</a> = <span class="lit-number">192</span></code></span>
+<span class="codeline" id="line-29"><code>	<a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-dataWithHashLength" class="ident">dataWithHashLength</a>    = <a href="#line-28" class="ident">dataWithPaddingLength</a> + <a href="../../../../../../pkg/crypto/sha256.html" class="ident i3">sha256</a>.<a href="../../../../../crypto/sha256/sha256.go.html#line-23" class="ident">Size</a></code></span>
+<span class="codeline" id="line-30"><code>	<a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-tempKeySize" class="ident">tempKeySize</a>           = <span class="lit-number">32</span></code></span>
+<span class="codeline" id="line-31"><code>)</code></span>
+<span class="codeline" id="line-32"><code></code></span>
+<span class="codeline" id="line-33"><code><span class="comment">// RSAPad encrypts given data with RSA, prefixing with a hash.</span></code></span>
+<span class="codeline" id="line-34"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-35"><code><span class="comment">// See https://core.telegram.org/mtproto/auth_key#presenting-proof-of-work-server-authentication.</span></code></span>
+<span class="codeline" id="line-36"><code><span class="keyword">func</span> <label for="r4" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-RSAPad" class="ident">RSAPad</a></label>(<label for="r5" class="ident">data</label> []<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r6" class="ident">key</label> *<a href="../../../../../../pkg/crypto/rsa.html" class="ident i2">rsa</a>.<a href="../../../../../crypto/rsa/rsa.go.html#line-43" class="ident">PublicKey</a>, <label for="r7" class="ident">randomSource</label> <a href="../../../../../../pkg/io.html" class="ident i4">io</a>.<a href="../../../../../io/io.go.html#line-83" class="ident">Reader</a>) ([]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-37"><code>	<span class="comment">// 1) data_with_padding := data + random_padding_bytes; — where random_padding_bytes are</span></code></span>
+<span class="codeline" id="line-38"><code><span class="comment">	// chosen so that the resulting length of data_with_padding is precisely 192 bytes, and</span></code></span>
+<span class="codeline" id="line-39"><code><span class="comment">	// data is the TL-serialized data to be encrypted as before.</span></code></span>
+<span class="codeline" id="line-40"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-41"><code><span class="comment">	// One has to check that data is not longer than 144 bytes.</span></code></span>
+<span class="codeline" id="line-42"><code>	<span class="keyword">if</span> <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r5" class="ident">data</label>) &gt; <a href="#line-27" class="ident">rsaPadDataLimit</a> {</code></span>
+<span class="codeline" id="line-43"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i6">errors</a>.<a href="../../../../go-faster/errors/format.go.html#line-42" class="ident">Errorf</a>(<span class="lit-string">"data length is bigger that 144 (%d)"</span>, <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r5" class="ident">data</label>))</code></span>
+<span class="codeline" id="line-44"><code>	}</code></span>
+<span class="codeline" id="line-45"><code></code></span>
+<span class="codeline" id="line-46"><code>	<label for="r8" class="ident">dataWithPadding</label> := <a href="../../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="#line-28" class="ident">dataWithPaddingLength</a>)</code></span>
+<span class="codeline" id="line-47"><code>	<a href="../../../../../../pkg/builtin.html#name-copy" class="ident">copy</a>(<label for="r8" class="ident">dataWithPadding</label>, <label for="r5" class="ident">data</label>)</code></span>
+<span class="codeline" id="line-48"><code>	<span class="comment">// Filling data_with_padding with random bytes.</span></code></span>
+<span class="codeline" id="line-49"><code>	<span class="keyword">if</span> <label for="r9" class="ident">_</label>, <label for="r10" class="ident">err</label> := <a href="../../../../../../pkg/io.html" class="ident i4">io</a>.<a href="../../../../../io/io.go.html#line-350" class="ident">ReadFull</a>(<label for="r7" class="ident">randomSource</label>, <label for="r8" class="ident">dataWithPadding</label>[<a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r5" class="ident">data</label>):]); <label for="r10" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-50"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i6">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r10" class="ident">err</label>, <span class="lit-string">"pad data with random"</span>)</code></span>
+<span class="codeline" id="line-51"><code>	}</code></span>
+<span class="codeline" id="line-52"><code></code></span>
+<span class="codeline" id="line-53"><code>	<span class="comment">// Make a copy.</span></code></span>
+<span class="codeline" id="line-54"><code>	<label for="r11" class="ident">dataPadReversed</label> := <a href="../../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="#line-28" class="ident">dataWithPaddingLength</a>)</code></span>
+<span class="codeline" id="line-55"><code>	<a href="../../../../../../pkg/builtin.html#name-copy" class="ident">copy</a>(<label for="r11" class="ident">dataPadReversed</label>, <label for="r8" class="ident">dataWithPadding</label>)</code></span>
+<span class="codeline" id="line-56"><code>	<span class="comment">// 2) data_pad_reversed := BYTE_REVERSE(data_with_padding);</span></code></span>
+<span class="codeline" id="line-57"><code>	<a href="#line-20" class="ident">reverseBytes</a>(<label for="r11" class="ident">dataPadReversed</label>)</code></span>
+<span class="codeline" id="line-58"><code></code></span>
+<span class="codeline" id="line-59"><code>	<span class="keyword">for</span> {</code></span>
+<span class="codeline" id="line-60"><code>		<span class="comment">// 3) A random 32-byte temp_key is generated.</span></code></span>
+<span class="codeline" id="line-61"><code>		<label for="r12" class="ident">tempKey</label> := <a href="../../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="#line-30" class="ident">tempKeySize</a>)</code></span>
+<span class="codeline" id="line-62"><code>		<span class="keyword">if</span> <label for="r13" class="ident">_</label>, <label for="r14" class="ident">err</label> := <a href="../../../../../../pkg/io.html" class="ident i4">io</a>.<a href="../../../../../io/io.go.html#line-350" class="ident">ReadFull</a>(<label for="r7" class="ident">randomSource</label>, <label for="r12" class="ident">tempKey</label>); <label for="r14" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-63"><code>			<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i6">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r14" class="ident">err</label>, <span class="lit-string">"generate temp_key"</span>)</code></span>
+<span class="codeline" id="line-64"><code>		}</code></span>
+<span class="codeline" id="line-65"><code></code></span>
+<span class="codeline" id="line-66"><code>		<span class="comment">// 4) data_with_hash := data_pad_reversed + SHA256(temp_key + data_with_padding);</span></code></span>
+<span class="codeline" id="line-67"><code><span class="comment">		// — after this assignment, data_with_hash is exactly 224 bytes long.</span></code></span>
+<span class="codeline" id="line-68"><code>		<label for="r15" class="ident">dataWithHash</label> := <a href="../../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <span class="lit-number">0</span>, <a href="#line-29" class="ident">dataWithHashLength</a>)</code></span>
+<span class="codeline" id="line-69"><code>		<label for="r15" class="ident">dataWithHash</label> = <a href="../../../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r15" class="ident">dataWithHash</label>, <label for="r11" class="ident">dataPadReversed</label>...)</code></span>
+<span class="codeline" id="line-70"><code>		{</code></span>
+<span class="codeline" id="line-71"><code>			<label for="r16" class="ident">h</label> := <a href="../../../../../../pkg/crypto/sha256.html" class="ident i3">sha256</a>.<a href="../../../../../crypto/sha256/sha256.go.html#line-162" class="ident">New</a>()</code></span>
+<span class="codeline" id="line-72"><code>			_, _ = <label for="r16" class="ident">h</label>.<a href="../../../../../io/io.go.html#line-97" class="ident">Write</a>(<label for="r12" class="ident">tempKey</label>)</code></span>
+<span class="codeline" id="line-73"><code>			_, _ = <label for="r16" class="ident">h</label>.<a href="../../../../../io/io.go.html#line-97" class="ident">Write</a>(<label for="r8" class="ident">dataWithPadding</label>)</code></span>
+<span class="codeline" id="line-74"><code>			<label for="r15" class="ident">dataWithHash</label> = <label for="r16" class="ident">h</label>.<a href="../../../../../hash/hash.go.html#line-33" class="ident">Sum</a>(<label for="r15" class="ident">dataWithHash</label>)</code></span>
+<span class="codeline" id="line-75"><code>			<label for="r15" class="ident">dataWithHash</label> = <label for="r15" class="ident">dataWithHash</label>[:<a href="#line-29" class="ident">dataWithHashLength</a>]</code></span>
+<span class="codeline" id="line-76"><code>		}</code></span>
+<span class="codeline" id="line-77"><code></code></span>
+<span class="codeline" id="line-78"><code>		<span class="comment">// 5) aes_encrypted := AES256_IGE(data_with_hash, temp_key, 0); — AES256-IGE encryption with zero IV.</span></code></span>
+<span class="codeline" id="line-79"><code>		<label for="r17" class="ident">aesEncrypted</label> := <a href="../../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r15" class="ident">dataWithHash</label>))</code></span>
+<span class="codeline" id="line-80"><code>		{</code></span>
+<span class="codeline" id="line-81"><code>			<label for="r18" class="ident">aesBlock</label>, <label for="r19" class="ident">err</label> := <a href="../../../../../../pkg/crypto/aes.html" class="ident i1">aes</a>.<a href="../../../../../crypto/aes/cipher.go.html#line-33" class="ident">NewCipher</a>(<label for="r12" class="ident">tempKey</label>)</code></span>
+<span class="codeline" id="line-82"><code>			<span class="keyword">if</span> <label for="r19" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-83"><code>				<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i6">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r19" class="ident">err</label>, <span class="lit-string">"create cipher"</span>)</code></span>
+<span class="codeline" id="line-84"><code>			}</code></span>
+<span class="codeline" id="line-85"><code>			<span class="keyword">var</span> <label for="r20" class="ident">zeroIV</label> <a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i9">bin</a>.<a href="../../bin/int256.go.html#line-6" class="ident">Int256</a></code></span>
+<span class="codeline" id="line-86"><code>			<a href="../../../../../../pkg/github.com/gotd/ige.html" class="ident i8">ige</a>.<a href="../../../ige/encrypt.go.html#line-35" class="ident">EncryptBlocks</a>(<label for="r18" class="ident">aesBlock</label>, <label for="r20" class="ident">zeroIV</label>[:], <label for="r17" class="ident">aesEncrypted</label>, <label for="r15" class="ident">dataWithHash</label>)</code></span>
+<span class="codeline" id="line-87"><code>		}</code></span>
+<span class="codeline" id="line-88"><code></code></span>
+<span class="codeline" id="line-89"><code>		<span class="comment">// 6) temp_key_xor := temp_key XOR SHA256(aes_encrypted); — adjusted key, 32 bytes</span></code></span>
+<span class="codeline" id="line-90"><code>		<label for="r21" class="ident">tempKeyXor</label> := <a href="../../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="#line-30" class="ident">tempKeySize</a>)</code></span>
+<span class="codeline" id="line-91"><code>		{</code></span>
+<span class="codeline" id="line-92"><code>			<label for="r22" class="ident">aesEncryptedHash</label> := <a href="../../../../../../pkg/crypto/sha256.html" class="ident i3">sha256</a>.<a href="../../../../../crypto/sha256/sha256.go.html#line-263" class="ident">Sum256</a>(<label for="r17" class="ident">aesEncrypted</label>)</code></span>
+<span class="codeline" id="line-93"><code>			<a href="../../../../../../pkg/github.com/go-faster/xor.html" class="ident i7">xor</a>.<a href="../../../../go-faster/xor/xor.go.html#line-5" class="ident">Bytes</a>(<label for="r21" class="ident">tempKeyXor</label>, <label for="r12" class="ident">tempKey</label>, <label for="r22" class="ident">aesEncryptedHash</label>[:])</code></span>
+<span class="codeline" id="line-94"><code>		}</code></span>
+<span class="codeline" id="line-95"><code></code></span>
+<span class="codeline" id="line-96"><code>		<span class="comment">// 7) key_aes_encrypted := temp_key_xor + aes_encrypted; — exactly 256 bytes (2048 bits) long.</span></code></span>
+<span class="codeline" id="line-97"><code>		<label for="r23" class="ident">keyAESEncrypted</label> := <a href="../../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <span class="lit-number">0</span>, <a href="#line-30" class="ident">tempKeySize</a>+<a href="#line-29" class="ident">dataWithHashLength</a>)</code></span>
+<span class="codeline" id="line-98"><code>		<label for="r23" class="ident">keyAESEncrypted</label> = <a href="../../../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r23" class="ident">keyAESEncrypted</label>, <label for="r21" class="ident">tempKeyXor</label>...)</code></span>
+<span class="codeline" id="line-99"><code>		<label for="r23" class="ident">keyAESEncrypted</label> = <a href="../../../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r23" class="ident">keyAESEncrypted</label>, <label for="r17" class="ident">aesEncrypted</label>...)</code></span>
+<span class="codeline" id="line-100"><code></code></span>
+<span class="codeline" id="line-101"><code>		<span class="comment">// 8) The value of key_aes_encrypted is compared with the RSA-modulus of server_pubkey</span></code></span>
+<span class="codeline" id="line-102"><code><span class="comment">		// as a big-endian 2048-bit (256-byte) unsigned integer. If key_aes_encrypted turns out to be</span></code></span>
+<span class="codeline" id="line-103"><code><span class="comment">		// greater than or equal to the RSA modulus, the previous steps starting from the generation</span></code></span>
+<span class="codeline" id="line-104"><code><span class="comment">		// of new random temp_key are repeated.</span></code></span>
+<span class="codeline" id="line-105"><code>		<label for="r24" class="ident">keyAESEncryptedBig</label> := <a href="../../../../../../pkg/math/big.html" class="ident i5">big</a>.<a href="../../../../../math/big/int.go.html#line-67" class="ident">NewInt</a>(<span class="lit-number">0</span>).<a href="../../../../../math/big/int.go.html#line-437" class="ident">SetBytes</a>(<label for="r23" class="ident">keyAESEncrypted</label>)</code></span>
+<span class="codeline" id="line-106"><code>		<span class="keyword">if</span> <label for="r24" class="ident">keyAESEncryptedBig</label>.<a href="../../../../../math/big/int.go.html#line-316" class="ident">Cmp</a>(<label for="r6" class="ident">key</label>.<a href="../../../../../crypto/rsa/rsa.go.html#line-44" class="ident">N</a>) &gt;= <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-107"><code>			<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-108"><code>		}</code></span>
+<span class="codeline" id="line-109"><code>		<span class="comment">// Otherwise the final step is performed:</span></code></span>
+<span class="codeline" id="line-110"><code></code></span>
+<span class="codeline" id="line-111"><code>		<span class="comment">// 9) encrypted_data := RSA(key_aes_encrypted, server_pubkey);</span></code></span>
+<span class="codeline" id="line-112"><code><span class="comment">		// — 256-byte big-endian integer is elevated to the requisite power from the RSA public key</span></code></span>
+<span class="codeline" id="line-113"><code><span class="comment">		// modulo the RSA modulus, and the result is stored as a big-endian integer consisting of</span></code></span>
+<span class="codeline" id="line-114"><code><span class="comment">		// exactly 256 bytes (with leading zero bytes if required).</span></code></span>
+<span class="codeline" id="line-115"><code><span class="comment">		//</span></code></span>
+<span class="codeline" id="line-116"><code><span class="comment">		// Encrypting "key_aes_encrypted" with RSA.</span></code></span>
+<span class="codeline" id="line-117"><code>		<label for="r25" class="ident">res</label> := <a href="rsa.go.html#line-40" class="ident">rsaEncrypt</a>(<label for="r23" class="ident">keyAESEncrypted</label>, <label for="r6" class="ident">key</label>)</code></span>
+<span class="codeline" id="line-118"><code>		<span class="keyword">return</span> <label for="r25" class="ident">res</label>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-119"><code>	}</code></span>
+<span class="codeline" id="line-120"><code>}</code></span>
+<span class="codeline" id="line-121"><code></code></span>
+<span class="codeline" id="line-122"><code><span class="comment">// DecodeRSAPad implements server-side decoder of RSAPad.</span></code></span>
+<span class="codeline" id="line-123"><code><span class="keyword">func</span> <label for="r26" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-DecodeRSAPad" class="ident">DecodeRSAPad</a></label>(<label for="r27" class="ident">data</label> []<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r28" class="ident">key</label> *<a href="../../../../../../pkg/crypto/rsa.html" class="ident i2">rsa</a>.<a href="../../../../../crypto/rsa/rsa.go.html#line-101" class="ident">PrivateKey</a>) ([]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-124"><code>	<span class="keyword">var</span> <label for="r29" class="ident">encryptedData</label> [<span class="lit-number">256</span>]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-125"><code>	<span class="keyword">if</span> !<a href="rsa.go.html#line-49" class="ident">rsaDecrypt</a>(<label for="r27" class="ident">data</label>, <label for="r28" class="ident">key</label>, <label for="r29" class="ident">encryptedData</label>[:]) {</code></span>
+<span class="codeline" id="line-126"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i6">errors</a>.<a href="../../../../go-faster/errors/errors.go.html#line-22" class="ident">New</a>(<span class="lit-string">"invalid encrypted_data"</span>)</code></span>
+<span class="codeline" id="line-127"><code>	}</code></span>
+<span class="codeline" id="line-128"><code></code></span>
+<span class="codeline" id="line-129"><code>	<label for="r30" class="ident">tempKeyXor</label> := <label for="r29" class="ident">encryptedData</label>[:<a href="#line-30" class="ident">tempKeySize</a>]</code></span>
+<span class="codeline" id="line-130"><code>	<label for="r31" class="ident">aesEncrypted</label> := <label for="r29" class="ident">encryptedData</label>[<a href="#line-30" class="ident">tempKeySize</a>:]</code></span>
+<span class="codeline" id="line-131"><code></code></span>
+<span class="codeline" id="line-132"><code>	<label for="r32" class="ident">tempKey</label> := <a href="../../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="#line-30" class="ident">tempKeySize</a>)</code></span>
+<span class="codeline" id="line-133"><code>	{</code></span>
+<span class="codeline" id="line-134"><code>		<label for="r33" class="ident">aesEncryptedHash</label> := <a href="../../../../../../pkg/crypto/sha256.html" class="ident i3">sha256</a>.<a href="../../../../../crypto/sha256/sha256.go.html#line-263" class="ident">Sum256</a>(<label for="r31" class="ident">aesEncrypted</label>)</code></span>
+<span class="codeline" id="line-135"><code>		<a href="../../../../../../pkg/github.com/go-faster/xor.html" class="ident i7">xor</a>.<a href="../../../../go-faster/xor/xor.go.html#line-5" class="ident">Bytes</a>(<label for="r32" class="ident">tempKey</label>, <label for="r30" class="ident">tempKeyXor</label>, <label for="r33" class="ident">aesEncryptedHash</label>[:])</code></span>
+<span class="codeline" id="line-136"><code>	}</code></span>
+<span class="codeline" id="line-137"><code></code></span>
+<span class="codeline" id="line-138"><code>	<label for="r34" class="ident">dataWithHash</label> := <a href="../../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r31" class="ident">aesEncrypted</label>))</code></span>
+<span class="codeline" id="line-139"><code>	{</code></span>
+<span class="codeline" id="line-140"><code>		<label for="r35" class="ident">aesBlock</label>, <label for="r36" class="ident">err</label> := <a href="../../../../../../pkg/crypto/aes.html" class="ident i1">aes</a>.<a href="../../../../../crypto/aes/cipher.go.html#line-33" class="ident">NewCipher</a>(<label for="r32" class="ident">tempKey</label>)</code></span>
+<span class="codeline" id="line-141"><code>		<span class="keyword">if</span> <label for="r36" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-142"><code>			<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i6">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r36" class="ident">err</label>, <span class="lit-string">"create cipher"</span>)</code></span>
+<span class="codeline" id="line-143"><code>		}</code></span>
+<span class="codeline" id="line-144"><code>		<span class="keyword">var</span> <label for="r37" class="ident">zeroIV</label> <a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i9">bin</a>.<a href="../../bin/int256.go.html#line-6" class="ident">Int256</a></code></span>
+<span class="codeline" id="line-145"><code>		<a href="../../../../../../pkg/github.com/gotd/ige.html" class="ident i8">ige</a>.<a href="../../../ige/decrypt.go.html#line-35" class="ident">DecryptBlocks</a>(<label for="r35" class="ident">aesBlock</label>, <label for="r37" class="ident">zeroIV</label>[:], <label for="r34" class="ident">dataWithHash</label>, <label for="r31" class="ident">aesEncrypted</label>)</code></span>
+<span class="codeline" id="line-146"><code>	}</code></span>
+<span class="codeline" id="line-147"><code></code></span>
+<span class="codeline" id="line-148"><code>	<label for="r38" class="ident">dataWithPadding</label> := <label for="r34" class="ident">dataWithHash</label>[:<a href="#line-28" class="ident">dataWithPaddingLength</a>]</code></span>
+<span class="codeline" id="line-149"><code>	<a href="#line-20" class="ident">reverseBytes</a>(<label for="r38" class="ident">dataWithPadding</label>)</code></span>
+<span class="codeline" id="line-150"><code></code></span>
+<span class="codeline" id="line-151"><code>	<label for="r39" class="ident">hash</label> := <label for="r34" class="ident">dataWithHash</label>[<a href="#line-28" class="ident">dataWithPaddingLength</a>:]</code></span>
+<span class="codeline" id="line-152"><code>	{</code></span>
+<span class="codeline" id="line-153"><code>		<label for="r40" class="ident">h</label> := <a href="../../../../../../pkg/crypto/sha256.html" class="ident i3">sha256</a>.<a href="../../../../../crypto/sha256/sha256.go.html#line-162" class="ident">New</a>()</code></span>
+<span class="codeline" id="line-154"><code>		_, _ = <label for="r40" class="ident">h</label>.<a href="../../../../../io/io.go.html#line-97" class="ident">Write</a>(<label for="r32" class="ident">tempKey</label>)</code></span>
+<span class="codeline" id="line-155"><code>		_, _ = <label for="r40" class="ident">h</label>.<a href="../../../../../io/io.go.html#line-97" class="ident">Write</a>(<label for="r38" class="ident">dataWithPadding</label>)</code></span>
+<span class="codeline" id="line-156"><code></code></span>
+<span class="codeline" id="line-157"><code>		<span class="keyword">if</span> !<a href="../../../../../../pkg/bytes.html" class="ident i0">bytes</a>.<a href="../../../../../bytes/bytes.go.html#line-18" class="ident">Equal</a>(<label for="r39" class="ident">hash</label>, <label for="r40" class="ident">h</label>.<a href="../../../../../hash/hash.go.html#line-33" class="ident">Sum</a>(<a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>)) {</code></span>
+<span class="codeline" id="line-158"><code>			<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i6">errors</a>.<a href="../../../../go-faster/errors/errors.go.html#line-22" class="ident">New</a>(<span class="lit-string">"hash mismatch"</span>)</code></span>
+<span class="codeline" id="line-159"><code>		}</code></span>
+<span class="codeline" id="line-160"><code>	}</code></span>
+<span class="codeline" id="line-161"><code></code></span>
+<span class="codeline" id="line-162"><code>	<span class="keyword">return</span> <label for="r38" class="ident">dataWithPadding</label>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-163"><code>}</code></span>
+</pre><pre id="footer">
+<table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

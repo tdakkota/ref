@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: buffer.go in package go.uber.org/zap/buffer</title>
-<link href="../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -56,7 +56,13 @@ input[id=r36]:checked ~pre label[for=r36],
 input[id=r37]:checked ~pre label[for=r37],
 input[id=r38]:checked ~pre label[for=r38],
 input[id=r39]:checked ~pre label[for=r39],
-input[id=r40]:checked ~pre label[for=r40]
+input[id=r40]:checked ~pre label[for=r40],
+input[id=r41]:checked ~pre label[for=r41],
+input[id=r42]:checked ~pre label[for=r42],
+input[id=r43]:checked ~pre label[for=r43],
+input[id=r44]:checked ~pre label[for=r44],
+input[id=r45]:checked ~pre label[for=r45],
+input[id=r46]:checked ~pre label[for=r46]
 {background: #226; color: #ff8;}
 input[id=i0]:checked ~pre .i0,
 input[id=i1]:checked ~pre .i1
@@ -102,6 +108,12 @@ input[id=i1]:checked ~pre .i1
 <input id="r38" type="radio" name="g"/>
 <input id="r39" type="radio" name="g"/>
 <input id="r40" type="radio" name="g"/>
+<input id="r41" type="radio" name="g"/>
+<input id="r42" type="radio" name="g"/>
+<input id="r43" type="radio" name="g"/>
+<input id="r44" type="radio" name="g"/>
+<input id="r45" type="radio" name="g"/>
+<input id="r46" type="radio" name="g"/>
 <input id="i0" type="radio" name="i"/>
 <input id="i1" type="radio" name="i"/>
 
@@ -160,8 +172,8 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-53"><code>}</code></span>
 <span class="codeline" id="line-54"><code></code></span>
 <span class="codeline" id="line-55"><code><span class="comment">// AppendTime appends the time formatted using the specified layout.</span></code></span>
-<span class="codeline" id="line-56"><code><span class="keyword">func</span> (<label for="r9" class="ident">b</label> *<a href="#line-35" class="ident">Buffer</a>) <label for="r10" class="ident"><a href="../../../../use/go.uber.org/zap/buffer..Buffer.AppendTime.html" class="ident">AppendTime</a></label>(<label for="r11" class="ident">t</label> <a href="../../../../pkg/time.html" class="ident i1">time</a>.<a href="../../../time/time.go.html#line-127" class="ident">Time</a>, <label for="r12" class="ident">layout</label> <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>) {</code></span>
-<span class="codeline" id="line-57"><code>	<label for="r9" class="ident">b</label>.<a href="#line-36" class="ident">bs</a> = <label for="r11" class="ident">t</label>.<a href="../../../time/format.go.html#line-602" class="ident">AppendFormat</a>(<label for="r9" class="ident">b</label>.<a href="#line-36" class="ident">bs</a>, <label for="r12" class="ident">layout</label>)</code></span>
+<span class="codeline" id="line-56"><code><span class="keyword">func</span> (<label for="r9" class="ident">b</label> *<a href="#line-35" class="ident">Buffer</a>) <label for="r10" class="ident"><a href="../../../../use/go.uber.org/zap/buffer..Buffer.AppendTime.html" class="ident">AppendTime</a></label>(<label for="r11" class="ident">t</label> <a href="../../../../pkg/time.html" class="ident i1">time</a>.<a href="../../../time/time.go.html#line-129" class="ident">Time</a>, <label for="r12" class="ident">layout</label> <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>) {</code></span>
+<span class="codeline" id="line-57"><code>	<label for="r9" class="ident">b</label>.<a href="#line-36" class="ident">bs</a> = <label for="r11" class="ident">t</label>.<a href="../../../time/format.go.html#line-614" class="ident">AppendFormat</a>(<label for="r9" class="ident">b</label>.<a href="#line-36" class="ident">bs</a>, <label for="r12" class="ident">layout</label>)</code></span>
 <span class="codeline" id="line-58"><code>}</code></span>
 <span class="codeline" id="line-59"><code></code></span>
 <span class="codeline" id="line-60"><code><span class="comment">// AppendUint appends an unsigned integer to the underlying buffer (assuming</span></code></span>
@@ -213,24 +225,42 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-106"><code>	<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r35" class="ident">bs</label>), <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-107"><code>}</code></span>
 <span class="codeline" id="line-108"><code></code></span>
-<span class="codeline" id="line-109"><code><span class="comment">// TrimNewline trims any final "\n" byte from the end of the buffer.</span></code></span>
-<span class="codeline" id="line-110"><code><span class="keyword">func</span> (<label for="r36" class="ident">b</label> *<a href="#line-35" class="ident">Buffer</a>) <label for="r37" class="ident"><a href="../../../../use/go.uber.org/zap/buffer..Buffer.TrimNewline.html" class="ident">TrimNewline</a></label>() {</code></span>
-<span class="codeline" id="line-111"><code>	<span class="keyword">if</span> <label for="r38" class="ident">i</label> := <a href="../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r36" class="ident">b</label>.<a href="#line-36" class="ident">bs</a>) - <span class="lit-number">1</span>; <label for="r38" class="ident">i</label> &gt;= <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-112"><code>		<span class="keyword">if</span> <label for="r36" class="ident">b</label>.<a href="#line-36" class="ident">bs</a>[<label for="r38" class="ident">i</label>] == <span class="lit-number">'\n'</span> {</code></span>
-<span class="codeline" id="line-113"><code>			<label for="r36" class="ident">b</label>.<a href="#line-36" class="ident">bs</a> = <label for="r36" class="ident">b</label>.<a href="#line-36" class="ident">bs</a>[:<label for="r38" class="ident">i</label>]</code></span>
-<span class="codeline" id="line-114"><code>		}</code></span>
-<span class="codeline" id="line-115"><code>	}</code></span>
+<span class="codeline" id="line-109"><code><span class="comment">// WriteByte writes a single byte to the Buffer.</span></code></span>
+<span class="codeline" id="line-110"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-111"><code><span class="comment">// Error returned is always nil, function signature is compatible</span></code></span>
+<span class="codeline" id="line-112"><code><span class="comment">// with bytes.Buffer and bufio.Writer</span></code></span>
+<span class="codeline" id="line-113"><code><span class="keyword">func</span> (<label for="r36" class="ident">b</label> *<a href="#line-35" class="ident">Buffer</a>) <label for="r37" class="ident"><a href="../../../../use/go.uber.org/zap/buffer..Buffer.WriteByte.html" class="ident">WriteByte</a></label>(<label for="r38" class="ident">v</label> <a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-114"><code>	<label for="r36" class="ident">b</label>.<a href="#line-41" class="ident">AppendByte</a>(<label for="r38" class="ident">v</label>)</code></span>
+<span class="codeline" id="line-115"><code>	<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-116"><code>}</code></span>
 <span class="codeline" id="line-117"><code></code></span>
-<span class="codeline" id="line-118"><code><span class="comment">// Free returns the Buffer to its Pool.</span></code></span>
+<span class="codeline" id="line-118"><code><span class="comment">// WriteString writes a string to the Buffer.</span></code></span>
 <span class="codeline" id="line-119"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-120"><code><span class="comment">// Callers must not retain references to the Buffer after calling Free.</span></code></span>
-<span class="codeline" id="line-121"><code><span class="keyword">func</span> (<label for="r39" class="ident">b</label> *<a href="#line-35" class="ident">Buffer</a>) <label for="r40" class="ident"><a href="../../../../use/go.uber.org/zap/buffer..Buffer.Free.html" class="ident">Free</a></label>() {</code></span>
-<span class="codeline" id="line-122"><code>	<label for="r39" class="ident">b</label>.<a href="#line-37" class="ident">pool</a>.<a href="pool.go.html#line-47" class="ident">put</a>(<label for="r39" class="ident">b</label>)</code></span>
-<span class="codeline" id="line-123"><code>}</code></span>
+<span class="codeline" id="line-120"><code><span class="comment">// Error returned is always nil, function signature is compatible</span></code></span>
+<span class="codeline" id="line-121"><code><span class="comment">// with bytes.Buffer and bufio.Writer</span></code></span>
+<span class="codeline" id="line-122"><code><span class="keyword">func</span> (<label for="r39" class="ident">b</label> *<a href="#line-35" class="ident">Buffer</a>) <label for="r40" class="ident"><a href="../../../../use/go.uber.org/zap/buffer..Buffer.WriteString.html" class="ident">WriteString</a></label>(<label for="r41" class="ident">s</label> <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>) (<a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>, <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-123"><code>	<label for="r39" class="ident">b</label>.<a href="#line-46" class="ident">AppendString</a>(<label for="r41" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-124"><code>	<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r41" class="ident">s</label>), <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-125"><code>}</code></span>
+<span class="codeline" id="line-126"><code></code></span>
+<span class="codeline" id="line-127"><code><span class="comment">// TrimNewline trims any final "\n" byte from the end of the buffer.</span></code></span>
+<span class="codeline" id="line-128"><code><span class="keyword">func</span> (<label for="r42" class="ident">b</label> *<a href="#line-35" class="ident">Buffer</a>) <label for="r43" class="ident"><a href="../../../../use/go.uber.org/zap/buffer..Buffer.TrimNewline.html" class="ident">TrimNewline</a></label>() {</code></span>
+<span class="codeline" id="line-129"><code>	<span class="keyword">if</span> <label for="r44" class="ident">i</label> := <a href="../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r42" class="ident">b</label>.<a href="#line-36" class="ident">bs</a>) - <span class="lit-number">1</span>; <label for="r44" class="ident">i</label> &gt;= <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-130"><code>		<span class="keyword">if</span> <label for="r42" class="ident">b</label>.<a href="#line-36" class="ident">bs</a>[<label for="r44" class="ident">i</label>] == <span class="lit-number">'\n'</span> {</code></span>
+<span class="codeline" id="line-131"><code>			<label for="r42" class="ident">b</label>.<a href="#line-36" class="ident">bs</a> = <label for="r42" class="ident">b</label>.<a href="#line-36" class="ident">bs</a>[:<label for="r44" class="ident">i</label>]</code></span>
+<span class="codeline" id="line-132"><code>		}</code></span>
+<span class="codeline" id="line-133"><code>	}</code></span>
+<span class="codeline" id="line-134"><code>}</code></span>
+<span class="codeline" id="line-135"><code></code></span>
+<span class="codeline" id="line-136"><code><span class="comment">// Free returns the Buffer to its Pool.</span></code></span>
+<span class="codeline" id="line-137"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-138"><code><span class="comment">// Callers must not retain references to the Buffer after calling Free.</span></code></span>
+<span class="codeline" id="line-139"><code><span class="keyword">func</span> (<label for="r45" class="ident">b</label> *<a href="#line-35" class="ident">Buffer</a>) <label for="r46" class="ident"><a href="../../../../use/go.uber.org/zap/buffer..Buffer.Free.html" class="ident">Free</a></label>() {</code></span>
+<span class="codeline" id="line-140"><code>	<label for="r45" class="ident">b</label>.<a href="#line-37" class="ident">pool</a>.<a href="pool.go.html#line-47" class="ident">put</a>(<label for="r45" class="ident">b</label>)</code></span>
+<span class="codeline" id="line-141"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

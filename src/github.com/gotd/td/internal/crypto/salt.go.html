@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: salt.go in package github.com/gotd/td/internal/crypto</title>
-<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -41,20 +41,21 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
 <span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"encoding/binary"</span></label></code></span>
 <span class="codeline" id="line-5"><code></code></span>
-<span class="codeline" id="line-6"><code>	<label for="i1"><span class="lit-string i1">"github.com/gotd/td/bin"</span></label></code></span>
-<span class="codeline" id="line-7"><code>	<label for="i2"><span class="lit-string i2">"github.com/gotd/xor"</span></label></code></span>
-<span class="codeline" id="line-8"><code>)</code></span>
-<span class="codeline" id="line-9"><code></code></span>
-<span class="codeline" id="line-10"><code><span class="comment">// ServerSalt computes server salt.</span></code></span>
-<span class="codeline" id="line-11"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-ServerSalt" class="ident">ServerSalt</a></label>(<label for="r1" class="ident">newNonce</label> <a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i1">bin</a>.<a href="../../bin/int256.go.html#line-6" class="ident">Int256</a>, <label for="r2" class="ident">serverNonce</label> <a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i1">bin</a>.<a href="../../bin/int128.go.html#line-6" class="ident">Int128</a>) (<label for="r3" class="ident">salt</label> <a href="../../../../../../pkg/builtin.html#name-int64" class="ident">int64</a>) {</code></span>
-<span class="codeline" id="line-12"><code>	<span class="keyword">var</span> <label for="r4" class="ident">serverSalt</label> [<span class="lit-number">8</span>]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
-<span class="codeline" id="line-13"><code>	<a href="../../../../../../pkg/builtin.html#name-copy" class="ident">copy</a>(<label for="r4" class="ident">serverSalt</label>[:], <label for="r1" class="ident">newNonce</label>[:<span class="lit-number">8</span>])</code></span>
-<span class="codeline" id="line-14"><code>	<a href="../../../../../../pkg/github.com/gotd/xor.html" class="ident i2">xor</a>.<a href="../../../xor/xor.go.html#line-5" class="ident">Bytes</a>(<label for="r4" class="ident">serverSalt</label>[:], <label for="r4" class="ident">serverSalt</label>[:], <label for="r2" class="ident">serverNonce</label>[:<span class="lit-number">8</span>])</code></span>
-<span class="codeline" id="line-15"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<a href="../../../../../../pkg/encoding/binary.html" class="ident i0">binary</a>.<a href="../../../../../encoding/binary/binary.go.html#line-45" class="ident">LittleEndian</a>.<a href="../../../../../encoding/binary/binary.go.html#line-76" class="ident">Uint64</a>(<label for="r4" class="ident">serverSalt</label>[:]))</code></span>
-<span class="codeline" id="line-16"><code>}</code></span>
+<span class="codeline" id="line-6"><code>	<label for="i1"><span class="lit-string i1">"github.com/go-faster/xor"</span></label></code></span>
+<span class="codeline" id="line-7"><code></code></span>
+<span class="codeline" id="line-8"><code>	<label for="i2"><span class="lit-string i2">"github.com/gotd/td/bin"</span></label></code></span>
+<span class="codeline" id="line-9"><code>)</code></span>
+<span class="codeline" id="line-10"><code></code></span>
+<span class="codeline" id="line-11"><code><span class="comment">// ServerSalt computes server salt.</span></code></span>
+<span class="codeline" id="line-12"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-ServerSalt" class="ident">ServerSalt</a></label>(<label for="r1" class="ident">newNonce</label> <a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i2">bin</a>.<a href="../../bin/int256.go.html#line-6" class="ident">Int256</a>, <label for="r2" class="ident">serverNonce</label> <a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i2">bin</a>.<a href="../../bin/int128.go.html#line-6" class="ident">Int128</a>) (<label for="r3" class="ident">salt</label> <a href="../../../../../../pkg/builtin.html#name-int64" class="ident">int64</a>) {</code></span>
+<span class="codeline" id="line-13"><code>	<span class="keyword">var</span> <label for="r4" class="ident">serverSalt</label> [<span class="lit-number">8</span>]<a href="../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-14"><code>	<a href="../../../../../../pkg/builtin.html#name-copy" class="ident">copy</a>(<label for="r4" class="ident">serverSalt</label>[:], <label for="r1" class="ident">newNonce</label>[:<span class="lit-number">8</span>])</code></span>
+<span class="codeline" id="line-15"><code>	<a href="../../../../../../pkg/github.com/go-faster/xor.html" class="ident i1">xor</a>.<a href="../../../../go-faster/xor/xor.go.html#line-5" class="ident">Bytes</a>(<label for="r4" class="ident">serverSalt</label>[:], <label for="r4" class="ident">serverSalt</label>[:], <label for="r2" class="ident">serverNonce</label>[:<span class="lit-number">8</span>])</code></span>
+<span class="codeline" id="line-16"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<a href="../../../../../../pkg/encoding/binary.html" class="ident i0">binary</a>.<a href="../../../../../encoding/binary/binary.go.html#line-54" class="ident">LittleEndian</a>.<a href="../../../../../encoding/binary/binary.go.html#line-101" class="ident">Uint64</a>(<label for="r4" class="ident">serverSalt</label>[:]))</code></span>
+<span class="codeline" id="line-17"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

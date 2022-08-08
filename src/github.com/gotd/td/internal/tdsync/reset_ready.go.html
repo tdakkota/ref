@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: reset_ready.go in package github.com/gotd/td/internal/tdsync</title>
-<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -43,43 +43,43 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-5"><code><span class="comment">// ResetReady is like Ready, but can be Reset.</span></code></span>
 <span class="codeline" id="line-6"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/internal/tdsync.html#name-ResetReady" class="ident">ResetReady</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-7"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/tdsync..ResetReady.ready^b24d6.html" class="ident">ready</a> <a href="ready.go.html#line-7" class="ident">Ready</a></code></span>
-<span class="codeline" id="line-8"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/tdsync..ResetReady.lock^0c030.html" class="ident">lock</a>  <a href="../../../../../../pkg/sync.html" class="ident i0">sync</a>.<a href="../../../../../sync/mutex.go.html#line-25" class="ident">Mutex</a></code></span>
+<span class="codeline" id="line-8"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/tdsync..ResetReady.lock^0c030.html" class="ident">lock</a>  <a href="../../../../../../pkg/sync.html" class="ident i0">sync</a>.<a href="../../../../../sync/mutex.go.html#line-34" class="ident">Mutex</a></code></span>
 <span class="codeline" id="line-9"><code>}</code></span>
 <span class="codeline" id="line-10"><code></code></span>
 <span class="codeline" id="line-11"><code><span class="comment">// NewResetReady creates new ResetReady.</span></code></span>
 <span class="codeline" id="line-12"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/tdsync.html#name-NewResetReady" class="ident">NewResetReady</a></label>() *<a href="#line-6" class="ident">ResetReady</a> {</code></span>
 <span class="codeline" id="line-13"><code>	<span class="keyword">return</span> &amp;<a href="#line-6" class="ident">ResetReady</a>{</code></span>
 <span class="codeline" id="line-14"><code>		<a href="#line-7" class="ident">ready</a>: <a href="ready.go.html#line-7" class="ident">Ready</a>{</code></span>
-<span class="codeline" id="line-15"><code>			<a href="ready.go.html#line-8" class="ident">wait</a>: <a href="../../../../../runtime/chan.go.html#line-71">make</a>(<span class="keyword">chan</span> <span class="keyword">struct</span>{}),</code></span>
+<span class="codeline" id="line-15"><code>			<a href="ready.go.html#line-8" class="ident">wait</a>: <a href="../../../../../runtime/chan.go.html#line-72">make</a>(<span class="keyword">chan</span> <span class="keyword">struct</span>{}),</code></span>
 <span class="codeline" id="line-16"><code>		},</code></span>
 <span class="codeline" id="line-17"><code>	}</code></span>
 <span class="codeline" id="line-18"><code>}</code></span>
 <span class="codeline" id="line-19"><code></code></span>
 <span class="codeline" id="line-20"><code><span class="comment">// Reset resets underlying Ready.</span></code></span>
 <span class="codeline" id="line-21"><code><span class="keyword">func</span> (<label for="r1" class="ident">r</label> *<a href="#line-6" class="ident">ResetReady</a>) <label for="r2" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/tdsync..ResetReady.Reset.html" class="ident">Reset</a></label>() {</code></span>
-<span class="codeline" id="line-22"><code>	<label for="r1" class="ident">r</label>.<a href="#line-8" class="ident">lock</a>.<a href="../../../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-22"><code>	<label for="r1" class="ident">r</label>.<a href="#line-8" class="ident">lock</a>.<a href="../../../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
 <span class="codeline" id="line-23"><code>	<label for="r1" class="ident">r</label>.<a href="#line-7" class="ident">ready</a>.<a href="ready.go.html#line-26" class="ident">Signal</a>()</code></span>
 <span class="codeline" id="line-24"><code>	<label for="r1" class="ident">r</label>.<a href="#line-7" class="ident">ready</a>.<a href="ready.go.html#line-19" class="ident">reset</a>()</code></span>
-<span class="codeline" id="line-25"><code>	<label for="r1" class="ident">r</label>.<a href="#line-8" class="ident">lock</a>.<a href="../../../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-25"><code>	<label for="r1" class="ident">r</label>.<a href="#line-8" class="ident">lock</a>.<a href="../../../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-26"><code>}</code></span>
 <span class="codeline" id="line-27"><code></code></span>
 <span class="codeline" id="line-28"><code><span class="comment">// Signal sends ready signal.</span></code></span>
 <span class="codeline" id="line-29"><code><span class="comment">// Can be called multiple times.</span></code></span>
 <span class="codeline" id="line-30"><code><span class="keyword">func</span> (<label for="r3" class="ident">r</label> *<a href="#line-6" class="ident">ResetReady</a>) <label for="r4" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/tdsync..ResetReady.Signal.html" class="ident">Signal</a></label>() {</code></span>
-<span class="codeline" id="line-31"><code>	<label for="r3" class="ident">r</label>.<a href="#line-8" class="ident">lock</a>.<a href="../../../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-31"><code>	<label for="r3" class="ident">r</label>.<a href="#line-8" class="ident">lock</a>.<a href="../../../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
 <span class="codeline" id="line-32"><code>	<label for="r3" class="ident">r</label>.<a href="#line-7" class="ident">ready</a>.<a href="ready.go.html#line-26" class="ident">Signal</a>()</code></span>
-<span class="codeline" id="line-33"><code>	<label for="r3" class="ident">r</label>.<a href="#line-8" class="ident">lock</a>.<a href="../../../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-33"><code>	<label for="r3" class="ident">r</label>.<a href="#line-8" class="ident">lock</a>.<a href="../../../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-34"><code>}</code></span>
 <span class="codeline" id="line-35"><code></code></span>
 <span class="codeline" id="line-36"><code><span class="comment">// Ready returns waiting channel.</span></code></span>
 <span class="codeline" id="line-37"><code><span class="keyword">func</span> (<label for="r5" class="ident">r</label> *<a href="#line-6" class="ident">ResetReady</a>) <label for="r6" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/tdsync..ResetReady.Ready.html" class="ident">Ready</a></label>() &lt;-<span class="keyword">chan</span> <span class="keyword">struct</span>{} {</code></span>
-<span class="codeline" id="line-38"><code>	<label for="r5" class="ident">r</label>.<a href="#line-8" class="ident">lock</a>.<a href="../../../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
-<span class="codeline" id="line-39"><code>	<span class="keyword">defer</span> <label for="r5" class="ident">r</label>.<a href="#line-8" class="ident">lock</a>.<a href="../../../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-38"><code>	<label for="r5" class="ident">r</label>.<a href="#line-8" class="ident">lock</a>.<a href="../../../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-39"><code>	<span class="keyword">defer</span> <label for="r5" class="ident">r</label>.<a href="#line-8" class="ident">lock</a>.<a href="../../../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-40"><code>	<span class="keyword">return</span> <label for="r5" class="ident">r</label>.<a href="#line-7" class="ident">ready</a>.<a href="ready.go.html#line-33" class="ident">Ready</a>()</code></span>
 <span class="codeline" id="line-41"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

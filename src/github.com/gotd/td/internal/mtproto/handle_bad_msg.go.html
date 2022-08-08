@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: handle_bad_msg.go in package github.com/gotd/td/internal/mtproto</title>
-<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -57,7 +57,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
 <span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"fmt"</span></label></code></span>
 <span class="codeline" id="line-5"><code></code></span>
-<span class="codeline" id="line-6"><code>	<label for="i1"><span class="lit-string i1">"golang.org/x/xerrors"</span></label></code></span>
+<span class="codeline" id="line-6"><code>	<label for="i1"><span class="lit-string i1">"github.com/go-faster/errors"</span></label></code></span>
 <span class="codeline" id="line-7"><code></code></span>
 <span class="codeline" id="line-8"><code>	<label for="i2"><span class="lit-string i2">"github.com/gotd/td/bin"</span></label></code></span>
 <span class="codeline" id="line-9"><code>	<label for="i3"><span class="lit-string i3">"github.com/gotd/td/internal/mt"</span></label></code></span>
@@ -95,34 +95,34 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-41"><code>}</code></span>
 <span class="codeline" id="line-42"><code></code></span>
 <span class="codeline" id="line-43"><code><span class="keyword">func</span> (<label for="r3" class="ident">c</label> *<a href="conn.go.html#line-51" class="ident">Conn</a>) <label for="r4" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/mtproto..Conn.handleBadMsg^0ad12.html" class="ident">handleBadMsg</a></label>(<label for="r5" class="ident">b</label> *<a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i2">bin</a>.<a href="../../bin/buffer.go.html#line-8" class="ident">Buffer</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-44"><code>	<label for="r6" class="ident">id</label>, <label for="r7" class="ident">err</label> := <label for="r5" class="ident">b</label>.<a href="../../bin/decode.go.html#line-11" class="ident">PeekID</a>()</code></span>
+<span class="codeline" id="line-44"><code>	<label for="r6" class="ident">id</label>, <label for="r7" class="ident">err</label> := <label for="r5" class="ident">b</label>.<a href="../../bin/decode.go.html#line-10" class="ident">PeekID</a>()</code></span>
 <span class="codeline" id="line-45"><code>	<span class="keyword">if</span> <label for="r7" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-46"><code>		<span class="keyword">return</span> <label for="r7" class="ident">err</label></code></span>
 <span class="codeline" id="line-47"><code>	}</code></span>
 <span class="codeline" id="line-48"><code>	<span class="keyword">switch</span> <label for="r6" class="ident">id</label> {</code></span>
-<span class="codeline" id="line-49"><code>	<span class="keyword">case</span> <a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i3">mt</a>.<a href="../mt/tl_bad_msg_notification_gen.go.html#line-43" class="ident">BadMsgNotificationTypeID</a>:</code></span>
-<span class="codeline" id="line-50"><code>		<span class="keyword">var</span> <label for="r8" class="ident">bad</label> <a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i3">mt</a>.<a href="../mt/tl_bad_msg_notification_gen.go.html#line-33" class="ident">BadMsgNotification</a></code></span>
-<span class="codeline" id="line-51"><code>		<span class="keyword">if</span> <label for="r9" class="ident">err</label> := <label for="r8" class="ident">bad</label>.<a href="../mt/tl_bad_msg_notification_gen.go.html#line-157" class="ident">Decode</a>(<label for="r5" class="ident">b</label>); <label for="r9" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-49"><code>	<span class="keyword">case</span> <a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i3">mt</a>.<a href="../mt/tl_bad_msg_notification_gen.go.html#line-45" class="ident">BadMsgNotificationTypeID</a>:</code></span>
+<span class="codeline" id="line-50"><code>		<span class="keyword">var</span> <label for="r8" class="ident">bad</label> <a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i3">mt</a>.<a href="../mt/tl_bad_msg_notification_gen.go.html#line-35" class="ident">BadMsgNotification</a></code></span>
+<span class="codeline" id="line-51"><code>		<span class="keyword">if</span> <label for="r9" class="ident">err</label> := <label for="r8" class="ident">bad</label>.<a href="../mt/tl_bad_msg_notification_gen.go.html#line-146" class="ident">Decode</a>(<label for="r5" class="ident">b</label>); <label for="r9" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-52"><code>			<span class="keyword">return</span> <label for="r9" class="ident">err</label></code></span>
 <span class="codeline" id="line-53"><code>		}</code></span>
 <span class="codeline" id="line-54"><code></code></span>
-<span class="codeline" id="line-55"><code>		<label for="r3" class="ident">c</label>.<a href="conn.go.html#line-55" class="ident">rpc</a>.<a href="../rpc/engine.go.html#line-259" class="ident">NotifyError</a>(<label for="r8" class="ident">bad</label>.<a href="../mt/tl_bad_msg_notification_gen.go.html#line-35" class="ident">BadMsgID</a>, &amp;<a href="#line-12" class="ident">badMessageError</a>{<a href="#line-13" class="ident">Code</a>: <label for="r8" class="ident">bad</label>.<a href="../mt/tl_bad_msg_notification_gen.go.html#line-39" class="ident">ErrorCode</a>})</code></span>
+<span class="codeline" id="line-55"><code>		<label for="r3" class="ident">c</label>.<a href="conn.go.html#line-57" class="ident">rpc</a>.<a href="../rpc/engine.go.html#line-249" class="ident">NotifyError</a>(<label for="r8" class="ident">bad</label>.<a href="../mt/tl_bad_msg_notification_gen.go.html#line-37" class="ident">BadMsgID</a>, &amp;<a href="#line-12" class="ident">badMessageError</a>{<a href="#line-13" class="ident">Code</a>: <label for="r8" class="ident">bad</label>.<a href="../mt/tl_bad_msg_notification_gen.go.html#line-41" class="ident">ErrorCode</a>})</code></span>
 <span class="codeline" id="line-56"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-57"><code>	<span class="keyword">case</span> <a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i3">mt</a>.<a href="../mt/tl_bad_msg_notification_gen.go.html#line-222" class="ident">BadServerSaltTypeID</a>:</code></span>
 <span class="codeline" id="line-58"><code>		<span class="keyword">var</span> <label for="r10" class="ident">bad</label> <a href="../../../../../../pkg/github.com/gotd/td/internal/mt.html" class="ident i3">mt</a>.<a href="../mt/tl_bad_msg_notification_gen.go.html#line-210" class="ident">BadServerSalt</a></code></span>
-<span class="codeline" id="line-59"><code>		<span class="keyword">if</span> <label for="r11" class="ident">err</label> := <label for="r10" class="ident">bad</label>.<a href="../mt/tl_bad_msg_notification_gen.go.html#line-351" class="ident">Decode</a>(<label for="r5" class="ident">b</label>); <label for="r11" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-59"><code>		<span class="keyword">if</span> <label for="r11" class="ident">err</label> := <label for="r10" class="ident">bad</label>.<a href="../mt/tl_bad_msg_notification_gen.go.html#line-331" class="ident">Decode</a>(<label for="r5" class="ident">b</label>); <label for="r11" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-60"><code>			<span class="keyword">return</span> <label for="r11" class="ident">err</label></code></span>
 <span class="codeline" id="line-61"><code>		}</code></span>
 <span class="codeline" id="line-62"><code></code></span>
-<span class="codeline" id="line-63"><code>		<label for="r3" class="ident">c</label>.<a href="conn.go.html#line-55" class="ident">rpc</a>.<a href="../rpc/engine.go.html#line-259" class="ident">NotifyError</a>(<label for="r10" class="ident">bad</label>.<a href="../mt/tl_bad_msg_notification_gen.go.html#line-212" class="ident">BadMsgID</a>, &amp;<a href="#line-12" class="ident">badMessageError</a>{<a href="#line-13" class="ident">Code</a>: <label for="r10" class="ident">bad</label>.<a href="../mt/tl_bad_msg_notification_gen.go.html#line-216" class="ident">ErrorCode</a>, <a href="#line-14" class="ident">NewSalt</a>: <label for="r10" class="ident">bad</label>.<a href="../mt/tl_bad_msg_notification_gen.go.html#line-218" class="ident">NewServerSalt</a>})</code></span>
+<span class="codeline" id="line-63"><code>		<label for="r3" class="ident">c</label>.<a href="conn.go.html#line-57" class="ident">rpc</a>.<a href="../rpc/engine.go.html#line-249" class="ident">NotifyError</a>(<label for="r10" class="ident">bad</label>.<a href="../mt/tl_bad_msg_notification_gen.go.html#line-212" class="ident">BadMsgID</a>, &amp;<a href="#line-12" class="ident">badMessageError</a>{<a href="#line-13" class="ident">Code</a>: <label for="r10" class="ident">bad</label>.<a href="../mt/tl_bad_msg_notification_gen.go.html#line-216" class="ident">ErrorCode</a>, <a href="#line-14" class="ident">NewSalt</a>: <label for="r10" class="ident">bad</label>.<a href="../mt/tl_bad_msg_notification_gen.go.html#line-218" class="ident">NewServerSalt</a>})</code></span>
 <span class="codeline" id="line-64"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-65"><code>	<span class="keyword">default</span>:</code></span>
-<span class="codeline" id="line-66"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i1">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"unknown type id 0x%d"</span>, <label for="r6" class="ident">id</label>)</code></span>
+<span class="codeline" id="line-66"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i1">errors</a>.<a href="../../../../go-faster/errors/format.go.html#line-42" class="ident">Errorf</a>(<span class="lit-string">"unknown type id 0x%d"</span>, <label for="r6" class="ident">id</label>)</code></span>
 <span class="codeline" id="line-67"><code>	}</code></span>
 <span class="codeline" id="line-68"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

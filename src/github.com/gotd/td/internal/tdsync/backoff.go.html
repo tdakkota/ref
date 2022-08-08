@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: backoff.go in package github.com/gotd/td/internal/tdsync</title>
-<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -51,20 +51,20 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-9"><code></code></span>
 <span class="codeline" id="line-10"><code><span class="keyword">type</span> <a href="../../../../../../pkg/github.com/gotd/td/internal/tdsync.html#name-syncBackoff" class="ident">syncBackoff</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-11"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/tdsync..syncBackoff^b5693.b^3e23e.html" class="ident">b</a>   <a href="../../../../../../pkg/github.com/cenkalti/backoff/v4.html" class="ident i2">backoff</a>.<a href="../../../../cenkalti/backoff/v4/backoff.go.html#line-16" class="ident">BackOff</a></code></span>
-<span class="codeline" id="line-12"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/tdsync..syncBackoff^b5693.mux^99830.html" class="ident">mux</a> <a href="../../../../../../pkg/sync.html" class="ident i0">sync</a>.<a href="../../../../../sync/mutex.go.html#line-25" class="ident">Mutex</a></code></span>
+<span class="codeline" id="line-12"><code>	<a href="../../../../../../use/github.com/gotd/td/internal/tdsync..syncBackoff^b5693.mux^99830.html" class="ident">mux</a> <a href="../../../../../../pkg/sync.html" class="ident i0">sync</a>.<a href="../../../../../sync/mutex.go.html#line-34" class="ident">Mutex</a></code></span>
 <span class="codeline" id="line-13"><code>}</code></span>
 <span class="codeline" id="line-14"><code></code></span>
-<span class="codeline" id="line-15"><code><span class="keyword">func</span> (<label for="r0" class="ident">s</label> *<a href="#line-10" class="ident">syncBackoff</a>) <label for="r1" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/tdsync..syncBackoff^b5693.NextBackOff.html" class="ident">NextBackOff</a></label>() <a href="../../../../../../pkg/time.html" class="ident i1">time</a>.<a href="../../../../../time/time.go.html#line-590" class="ident">Duration</a> {</code></span>
-<span class="codeline" id="line-16"><code>	<label for="r0" class="ident">s</label>.<a href="#line-12" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-15"><code><span class="keyword">func</span> (<label for="r0" class="ident">s</label> *<a href="#line-10" class="ident">syncBackoff</a>) <label for="r1" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/tdsync..syncBackoff^b5693.NextBackOff.html" class="ident">NextBackOff</a></label>() <a href="../../../../../../pkg/time.html" class="ident i1">time</a>.<a href="../../../../../time/time.go.html#line-591" class="ident">Duration</a> {</code></span>
+<span class="codeline" id="line-16"><code>	<label for="r0" class="ident">s</label>.<a href="#line-12" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
 <span class="codeline" id="line-17"><code>	<label for="r2" class="ident">dur</label> := <label for="r0" class="ident">s</label>.<a href="#line-11" class="ident">b</a>.<a href="../../../../cenkalti/backoff/v4/backoff.go.html#line-29" class="ident">NextBackOff</a>()</code></span>
-<span class="codeline" id="line-18"><code>	<label for="r0" class="ident">s</label>.<a href="#line-12" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-18"><code>	<label for="r0" class="ident">s</label>.<a href="#line-12" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-19"><code>	<span class="keyword">return</span> <label for="r2" class="ident">dur</label></code></span>
 <span class="codeline" id="line-20"><code>}</code></span>
 <span class="codeline" id="line-21"><code></code></span>
 <span class="codeline" id="line-22"><code><span class="keyword">func</span> (<label for="r3" class="ident">s</label> *<a href="#line-10" class="ident">syncBackoff</a>) <label for="r4" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/tdsync..syncBackoff^b5693.Reset.html" class="ident">Reset</a></label>() {</code></span>
-<span class="codeline" id="line-23"><code>	<label for="r3" class="ident">s</label>.<a href="#line-12" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-23"><code>	<label for="r3" class="ident">s</label>.<a href="#line-12" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
 <span class="codeline" id="line-24"><code>	<label for="r3" class="ident">s</label>.<a href="#line-11" class="ident">b</a>.<a href="../../../../cenkalti/backoff/v4/backoff.go.html#line-32" class="ident">Reset</a>()</code></span>
-<span class="codeline" id="line-25"><code>	<label for="r3" class="ident">s</label>.<a href="#line-12" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-25"><code>	<label for="r3" class="ident">s</label>.<a href="#line-12" class="ident">mux</a>.<a href="../../../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-26"><code>}</code></span>
 <span class="codeline" id="line-27"><code></code></span>
 <span class="codeline" id="line-28"><code><span class="comment">// SyncBackoff decorates backoff.BackOff to be thread-safe.</span></code></span>
@@ -73,7 +73,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-31"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: base64_amd64.go in package github.com/segmentio/asm/base64</title>
+<link href="../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../jvs/golds-v0.5.2.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	base64_amd64.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../../../pkg/github.com/segmentio/asm/base64.html">github.com/segmentio/asm/base64</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1,
+input[id=i2]:checked ~pre .i2
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+<input id="i2" type="radio" name="i"/>
+
+<pre class="line-numbers">
+<span class="codeline" id="line-1"><code><span class="comment">//go:build amd64 &amp;&amp; !purego</span></code></span>
+<span class="codeline" id="line-2"><code><span class="comment">// +build amd64,!purego</span></code></span>
+<span class="codeline" id="line-3"><code></code></span>
+<span class="codeline" id="line-4"><code><span class="keyword">package</span> base64</code></span>
+<span class="codeline" id="line-5"><code></code></span>
+<span class="codeline" id="line-6"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-7"><code>	<label for="i0"><span class="lit-string i0">"encoding/base64"</span></label></code></span>
+<span class="codeline" id="line-8"><code></code></span>
+<span class="codeline" id="line-9"><code>	<label for="i1"><span class="lit-string i1">"github.com/segmentio/asm/cpu"</span></label></code></span>
+<span class="codeline" id="line-10"><code>	<label for="i2"><span class="lit-string i2">"github.com/segmentio/asm/cpu/x86"</span></label></code></span>
+<span class="codeline" id="line-11"><code>)</code></span>
+<span class="codeline" id="line-12"><code></code></span>
+<span class="codeline" id="line-13"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-14"><code>	<a href="../../../../../pkg/github.com/segmentio/asm/base64.html#name-encLutSize" class="ident">encLutSize</a>   = <span class="lit-number">32</span></code></span>
+<span class="codeline" id="line-15"><code>	<a href="../../../../../pkg/github.com/segmentio/asm/base64.html#name-decLutSize" class="ident">decLutSize</a>   = <span class="lit-number">48</span></code></span>
+<span class="codeline" id="line-16"><code>	<a href="../../../../../pkg/github.com/segmentio/asm/base64.html#name-minEncodeLen" class="ident">minEncodeLen</a> = <span class="lit-number">28</span></code></span>
+<span class="codeline" id="line-17"><code>	<a href="../../../../../pkg/github.com/segmentio/asm/base64.html#name-minDecodeLen" class="ident">minDecodeLen</a> = <span class="lit-number">45</span></code></span>
+<span class="codeline" id="line-18"><code>)</code></span>
+<span class="codeline" id="line-19"><code></code></span>
+<span class="codeline" id="line-20"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../pkg/github.com/segmentio/asm/base64.html#name-newEncoding" class="ident">newEncoding</a></label>(<label for="r1" class="ident">encoder</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) *<a href="base64_asm.go.html#line-15" class="ident">Encoding</a> {</code></span>
+<span class="codeline" id="line-21"><code>	<label for="r2" class="ident">e</label> := &amp;<a href="base64_asm.go.html#line-15" class="ident">Encoding</a>{<a href="base64_asm.go.html#line-22" class="ident">base</a>: <a href="../../../../../pkg/encoding/base64.html" class="ident i0">base64</a>.<a href="../../../../encoding/base64/base64.go.html#line-43" class="ident">NewEncoding</a>(<label for="r1" class="ident">encoder</label>)}</code></span>
+<span class="codeline" id="line-22"><code>	<span class="keyword">if</span> <a href="../../../../../pkg/github.com/segmentio/asm/cpu.html" class="ident i1">cpu</a>.<a href="../cpu/cpu.go.html#line-13" class="ident">X86</a>.<a href="../cpu/x86/x86.go.html#line-10" class="ident">Has</a>(<a href="../../../../../pkg/github.com/segmentio/asm/cpu/x86.html" class="ident i2">x86</a>.<a href="../cpu/x86/x86.go.html#line-29" class="ident">AVX2</a>) {</code></span>
+<span class="codeline" id="line-23"><code>		<label for="r2" class="ident">e</label>.<a href="#line-29" class="ident">enableEncodeAVX2</a>(<label for="r1" class="ident">encoder</label>)</code></span>
+<span class="codeline" id="line-24"><code>		<label for="r2" class="ident">e</label>.<a href="#line-47" class="ident">enableDecodeAVX2</a>(<label for="r1" class="ident">encoder</label>)</code></span>
+<span class="codeline" id="line-25"><code>	}</code></span>
+<span class="codeline" id="line-26"><code>	<span class="keyword">return</span> <label for="r2" class="ident">e</label></code></span>
+<span class="codeline" id="line-27"><code>}</code></span>
+<span class="codeline" id="line-28"><code></code></span>
+<span class="codeline" id="line-29"><code><span class="keyword">func</span> (<label for="r3" class="ident">e</label> *<a href="base64_asm.go.html#line-15" class="ident">Encoding</a>) <label for="r4" class="ident"><a href="../../../../../use/github.com/segmentio/asm/base64..Encoding.enableEncodeAVX2^b999c.html" class="ident">enableEncodeAVX2</a></label>(<label for="r5" class="ident">encoder</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) {</code></span>
+<span class="codeline" id="line-30"><code>	<span class="comment">// Translate values 0..63 to the Base64 alphabet. There are five sets:</span></code></span>
+<span class="codeline" id="line-31"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-32"><code><span class="comment">	// From      To         Add    Index  Example</span></code></span>
+<span class="codeline" id="line-33"><code><span class="comment">	// [0..25]   [65..90]   +65        0  ABCDEFGHIJKLMNOPQRSTUVWXYZ</span></code></span>
+<span class="codeline" id="line-34"><code><span class="comment">	// [26..51]  [97..122]  +71        1  abcdefghijklmnopqrstuvwxyz</span></code></span>
+<span class="codeline" id="line-35"><code><span class="comment">	// [52..61]  [48..57]    -4  [2..11]  0123456789</span></code></span>
+<span class="codeline" id="line-36"><code><span class="comment">	// [62]      [43]       -19       12  +</span></code></span>
+<span class="codeline" id="line-37"><code><span class="comment">	// [63]      [47]       -16       13  /</span></code></span>
+<span class="codeline" id="line-38"><code>	<label for="r6" class="ident">tab</label> := [<a href="#line-14" class="ident">encLutSize</a>]<a href="../../../../../pkg/builtin.html#name-int8" class="ident">int8</a>{<a href="../../../../../pkg/builtin.html#name-int8" class="ident">int8</a>(<label for="r5" class="ident">encoder</label>[<span class="lit-number">0</span>]), <a href="../../../../../pkg/builtin.html#name-int8" class="ident">int8</a>(<label for="r5" class="ident">encoder</label>[<a href="base64.go.html#line-15" class="ident">letterRange</a>]) - <a href="base64.go.html#line-15" class="ident">letterRange</a>}</code></span>
+<span class="codeline" id="line-39"><code>	<span class="keyword">for</span> <label for="r7" class="ident">i</label>, <label for="r8" class="ident">ch</label> := <span class="keyword">range</span> <label for="r5" class="ident">encoder</label>[<span class="lit-number">2</span>*<a href="base64.go.html#line-15" class="ident">letterRange</a>:] {</code></span>
+<span class="codeline" id="line-40"><code>		<label for="r6" class="ident">tab</label>[<span class="lit-number">2</span>+<label for="r7" class="ident">i</label>] = <a href="../../../../../pkg/builtin.html#name-int8" class="ident">int8</a>(<label for="r8" class="ident">ch</label>) - <span class="lit-number">2</span>*<a href="base64.go.html#line-15" class="ident">letterRange</a> - <a href="../../../../../pkg/builtin.html#name-int8" class="ident">int8</a>(<label for="r7" class="ident">i</label>)</code></span>
+<span class="codeline" id="line-41"><code>	}</code></span>
+<span class="codeline" id="line-42"><code></code></span>
+<span class="codeline" id="line-43"><code>	<label for="r3" class="ident">e</label>.<a href="base64_asm.go.html#line-16" class="ident">enc</a> = <a href="encode_amd64.go.html#line-7" class="ident">encodeAVX2</a></code></span>
+<span class="codeline" id="line-44"><code>	<label for="r3" class="ident">e</label>.<a href="base64_asm.go.html#line-17" class="ident">enclut</a> = <label for="r6" class="ident">tab</label></code></span>
+<span class="codeline" id="line-45"><code>}</code></span>
+<span class="codeline" id="line-46"><code></code></span>
+<span class="codeline" id="line-47"><code><span class="keyword">func</span> (<label for="r9" class="ident">e</label> *<a href="base64_asm.go.html#line-15" class="ident">Encoding</a>) <label for="r10" class="ident"><a href="../../../../../use/github.com/segmentio/asm/base64..Encoding.enableDecodeAVX2^88a11.html" class="ident">enableDecodeAVX2</a></label>(<label for="r11" class="ident">encoder</label> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a>) {</code></span>
+<span class="codeline" id="line-48"><code>	<label for="r12" class="ident">c62</label>, <label for="r13" class="ident">c63</label> := <a href="../../../../../pkg/builtin.html#name-int8" class="ident">int8</a>(<label for="r11" class="ident">encoder</label>[<span class="lit-number">62</span>]), <a href="../../../../../pkg/builtin.html#name-int8" class="ident">int8</a>(<label for="r11" class="ident">encoder</label>[<span class="lit-number">63</span>])</code></span>
+<span class="codeline" id="line-49"><code>	<label for="r14" class="ident">url</label> := <label for="r13" class="ident">c63</label> == <span class="lit-number">'_'</span></code></span>
+<span class="codeline" id="line-50"><code>	<span class="keyword">if</span> <label for="r14" class="ident">url</label> {</code></span>
+<span class="codeline" id="line-51"><code>		<label for="r13" class="ident">c63</label> = <span class="lit-number">'/'</span></code></span>
+<span class="codeline" id="line-52"><code>	}</code></span>
+<span class="codeline" id="line-53"><code></code></span>
+<span class="codeline" id="line-54"><code>	<span class="comment">// Translate values from the Base64 alphabet using five sets. Values outside</span></code></span>
+<span class="codeline" id="line-55"><code><span class="comment">	// of these ranges are considered invalid:</span></code></span>
+<span class="codeline" id="line-56"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-57"><code><span class="comment">	// From       To        Add    Index  Example</span></code></span>
+<span class="codeline" id="line-58"><code><span class="comment">	// [47]       [63]      +16        1  /</span></code></span>
+<span class="codeline" id="line-59"><code><span class="comment">	// [43]       [62]      +19        2  +</span></code></span>
+<span class="codeline" id="line-60"><code><span class="comment">	// [48..57]   [52..61]   +4        3  0123456789</span></code></span>
+<span class="codeline" id="line-61"><code><span class="comment">	// [65..90]   [0..25]   -65      4,5  ABCDEFGHIJKLMNOPQRSTUVWXYZ</span></code></span>
+<span class="codeline" id="line-62"><code><span class="comment">	// [97..122]  [26..51]  -71      6,7  abcdefghijklmnopqrstuvwxyz</span></code></span>
+<span class="codeline" id="line-63"><code>	<label for="r15" class="ident">tab</label> := [<a href="#line-15" class="ident">decLutSize</a>]<a href="../../../../../pkg/builtin.html#name-int8" class="ident">int8</a>{</code></span>
+<span class="codeline" id="line-64"><code>		<span class="lit-number">0</span>, <span class="lit-number">63</span> - <label for="r13" class="ident">c63</label>, <span class="lit-number">62</span> - <label for="r12" class="ident">c62</label>, <span class="lit-number">4</span>, -<span class="lit-number">65</span>, -<span class="lit-number">65</span>, -<span class="lit-number">71</span>, -<span class="lit-number">71</span>,</code></span>
+<span class="codeline" id="line-65"><code>		<span class="lit-number">0x00</span>, <span class="lit-number">0x00</span>, <span class="lit-number">0x00</span>, <span class="lit-number">0x00</span>, <span class="lit-number">0x00</span>, <span class="lit-number">0x00</span>, <span class="lit-number">0x00</span>, <span class="lit-number">0x00</span>,</code></span>
+<span class="codeline" id="line-66"><code>		<span class="lit-number">0x15</span>, <span class="lit-number">0x11</span>, <span class="lit-number">0x11</span>, <span class="lit-number">0x11</span>, <span class="lit-number">0x11</span>, <span class="lit-number">0x11</span>, <span class="lit-number">0x11</span>, <span class="lit-number">0x11</span>,</code></span>
+<span class="codeline" id="line-67"><code>		<span class="lit-number">0x11</span>, <span class="lit-number">0x11</span>, <span class="lit-number">0x13</span>, <span class="lit-number">0x1B</span>, <span class="lit-number">0x1B</span>, <span class="lit-number">0x1B</span>, <span class="lit-number">0x1B</span>, <span class="lit-number">0x1B</span>,</code></span>
+<span class="codeline" id="line-68"><code>	}</code></span>
+<span class="codeline" id="line-69"><code>	<label for="r15" class="ident">tab</label>[(<label for="r12" class="ident">c62</label>&amp;<span class="lit-number">15</span>)+<span class="lit-number">16</span>] = <span class="lit-number">0x1A</span></code></span>
+<span class="codeline" id="line-70"><code>	<label for="r15" class="ident">tab</label>[(<label for="r13" class="ident">c63</label>&amp;<span class="lit-number">15</span>)+<span class="lit-number">16</span>] = <span class="lit-number">0x1A</span></code></span>
+<span class="codeline" id="line-71"><code></code></span>
+<span class="codeline" id="line-72"><code>	<span class="keyword">if</span> <label for="r14" class="ident">url</label> {</code></span>
+<span class="codeline" id="line-73"><code>		<label for="r9" class="ident">e</label>.<a href="base64_asm.go.html#line-19" class="ident">dec</a> = <a href="decode_amd64.go.html#line-9" class="ident">decodeAVX2URI</a></code></span>
+<span class="codeline" id="line-74"><code>	} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-75"><code>		<label for="r9" class="ident">e</label>.<a href="base64_asm.go.html#line-19" class="ident">dec</a> = <a href="decode_amd64.go.html#line-7" class="ident">decodeAVX2</a></code></span>
+<span class="codeline" id="line-76"><code>	}</code></span>
+<span class="codeline" id="line-77"><code>	<label for="r9" class="ident">e</label>.<a href="base64_asm.go.html#line-20" class="ident">declut</a> = <label for="r15" class="ident">tab</label></code></span>
+<span class="codeline" id="line-78"><code>}</code></span>
+</pre><pre id="footer">
+<table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

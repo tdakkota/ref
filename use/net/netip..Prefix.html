@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>References: net/netip.Prefix</title>
+<link href="../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.5.2.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre><code><span style="font-size:x-large;">type <b><a href="../../pkg/net/netip.html">net/netip</a>.<a href="../../src/net/netip/netip.go.html#line-1235">Prefix</a></b></span>
+
+<span class="title">34 uses</span>
+
+	net/netip (current package)
+		<a href="../../src/net/netip/netip.go.html#line-650">netip.go#L650</a>: func (ip Addr) Prefix(b int) (<b>Prefix</b>, error) {
+		<a href="../../src/net/netip/netip.go.html#line-652" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-652">#L652</a>: 		return <b>Prefix</b>{}, errors.New("negative Prefix bits")
+		<a href="../../src/net/netip/netip.go.html#line-657" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-657">#L657</a>: 		return <b>Prefix</b>{}, nil
+		<a href="../../src/net/netip/netip.go.html#line-660" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-660">#L660</a>: 			return <b>Prefix</b>{}, errors.New("prefix length " + itoa.Itoa(b) + " too large for IPv4")
+		<a href="../../src/net/netip/netip.go.html#line-665" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-665">#L665</a>: 			return <b>Prefix</b>{}, errors.New("prefix length " + itoa.Itoa(b) + " too large for IPv6")
+		<a href="../../src/net/netip/netip.go.html#line-1235" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1235">#L1235</a>: type <b>Prefix</b> struct {
+		<a href="../../src/net/netip/netip.go.html#line-1260" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1260">#L1260</a>: func PrefixFrom(ip Addr, bits int) <b>Prefix</b> {
+		<a href="../../src/net/netip/netip.go.html#line-1265" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1265">#L1265</a>: 	return <b>Prefix</b>{
+		<a href="../../src/net/netip/netip.go.html#line-1272" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1272">#L1272</a>: func (p <b>Prefix</b>) Addr() Addr { return p.ip }
+		<a href="../../src/net/netip/netip.go.html#line-1277" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1277">#L1277</a>: func (p <b>Prefix</b>) Bits() int { return int(p.bits) }
+		<a href="../../src/net/netip/netip.go.html#line-1282" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1282">#L1282</a>: func (p <b>Prefix</b>) IsValid() bool { return !p.ip.isZero() &amp;&amp; p.bits &gt;= 0 &amp;&amp; int(p.bits) &lt;= p.ip.BitLen() }
+		<a href="../../src/net/netip/netip.go.html#line-1284" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1284">#L1284</a>: func (p <b>Prefix</b>) isZero() bool { return p == <b>Prefix</b>{} }
+		<a href="../../src/net/netip/netip.go.html#line-1287" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1287">#L1287</a>: func (p <b>Prefix</b>) IsSingleIP() bool { return p.bits != 0 &amp;&amp; int(p.bits) == p.ip.BitLen() }
+		<a href="../../src/net/netip/netip.go.html#line-1296" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1296">#L1296</a>: func ParsePrefix(s string) (<b>Prefix</b>, error) {
+		<a href="../../src/net/netip/netip.go.html#line-1299" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1299">#L1299</a>: 		return <b>Prefix</b>{}, errors.New("netip.ParsePrefix(" + strconv.Quote(s) + "): no '/'")
+		<a href="../../src/net/netip/netip.go.html#line-1303" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1303">#L1303</a>: 		return <b>Prefix</b>{}, errors.New("netip.ParsePrefix(" + strconv.Quote(s) + "): " + err.Error())
+		<a href="../../src/net/netip/netip.go.html#line-1307" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1307">#L1307</a>: 		return <b>Prefix</b>{}, errors.New("netip.ParsePrefix(" + strconv.Quote(s) + "): IPv6 zones cannot be present in a prefix")
+		<a href="../../src/net/netip/netip.go.html#line-1313" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1313">#L1313</a>: 		return <b>Prefix</b>{}, errors.New("netip.ParsePrefix(" + strconv.Quote(s) + "): bad bits after slash: " + strconv.Quote(bitsStr))
+		<a href="../../src/net/netip/netip.go.html#line-1320" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1320">#L1320</a>: 		return <b>Prefix</b>{}, errors.New("netip.ParsePrefix(" + strconv.Quote(s) + "): prefix length out of range")
+		<a href="../../src/net/netip/netip.go.html#line-1327" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1327">#L1327</a>: func MustParsePrefix(s string) <b>Prefix</b> {
+		<a href="../../src/net/netip/netip.go.html#line-1339" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1339">#L1339</a>: func (p <b>Prefix</b>) Masked() <b>Prefix</b> {
+		<a href="../../src/net/netip/netip.go.html#line-1343" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1343">#L1343</a>: 	return <b>Prefix</b>{}
+		<a href="../../src/net/netip/netip.go.html#line-1353" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1353">#L1353</a>: func (p <b>Prefix</b>) Contains(ip Addr) bool {
+		<a href="../../src/net/netip/netip.go.html#line-1383" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1383">#L1383</a>: func (p <b>Prefix</b>) Overlaps(o <b>Prefix</b>) bool {
+		<a href="../../src/net/netip/netip.go.html#line-1419" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1419">#L1419</a>: func (p <b>Prefix</b>) AppendTo(b []byte) []byte {
+		<a href="../../src/net/netip/netip.go.html#line-1447" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1447">#L1447</a>: func (p <b>Prefix</b>) MarshalText() ([]byte, error) {
+		<a href="../../src/net/netip/netip.go.html#line-1464" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1464">#L1464</a>: func (p *<b>Prefix</b>) UnmarshalText(text []byte) error {
+		<a href="../../src/net/netip/netip.go.html#line-1466" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1466">#L1466</a>: 		*p = <b>Prefix</b>{}
+		<a href="../../src/net/netip/netip.go.html#line-1477" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1477">#L1477</a>: func (p <b>Prefix</b>) MarshalBinary() ([]byte, error) {
+		<a href="../../src/net/netip/netip.go.html#line-1485" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1485">#L1485</a>: func (p *<b>Prefix</b>) UnmarshalBinary(b []byte) error {
+		<a href="../../src/net/netip/netip.go.html#line-1499" class="path-duplicate">netip.go</a><a href="../../src/net/netip/netip.go.html#line-1499">#L1499</a>: func (p <b>Prefix</b>) String() string {
+</code></pre><pre id="footer">
+<table><tr><td><img src="../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: atof.go in package strconv</title>
-<link href="../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.3.6.js"></script>
+<link href="../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -612,7 +612,7 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-300"><code>		<label for="r26" class="ident">exp</label> = <label for="r40" class="ident">dp</label> - <label for="r39" class="ident">ndMant</label></code></span>
 <span class="codeline" id="line-301"><code>	}</code></span>
 <span class="codeline" id="line-302"><code></code></span>
-<span class="codeline" id="line-303"><code>	<span class="keyword">if</span> <label for="r32" class="ident">underscores</label> &amp;&amp; !<a href="atoi.go.html#line-269" class="ident">underscoreOK</a>(<label for="r24" class="ident">s</label>[:<label for="r30" class="ident">i</label>]) {</code></span>
+<span class="codeline" id="line-303"><code>	<span class="keyword">if</span> <label for="r32" class="ident">underscores</label> &amp;&amp; !<a href="atoi.go.html#line-271" class="ident">underscoreOK</a>(<label for="r24" class="ident">s</label>[:<label for="r30" class="ident">i</label>]) {</code></span>
 <span class="codeline" id="line-304"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-305"><code>	}</code></span>
 <span class="codeline" id="line-306"><code></code></span>
@@ -732,291 +732,296 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-420"><code><span class="comment">// If possible to convert decimal representation to 64-bit float f exactly,</span></code></span>
 <span class="codeline" id="line-421"><code><span class="comment">// entirely in floating-point math, do so, avoiding the expense of decimalToFloatBits.</span></code></span>
 <span class="codeline" id="line-422"><code><span class="comment">// Three common cases:</span></code></span>
-<span class="codeline" id="line-423"><code><span class="comment">//	value is exact integer</span></code></span>
-<span class="codeline" id="line-424"><code><span class="comment">//	value is exact integer * exact power of ten</span></code></span>
-<span class="codeline" id="line-425"><code><span class="comment">//	value is exact integer / exact power of ten</span></code></span>
-<span class="codeline" id="line-426"><code><span class="comment">// These all produce potentially inexact but correctly rounded answers.</span></code></span>
-<span class="codeline" id="line-427"><code><span class="keyword">func</span> <label for="r58" class="ident"><a href="../../pkg/strconv.html#name-atof64exact" class="ident">atof64exact</a></label>(<label for="r59" class="ident">mantissa</label> <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>, <label for="r60" class="ident">exp</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r61" class="ident">neg</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) (<label for="r62" class="ident">f</label> <a href="../../pkg/builtin.html#name-float64" class="ident">float64</a>, <label for="r63" class="ident">ok</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
-<span class="codeline" id="line-428"><code>	<span class="keyword">if</span> <label for="r59" class="ident">mantissa</label>&gt;&gt;<a href="ftoa.go.html#line-23" class="ident">float64info</a>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a> != <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-429"><code>		<span class="keyword">return</span></code></span>
-<span class="codeline" id="line-430"><code>	}</code></span>
-<span class="codeline" id="line-431"><code>	<label for="r62" class="ident">f</label> = <a href="../../pkg/builtin.html#name-float64" class="ident">float64</a>(<label for="r59" class="ident">mantissa</label>)</code></span>
-<span class="codeline" id="line-432"><code>	<span class="keyword">if</span> <label for="r61" class="ident">neg</label> {</code></span>
-<span class="codeline" id="line-433"><code>		<label for="r62" class="ident">f</label> = -<label for="r62" class="ident">f</label></code></span>
-<span class="codeline" id="line-434"><code>	}</code></span>
-<span class="codeline" id="line-435"><code>	<span class="keyword">switch</span> {</code></span>
-<span class="codeline" id="line-436"><code>	<span class="keyword">case</span> <label for="r60" class="ident">exp</label> == <span class="lit-number">0</span>:</code></span>
-<span class="codeline" id="line-437"><code>		<span class="comment">// an integer.</span></code></span>
-<span class="codeline" id="line-438"><code>		<span class="keyword">return</span> <label for="r62" class="ident">f</label>, <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-439"><code>	<span class="comment">// Exact integers are &lt;= 10^15.</span></code></span>
-<span class="codeline" id="line-440"><code><span class="comment">	// Exact powers of ten are &lt;= 10^22.</span></code></span>
-<span class="codeline" id="line-441"><code>	<span class="keyword">case</span> <label for="r60" class="ident">exp</label> &gt; <span class="lit-number">0</span> &amp;&amp; <label for="r60" class="ident">exp</label> &lt;= <span class="lit-number">15</span>+<span class="lit-number">22</span>: <span class="comment">// int * 10^k</span></code></span>
-<span class="codeline" id="line-442"><code>		<span class="comment">// If exponent is big but number of digits is not,</span></code></span>
-<span class="codeline" id="line-443"><code><span class="comment">		// can move a few zeros into the integer part.</span></code></span>
-<span class="codeline" id="line-444"><code>		<span class="keyword">if</span> <label for="r60" class="ident">exp</label> &gt; <span class="lit-number">22</span> {</code></span>
-<span class="codeline" id="line-445"><code>			<label for="r62" class="ident">f</label> *= <a href="#line-413" class="ident">float64pow10</a>[<label for="r60" class="ident">exp</label>-<span class="lit-number">22</span>]</code></span>
-<span class="codeline" id="line-446"><code>			<label for="r60" class="ident">exp</label> = <span class="lit-number">22</span></code></span>
-<span class="codeline" id="line-447"><code>		}</code></span>
-<span class="codeline" id="line-448"><code>		<span class="keyword">if</span> <label for="r62" class="ident">f</label> &gt; <span class="lit-number">1e15</span> || <label for="r62" class="ident">f</label> &lt; -<span class="lit-number">1e15</span> {</code></span>
-<span class="codeline" id="line-449"><code>			<span class="comment">// the exponent was really too large.</span></code></span>
-<span class="codeline" id="line-450"><code>			<span class="keyword">return</span></code></span>
-<span class="codeline" id="line-451"><code>		}</code></span>
-<span class="codeline" id="line-452"><code>		<span class="keyword">return</span> <label for="r62" class="ident">f</label> * <a href="#line-413" class="ident">float64pow10</a>[<label for="r60" class="ident">exp</label>], <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-453"><code>	<span class="keyword">case</span> <label for="r60" class="ident">exp</label> &lt; <span class="lit-number">0</span> &amp;&amp; <label for="r60" class="ident">exp</label> &gt;= -<span class="lit-number">22</span>: <span class="comment">// int / 10^k</span></code></span>
-<span class="codeline" id="line-454"><code>		<span class="keyword">return</span> <label for="r62" class="ident">f</label> / <a href="#line-413" class="ident">float64pow10</a>[-<label for="r60" class="ident">exp</label>], <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-455"><code>	}</code></span>
-<span class="codeline" id="line-456"><code>	<span class="keyword">return</span></code></span>
-<span class="codeline" id="line-457"><code>}</code></span>
-<span class="codeline" id="line-458"><code></code></span>
-<span class="codeline" id="line-459"><code><span class="comment">// If possible to compute mantissa*10^exp to 32-bit float f exactly,</span></code></span>
-<span class="codeline" id="line-460"><code><span class="comment">// entirely in floating-point math, do so, avoiding the machinery above.</span></code></span>
-<span class="codeline" id="line-461"><code><span class="keyword">func</span> <label for="r64" class="ident"><a href="../../pkg/strconv.html#name-atof32exact" class="ident">atof32exact</a></label>(<label for="r65" class="ident">mantissa</label> <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>, <label for="r66" class="ident">exp</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r67" class="ident">neg</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) (<label for="r68" class="ident">f</label> <a href="../../pkg/builtin.html#name-float32" class="ident">float32</a>, <label for="r69" class="ident">ok</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
-<span class="codeline" id="line-462"><code>	<span class="keyword">if</span> <label for="r65" class="ident">mantissa</label>&gt;&gt;<a href="ftoa.go.html#line-22" class="ident">float32info</a>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a> != <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-463"><code>		<span class="keyword">return</span></code></span>
-<span class="codeline" id="line-464"><code>	}</code></span>
-<span class="codeline" id="line-465"><code>	<label for="r68" class="ident">f</label> = <a href="../../pkg/builtin.html#name-float32" class="ident">float32</a>(<label for="r65" class="ident">mantissa</label>)</code></span>
-<span class="codeline" id="line-466"><code>	<span class="keyword">if</span> <label for="r67" class="ident">neg</label> {</code></span>
-<span class="codeline" id="line-467"><code>		<label for="r68" class="ident">f</label> = -<label for="r68" class="ident">f</label></code></span>
-<span class="codeline" id="line-468"><code>	}</code></span>
-<span class="codeline" id="line-469"><code>	<span class="keyword">switch</span> {</code></span>
-<span class="codeline" id="line-470"><code>	<span class="keyword">case</span> <label for="r66" class="ident">exp</label> == <span class="lit-number">0</span>:</code></span>
-<span class="codeline" id="line-471"><code>		<span class="keyword">return</span> <label for="r68" class="ident">f</label>, <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-472"><code>	<span class="comment">// Exact integers are &lt;= 10^7.</span></code></span>
-<span class="codeline" id="line-473"><code><span class="comment">	// Exact powers of ten are &lt;= 10^10.</span></code></span>
-<span class="codeline" id="line-474"><code>	<span class="keyword">case</span> <label for="r66" class="ident">exp</label> &gt; <span class="lit-number">0</span> &amp;&amp; <label for="r66" class="ident">exp</label> &lt;= <span class="lit-number">7</span>+<span class="lit-number">10</span>: <span class="comment">// int * 10^k</span></code></span>
-<span class="codeline" id="line-475"><code>		<span class="comment">// If exponent is big but number of digits is not,</span></code></span>
-<span class="codeline" id="line-476"><code><span class="comment">		// can move a few zeros into the integer part.</span></code></span>
-<span class="codeline" id="line-477"><code>		<span class="keyword">if</span> <label for="r66" class="ident">exp</label> &gt; <span class="lit-number">10</span> {</code></span>
-<span class="codeline" id="line-478"><code>			<label for="r68" class="ident">f</label> *= <a href="#line-418" class="ident">float32pow10</a>[<label for="r66" class="ident">exp</label>-<span class="lit-number">10</span>]</code></span>
-<span class="codeline" id="line-479"><code>			<label for="r66" class="ident">exp</label> = <span class="lit-number">10</span></code></span>
-<span class="codeline" id="line-480"><code>		}</code></span>
-<span class="codeline" id="line-481"><code>		<span class="keyword">if</span> <label for="r68" class="ident">f</label> &gt; <span class="lit-number">1e7</span> || <label for="r68" class="ident">f</label> &lt; -<span class="lit-number">1e7</span> {</code></span>
-<span class="codeline" id="line-482"><code>			<span class="comment">// the exponent was really too large.</span></code></span>
-<span class="codeline" id="line-483"><code>			<span class="keyword">return</span></code></span>
-<span class="codeline" id="line-484"><code>		}</code></span>
-<span class="codeline" id="line-485"><code>		<span class="keyword">return</span> <label for="r68" class="ident">f</label> * <a href="#line-418" class="ident">float32pow10</a>[<label for="r66" class="ident">exp</label>], <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-486"><code>	<span class="keyword">case</span> <label for="r66" class="ident">exp</label> &lt; <span class="lit-number">0</span> &amp;&amp; <label for="r66" class="ident">exp</label> &gt;= -<span class="lit-number">10</span>: <span class="comment">// int / 10^k</span></code></span>
-<span class="codeline" id="line-487"><code>		<span class="keyword">return</span> <label for="r68" class="ident">f</label> / <a href="#line-418" class="ident">float32pow10</a>[-<label for="r66" class="ident">exp</label>], <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-488"><code>	}</code></span>
-<span class="codeline" id="line-489"><code>	<span class="keyword">return</span></code></span>
-<span class="codeline" id="line-490"><code>}</code></span>
-<span class="codeline" id="line-491"><code></code></span>
-<span class="codeline" id="line-492"><code><span class="comment">// atofHex converts the hex floating-point string s</span></code></span>
-<span class="codeline" id="line-493"><code><span class="comment">// to a rounded float32 or float64 value (depending on flt==&amp;float32info or flt==&amp;float64info)</span></code></span>
-<span class="codeline" id="line-494"><code><span class="comment">// and returns it as a float64.</span></code></span>
-<span class="codeline" id="line-495"><code><span class="comment">// The string s has already been parsed into a mantissa, exponent, and sign (neg==true for negative).</span></code></span>
-<span class="codeline" id="line-496"><code><span class="comment">// If trunc is true, trailing non-zero bits have been omitted from the mantissa.</span></code></span>
-<span class="codeline" id="line-497"><code><span class="keyword">func</span> <label for="r70" class="ident"><a href="../../pkg/strconv.html#name-atofHex" class="ident">atofHex</a></label>(<label for="r71" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r72" class="ident">flt</label> *<a href="ftoa.go.html#line-16" class="ident">floatInfo</a>, <label for="r73" class="ident">mantissa</label> <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>, <label for="r74" class="ident">exp</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r75" class="ident">neg</label>, <label for="r76" class="ident">trunc</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) (<a href="../../pkg/builtin.html#name-float64" class="ident">float64</a>, <a href="../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-498"><code>	<label for="r77" class="ident">maxExp</label> := <span class="lit-number">1</span>&lt;&lt;<label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-18" class="ident">expbits</a> + <label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-19" class="ident">bias</a> - <span class="lit-number">2</span></code></span>
-<span class="codeline" id="line-499"><code>	<label for="r78" class="ident">minExp</label> := <label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-19" class="ident">bias</a> + <span class="lit-number">1</span></code></span>
-<span class="codeline" id="line-500"><code>	<label for="r74" class="ident">exp</label> += <a href="../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a>) <span class="comment">// mantissa now implicitly divided by 2^mantbits.</span></code></span>
-<span class="codeline" id="line-501"><code></code></span>
-<span class="codeline" id="line-502"><code>	<span class="comment">// Shift mantissa and exponent to bring representation into float range.</span></code></span>
-<span class="codeline" id="line-503"><code><span class="comment">	// Eventually we want a mantissa with a leading 1-bit followed by mantbits other bits.</span></code></span>
-<span class="codeline" id="line-504"><code><span class="comment">	// For rounding, we need two more, where the bottom bit represents</span></code></span>
-<span class="codeline" id="line-505"><code><span class="comment">	// whether that bit or any later bit was non-zero.</span></code></span>
-<span class="codeline" id="line-506"><code><span class="comment">	// (If the mantissa has already lost non-zero bits, trunc is true,</span></code></span>
-<span class="codeline" id="line-507"><code><span class="comment">	// and we OR in a 1 below after shifting left appropriately.)</span></code></span>
-<span class="codeline" id="line-508"><code>	<span class="keyword">for</span> <label for="r73" class="ident">mantissa</label> != <span class="lit-number">0</span> &amp;&amp; <label for="r73" class="ident">mantissa</label>&gt;&gt;(<label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a>+<span class="lit-number">2</span>) == <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-509"><code>		<label for="r73" class="ident">mantissa</label> &lt;&lt;= <span class="lit-number">1</span></code></span>
-<span class="codeline" id="line-510"><code>		<label for="r74" class="ident">exp</label>--</code></span>
-<span class="codeline" id="line-511"><code>	}</code></span>
-<span class="codeline" id="line-512"><code>	<span class="keyword">if</span> <label for="r76" class="ident">trunc</label> {</code></span>
-<span class="codeline" id="line-513"><code>		<label for="r73" class="ident">mantissa</label> |= <span class="lit-number">1</span></code></span>
-<span class="codeline" id="line-514"><code>	}</code></span>
-<span class="codeline" id="line-515"><code>	<span class="keyword">for</span> <label for="r73" class="ident">mantissa</label>&gt;&gt;(<span class="lit-number">1</span>+<label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a>+<span class="lit-number">2</span>) != <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-516"><code>		<label for="r73" class="ident">mantissa</label> = <label for="r73" class="ident">mantissa</label>&gt;&gt;<span class="lit-number">1</span> | <label for="r73" class="ident">mantissa</label>&amp;<span class="lit-number">1</span></code></span>
-<span class="codeline" id="line-517"><code>		<label for="r74" class="ident">exp</label>++</code></span>
-<span class="codeline" id="line-518"><code>	}</code></span>
-<span class="codeline" id="line-519"><code></code></span>
-<span class="codeline" id="line-520"><code>	<span class="comment">// If exponent is too negative,</span></code></span>
-<span class="codeline" id="line-521"><code><span class="comment">	// denormalize in hopes of making it representable.</span></code></span>
-<span class="codeline" id="line-522"><code><span class="comment">	// (The -2 is for the rounding bits.)</span></code></span>
-<span class="codeline" id="line-523"><code>	<span class="keyword">for</span> <label for="r73" class="ident">mantissa</label> &gt; <span class="lit-number">1</span> &amp;&amp; <label for="r74" class="ident">exp</label> &lt; <label for="r78" class="ident">minExp</label>-<span class="lit-number">2</span> {</code></span>
-<span class="codeline" id="line-524"><code>		<label for="r73" class="ident">mantissa</label> = <label for="r73" class="ident">mantissa</label>&gt;&gt;<span class="lit-number">1</span> | <label for="r73" class="ident">mantissa</label>&amp;<span class="lit-number">1</span></code></span>
-<span class="codeline" id="line-525"><code>		<label for="r74" class="ident">exp</label>++</code></span>
-<span class="codeline" id="line-526"><code>	}</code></span>
-<span class="codeline" id="line-527"><code></code></span>
-<span class="codeline" id="line-528"><code>	<span class="comment">// Round using two bottom bits.</span></code></span>
-<span class="codeline" id="line-529"><code>	<label for="r79" class="ident">round</label> := <label for="r73" class="ident">mantissa</label> &amp; <span class="lit-number">3</span></code></span>
-<span class="codeline" id="line-530"><code>	<label for="r73" class="ident">mantissa</label> &gt;&gt;= <span class="lit-number">2</span></code></span>
-<span class="codeline" id="line-531"><code>	<label for="r79" class="ident">round</label> |= <label for="r73" class="ident">mantissa</label> &amp; <span class="lit-number">1</span> <span class="comment">// round to even (round up if mantissa is odd)</span></code></span>
-<span class="codeline" id="line-532"><code>	<label for="r74" class="ident">exp</label> += <span class="lit-number">2</span></code></span>
-<span class="codeline" id="line-533"><code>	<span class="keyword">if</span> <label for="r79" class="ident">round</label> == <span class="lit-number">3</span> {</code></span>
-<span class="codeline" id="line-534"><code>		<label for="r73" class="ident">mantissa</label>++</code></span>
-<span class="codeline" id="line-535"><code>		<span class="keyword">if</span> <label for="r73" class="ident">mantissa</label> == <span class="lit-number">1</span>&lt;&lt;(<span class="lit-number">1</span>+<label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a>) {</code></span>
-<span class="codeline" id="line-536"><code>			<label for="r73" class="ident">mantissa</label> &gt;&gt;= <span class="lit-number">1</span></code></span>
-<span class="codeline" id="line-537"><code>			<label for="r74" class="ident">exp</label>++</code></span>
-<span class="codeline" id="line-538"><code>		}</code></span>
-<span class="codeline" id="line-539"><code>	}</code></span>
-<span class="codeline" id="line-540"><code></code></span>
-<span class="codeline" id="line-541"><code>	<span class="keyword">if</span> <label for="r73" class="ident">mantissa</label>&gt;&gt;<label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a> == <span class="lit-number">0</span> { <span class="comment">// Denormal or zero.</span></code></span>
-<span class="codeline" id="line-542"><code>		<label for="r74" class="ident">exp</label> = <label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-19" class="ident">bias</a></code></span>
-<span class="codeline" id="line-543"><code>	}</code></span>
-<span class="codeline" id="line-544"><code>	<span class="keyword">var</span> <label for="r80" class="ident">err</label> <a href="../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
-<span class="codeline" id="line-545"><code>	<span class="keyword">if</span> <label for="r74" class="ident">exp</label> &gt; <label for="r77" class="ident">maxExp</label> { <span class="comment">// infinity and range error</span></code></span>
-<span class="codeline" id="line-546"><code>		<label for="r73" class="ident">mantissa</label> = <span class="lit-number">1</span> &lt;&lt; <label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a></code></span>
-<span class="codeline" id="line-547"><code>		<label for="r74" class="ident">exp</label> = <label for="r77" class="ident">maxExp</label> + <span class="lit-number">1</span></code></span>
-<span class="codeline" id="line-548"><code>		<label for="r80" class="ident">err</label> = <a href="atoi.go.html#line-40" class="ident">rangeError</a>(<a href="#line-562" class="ident">fnParseFloat</a>, <label for="r71" class="ident">s</label>)</code></span>
-<span class="codeline" id="line-549"><code>	}</code></span>
-<span class="codeline" id="line-550"><code></code></span>
-<span class="codeline" id="line-551"><code>	<label for="r81" class="ident">bits</label> := <label for="r73" class="ident">mantissa</label> &amp; (<span class="lit-number">1</span>&lt;&lt;<label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a> - <span class="lit-number">1</span>)</code></span>
-<span class="codeline" id="line-552"><code>	<label for="r81" class="ident">bits</label> |= <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>((<label for="r74" class="ident">exp</label>-<label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-19" class="ident">bias</a>)&amp;(<span class="lit-number">1</span>&lt;&lt;<label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-18" class="ident">expbits</a>-<span class="lit-number">1</span>)) &lt;&lt; <label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a></code></span>
-<span class="codeline" id="line-553"><code>	<span class="keyword">if</span> <label for="r75" class="ident">neg</label> {</code></span>
-<span class="codeline" id="line-554"><code>		<label for="r81" class="ident">bits</label> |= <span class="lit-number">1</span> &lt;&lt; <label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a> &lt;&lt; <label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-18" class="ident">expbits</a></code></span>
-<span class="codeline" id="line-555"><code>	}</code></span>
-<span class="codeline" id="line-556"><code>	<span class="keyword">if</span> <label for="r72" class="ident">flt</label> == &amp;<a href="ftoa.go.html#line-22" class="ident">float32info</a> {</code></span>
-<span class="codeline" id="line-557"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-float64" class="ident">float64</a>(<a href="../../pkg/math.html" class="ident i0">math</a>.<a href="../math/unsafe.go.html#line-18" class="ident">Float32frombits</a>(<a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r81" class="ident">bits</label>))), <label for="r80" class="ident">err</label></code></span>
-<span class="codeline" id="line-558"><code>	}</code></span>
-<span class="codeline" id="line-559"><code>	<span class="keyword">return</span> <a href="../../pkg/math.html" class="ident i0">math</a>.<a href="../math/unsafe.go.html#line-29" class="ident">Float64frombits</a>(<label for="r81" class="ident">bits</label>), <label for="r80" class="ident">err</label></code></span>
-<span class="codeline" id="line-560"><code>}</code></span>
-<span class="codeline" id="line-561"><code></code></span>
-<span class="codeline" id="line-562"><code><span class="keyword">const</span> <a href="../../pkg/strconv.html#name-fnParseFloat" class="ident">fnParseFloat</a> = <span class="lit-string">"ParseFloat"</span></code></span>
+<span class="codeline" id="line-423"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-424"><code><span class="comment">//	value is exact integer</span></code></span>
+<span class="codeline" id="line-425"><code><span class="comment">//	value is exact integer * exact power of ten</span></code></span>
+<span class="codeline" id="line-426"><code><span class="comment">//	value is exact integer / exact power of ten</span></code></span>
+<span class="codeline" id="line-427"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-428"><code><span class="comment">// These all produce potentially inexact but correctly rounded answers.</span></code></span>
+<span class="codeline" id="line-429"><code><span class="keyword">func</span> <label for="r58" class="ident"><a href="../../pkg/strconv.html#name-atof64exact" class="ident">atof64exact</a></label>(<label for="r59" class="ident">mantissa</label> <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>, <label for="r60" class="ident">exp</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r61" class="ident">neg</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) (<label for="r62" class="ident">f</label> <a href="../../pkg/builtin.html#name-float64" class="ident">float64</a>, <label for="r63" class="ident">ok</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
+<span class="codeline" id="line-430"><code>	<span class="keyword">if</span> <label for="r59" class="ident">mantissa</label>&gt;&gt;<a href="ftoa.go.html#line-23" class="ident">float64info</a>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-431"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-432"><code>	}</code></span>
+<span class="codeline" id="line-433"><code>	<label for="r62" class="ident">f</label> = <a href="../../pkg/builtin.html#name-float64" class="ident">float64</a>(<label for="r59" class="ident">mantissa</label>)</code></span>
+<span class="codeline" id="line-434"><code>	<span class="keyword">if</span> <label for="r61" class="ident">neg</label> {</code></span>
+<span class="codeline" id="line-435"><code>		<label for="r62" class="ident">f</label> = -<label for="r62" class="ident">f</label></code></span>
+<span class="codeline" id="line-436"><code>	}</code></span>
+<span class="codeline" id="line-437"><code>	<span class="keyword">switch</span> {</code></span>
+<span class="codeline" id="line-438"><code>	<span class="keyword">case</span> <label for="r60" class="ident">exp</label> == <span class="lit-number">0</span>:</code></span>
+<span class="codeline" id="line-439"><code>		<span class="comment">// an integer.</span></code></span>
+<span class="codeline" id="line-440"><code>		<span class="keyword">return</span> <label for="r62" class="ident">f</label>, <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-441"><code>	<span class="comment">// Exact integers are &lt;= 10^15.</span></code></span>
+<span class="codeline" id="line-442"><code><span class="comment">	// Exact powers of ten are &lt;= 10^22.</span></code></span>
+<span class="codeline" id="line-443"><code>	<span class="keyword">case</span> <label for="r60" class="ident">exp</label> &gt; <span class="lit-number">0</span> &amp;&amp; <label for="r60" class="ident">exp</label> &lt;= <span class="lit-number">15</span>+<span class="lit-number">22</span>: <span class="comment">// int * 10^k</span></code></span>
+<span class="codeline" id="line-444"><code>		<span class="comment">// If exponent is big but number of digits is not,</span></code></span>
+<span class="codeline" id="line-445"><code><span class="comment">		// can move a few zeros into the integer part.</span></code></span>
+<span class="codeline" id="line-446"><code>		<span class="keyword">if</span> <label for="r60" class="ident">exp</label> &gt; <span class="lit-number">22</span> {</code></span>
+<span class="codeline" id="line-447"><code>			<label for="r62" class="ident">f</label> *= <a href="#line-413" class="ident">float64pow10</a>[<label for="r60" class="ident">exp</label>-<span class="lit-number">22</span>]</code></span>
+<span class="codeline" id="line-448"><code>			<label for="r60" class="ident">exp</label> = <span class="lit-number">22</span></code></span>
+<span class="codeline" id="line-449"><code>		}</code></span>
+<span class="codeline" id="line-450"><code>		<span class="keyword">if</span> <label for="r62" class="ident">f</label> &gt; <span class="lit-number">1e15</span> || <label for="r62" class="ident">f</label> &lt; -<span class="lit-number">1e15</span> {</code></span>
+<span class="codeline" id="line-451"><code>			<span class="comment">// the exponent was really too large.</span></code></span>
+<span class="codeline" id="line-452"><code>			<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-453"><code>		}</code></span>
+<span class="codeline" id="line-454"><code>		<span class="keyword">return</span> <label for="r62" class="ident">f</label> * <a href="#line-413" class="ident">float64pow10</a>[<label for="r60" class="ident">exp</label>], <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-455"><code>	<span class="keyword">case</span> <label for="r60" class="ident">exp</label> &lt; <span class="lit-number">0</span> &amp;&amp; <label for="r60" class="ident">exp</label> &gt;= -<span class="lit-number">22</span>: <span class="comment">// int / 10^k</span></code></span>
+<span class="codeline" id="line-456"><code>		<span class="keyword">return</span> <label for="r62" class="ident">f</label> / <a href="#line-413" class="ident">float64pow10</a>[-<label for="r60" class="ident">exp</label>], <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-457"><code>	}</code></span>
+<span class="codeline" id="line-458"><code>	<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-459"><code>}</code></span>
+<span class="codeline" id="line-460"><code></code></span>
+<span class="codeline" id="line-461"><code><span class="comment">// If possible to compute mantissa*10^exp to 32-bit float f exactly,</span></code></span>
+<span class="codeline" id="line-462"><code><span class="comment">// entirely in floating-point math, do so, avoiding the machinery above.</span></code></span>
+<span class="codeline" id="line-463"><code><span class="keyword">func</span> <label for="r64" class="ident"><a href="../../pkg/strconv.html#name-atof32exact" class="ident">atof32exact</a></label>(<label for="r65" class="ident">mantissa</label> <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>, <label for="r66" class="ident">exp</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r67" class="ident">neg</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) (<label for="r68" class="ident">f</label> <a href="../../pkg/builtin.html#name-float32" class="ident">float32</a>, <label for="r69" class="ident">ok</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
+<span class="codeline" id="line-464"><code>	<span class="keyword">if</span> <label for="r65" class="ident">mantissa</label>&gt;&gt;<a href="ftoa.go.html#line-22" class="ident">float32info</a>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-465"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-466"><code>	}</code></span>
+<span class="codeline" id="line-467"><code>	<label for="r68" class="ident">f</label> = <a href="../../pkg/builtin.html#name-float32" class="ident">float32</a>(<label for="r65" class="ident">mantissa</label>)</code></span>
+<span class="codeline" id="line-468"><code>	<span class="keyword">if</span> <label for="r67" class="ident">neg</label> {</code></span>
+<span class="codeline" id="line-469"><code>		<label for="r68" class="ident">f</label> = -<label for="r68" class="ident">f</label></code></span>
+<span class="codeline" id="line-470"><code>	}</code></span>
+<span class="codeline" id="line-471"><code>	<span class="keyword">switch</span> {</code></span>
+<span class="codeline" id="line-472"><code>	<span class="keyword">case</span> <label for="r66" class="ident">exp</label> == <span class="lit-number">0</span>:</code></span>
+<span class="codeline" id="line-473"><code>		<span class="keyword">return</span> <label for="r68" class="ident">f</label>, <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-474"><code>	<span class="comment">// Exact integers are &lt;= 10^7.</span></code></span>
+<span class="codeline" id="line-475"><code><span class="comment">	// Exact powers of ten are &lt;= 10^10.</span></code></span>
+<span class="codeline" id="line-476"><code>	<span class="keyword">case</span> <label for="r66" class="ident">exp</label> &gt; <span class="lit-number">0</span> &amp;&amp; <label for="r66" class="ident">exp</label> &lt;= <span class="lit-number">7</span>+<span class="lit-number">10</span>: <span class="comment">// int * 10^k</span></code></span>
+<span class="codeline" id="line-477"><code>		<span class="comment">// If exponent is big but number of digits is not,</span></code></span>
+<span class="codeline" id="line-478"><code><span class="comment">		// can move a few zeros into the integer part.</span></code></span>
+<span class="codeline" id="line-479"><code>		<span class="keyword">if</span> <label for="r66" class="ident">exp</label> &gt; <span class="lit-number">10</span> {</code></span>
+<span class="codeline" id="line-480"><code>			<label for="r68" class="ident">f</label> *= <a href="#line-418" class="ident">float32pow10</a>[<label for="r66" class="ident">exp</label>-<span class="lit-number">10</span>]</code></span>
+<span class="codeline" id="line-481"><code>			<label for="r66" class="ident">exp</label> = <span class="lit-number">10</span></code></span>
+<span class="codeline" id="line-482"><code>		}</code></span>
+<span class="codeline" id="line-483"><code>		<span class="keyword">if</span> <label for="r68" class="ident">f</label> &gt; <span class="lit-number">1e7</span> || <label for="r68" class="ident">f</label> &lt; -<span class="lit-number">1e7</span> {</code></span>
+<span class="codeline" id="line-484"><code>			<span class="comment">// the exponent was really too large.</span></code></span>
+<span class="codeline" id="line-485"><code>			<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-486"><code>		}</code></span>
+<span class="codeline" id="line-487"><code>		<span class="keyword">return</span> <label for="r68" class="ident">f</label> * <a href="#line-418" class="ident">float32pow10</a>[<label for="r66" class="ident">exp</label>], <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-488"><code>	<span class="keyword">case</span> <label for="r66" class="ident">exp</label> &lt; <span class="lit-number">0</span> &amp;&amp; <label for="r66" class="ident">exp</label> &gt;= -<span class="lit-number">10</span>: <span class="comment">// int / 10^k</span></code></span>
+<span class="codeline" id="line-489"><code>		<span class="keyword">return</span> <label for="r68" class="ident">f</label> / <a href="#line-418" class="ident">float32pow10</a>[-<label for="r66" class="ident">exp</label>], <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-490"><code>	}</code></span>
+<span class="codeline" id="line-491"><code>	<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-492"><code>}</code></span>
+<span class="codeline" id="line-493"><code></code></span>
+<span class="codeline" id="line-494"><code><span class="comment">// atofHex converts the hex floating-point string s</span></code></span>
+<span class="codeline" id="line-495"><code><span class="comment">// to a rounded float32 or float64 value (depending on flt==&amp;float32info or flt==&amp;float64info)</span></code></span>
+<span class="codeline" id="line-496"><code><span class="comment">// and returns it as a float64.</span></code></span>
+<span class="codeline" id="line-497"><code><span class="comment">// The string s has already been parsed into a mantissa, exponent, and sign (neg==true for negative).</span></code></span>
+<span class="codeline" id="line-498"><code><span class="comment">// If trunc is true, trailing non-zero bits have been omitted from the mantissa.</span></code></span>
+<span class="codeline" id="line-499"><code><span class="keyword">func</span> <label for="r70" class="ident"><a href="../../pkg/strconv.html#name-atofHex" class="ident">atofHex</a></label>(<label for="r71" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r72" class="ident">flt</label> *<a href="ftoa.go.html#line-16" class="ident">floatInfo</a>, <label for="r73" class="ident">mantissa</label> <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>, <label for="r74" class="ident">exp</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r75" class="ident">neg</label>, <label for="r76" class="ident">trunc</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>) (<a href="../../pkg/builtin.html#name-float64" class="ident">float64</a>, <a href="../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-500"><code>	<label for="r77" class="ident">maxExp</label> := <span class="lit-number">1</span>&lt;&lt;<label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-18" class="ident">expbits</a> + <label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-19" class="ident">bias</a> - <span class="lit-number">2</span></code></span>
+<span class="codeline" id="line-501"><code>	<label for="r78" class="ident">minExp</label> := <label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-19" class="ident">bias</a> + <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-502"><code>	<label for="r74" class="ident">exp</label> += <a href="../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a>) <span class="comment">// mantissa now implicitly divided by 2^mantbits.</span></code></span>
+<span class="codeline" id="line-503"><code></code></span>
+<span class="codeline" id="line-504"><code>	<span class="comment">// Shift mantissa and exponent to bring representation into float range.</span></code></span>
+<span class="codeline" id="line-505"><code><span class="comment">	// Eventually we want a mantissa with a leading 1-bit followed by mantbits other bits.</span></code></span>
+<span class="codeline" id="line-506"><code><span class="comment">	// For rounding, we need two more, where the bottom bit represents</span></code></span>
+<span class="codeline" id="line-507"><code><span class="comment">	// whether that bit or any later bit was non-zero.</span></code></span>
+<span class="codeline" id="line-508"><code><span class="comment">	// (If the mantissa has already lost non-zero bits, trunc is true,</span></code></span>
+<span class="codeline" id="line-509"><code><span class="comment">	// and we OR in a 1 below after shifting left appropriately.)</span></code></span>
+<span class="codeline" id="line-510"><code>	<span class="keyword">for</span> <label for="r73" class="ident">mantissa</label> != <span class="lit-number">0</span> &amp;&amp; <label for="r73" class="ident">mantissa</label>&gt;&gt;(<label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a>+<span class="lit-number">2</span>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-511"><code>		<label for="r73" class="ident">mantissa</label> &lt;&lt;= <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-512"><code>		<label for="r74" class="ident">exp</label>--</code></span>
+<span class="codeline" id="line-513"><code>	}</code></span>
+<span class="codeline" id="line-514"><code>	<span class="keyword">if</span> <label for="r76" class="ident">trunc</label> {</code></span>
+<span class="codeline" id="line-515"><code>		<label for="r73" class="ident">mantissa</label> |= <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-516"><code>	}</code></span>
+<span class="codeline" id="line-517"><code>	<span class="keyword">for</span> <label for="r73" class="ident">mantissa</label>&gt;&gt;(<span class="lit-number">1</span>+<label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a>+<span class="lit-number">2</span>) != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-518"><code>		<label for="r73" class="ident">mantissa</label> = <label for="r73" class="ident">mantissa</label>&gt;&gt;<span class="lit-number">1</span> | <label for="r73" class="ident">mantissa</label>&amp;<span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-519"><code>		<label for="r74" class="ident">exp</label>++</code></span>
+<span class="codeline" id="line-520"><code>	}</code></span>
+<span class="codeline" id="line-521"><code></code></span>
+<span class="codeline" id="line-522"><code>	<span class="comment">// If exponent is too negative,</span></code></span>
+<span class="codeline" id="line-523"><code><span class="comment">	// denormalize in hopes of making it representable.</span></code></span>
+<span class="codeline" id="line-524"><code><span class="comment">	// (The -2 is for the rounding bits.)</span></code></span>
+<span class="codeline" id="line-525"><code>	<span class="keyword">for</span> <label for="r73" class="ident">mantissa</label> &gt; <span class="lit-number">1</span> &amp;&amp; <label for="r74" class="ident">exp</label> &lt; <label for="r78" class="ident">minExp</label>-<span class="lit-number">2</span> {</code></span>
+<span class="codeline" id="line-526"><code>		<label for="r73" class="ident">mantissa</label> = <label for="r73" class="ident">mantissa</label>&gt;&gt;<span class="lit-number">1</span> | <label for="r73" class="ident">mantissa</label>&amp;<span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-527"><code>		<label for="r74" class="ident">exp</label>++</code></span>
+<span class="codeline" id="line-528"><code>	}</code></span>
+<span class="codeline" id="line-529"><code></code></span>
+<span class="codeline" id="line-530"><code>	<span class="comment">// Round using two bottom bits.</span></code></span>
+<span class="codeline" id="line-531"><code>	<label for="r79" class="ident">round</label> := <label for="r73" class="ident">mantissa</label> &amp; <span class="lit-number">3</span></code></span>
+<span class="codeline" id="line-532"><code>	<label for="r73" class="ident">mantissa</label> &gt;&gt;= <span class="lit-number">2</span></code></span>
+<span class="codeline" id="line-533"><code>	<label for="r79" class="ident">round</label> |= <label for="r73" class="ident">mantissa</label> &amp; <span class="lit-number">1</span> <span class="comment">// round to even (round up if mantissa is odd)</span></code></span>
+<span class="codeline" id="line-534"><code>	<label for="r74" class="ident">exp</label> += <span class="lit-number">2</span></code></span>
+<span class="codeline" id="line-535"><code>	<span class="keyword">if</span> <label for="r79" class="ident">round</label> == <span class="lit-number">3</span> {</code></span>
+<span class="codeline" id="line-536"><code>		<label for="r73" class="ident">mantissa</label>++</code></span>
+<span class="codeline" id="line-537"><code>		<span class="keyword">if</span> <label for="r73" class="ident">mantissa</label> == <span class="lit-number">1</span>&lt;&lt;(<span class="lit-number">1</span>+<label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a>) {</code></span>
+<span class="codeline" id="line-538"><code>			<label for="r73" class="ident">mantissa</label> &gt;&gt;= <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-539"><code>			<label for="r74" class="ident">exp</label>++</code></span>
+<span class="codeline" id="line-540"><code>		}</code></span>
+<span class="codeline" id="line-541"><code>	}</code></span>
+<span class="codeline" id="line-542"><code></code></span>
+<span class="codeline" id="line-543"><code>	<span class="keyword">if</span> <label for="r73" class="ident">mantissa</label>&gt;&gt;<label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a> == <span class="lit-number">0</span> { <span class="comment">// Denormal or zero.</span></code></span>
+<span class="codeline" id="line-544"><code>		<label for="r74" class="ident">exp</label> = <label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-19" class="ident">bias</a></code></span>
+<span class="codeline" id="line-545"><code>	}</code></span>
+<span class="codeline" id="line-546"><code>	<span class="keyword">var</span> <label for="r80" class="ident">err</label> <a href="../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-547"><code>	<span class="keyword">if</span> <label for="r74" class="ident">exp</label> &gt; <label for="r77" class="ident">maxExp</label> { <span class="comment">// infinity and range error</span></code></span>
+<span class="codeline" id="line-548"><code>		<label for="r73" class="ident">mantissa</label> = <span class="lit-number">1</span> &lt;&lt; <label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a></code></span>
+<span class="codeline" id="line-549"><code>		<label for="r74" class="ident">exp</label> = <label for="r77" class="ident">maxExp</label> + <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-550"><code>		<label for="r80" class="ident">err</label> = <a href="atoi.go.html#line-40" class="ident">rangeError</a>(<a href="#line-564" class="ident">fnParseFloat</a>, <label for="r71" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-551"><code>	}</code></span>
+<span class="codeline" id="line-552"><code></code></span>
+<span class="codeline" id="line-553"><code>	<label for="r81" class="ident">bits</label> := <label for="r73" class="ident">mantissa</label> &amp; (<span class="lit-number">1</span>&lt;&lt;<label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a> - <span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-554"><code>	<label for="r81" class="ident">bits</label> |= <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>((<label for="r74" class="ident">exp</label>-<label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-19" class="ident">bias</a>)&amp;(<span class="lit-number">1</span>&lt;&lt;<label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-18" class="ident">expbits</a>-<span class="lit-number">1</span>)) &lt;&lt; <label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a></code></span>
+<span class="codeline" id="line-555"><code>	<span class="keyword">if</span> <label for="r75" class="ident">neg</label> {</code></span>
+<span class="codeline" id="line-556"><code>		<label for="r81" class="ident">bits</label> |= <span class="lit-number">1</span> &lt;&lt; <label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-17" class="ident">mantbits</a> &lt;&lt; <label for="r72" class="ident">flt</label>.<a href="ftoa.go.html#line-18" class="ident">expbits</a></code></span>
+<span class="codeline" id="line-557"><code>	}</code></span>
+<span class="codeline" id="line-558"><code>	<span class="keyword">if</span> <label for="r72" class="ident">flt</label> == &amp;<a href="ftoa.go.html#line-22" class="ident">float32info</a> {</code></span>
+<span class="codeline" id="line-559"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-float64" class="ident">float64</a>(<a href="../../pkg/math.html" class="ident i0">math</a>.<a href="../math/unsafe.go.html#line-18" class="ident">Float32frombits</a>(<a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r81" class="ident">bits</label>))), <label for="r80" class="ident">err</label></code></span>
+<span class="codeline" id="line-560"><code>	}</code></span>
+<span class="codeline" id="line-561"><code>	<span class="keyword">return</span> <a href="../../pkg/math.html" class="ident i0">math</a>.<a href="../math/unsafe.go.html#line-29" class="ident">Float64frombits</a>(<label for="r81" class="ident">bits</label>), <label for="r80" class="ident">err</label></code></span>
+<span class="codeline" id="line-562"><code>}</code></span>
 <span class="codeline" id="line-563"><code></code></span>
-<span class="codeline" id="line-564"><code><span class="keyword">func</span> <label for="r82" class="ident"><a href="../../pkg/strconv.html#name-atof32" class="ident">atof32</a></label>(<label for="r83" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) (<label for="r84" class="ident">f</label> <a href="../../pkg/builtin.html#name-float32" class="ident">float32</a>, <label for="r85" class="ident">n</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r86" class="ident">err</label> <a href="../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-565"><code>	<span class="keyword">if</span> <label for="r87" class="ident">val</label>, <label for="r88" class="ident">n</label>, <label for="r89" class="ident">ok</label> := <a href="#line-42" class="ident">special</a>(<label for="r83" class="ident">s</label>); <label for="r89" class="ident">ok</label> {</code></span>
-<span class="codeline" id="line-566"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-float32" class="ident">float32</a>(<label for="r87" class="ident">val</label>), <label for="r88" class="ident">n</label>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-567"><code>	}</code></span>
-<span class="codeline" id="line-568"><code></code></span>
-<span class="codeline" id="line-569"><code>	<label for="r90" class="ident">mantissa</label>, <label for="r91" class="ident">exp</label>, <label for="r92" class="ident">neg</label>, <label for="r93" class="ident">trunc</label>, <label for="r94" class="ident">hex</label>, <label for="r85" class="ident">n</label>, <label for="r95" class="ident">ok</label> := <a href="#line-175" class="ident">readFloat</a>(<label for="r83" class="ident">s</label>)</code></span>
-<span class="codeline" id="line-570"><code>	<span class="keyword">if</span> !<label for="r95" class="ident">ok</label> {</code></span>
-<span class="codeline" id="line-571"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <label for="r85" class="ident">n</label>, <a href="atoi.go.html#line-36" class="ident">syntaxError</a>(<a href="#line-562" class="ident">fnParseFloat</a>, <label for="r83" class="ident">s</label>)</code></span>
-<span class="codeline" id="line-572"><code>	}</code></span>
-<span class="codeline" id="line-573"><code></code></span>
-<span class="codeline" id="line-574"><code>	<span class="keyword">if</span> <label for="r94" class="ident">hex</label> {</code></span>
-<span class="codeline" id="line-575"><code>		<label for="r96" class="ident">f</label>, <label for="r97" class="ident">err</label> := <a href="#line-497" class="ident">atofHex</a>(<label for="r83" class="ident">s</label>[:<label for="r85" class="ident">n</label>], &amp;<a href="ftoa.go.html#line-22" class="ident">float32info</a>, <label for="r90" class="ident">mantissa</label>, <label for="r91" class="ident">exp</label>, <label for="r92" class="ident">neg</label>, <label for="r93" class="ident">trunc</label>)</code></span>
-<span class="codeline" id="line-576"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-float32" class="ident">float32</a>(<label for="r96" class="ident">f</label>), <label for="r85" class="ident">n</label>, <label for="r97" class="ident">err</label></code></span>
-<span class="codeline" id="line-577"><code>	}</code></span>
-<span class="codeline" id="line-578"><code></code></span>
-<span class="codeline" id="line-579"><code>	<span class="keyword">if</span> <a href="#line-15" class="ident">optimize</a> {</code></span>
-<span class="codeline" id="line-580"><code>		<span class="comment">// Try pure floating-point arithmetic conversion, and if that fails,</span></code></span>
-<span class="codeline" id="line-581"><code><span class="comment">		// the Eisel-Lemire algorithm.</span></code></span>
-<span class="codeline" id="line-582"><code>		<span class="keyword">if</span> !<label for="r93" class="ident">trunc</label> {</code></span>
-<span class="codeline" id="line-583"><code>			<span class="keyword">if</span> <label for="r98" class="ident">f</label>, <label for="r99" class="ident">ok</label> := <a href="#line-461" class="ident">atof32exact</a>(<label for="r90" class="ident">mantissa</label>, <label for="r91" class="ident">exp</label>, <label for="r92" class="ident">neg</label>); <label for="r99" class="ident">ok</label> {</code></span>
-<span class="codeline" id="line-584"><code>				<span class="keyword">return</span> <label for="r98" class="ident">f</label>, <label for="r85" class="ident">n</label>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-585"><code>			}</code></span>
-<span class="codeline" id="line-586"><code>		}</code></span>
-<span class="codeline" id="line-587"><code>		<label for="r100" class="ident">f</label>, <label for="r101" class="ident">ok</label> := <a href="eisel_lemire.go.html#line-94" class="ident">eiselLemire32</a>(<label for="r90" class="ident">mantissa</label>, <label for="r91" class="ident">exp</label>, <label for="r92" class="ident">neg</label>)</code></span>
-<span class="codeline" id="line-588"><code>		<span class="keyword">if</span> <label for="r101" class="ident">ok</label> {</code></span>
-<span class="codeline" id="line-589"><code>			<span class="keyword">if</span> !<label for="r93" class="ident">trunc</label> {</code></span>
-<span class="codeline" id="line-590"><code>				<span class="keyword">return</span> <label for="r100" class="ident">f</label>, <label for="r85" class="ident">n</label>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-591"><code>			}</code></span>
-<span class="codeline" id="line-592"><code>			<span class="comment">// Even if the mantissa was truncated, we may</span></code></span>
-<span class="codeline" id="line-593"><code><span class="comment">			// have found the correct result. Confirm by</span></code></span>
-<span class="codeline" id="line-594"><code><span class="comment">			// converting the upper mantissa bound.</span></code></span>
-<span class="codeline" id="line-595"><code>			<label for="r102" class="ident">fUp</label>, <label for="r103" class="ident">ok</label> := <a href="eisel_lemire.go.html#line-94" class="ident">eiselLemire32</a>(<label for="r90" class="ident">mantissa</label>+<span class="lit-number">1</span>, <label for="r91" class="ident">exp</label>, <label for="r92" class="ident">neg</label>)</code></span>
-<span class="codeline" id="line-596"><code>			<span class="keyword">if</span> <label for="r103" class="ident">ok</label> &amp;&amp; <label for="r100" class="ident">f</label> == <label for="r102" class="ident">fUp</label> {</code></span>
-<span class="codeline" id="line-597"><code>				<span class="keyword">return</span> <label for="r100" class="ident">f</label>, <label for="r85" class="ident">n</label>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-598"><code>			}</code></span>
-<span class="codeline" id="line-599"><code>		}</code></span>
-<span class="codeline" id="line-600"><code>	}</code></span>
-<span class="codeline" id="line-601"><code></code></span>
-<span class="codeline" id="line-602"><code>	<span class="comment">// Slow fallback.</span></code></span>
-<span class="codeline" id="line-603"><code>	<span class="keyword">var</span> <label for="r104" class="ident">d</label> <a href="decimal.go.html#line-14" class="ident">decimal</a></code></span>
-<span class="codeline" id="line-604"><code>	<span class="keyword">if</span> !<label for="r104" class="ident">d</label>.<a href="#line-74" class="ident">set</a>(<label for="r83" class="ident">s</label>[:<label for="r85" class="ident">n</label>]) {</code></span>
-<span class="codeline" id="line-605"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <label for="r85" class="ident">n</label>, <a href="atoi.go.html#line-36" class="ident">syntaxError</a>(<a href="#line-562" class="ident">fnParseFloat</a>, <label for="r83" class="ident">s</label>)</code></span>
-<span class="codeline" id="line-606"><code>	}</code></span>
-<span class="codeline" id="line-607"><code>	<label for="r105" class="ident">b</label>, <label for="r106" class="ident">ovf</label> := <label for="r104" class="ident">d</label>.<a href="#line-314" class="ident">floatBits</a>(&amp;<a href="ftoa.go.html#line-22" class="ident">float32info</a>)</code></span>
-<span class="codeline" id="line-608"><code>	<label for="r84" class="ident">f</label> = <a href="../../pkg/math.html" class="ident i0">math</a>.<a href="../math/unsafe.go.html#line-18" class="ident">Float32frombits</a>(<a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r105" class="ident">b</label>))</code></span>
-<span class="codeline" id="line-609"><code>	<span class="keyword">if</span> <label for="r106" class="ident">ovf</label> {</code></span>
-<span class="codeline" id="line-610"><code>		<label for="r86" class="ident">err</label> = <a href="atoi.go.html#line-40" class="ident">rangeError</a>(<a href="#line-562" class="ident">fnParseFloat</a>, <label for="r83" class="ident">s</label>)</code></span>
-<span class="codeline" id="line-611"><code>	}</code></span>
-<span class="codeline" id="line-612"><code>	<span class="keyword">return</span> <label for="r84" class="ident">f</label>, <label for="r85" class="ident">n</label>, <label for="r86" class="ident">err</label></code></span>
-<span class="codeline" id="line-613"><code>}</code></span>
-<span class="codeline" id="line-614"><code></code></span>
-<span class="codeline" id="line-615"><code><span class="keyword">func</span> <label for="r107" class="ident"><a href="../../pkg/strconv.html#name-atof64" class="ident">atof64</a></label>(<label for="r108" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) (<label for="r109" class="ident">f</label> <a href="../../pkg/builtin.html#name-float64" class="ident">float64</a>, <label for="r110" class="ident">n</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r111" class="ident">err</label> <a href="../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-616"><code>	<span class="keyword">if</span> <label for="r112" class="ident">val</label>, <label for="r113" class="ident">n</label>, <label for="r114" class="ident">ok</label> := <a href="#line-42" class="ident">special</a>(<label for="r108" class="ident">s</label>); <label for="r114" class="ident">ok</label> {</code></span>
-<span class="codeline" id="line-617"><code>		<span class="keyword">return</span> <label for="r112" class="ident">val</label>, <label for="r113" class="ident">n</label>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-618"><code>	}</code></span>
-<span class="codeline" id="line-619"><code></code></span>
-<span class="codeline" id="line-620"><code>	<label for="r115" class="ident">mantissa</label>, <label for="r116" class="ident">exp</label>, <label for="r117" class="ident">neg</label>, <label for="r118" class="ident">trunc</label>, <label for="r119" class="ident">hex</label>, <label for="r110" class="ident">n</label>, <label for="r120" class="ident">ok</label> := <a href="#line-175" class="ident">readFloat</a>(<label for="r108" class="ident">s</label>)</code></span>
-<span class="codeline" id="line-621"><code>	<span class="keyword">if</span> !<label for="r120" class="ident">ok</label> {</code></span>
-<span class="codeline" id="line-622"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <label for="r110" class="ident">n</label>, <a href="atoi.go.html#line-36" class="ident">syntaxError</a>(<a href="#line-562" class="ident">fnParseFloat</a>, <label for="r108" class="ident">s</label>)</code></span>
-<span class="codeline" id="line-623"><code>	}</code></span>
-<span class="codeline" id="line-624"><code></code></span>
-<span class="codeline" id="line-625"><code>	<span class="keyword">if</span> <label for="r119" class="ident">hex</label> {</code></span>
-<span class="codeline" id="line-626"><code>		<label for="r121" class="ident">f</label>, <label for="r122" class="ident">err</label> := <a href="#line-497" class="ident">atofHex</a>(<label for="r108" class="ident">s</label>[:<label for="r110" class="ident">n</label>], &amp;<a href="ftoa.go.html#line-23" class="ident">float64info</a>, <label for="r115" class="ident">mantissa</label>, <label for="r116" class="ident">exp</label>, <label for="r117" class="ident">neg</label>, <label for="r118" class="ident">trunc</label>)</code></span>
-<span class="codeline" id="line-627"><code>		<span class="keyword">return</span> <label for="r121" class="ident">f</label>, <label for="r110" class="ident">n</label>, <label for="r122" class="ident">err</label></code></span>
-<span class="codeline" id="line-628"><code>	}</code></span>
-<span class="codeline" id="line-629"><code></code></span>
-<span class="codeline" id="line-630"><code>	<span class="keyword">if</span> <a href="#line-15" class="ident">optimize</a> {</code></span>
-<span class="codeline" id="line-631"><code>		<span class="comment">// Try pure floating-point arithmetic conversion, and if that fails,</span></code></span>
-<span class="codeline" id="line-632"><code><span class="comment">		// the Eisel-Lemire algorithm.</span></code></span>
-<span class="codeline" id="line-633"><code>		<span class="keyword">if</span> !<label for="r118" class="ident">trunc</label> {</code></span>
-<span class="codeline" id="line-634"><code>			<span class="keyword">if</span> <label for="r123" class="ident">f</label>, <label for="r124" class="ident">ok</label> := <a href="#line-427" class="ident">atof64exact</a>(<label for="r115" class="ident">mantissa</label>, <label for="r116" class="ident">exp</label>, <label for="r117" class="ident">neg</label>); <label for="r124" class="ident">ok</label> {</code></span>
-<span class="codeline" id="line-635"><code>				<span class="keyword">return</span> <label for="r123" class="ident">f</label>, <label for="r110" class="ident">n</label>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-636"><code>			}</code></span>
-<span class="codeline" id="line-637"><code>		}</code></span>
-<span class="codeline" id="line-638"><code>		<label for="r125" class="ident">f</label>, <label for="r126" class="ident">ok</label> := <a href="eisel_lemire.go.html#line-25" class="ident">eiselLemire64</a>(<label for="r115" class="ident">mantissa</label>, <label for="r116" class="ident">exp</label>, <label for="r117" class="ident">neg</label>)</code></span>
-<span class="codeline" id="line-639"><code>		<span class="keyword">if</span> <label for="r126" class="ident">ok</label> {</code></span>
-<span class="codeline" id="line-640"><code>			<span class="keyword">if</span> !<label for="r118" class="ident">trunc</label> {</code></span>
-<span class="codeline" id="line-641"><code>				<span class="keyword">return</span> <label for="r125" class="ident">f</label>, <label for="r110" class="ident">n</label>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-642"><code>			}</code></span>
-<span class="codeline" id="line-643"><code>			<span class="comment">// Even if the mantissa was truncated, we may</span></code></span>
-<span class="codeline" id="line-644"><code><span class="comment">			// have found the correct result. Confirm by</span></code></span>
-<span class="codeline" id="line-645"><code><span class="comment">			// converting the upper mantissa bound.</span></code></span>
-<span class="codeline" id="line-646"><code>			<label for="r127" class="ident">fUp</label>, <label for="r128" class="ident">ok</label> := <a href="eisel_lemire.go.html#line-25" class="ident">eiselLemire64</a>(<label for="r115" class="ident">mantissa</label>+<span class="lit-number">1</span>, <label for="r116" class="ident">exp</label>, <label for="r117" class="ident">neg</label>)</code></span>
-<span class="codeline" id="line-647"><code>			<span class="keyword">if</span> <label for="r128" class="ident">ok</label> &amp;&amp; <label for="r125" class="ident">f</label> == <label for="r127" class="ident">fUp</label> {</code></span>
-<span class="codeline" id="line-648"><code>				<span class="keyword">return</span> <label for="r125" class="ident">f</label>, <label for="r110" class="ident">n</label>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-649"><code>			}</code></span>
-<span class="codeline" id="line-650"><code>		}</code></span>
-<span class="codeline" id="line-651"><code>	}</code></span>
-<span class="codeline" id="line-652"><code></code></span>
-<span class="codeline" id="line-653"><code>	<span class="comment">// Slow fallback.</span></code></span>
-<span class="codeline" id="line-654"><code>	<span class="keyword">var</span> <label for="r129" class="ident">d</label> <a href="decimal.go.html#line-14" class="ident">decimal</a></code></span>
-<span class="codeline" id="line-655"><code>	<span class="keyword">if</span> !<label for="r129" class="ident">d</label>.<a href="#line-74" class="ident">set</a>(<label for="r108" class="ident">s</label>[:<label for="r110" class="ident">n</label>]) {</code></span>
-<span class="codeline" id="line-656"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <label for="r110" class="ident">n</label>, <a href="atoi.go.html#line-36" class="ident">syntaxError</a>(<a href="#line-562" class="ident">fnParseFloat</a>, <label for="r108" class="ident">s</label>)</code></span>
-<span class="codeline" id="line-657"><code>	}</code></span>
-<span class="codeline" id="line-658"><code>	<label for="r130" class="ident">b</label>, <label for="r131" class="ident">ovf</label> := <label for="r129" class="ident">d</label>.<a href="#line-314" class="ident">floatBits</a>(&amp;<a href="ftoa.go.html#line-23" class="ident">float64info</a>)</code></span>
-<span class="codeline" id="line-659"><code>	<label for="r109" class="ident">f</label> = <a href="../../pkg/math.html" class="ident i0">math</a>.<a href="../math/unsafe.go.html#line-29" class="ident">Float64frombits</a>(<label for="r130" class="ident">b</label>)</code></span>
-<span class="codeline" id="line-660"><code>	<span class="keyword">if</span> <label for="r131" class="ident">ovf</label> {</code></span>
-<span class="codeline" id="line-661"><code>		<label for="r111" class="ident">err</label> = <a href="atoi.go.html#line-40" class="ident">rangeError</a>(<a href="#line-562" class="ident">fnParseFloat</a>, <label for="r108" class="ident">s</label>)</code></span>
-<span class="codeline" id="line-662"><code>	}</code></span>
-<span class="codeline" id="line-663"><code>	<span class="keyword">return</span> <label for="r109" class="ident">f</label>, <label for="r110" class="ident">n</label>, <label for="r111" class="ident">err</label></code></span>
-<span class="codeline" id="line-664"><code>}</code></span>
-<span class="codeline" id="line-665"><code></code></span>
-<span class="codeline" id="line-666"><code><span class="comment">// ParseFloat converts the string s to a floating-point number</span></code></span>
-<span class="codeline" id="line-667"><code><span class="comment">// with the precision specified by bitSize: 32 for float32, or 64 for float64.</span></code></span>
-<span class="codeline" id="line-668"><code><span class="comment">// When bitSize=32, the result still has type float64, but it will be</span></code></span>
-<span class="codeline" id="line-669"><code><span class="comment">// convertible to float32 without changing its value.</span></code></span>
-<span class="codeline" id="line-670"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-671"><code><span class="comment">// ParseFloat accepts decimal and hexadecimal floating-point number syntax.</span></code></span>
-<span class="codeline" id="line-672"><code><span class="comment">// If s is well-formed and near a valid floating-point number,</span></code></span>
-<span class="codeline" id="line-673"><code><span class="comment">// ParseFloat returns the nearest floating-point number rounded</span></code></span>
-<span class="codeline" id="line-674"><code><span class="comment">// using IEEE754 unbiased rounding.</span></code></span>
-<span class="codeline" id="line-675"><code><span class="comment">// (Parsing a hexadecimal floating-point value only rounds when</span></code></span>
-<span class="codeline" id="line-676"><code><span class="comment">// there are more bits in the hexadecimal representation than</span></code></span>
-<span class="codeline" id="line-677"><code><span class="comment">// will fit in the mantissa.)</span></code></span>
-<span class="codeline" id="line-678"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-679"><code><span class="comment">// The errors that ParseFloat returns have concrete type *NumError</span></code></span>
-<span class="codeline" id="line-680"><code><span class="comment">// and include err.Num = s.</span></code></span>
+<span class="codeline" id="line-564"><code><span class="keyword">const</span> <a href="../../pkg/strconv.html#name-fnParseFloat" class="ident">fnParseFloat</a> = <span class="lit-string">"ParseFloat"</span></code></span>
+<span class="codeline" id="line-565"><code></code></span>
+<span class="codeline" id="line-566"><code><span class="keyword">func</span> <label for="r82" class="ident"><a href="../../pkg/strconv.html#name-atof32" class="ident">atof32</a></label>(<label for="r83" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) (<label for="r84" class="ident">f</label> <a href="../../pkg/builtin.html#name-float32" class="ident">float32</a>, <label for="r85" class="ident">n</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r86" class="ident">err</label> <a href="../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-567"><code>	<span class="keyword">if</span> <label for="r87" class="ident">val</label>, <label for="r88" class="ident">n</label>, <label for="r89" class="ident">ok</label> := <a href="#line-42" class="ident">special</a>(<label for="r83" class="ident">s</label>); <label for="r89" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-568"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-float32" class="ident">float32</a>(<label for="r87" class="ident">val</label>), <label for="r88" class="ident">n</label>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-569"><code>	}</code></span>
+<span class="codeline" id="line-570"><code></code></span>
+<span class="codeline" id="line-571"><code>	<label for="r90" class="ident">mantissa</label>, <label for="r91" class="ident">exp</label>, <label for="r92" class="ident">neg</label>, <label for="r93" class="ident">trunc</label>, <label for="r94" class="ident">hex</label>, <label for="r85" class="ident">n</label>, <label for="r95" class="ident">ok</label> := <a href="#line-175" class="ident">readFloat</a>(<label for="r83" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-572"><code>	<span class="keyword">if</span> !<label for="r95" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-573"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <label for="r85" class="ident">n</label>, <a href="atoi.go.html#line-36" class="ident">syntaxError</a>(<a href="#line-564" class="ident">fnParseFloat</a>, <label for="r83" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-574"><code>	}</code></span>
+<span class="codeline" id="line-575"><code></code></span>
+<span class="codeline" id="line-576"><code>	<span class="keyword">if</span> <label for="r94" class="ident">hex</label> {</code></span>
+<span class="codeline" id="line-577"><code>		<label for="r96" class="ident">f</label>, <label for="r97" class="ident">err</label> := <a href="#line-499" class="ident">atofHex</a>(<label for="r83" class="ident">s</label>[:<label for="r85" class="ident">n</label>], &amp;<a href="ftoa.go.html#line-22" class="ident">float32info</a>, <label for="r90" class="ident">mantissa</label>, <label for="r91" class="ident">exp</label>, <label for="r92" class="ident">neg</label>, <label for="r93" class="ident">trunc</label>)</code></span>
+<span class="codeline" id="line-578"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-float32" class="ident">float32</a>(<label for="r96" class="ident">f</label>), <label for="r85" class="ident">n</label>, <label for="r97" class="ident">err</label></code></span>
+<span class="codeline" id="line-579"><code>	}</code></span>
+<span class="codeline" id="line-580"><code></code></span>
+<span class="codeline" id="line-581"><code>	<span class="keyword">if</span> <a href="#line-15" class="ident">optimize</a> {</code></span>
+<span class="codeline" id="line-582"><code>		<span class="comment">// Try pure floating-point arithmetic conversion, and if that fails,</span></code></span>
+<span class="codeline" id="line-583"><code><span class="comment">		// the Eisel-Lemire algorithm.</span></code></span>
+<span class="codeline" id="line-584"><code>		<span class="keyword">if</span> !<label for="r93" class="ident">trunc</label> {</code></span>
+<span class="codeline" id="line-585"><code>			<span class="keyword">if</span> <label for="r98" class="ident">f</label>, <label for="r99" class="ident">ok</label> := <a href="#line-463" class="ident">atof32exact</a>(<label for="r90" class="ident">mantissa</label>, <label for="r91" class="ident">exp</label>, <label for="r92" class="ident">neg</label>); <label for="r99" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-586"><code>				<span class="keyword">return</span> <label for="r98" class="ident">f</label>, <label for="r85" class="ident">n</label>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-587"><code>			}</code></span>
+<span class="codeline" id="line-588"><code>		}</code></span>
+<span class="codeline" id="line-589"><code>		<label for="r100" class="ident">f</label>, <label for="r101" class="ident">ok</label> := <a href="eisel_lemire.go.html#line-94" class="ident">eiselLemire32</a>(<label for="r90" class="ident">mantissa</label>, <label for="r91" class="ident">exp</label>, <label for="r92" class="ident">neg</label>)</code></span>
+<span class="codeline" id="line-590"><code>		<span class="keyword">if</span> <label for="r101" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-591"><code>			<span class="keyword">if</span> !<label for="r93" class="ident">trunc</label> {</code></span>
+<span class="codeline" id="line-592"><code>				<span class="keyword">return</span> <label for="r100" class="ident">f</label>, <label for="r85" class="ident">n</label>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-593"><code>			}</code></span>
+<span class="codeline" id="line-594"><code>			<span class="comment">// Even if the mantissa was truncated, we may</span></code></span>
+<span class="codeline" id="line-595"><code><span class="comment">			// have found the correct result. Confirm by</span></code></span>
+<span class="codeline" id="line-596"><code><span class="comment">			// converting the upper mantissa bound.</span></code></span>
+<span class="codeline" id="line-597"><code>			<label for="r102" class="ident">fUp</label>, <label for="r103" class="ident">ok</label> := <a href="eisel_lemire.go.html#line-94" class="ident">eiselLemire32</a>(<label for="r90" class="ident">mantissa</label>+<span class="lit-number">1</span>, <label for="r91" class="ident">exp</label>, <label for="r92" class="ident">neg</label>)</code></span>
+<span class="codeline" id="line-598"><code>			<span class="keyword">if</span> <label for="r103" class="ident">ok</label> &amp;&amp; <label for="r100" class="ident">f</label> == <label for="r102" class="ident">fUp</label> {</code></span>
+<span class="codeline" id="line-599"><code>				<span class="keyword">return</span> <label for="r100" class="ident">f</label>, <label for="r85" class="ident">n</label>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-600"><code>			}</code></span>
+<span class="codeline" id="line-601"><code>		}</code></span>
+<span class="codeline" id="line-602"><code>	}</code></span>
+<span class="codeline" id="line-603"><code></code></span>
+<span class="codeline" id="line-604"><code>	<span class="comment">// Slow fallback.</span></code></span>
+<span class="codeline" id="line-605"><code>	<span class="keyword">var</span> <label for="r104" class="ident">d</label> <a href="decimal.go.html#line-14" class="ident">decimal</a></code></span>
+<span class="codeline" id="line-606"><code>	<span class="keyword">if</span> !<label for="r104" class="ident">d</label>.<a href="#line-74" class="ident">set</a>(<label for="r83" class="ident">s</label>[:<label for="r85" class="ident">n</label>]) {</code></span>
+<span class="codeline" id="line-607"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <label for="r85" class="ident">n</label>, <a href="atoi.go.html#line-36" class="ident">syntaxError</a>(<a href="#line-564" class="ident">fnParseFloat</a>, <label for="r83" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-608"><code>	}</code></span>
+<span class="codeline" id="line-609"><code>	<label for="r105" class="ident">b</label>, <label for="r106" class="ident">ovf</label> := <label for="r104" class="ident">d</label>.<a href="#line-314" class="ident">floatBits</a>(&amp;<a href="ftoa.go.html#line-22" class="ident">float32info</a>)</code></span>
+<span class="codeline" id="line-610"><code>	<label for="r84" class="ident">f</label> = <a href="../../pkg/math.html" class="ident i0">math</a>.<a href="../math/unsafe.go.html#line-18" class="ident">Float32frombits</a>(<a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r105" class="ident">b</label>))</code></span>
+<span class="codeline" id="line-611"><code>	<span class="keyword">if</span> <label for="r106" class="ident">ovf</label> {</code></span>
+<span class="codeline" id="line-612"><code>		<label for="r86" class="ident">err</label> = <a href="atoi.go.html#line-40" class="ident">rangeError</a>(<a href="#line-564" class="ident">fnParseFloat</a>, <label for="r83" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-613"><code>	}</code></span>
+<span class="codeline" id="line-614"><code>	<span class="keyword">return</span> <label for="r84" class="ident">f</label>, <label for="r85" class="ident">n</label>, <label for="r86" class="ident">err</label></code></span>
+<span class="codeline" id="line-615"><code>}</code></span>
+<span class="codeline" id="line-616"><code></code></span>
+<span class="codeline" id="line-617"><code><span class="keyword">func</span> <label for="r107" class="ident"><a href="../../pkg/strconv.html#name-atof64" class="ident">atof64</a></label>(<label for="r108" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) (<label for="r109" class="ident">f</label> <a href="../../pkg/builtin.html#name-float64" class="ident">float64</a>, <label for="r110" class="ident">n</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r111" class="ident">err</label> <a href="../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-618"><code>	<span class="keyword">if</span> <label for="r112" class="ident">val</label>, <label for="r113" class="ident">n</label>, <label for="r114" class="ident">ok</label> := <a href="#line-42" class="ident">special</a>(<label for="r108" class="ident">s</label>); <label for="r114" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-619"><code>		<span class="keyword">return</span> <label for="r112" class="ident">val</label>, <label for="r113" class="ident">n</label>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-620"><code>	}</code></span>
+<span class="codeline" id="line-621"><code></code></span>
+<span class="codeline" id="line-622"><code>	<label for="r115" class="ident">mantissa</label>, <label for="r116" class="ident">exp</label>, <label for="r117" class="ident">neg</label>, <label for="r118" class="ident">trunc</label>, <label for="r119" class="ident">hex</label>, <label for="r110" class="ident">n</label>, <label for="r120" class="ident">ok</label> := <a href="#line-175" class="ident">readFloat</a>(<label for="r108" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-623"><code>	<span class="keyword">if</span> !<label for="r120" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-624"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <label for="r110" class="ident">n</label>, <a href="atoi.go.html#line-36" class="ident">syntaxError</a>(<a href="#line-564" class="ident">fnParseFloat</a>, <label for="r108" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-625"><code>	}</code></span>
+<span class="codeline" id="line-626"><code></code></span>
+<span class="codeline" id="line-627"><code>	<span class="keyword">if</span> <label for="r119" class="ident">hex</label> {</code></span>
+<span class="codeline" id="line-628"><code>		<label for="r121" class="ident">f</label>, <label for="r122" class="ident">err</label> := <a href="#line-499" class="ident">atofHex</a>(<label for="r108" class="ident">s</label>[:<label for="r110" class="ident">n</label>], &amp;<a href="ftoa.go.html#line-23" class="ident">float64info</a>, <label for="r115" class="ident">mantissa</label>, <label for="r116" class="ident">exp</label>, <label for="r117" class="ident">neg</label>, <label for="r118" class="ident">trunc</label>)</code></span>
+<span class="codeline" id="line-629"><code>		<span class="keyword">return</span> <label for="r121" class="ident">f</label>, <label for="r110" class="ident">n</label>, <label for="r122" class="ident">err</label></code></span>
+<span class="codeline" id="line-630"><code>	}</code></span>
+<span class="codeline" id="line-631"><code></code></span>
+<span class="codeline" id="line-632"><code>	<span class="keyword">if</span> <a href="#line-15" class="ident">optimize</a> {</code></span>
+<span class="codeline" id="line-633"><code>		<span class="comment">// Try pure floating-point arithmetic conversion, and if that fails,</span></code></span>
+<span class="codeline" id="line-634"><code><span class="comment">		// the Eisel-Lemire algorithm.</span></code></span>
+<span class="codeline" id="line-635"><code>		<span class="keyword">if</span> !<label for="r118" class="ident">trunc</label> {</code></span>
+<span class="codeline" id="line-636"><code>			<span class="keyword">if</span> <label for="r123" class="ident">f</label>, <label for="r124" class="ident">ok</label> := <a href="#line-429" class="ident">atof64exact</a>(<label for="r115" class="ident">mantissa</label>, <label for="r116" class="ident">exp</label>, <label for="r117" class="ident">neg</label>); <label for="r124" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-637"><code>				<span class="keyword">return</span> <label for="r123" class="ident">f</label>, <label for="r110" class="ident">n</label>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-638"><code>			}</code></span>
+<span class="codeline" id="line-639"><code>		}</code></span>
+<span class="codeline" id="line-640"><code>		<label for="r125" class="ident">f</label>, <label for="r126" class="ident">ok</label> := <a href="eisel_lemire.go.html#line-25" class="ident">eiselLemire64</a>(<label for="r115" class="ident">mantissa</label>, <label for="r116" class="ident">exp</label>, <label for="r117" class="ident">neg</label>)</code></span>
+<span class="codeline" id="line-641"><code>		<span class="keyword">if</span> <label for="r126" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-642"><code>			<span class="keyword">if</span> !<label for="r118" class="ident">trunc</label> {</code></span>
+<span class="codeline" id="line-643"><code>				<span class="keyword">return</span> <label for="r125" class="ident">f</label>, <label for="r110" class="ident">n</label>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-644"><code>			}</code></span>
+<span class="codeline" id="line-645"><code>			<span class="comment">// Even if the mantissa was truncated, we may</span></code></span>
+<span class="codeline" id="line-646"><code><span class="comment">			// have found the correct result. Confirm by</span></code></span>
+<span class="codeline" id="line-647"><code><span class="comment">			// converting the upper mantissa bound.</span></code></span>
+<span class="codeline" id="line-648"><code>			<label for="r127" class="ident">fUp</label>, <label for="r128" class="ident">ok</label> := <a href="eisel_lemire.go.html#line-25" class="ident">eiselLemire64</a>(<label for="r115" class="ident">mantissa</label>+<span class="lit-number">1</span>, <label for="r116" class="ident">exp</label>, <label for="r117" class="ident">neg</label>)</code></span>
+<span class="codeline" id="line-649"><code>			<span class="keyword">if</span> <label for="r128" class="ident">ok</label> &amp;&amp; <label for="r125" class="ident">f</label> == <label for="r127" class="ident">fUp</label> {</code></span>
+<span class="codeline" id="line-650"><code>				<span class="keyword">return</span> <label for="r125" class="ident">f</label>, <label for="r110" class="ident">n</label>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-651"><code>			}</code></span>
+<span class="codeline" id="line-652"><code>		}</code></span>
+<span class="codeline" id="line-653"><code>	}</code></span>
+<span class="codeline" id="line-654"><code></code></span>
+<span class="codeline" id="line-655"><code>	<span class="comment">// Slow fallback.</span></code></span>
+<span class="codeline" id="line-656"><code>	<span class="keyword">var</span> <label for="r129" class="ident">d</label> <a href="decimal.go.html#line-14" class="ident">decimal</a></code></span>
+<span class="codeline" id="line-657"><code>	<span class="keyword">if</span> !<label for="r129" class="ident">d</label>.<a href="#line-74" class="ident">set</a>(<label for="r108" class="ident">s</label>[:<label for="r110" class="ident">n</label>]) {</code></span>
+<span class="codeline" id="line-658"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <label for="r110" class="ident">n</label>, <a href="atoi.go.html#line-36" class="ident">syntaxError</a>(<a href="#line-564" class="ident">fnParseFloat</a>, <label for="r108" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-659"><code>	}</code></span>
+<span class="codeline" id="line-660"><code>	<label for="r130" class="ident">b</label>, <label for="r131" class="ident">ovf</label> := <label for="r129" class="ident">d</label>.<a href="#line-314" class="ident">floatBits</a>(&amp;<a href="ftoa.go.html#line-23" class="ident">float64info</a>)</code></span>
+<span class="codeline" id="line-661"><code>	<label for="r109" class="ident">f</label> = <a href="../../pkg/math.html" class="ident i0">math</a>.<a href="../math/unsafe.go.html#line-29" class="ident">Float64frombits</a>(<label for="r130" class="ident">b</label>)</code></span>
+<span class="codeline" id="line-662"><code>	<span class="keyword">if</span> <label for="r131" class="ident">ovf</label> {</code></span>
+<span class="codeline" id="line-663"><code>		<label for="r111" class="ident">err</label> = <a href="atoi.go.html#line-40" class="ident">rangeError</a>(<a href="#line-564" class="ident">fnParseFloat</a>, <label for="r108" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-664"><code>	}</code></span>
+<span class="codeline" id="line-665"><code>	<span class="keyword">return</span> <label for="r109" class="ident">f</label>, <label for="r110" class="ident">n</label>, <label for="r111" class="ident">err</label></code></span>
+<span class="codeline" id="line-666"><code>}</code></span>
+<span class="codeline" id="line-667"><code></code></span>
+<span class="codeline" id="line-668"><code><span class="comment">// ParseFloat converts the string s to a floating-point number</span></code></span>
+<span class="codeline" id="line-669"><code><span class="comment">// with the precision specified by bitSize: 32 for float32, or 64 for float64.</span></code></span>
+<span class="codeline" id="line-670"><code><span class="comment">// When bitSize=32, the result still has type float64, but it will be</span></code></span>
+<span class="codeline" id="line-671"><code><span class="comment">// convertible to float32 without changing its value.</span></code></span>
+<span class="codeline" id="line-672"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-673"><code><span class="comment">// ParseFloat accepts decimal and hexadecimal floating-point numbers</span></code></span>
+<span class="codeline" id="line-674"><code><span class="comment">// as defined by the Go syntax for [floating-point literals].</span></code></span>
+<span class="codeline" id="line-675"><code><span class="comment">// If s is well-formed and near a valid floating-point number,</span></code></span>
+<span class="codeline" id="line-676"><code><span class="comment">// ParseFloat returns the nearest floating-point number rounded</span></code></span>
+<span class="codeline" id="line-677"><code><span class="comment">// using IEEE754 unbiased rounding.</span></code></span>
+<span class="codeline" id="line-678"><code><span class="comment">// (Parsing a hexadecimal floating-point value only rounds when</span></code></span>
+<span class="codeline" id="line-679"><code><span class="comment">// there are more bits in the hexadecimal representation than</span></code></span>
+<span class="codeline" id="line-680"><code><span class="comment">// will fit in the mantissa.)</span></code></span>
 <span class="codeline" id="line-681"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-682"><code><span class="comment">// If s is not syntactically well-formed, ParseFloat returns err.Err = ErrSyntax.</span></code></span>
-<span class="codeline" id="line-683"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-684"><code><span class="comment">// If s is syntactically well-formed but is more than 1/2 ULP</span></code></span>
-<span class="codeline" id="line-685"><code><span class="comment">// away from the largest floating point number of the given size,</span></code></span>
-<span class="codeline" id="line-686"><code><span class="comment">// ParseFloat returns f = ±Inf, err.Err = ErrRange.</span></code></span>
-<span class="codeline" id="line-687"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-688"><code><span class="comment">// ParseFloat recognizes the strings "NaN", and the (possibly signed) strings "Inf" and "Infinity"</span></code></span>
-<span class="codeline" id="line-689"><code><span class="comment">// as their respective special floating point values. It ignores case when matching.</span></code></span>
-<span class="codeline" id="line-690"><code><span class="keyword">func</span> <label for="r132" class="ident"><a href="../../pkg/strconv.html#name-ParseFloat" class="ident">ParseFloat</a></label>(<label for="r133" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r134" class="ident">bitSize</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>) (<a href="../../pkg/builtin.html#name-float64" class="ident">float64</a>, <a href="../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-691"><code>	<label for="r135" class="ident">f</label>, <label for="r136" class="ident">n</label>, <label for="r137" class="ident">err</label> := <a href="#line-698" class="ident">parseFloatPrefix</a>(<label for="r133" class="ident">s</label>, <label for="r134" class="ident">bitSize</label>)</code></span>
-<span class="codeline" id="line-692"><code>	<span class="keyword">if</span> <label for="r136" class="ident">n</label> != <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r133" class="ident">s</label>) &amp;&amp; (<label for="r137" class="ident">err</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> || <label for="r137" class="ident">err</label>.(*<a href="atoi.go.html#line-24" class="ident">NumError</a>).<a href="atoi.go.html#line-27" class="ident">Err</a> != <a href="atoi.go.html#line-21" class="ident">ErrSyntax</a>) {</code></span>
-<span class="codeline" id="line-693"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="atoi.go.html#line-36" class="ident">syntaxError</a>(<a href="#line-562" class="ident">fnParseFloat</a>, <label for="r133" class="ident">s</label>)</code></span>
-<span class="codeline" id="line-694"><code>	}</code></span>
-<span class="codeline" id="line-695"><code>	<span class="keyword">return</span> <label for="r135" class="ident">f</label>, <label for="r137" class="ident">err</label></code></span>
-<span class="codeline" id="line-696"><code>}</code></span>
-<span class="codeline" id="line-697"><code></code></span>
-<span class="codeline" id="line-698"><code><span class="keyword">func</span> <label for="r138" class="ident"><a href="../../pkg/strconv.html#name-parseFloatPrefix" class="ident">parseFloatPrefix</a></label>(<label for="r139" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r140" class="ident">bitSize</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>) (<a href="../../pkg/builtin.html#name-float64" class="ident">float64</a>, <a href="../../pkg/builtin.html#name-int" class="ident">int</a>, <a href="../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-699"><code>	<span class="keyword">if</span> <label for="r140" class="ident">bitSize</label> == <span class="lit-number">32</span> {</code></span>
-<span class="codeline" id="line-700"><code>		<label for="r141" class="ident">f</label>, <label for="r142" class="ident">n</label>, <label for="r143" class="ident">err</label> := <a href="#line-564" class="ident">atof32</a>(<label for="r139" class="ident">s</label>)</code></span>
-<span class="codeline" id="line-701"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-float64" class="ident">float64</a>(<label for="r141" class="ident">f</label>), <label for="r142" class="ident">n</label>, <label for="r143" class="ident">err</label></code></span>
-<span class="codeline" id="line-702"><code>	}</code></span>
-<span class="codeline" id="line-703"><code>	<span class="keyword">return</span> <a href="#line-615" class="ident">atof64</a>(<label for="r139" class="ident">s</label>)</code></span>
-<span class="codeline" id="line-704"><code>}</code></span>
+<span class="codeline" id="line-682"><code><span class="comment">// The errors that ParseFloat returns have concrete type *NumError</span></code></span>
+<span class="codeline" id="line-683"><code><span class="comment">// and include err.Num = s.</span></code></span>
+<span class="codeline" id="line-684"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-685"><code><span class="comment">// If s is not syntactically well-formed, ParseFloat returns err.Err = ErrSyntax.</span></code></span>
+<span class="codeline" id="line-686"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-687"><code><span class="comment">// If s is syntactically well-formed but is more than 1/2 ULP</span></code></span>
+<span class="codeline" id="line-688"><code><span class="comment">// away from the largest floating point number of the given size,</span></code></span>
+<span class="codeline" id="line-689"><code><span class="comment">// ParseFloat returns f = ±Inf, err.Err = ErrRange.</span></code></span>
+<span class="codeline" id="line-690"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-691"><code><span class="comment">// ParseFloat recognizes the string "NaN", and the (possibly signed) strings "Inf" and "Infinity"</span></code></span>
+<span class="codeline" id="line-692"><code><span class="comment">// as their respective special floating point values. It ignores case when matching.</span></code></span>
+<span class="codeline" id="line-693"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-694"><code><span class="comment">// [floating-point literals]: https://go.dev/ref/spec#Floating-point_literals</span></code></span>
+<span class="codeline" id="line-695"><code><span class="keyword">func</span> <label for="r132" class="ident"><a href="../../pkg/strconv.html#name-ParseFloat" class="ident">ParseFloat</a></label>(<label for="r133" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r134" class="ident">bitSize</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>) (<a href="../../pkg/builtin.html#name-float64" class="ident">float64</a>, <a href="../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-696"><code>	<label for="r135" class="ident">f</label>, <label for="r136" class="ident">n</label>, <label for="r137" class="ident">err</label> := <a href="#line-703" class="ident">parseFloatPrefix</a>(<label for="r133" class="ident">s</label>, <label for="r134" class="ident">bitSize</label>)</code></span>
+<span class="codeline" id="line-697"><code>	<span class="keyword">if</span> <label for="r136" class="ident">n</label> != <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r133" class="ident">s</label>) &amp;&amp; (<label for="r137" class="ident">err</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> || <label for="r137" class="ident">err</label>.(*<a href="atoi.go.html#line-24" class="ident">NumError</a>).<a href="atoi.go.html#line-27" class="ident">Err</a> != <a href="atoi.go.html#line-21" class="ident">ErrSyntax</a>) {</code></span>
+<span class="codeline" id="line-698"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="atoi.go.html#line-36" class="ident">syntaxError</a>(<a href="#line-564" class="ident">fnParseFloat</a>, <label for="r133" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-699"><code>	}</code></span>
+<span class="codeline" id="line-700"><code>	<span class="keyword">return</span> <label for="r135" class="ident">f</label>, <label for="r137" class="ident">err</label></code></span>
+<span class="codeline" id="line-701"><code>}</code></span>
+<span class="codeline" id="line-702"><code></code></span>
+<span class="codeline" id="line-703"><code><span class="keyword">func</span> <label for="r138" class="ident"><a href="../../pkg/strconv.html#name-parseFloatPrefix" class="ident">parseFloatPrefix</a></label>(<label for="r139" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r140" class="ident">bitSize</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>) (<a href="../../pkg/builtin.html#name-float64" class="ident">float64</a>, <a href="../../pkg/builtin.html#name-int" class="ident">int</a>, <a href="../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-704"><code>	<span class="keyword">if</span> <label for="r140" class="ident">bitSize</label> == <span class="lit-number">32</span> {</code></span>
+<span class="codeline" id="line-705"><code>		<label for="r141" class="ident">f</label>, <label for="r142" class="ident">n</label>, <label for="r143" class="ident">err</label> := <a href="#line-566" class="ident">atof32</a>(<label for="r139" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-706"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-float64" class="ident">float64</a>(<label for="r141" class="ident">f</label>), <label for="r142" class="ident">n</label>, <label for="r143" class="ident">err</label></code></span>
+<span class="codeline" id="line-707"><code>	}</code></span>
+<span class="codeline" id="line-708"><code>	<span class="keyword">return</span> <a href="#line-617" class="ident">atof64</a>(<label for="r139" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-709"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

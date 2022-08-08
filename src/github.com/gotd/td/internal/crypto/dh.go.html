@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: dh.go in package github.com/gotd/td/internal/crypto</title>
-<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -53,52 +53,53 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-1"><code><span class="keyword">package</span> crypto</code></span>
 <span class="codeline" id="line-2"><code></code></span>
 <span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
-<span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"errors"</span></label></code></span>
-<span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"math/big"</span></label></code></span>
-<span class="codeline" id="line-6"><code>)</code></span>
-<span class="codeline" id="line-7"><code></code></span>
-<span class="codeline" id="line-8"><code><span class="comment">// CheckDHParams checks that g_a, g_b and g params meet key exchange conditions.</span></code></span>
-<span class="codeline" id="line-9"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-10"><code><span class="comment">// https://core.telegram.org/mtproto/auth_key#dh-key-exchange-complete</span></code></span>
-<span class="codeline" id="line-11"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-CheckDHParams" class="ident">CheckDHParams</a></label>(<label for="r1" class="ident">dhPrime</label>, <label for="r2" class="ident">g</label>, <label for="r3" class="ident">gA</label>, <label for="r4" class="ident">gB</label> *<a href="../../../../../../pkg/math/big.html" class="ident i1">big</a>.<a href="../../../../../math/big/int.go.html#line-25" class="ident">Int</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-12"><code>	<label for="r5" class="ident">one</label> := <a href="../../../../../../pkg/math/big.html" class="ident i1">big</a>.<a href="../../../../../math/big/int.go.html#line-68" class="ident">NewInt</a>(<span class="lit-number">1</span>)</code></span>
-<span class="codeline" id="line-13"><code>	<label for="r6" class="ident">dhPrimeMinusOne</label> := <a href="../../../../../../pkg/math/big.html" class="ident i1">big</a>.<a href="../../../../../math/big/int.go.html#line-68" class="ident">NewInt</a>(<span class="lit-number">0</span>).<a href="../../../../../math/big/int.go.html#line-137" class="ident">Sub</a>(<label for="r1" class="ident">dhPrime</label>, <label for="r5" class="ident">one</label>)</code></span>
-<span class="codeline" id="line-14"><code>	<span class="keyword">if</span> !<a href="#line-44" class="ident">InRange</a>(<label for="r2" class="ident">g</label>, <label for="r5" class="ident">one</label>, <label for="r6" class="ident">dhPrimeMinusOne</label>) {</code></span>
-<span class="codeline" id="line-15"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/errors.html" class="ident i0">errors</a>.<a href="../../../../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"kex: bad g, g must be 1 &lt; g &lt; dh_prime - 1"</span>)</code></span>
-<span class="codeline" id="line-16"><code>	}</code></span>
-<span class="codeline" id="line-17"><code>	<span class="keyword">if</span> !<a href="#line-44" class="ident">InRange</a>(<label for="r3" class="ident">gA</label>, <label for="r5" class="ident">one</label>, <label for="r6" class="ident">dhPrimeMinusOne</label>) {</code></span>
-<span class="codeline" id="line-18"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/errors.html" class="ident i0">errors</a>.<a href="../../../../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"kex: bad g_a, g_a must be 1 &lt; g_a &lt; dh_prime - 1"</span>)</code></span>
-<span class="codeline" id="line-19"><code>	}</code></span>
-<span class="codeline" id="line-20"><code>	<span class="keyword">if</span> !<a href="#line-44" class="ident">InRange</a>(<label for="r4" class="ident">gB</label>, <label for="r5" class="ident">one</label>, <label for="r6" class="ident">dhPrimeMinusOne</label>) {</code></span>
-<span class="codeline" id="line-21"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/errors.html" class="ident i0">errors</a>.<a href="../../../../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"kex: bad g_b, g_b must be 1 &lt; g_b &lt; dh_prime - 1"</span>)</code></span>
-<span class="codeline" id="line-22"><code>	}</code></span>
-<span class="codeline" id="line-23"><code></code></span>
-<span class="codeline" id="line-24"><code>	<span class="comment">// IMPORTANT: Apart from the conditions on the Diffie-Hellman prime</span></code></span>
-<span class="codeline" id="line-25"><code><span class="comment">	// dh_prime and generator g, both sides are to check that g, g_a and</span></code></span>
-<span class="codeline" id="line-26"><code><span class="comment">	// g_b are greater than 1 and less than dh_prime - 1. We recommend</span></code></span>
-<span class="codeline" id="line-27"><code><span class="comment">	// checking that g_a and g_b are between 2^{2048-64} and</span></code></span>
-<span class="codeline" id="line-28"><code><span class="comment">	// dh_prime - 2^{2048-64} as well.</span></code></span>
-<span class="codeline" id="line-29"><code></code></span>
-<span class="codeline" id="line-30"><code>	<span class="comment">// 2^{2048-64}</span></code></span>
-<span class="codeline" id="line-31"><code>	<label for="r7" class="ident">safetyRangeMin</label> := <a href="../../../../../../pkg/math/big.html" class="ident i1">big</a>.<a href="../../../../../math/big/int.go.html#line-68" class="ident">NewInt</a>(<span class="lit-number">0</span>).<a href="../../../../../math/big/int.go.html#line-488" class="ident">Exp</a>(<a href="../../../../../../pkg/math/big.html" class="ident i1">big</a>.<a href="../../../../../math/big/int.go.html#line-68" class="ident">NewInt</a>(<span class="lit-number">2</span>), <a href="../../../../../../pkg/math/big.html" class="ident i1">big</a>.<a href="../../../../../math/big/int.go.html#line-68" class="ident">NewInt</a>(<a href="rsa.go.html#line-21" class="ident">RSAKeyBits</a>-<span class="lit-number">64</span>), <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
-<span class="codeline" id="line-32"><code>	<label for="r8" class="ident">safetyRangeMax</label> := <a href="../../../../../../pkg/math/big.html" class="ident i1">big</a>.<a href="../../../../../math/big/int.go.html#line-68" class="ident">NewInt</a>(<span class="lit-number">0</span>).<a href="../../../../../math/big/int.go.html#line-137" class="ident">Sub</a>(<label for="r1" class="ident">dhPrime</label>, <label for="r7" class="ident">safetyRangeMin</label>)</code></span>
-<span class="codeline" id="line-33"><code>	<span class="keyword">if</span> !<a href="#line-44" class="ident">InRange</a>(<label for="r3" class="ident">gA</label>, <label for="r7" class="ident">safetyRangeMin</label>, <label for="r8" class="ident">safetyRangeMax</label>) {</code></span>
-<span class="codeline" id="line-34"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/errors.html" class="ident i0">errors</a>.<a href="../../../../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"kex: bad g_a, g_a must be 2^{2048-64} &lt; g_a &lt; dh_prime - 2^{2048-64}"</span>)</code></span>
-<span class="codeline" id="line-35"><code>	}</code></span>
-<span class="codeline" id="line-36"><code>	<span class="keyword">if</span> !<a href="#line-44" class="ident">InRange</a>(<label for="r4" class="ident">gB</label>, <label for="r7" class="ident">safetyRangeMin</label>, <label for="r8" class="ident">safetyRangeMax</label>) {</code></span>
-<span class="codeline" id="line-37"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/errors.html" class="ident i0">errors</a>.<a href="../../../../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"kex: bad g_b, g_b must be 2^{2048-64} &lt; g_b &lt; dh_prime - 2^{2048-64}"</span>)</code></span>
-<span class="codeline" id="line-38"><code>	}</code></span>
-<span class="codeline" id="line-39"><code></code></span>
-<span class="codeline" id="line-40"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-41"><code>}</code></span>
-<span class="codeline" id="line-42"><code></code></span>
-<span class="codeline" id="line-43"><code><span class="comment">// InRange checks whether x is in (min, max) range, i.e. min &lt; x &lt; max.</span></code></span>
-<span class="codeline" id="line-44"><code><span class="keyword">func</span> <label for="r9" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-InRange" class="ident">InRange</a></label>(<label for="r10" class="ident">x</label>, <label for="r11" class="ident">min</label>, <label for="r12" class="ident">max</label> *<a href="../../../../../../pkg/math/big.html" class="ident i1">big</a>.<a href="../../../../../math/big/int.go.html#line-25" class="ident">Int</a>) <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-45"><code>	<span class="keyword">return</span> <label for="r10" class="ident">x</label>.<a href="../../../../../math/big/int.go.html#line-320" class="ident">Cmp</a>(<label for="r11" class="ident">min</label>) &gt; <span class="lit-number">0</span> &amp;&amp; <label for="r10" class="ident">x</label>.<a href="../../../../../math/big/int.go.html#line-320" class="ident">Cmp</a>(<label for="r12" class="ident">max</label>) &lt; <span class="lit-number">0</span></code></span>
-<span class="codeline" id="line-46"><code>}</code></span>
+<span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"math/big"</span></label></code></span>
+<span class="codeline" id="line-5"><code></code></span>
+<span class="codeline" id="line-6"><code>	<label for="i1"><span class="lit-string i1">"github.com/go-faster/errors"</span></label></code></span>
+<span class="codeline" id="line-7"><code>)</code></span>
+<span class="codeline" id="line-8"><code></code></span>
+<span class="codeline" id="line-9"><code><span class="comment">// CheckDHParams checks that g_a, g_b and g params meet key exchange conditions.</span></code></span>
+<span class="codeline" id="line-10"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-11"><code><span class="comment">// https://core.telegram.org/mtproto/auth_key#dh-key-exchange-complete</span></code></span>
+<span class="codeline" id="line-12"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-CheckDHParams" class="ident">CheckDHParams</a></label>(<label for="r1" class="ident">dhPrime</label>, <label for="r2" class="ident">g</label>, <label for="r3" class="ident">gA</label>, <label for="r4" class="ident">gB</label> *<a href="../../../../../../pkg/math/big.html" class="ident i0">big</a>.<a href="../../../../../math/big/int.go.html#line-25" class="ident">Int</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-13"><code>	<label for="r5" class="ident">one</label> := <a href="../../../../../../pkg/math/big.html" class="ident i0">big</a>.<a href="../../../../../math/big/int.go.html#line-67" class="ident">NewInt</a>(<span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-14"><code>	<label for="r6" class="ident">dhPrimeMinusOne</label> := <a href="../../../../../../pkg/math/big.html" class="ident i0">big</a>.<a href="../../../../../math/big/int.go.html#line-67" class="ident">NewInt</a>(<span class="lit-number">0</span>).<a href="../../../../../math/big/int.go.html#line-136" class="ident">Sub</a>(<label for="r1" class="ident">dhPrime</label>, <label for="r5" class="ident">one</label>)</code></span>
+<span class="codeline" id="line-15"><code>	<span class="keyword">if</span> !<a href="#line-45" class="ident">InRange</a>(<label for="r2" class="ident">g</label>, <label for="r5" class="ident">one</label>, <label for="r6" class="ident">dhPrimeMinusOne</label>) {</code></span>
+<span class="codeline" id="line-16"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i1">errors</a>.<a href="../../../../go-faster/errors/errors.go.html#line-22" class="ident">New</a>(<span class="lit-string">"kex: bad g, g must be 1 &lt; g &lt; dh_prime - 1"</span>)</code></span>
+<span class="codeline" id="line-17"><code>	}</code></span>
+<span class="codeline" id="line-18"><code>	<span class="keyword">if</span> !<a href="#line-45" class="ident">InRange</a>(<label for="r3" class="ident">gA</label>, <label for="r5" class="ident">one</label>, <label for="r6" class="ident">dhPrimeMinusOne</label>) {</code></span>
+<span class="codeline" id="line-19"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i1">errors</a>.<a href="../../../../go-faster/errors/errors.go.html#line-22" class="ident">New</a>(<span class="lit-string">"kex: bad g_a, g_a must be 1 &lt; g_a &lt; dh_prime - 1"</span>)</code></span>
+<span class="codeline" id="line-20"><code>	}</code></span>
+<span class="codeline" id="line-21"><code>	<span class="keyword">if</span> !<a href="#line-45" class="ident">InRange</a>(<label for="r4" class="ident">gB</label>, <label for="r5" class="ident">one</label>, <label for="r6" class="ident">dhPrimeMinusOne</label>) {</code></span>
+<span class="codeline" id="line-22"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i1">errors</a>.<a href="../../../../go-faster/errors/errors.go.html#line-22" class="ident">New</a>(<span class="lit-string">"kex: bad g_b, g_b must be 1 &lt; g_b &lt; dh_prime - 1"</span>)</code></span>
+<span class="codeline" id="line-23"><code>	}</code></span>
+<span class="codeline" id="line-24"><code></code></span>
+<span class="codeline" id="line-25"><code>	<span class="comment">// IMPORTANT: Apart from the conditions on the Diffie-Hellman prime</span></code></span>
+<span class="codeline" id="line-26"><code><span class="comment">	// dh_prime and generator g, both sides are to check that g, g_a and</span></code></span>
+<span class="codeline" id="line-27"><code><span class="comment">	// g_b are greater than 1 and less than dh_prime - 1. We recommend</span></code></span>
+<span class="codeline" id="line-28"><code><span class="comment">	// checking that g_a and g_b are between 2^{2048-64} and</span></code></span>
+<span class="codeline" id="line-29"><code><span class="comment">	// dh_prime - 2^{2048-64} as well.</span></code></span>
+<span class="codeline" id="line-30"><code></code></span>
+<span class="codeline" id="line-31"><code>	<span class="comment">// 2^{2048-64}</span></code></span>
+<span class="codeline" id="line-32"><code>	<label for="r7" class="ident">safetyRangeMin</label> := <a href="../../../../../../pkg/math/big.html" class="ident i0">big</a>.<a href="../../../../../math/big/int.go.html#line-67" class="ident">NewInt</a>(<span class="lit-number">0</span>).<a href="../../../../../math/big/int.go.html#line-482" class="ident">Exp</a>(<a href="../../../../../../pkg/math/big.html" class="ident i0">big</a>.<a href="../../../../../math/big/int.go.html#line-67" class="ident">NewInt</a>(<span class="lit-number">2</span>), <a href="../../../../../../pkg/math/big.html" class="ident i0">big</a>.<a href="../../../../../math/big/int.go.html#line-67" class="ident">NewInt</a>(<a href="rsa.go.html#line-15" class="ident">RSAKeyBits</a>-<span class="lit-number">64</span>), <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-33"><code>	<label for="r8" class="ident">safetyRangeMax</label> := <a href="../../../../../../pkg/math/big.html" class="ident i0">big</a>.<a href="../../../../../math/big/int.go.html#line-67" class="ident">NewInt</a>(<span class="lit-number">0</span>).<a href="../../../../../math/big/int.go.html#line-136" class="ident">Sub</a>(<label for="r1" class="ident">dhPrime</label>, <label for="r7" class="ident">safetyRangeMin</label>)</code></span>
+<span class="codeline" id="line-34"><code>	<span class="keyword">if</span> !<a href="#line-45" class="ident">InRange</a>(<label for="r3" class="ident">gA</label>, <label for="r7" class="ident">safetyRangeMin</label>, <label for="r8" class="ident">safetyRangeMax</label>) {</code></span>
+<span class="codeline" id="line-35"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i1">errors</a>.<a href="../../../../go-faster/errors/errors.go.html#line-22" class="ident">New</a>(<span class="lit-string">"kex: bad g_a, g_a must be 2^{2048-64} &lt; g_a &lt; dh_prime - 2^{2048-64}"</span>)</code></span>
+<span class="codeline" id="line-36"><code>	}</code></span>
+<span class="codeline" id="line-37"><code>	<span class="keyword">if</span> !<a href="#line-45" class="ident">InRange</a>(<label for="r4" class="ident">gB</label>, <label for="r7" class="ident">safetyRangeMin</label>, <label for="r8" class="ident">safetyRangeMax</label>) {</code></span>
+<span class="codeline" id="line-38"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i1">errors</a>.<a href="../../../../go-faster/errors/errors.go.html#line-22" class="ident">New</a>(<span class="lit-string">"kex: bad g_b, g_b must be 2^{2048-64} &lt; g_b &lt; dh_prime - 2^{2048-64}"</span>)</code></span>
+<span class="codeline" id="line-39"><code>	}</code></span>
+<span class="codeline" id="line-40"><code></code></span>
+<span class="codeline" id="line-41"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-42"><code>}</code></span>
+<span class="codeline" id="line-43"><code></code></span>
+<span class="codeline" id="line-44"><code><span class="comment">// InRange checks whether x is in (min, max) range, i.e. min &lt; x &lt; max.</span></code></span>
+<span class="codeline" id="line-45"><code><span class="keyword">func</span> <label for="r9" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-InRange" class="ident">InRange</a></label>(<label for="r10" class="ident">x</label>, <label for="r11" class="ident">min</label>, <label for="r12" class="ident">max</label> *<a href="../../../../../../pkg/math/big.html" class="ident i0">big</a>.<a href="../../../../../math/big/int.go.html#line-25" class="ident">Int</a>) <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-46"><code>	<span class="keyword">return</span> <label for="r10" class="ident">x</label>.<a href="../../../../../math/big/int.go.html#line-316" class="ident">Cmp</a>(<label for="r11" class="ident">min</label>) &gt; <span class="lit-number">0</span> &amp;&amp; <label for="r10" class="ident">x</label>.<a href="../../../../../math/big/int.go.html#line-316" class="ident">Cmp</a>(<label for="r12" class="ident">max</label>) &lt; <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-47"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

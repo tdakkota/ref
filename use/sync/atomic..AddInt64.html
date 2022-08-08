@@ -5,27 +5,31 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>References: sync/atomic.AddInt64</title>
-<link href="../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.3.6.js"></script>
+<link href="../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
-<pre><code><span style="font-size:x-large;">func <b><a href="../../pkg/sync/atomic.html">sync/atomic</a>.<a href="../../src/sync/atomic/doc.go.html#line-100">AddInt64</a></b></span>
+<pre><code><span style="font-size:x-large;">func <b><a href="../../pkg/sync/atomic.html">sync/atomic</a>.<a href="../../src/sync/atomic/doc.go.html#line-109">AddInt64</a></b></span>
 
-<span class="title">5 uses</span>
+<span class="title">7 uses</span>
 
 	sync/atomic (current package)
-		<a href="../../src/sync/atomic/doc.go.html#line-100">doc.go#L100</a>: func <b>AddInt64</b>(addr *int64, delta int64) (new int64)
+		<a href="../../src/sync/atomic/doc.go.html#line-109">doc.go#L109</a>: func <b>AddInt64</b>(addr *int64, delta int64) (new int64)
+		<a href="../../src/sync/atomic/type.go.html#line-103">type.go#L103</a>: func (x *Int64) Add(delta int64) (new int64) { return <b>AddInt64</b>(&amp;x.v, delta) }
+
+	<a href="../../pkg/github.com/gotd/td/internal/proto.html">github.com/gotd/td/internal/proto</a>
+		<a href="../../src/github.com/gotd/td/internal/proto/gzip.go.html#line-123">gzip.go#L123</a>: 	atomic.<b>AddInt64</b>(&amp;c.read, int64(n))
 
 	<a href="../../pkg/github.com/gotd/td/internal/proto/codec.html">github.com/gotd/td/internal/proto/codec</a>
-		<a href="../../src/github.com/gotd/td/internal/proto/codec/full.go.html#line-39">full.go#L39</a>: 	if err := writeFull(w, int(atomic.<b>AddInt64</b>(&i.wSeqNo, 1)-1), b); err != nil {
-		<a href="../../src/github.com/gotd/td/internal/proto/codec/full.go.html#line-48" class="path-duplicate">full.go</a><a href="../../src/github.com/gotd/td/internal/proto/codec/full.go.html#line-48">#L48</a>: 	if err := readFull(r, int(atomic.<b>AddInt64</b>(&i.rSeqNo, 1)-1), b); err != nil {
+		<a href="../../src/github.com/gotd/td/internal/proto/codec/full.go.html#line-37">full.go#L37</a>: 	if err := writeFull(w, int(atomic.<b>AddInt64</b>(&amp;i.wSeqNo, 1)-1), b); err != nil {
+		<a href="../../src/github.com/gotd/td/internal/proto/codec/full.go.html#line-46" class="path-duplicate">full.go</a><a href="../../src/github.com/gotd/td/internal/proto/codec/full.go.html#line-46">#L46</a>: 	if err := readFull(r, int(atomic.<b>AddInt64</b>(&amp;i.rSeqNo, 1)-1), b); err != nil {
 
 	<a href="../../pkg/go.uber.org/atomic.html">go.uber.org/atomic</a>
-		<a href="../../src/go.uber.org/atomic/int64.go.html#line-50">int64.go#L50</a>: 	return atomic.<b>AddInt64</b>(&i.v, n)
-		<a href="../../src/go.uber.org/atomic/int64.go.html#line-55" class="path-duplicate">int64.go</a><a href="../../src/go.uber.org/atomic/int64.go.html#line-55">#L55</a>: 	return atomic.<b>AddInt64</b>(&i.v, -n)
+		<a href="../../src/go.uber.org/atomic/int64.go.html#line-50">int64.go#L50</a>: 	return atomic.<b>AddInt64</b>(&amp;i.v, delta)
+		<a href="../../src/go.uber.org/atomic/int64.go.html#line-55" class="path-duplicate">int64.go</a><a href="../../src/go.uber.org/atomic/int64.go.html#line-55">#L55</a>: 	return atomic.<b>AddInt64</b>(&amp;i.v, -delta)
 </code></pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

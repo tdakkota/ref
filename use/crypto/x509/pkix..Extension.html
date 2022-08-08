@@ -5,53 +5,56 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>References: crypto/x509/pkix.Extension</title>
-<link href="../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre><code><span style="font-size:x-large;">type <b><a href="../../../pkg/crypto/x509/pkix.html">crypto/x509/pkix</a>.<a href="../../../src/crypto/x509/pkix/pkix.go.html#line-113">Extension</a></b></span>
 
-<span class="title">33 uses</span>
+<span class="title">36 uses</span>
 
 	crypto/x509/pkix (current package)
 		<a href="../../../src/crypto/x509/pkix/pkix.go.html#line-113">pkix.go#L113</a>: type <b>Extension</b> struct {
-		<a href="../../../src/crypto/x509/pkix/pkix.go.html#line-307" class="path-duplicate">pkix.go</a><a href="../../../src/crypto/x509/pkix/pkix.go.html#line-307">#L307</a>: 	Extensions          []<b>Extension</b>          `asn1:"tag:0,optional,explicit"`
-		<a href="../../../src/crypto/x509/pkix/pkix.go.html#line-315" class="path-duplicate">pkix.go</a><a href="../../../src/crypto/x509/pkix/pkix.go.html#line-315">#L315</a>: 	Extensions     []<b>Extension</b> `asn1:"optional"`
+		<a href="../../../src/crypto/x509/pkix/pkix.go.html#line-311" class="path-duplicate">pkix.go</a><a href="../../../src/crypto/x509/pkix/pkix.go.html#line-311">#L311</a>: 	Extensions          []<b>Extension</b>          `asn1:"tag:0,optional,explicit"`
+		<a href="../../../src/crypto/x509/pkix/pkix.go.html#line-319" class="path-duplicate">pkix.go</a><a href="../../../src/crypto/x509/pkix/pkix.go.html#line-319">#L319</a>: 	Extensions     []<b>Extension</b> `asn1:"optional"`
 
 	<a href="../../../pkg/crypto/x509.html">crypto/x509</a>
-		<a href="../../../src/crypto/x509/parser.go.html#line-221">parser.go#L221</a>: func parseExtension(der cryptobyte.String) (pkix.<b>Extension</b>, error) {
-		<a href="../../../src/crypto/x509/parser.go.html#line-222" class="path-duplicate">parser.go</a><a href="../../../src/crypto/x509/parser.go.html#line-222">#L222</a>: 	var ext pkix.<b>Extension</b>
-		<a href="../../../src/crypto/x509/parser.go.html#line-496" class="path-duplicate">parser.go</a><a href="../../../src/crypto/x509/parser.go.html#line-496">#L496</a>: func parseNameConstraintsExtension(out *Certificate, e pkix.<b>Extension</b>) (unhandled bool, err error) {
-		<a href="../../../src/crypto/x509/x509.go.html#line-157">x509.go#L157</a>: 	Extensions         []pkix.<b>Extension</b> `asn1:"optional,explicit,tag:3"`
-		<a href="../../../src/crypto/x509/x509.go.html#line-651" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-651">#L651</a>: 	Extensions []pkix.<b>Extension</b>
-		<a href="../../../src/crypto/x509/x509.go.html#line-657" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-657">#L657</a>: 	ExtraExtensions []pkix.<b>Extension</b>
-		<a href="../../../src/crypto/x509/x509.go.html#line-963" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-963">#L963</a>: func oidInExtensions(oid asn1.ObjectIdentifier, extensions []pkix.<b>Extension</b>) bool {
-		<a href="../../../src/crypto/x509/x509.go.html#line-1017" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1017">#L1017</a>: func buildCertExtensions(template *Certificate, subjectIsEmpty bool, authorityKeyId []byte, subjectKeyId []byte) (ret []pkix.<b>Extension</b>, err error) {
-		<a href="../../../src/crypto/x509/x509.go.html#line-1018" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1018">#L1018</a>: 	ret = make([]pkix.<b>Extension</b>, 10 /* maximum number of elements. */)
-		<a href="../../../src/crypto/x509/x509.go.html#line-1239" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1239">#L1239</a>: func marshalKeyUsage(ku KeyUsage) (pkix.<b>Extension</b>, error) {
-		<a href="../../../src/crypto/x509/x509.go.html#line-1240" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1240">#L1240</a>: 	ext := pkix.<b>Extension</b>{Id: oidExtensionKeyUsage, Critical: true}
-		<a href="../../../src/crypto/x509/x509.go.html#line-1260" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1260">#L1260</a>: func marshalExtKeyUsage(extUsages []ExtKeyUsage, unknownUsages []asn1.ObjectIdentifier) (pkix.<b>Extension</b>, error) {
-		<a href="../../../src/crypto/x509/x509.go.html#line-1261" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1261">#L1261</a>: 	ext := pkix.<b>Extension</b>{Id: oidExtensionExtendedKeyUsage}
-		<a href="../../../src/crypto/x509/x509.go.html#line-1282" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1282">#L1282</a>: func marshalBasicConstraints(isCA bool, maxPathLen int, maxPathLenZero bool) (pkix.<b>Extension</b>, error) {
-		<a href="../../../src/crypto/x509/x509.go.html#line-1283" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1283">#L1283</a>: 	ext := pkix.<b>Extension</b>{Id: oidExtensionBasicConstraints, Critical: true}
-		<a href="../../../src/crypto/x509/x509.go.html#line-1298" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1298">#L1298</a>: func marshalCertificatePolicies(policyIdentifiers []asn1.ObjectIdentifier) (pkix.<b>Extension</b>, error) {
-		<a href="../../../src/crypto/x509/x509.go.html#line-1299" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1299">#L1299</a>: 	ext := pkix.<b>Extension</b>{Id: oidExtensionCertificatePolicies}
-		<a href="../../../src/crypto/x509/x509.go.html#line-1312" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1312">#L1312</a>: func buildCSRExtensions(template *CertificateRequest) ([]pkix.<b>Extension</b>, error) {
-		<a href="../../../src/crypto/x509/x509.go.html#line-1313" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1313">#L1313</a>: 	var ret []pkix.<b>Extension</b>
-		<a href="../../../src/crypto/x509/x509.go.html#line-1322" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1322">#L1322</a>: 		ret = append(ret, pkix.<b>Extension</b>{
-		<a href="../../../src/crypto/x509/x509.go.html#line-1659" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1659">#L1659</a>: 		var aki pkix.<b>Extension</b>
-		<a href="../../../src/crypto/x509/x509.go.html#line-1719" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1719">#L1719</a>: 	Extensions []pkix.<b>Extension</b>
-		<a href="../../../src/crypto/x509/x509.go.html#line-1728" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1728">#L1728</a>: 	ExtraExtensions []pkix.<b>Extension</b>
-		<a href="../../../src/crypto/x509/x509.go.html#line-1794" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1794">#L1794</a>: func parseCSRExtensions(rawAttributes []asn1.RawValue) ([]pkix.<b>Extension</b>, error) {
-		<a href="../../../src/crypto/x509/x509.go.html#line-1801" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1801">#L1801</a>: 	var ret []pkix.<b>Extension</b>
-		<a href="../../../src/crypto/x509/x509.go.html#line-1813" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1813">#L1813</a>: 		var extensions []pkix.<b>Extension</b>
-		<a href="../../../src/crypto/x509/x509.go.html#line-1930" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1930">#L1930</a>: 			Value [][]pkix.<b>Extension</b> `asn1:"set"`
-		<a href="../../../src/crypto/x509/x509.go.html#line-1933" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1933">#L1933</a>: 			Value: [][]pkix.<b>Extension</b>{extensions},
-		<a href="../../../src/crypto/x509/x509.go.html#line-2093" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-2093">#L2093</a>: 	ExtraExtensions []pkix.<b>Extension</b>
-		<a href="../../../src/crypto/x509/x509.go.html#line-2155" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-2155">#L2155</a>: 		Extensions: []pkix.<b>Extension</b>{
+		<a href="../../../src/crypto/x509/parser.go.html#line-197">parser.go#L197</a>: func parseExtension(der cryptobyte.String) (pkix.<b>Extension</b>, error) {
+		<a href="../../../src/crypto/x509/parser.go.html#line-198" class="path-duplicate">parser.go</a><a href="../../../src/crypto/x509/parser.go.html#line-198">#L198</a>: 	var ext pkix.<b>Extension</b>
+		<a href="../../../src/crypto/x509/parser.go.html#line-472" class="path-duplicate">parser.go</a><a href="../../../src/crypto/x509/parser.go.html#line-472">#L472</a>: func parseNameConstraintsExtension(out *Certificate, e pkix.<b>Extension</b>) (unhandled bool, err error) {
+		<a href="../../../src/crypto/x509/verify.go.html#line-853">verify.go#L853</a>: 	var candidateSAN *pkix.<b>Extension</b>
+		<a href="../../../src/crypto/x509/verify.go.html#line-868" class="path-duplicate">verify.go</a><a href="../../../src/crypto/x509/verify.go.html#line-868">#L868</a>: 		var certSAN *pkix.<b>Extension</b>
+		<a href="../../../src/crypto/x509/x509.go.html#line-158">x509.go#L158</a>: 	Extensions         []pkix.<b>Extension</b> `asn1:"omitempty,optional,explicit,tag:3"`
+		<a href="../../../src/crypto/x509/x509.go.html#line-647" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-647">#L647</a>: 	Extensions []pkix.<b>Extension</b>
+		<a href="../../../src/crypto/x509/x509.go.html#line-653" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-653">#L653</a>: 	ExtraExtensions []pkix.<b>Extension</b>
+		<a href="../../../src/crypto/x509/x509.go.html#line-978" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-978">#L978</a>: func oidInExtensions(oid asn1.ObjectIdentifier, extensions []pkix.<b>Extension</b>) bool {
+		<a href="../../../src/crypto/x509/x509.go.html#line-1032" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1032">#L1032</a>: func buildCertExtensions(template *Certificate, subjectIsEmpty bool, authorityKeyId []byte, subjectKeyId []byte) (ret []pkix.<b>Extension</b>, err error) {
+		<a href="../../../src/crypto/x509/x509.go.html#line-1033" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1033">#L1033</a>: 	ret = make([]pkix.<b>Extension</b>, 10 /* maximum number of elements. */)
+		<a href="../../../src/crypto/x509/x509.go.html#line-1254" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1254">#L1254</a>: func marshalKeyUsage(ku KeyUsage) (pkix.<b>Extension</b>, error) {
+		<a href="../../../src/crypto/x509/x509.go.html#line-1255" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1255">#L1255</a>: 	ext := pkix.<b>Extension</b>{Id: oidExtensionKeyUsage, Critical: true}
+		<a href="../../../src/crypto/x509/x509.go.html#line-1272" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1272">#L1272</a>: func marshalExtKeyUsage(extUsages []ExtKeyUsage, unknownUsages []asn1.ObjectIdentifier) (pkix.<b>Extension</b>, error) {
+		<a href="../../../src/crypto/x509/x509.go.html#line-1273" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1273">#L1273</a>: 	ext := pkix.<b>Extension</b>{Id: oidExtensionExtendedKeyUsage}
+		<a href="../../../src/crypto/x509/x509.go.html#line-1291" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1291">#L1291</a>: func marshalBasicConstraints(isCA bool, maxPathLen int, maxPathLenZero bool) (pkix.<b>Extension</b>, error) {
+		<a href="../../../src/crypto/x509/x509.go.html#line-1292" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1292">#L1292</a>: 	ext := pkix.<b>Extension</b>{Id: oidExtensionBasicConstraints, Critical: true}
+		<a href="../../../src/crypto/x509/x509.go.html#line-1304" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1304">#L1304</a>: func marshalCertificatePolicies(policyIdentifiers []asn1.ObjectIdentifier) (pkix.<b>Extension</b>, error) {
+		<a href="../../../src/crypto/x509/x509.go.html#line-1305" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1305">#L1305</a>: 	ext := pkix.<b>Extension</b>{Id: oidExtensionCertificatePolicies}
+		<a href="../../../src/crypto/x509/x509.go.html#line-1315" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1315">#L1315</a>: func buildCSRExtensions(template *CertificateRequest) ([]pkix.<b>Extension</b>, error) {
+		<a href="../../../src/crypto/x509/x509.go.html#line-1316" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1316">#L1316</a>: 	var ret []pkix.<b>Extension</b>
+		<a href="../../../src/crypto/x509/x509.go.html#line-1325" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1325">#L1325</a>: 		ret = append(ret, pkix.<b>Extension</b>{
+		<a href="../../../src/crypto/x509/x509.go.html#line-1675" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1675">#L1675</a>: 		var aki pkix.<b>Extension</b>
+		<a href="../../../src/crypto/x509/x509.go.html#line-1735" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1735">#L1735</a>: 	Extensions []pkix.<b>Extension</b>
+		<a href="../../../src/crypto/x509/x509.go.html#line-1744" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1744">#L1744</a>: 	ExtraExtensions []pkix.<b>Extension</b>
+		<a href="../../../src/crypto/x509/x509.go.html#line-1810" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1810">#L1810</a>: func parseCSRExtensions(rawAttributes []asn1.RawValue) ([]pkix.<b>Extension</b>, error) {
+		<a href="../../../src/crypto/x509/x509.go.html#line-1817" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1817">#L1817</a>: 	var ret []pkix.<b>Extension</b>
+		<a href="../../../src/crypto/x509/x509.go.html#line-1835" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1835">#L1835</a>: 		var extensions []pkix.<b>Extension</b>
+		<a href="../../../src/crypto/x509/x509.go.html#line-1960" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1960">#L1960</a>: 			Value [][]pkix.<b>Extension</b> `asn1:"set"`
+		<a href="../../../src/crypto/x509/x509.go.html#line-1963" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-1963">#L1963</a>: 			Value: [][]pkix.<b>Extension</b>{extensions},
+		<a href="../../../src/crypto/x509/x509.go.html#line-2144" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-2144">#L2144</a>: 	Extensions []pkix.<b>Extension</b>
+		<a href="../../../src/crypto/x509/x509.go.html#line-2148" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-2148">#L2148</a>: 	ExtraExtensions []pkix.<b>Extension</b>
+		<a href="../../../src/crypto/x509/x509.go.html#line-2214" class="path-duplicate">x509.go</a><a href="../../../src/crypto/x509/x509.go.html#line-2214">#L2214</a>: 		Extensions: []pkix.<b>Extension</b>{
 </code></pre><pre id="footer">
 <table><tr><td><img src="../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

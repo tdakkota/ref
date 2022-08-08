@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: codec.go in package github.com/gotd/td/internal/proto/codec</title>
-<link href="../../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -21,12 +21,12 @@ input[id=r1]:checked ~pre label[for=r1],
 input[id=r2]:checked ~pre label[for=r2],
 input[id=r3]:checked ~pre label[for=r3],
 input[id=r4]:checked ~pre label[for=r4],
-input[id=r5]:checked ~pre label[for=r5],
-input[id=r6]:checked ~pre label[for=r6]
+input[id=r5]:checked ~pre label[for=r5]
 {background: #226; color: #ff8;}
 input[id=i0]:checked ~pre .i0,
 input[id=i1]:checked ~pre .i1,
-input[id=i2]:checked ~pre .i2
+input[id=i2]:checked ~pre .i2,
+input[id=i3]:checked ~pre .i3
 {background: brown; color: #eed;}
 </style><input id="r0" type="radio" name="g"/>
 <input id="r1" type="radio" name="g"/>
@@ -34,60 +34,59 @@ input[id=i2]:checked ~pre .i2
 <input id="r3" type="radio" name="g"/>
 <input id="r4" type="radio" name="g"/>
 <input id="r5" type="radio" name="g"/>
-<input id="r6" type="radio" name="g"/>
 <input id="i0" type="radio" name="i"/>
 <input id="i1" type="radio" name="i"/>
 <input id="i2" type="radio" name="i"/>
+<input id="i3" type="radio" name="i"/>
 
 <pre class="line-numbers">
 <span class="codeline" id="line-1"><code><span class="keyword">package</span> codec</code></span>
 <span class="codeline" id="line-2"><code></code></span>
 <span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
-<span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"fmt"</span></label></code></span>
+<span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"encoding/binary"</span></label></code></span>
 <span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"io"</span></label></code></span>
 <span class="codeline" id="line-6"><code></code></span>
-<span class="codeline" id="line-7"><code>	<label for="i2"><span class="lit-string i2">"github.com/gotd/td/bin"</span></label></code></span>
-<span class="codeline" id="line-8"><code>)</code></span>
-<span class="codeline" id="line-9"><code></code></span>
-<span class="codeline" id="line-10"><code><span class="comment">// Codec is MTProto transport protocol encoding abstraction.</span></code></span>
-<span class="codeline" id="line-11"><code><span class="keyword">type</span> <a href="../../../../../../../pkg/github.com/gotd/td/internal/proto/codec.html#name-Codec" class="ident">Codec</a> <span class="keyword">interface</span> {</code></span>
-<span class="codeline" id="line-12"><code>	<span class="comment">// WriteHeader sends protocol tag if needed.</span></code></span>
-<span class="codeline" id="line-13"><code>	<a href="../../../../../../../imp/github.com/gotd/td/internal/proto/codec.Codec.html#name-WriteHeader" class="ident">WriteHeader</a>(w <a href="../../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../../io/io.go.html#line-96" class="ident">Writer</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
-<span class="codeline" id="line-14"><code>	<span class="comment">// ReadHeader reads protocol tag if needed.</span></code></span>
-<span class="codeline" id="line-15"><code>	<a href="../../../../../../../imp/github.com/gotd/td/internal/proto/codec.Codec.html#name-ReadHeader" class="ident">ReadHeader</a>(r <a href="../../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../../io/io.go.html#line-83" class="ident">Reader</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
-<span class="codeline" id="line-16"><code>	<span class="comment">// Write encode to writer message from given buffer.</span></code></span>
-<span class="codeline" id="line-17"><code>	<a href="../../../../../../../imp/github.com/gotd/td/internal/proto/codec.Codec.html#name-Write" class="ident">Write</a>(w <a href="../../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../../io/io.go.html#line-96" class="ident">Writer</a>, b *<a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i2">bin</a>.<a href="../../../bin/buffer.go.html#line-8" class="ident">Buffer</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
-<span class="codeline" id="line-18"><code>	<span class="comment">// Read fills buffer with received message.</span></code></span>
-<span class="codeline" id="line-19"><code>	<a href="../../../../../../../imp/github.com/gotd/td/internal/proto/codec.Codec.html#name-Read" class="ident">Read</a>(r <a href="../../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../../io/io.go.html#line-83" class="ident">Reader</a>, b *<a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i2">bin</a>.<a href="../../../bin/buffer.go.html#line-8" class="ident">Buffer</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
-<span class="codeline" id="line-20"><code>}</code></span>
-<span class="codeline" id="line-21"><code></code></span>
-<span class="codeline" id="line-22"><code><span class="comment">// TaggedCodec is codec with protocol tag.</span></code></span>
-<span class="codeline" id="line-23"><code><span class="keyword">type</span> <a href="../../../../../../../pkg/github.com/gotd/td/internal/proto/codec.html#name-TaggedCodec" class="ident">TaggedCodec</a> <span class="keyword">interface</span> {</code></span>
-<span class="codeline" id="line-24"><code>	<a href="#line-11" class="ident">Codec</a></code></span>
-<span class="codeline" id="line-25"><code>	<span class="comment">// ObfuscatedTag returns protocol tag for obfuscation.</span></code></span>
-<span class="codeline" id="line-26"><code>	<a href="../../../../../../../imp/github.com/gotd/td/internal/proto/codec.TaggedCodec.html#name-ObfuscatedTag" class="ident">ObfuscatedTag</a>() [<span class="lit-number">4</span>]<a href="../../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
-<span class="codeline" id="line-27"><code>}</code></span>
-<span class="codeline" id="line-28"><code></code></span>
-<span class="codeline" id="line-29"><code><span class="comment">// readLen reads 32-bit integer and validates it as message length.</span></code></span>
-<span class="codeline" id="line-30"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../../pkg/github.com/gotd/td/internal/proto/codec.html#name-readLen" class="ident">readLen</a></label>(<label for="r1" class="ident">r</label> <a href="../../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../../io/io.go.html#line-83" class="ident">Reader</a>, <label for="r2" class="ident">b</label> *<a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i2">bin</a>.<a href="../../../bin/buffer.go.html#line-8" class="ident">Buffer</a>) (<a href="../../../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-31"><code>	<label for="r2" class="ident">b</label>.<a href="../../../bin/buffer.go.html#line-23" class="ident">ResetN</a>(<a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i2">bin</a>.<a href="../../../bin/bin.go.html#line-26" class="ident">Word</a>)</code></span>
-<span class="codeline" id="line-32"><code>	<span class="keyword">if</span> <label for="r3" class="ident">_</label>, <label for="r4" class="ident">err</label> := <a href="../../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../../io/io.go.html#line-346" class="ident">ReadFull</a>(<label for="r1" class="ident">r</label>, <label for="r2" class="ident">b</label>.<a href="../../../bin/buffer.go.html#line-9" class="ident">Buf</a>[:<a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i2">bin</a>.<a href="../../../bin/bin.go.html#line-26" class="ident">Word</a>]); <label for="r4" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-33"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="../../../../../../../pkg/fmt.html" class="ident i0">fmt</a>.<a href="../../../../../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"failed to read length: %w"</span>, <label for="r4" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-34"><code>	}</code></span>
-<span class="codeline" id="line-35"><code>	<label for="r5" class="ident">n</label>, <label for="r6" class="ident">err</label> := <label for="r2" class="ident">b</label>.<a href="../../../bin/decode.go.html#line-162" class="ident">Int</a>()</code></span>
-<span class="codeline" id="line-36"><code>	<span class="keyword">if</span> <label for="r6" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-37"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <label for="r6" class="ident">err</label></code></span>
-<span class="codeline" id="line-38"><code>	}</code></span>
-<span class="codeline" id="line-39"><code></code></span>
-<span class="codeline" id="line-40"><code>	<span class="keyword">if</span> <label for="r5" class="ident">n</label> &lt;= <span class="lit-number">0</span> || <label for="r5" class="ident">n</label> &gt; <a href="errors.go.html#line-36" class="ident">maxMessageSize</a> {</code></span>
-<span class="codeline" id="line-41"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="errors.go.html#line-78" class="ident">invalidMsgLenErr</a>{<a href="errors.go.html#line-79" class="ident">n</a>: <label for="r5" class="ident">n</label>}</code></span>
-<span class="codeline" id="line-42"><code>	}</code></span>
-<span class="codeline" id="line-43"><code></code></span>
-<span class="codeline" id="line-44"><code>	<span class="keyword">return</span> <label for="r5" class="ident">n</label>, <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-45"><code>}</code></span>
+<span class="codeline" id="line-7"><code>	<label for="i2"><span class="lit-string i2">"github.com/go-faster/errors"</span></label></code></span>
+<span class="codeline" id="line-8"><code></code></span>
+<span class="codeline" id="line-9"><code>	<label for="i3"><span class="lit-string i3">"github.com/gotd/td/bin"</span></label></code></span>
+<span class="codeline" id="line-10"><code>)</code></span>
+<span class="codeline" id="line-11"><code></code></span>
+<span class="codeline" id="line-12"><code><span class="comment">// Codec is MTProto transport protocol encoding abstraction.</span></code></span>
+<span class="codeline" id="line-13"><code><span class="keyword">type</span> <a href="../../../../../../../pkg/github.com/gotd/td/internal/proto/codec.html#name-Codec" class="ident">Codec</a> <span class="keyword">interface</span> {</code></span>
+<span class="codeline" id="line-14"><code>	<span class="comment">// WriteHeader sends protocol tag if needed.</span></code></span>
+<span class="codeline" id="line-15"><code>	<a href="../../../../../../../imp/github.com/gotd/td/internal/proto/codec.Codec.html#name-WriteHeader" class="ident">WriteHeader</a>(w <a href="../../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../../io/io.go.html#line-96" class="ident">Writer</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-16"><code>	<span class="comment">// ReadHeader reads protocol tag if needed.</span></code></span>
+<span class="codeline" id="line-17"><code>	<a href="../../../../../../../imp/github.com/gotd/td/internal/proto/codec.Codec.html#name-ReadHeader" class="ident">ReadHeader</a>(r <a href="../../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../../io/io.go.html#line-83" class="ident">Reader</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-18"><code>	<span class="comment">// Write encode to writer message from given buffer.</span></code></span>
+<span class="codeline" id="line-19"><code>	<a href="../../../../../../../imp/github.com/gotd/td/internal/proto/codec.Codec.html#name-Write" class="ident">Write</a>(w <a href="../../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../../io/io.go.html#line-96" class="ident">Writer</a>, b *<a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i3">bin</a>.<a href="../../../bin/buffer.go.html#line-8" class="ident">Buffer</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-20"><code>	<span class="comment">// Read fills buffer with received message.</span></code></span>
+<span class="codeline" id="line-21"><code>	<a href="../../../../../../../imp/github.com/gotd/td/internal/proto/codec.Codec.html#name-Read" class="ident">Read</a>(r <a href="../../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../../io/io.go.html#line-83" class="ident">Reader</a>, b *<a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i3">bin</a>.<a href="../../../bin/buffer.go.html#line-8" class="ident">Buffer</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-22"><code>}</code></span>
+<span class="codeline" id="line-23"><code></code></span>
+<span class="codeline" id="line-24"><code><span class="comment">// TaggedCodec is codec with protocol tag.</span></code></span>
+<span class="codeline" id="line-25"><code><span class="keyword">type</span> <a href="../../../../../../../pkg/github.com/gotd/td/internal/proto/codec.html#name-TaggedCodec" class="ident">TaggedCodec</a> <span class="keyword">interface</span> {</code></span>
+<span class="codeline" id="line-26"><code>	<a href="#line-13" class="ident">Codec</a></code></span>
+<span class="codeline" id="line-27"><code>	<span class="comment">// ObfuscatedTag returns protocol tag for obfuscation.</span></code></span>
+<span class="codeline" id="line-28"><code>	<a href="../../../../../../../imp/github.com/gotd/td/internal/proto/codec.TaggedCodec.html#name-ObfuscatedTag" class="ident">ObfuscatedTag</a>() [<span class="lit-number">4</span>]<a href="../../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-29"><code>}</code></span>
+<span class="codeline" id="line-30"><code></code></span>
+<span class="codeline" id="line-31"><code><span class="comment">// readLen reads 32-bit integer and validates it as message length.</span></code></span>
+<span class="codeline" id="line-32"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../../pkg/github.com/gotd/td/internal/proto/codec.html#name-readLen" class="ident">readLen</a></label>(<label for="r1" class="ident">r</label> <a href="../../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../../io/io.go.html#line-83" class="ident">Reader</a>, <label for="r2" class="ident">b</label> *<a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i3">bin</a>.<a href="../../../bin/buffer.go.html#line-8" class="ident">Buffer</a>) (<a href="../../../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-33"><code>	<label for="r2" class="ident">b</label>.<a href="../../../bin/buffer.go.html#line-23" class="ident">ResetN</a>(<a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i3">bin</a>.<a href="../../../bin/bin.go.html#line-26" class="ident">Word</a>)</code></span>
+<span class="codeline" id="line-34"><code>	<span class="keyword">if</span> <label for="r3" class="ident">_</label>, <label for="r4" class="ident">err</label> := <a href="../../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../../io/io.go.html#line-350" class="ident">ReadFull</a>(<label for="r1" class="ident">r</label>, <label for="r2" class="ident">b</label>.<a href="../../../bin/buffer.go.html#line-9" class="ident">Buf</a>[:<a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i3">bin</a>.<a href="../../../bin/bin.go.html#line-26" class="ident">Word</a>]); <label for="r4" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-35"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="../../../../../../../pkg/github.com/go-faster/errors.html" class="ident i2">errors</a>.<a href="../../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r4" class="ident">err</label>, <span class="lit-string">"read length"</span>)</code></span>
+<span class="codeline" id="line-36"><code>	}</code></span>
+<span class="codeline" id="line-37"><code>	<label for="r5" class="ident">n</label> := <a href="../../../../../../../pkg/builtin.html#name-int" class="ident">int</a>(<a href="../../../../../../../pkg/encoding/binary.html" class="ident i0">binary</a>.<a href="../../../../../../encoding/binary/binary.go.html#line-54" class="ident">LittleEndian</a>.<a href="../../../../../../encoding/binary/binary.go.html#line-79" class="ident">Uint32</a>(<label for="r2" class="ident">b</label>.<a href="../../../bin/buffer.go.html#line-9" class="ident">Buf</a>[:<a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i3">bin</a>.<a href="../../../bin/bin.go.html#line-26" class="ident">Word</a>]))</code></span>
+<span class="codeline" id="line-38"><code></code></span>
+<span class="codeline" id="line-39"><code>	<span class="keyword">if</span> <label for="r5" class="ident">n</label> &lt;= <span class="lit-number">0</span> || <label for="r5" class="ident">n</label> &gt; <a href="errors.go.html#line-49" class="ident">maxMessageSize</a> {</code></span>
+<span class="codeline" id="line-40"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="errors.go.html#line-91" class="ident">invalidMsgLenErr</a>{<a href="errors.go.html#line-92" class="ident">n</a>: <label for="r5" class="ident">n</label>}</code></span>
+<span class="codeline" id="line-41"><code>	}</code></span>
+<span class="codeline" id="line-42"><code></code></span>
+<span class="codeline" id="line-43"><code>	<span class="keyword">return</span> <label for="r5" class="ident">n</label>, <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-44"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

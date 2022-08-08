@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: rsa_fingerprint.go in package github.com/gotd/td/internal/crypto</title>
-<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -54,24 +54,24 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-10"><code>)</code></span>
 <span class="codeline" id="line-11"><code></code></span>
 <span class="codeline" id="line-12"><code><span class="comment">// RSAFingerprint returns fingerprint of RSA public key as defined in MTProto.</span></code></span>
-<span class="codeline" id="line-13"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-RSAFingerprint" class="ident">RSAFingerprint</a></label>(<label for="r1" class="ident">key</label> *<a href="../../../../../../pkg/crypto/rsa.html" class="ident i0">rsa</a>.<a href="../../../../../crypto/rsa/rsa.go.html#line-42" class="ident">PublicKey</a>) <a href="../../../../../../pkg/builtin.html#name-int64" class="ident">int64</a> {</code></span>
-<span class="codeline" id="line-14"><code>	<label for="r2" class="ident">e</label> := <a href="../../../../../../pkg/math/big.html" class="ident i3">big</a>.<a href="../../../../../math/big/int.go.html#line-68" class="ident">NewInt</a>(<a href="../../../../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r1" class="ident">key</label>.<a href="../../../../../crypto/rsa/rsa.go.html#line-44" class="ident">E</a>))</code></span>
+<span class="codeline" id="line-13"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html#name-RSAFingerprint" class="ident">RSAFingerprint</a></label>(<label for="r1" class="ident">key</label> *<a href="../../../../../../pkg/crypto/rsa.html" class="ident i0">rsa</a>.<a href="../../../../../crypto/rsa/rsa.go.html#line-43" class="ident">PublicKey</a>) <a href="../../../../../../pkg/builtin.html#name-int64" class="ident">int64</a> {</code></span>
+<span class="codeline" id="line-14"><code>	<label for="r2" class="ident">e</label> := <a href="../../../../../../pkg/math/big.html" class="ident i3">big</a>.<a href="../../../../../math/big/int.go.html#line-67" class="ident">NewInt</a>(<a href="../../../../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r1" class="ident">key</label>.<a href="../../../../../crypto/rsa/rsa.go.html#line-45" class="ident">E</a>))</code></span>
 <span class="codeline" id="line-15"><code></code></span>
 <span class="codeline" id="line-16"><code>	<span class="comment">// See "Creating an Authorization Key" for reference:</span></code></span>
 <span class="codeline" id="line-17"><code><span class="comment">	// * https://core.telegram.org/mtproto/auth_key#dh-exchange-initiation</span></code></span>
 <span class="codeline" id="line-18"><code><span class="comment">	// rsa_public_key n:string e:string = RSAPublicKey</span></code></span>
 <span class="codeline" id="line-19"><code>	<label for="r3" class="ident">buf</label> := <a href="../../../../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i4">bin</a>.<a href="../../bin/buffer.go.html#line-8" class="ident">Buffer</a>)</code></span>
-<span class="codeline" id="line-20"><code>	<label for="r3" class="ident">buf</label>.<a href="../../bin/encode.go.html#line-26" class="ident">PutBytes</a>(<label for="r1" class="ident">key</label>.<a href="../../../../../crypto/rsa/rsa.go.html#line-43" class="ident">N</a>.<a href="../../../../../math/big/int.go.html#line-452" class="ident">Bytes</a>())</code></span>
-<span class="codeline" id="line-21"><code>	<label for="r3" class="ident">buf</label>.<a href="../../bin/encode.go.html#line-26" class="ident">PutBytes</a>(<label for="r2" class="ident">e</label>.<a href="../../../../../math/big/int.go.html#line-452" class="ident">Bytes</a>())</code></span>
+<span class="codeline" id="line-20"><code>	<label for="r3" class="ident">buf</label>.<a href="../../bin/encode.go.html#line-26" class="ident">PutBytes</a>(<label for="r1" class="ident">key</label>.<a href="../../../../../crypto/rsa/rsa.go.html#line-44" class="ident">N</a>.<a href="../../../../../math/big/int.go.html#line-446" class="ident">Bytes</a>())</code></span>
+<span class="codeline" id="line-21"><code>	<label for="r3" class="ident">buf</label>.<a href="../../bin/encode.go.html#line-26" class="ident">PutBytes</a>(<label for="r2" class="ident">e</label>.<a href="../../../../../math/big/int.go.html#line-446" class="ident">Bytes</a>())</code></span>
 <span class="codeline" id="line-22"><code></code></span>
 <span class="codeline" id="line-23"><code>	<label for="r4" class="ident">h</label> := <a href="../../../../../../pkg/crypto/sha1.html" class="ident i1">sha1</a>.<a href="../../../../../crypto/sha1/sha1.go.html#line-121" class="ident">New</a>() <span class="comment">// #nosec</span></code></span>
 <span class="codeline" id="line-24"><code>	_, _ = <label for="r4" class="ident">h</label>.<a href="../../../../../io/io.go.html#line-97" class="ident">Write</a>(<label for="r3" class="ident">buf</label>.<a href="../../bin/buffer.go.html#line-9" class="ident">Buf</a>)</code></span>
 <span class="codeline" id="line-25"><code>	<label for="r5" class="ident">result</label> := <label for="r4" class="ident">h</label>.<a href="../../../../../hash/hash.go.html#line-33" class="ident">Sum</a>(<a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>)[<span class="lit-number">12</span>:<a href="../../../../../../pkg/crypto/sha1.html" class="ident i1">sha1</a>.<a href="../../../../../crypto/sha1/sha1.go.html#line-23" class="ident">Size</a>]</code></span>
-<span class="codeline" id="line-26"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<a href="../../../../../../pkg/encoding/binary.html" class="ident i2">binary</a>.<a href="../../../../../encoding/binary/binary.go.html#line-45" class="ident">LittleEndian</a>.<a href="../../../../../encoding/binary/binary.go.html#line-76" class="ident">Uint64</a>(<label for="r5" class="ident">result</label>))</code></span>
+<span class="codeline" id="line-26"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<a href="../../../../../../pkg/encoding/binary.html" class="ident i2">binary</a>.<a href="../../../../../encoding/binary/binary.go.html#line-54" class="ident">LittleEndian</a>.<a href="../../../../../encoding/binary/binary.go.html#line-101" class="ident">Uint64</a>(<label for="r5" class="ident">result</label>))</code></span>
 <span class="codeline" id="line-27"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

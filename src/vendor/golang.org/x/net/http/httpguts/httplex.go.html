@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: httplex.go in package vendor/golang.org/x/net/http/httpguts</title>
-<link href="../../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -301,182 +301,186 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-173"><code></code></span>
 <span class="codeline" id="line-174"><code><span class="comment">// isLWS reports whether b is linear white space, according</span></code></span>
 <span class="codeline" id="line-175"><code><span class="comment">// to http://www.w3.org/Protocols/rfc2616/rfc2616-sec2.html#sec2.2</span></code></span>
-<span class="codeline" id="line-176"><code><span class="comment">//      LWS            = [CRLF] 1*( SP | HT )</span></code></span>
-<span class="codeline" id="line-177"><code><span class="keyword">func</span> <label for="r25" class="ident"><a href="../../../../../../../pkg/vendor/golang.org/x/net/http/httpguts.html#name-isLWS" class="ident">isLWS</a></label>(<label for="r26" class="ident">b</label> <a href="../../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) <a href="../../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> { <span class="keyword">return</span> <label for="r26" class="ident">b</label> == <span class="lit-number">' '</span> || <label for="r26" class="ident">b</label> == <span class="lit-number">'\t'</span> }</code></span>
-<span class="codeline" id="line-178"><code></code></span>
-<span class="codeline" id="line-179"><code><span class="comment">// isCTL reports whether b is a control byte, according</span></code></span>
-<span class="codeline" id="line-180"><code><span class="comment">// to http://www.w3.org/Protocols/rfc2616/rfc2616-sec2.html#sec2.2</span></code></span>
-<span class="codeline" id="line-181"><code><span class="comment">//      CTL            = &lt;any US-ASCII control character</span></code></span>
-<span class="codeline" id="line-182"><code><span class="comment">//                       (octets 0 - 31) and DEL (127)&gt;</span></code></span>
-<span class="codeline" id="line-183"><code><span class="keyword">func</span> <label for="r27" class="ident"><a href="../../../../../../../pkg/vendor/golang.org/x/net/http/httpguts.html#name-isCTL" class="ident">isCTL</a></label>(<label for="r28" class="ident">b</label> <a href="../../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) <a href="../../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-184"><code>	<span class="keyword">const</span> <label for="r29" class="ident">del</label> = <span class="lit-number">0x7f</span> <span class="comment">// a CTL</span></code></span>
-<span class="codeline" id="line-185"><code>	<span class="keyword">return</span> <label for="r28" class="ident">b</label> &lt; <span class="lit-number">' '</span> || <label for="r28" class="ident">b</label> == <label for="r29" class="ident">del</label></code></span>
-<span class="codeline" id="line-186"><code>}</code></span>
-<span class="codeline" id="line-187"><code></code></span>
-<span class="codeline" id="line-188"><code><span class="comment">// ValidHeaderFieldName reports whether v is a valid HTTP/1.x header name.</span></code></span>
-<span class="codeline" id="line-189"><code><span class="comment">// HTTP/2 imposes the additional restriction that uppercase ASCII</span></code></span>
-<span class="codeline" id="line-190"><code><span class="comment">// letters are not allowed.</span></code></span>
-<span class="codeline" id="line-191"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-192"><code><span class="comment">//  RFC 7230 says:</span></code></span>
-<span class="codeline" id="line-193"><code><span class="comment">//   header-field   = field-name ":" OWS field-value OWS</span></code></span>
-<span class="codeline" id="line-194"><code><span class="comment">//   field-name     = token</span></code></span>
-<span class="codeline" id="line-195"><code><span class="comment">//   token          = 1*tchar</span></code></span>
-<span class="codeline" id="line-196"><code><span class="comment">//   tchar = "!" / "#" / "$" / "%" / "&amp;" / "'" / "*" / "+" / "-" / "." /</span></code></span>
-<span class="codeline" id="line-197"><code><span class="comment">//           "^" / "_" / "`" / "|" / "~" / DIGIT / ALPHA</span></code></span>
-<span class="codeline" id="line-198"><code><span class="keyword">func</span> <label for="r30" class="ident"><a href="../../../../../../../pkg/vendor/golang.org/x/net/http/httpguts.html#name-ValidHeaderFieldName" class="ident">ValidHeaderFieldName</a></label>(<label for="r31" class="ident">v</label> <a href="../../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-199"><code>	<span class="keyword">if</span> <a href="../../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r31" class="ident">v</label>) == <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-200"><code>		<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-201"><code>	}</code></span>
-<span class="codeline" id="line-202"><code>	<span class="keyword">for</span> <label for="r32" class="ident">_</label>, <label for="r33" class="ident">r</label> := <span class="keyword">range</span> <label for="r31" class="ident">v</label> {</code></span>
-<span class="codeline" id="line-203"><code>		<span class="keyword">if</span> !<a href="#line-95" class="ident">IsTokenRune</a>(<label for="r33" class="ident">r</label>) {</code></span>
-<span class="codeline" id="line-204"><code>			<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-205"><code>		}</code></span>
-<span class="codeline" id="line-206"><code>	}</code></span>
-<span class="codeline" id="line-207"><code>	<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-208"><code>}</code></span>
-<span class="codeline" id="line-209"><code></code></span>
-<span class="codeline" id="line-210"><code><span class="comment">// ValidHostHeader reports whether h is a valid host header.</span></code></span>
-<span class="codeline" id="line-211"><code><span class="keyword">func</span> <label for="r34" class="ident"><a href="../../../../../../../pkg/vendor/golang.org/x/net/http/httpguts.html#name-ValidHostHeader" class="ident">ValidHostHeader</a></label>(<label for="r35" class="ident">h</label> <a href="../../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-212"><code>	<span class="comment">// The latest spec is actually this:</span></code></span>
-<span class="codeline" id="line-213"><code><span class="comment">	//</span></code></span>
-<span class="codeline" id="line-214"><code><span class="comment">	// http://tools.ietf.org/html/rfc7230#section-5.4</span></code></span>
-<span class="codeline" id="line-215"><code><span class="comment">	//     Host = uri-host [ ":" port ]</span></code></span>
+<span class="codeline" id="line-176"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-177"><code><span class="comment">//	LWS            = [CRLF] 1*( SP | HT )</span></code></span>
+<span class="codeline" id="line-178"><code><span class="keyword">func</span> <label for="r25" class="ident"><a href="../../../../../../../pkg/vendor/golang.org/x/net/http/httpguts.html#name-isLWS" class="ident">isLWS</a></label>(<label for="r26" class="ident">b</label> <a href="../../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) <a href="../../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> { <span class="keyword">return</span> <label for="r26" class="ident">b</label> == <span class="lit-number">' '</span> || <label for="r26" class="ident">b</label> == <span class="lit-number">'\t'</span> }</code></span>
+<span class="codeline" id="line-179"><code></code></span>
+<span class="codeline" id="line-180"><code><span class="comment">// isCTL reports whether b is a control byte, according</span></code></span>
+<span class="codeline" id="line-181"><code><span class="comment">// to http://www.w3.org/Protocols/rfc2616/rfc2616-sec2.html#sec2.2</span></code></span>
+<span class="codeline" id="line-182"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-183"><code><span class="comment">//	CTL            = &lt;any US-ASCII control character</span></code></span>
+<span class="codeline" id="line-184"><code><span class="comment">//	                 (octets 0 - 31) and DEL (127)&gt;</span></code></span>
+<span class="codeline" id="line-185"><code><span class="keyword">func</span> <label for="r27" class="ident"><a href="../../../../../../../pkg/vendor/golang.org/x/net/http/httpguts.html#name-isCTL" class="ident">isCTL</a></label>(<label for="r28" class="ident">b</label> <a href="../../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) <a href="../../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-186"><code>	<span class="keyword">const</span> <label for="r29" class="ident">del</label> = <span class="lit-number">0x7f</span> <span class="comment">// a CTL</span></code></span>
+<span class="codeline" id="line-187"><code>	<span class="keyword">return</span> <label for="r28" class="ident">b</label> &lt; <span class="lit-number">' '</span> || <label for="r28" class="ident">b</label> == <label for="r29" class="ident">del</label></code></span>
+<span class="codeline" id="line-188"><code>}</code></span>
+<span class="codeline" id="line-189"><code></code></span>
+<span class="codeline" id="line-190"><code><span class="comment">// ValidHeaderFieldName reports whether v is a valid HTTP/1.x header name.</span></code></span>
+<span class="codeline" id="line-191"><code><span class="comment">// HTTP/2 imposes the additional restriction that uppercase ASCII</span></code></span>
+<span class="codeline" id="line-192"><code><span class="comment">// letters are not allowed.</span></code></span>
+<span class="codeline" id="line-193"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-194"><code><span class="comment">// RFC 7230 says:</span></code></span>
+<span class="codeline" id="line-195"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-196"><code><span class="comment">//	header-field   = field-name ":" OWS field-value OWS</span></code></span>
+<span class="codeline" id="line-197"><code><span class="comment">//	field-name     = token</span></code></span>
+<span class="codeline" id="line-198"><code><span class="comment">//	token          = 1*tchar</span></code></span>
+<span class="codeline" id="line-199"><code><span class="comment">//	tchar = "!" / "#" / "$" / "%" / "&amp;" / "'" / "*" / "+" / "-" / "." /</span></code></span>
+<span class="codeline" id="line-200"><code><span class="comment">//	        "^" / "_" / "`" / "|" / "~" / DIGIT / ALPHA</span></code></span>
+<span class="codeline" id="line-201"><code><span class="keyword">func</span> <label for="r30" class="ident"><a href="../../../../../../../pkg/vendor/golang.org/x/net/http/httpguts.html#name-ValidHeaderFieldName" class="ident">ValidHeaderFieldName</a></label>(<label for="r31" class="ident">v</label> <a href="../../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-202"><code>	<span class="keyword">if</span> <a href="../../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r31" class="ident">v</label>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-203"><code>		<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-204"><code>	}</code></span>
+<span class="codeline" id="line-205"><code>	<span class="keyword">for</span> <label for="r32" class="ident">_</label>, <label for="r33" class="ident">r</label> := <span class="keyword">range</span> <label for="r31" class="ident">v</label> {</code></span>
+<span class="codeline" id="line-206"><code>		<span class="keyword">if</span> !<a href="#line-95" class="ident">IsTokenRune</a>(<label for="r33" class="ident">r</label>) {</code></span>
+<span class="codeline" id="line-207"><code>			<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-208"><code>		}</code></span>
+<span class="codeline" id="line-209"><code>	}</code></span>
+<span class="codeline" id="line-210"><code>	<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-211"><code>}</code></span>
+<span class="codeline" id="line-212"><code></code></span>
+<span class="codeline" id="line-213"><code><span class="comment">// ValidHostHeader reports whether h is a valid host header.</span></code></span>
+<span class="codeline" id="line-214"><code><span class="keyword">func</span> <label for="r34" class="ident"><a href="../../../../../../../pkg/vendor/golang.org/x/net/http/httpguts.html#name-ValidHostHeader" class="ident">ValidHostHeader</a></label>(<label for="r35" class="ident">h</label> <a href="../../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-215"><code>	<span class="comment">// The latest spec is actually this:</span></code></span>
 <span class="codeline" id="line-216"><code><span class="comment">	//</span></code></span>
-<span class="codeline" id="line-217"><code><span class="comment">	// Where uri-host is:</span></code></span>
-<span class="codeline" id="line-218"><code><span class="comment">	//     http://tools.ietf.org/html/rfc3986#section-3.2.2</span></code></span>
+<span class="codeline" id="line-217"><code><span class="comment">	// http://tools.ietf.org/html/rfc7230#section-5.4</span></code></span>
+<span class="codeline" id="line-218"><code><span class="comment">	//     Host = uri-host [ ":" port ]</span></code></span>
 <span class="codeline" id="line-219"><code><span class="comment">	//</span></code></span>
-<span class="codeline" id="line-220"><code><span class="comment">	// But we're going to be much more lenient for now and just</span></code></span>
-<span class="codeline" id="line-221"><code><span class="comment">	// search for any byte that's not a valid byte in any of those</span></code></span>
-<span class="codeline" id="line-222"><code><span class="comment">	// expressions.</span></code></span>
-<span class="codeline" id="line-223"><code>	<span class="keyword">for</span> <label for="r36" class="ident">i</label> := <span class="lit-number">0</span>; <label for="r36" class="ident">i</label> &lt; <a href="../../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r35" class="ident">h</label>); <label for="r36" class="ident">i</label>++ {</code></span>
-<span class="codeline" id="line-224"><code>		<span class="keyword">if</span> !<a href="#line-232" class="ident">validHostByte</a>[<label for="r35" class="ident">h</label>[<label for="r36" class="ident">i</label>]] {</code></span>
-<span class="codeline" id="line-225"><code>			<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-226"><code>		}</code></span>
-<span class="codeline" id="line-227"><code>	}</code></span>
-<span class="codeline" id="line-228"><code>	<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-229"><code>}</code></span>
-<span class="codeline" id="line-230"><code></code></span>
-<span class="codeline" id="line-231"><code><span class="comment">// See the validHostHeader comment.</span></code></span>
-<span class="codeline" id="line-232"><code><span class="keyword">var</span> <a href="../../../../../../../pkg/vendor/golang.org/x/net/http/httpguts.html#name-validHostByte" class="ident">validHostByte</a> = [<span class="lit-number">256</span>]<a href="../../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a>{</code></span>
-<span class="codeline" id="line-233"><code>	<span class="lit-number">'0'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'1'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'2'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'3'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'4'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'5'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'6'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'7'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
-<span class="codeline" id="line-234"><code>	<span class="lit-number">'8'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'9'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
-<span class="codeline" id="line-235"><code></code></span>
-<span class="codeline" id="line-236"><code>	<span class="lit-number">'a'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'b'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'c'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'d'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'e'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'f'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'g'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'h'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
-<span class="codeline" id="line-237"><code>	<span class="lit-number">'i'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'j'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'k'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'l'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'m'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'n'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'o'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'p'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
-<span class="codeline" id="line-238"><code>	<span class="lit-number">'q'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'r'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'s'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'t'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'u'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'v'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'w'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'x'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
-<span class="codeline" id="line-239"><code>	<span class="lit-number">'y'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'z'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
-<span class="codeline" id="line-240"><code></code></span>
-<span class="codeline" id="line-241"><code>	<span class="lit-number">'A'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'B'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'C'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'D'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'E'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'F'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'G'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'H'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
-<span class="codeline" id="line-242"><code>	<span class="lit-number">'I'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'J'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'K'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'L'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'M'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'N'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'O'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'P'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
-<span class="codeline" id="line-243"><code>	<span class="lit-number">'Q'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'R'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'S'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'T'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'U'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'V'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'W'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'X'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
-<span class="codeline" id="line-244"><code>	<span class="lit-number">'Y'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'Z'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
-<span class="codeline" id="line-245"><code></code></span>
-<span class="codeline" id="line-246"><code>	<span class="lit-number">'!'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
-<span class="codeline" id="line-247"><code>	<span class="lit-number">'$'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
-<span class="codeline" id="line-248"><code>	<span class="lit-number">'%'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// pct-encoded (and used in IPv6 zones)</span></code></span>
-<span class="codeline" id="line-249"><code>	<span class="lit-number">'&amp;'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
-<span class="codeline" id="line-250"><code>	<span class="lit-number">'('</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
-<span class="codeline" id="line-251"><code>	<span class="lit-number">')'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
-<span class="codeline" id="line-252"><code>	<span class="lit-number">'*'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
-<span class="codeline" id="line-253"><code>	<span class="lit-number">'+'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
-<span class="codeline" id="line-254"><code>	<span class="lit-number">','</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
-<span class="codeline" id="line-255"><code>	<span class="lit-number">'-'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// unreserved</span></code></span>
-<span class="codeline" id="line-256"><code>	<span class="lit-number">'.'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// unreserved</span></code></span>
-<span class="codeline" id="line-257"><code>	<span class="lit-number">':'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// IPv6address + Host expression's optional port</span></code></span>
-<span class="codeline" id="line-258"><code>	<span class="lit-number">';'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
-<span class="codeline" id="line-259"><code>	<span class="lit-number">'='</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
-<span class="codeline" id="line-260"><code>	<span class="lit-number">'['</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
-<span class="codeline" id="line-261"><code>	<span class="lit-number">'\''</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
-<span class="codeline" id="line-262"><code>	<span class="lit-number">']'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
-<span class="codeline" id="line-263"><code>	<span class="lit-number">'_'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// unreserved</span></code></span>
-<span class="codeline" id="line-264"><code>	<span class="lit-number">'~'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// unreserved</span></code></span>
-<span class="codeline" id="line-265"><code>}</code></span>
-<span class="codeline" id="line-266"><code></code></span>
-<span class="codeline" id="line-267"><code><span class="comment">// ValidHeaderFieldValue reports whether v is a valid "field-value" according to</span></code></span>
-<span class="codeline" id="line-268"><code><span class="comment">// http://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.2 :</span></code></span>
-<span class="codeline" id="line-269"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-270"><code><span class="comment">//        message-header = field-name ":" [ field-value ]</span></code></span>
-<span class="codeline" id="line-271"><code><span class="comment">//        field-value    = *( field-content | LWS )</span></code></span>
-<span class="codeline" id="line-272"><code><span class="comment">//        field-content  = &lt;the OCTETs making up the field-value</span></code></span>
-<span class="codeline" id="line-273"><code><span class="comment">//                         and consisting of either *TEXT or combinations</span></code></span>
-<span class="codeline" id="line-274"><code><span class="comment">//                         of token, separators, and quoted-string&gt;</span></code></span>
-<span class="codeline" id="line-275"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-276"><code><span class="comment">// http://www.w3.org/Protocols/rfc2616/rfc2616-sec2.html#sec2.2 :</span></code></span>
-<span class="codeline" id="line-277"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-278"><code><span class="comment">//        TEXT           = &lt;any OCTET except CTLs,</span></code></span>
-<span class="codeline" id="line-279"><code><span class="comment">//                          but including LWS&gt;</span></code></span>
-<span class="codeline" id="line-280"><code><span class="comment">//        LWS            = [CRLF] 1*( SP | HT )</span></code></span>
-<span class="codeline" id="line-281"><code><span class="comment">//        CTL            = &lt;any US-ASCII control character</span></code></span>
-<span class="codeline" id="line-282"><code><span class="comment">//                         (octets 0 - 31) and DEL (127)&gt;</span></code></span>
-<span class="codeline" id="line-283"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-284"><code><span class="comment">// RFC 7230 says:</span></code></span>
-<span class="codeline" id="line-285"><code><span class="comment">//  field-value    = *( field-content / obs-fold )</span></code></span>
-<span class="codeline" id="line-286"><code><span class="comment">//  obj-fold       =  N/A to http2, and deprecated</span></code></span>
-<span class="codeline" id="line-287"><code><span class="comment">//  field-content  = field-vchar [ 1*( SP / HTAB ) field-vchar ]</span></code></span>
-<span class="codeline" id="line-288"><code><span class="comment">//  field-vchar    = VCHAR / obs-text</span></code></span>
-<span class="codeline" id="line-289"><code><span class="comment">//  obs-text       = %x80-FF</span></code></span>
-<span class="codeline" id="line-290"><code><span class="comment">//  VCHAR          = "any visible [USASCII] character"</span></code></span>
-<span class="codeline" id="line-291"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-292"><code><span class="comment">// http2 further says: "Similarly, HTTP/2 allows header field values</span></code></span>
-<span class="codeline" id="line-293"><code><span class="comment">// that are not valid. While most of the values that can be encoded</span></code></span>
-<span class="codeline" id="line-294"><code><span class="comment">// will not alter header field parsing, carriage return (CR, ASCII</span></code></span>
-<span class="codeline" id="line-295"><code><span class="comment">// 0xd), line feed (LF, ASCII 0xa), and the zero character (NUL, ASCII</span></code></span>
-<span class="codeline" id="line-296"><code><span class="comment">// 0x0) might be exploited by an attacker if they are translated</span></code></span>
-<span class="codeline" id="line-297"><code><span class="comment">// verbatim. Any request or response that contains a character not</span></code></span>
-<span class="codeline" id="line-298"><code><span class="comment">// permitted in a header field value MUST be treated as malformed</span></code></span>
-<span class="codeline" id="line-299"><code><span class="comment">// (Section 8.1.2.6). Valid characters are defined by the</span></code></span>
-<span class="codeline" id="line-300"><code><span class="comment">// field-content ABNF rule in Section 3.2 of [RFC7230]."</span></code></span>
-<span class="codeline" id="line-301"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-302"><code><span class="comment">// This function does not (yet?) properly handle the rejection of</span></code></span>
-<span class="codeline" id="line-303"><code><span class="comment">// strings that begin or end with SP or HTAB.</span></code></span>
-<span class="codeline" id="line-304"><code><span class="keyword">func</span> <label for="r37" class="ident"><a href="../../../../../../../pkg/vendor/golang.org/x/net/http/httpguts.html#name-ValidHeaderFieldValue" class="ident">ValidHeaderFieldValue</a></label>(<label for="r38" class="ident">v</label> <a href="../../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-305"><code>	<span class="keyword">for</span> <label for="r39" class="ident">i</label> := <span class="lit-number">0</span>; <label for="r39" class="ident">i</label> &lt; <a href="../../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r38" class="ident">v</label>); <label for="r39" class="ident">i</label>++ {</code></span>
-<span class="codeline" id="line-306"><code>		<label for="r40" class="ident">b</label> := <label for="r38" class="ident">v</label>[<label for="r39" class="ident">i</label>]</code></span>
-<span class="codeline" id="line-307"><code>		<span class="keyword">if</span> <a href="#line-183" class="ident">isCTL</a>(<label for="r40" class="ident">b</label>) &amp;&amp; !<a href="#line-177" class="ident">isLWS</a>(<label for="r40" class="ident">b</label>) {</code></span>
-<span class="codeline" id="line-308"><code>			<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-309"><code>		}</code></span>
-<span class="codeline" id="line-310"><code>	}</code></span>
-<span class="codeline" id="line-311"><code>	<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-312"><code>}</code></span>
-<span class="codeline" id="line-313"><code></code></span>
-<span class="codeline" id="line-314"><code><span class="keyword">func</span> <label for="r41" class="ident"><a href="../../../../../../../pkg/vendor/golang.org/x/net/http/httpguts.html#name-isASCII" class="ident">isASCII</a></label>(<label for="r42" class="ident">s</label> <a href="../../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-315"><code>	<span class="keyword">for</span> <label for="r43" class="ident">i</label> := <span class="lit-number">0</span>; <label for="r43" class="ident">i</label> &lt; <a href="../../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r42" class="ident">s</label>); <label for="r43" class="ident">i</label>++ {</code></span>
-<span class="codeline" id="line-316"><code>		<span class="keyword">if</span> <label for="r42" class="ident">s</label>[<label for="r43" class="ident">i</label>] &gt;= <a href="../../../../../../../pkg/unicode/utf8.html" class="ident i2">utf8</a>.<a href="../../../../../../unicode/utf8/utf8.go.html#line-17" class="ident">RuneSelf</a> {</code></span>
-<span class="codeline" id="line-317"><code>			<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-318"><code>		}</code></span>
-<span class="codeline" id="line-319"><code>	}</code></span>
-<span class="codeline" id="line-320"><code>	<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-321"><code>}</code></span>
-<span class="codeline" id="line-322"><code></code></span>
-<span class="codeline" id="line-323"><code><span class="comment">// PunycodeHostPort returns the IDNA Punycode version</span></code></span>
-<span class="codeline" id="line-324"><code><span class="comment">// of the provided "host" or "host:port" string.</span></code></span>
-<span class="codeline" id="line-325"><code><span class="keyword">func</span> <label for="r44" class="ident"><a href="../../../../../../../pkg/vendor/golang.org/x/net/http/httpguts.html#name-PunycodeHostPort" class="ident">PunycodeHostPort</a></label>(<label for="r45" class="ident">v</label> <a href="../../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) (<a href="../../../../../../../pkg/builtin.html#name-string" class="ident">string</a>, <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-326"><code>	<span class="keyword">if</span> <a href="#line-314" class="ident">isASCII</a>(<label for="r45" class="ident">v</label>) {</code></span>
-<span class="codeline" id="line-327"><code>		<span class="keyword">return</span> <label for="r45" class="ident">v</label>, <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-328"><code>	}</code></span>
-<span class="codeline" id="line-329"><code></code></span>
-<span class="codeline" id="line-330"><code>	<label for="r46" class="ident">host</label>, <label for="r47" class="ident">port</label>, <label for="r48" class="ident">err</label> := <a href="../../../../../../../pkg/net.html" class="ident i0">net</a>.<a href="../../../../../../net/ipsock.go.html#line-164" class="ident">SplitHostPort</a>(<label for="r45" class="ident">v</label>)</code></span>
-<span class="codeline" id="line-331"><code>	<span class="keyword">if</span> <label for="r48" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-332"><code>		<span class="comment">// The input 'v' argument was just a "host" argument,</span></code></span>
-<span class="codeline" id="line-333"><code><span class="comment">		// without a port. This error should not be returned</span></code></span>
-<span class="codeline" id="line-334"><code><span class="comment">		// to the caller.</span></code></span>
-<span class="codeline" id="line-335"><code>		<label for="r46" class="ident">host</label> = <label for="r45" class="ident">v</label></code></span>
-<span class="codeline" id="line-336"><code>		<label for="r47" class="ident">port</label> = <span class="lit-string">""</span></code></span>
-<span class="codeline" id="line-337"><code>	}</code></span>
-<span class="codeline" id="line-338"><code>	<label for="r46" class="ident">host</label>, <label for="r48" class="ident">err</label> = <a href="../../../../../../../pkg/vendor/golang.org/x/net/idna.html" class="ident i0">idna</a>.<a href="../../idna/idna10.0.0.go.html#line-47" class="ident">ToASCII</a>(<label for="r46" class="ident">host</label>)</code></span>
-<span class="codeline" id="line-339"><code>	<span class="keyword">if</span> <label for="r48" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-340"><code>		<span class="comment">// Non-UTF-8? Not representable in Punycode, in any</span></code></span>
-<span class="codeline" id="line-341"><code><span class="comment">		// case.</span></code></span>
-<span class="codeline" id="line-342"><code>		<span class="keyword">return</span> <span class="lit-string">""</span>, <label for="r48" class="ident">err</label></code></span>
-<span class="codeline" id="line-343"><code>	}</code></span>
-<span class="codeline" id="line-344"><code>	<span class="keyword">if</span> <label for="r47" class="ident">port</label> == <span class="lit-string">""</span> {</code></span>
-<span class="codeline" id="line-345"><code>		<span class="keyword">return</span> <label for="r46" class="ident">host</label>, <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-346"><code>	}</code></span>
-<span class="codeline" id="line-347"><code>	<span class="keyword">return</span> <a href="../../../../../../../pkg/net.html" class="ident i0">net</a>.<a href="../../../../../../net/ipsock.go.html#line-235" class="ident">JoinHostPort</a>(<label for="r46" class="ident">host</label>, <label for="r47" class="ident">port</label>), <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-348"><code>}</code></span>
+<span class="codeline" id="line-220"><code><span class="comment">	// Where uri-host is:</span></code></span>
+<span class="codeline" id="line-221"><code><span class="comment">	//     http://tools.ietf.org/html/rfc3986#section-3.2.2</span></code></span>
+<span class="codeline" id="line-222"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-223"><code><span class="comment">	// But we're going to be much more lenient for now and just</span></code></span>
+<span class="codeline" id="line-224"><code><span class="comment">	// search for any byte that's not a valid byte in any of those</span></code></span>
+<span class="codeline" id="line-225"><code><span class="comment">	// expressions.</span></code></span>
+<span class="codeline" id="line-226"><code>	<span class="keyword">for</span> <label for="r36" class="ident">i</label> := <span class="lit-number">0</span>; <label for="r36" class="ident">i</label> &lt; <a href="../../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r35" class="ident">h</label>); <label for="r36" class="ident">i</label>++ {</code></span>
+<span class="codeline" id="line-227"><code>		<span class="keyword">if</span> !<a href="#line-235" class="ident">validHostByte</a>[<label for="r35" class="ident">h</label>[<label for="r36" class="ident">i</label>]] {</code></span>
+<span class="codeline" id="line-228"><code>			<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-229"><code>		}</code></span>
+<span class="codeline" id="line-230"><code>	}</code></span>
+<span class="codeline" id="line-231"><code>	<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-232"><code>}</code></span>
+<span class="codeline" id="line-233"><code></code></span>
+<span class="codeline" id="line-234"><code><span class="comment">// See the validHostHeader comment.</span></code></span>
+<span class="codeline" id="line-235"><code><span class="keyword">var</span> <a href="../../../../../../../pkg/vendor/golang.org/x/net/http/httpguts.html#name-validHostByte" class="ident">validHostByte</a> = [<span class="lit-number">256</span>]<a href="../../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a>{</code></span>
+<span class="codeline" id="line-236"><code>	<span class="lit-number">'0'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'1'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'2'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'3'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'4'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'5'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'6'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'7'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
+<span class="codeline" id="line-237"><code>	<span class="lit-number">'8'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'9'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
+<span class="codeline" id="line-238"><code></code></span>
+<span class="codeline" id="line-239"><code>	<span class="lit-number">'a'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'b'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'c'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'d'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'e'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'f'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'g'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'h'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
+<span class="codeline" id="line-240"><code>	<span class="lit-number">'i'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'j'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'k'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'l'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'m'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'n'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'o'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'p'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
+<span class="codeline" id="line-241"><code>	<span class="lit-number">'q'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'r'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'s'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'t'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'u'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'v'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'w'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'x'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
+<span class="codeline" id="line-242"><code>	<span class="lit-number">'y'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'z'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
+<span class="codeline" id="line-243"><code></code></span>
+<span class="codeline" id="line-244"><code>	<span class="lit-number">'A'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'B'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'C'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'D'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'E'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'F'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'G'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'H'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
+<span class="codeline" id="line-245"><code>	<span class="lit-number">'I'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'J'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'K'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'L'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'M'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'N'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'O'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'P'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
+<span class="codeline" id="line-246"><code>	<span class="lit-number">'Q'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'R'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'S'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'T'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'U'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'V'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'W'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'X'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
+<span class="codeline" id="line-247"><code>	<span class="lit-number">'Y'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="lit-number">'Z'</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
+<span class="codeline" id="line-248"><code></code></span>
+<span class="codeline" id="line-249"><code>	<span class="lit-number">'!'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
+<span class="codeline" id="line-250"><code>	<span class="lit-number">'$'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
+<span class="codeline" id="line-251"><code>	<span class="lit-number">'%'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// pct-encoded (and used in IPv6 zones)</span></code></span>
+<span class="codeline" id="line-252"><code>	<span class="lit-number">'&amp;'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
+<span class="codeline" id="line-253"><code>	<span class="lit-number">'('</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
+<span class="codeline" id="line-254"><code>	<span class="lit-number">')'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
+<span class="codeline" id="line-255"><code>	<span class="lit-number">'*'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
+<span class="codeline" id="line-256"><code>	<span class="lit-number">'+'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
+<span class="codeline" id="line-257"><code>	<span class="lit-number">','</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
+<span class="codeline" id="line-258"><code>	<span class="lit-number">'-'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// unreserved</span></code></span>
+<span class="codeline" id="line-259"><code>	<span class="lit-number">'.'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// unreserved</span></code></span>
+<span class="codeline" id="line-260"><code>	<span class="lit-number">':'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// IPv6address + Host expression's optional port</span></code></span>
+<span class="codeline" id="line-261"><code>	<span class="lit-number">';'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
+<span class="codeline" id="line-262"><code>	<span class="lit-number">'='</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
+<span class="codeline" id="line-263"><code>	<span class="lit-number">'['</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
+<span class="codeline" id="line-264"><code>	<span class="lit-number">'\''</span>: <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// sub-delims</span></code></span>
+<span class="codeline" id="line-265"><code>	<span class="lit-number">']'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
+<span class="codeline" id="line-266"><code>	<span class="lit-number">'_'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// unreserved</span></code></span>
+<span class="codeline" id="line-267"><code>	<span class="lit-number">'~'</span>:  <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a>, <span class="comment">// unreserved</span></code></span>
+<span class="codeline" id="line-268"><code>}</code></span>
+<span class="codeline" id="line-269"><code></code></span>
+<span class="codeline" id="line-270"><code><span class="comment">// ValidHeaderFieldValue reports whether v is a valid "field-value" according to</span></code></span>
+<span class="codeline" id="line-271"><code><span class="comment">// http://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.2 :</span></code></span>
+<span class="codeline" id="line-272"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-273"><code><span class="comment">//	message-header = field-name ":" [ field-value ]</span></code></span>
+<span class="codeline" id="line-274"><code><span class="comment">//	field-value    = *( field-content | LWS )</span></code></span>
+<span class="codeline" id="line-275"><code><span class="comment">//	field-content  = &lt;the OCTETs making up the field-value</span></code></span>
+<span class="codeline" id="line-276"><code><span class="comment">//	                 and consisting of either *TEXT or combinations</span></code></span>
+<span class="codeline" id="line-277"><code><span class="comment">//	                 of token, separators, and quoted-string&gt;</span></code></span>
+<span class="codeline" id="line-278"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-279"><code><span class="comment">// http://www.w3.org/Protocols/rfc2616/rfc2616-sec2.html#sec2.2 :</span></code></span>
+<span class="codeline" id="line-280"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-281"><code><span class="comment">//	TEXT           = &lt;any OCTET except CTLs,</span></code></span>
+<span class="codeline" id="line-282"><code><span class="comment">//	                  but including LWS&gt;</span></code></span>
+<span class="codeline" id="line-283"><code><span class="comment">//	LWS            = [CRLF] 1*( SP | HT )</span></code></span>
+<span class="codeline" id="line-284"><code><span class="comment">//	CTL            = &lt;any US-ASCII control character</span></code></span>
+<span class="codeline" id="line-285"><code><span class="comment">//	                 (octets 0 - 31) and DEL (127)&gt;</span></code></span>
+<span class="codeline" id="line-286"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-287"><code><span class="comment">// RFC 7230 says:</span></code></span>
+<span class="codeline" id="line-288"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-289"><code><span class="comment">//	field-value    = *( field-content / obs-fold )</span></code></span>
+<span class="codeline" id="line-290"><code><span class="comment">//	obj-fold       =  N/A to http2, and deprecated</span></code></span>
+<span class="codeline" id="line-291"><code><span class="comment">//	field-content  = field-vchar [ 1*( SP / HTAB ) field-vchar ]</span></code></span>
+<span class="codeline" id="line-292"><code><span class="comment">//	field-vchar    = VCHAR / obs-text</span></code></span>
+<span class="codeline" id="line-293"><code><span class="comment">//	obs-text       = %x80-FF</span></code></span>
+<span class="codeline" id="line-294"><code><span class="comment">//	VCHAR          = "any visible [USASCII] character"</span></code></span>
+<span class="codeline" id="line-295"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-296"><code><span class="comment">// http2 further says: "Similarly, HTTP/2 allows header field values</span></code></span>
+<span class="codeline" id="line-297"><code><span class="comment">// that are not valid. While most of the values that can be encoded</span></code></span>
+<span class="codeline" id="line-298"><code><span class="comment">// will not alter header field parsing, carriage return (CR, ASCII</span></code></span>
+<span class="codeline" id="line-299"><code><span class="comment">// 0xd), line feed (LF, ASCII 0xa), and the zero character (NUL, ASCII</span></code></span>
+<span class="codeline" id="line-300"><code><span class="comment">// 0x0) might be exploited by an attacker if they are translated</span></code></span>
+<span class="codeline" id="line-301"><code><span class="comment">// verbatim. Any request or response that contains a character not</span></code></span>
+<span class="codeline" id="line-302"><code><span class="comment">// permitted in a header field value MUST be treated as malformed</span></code></span>
+<span class="codeline" id="line-303"><code><span class="comment">// (Section 8.1.2.6). Valid characters are defined by the</span></code></span>
+<span class="codeline" id="line-304"><code><span class="comment">// field-content ABNF rule in Section 3.2 of [RFC7230]."</span></code></span>
+<span class="codeline" id="line-305"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-306"><code><span class="comment">// This function does not (yet?) properly handle the rejection of</span></code></span>
+<span class="codeline" id="line-307"><code><span class="comment">// strings that begin or end with SP or HTAB.</span></code></span>
+<span class="codeline" id="line-308"><code><span class="keyword">func</span> <label for="r37" class="ident"><a href="../../../../../../../pkg/vendor/golang.org/x/net/http/httpguts.html#name-ValidHeaderFieldValue" class="ident">ValidHeaderFieldValue</a></label>(<label for="r38" class="ident">v</label> <a href="../../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-309"><code>	<span class="keyword">for</span> <label for="r39" class="ident">i</label> := <span class="lit-number">0</span>; <label for="r39" class="ident">i</label> &lt; <a href="../../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r38" class="ident">v</label>); <label for="r39" class="ident">i</label>++ {</code></span>
+<span class="codeline" id="line-310"><code>		<label for="r40" class="ident">b</label> := <label for="r38" class="ident">v</label>[<label for="r39" class="ident">i</label>]</code></span>
+<span class="codeline" id="line-311"><code>		<span class="keyword">if</span> <a href="#line-185" class="ident">isCTL</a>(<label for="r40" class="ident">b</label>) &amp;&amp; !<a href="#line-178" class="ident">isLWS</a>(<label for="r40" class="ident">b</label>) {</code></span>
+<span class="codeline" id="line-312"><code>			<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-313"><code>		}</code></span>
+<span class="codeline" id="line-314"><code>	}</code></span>
+<span class="codeline" id="line-315"><code>	<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-316"><code>}</code></span>
+<span class="codeline" id="line-317"><code></code></span>
+<span class="codeline" id="line-318"><code><span class="keyword">func</span> <label for="r41" class="ident"><a href="../../../../../../../pkg/vendor/golang.org/x/net/http/httpguts.html#name-isASCII" class="ident">isASCII</a></label>(<label for="r42" class="ident">s</label> <a href="../../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-319"><code>	<span class="keyword">for</span> <label for="r43" class="ident">i</label> := <span class="lit-number">0</span>; <label for="r43" class="ident">i</label> &lt; <a href="../../../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r42" class="ident">s</label>); <label for="r43" class="ident">i</label>++ {</code></span>
+<span class="codeline" id="line-320"><code>		<span class="keyword">if</span> <label for="r42" class="ident">s</label>[<label for="r43" class="ident">i</label>] &gt;= <a href="../../../../../../../pkg/unicode/utf8.html" class="ident i2">utf8</a>.<a href="../../../../../../unicode/utf8/utf8.go.html#line-17" class="ident">RuneSelf</a> {</code></span>
+<span class="codeline" id="line-321"><code>			<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-322"><code>		}</code></span>
+<span class="codeline" id="line-323"><code>	}</code></span>
+<span class="codeline" id="line-324"><code>	<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-325"><code>}</code></span>
+<span class="codeline" id="line-326"><code></code></span>
+<span class="codeline" id="line-327"><code><span class="comment">// PunycodeHostPort returns the IDNA Punycode version</span></code></span>
+<span class="codeline" id="line-328"><code><span class="comment">// of the provided "host" or "host:port" string.</span></code></span>
+<span class="codeline" id="line-329"><code><span class="keyword">func</span> <label for="r44" class="ident"><a href="../../../../../../../pkg/vendor/golang.org/x/net/http/httpguts.html#name-PunycodeHostPort" class="ident">PunycodeHostPort</a></label>(<label for="r45" class="ident">v</label> <a href="../../../../../../../pkg/builtin.html#name-string" class="ident">string</a>) (<a href="../../../../../../../pkg/builtin.html#name-string" class="ident">string</a>, <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-330"><code>	<span class="keyword">if</span> <a href="#line-318" class="ident">isASCII</a>(<label for="r45" class="ident">v</label>) {</code></span>
+<span class="codeline" id="line-331"><code>		<span class="keyword">return</span> <label for="r45" class="ident">v</label>, <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-332"><code>	}</code></span>
+<span class="codeline" id="line-333"><code></code></span>
+<span class="codeline" id="line-334"><code>	<label for="r46" class="ident">host</label>, <label for="r47" class="ident">port</label>, <label for="r48" class="ident">err</label> := <a href="../../../../../../../pkg/net.html" class="ident i0">net</a>.<a href="../../../../../../net/ipsock.go.html#line-164" class="ident">SplitHostPort</a>(<label for="r45" class="ident">v</label>)</code></span>
+<span class="codeline" id="line-335"><code>	<span class="keyword">if</span> <label for="r48" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-336"><code>		<span class="comment">// The input 'v' argument was just a "host" argument,</span></code></span>
+<span class="codeline" id="line-337"><code><span class="comment">		// without a port. This error should not be returned</span></code></span>
+<span class="codeline" id="line-338"><code><span class="comment">		// to the caller.</span></code></span>
+<span class="codeline" id="line-339"><code>		<label for="r46" class="ident">host</label> = <label for="r45" class="ident">v</label></code></span>
+<span class="codeline" id="line-340"><code>		<label for="r47" class="ident">port</label> = <span class="lit-string">""</span></code></span>
+<span class="codeline" id="line-341"><code>	}</code></span>
+<span class="codeline" id="line-342"><code>	<label for="r46" class="ident">host</label>, <label for="r48" class="ident">err</label> = <a href="../../../../../../../pkg/vendor/golang.org/x/net/idna.html" class="ident i0">idna</a>.<a href="../../idna/idna10.0.0.go.html#line-47" class="ident">ToASCII</a>(<label for="r46" class="ident">host</label>)</code></span>
+<span class="codeline" id="line-343"><code>	<span class="keyword">if</span> <label for="r48" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-344"><code>		<span class="comment">// Non-UTF-8? Not representable in Punycode, in any</span></code></span>
+<span class="codeline" id="line-345"><code><span class="comment">		// case.</span></code></span>
+<span class="codeline" id="line-346"><code>		<span class="keyword">return</span> <span class="lit-string">""</span>, <label for="r48" class="ident">err</label></code></span>
+<span class="codeline" id="line-347"><code>	}</code></span>
+<span class="codeline" id="line-348"><code>	<span class="keyword">if</span> <label for="r47" class="ident">port</label> == <span class="lit-string">""</span> {</code></span>
+<span class="codeline" id="line-349"><code>		<span class="keyword">return</span> <label for="r46" class="ident">host</label>, <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-350"><code>	}</code></span>
+<span class="codeline" id="line-351"><code>	<span class="keyword">return</span> <a href="../../../../../../../pkg/net.html" class="ident i0">net</a>.<a href="../../../../../../net/ipsock.go.html#line-235" class="ident">JoinHostPort</a>(<label for="r46" class="ident">host</label>, <label for="r47" class="ident">port</label>), <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-352"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

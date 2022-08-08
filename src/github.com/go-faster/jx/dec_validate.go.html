@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: dec_validate.go in package github.com/go-faster/jx</title>
+<link href="../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../jvs/golds-v0.5.2.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	dec_validate.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../../pkg/github.com/go-faster/jx.html">github.com/go-faster/jx</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+
+<pre class="line-numbers">
+<span class="codeline" id="line-1"><code><span class="keyword">package</span> jx</code></span>
+<span class="codeline" id="line-2"><code></code></span>
+<span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"io"</span></label></code></span>
+<span class="codeline" id="line-5"><code></code></span>
+<span class="codeline" id="line-6"><code>	<label for="i1"><span class="lit-string i1">"github.com/go-faster/errors"</span></label></code></span>
+<span class="codeline" id="line-7"><code>)</code></span>
+<span class="codeline" id="line-8"><code></code></span>
+<span class="codeline" id="line-9"><code><span class="comment">// Validate consumes all input, validating that input is a json object</span></code></span>
+<span class="codeline" id="line-10"><code><span class="comment">// without any trialing data.</span></code></span>
+<span class="codeline" id="line-11"><code><span class="keyword">func</span> (<label for="r0" class="ident">d</label> *<a href="dec.go.html#line-77" class="ident">Decoder</a>) <label for="r1" class="ident"><a href="../../../../use/github.com/go-faster/jx..Decoder.Validate.html" class="ident">Validate</a></label>() <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-12"><code>	<span class="comment">// First encountered value skip should consume all buffer.</span></code></span>
+<span class="codeline" id="line-13"><code>	<span class="keyword">if</span> <label for="r2" class="ident">err</label> := <label for="r0" class="ident">d</label>.<a href="dec_skip.go.html#line-10" class="ident">Skip</a>(); <label for="r2" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-14"><code>		<span class="keyword">return</span> <a href="../../../../pkg/github.com/go-faster/errors.html" class="ident i1">errors</a>.<a href="../errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r2" class="ident">err</label>, <span class="lit-string">"consume"</span>)</code></span>
+<span class="codeline" id="line-15"><code>	}</code></span>
+<span class="codeline" id="line-16"><code>	<span class="comment">// Check for any trialing json.</span></code></span>
+<span class="codeline" id="line-17"><code>	<span class="keyword">if</span> <label for="r3" class="ident">err</label> := <label for="r0" class="ident">d</label>.<a href="dec_skip.go.html#line-10" class="ident">Skip</a>(); <label for="r3" class="ident">err</label> != <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-44" class="ident">EOF</a> {</code></span>
+<span class="codeline" id="line-18"><code>		<span class="keyword">return</span> <a href="../../../../pkg/github.com/go-faster/errors.html" class="ident i1">errors</a>.<a href="../errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r3" class="ident">err</label>, <span class="lit-string">"unexpected trialing data"</span>)</code></span>
+<span class="codeline" id="line-19"><code>	}</code></span>
+<span class="codeline" id="line-20"><code></code></span>
+<span class="codeline" id="line-21"><code>	<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-22"><code>}</code></span>
+</pre><pre id="footer">
+<table><tr><td><img src="../../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

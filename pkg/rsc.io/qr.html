@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Package: rsc.io/qr</title>
+<link href="../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.5.2.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="package-details"><code><span style="font-size:xx-large;">package <b>qr</b></span>
+
+<span class="title">Import Path</span>
+	<a href="../../index.html#pkg-rsc.io/qr">rsc.io/qr</a><i> (on <a href="https://pkg.go.dev/rsc.io/qr" target="_blank">go.dev</a>)</i>
+
+<span class="title">Dependency Relation</span>
+	imports <a href="../../dep/rsc.io/qr.html">8 packages</a>, and imported by <a href="../../dep/rsc.io/qr.html#imported-by">one package</a>
+
+<div id="files"><span class="title">Involved Source Files</span>
+
+	<span class="nodocs">      <a href="../../src/rsc.io/qr/png.go.html">png.go</a></span>
+	<input type='checkbox' checked class="fold" id="file-1-fold-content"><label for="file-1-fold-content">   <a href="../../src/rsc.io/qr/qr.go.html#doc">#d</a> <a href="../../src/rsc.io/qr/qr.go.html">qr.go</a></label><span id='file-1-fold-content-items' class="fold-items">
+		Package qr encodes QR codes.</span></div>
+<div id="exported-types"><span class="title">Package-Level Type Names<span class="title-stat"><i> (total 6, in which 2 are exported)</i></span></span>
+
+<div id="exported-types-buttons" class="js-on">	/* sort exporteds by: <label id="sort-types-by-alphabet" class="button">alphabet</label> | <label id="sort-types-by-popularity" class="button">popularity</label> */</div><div class="anchor type-res" id="name-Code" data-popularity="225">	<input type='checkbox' class="fold" id="Code-fold-content"><label for="Code-fold-content"> <a href="../../use/rsc.io/qr..Code.html">type</a> <a href="../../src/rsc.io/qr/qr.go.html#line-73">Code</a> <i>(struct)</i></label><span id='Code-fold-content-docs' class="fold-docs">
+		A Code is a square pixel grid.
+		It implements image.Image and direct PNG encoding.
+
+		<input type='checkbox' class="fold" id="Code-fold-fields"><label for="Code-fold-fields">Fields (<i>total 4, all are exported</i>)</label><span id='Code-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Code-fold-field-Bitmap"><label for="Code-fold-field-Bitmap"><a href="../../src/rsc.io/qr/qr.go.html#line-74">Bitmap</a> <i>[]<a href="../builtin.html#name-byte">byte</a></i></label><span id='Code-fold-field-Bitmap-docs' class="fold-docs">
+				// 1 is black, 0 is white
+</span></span><span>
+			<input type='checkbox' class="fold" id="Code-fold-field-Scale"><label for="Code-fold-field-Scale"><a href="../../src/rsc.io/qr/qr.go.html#line-77">Scale</a> <i><a href="../builtin.html#name-int">int</a></i></label><span id='Code-fold-field-Scale-docs' class="fold-docs">
+				// number of image pixels per QR pixel
+</span></span><span>
+			<input type='checkbox' class="fold" id="Code-fold-field-Size"><label for="Code-fold-field-Size"><a href="../../src/rsc.io/qr/qr.go.html#line-75">Size</a> <i><a href="../builtin.html#name-int">int</a></i></label><span id='Code-fold-field-Size-docs' class="fold-docs">
+				// number of pixels on a side
+</span></span><span>
+			<input type='checkbox' class="fold" id="Code-fold-field-Stride"><label for="Code-fold-field-Stride"><a href="../../src/rsc.io/qr/qr.go.html#line-76">Stride</a> <i><a href="../builtin.html#name-int">int</a></i></label><span id='Code-fold-field-Stride-docs' class="fold-docs">
+				// number of bytes per row
+</span></span></span>
+		<input type='checkbox' class="fold" id="Code-fold-methods"><label for="Code-fold-methods">Methods (<i>total 3, all are exported</i>)</label><span id='Code-fold-methods-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Code-fold-method-Black"><label for="Code-fold-method-Black">(*Code) <a href="../../src/rsc.io/qr/qr.go.html#line-81">Black</a>(x, y <a href="../builtin.html#name-int">int</a>) <a href="../builtin.html#name-bool">bool</a></label><span id='Code-fold-method-Black-docs' class="fold-docs">
+				Black returns true if the pixel at (x,y) is black.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Code-fold-method-Image"><label for="Code-fold-method-Image">(*Code) <a href="../../src/rsc.io/qr/qr.go.html#line-87">Image</a>() <a href="../image.html">image</a>.<a href="../image.html#name-Image">Image</a></label><span id='Code-fold-method-Image-docs' class="fold-docs">
+				Image returns an Image displaying the code.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Code-fold-method-PNG"><label for="Code-fold-method-PNG">(*Code) <a href="../../src/rsc.io/qr/png.go.html#line-22">PNG</a>() []<a href="../builtin.html#name-byte">byte</a></label><span id='Code-fold-method-PNG-docs' class="fold-docs">
+				PNG returns a PNG image displaying the code.
+
+				PNG uses a custom encoder tailored to QR codes.
+				Its compressed size is about 2x away from optimal,
+				but it runs about 20x faster than calling png.Encode
+				on c.Image().
+</span></span></span>
+		<input type='checkbox' class="fold" id="Code-fold-results"><label for="Code-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='Code-fold-results-items' class="fold-items"><span>
+			func <a href="#name-Encode">Encode</a>(text <a href="../builtin.html#name-string">string</a>, level <a href="#name-Level">Level</a>) (*<b>Code</b>, <a href="../builtin.html#name-error">error</a>)</span></span>
+
+</span></div><div class="anchor type-res" id="name-Level" data-popularity="85">	<input type='checkbox' class="fold" id="Level-fold-content"><label for="Level-fold-content"> <a href="../../use/rsc.io/qr..Level.html">type</a> <a href="../../src/rsc.io/qr/qr.go.html#line-20">Level</a> <a href="../builtin.html#name-int">int</a> <i>(basic type)</i></label><span id='Level-fold-content-docs' class="fold-docs">
+		A Level denotes a QR error correction level.
+		From least to most tolerant of errors, they are L, M, Q, H.
+
+		<input type='checkbox' class="fold" id="Level-fold-params"><label for="Level-fold-params">As Inputs Of (<i>at least 2, both are exported</i>)</label><span id='Level-fold-params-items' class="fold-items"><span>
+			func <a href="#name-Encode">Encode</a>(text <a href="../builtin.html#name-string">string</a>, level <b>Level</b>) (*<a href="#name-Code">Code</a>, <a href="../builtin.html#name-error">error</a>)</span><span>
+			func github.com/gotd/td/telegram/auth/qrlogin.<a href="../github.com/gotd/td/telegram/auth/qrlogin.html#name-Token">Token</a>.<a href="../../src/github.com/gotd/td/telegram/auth/qrlogin/token.go.html#line-70">Image</a>(level <b>Level</b>) (<a href="../image.html">image</a>.<a href="../image.html#name-Image">Image</a>, <a href="../builtin.html#name-error">error</a>)</span></span>
+		<input type='checkbox' class="fold" id="Level-fold-values"><label for="Level-fold-values">As Types Of (<i>total 4, all are exported</i>)</label><span id='Level-fold-values-items' class="fold-items"><span>
+			const <a href="#name-H">H</a></span><span>
+			const <a href="#name-L">L</a></span><span>
+			const <a href="#name-M">M</a></span><span>
+			const <a href="#name-Q">Q</a></span></span>
+
+</span></div></div><div>	<input type='checkbox' class="showhide" id="unexported-typenames-showhide"><i><label for="unexported-typenames-showhide" class="show-inline">/* 4 unexporteds ... */</label><label for="unexported-typenames-showhide" class="hide-inline">/* 4 unexporteds: */</label></i><div class="anchor type-res hidden" id="name-adigest" data-popularity="200">	<input type='checkbox' class="fold" id="adigest-fold-content"><label for="adigest-fold-content"> <a href="../../use/rsc.io/qr..adigest^8bb20.html">type</a> <a href="../../src/rsc.io/qr/png.go.html#line-349">adigest</a> <i>(struct)</i></label><span id='adigest-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="adigest-fold-fields"><label for="adigest-fold-fields">Fields (<i>total 2, neither is exported</i>)</label><span id='adigest-fold-fields-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="adigest-showhide-fields"><i><label for="adigest-showhide-fields" class="show-inline">/* 2 unexporteds ... */</label><label for="adigest-showhide-fields" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/rsc.io/qr/png.go.html#line-350">a</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/rsc.io/qr/png.go.html#line-350">b</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></span></i></span></span>
+		<input type='checkbox' class="fold" id="adigest-fold-methods"><label for="adigest-fold-methods">Methods (<i>total 4, all are exported</i>)</label><span id='adigest-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*adigest) <a href="../../src/rsc.io/qr/png.go.html#line-353">Reset</a>()</span></span><span>
+			<span class="nodocs">(*adigest) <a href="../../src/rsc.io/qr/png.go.html#line-400">Sum32</a>() <a href="../builtin.html#name-uint32">uint32</a></span></span><span>
+			<span class="nodocs">(*adigest) <a href="../../src/rsc.io/qr/png.go.html#line-388">WriteN</a>(p []<a href="../builtin.html#name-byte">byte</a>, n <a href="../builtin.html#name-int">int</a>)</span></span><span>
+			<span class="nodocs">(*adigest) <a href="../../src/rsc.io/qr/png.go.html#line-396">WriteNByte</a>(pi <a href="../builtin.html#name-byte">byte</a>, n <a href="../builtin.html#name-int">int</a>)</span></span></span>
+
+</span></div><div class="anchor type-res hidden" id="name-bitWriter" data-popularity="450">	<input type='checkbox' class="fold" id="bitWriter-fold-content"><label for="bitWriter-fold-content"> <a href="../../use/rsc.io/qr..bitWriter^d792d.html">type</a> <a href="../../src/rsc.io/qr/png.go.html#line-178">bitWriter</a> <i>(struct)</i></label><span id='bitWriter-fold-content-docs' class="fold-docs">
+		A bitWriter is a write buffer for bit-oriented data like deflate.
+
+		<input type='checkbox' class="fold" id="bitWriter-fold-fields"><label for="bitWriter-fold-fields">Fields (<i>total 5, none are exported</i>)</label><span id='bitWriter-fold-fields-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="bitWriter-showhide-fields"><i><label for="bitWriter-showhide-fields" class="show-inline">/* 5 unexporteds ... */</label><label for="bitWriter-showhide-fields" class="hide-inline">/* 5 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/rsc.io/qr/png.go.html#line-184">adler32</a> <i><a href="#name-adigest">adigest</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/rsc.io/qr/png.go.html#line-180">bit</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/rsc.io/qr/png.go.html#line-179">bytes</a> <i><a href="../bytes.html">bytes</a>.<a href="../bytes.html#name-Buffer">Buffer</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/rsc.io/qr/png.go.html#line-181">nbit</a> <i><a href="../builtin.html#name-uint">uint</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/rsc.io/qr/png.go.html#line-183">tmp</a> <i>[4]<a href="../builtin.html#name-byte">byte</a></i></span></i></span></span>
+		<input type='checkbox' class="fold" id="bitWriter-fold-methods"><label for="bitWriter-fold-methods">Methods (<i>total 9, none are exported</i>)</label><span id='bitWriter-fold-methods-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="bitWriter-showhide-methods"><i><label for="bitWriter-showhide-methods" class="show-inline">/* 9 unexporteds ... */</label><label for="bitWriter-showhide-methods" class="hide-inline">/* 9 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs">(*bitWriter) <a href="../../src/rsc.io/qr/png.go.html#line-240">byte</a>(x <a href="../builtin.html#name-byte">byte</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*bitWriter) <a href="../../src/rsc.io/qr/png.go.html#line-244">codex</a>(c <a href="../builtin.html#name-int">int</a>, val <a href="../builtin.html#name-int">int</a>, nx <a href="../builtin.html#name-uint">uint</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*bitWriter) <a href="../../src/rsc.io/qr/png.go.html#line-205">flushBits</a>()</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*bitWriter) <a href="../../src/rsc.io/qr/png.go.html#line-213">hcode</a>(v <a href="../builtin.html#name-int">int</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*bitWriter) <a href="../../src/rsc.io/qr/png.go.html#line-249">repeat</a>(n, d <a href="../builtin.html#name-int">int</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*bitWriter) <a href="../../src/rsc.io/qr/png.go.html#line-265">repeat1</a>(n, d <a href="../builtin.html#name-int">int</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*bitWriter) <a href="../../src/rsc.io/qr/png.go.html#line-335">run</a>(v <a href="../builtin.html#name-byte">byte</a>, n <a href="../builtin.html#name-int">int</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*bitWriter) <a href="../../src/rsc.io/qr/png.go.html#line-187">writeBits</a>(bit <a href="../builtin.html#name-uint32">uint32</a>, nbit <a href="../builtin.html#name-uint">uint</a>, rev <a href="../builtin.html#name-bool">bool</a>)</span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*bitWriter) <a href="../../src/rsc.io/qr/png.go.html#line-88">writeCode</a>(c *<a href="#name-Code">Code</a>)</span></i></span></span>
+
+</span></div><div class="anchor type-res hidden" id="name-codeImage" data-popularity="350">	<input type='checkbox' class="fold" id="codeImage-fold-content"><label for="codeImage-fold-content"> <a href="../../use/rsc.io/qr..codeImage^a1e75.html">type</a> <a href="../../src/rsc.io/qr/qr.go.html#line-93">codeImage</a> <i>(struct)</i></label><span id='codeImage-fold-content-docs' class="fold-docs">
+		codeImage implements image.Image
+
+		<input type='checkbox' class="fold" id="codeImage-fold-fields"><label for="codeImage-fold-fields">Fields (<i>total 5, all are exported</i>)</label><span id='codeImage-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/rsc.io/qr/qr.go.html#line-94">Code</a> <i>*<a href="#name-Code">Code</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="codeImage-fold-field-Bitmap"><label for="codeImage-fold-field-Bitmap"><a href="../../src/rsc.io/qr/qr.go.html#line-94" class="path-duplicate">Code</a>.<a href="../../src/rsc.io/qr/qr.go.html#line-74">Bitmap</a> <i>[]<a href="../builtin.html#name-byte">byte</a></i></label><span id='codeImage-fold-field-Bitmap-docs' class="fold-docs">
+				// 1 is black, 0 is white
+</span></span><span>
+			<input type='checkbox' class="fold" id="codeImage-fold-field-Scale"><label for="codeImage-fold-field-Scale"><a href="../../src/rsc.io/qr/qr.go.html#line-94" class="path-duplicate">Code</a>.<a href="../../src/rsc.io/qr/qr.go.html#line-77">Scale</a> <i><a href="../builtin.html#name-int">int</a></i></label><span id='codeImage-fold-field-Scale-docs' class="fold-docs">
+				// number of image pixels per QR pixel
+</span></span><span>
+			<input type='checkbox' class="fold" id="codeImage-fold-field-Size"><label for="codeImage-fold-field-Size"><a href="../../src/rsc.io/qr/qr.go.html#line-94" class="path-duplicate">Code</a>.<a href="../../src/rsc.io/qr/qr.go.html#line-75">Size</a> <i><a href="../builtin.html#name-int">int</a></i></label><span id='codeImage-fold-field-Size-docs' class="fold-docs">
+				// number of pixels on a side
+</span></span><span>
+			<input type='checkbox' class="fold" id="codeImage-fold-field-Stride"><label for="codeImage-fold-field-Stride"><a href="../../src/rsc.io/qr/qr.go.html#line-94" class="path-duplicate">Code</a>.<a href="../../src/rsc.io/qr/qr.go.html#line-76">Stride</a> <i><a href="../builtin.html#name-int">int</a></i></label><span id='codeImage-fold-field-Stride-docs' class="fold-docs">
+				// number of bytes per row
+</span></span></span>
+		<input type='checkbox' class="fold" id="codeImage-fold-methods"><label for="codeImage-fold-methods">Methods (<i>total 6, all are exported</i>)</label><span id='codeImage-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*codeImage) <a href="../../src/rsc.io/qr/qr.go.html#line-107">At</a>(x, y <a href="../builtin.html#name-int">int</a>) <a href="../image/color.html">color</a>.<a href="../image/color.html#name-Color">Color</a></span></span><span>
+			<input type='checkbox' class="fold" id="codeImage-fold-method-Black"><label for="codeImage-fold-method-Black">( codeImage) <a href="../../src/rsc.io/qr/qr.go.html#line-81">Black</a>(x, y <a href="../builtin.html#name-int">int</a>) <a href="../builtin.html#name-bool">bool</a></label><span id='codeImage-fold-method-Black-docs' class="fold-docs">
+				Black returns true if the pixel at (x,y) is black.
+</span></span><span>
+			<span class="nodocs">(*codeImage) <a href="../../src/rsc.io/qr/qr.go.html#line-102">Bounds</a>() <a href="../image.html">image</a>.<a href="../image.html#name-Rectangle">Rectangle</a></span></span><span>
+			<span class="nodocs">(*codeImage) <a href="../../src/rsc.io/qr/qr.go.html#line-114">ColorModel</a>() <a href="../image/color.html">color</a>.<a href="../image/color.html#name-Model">Model</a></span></span><span>
+			<input type='checkbox' class="fold" id="codeImage-fold-method-Image"><label for="codeImage-fold-method-Image">( codeImage) <a href="../../src/rsc.io/qr/qr.go.html#line-87">Image</a>() <a href="../image.html">image</a>.<a href="../image.html#name-Image">Image</a></label><span id='codeImage-fold-method-Image-docs' class="fold-docs">
+				Image returns an Image displaying the code.
+</span></span><span>
+			<input type='checkbox' class="fold" id="codeImage-fold-method-PNG"><label for="codeImage-fold-method-PNG">( codeImage) <a href="../../src/rsc.io/qr/png.go.html#line-22">PNG</a>() []<a href="../builtin.html#name-byte">byte</a></label><span id='codeImage-fold-method-PNG-docs' class="fold-docs">
+				PNG returns a PNG image displaying the code.
+
+				PNG uses a custom encoder tailored to QR codes.
+				Its compressed size is about 2x away from optimal,
+				but it runs about 20x faster than calling png.Encode
+				on c.Image().
+</span></span></span>
+		<input type='checkbox' class="fold" id="codeImage-fold-impls"><label for="codeImage-fold-impls">Implements (<i>at least one exported</i>)</label><span id='codeImage-fold-impls-items' class="fold-items"><span>
+			*codeImage : image.<a href="../image.html#name-Image">Image</a></span></span>
+
+</span></div><div class="anchor type-res hidden" id="name-pngWriter" data-popularity="100">	<input type='checkbox' class="fold" id="pngWriter-fold-content"><label for="pngWriter-fold-content"> <a href="../../use/rsc.io/qr..pngWriter^1421b.html">type</a> <a href="../../src/rsc.io/qr/png.go.html#line-27">pngWriter</a> <i>(struct)</i></label><span id='pngWriter-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="pngWriter-fold-fields"><label for="pngWriter-fold-fields">Fields (<i>total 5, none are exported</i>)</label><span id='pngWriter-fold-fields-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="pngWriter-showhide-fields"><i><label for="pngWriter-showhide-fields" class="show-inline">/* 5 unexporteds ... */</label><label for="pngWriter-showhide-fields" class="hide-inline">/* 5 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/rsc.io/qr/png.go.html#line-30">buf</a> <i><a href="../bytes.html">bytes</a>.<a href="../bytes.html#name-Buffer">Buffer</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/rsc.io/qr/png.go.html#line-32">crc</a> <i><a href="../hash.html">hash</a>.<a href="../hash.html#name-Hash32">Hash32</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/rsc.io/qr/png.go.html#line-28">tmp</a> <i>[16]<a href="../builtin.html#name-byte">byte</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/rsc.io/qr/png.go.html#line-29">wctmp</a> <i>[4]<a href="../builtin.html#name-byte">byte</a></i></span></i></span><span class="hidden"><i>
+			<span class="nodocs"><a href="../../src/rsc.io/qr/png.go.html#line-31">zlib</a> <i><a href="#name-bitWriter">bitWriter</a></i></span></i></span></span>
+		<input type='checkbox' class="fold" id="pngWriter-fold-methods"><label for="pngWriter-fold-methods">Methods (<i>total 2, neither is exported</i>)</label><span id='pngWriter-fold-methods-items' class="fold-items">
+			<input type='checkbox' checked class="showhide" id="pngWriter-showhide-methods"><i><label for="pngWriter-showhide-methods" class="show-inline">/* 2 unexporteds ... */</label><label for="pngWriter-showhide-methods" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
+			<span class="nodocs">(*pngWriter) <a href="../../src/rsc.io/qr/png.go.html#line-37">encode</a>(c *<a href="#name-Code">Code</a>) []<a href="../builtin.html#name-byte">byte</a></span></i></span><span class="hidden"><i>
+			<span class="nodocs">(*pngWriter) <a href="../../src/rsc.io/qr/png.go.html#line-71">writeChunk</a>(name <a href="../builtin.html#name-string">string</a>, data []<a href="../builtin.html#name-byte">byte</a>)</span></i></span></span>
+
+</span></div></div>
+<div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 3, in which 1 are exported)</i></span></span>
+
+<div class="anchor value-res" id="name-Encode">	<input type='checkbox' class="fold" id="Encode-fold-content"><label for="Encode-fold-content"> <a href="../../use/rsc.io/qr..Encode.html">func</a> <a href="../../src/rsc.io/qr/qr.go.html#line-30">Encode</a>(text <a href="../builtin.html#name-string">string</a>, level <a href="#name-Level">Level</a>) (*<a href="#name-Code">Code</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Encode-fold-content-docs' class="fold-docs">
+		Encode returns an encoding of text at the given error correction level.
+
+</span></div>	<input type='checkbox' class="showhide" id="unexported-functions-showhide"><i><label for="unexported-functions-showhide" class="show-inline">/* 2 unexporteds ... */</label><label for="unexported-functions-showhide" class="hide-inline">/* 2 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-afinish"><i>	<span class="nodocs"> <a href="../../use/rsc.io/qr..afinish^e46a5.html">func</a> <a href="../../src/rsc.io/qr/png.go.html#line-384">afinish</a>(a, b <a href="../builtin.html#name-uint32">uint32</a>) <a href="../builtin.html#name-uint32">uint32</a></span></i></div><div class="anchor value-res hidden" id="name-aupdate"><i>	<span class="nodocs"> <a href="../../use/rsc.io/qr..aupdate^49c50.html">func</a> <a href="../../src/rsc.io/qr/png.go.html#line-357">aupdate</a>(a, b <a href="../builtin.html#name-uint32">uint32</a>, pi <a href="../builtin.html#name-byte">byte</a>, n <a href="../builtin.html#name-int">int</a>) (aa, bb <a href="../builtin.html#name-uint32">uint32</a>)</span></i></div></div>
+<div id="exported-variables"><span class="title">Package-Level Variables<span class="title-stat"><i> (total 4, none are exported)</i></span></span>
+
+	<input type='checkbox' class="showhide" id="unexported-variables-showhide"><i><label for="unexported-variables-showhide" class="show-inline">/* 4 unexporteds ... */</label><label for="unexported-variables-showhide" class="hide-inline">/* 4 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-blackColor"><i>	<span class="nodocs">  <a href="../../use/rsc.io/qr..blackColor^964e0.html">var</a> <a href="../../src/rsc.io/qr/qr.go.html#line-99">blackColor</a> <a href="../image/color.html">color</a>.<a href="../image/color.html#name-Color">Color</a></span></i></div><div class="anchor value-res hidden" id="name-comment"><i>	<span class="nodocs">  <a href="../../use/rsc.io/qr..comment^c44bb.html">var</a> <a href="../../src/rsc.io/qr/png.go.html#line-69">comment</a> []<a href="../builtin.html#name-byte">byte</a></span></i></div><div class="anchor value-res hidden" id="name-pngHeader"><i>	<span class="nodocs">  <a href="../../use/rsc.io/qr..pngHeader^f9b93.html">var</a> <a href="../../src/rsc.io/qr/png.go.html#line-35">pngHeader</a> []<a href="../builtin.html#name-byte">byte</a></span></i></div><div class="anchor value-res hidden" id="name-whiteColor"><i>	<span class="nodocs">  <a href="../../use/rsc.io/qr..whiteColor^fa93a.html">var</a> <a href="../../src/rsc.io/qr/qr.go.html#line-98">whiteColor</a> <a href="../image/color.html">color</a>.<a href="../image/color.html#name-Color">Color</a></span></i></div></div>
+<div id="exported-constants"><span class="title">Package-Level Constants<span class="title-stat"><i> (total 5, in which 4 are exported)</i></span></span>
+
+<div class="anchor value-res" id="name-H">	<span class="nodocs"><a href="../../use/rsc.io/qr..H.html">const</a> <a href="../../src/rsc.io/qr/qr.go.html#line-26">H</a> <a href="#name-Level">Level</a> = 3 // 65% redundant</span></div><div class="anchor value-res" id="name-L">	<span class="nodocs"><a href="../../use/rsc.io/qr..L.html">const</a> <a href="../../src/rsc.io/qr/qr.go.html#line-23">L</a> <a href="#name-Level">Level</a> = 0 // 20% redundant</span></div><div class="anchor value-res" id="name-M">	<span class="nodocs"><a href="../../use/rsc.io/qr..M.html">const</a> <a href="../../src/rsc.io/qr/qr.go.html#line-24">M</a> <a href="#name-Level">Level</a> = 1 // 38% redundant</span></div><div class="anchor value-res" id="name-Q">	<span class="nodocs"><a href="../../use/rsc.io/qr..Q.html">const</a> <a href="../../src/rsc.io/qr/qr.go.html#line-25">Q</a> <a href="#name-Level">Level</a> = 2 // 55% redundant</span></div>	<input type='checkbox' class="showhide" id="unexported-constants-showhide"><i><label for="unexported-constants-showhide" class="show-inline">/* one unexported ... */</label><label for="unexported-constants-showhide" class="hide-inline">/* one unexported: */</label></i><div class="anchor value-res hidden" id="name-amod"><i>	<span class="nodocs"><a href="../../use/rsc.io/qr..amod^6310c.html">const</a> <a href="../../src/rsc.io/qr/png.go.html#line-355">amod</a> = 65521</span></i></div></div></code></pre><pre id="footer">
+<table><tr><td><img src="../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

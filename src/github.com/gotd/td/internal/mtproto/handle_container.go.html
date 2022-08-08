@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: handle_container.go in package github.com/gotd/td/internal/mtproto</title>
-<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -57,7 +57,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-1"><code><span class="keyword">package</span> mtproto</code></span>
 <span class="codeline" id="line-2"><code></code></span>
 <span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
-<span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"golang.org/x/xerrors"</span></label></code></span>
+<span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"github.com/go-faster/errors"</span></label></code></span>
 <span class="codeline" id="line-5"><code></code></span>
 <span class="codeline" id="line-6"><code>	<label for="i1"><span class="lit-string i1">"github.com/gotd/td/internal/proto"</span></label></code></span>
 <span class="codeline" id="line-7"><code></code></span>
@@ -65,11 +65,11 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-9"><code>)</code></span>
 <span class="codeline" id="line-10"><code></code></span>
 <span class="codeline" id="line-11"><code><span class="keyword">func</span> (<label for="r0" class="ident">c</label> *<a href="conn.go.html#line-51" class="ident">Conn</a>) <label for="r1" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/mtproto..Conn.handleContainer^42887.html" class="ident">handleContainer</a></label>(<label for="r2" class="ident">msgID</label> <a href="../../../../../../pkg/builtin.html#name-int64" class="ident">int64</a>, <label for="r3" class="ident">b</label> *<a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i2">bin</a>.<a href="../../bin/buffer.go.html#line-8" class="ident">Buffer</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-12"><code>	<span class="keyword">var</span> <label for="r4" class="ident">container</label> <a href="../../../../../../pkg/github.com/gotd/td/internal/proto.html" class="ident i1">proto</a>.<a href="../proto/container.go.html#line-16" class="ident">MessageContainer</a></code></span>
-<span class="codeline" id="line-13"><code>	<span class="keyword">if</span> <label for="r5" class="ident">err</label> := <label for="r4" class="ident">container</label>.<a href="../proto/container.go.html#line-33" class="ident">Decode</a>(<label for="r3" class="ident">b</label>); <label for="r5" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-14"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i0">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"container: %w"</span>, <label for="r5" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-12"><code>	<span class="keyword">var</span> <label for="r4" class="ident">container</label> <a href="../../../../../../pkg/github.com/gotd/td/internal/proto.html" class="ident i1">proto</a>.<a href="../proto/container.go.html#line-13" class="ident">MessageContainer</a></code></span>
+<span class="codeline" id="line-13"><code>	<span class="keyword">if</span> <label for="r5" class="ident">err</label> := <label for="r4" class="ident">container</label>.<a href="../proto/container.go.html#line-30" class="ident">Decode</a>(<label for="r3" class="ident">b</label>); <label for="r5" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-14"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i0">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r5" class="ident">err</label>, <span class="lit-string">"container"</span>)</code></span>
 <span class="codeline" id="line-15"><code>	}</code></span>
-<span class="codeline" id="line-16"><code>	<span class="keyword">for</span> <label for="r6" class="ident">_</label>, <label for="r7" class="ident">msg</label> := <span class="keyword">range</span> <label for="r4" class="ident">container</label>.<a href="../proto/container.go.html#line-17" class="ident">Messages</a> {</code></span>
+<span class="codeline" id="line-16"><code>	<span class="keyword">for</span> <label for="r6" class="ident">_</label>, <label for="r7" class="ident">msg</label> := <span class="keyword">range</span> <label for="r4" class="ident">container</label>.<a href="../proto/container.go.html#line-14" class="ident">Messages</a> {</code></span>
 <span class="codeline" id="line-17"><code>		<span class="keyword">if</span> <label for="r8" class="ident">err</label> := <label for="r0" class="ident">c</label>.<a href="#line-24" class="ident">processContainerMessage</a>(<label for="r2" class="ident">msgID</label>, <label for="r7" class="ident">msg</label>); <label for="r8" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-18"><code>			<span class="keyword">return</span> <label for="r8" class="ident">err</label></code></span>
 <span class="codeline" id="line-19"><code>		}</code></span>
@@ -77,13 +77,13 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-21"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-22"><code>}</code></span>
 <span class="codeline" id="line-23"><code></code></span>
-<span class="codeline" id="line-24"><code><span class="keyword">func</span> (<label for="r9" class="ident">c</label> *<a href="conn.go.html#line-51" class="ident">Conn</a>) <label for="r10" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/mtproto..Conn.processContainerMessage^c3fd4.html" class="ident">processContainerMessage</a></label>(<label for="r11" class="ident">msgID</label> <a href="../../../../../../pkg/builtin.html#name-int64" class="ident">int64</a>, <label for="r12" class="ident">msg</label> <a href="../../../../../../pkg/github.com/gotd/td/internal/proto.html" class="ident i1">proto</a>.<a href="../proto/container.go.html#line-52" class="ident">Message</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-25"><code>	<label for="r13" class="ident">b</label> := &amp;<a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i2">bin</a>.<a href="../../bin/buffer.go.html#line-8" class="ident">Buffer</a>{<a href="../../bin/buffer.go.html#line-9" class="ident">Buf</a>: <label for="r12" class="ident">msg</label>.<a href="../proto/container.go.html#line-56" class="ident">Body</a>}</code></span>
+<span class="codeline" id="line-24"><code><span class="keyword">func</span> (<label for="r9" class="ident">c</label> *<a href="conn.go.html#line-51" class="ident">Conn</a>) <label for="r10" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/mtproto..Conn.processContainerMessage^c3fd4.html" class="ident">processContainerMessage</a></label>(<label for="r11" class="ident">msgID</label> <a href="../../../../../../pkg/builtin.html#name-int64" class="ident">int64</a>, <label for="r12" class="ident">msg</label> <a href="../../../../../../pkg/github.com/gotd/td/internal/proto.html" class="ident i1">proto</a>.<a href="../proto/container.go.html#line-49" class="ident">Message</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-25"><code>	<label for="r13" class="ident">b</label> := &amp;<a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i2">bin</a>.<a href="../../bin/buffer.go.html#line-8" class="ident">Buffer</a>{<a href="../../bin/buffer.go.html#line-9" class="ident">Buf</a>: <label for="r12" class="ident">msg</label>.<a href="../proto/container.go.html#line-53" class="ident">Body</a>}</code></span>
 <span class="codeline" id="line-26"><code>	<span class="keyword">return</span> <label for="r9" class="ident">c</label>.<a href="handle_message.go.html#line-12" class="ident">handleMessage</a>(<label for="r11" class="ident">msgID</label>, <label for="r13" class="ident">b</label>)</code></span>
 <span class="codeline" id="line-27"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: doc.go in package go.opentelemetry.io/otel/trace</title>
+<link href="../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../jvs/golds-v0.5.2.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	doc.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../../pkg/go.opentelemetry.io/otel/trace.html">go.opentelemetry.io/otel/trace</a>
+</code></pre>
+
+<pre class="line-numbers">
+<span class="codeline" id="line-1"><code><span class="comment">// Copyright The OpenTelemetry Authors</span></code></span>
+<span class="codeline" id="line-2"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-3"><code><span class="comment">// Licensed under the Apache License, Version 2.0 (the "License");</span></code></span>
+<span class="codeline" id="line-4"><code><span class="comment">// you may not use this file except in compliance with the License.</span></code></span>
+<span class="codeline" id="line-5"><code><span class="comment">// You may obtain a copy of the License at</span></code></span>
+<span class="codeline" id="line-6"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-7"><code><span class="comment">//     http://www.apache.org/licenses/LICENSE-2.0</span></code></span>
+<span class="codeline" id="line-8"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-9"><code><span class="comment">// Unless required by applicable law or agreed to in writing, software</span></code></span>
+<span class="codeline" id="line-10"><code><span class="comment">// distributed under the License is distributed on an "AS IS" BASIS,</span></code></span>
+<span class="codeline" id="line-11"><code><span class="comment">// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></code></span>
+<span class="codeline" id="line-12"><code><span class="comment">// See the License for the specific language governing permissions and</span></code></span>
+<span class="codeline" id="line-13"><code><span class="comment">// limitations under the License.</span></code></span>
+<span class="codeline" id="line-14"><code></code></span>
+<div class="anchor" id="doc"><span class="codeline" id="line-15"><code><span class="comment">/*</span></code></span>
+<span class="codeline" id="line-16"><code><span class="comment">Package trace provides an implementation of the tracing part of the</span></code></span>
+<span class="codeline" id="line-17"><code><span class="comment">OpenTelemetry API.</span></code></span>
+<span class="codeline" id="line-18"><code></code></span>
+<span class="codeline" id="line-19"><code><span class="comment">To participate in distributed traces a Span needs to be created for the</span></code></span>
+<span class="codeline" id="line-20"><code><span class="comment">operation being performed as part of a traced workflow. It its simplest form:</span></code></span>
+<span class="codeline" id="line-21"><code></code></span>
+<span class="codeline" id="line-22"><code><span class="comment">	var tracer trace.Tracer</span></code></span>
+<span class="codeline" id="line-23"><code></code></span>
+<span class="codeline" id="line-24"><code><span class="comment">	func init() {</span></code></span>
+<span class="codeline" id="line-25"><code><span class="comment">		tracer = otel.Tracer("instrumentation/package/name")</span></code></span>
+<span class="codeline" id="line-26"><code><span class="comment">	}</span></code></span>
+<span class="codeline" id="line-27"><code></code></span>
+<span class="codeline" id="line-28"><code><span class="comment">	func operation(ctx context.Context) {</span></code></span>
+<span class="codeline" id="line-29"><code><span class="comment">		var span trace.Span</span></code></span>
+<span class="codeline" id="line-30"><code><span class="comment">		ctx, span = tracer.Start(ctx, "operation")</span></code></span>
+<span class="codeline" id="line-31"><code><span class="comment">		defer span.End()</span></code></span>
+<span class="codeline" id="line-32"><code><span class="comment">		// ...</span></code></span>
+<span class="codeline" id="line-33"><code><span class="comment">	}</span></code></span>
+<span class="codeline" id="line-34"><code></code></span>
+<span class="codeline" id="line-35"><code><span class="comment">A Tracer is unique to the instrumentation and is used to create Spans.</span></code></span>
+<span class="codeline" id="line-36"><code><span class="comment">Instrumentation should be designed to accept a TracerProvider from which it</span></code></span>
+<span class="codeline" id="line-37"><code><span class="comment">can create its own unique Tracer. Alternatively, the registered global</span></code></span>
+<span class="codeline" id="line-38"><code><span class="comment">TracerProvider from the go.opentelemetry.io/otel package can be used as</span></code></span>
+<span class="codeline" id="line-39"><code><span class="comment">a default.</span></code></span>
+<span class="codeline" id="line-40"><code></code></span>
+<span class="codeline" id="line-41"><code><span class="comment">	const (</span></code></span>
+<span class="codeline" id="line-42"><code><span class="comment">		name    = "instrumentation/package/name"</span></code></span>
+<span class="codeline" id="line-43"><code><span class="comment">		version = "0.1.0"</span></code></span>
+<span class="codeline" id="line-44"><code><span class="comment">	)</span></code></span>
+<span class="codeline" id="line-45"><code></code></span>
+<span class="codeline" id="line-46"><code><span class="comment">	type Instrumentation struct {</span></code></span>
+<span class="codeline" id="line-47"><code><span class="comment">		tracer trace.Tracer</span></code></span>
+<span class="codeline" id="line-48"><code><span class="comment">	}</span></code></span>
+<span class="codeline" id="line-49"><code></code></span>
+<span class="codeline" id="line-50"><code><span class="comment">	func NewInstrumentation(tp trace.TracerProvider) *Instrumentation {</span></code></span>
+<span class="codeline" id="line-51"><code><span class="comment">		if tp == nil {</span></code></span>
+<span class="codeline" id="line-52"><code><span class="comment">			tp = otel.TracerProvider()</span></code></span>
+<span class="codeline" id="line-53"><code><span class="comment">		}</span></code></span>
+<span class="codeline" id="line-54"><code><span class="comment">		return &amp;Instrumentation{</span></code></span>
+<span class="codeline" id="line-55"><code><span class="comment">			tracer: tp.Tracer(name, trace.WithInstrumentationVersion(version)),</span></code></span>
+<span class="codeline" id="line-56"><code><span class="comment">		}</span></code></span>
+<span class="codeline" id="line-57"><code><span class="comment">	}</span></code></span>
+<span class="codeline" id="line-58"><code></code></span>
+<span class="codeline" id="line-59"><code><span class="comment">	func operation(ctx context.Context, inst *Instrumentation) {</span></code></span>
+<span class="codeline" id="line-60"><code><span class="comment">		var span trace.Span</span></code></span>
+<span class="codeline" id="line-61"><code><span class="comment">		ctx, span = inst.tracer.Start(ctx, "operation")</span></code></span>
+<span class="codeline" id="line-62"><code><span class="comment">		defer span.End()</span></code></span>
+<span class="codeline" id="line-63"><code><span class="comment">		// ...</span></code></span>
+<span class="codeline" id="line-64"><code><span class="comment">	}</span></code></span>
+<span class="codeline" id="line-65"><code><span class="comment">*/</span></code></span></div><span class="codeline" id="line-66"><code><span class="keyword">package</span> trace <span class="comment">// import "go.opentelemetry.io/otel/trace"</span></code></span>
+</pre><pre id="footer">
+<table><tr><td><img src="../../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

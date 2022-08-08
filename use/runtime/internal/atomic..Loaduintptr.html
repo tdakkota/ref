@@ -5,49 +5,43 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>References: runtime/internal/atomic.Loaduintptr</title>
-<link href="../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
-<pre><code><span style="font-size:x-large;">func <b><a href="../../../pkg/runtime/internal/atomic.html">runtime/internal/atomic</a>.<a href="../../../src/runtime/internal/atomic/stubs.go.html#line-37">Loaduintptr</a></b></span>
+<pre><code><span style="font-size:x-large;">func <b><a href="../../../pkg/runtime/internal/atomic.html">runtime/internal/atomic</a>.<a href="../../../src/runtime/internal/atomic/stubs.go.html#line-36">Loaduintptr</a></b></span>
 
-<span class="title">29 uses</span>
+<span class="title">23 uses</span>
 
 	runtime/internal/atomic (current package)
-		<a href="../../../src/runtime/internal/atomic/stubs.go.html#line-37">stubs.go#L37</a>: func <b>Loaduintptr</b>(ptr *uintptr) uintptr
+		<a href="../../../src/runtime/internal/atomic/stubs.go.html#line-36">stubs.go#L36</a>: func <b>Loaduintptr</b>(ptr *uintptr) uintptr
+		<a href="../../../src/runtime/internal/atomic/types.go.html#line-300">types.go#L300</a>: 	return <b>Loaduintptr</b>(&amp;u.value)
 
 	<a href="../../../pkg/runtime.html">runtime</a>
 		<a href="../../../src/runtime/debuglog.go.html#line-64">debuglog.go#L64</a>: 		all := (*dlogger)(unsafe.Pointer(atomic.<b>Loaduintptr</b>(allp)))
-		<a href="../../../src/runtime/debuglog.go.html#line-85" class="path-duplicate">debuglog.go</a><a href="../../../src/runtime/debuglog.go.html#line-85">#L85</a>: 			head := atomic.<b>Loaduintptr</b>(headp)
-		<a href="../../../src/runtime/debuglog.go.html#line-698" class="path-duplicate">debuglog.go</a><a href="../../../src/runtime/debuglog.go.html#line-698">#L698</a>: 	all := (*dlogger)(unsafe.Pointer(atomic.<b>Loaduintptr</b>(allp)))
-		<a href="../../../src/runtime/malloc.go.html#line-1449">malloc.go#L1449</a>: 	chunk := atomic.<b>Loaduintptr</b>((*uintptr)(unsafe.Pointer(&persistentChunks)))
-		<a href="../../../src/runtime/mgcmark.go.html#line-103">mgcmark.go#L103</a>: 	work.nStackRoots = int(atomic.<b>Loaduintptr</b>(&allglen))
-		<a href="../../../src/runtime/mheap.go.html#line-759">mheap.go#L759</a>: 		if credit := atomic.<b>Loaduintptr</b>(&h.reclaimCredit); credit > 0 {
-		<a href="../../../src/runtime/mheap.go.html#line-983" class="path-duplicate">mheap.go</a><a href="../../../src/runtime/mheap.go.html#line-983">#L983</a>: 		zeroedBase := atomic.<b>Loaduintptr</b>(&ha.zeroedBase)
-		<a href="../../../src/runtime/mheap.go.html#line-1013" class="path-duplicate">mheap.go</a><a href="../../../src/runtime/mheap.go.html#line-1013">#L1013</a>: 			zeroedBase = atomic.<b>Loaduintptr</b>(&ha.zeroedBase)
-		<a href="../../../src/runtime/mheap.go.html#line-1974" class="path-duplicate">mheap.go</a><a href="../../../src/runtime/mheap.go.html#line-1974">#L1974</a>: 	if b == nil || atomic.<b>Loaduintptr</b>(&b.free)+bytes > uintptr(len(b.bits)) {
-		<a href="../../../src/runtime/mspanset.go.html#line-80">mspanset.go#L80</a>: 	spineLen := atomic.<b>Loaduintptr</b>(&b.spineLen)
-		<a href="../../../src/runtime/mspanset.go.html#line-93" class="path-duplicate">mspanset.go</a><a href="../../../src/runtime/mspanset.go.html#line-93">#L93</a>: 		spineLen = atomic.<b>Loaduintptr</b>(&b.spineLen)
-		<a href="../../../src/runtime/mspanset.go.html#line-153" class="path-duplicate">mspanset.go</a><a href="../../../src/runtime/mspanset.go.html#line-153">#L153</a>: 		spineLen := atomic.<b>Loaduintptr</b>(&b.spineLen)
-		<a href="../../../src/runtime/netpoll.go.html#line-219">netpoll.go#L219</a>: 	wg := atomic.<b>Loaduintptr</b>(&pd.wg)
-		<a href="../../../src/runtime/netpoll.go.html#line-223" class="path-duplicate">netpoll.go</a><a href="../../../src/runtime/netpoll.go.html#line-223">#L223</a>: 	rg := atomic.<b>Loaduintptr</b>(&pd.rg)
-		<a href="../../../src/runtime/netpoll.go.html#line-253" class="path-duplicate">netpoll.go</a><a href="../../../src/runtime/netpoll.go.html#line-253">#L253</a>: 	wg := atomic.<b>Loaduintptr</b>(&pd.wg)
-		<a href="../../../src/runtime/netpoll.go.html#line-257" class="path-duplicate">netpoll.go</a><a href="../../../src/runtime/netpoll.go.html#line-257">#L257</a>: 	rg := atomic.<b>Loaduintptr</b>(&pd.rg)
-		<a href="../../../src/runtime/netpoll.go.html#line-514" class="path-duplicate">netpoll.go</a><a href="../../../src/runtime/netpoll.go.html#line-514">#L514</a>: 		if v := atomic.<b>Loaduintptr</b>(gpp); v != pdReady && v != 0 {
-		<a href="../../../src/runtime/netpoll.go.html#line-540" class="path-duplicate">netpoll.go</a><a href="../../../src/runtime/netpoll.go.html#line-540">#L540</a>: 		old := atomic.<b>Loaduintptr</b>(gpp)
-		<a href="../../../src/runtime/proc.go.html#line-564">proc.go#L564</a>: 	length := atomic.<b>Loaduintptr</b>(&allglen)
-		<a href="../../../src/runtime/proc.go.html#line-2140" class="path-duplicate">proc.go</a><a href="../../../src/runtime/proc.go.html#line-2140">#L2140</a>: 		old := atomic.<b>Loaduintptr</b>(&extram)
-		<a href="../../../src/runtime/proc.go.html#line-4645" class="path-duplicate">proc.go</a><a href="../../../src/runtime/proc.go.html#line-4645">#L4645</a>: 	n := int32(atomic.<b>Loaduintptr</b>(&allglen)) - sched.gFree.n - int32(atomic.Load(&sched.ngsys))
-		<a href="../../../src/runtime/proc.go.html#line-5930" class="path-duplicate">proc.go</a><a href="../../../src/runtime/proc.go.html#line-5930">#L5930</a>: 		runnext := atomic.<b>Loaduintptr</b>((*uintptr)(unsafe.Pointer(&_p_.runnext)))
-		<a href="../../../src/runtime/signal_unix.go.html#line-158">signal_unix.go#L158</a>: 		if atomic.<b>Loaduintptr</b>(&fwdSig[sig]) == _SIG_IGN {
-		<a href="../../../src/runtime/signal_unix.go.html#line-226" class="path-duplicate">signal_unix.go</a><a href="../../../src/runtime/signal_unix.go.html#line-226">#L226</a>: 			setsig(sig, atomic.<b>Loaduintptr</b>(&fwdSig[sig]))
-		<a href="../../../src/runtime/signal_unix.go.html#line-301" class="path-duplicate">signal_unix.go</a><a href="../../../src/runtime/signal_unix.go.html#line-301">#L301</a>: 				h := atomic.<b>Loaduintptr</b>(&fwdSig[_SIGPROF])
-		<a href="../../../src/runtime/signal_unix.go.html#line-805" class="path-duplicate">signal_unix.go</a><a href="../../../src/runtime/signal_unix.go.html#line-805">#L805</a>: 		handler = atomic.<b>Loaduintptr</b>(&fwdSig[sig])
-		<a href="../../../src/runtime/signal_unix.go.html#line-970" class="path-duplicate">signal_unix.go</a><a href="../../../src/runtime/signal_unix.go.html#line-970">#L970</a>: 	fwdFn := atomic.<b>Loaduintptr</b>(&fwdSig[sig])
-		<a href="../../../src/runtime/stack.go.html#line-993">stack.go#L993</a>: 	preempt := atomic.<b>Loaduintptr</b>(&gp.stackguard0) == stackPreempt
+		<a href="../../../src/runtime/debuglog.go.html#line-87" class="path-duplicate">debuglog.go</a><a href="../../../src/runtime/debuglog.go.html#line-87">#L87</a>: 			head := atomic.<b>Loaduintptr</b>(headp)
+		<a href="../../../src/runtime/debuglog.go.html#line-700" class="path-duplicate">debuglog.go</a><a href="../../../src/runtime/debuglog.go.html#line-700">#L700</a>: 	all := (*dlogger)(unsafe.Pointer(atomic.<b>Loaduintptr</b>(allp)))
+		<a href="../../../src/runtime/malloc.go.html#line-1410">malloc.go#L1410</a>: 	chunk := atomic.<b>Loaduintptr</b>((*uintptr)(unsafe.Pointer(&amp;persistentChunks)))
+		<a href="../../../src/runtime/mgcsweep.go.html#line-404">mgcsweep.go#L404</a>: 				released := atomic.<b>Loaduintptr</b>(&amp;mheap_.pages.scav.released)
+		<a href="../../../src/runtime/mheap.go.html#line-970">mheap.go#L970</a>: 		zeroedBase := atomic.<b>Loaduintptr</b>(&amp;ha.zeroedBase)
+		<a href="../../../src/runtime/mheap.go.html#line-1000" class="path-duplicate">mheap.go</a><a href="../../../src/runtime/mheap.go.html#line-1000">#L1000</a>: 			zeroedBase = atomic.<b>Loaduintptr</b>(&amp;ha.zeroedBase)
+		<a href="../../../src/runtime/mheap.go.html#line-2022" class="path-duplicate">mheap.go</a><a href="../../../src/runtime/mheap.go.html#line-2022">#L2022</a>: 	if b == nil || atomic.<b>Loaduintptr</b>(&amp;b.free)+bytes &gt; uintptr(len(b.bits)) {
+		<a href="../../../src/runtime/mspanset.go.html#line-80">mspanset.go#L80</a>: 	spineLen := atomic.<b>Loaduintptr</b>(&amp;b.spineLen)
+		<a href="../../../src/runtime/mspanset.go.html#line-93" class="path-duplicate">mspanset.go</a><a href="../../../src/runtime/mspanset.go.html#line-93">#L93</a>: 		spineLen = atomic.<b>Loaduintptr</b>(&amp;b.spineLen)
+		<a href="../../../src/runtime/mspanset.go.html#line-153" class="path-duplicate">mspanset.go</a><a href="../../../src/runtime/mspanset.go.html#line-153">#L153</a>: 		spineLen := atomic.<b>Loaduintptr</b>(&amp;b.spineLen)
+		<a href="../../../src/runtime/proc.go.html#line-563">proc.go#L563</a>: 	length := atomic.<b>Loaduintptr</b>(&amp;allglen)
+		<a href="../../../src/runtime/proc.go.html#line-2019" class="path-duplicate">proc.go</a><a href="../../../src/runtime/proc.go.html#line-2019">#L2019</a>: 		old := atomic.<b>Loaduintptr</b>(&amp;extram)
+		<a href="../../../src/runtime/proc.go.html#line-4469" class="path-duplicate">proc.go</a><a href="../../../src/runtime/proc.go.html#line-4469">#L4469</a>: 	n := int32(atomic.<b>Loaduintptr</b>(&amp;allglen)) - sched.gFree.n - int32(atomic.Load(&amp;sched.ngsys))
+		<a href="../../../src/runtime/proc.go.html#line-5754" class="path-duplicate">proc.go</a><a href="../../../src/runtime/proc.go.html#line-5754">#L5754</a>: 		runnext := atomic.<b>Loaduintptr</b>((*uintptr)(unsafe.Pointer(&amp;_p_.runnext)))
+		<a href="../../../src/runtime/signal_unix.go.html#line-160">signal_unix.go#L160</a>: 		if atomic.<b>Loaduintptr</b>(&amp;fwdSig[sig]) == _SIG_IGN {
+		<a href="../../../src/runtime/signal_unix.go.html#line-235" class="path-duplicate">signal_unix.go</a><a href="../../../src/runtime/signal_unix.go.html#line-235">#L235</a>: 			setsig(sig, atomic.<b>Loaduintptr</b>(&amp;fwdSig[sig]))
+		<a href="../../../src/runtime/signal_unix.go.html#line-319" class="path-duplicate">signal_unix.go</a><a href="../../../src/runtime/signal_unix.go.html#line-319">#L319</a>: 				h := atomic.<b>Loaduintptr</b>(&amp;fwdSig[_SIGPROF])
+		<a href="../../../src/runtime/signal_unix.go.html#line-906" class="path-duplicate">signal_unix.go</a><a href="../../../src/runtime/signal_unix.go.html#line-906">#L906</a>: 		handler = atomic.<b>Loaduintptr</b>(&amp;fwdSig[sig])
+		<a href="../../../src/runtime/signal_unix.go.html#line-1073" class="path-duplicate">signal_unix.go</a><a href="../../../src/runtime/signal_unix.go.html#line-1073">#L1073</a>: 	fwdFn := atomic.<b>Loaduintptr</b>(&amp;fwdSig[sig])
+		<a href="../../../src/runtime/stack.go.html#line-1007">stack.go#L1007</a>: 	stackguard0 := atomic.<b>Loaduintptr</b>(&amp;gp.stackguard0)
 </code></pre><pre id="footer">
 <table><tr><td><img src="../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

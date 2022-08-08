@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: conn.go in package github.com/gotd/td/telegram/internal/manager</title>
-<link href="../../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -55,7 +55,15 @@ input[id=r35]:checked ~pre label[for=r35],
 input[id=r36]:checked ~pre label[for=r36],
 input[id=r37]:checked ~pre label[for=r37],
 input[id=r38]:checked ~pre label[for=r38],
-input[id=r39]:checked ~pre label[for=r39]
+input[id=r39]:checked ~pre label[for=r39],
+input[id=r40]:checked ~pre label[for=r40],
+input[id=r41]:checked ~pre label[for=r41],
+input[id=r42]:checked ~pre label[for=r42],
+input[id=r43]:checked ~pre label[for=r43],
+input[id=r44]:checked ~pre label[for=r44],
+input[id=r45]:checked ~pre label[for=r45],
+input[id=r46]:checked ~pre label[for=r46],
+input[id=r47]:checked ~pre label[for=r47]
 {background: #226; color: #ff8;}
 input[id=i0]:checked ~pre .i0,
 input[id=i1]:checked ~pre .i1,
@@ -68,7 +76,8 @@ input[id=i7]:checked ~pre .i7,
 input[id=i8]:checked ~pre .i8,
 input[id=i9]:checked ~pre .i9,
 input[id=i10]:checked ~pre .i10,
-input[id=i11]:checked ~pre .i11
+input[id=i11]:checked ~pre .i11,
+input[id=i12]:checked ~pre .i12
 {background: brown; color: #eed;}
 </style><input id="r0" type="radio" name="g"/>
 <input id="r1" type="radio" name="g"/>
@@ -110,6 +119,14 @@ input[id=i11]:checked ~pre .i11
 <input id="r37" type="radio" name="g"/>
 <input id="r38" type="radio" name="g"/>
 <input id="r39" type="radio" name="g"/>
+<input id="r40" type="radio" name="g"/>
+<input id="r41" type="radio" name="g"/>
+<input id="r42" type="radio" name="g"/>
+<input id="r43" type="radio" name="g"/>
+<input id="r44" type="radio" name="g"/>
+<input id="r45" type="radio" name="g"/>
+<input id="r46" type="radio" name="g"/>
+<input id="r47" type="radio" name="g"/>
 <input id="i0" type="radio" name="i"/>
 <input id="i1" type="radio" name="i"/>
 <input id="i2" type="radio" name="i"/>
@@ -122,18 +139,19 @@ input[id=i11]:checked ~pre .i11
 <input id="i9" type="radio" name="i"/>
 <input id="i10" type="radio" name="i"/>
 <input id="i11" type="radio" name="i"/>
+<input id="i12" type="radio" name="i"/>
 
 <pre class="line-numbers">
 <span class="codeline" id="line-1"><code><span class="keyword">package</span> manager</code></span>
 <span class="codeline" id="line-2"><code></code></span>
 <span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
 <span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"context"</span></label></code></span>
-<span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"errors"</span></label></code></span>
-<span class="codeline" id="line-6"><code>	<label for="i2"><span class="lit-string i2">"sync"</span></label></code></span>
-<span class="codeline" id="line-7"><code>	<label for="i3"><span class="lit-string i3">"time"</span></label></code></span>
-<span class="codeline" id="line-8"><code></code></span>
-<span class="codeline" id="line-9"><code>	<label for="i4"><span class="lit-string i4">"go.uber.org/zap"</span></label></code></span>
-<span class="codeline" id="line-10"><code>	<label for="i5"><span class="lit-string i5">"golang.org/x/xerrors"</span></label></code></span>
+<span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"sync"</span></label></code></span>
+<span class="codeline" id="line-6"><code>	<label for="i2"><span class="lit-string i2">"time"</span></label></code></span>
+<span class="codeline" id="line-7"><code></code></span>
+<span class="codeline" id="line-8"><code>	<label for="i3"><span class="lit-string i3">"github.com/cenkalti/backoff/v4"</span></label></code></span>
+<span class="codeline" id="line-9"><code>	<label for="i4"><span class="lit-string i4">"github.com/go-faster/errors"</span></label></code></span>
+<span class="codeline" id="line-10"><code>	<label for="i5"><span class="lit-string i5">"go.uber.org/zap"</span></label></code></span>
 <span class="codeline" id="line-11"><code></code></span>
 <span class="codeline" id="line-12"><code>	<label for="i6"><span class="lit-string i6">"github.com/gotd/td/bin"</span></label></code></span>
 <span class="codeline" id="line-13"><code>	<label for="i7"><span class="lit-string i7">"github.com/gotd/td/clock"</span></label></code></span>
@@ -141,205 +159,243 @@ input[id=i11]:checked ~pre .i11
 <span class="codeline" id="line-15"><code>	<label for="i9"><span class="lit-string i9">"github.com/gotd/td/internal/pool"</span></label></code></span>
 <span class="codeline" id="line-16"><code>	<label for="i10"><span class="lit-string i10">"github.com/gotd/td/internal/tdsync"</span></label></code></span>
 <span class="codeline" id="line-17"><code>	<label for="i11"><span class="lit-string i11">"github.com/gotd/td/tg"</span></label></code></span>
-<span class="codeline" id="line-18"><code>)</code></span>
-<span class="codeline" id="line-19"><code></code></span>
-<span class="codeline" id="line-20"><code><span class="keyword">type</span> <a href="../../../../../../../pkg/github.com/gotd/td/telegram/internal/manager.html#name-protoConn" class="ident">protoConn</a> <span class="keyword">interface</span> {</code></span>
-<span class="codeline" id="line-21"><code>	<a href="../../../../../../../imp/github.com/gotd/td/telegram/internal/manager.protoConn^a57f9.html#name-Invoke" class="ident">Invoke</a>(ctx <a href="../../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../../context/context.go.html#line-62" class="ident">Context</a>, input <a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../../bin/bin.go.html#line-37" class="ident">Encoder</a>, output <a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../../bin/bin.go.html#line-42" class="ident">Decoder</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
-<span class="codeline" id="line-22"><code>	<a href="../../../../../../../imp/github.com/gotd/td/telegram/internal/manager.protoConn^a57f9.html#name-Run" class="ident">Run</a>(ctx <a href="../../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../../context/context.go.html#line-62" class="ident">Context</a>, f <span class="keyword">func</span>(ctx <a href="../../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
-<span class="codeline" id="line-23"><code>}</code></span>
-<span class="codeline" id="line-24"><code></code></span>
-<span class="codeline" id="line-25"><code><span class="comment">//go:generate go run -modfile=../../../_tools/go.mod golang.org/x/tools/cmd/stringer -type=ConnMode</span></code></span>
+<span class="codeline" id="line-18"><code>	<label for="i12"><span class="lit-string i12">"github.com/gotd/td/tgerr"</span></label></code></span>
+<span class="codeline" id="line-19"><code>)</code></span>
+<span class="codeline" id="line-20"><code></code></span>
+<span class="codeline" id="line-21"><code><span class="keyword">type</span> <a href="../../../../../../../pkg/github.com/gotd/td/telegram/internal/manager.html#name-protoConn" class="ident">protoConn</a> <span class="keyword">interface</span> {</code></span>
+<span class="codeline" id="line-22"><code>	<a href="../../../../../../../imp/github.com/gotd/td/telegram/internal/manager.protoConn^a57f9.html#name-Invoke" class="ident">Invoke</a>(ctx <a href="../../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../../context/context.go.html#line-62" class="ident">Context</a>, input <a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../../bin/bin.go.html#line-37" class="ident">Encoder</a>, output <a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../../bin/bin.go.html#line-42" class="ident">Decoder</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-23"><code>	<a href="../../../../../../../imp/github.com/gotd/td/telegram/internal/manager.protoConn^a57f9.html#name-Run" class="ident">Run</a>(ctx <a href="../../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../../context/context.go.html#line-62" class="ident">Context</a>, f <span class="keyword">func</span>(ctx <a href="../../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-24"><code>	<a href="../../../../../../../imp/github.com/gotd/td/telegram/internal/manager.protoConn^a57f9.html#name-Ping" class="ident">Ping</a>(ctx <a href="../../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-25"><code>}</code></span>
 <span class="codeline" id="line-26"><code></code></span>
-<span class="codeline" id="line-27"><code><span class="comment">// ConnMode represents connection mode.</span></code></span>
-<span class="codeline" id="line-28"><code><span class="keyword">type</span> <a href="../../../../../../../pkg/github.com/gotd/td/telegram/internal/manager.html#name-ConnMode" class="ident">ConnMode</a> <a href="../../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
-<span class="codeline" id="line-29"><code></code></span>
-<span class="codeline" id="line-30"><code><span class="keyword">const</span> (</code></span>
-<span class="codeline" id="line-31"><code>	<span class="comment">// ConnModeUpdates is update connection mode.</span></code></span>
-<span class="codeline" id="line-32"><code>	<a href="../../../../../../../pkg/github.com/gotd/td/telegram/internal/manager.html#name-ConnModeUpdates" class="ident">ConnModeUpdates</a> <a href="#line-28" class="ident">ConnMode</a> = <a href="../../../../../../../pkg/builtin.html#name-iota" class="ident">iota</a></code></span>
-<span class="codeline" id="line-33"><code>	<span class="comment">// ConnModeData is data connection mode.</span></code></span>
-<span class="codeline" id="line-34"><code>	<a href="../../../../../../../pkg/github.com/gotd/td/telegram/internal/manager.html#name-ConnModeData" class="ident">ConnModeData</a></code></span>
-<span class="codeline" id="line-35"><code>	<span class="comment">// ConnModeCDN is CDN connection mode.</span></code></span>
-<span class="codeline" id="line-36"><code>	<a href="../../../../../../../pkg/github.com/gotd/td/telegram/internal/manager.html#name-ConnModeCDN" class="ident">ConnModeCDN</a></code></span>
-<span class="codeline" id="line-37"><code>)</code></span>
-<span class="codeline" id="line-38"><code></code></span>
-<span class="codeline" id="line-39"><code><span class="comment">// Conn is a Telegram client connection.</span></code></span>
-<span class="codeline" id="line-40"><code><span class="keyword">type</span> <a href="../../../../../../../pkg/github.com/gotd/td/telegram/internal/manager.html#name-Conn" class="ident">Conn</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-41"><code>	<span class="comment">// Connection parameters.</span></code></span>
-<span class="codeline" id="line-42"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.mode^e642b.html" class="ident">mode</a> <a href="#line-28" class="ident">ConnMode</a> <span class="comment">// immutable</span></code></span>
-<span class="codeline" id="line-43"><code>	<span class="comment">// MTProto connection.</span></code></span>
-<span class="codeline" id="line-44"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.proto^1cafa.html" class="ident">proto</a> <a href="#line-20" class="ident">protoConn</a> <span class="comment">// immutable</span></code></span>
-<span class="codeline" id="line-45"><code></code></span>
-<span class="codeline" id="line-46"><code>	<span class="comment">// InitConnection parameters.</span></code></span>
-<span class="codeline" id="line-47"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.appID^69141.html" class="ident">appID</a>  <a href="../../../../../../../pkg/builtin.html#name-int" class="ident">int</a>          <span class="comment">// immutable</span></code></span>
-<span class="codeline" id="line-48"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.device^263a4.html" class="ident">device</a> <a href="device.go.html#line-4" class="ident">DeviceConfig</a> <span class="comment">// immutable</span></code></span>
-<span class="codeline" id="line-49"><code></code></span>
-<span class="codeline" id="line-50"><code>	<span class="comment">// setup is callback which called after initConnection, but before ready signaling.</span></code></span>
-<span class="codeline" id="line-51"><code><span class="comment">	// This is necessary to transfer auth from previous connection to another DC.</span></code></span>
-<span class="codeline" id="line-52"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.setup^8fb6d.html" class="ident">setup</a> <a href="create.go.html#line-12" class="ident">SetupCallback</a> <span class="comment">// nilable</span></code></span>
-<span class="codeline" id="line-53"><code></code></span>
-<span class="codeline" id="line-54"><code>	<span class="comment">// Wrappers for external world, like logs or PRNG.</span></code></span>
-<span class="codeline" id="line-55"><code><span class="comment">	// Should be immutable.</span></code></span>
-<span class="codeline" id="line-56"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.clock^d8198.html" class="ident">clock</a> <a href="../../../../../../../pkg/github.com/gotd/td/clock.html" class="ident i7">clock</a>.<a href="../../../clock/clock.go.html#line-11" class="ident">Clock</a> <span class="comment">// immutable</span></code></span>
-<span class="codeline" id="line-57"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.log^836ff.html" class="ident">log</a>   *<a href="../../../../../../../pkg/go.uber.org/zap.html" class="ident i4">zap</a>.<a href="../../../../../../go.uber.org/zap/logger.go.html#line-41" class="ident">Logger</a> <span class="comment">// immutable</span></code></span>
-<span class="codeline" id="line-58"><code></code></span>
-<span class="codeline" id="line-59"><code>	<span class="comment">// Handler passed by client.</span></code></span>
-<span class="codeline" id="line-60"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.handler^31283.html" class="ident">handler</a> <a href="handler.go.html#line-10" class="ident">Handler</a> <span class="comment">// immutable</span></code></span>
-<span class="codeline" id="line-61"><code></code></span>
-<span class="codeline" id="line-62"><code>	<span class="comment">// State fields.</span></code></span>
-<span class="codeline" id="line-63"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.cfg^e67d2.html" class="ident">cfg</a>     <a href="../../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i11">tg</a>.<a href="../../../tg/tl_config_gen.go.html#line-36" class="ident">Config</a></code></span>
-<span class="codeline" id="line-64"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.ongoing^2e0d9.html" class="ident">ongoing</a> <a href="../../../../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
-<span class="codeline" id="line-65"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.latest^5e1e2.html" class="ident">latest</a>  <a href="../../../../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../../../../time/time.go.html#line-127" class="ident">Time</a></code></span>
-<span class="codeline" id="line-66"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.mux^99830.html" class="ident">mux</a>     <a href="../../../../../../../pkg/sync.html" class="ident i2">sync</a>.<a href="../../../../../../sync/mutex.go.html#line-25" class="ident">Mutex</a></code></span>
-<span class="codeline" id="line-67"><code></code></span>
-<span class="codeline" id="line-68"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.sessionInit^51588.html" class="ident">sessionInit</a> *<a href="../../../../../../../pkg/github.com/gotd/td/internal/tdsync.html" class="ident i10">tdsync</a>.<a href="../../../internal/tdsync/ready.go.html#line-7" class="ident">Ready</a> <span class="comment">// immutable</span></code></span>
-<span class="codeline" id="line-69"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.gotConfig^d5093.html" class="ident">gotConfig</a>   *<a href="../../../../../../../pkg/github.com/gotd/td/internal/tdsync.html" class="ident i10">tdsync</a>.<a href="../../../internal/tdsync/ready.go.html#line-7" class="ident">Ready</a> <span class="comment">// immutable</span></code></span>
-<span class="codeline" id="line-70"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.dead^28a3a.html" class="ident">dead</a>        *<a href="../../../../../../../pkg/github.com/gotd/td/internal/tdsync.html" class="ident i10">tdsync</a>.<a href="../../../internal/tdsync/ready.go.html#line-7" class="ident">Ready</a> <span class="comment">// immutable</span></code></span>
-<span class="codeline" id="line-71"><code>}</code></span>
-<span class="codeline" id="line-72"><code></code></span>
-<span class="codeline" id="line-73"><code><span class="comment">// OnSession implements mtproto.Handler.</span></code></span>
-<span class="codeline" id="line-74"><code><span class="keyword">func</span> (<label for="r0" class="ident">c</label> *<a href="#line-40" class="ident">Conn</a>) <label for="r1" class="ident"><a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.OnSession.html" class="ident">OnSession</a></label>(<label for="r2" class="ident">session</label> <a href="../../../../../../../pkg/github.com/gotd/td/internal/mtproto.html" class="ident i8">mtproto</a>.<a href="../../../internal/mtproto/session.go.html#line-6" class="ident">Session</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-75"><code>	<label for="r0" class="ident">c</label>.<a href="#line-57" class="ident">log</a>.<a href="../../../../../../go.uber.org/zap/logger.go.html#line-187" class="ident">Info</a>(<span class="lit-string">"SessionInit"</span>)</code></span>
-<span class="codeline" id="line-76"><code>	<label for="r0" class="ident">c</label>.<a href="#line-68" class="ident">sessionInit</a>.<a href="../../../internal/tdsync/ready.go.html#line-26" class="ident">Signal</a>()</code></span>
-<span class="codeline" id="line-77"><code></code></span>
-<span class="codeline" id="line-78"><code>	<span class="comment">// Waiting for config, because OnSession can occur before we set config.</span></code></span>
-<span class="codeline" id="line-79"><code>	<a href="../../../../../../runtime/select.go.html#line-121"><span class="keyword">select</span></a> {</code></span>
-<span class="codeline" id="line-80"><code>	<span class="keyword">case</span> <a href="../../../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r0" class="ident">c</label>.<a href="#line-69" class="ident">gotConfig</a>.<a href="../../../internal/tdsync/ready.go.html#line-33" class="ident">Ready</a>():</code></span>
-<span class="codeline" id="line-81"><code>	<span class="keyword">case</span> <a href="../../../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r0" class="ident">c</label>.<a href="#line-70" class="ident">dead</a>.<a href="../../../internal/tdsync/ready.go.html#line-33" class="ident">Ready</a>():</code></span>
-<span class="codeline" id="line-82"><code>	}</code></span>
-<span class="codeline" id="line-83"><code></code></span>
-<span class="codeline" id="line-84"><code>	<label for="r0" class="ident">c</label>.<a href="#line-66" class="ident">mux</a>.<a href="../../../../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
-<span class="codeline" id="line-85"><code>	<label for="r3" class="ident">cfg</label> := <label for="r0" class="ident">c</label>.<a href="#line-63" class="ident">cfg</a></code></span>
-<span class="codeline" id="line-86"><code>	<label for="r0" class="ident">c</label>.<a href="#line-66" class="ident">mux</a>.<a href="../../../../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
-<span class="codeline" id="line-87"><code></code></span>
-<span class="codeline" id="line-88"><code>	<span class="keyword">return</span> <label for="r0" class="ident">c</label>.<a href="#line-60" class="ident">handler</a>.<a href="handler.go.html#line-11" class="ident">OnSession</a>(<label for="r3" class="ident">cfg</label>, <label for="r2" class="ident">session</label>)</code></span>
-<span class="codeline" id="line-89"><code>}</code></span>
-<span class="codeline" id="line-90"><code></code></span>
-<span class="codeline" id="line-91"><code><span class="keyword">func</span> (<label for="r4" class="ident">c</label> *<a href="#line-40" class="ident">Conn</a>) <label for="r5" class="ident"><a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.trackInvoke^2224d.html" class="ident">trackInvoke</a></label>() <span class="keyword">func</span>() {</code></span>
-<span class="codeline" id="line-92"><code>	<label for="r6" class="ident">start</label> := <label for="r4" class="ident">c</label>.<a href="#line-56" class="ident">clock</a>.<a href="../../../clock/clock.go.html#line-12" class="ident">Now</a>()</code></span>
-<span class="codeline" id="line-93"><code></code></span>
-<span class="codeline" id="line-94"><code>	<label for="r4" class="ident">c</label>.<a href="#line-66" class="ident">mux</a>.<a href="../../../../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
-<span class="codeline" id="line-95"><code>	<span class="keyword">defer</span> <label for="r4" class="ident">c</label>.<a href="#line-66" class="ident">mux</a>.<a href="../../../../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
-<span class="codeline" id="line-96"><code></code></span>
-<span class="codeline" id="line-97"><code>	<label for="r4" class="ident">c</label>.<a href="#line-64" class="ident">ongoing</a>++</code></span>
-<span class="codeline" id="line-98"><code>	<label for="r4" class="ident">c</label>.<a href="#line-65" class="ident">latest</a> = <label for="r6" class="ident">start</label></code></span>
-<span class="codeline" id="line-99"><code></code></span>
-<span class="codeline" id="line-100"><code>	<span class="keyword">return</span> <span class="keyword">func</span>() {</code></span>
-<span class="codeline" id="line-101"><code>		<label for="r4" class="ident">c</label>.<a href="#line-66" class="ident">mux</a>.<a href="../../../../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
-<span class="codeline" id="line-102"><code>		<span class="keyword">defer</span> <label for="r4" class="ident">c</label>.<a href="#line-66" class="ident">mux</a>.<a href="../../../../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
-<span class="codeline" id="line-103"><code></code></span>
-<span class="codeline" id="line-104"><code>		<label for="r4" class="ident">c</label>.<a href="#line-64" class="ident">ongoing</a>--</code></span>
-<span class="codeline" id="line-105"><code>		<label for="r7" class="ident">end</label> := <label for="r4" class="ident">c</label>.<a href="#line-56" class="ident">clock</a>.<a href="../../../clock/clock.go.html#line-12" class="ident">Now</a>()</code></span>
-<span class="codeline" id="line-106"><code>		<label for="r4" class="ident">c</label>.<a href="#line-65" class="ident">latest</a> = <label for="r7" class="ident">end</label></code></span>
-<span class="codeline" id="line-107"><code></code></span>
-<span class="codeline" id="line-108"><code>		<label for="r4" class="ident">c</label>.<a href="#line-57" class="ident">log</a>.<a href="../../../../../../go.uber.org/zap/logger.go.html#line-179" class="ident">Debug</a>(<span class="lit-string">"Invoke"</span>,</code></span>
-<span class="codeline" id="line-109"><code>			<a href="../../../../../../../pkg/go.uber.org/zap.html" class="ident i4">zap</a>.<a href="../../../../../../go.uber.org/zap/field.go.html#line-382" class="ident">Duration</a>(<span class="lit-string">"duration"</span>, <label for="r7" class="ident">end</label>.<a href="../../../../../../time/time.go.html#line-848" class="ident">Sub</a>(<label for="r6" class="ident">start</label>)),</code></span>
-<span class="codeline" id="line-110"><code>			<a href="../../../../../../../pkg/go.uber.org/zap.html" class="ident i4">zap</a>.<a href="../../../../../../go.uber.org/zap/field.go.html#line-151" class="ident">Int</a>(<span class="lit-string">"ongoing"</span>, <label for="r4" class="ident">c</label>.<a href="#line-64" class="ident">ongoing</a>),</code></span>
-<span class="codeline" id="line-111"><code>		)</code></span>
-<span class="codeline" id="line-112"><code>	}</code></span>
-<span class="codeline" id="line-113"><code>}</code></span>
-<span class="codeline" id="line-114"><code></code></span>
-<span class="codeline" id="line-115"><code><span class="comment">// Run initialize connection.</span></code></span>
-<span class="codeline" id="line-116"><code><span class="keyword">func</span> (<label for="r8" class="ident">c</label> *<a href="#line-40" class="ident">Conn</a>) <label for="r9" class="ident"><a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.Run.html" class="ident">Run</a></label>(<label for="r10" class="ident">ctx</label> <a href="../../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../../context/context.go.html#line-62" class="ident">Context</a>) (<label for="r11" class="ident">err</label> <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-117"><code>	<span class="keyword">defer</span> <label for="r8" class="ident">c</label>.<a href="#line-70" class="ident">dead</a>.<a href="../../../internal/tdsync/ready.go.html#line-26" class="ident">Signal</a>()</code></span>
-<span class="codeline" id="line-118"><code>	<span class="keyword">defer</span> <span class="keyword">func</span>() {</code></span>
-<span class="codeline" id="line-119"><code>		<span class="keyword">if</span> !<a href="../../../../../../../pkg/errors.html" class="ident i1">errors</a>.<a href="../../../../../../errors/wrap.go.html#line-39" class="ident">Is</a>(<label for="r11" class="ident">err</label>, <label for="r10" class="ident">ctx</label>.<a href="../../../../../../context/context.go.html#line-106" class="ident">Err</a>()) {</code></span>
-<span class="codeline" id="line-120"><code>			<label for="r8" class="ident">c</label>.<a href="#line-57" class="ident">log</a>.<a href="../../../../../../go.uber.org/zap/logger.go.html#line-179" class="ident">Debug</a>(<span class="lit-string">"Connection dead"</span>, <a href="../../../../../../../pkg/go.uber.org/zap.html" class="ident i4">zap</a>.<a href="../../../../../../go.uber.org/zap/error.go.html#line-34" class="ident">Error</a>(<label for="r11" class="ident">err</label>))</code></span>
-<span class="codeline" id="line-121"><code>		}</code></span>
-<span class="codeline" id="line-122"><code>	}()</code></span>
-<span class="codeline" id="line-123"><code>	<span class="keyword">return</span> <label for="r8" class="ident">c</label>.<a href="#line-44" class="ident">proto</a>.<a href="#line-22" class="ident">Run</a>(<label for="r10" class="ident">ctx</label>, <label for="r8" class="ident">c</label>.<a href="#line-177" class="ident">init</a>)</code></span>
-<span class="codeline" id="line-124"><code>}</code></span>
-<span class="codeline" id="line-125"><code></code></span>
-<span class="codeline" id="line-126"><code><span class="keyword">func</span> (<label for="r12" class="ident">c</label> *<a href="#line-40" class="ident">Conn</a>) <label for="r13" class="ident"><a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.waitSession^92313.html" class="ident">waitSession</a></label>(<label for="r14" class="ident">ctx</label> <a href="../../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-127"><code>	<a href="../../../../../../runtime/select.go.html#line-121"><span class="keyword">select</span></a> {</code></span>
-<span class="codeline" id="line-128"><code>	<span class="keyword">case</span> <a href="../../../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r12" class="ident">c</label>.<a href="#line-68" class="ident">sessionInit</a>.<a href="../../../internal/tdsync/ready.go.html#line-33" class="ident">Ready</a>():</code></span>
-<span class="codeline" id="line-129"><code>		<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-130"><code>	<span class="keyword">case</span> <a href="../../../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r12" class="ident">c</label>.<a href="#line-70" class="ident">dead</a>.<a href="../../../internal/tdsync/ready.go.html#line-33" class="ident">Ready</a>():</code></span>
-<span class="codeline" id="line-131"><code>		<span class="keyword">return</span> <a href="../../../../../../../pkg/github.com/gotd/td/internal/pool.html" class="ident i9">pool</a>.<a href="../../../internal/pool/pool_conn.go.html#line-14" class="ident">ErrConnDead</a></code></span>
-<span class="codeline" id="line-132"><code>	<span class="keyword">case</span> <a href="../../../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r14" class="ident">ctx</label>.<a href="../../../../../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
-<span class="codeline" id="line-133"><code>		<span class="keyword">return</span> <label for="r14" class="ident">ctx</label>.<a href="../../../../../../context/context.go.html#line-106" class="ident">Err</a>()</code></span>
-<span class="codeline" id="line-134"><code>	}</code></span>
-<span class="codeline" id="line-135"><code>}</code></span>
-<span class="codeline" id="line-136"><code></code></span>
-<span class="codeline" id="line-137"><code><span class="comment">// Ready returns channel to determine connection readiness.</span></code></span>
-<span class="codeline" id="line-138"><code><span class="comment">// Useful for pooling.</span></code></span>
-<span class="codeline" id="line-139"><code><span class="keyword">func</span> (<label for="r15" class="ident">c</label> *<a href="#line-40" class="ident">Conn</a>) <label for="r16" class="ident"><a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.Ready.html" class="ident">Ready</a></label>() &lt;-<span class="keyword">chan</span> <span class="keyword">struct</span>{} {</code></span>
-<span class="codeline" id="line-140"><code>	<span class="keyword">return</span> <label for="r15" class="ident">c</label>.<a href="#line-68" class="ident">sessionInit</a>.<a href="../../../internal/tdsync/ready.go.html#line-33" class="ident">Ready</a>()</code></span>
-<span class="codeline" id="line-141"><code>}</code></span>
-<span class="codeline" id="line-142"><code></code></span>
-<span class="codeline" id="line-143"><code><span class="comment">// Invoke implements Invoker.</span></code></span>
-<span class="codeline" id="line-144"><code><span class="keyword">func</span> (<label for="r17" class="ident">c</label> *<a href="#line-40" class="ident">Conn</a>) <label for="r18" class="ident"><a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.Invoke.html" class="ident">Invoke</a></label>(<label for="r19" class="ident">ctx</label> <a href="../../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r20" class="ident">input</label> <a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../../bin/bin.go.html#line-37" class="ident">Encoder</a>, <label for="r21" class="ident">output</label> <a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../../bin/bin.go.html#line-42" class="ident">Decoder</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-145"><code>	<span class="comment">// Tracking ongoing invokes.</span></code></span>
-<span class="codeline" id="line-146"><code>	<span class="keyword">defer</span> <label for="r17" class="ident">c</label>.<a href="#line-91" class="ident">trackInvoke</a>()()</code></span>
-<span class="codeline" id="line-147"><code>	<span class="keyword">if</span> <label for="r22" class="ident">err</label> := <label for="r17" class="ident">c</label>.<a href="#line-126" class="ident">waitSession</a>(<label for="r19" class="ident">ctx</label>); <label for="r22" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-148"><code>		<span class="keyword">return</span> <a href="../../../../../../../pkg/golang.org/x/xerrors.html" class="ident i5">xerrors</a>.<a href="../../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"waitSession: %w"</span>, <label for="r22" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-149"><code>	}</code></span>
-<span class="codeline" id="line-150"><code></code></span>
-<span class="codeline" id="line-151"><code>	<span class="keyword">return</span> <label for="r17" class="ident">c</label>.<a href="#line-44" class="ident">proto</a>.<a href="#line-21" class="ident">Invoke</a>(<label for="r19" class="ident">ctx</label>, <label for="r17" class="ident">c</label>.<a href="#line-167" class="ident">wrapRequest</a>(<a href="#line-159" class="ident">noopDecoder</a>{<label for="r20" class="ident">input</label>}), <label for="r21" class="ident">output</label>)</code></span>
-<span class="codeline" id="line-152"><code>}</code></span>
-<span class="codeline" id="line-153"><code></code></span>
-<span class="codeline" id="line-154"><code><span class="comment">// OnMessage implements mtproto.Handler.</span></code></span>
-<span class="codeline" id="line-155"><code><span class="keyword">func</span> (<label for="r23" class="ident">c</label> *<a href="#line-40" class="ident">Conn</a>) <label for="r24" class="ident"><a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.OnMessage.html" class="ident">OnMessage</a></label>(<label for="r25" class="ident">b</label> *<a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../../bin/buffer.go.html#line-8" class="ident">Buffer</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-156"><code>	<span class="keyword">return</span> <label for="r23" class="ident">c</label>.<a href="#line-60" class="ident">handler</a>.<a href="handler.go.html#line-12" class="ident">OnMessage</a>(<label for="r25" class="ident">b</label>)</code></span>
-<span class="codeline" id="line-157"><code>}</code></span>
-<span class="codeline" id="line-158"><code></code></span>
-<span class="codeline" id="line-159"><code><span class="keyword">type</span> <a href="../../../../../../../pkg/github.com/gotd/td/telegram/internal/manager.html#name-noopDecoder" class="ident">noopDecoder</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-160"><code>	<a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../../bin/bin.go.html#line-37" class="ident">Encoder</a></code></span>
-<span class="codeline" id="line-161"><code>}</code></span>
-<span class="codeline" id="line-162"><code></code></span>
-<span class="codeline" id="line-163"><code><span class="keyword">func</span> (<label for="r26" class="ident">n</label> <a href="#line-159" class="ident">noopDecoder</a>) <label for="r27" class="ident"><a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..noopDecoder^a665e.Decode.html" class="ident">Decode</a></label>(<label for="r28" class="ident">b</label> *<a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../../bin/buffer.go.html#line-8" class="ident">Buffer</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-164"><code>	<span class="keyword">return</span> <a href="../../../../../../../pkg/golang.org/x/xerrors.html" class="ident i5">xerrors</a>.<a href="../../../../../../golang.org/x/xerrors/errors.go.html#line-19" class="ident">New</a>(<span class="lit-string">"not implemented"</span>)</code></span>
+<span class="codeline" id="line-27"><code><span class="comment">//go:generate go run -modfile=../../../_tools/go.mod golang.org/x/tools/cmd/stringer -type=ConnMode</span></code></span>
+<span class="codeline" id="line-28"><code></code></span>
+<span class="codeline" id="line-29"><code><span class="comment">// ConnMode represents connection mode.</span></code></span>
+<span class="codeline" id="line-30"><code><span class="keyword">type</span> <a href="../../../../../../../pkg/github.com/gotd/td/telegram/internal/manager.html#name-ConnMode" class="ident">ConnMode</a> <a href="../../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-31"><code></code></span>
+<span class="codeline" id="line-32"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-33"><code>	<span class="comment">// ConnModeUpdates is update connection mode.</span></code></span>
+<span class="codeline" id="line-34"><code>	<a href="../../../../../../../pkg/github.com/gotd/td/telegram/internal/manager.html#name-ConnModeUpdates" class="ident">ConnModeUpdates</a> <a href="#line-30" class="ident">ConnMode</a> = <a href="../../../../../../../pkg/builtin.html#name-iota" class="ident">iota</a></code></span>
+<span class="codeline" id="line-35"><code>	<span class="comment">// ConnModeData is data connection mode.</span></code></span>
+<span class="codeline" id="line-36"><code>	<a href="../../../../../../../pkg/github.com/gotd/td/telegram/internal/manager.html#name-ConnModeData" class="ident">ConnModeData</a></code></span>
+<span class="codeline" id="line-37"><code>	<span class="comment">// ConnModeCDN is CDN connection mode.</span></code></span>
+<span class="codeline" id="line-38"><code>	<a href="../../../../../../../pkg/github.com/gotd/td/telegram/internal/manager.html#name-ConnModeCDN" class="ident">ConnModeCDN</a></code></span>
+<span class="codeline" id="line-39"><code>)</code></span>
+<span class="codeline" id="line-40"><code></code></span>
+<span class="codeline" id="line-41"><code><span class="comment">// Conn is a Telegram client connection.</span></code></span>
+<span class="codeline" id="line-42"><code><span class="keyword">type</span> <a href="../../../../../../../pkg/github.com/gotd/td/telegram/internal/manager.html#name-Conn" class="ident">Conn</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-43"><code>	<span class="comment">// Connection parameters.</span></code></span>
+<span class="codeline" id="line-44"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.mode^e642b.html" class="ident">mode</a> <a href="#line-30" class="ident">ConnMode</a> <span class="comment">// immutable</span></code></span>
+<span class="codeline" id="line-45"><code>	<span class="comment">// MTProto connection.</span></code></span>
+<span class="codeline" id="line-46"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.proto^1cafa.html" class="ident">proto</a> <a href="#line-21" class="ident">protoConn</a> <span class="comment">// immutable</span></code></span>
+<span class="codeline" id="line-47"><code></code></span>
+<span class="codeline" id="line-48"><code>	<span class="comment">// InitConnection parameters.</span></code></span>
+<span class="codeline" id="line-49"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.appID^69141.html" class="ident">appID</a>  <a href="../../../../../../../pkg/builtin.html#name-int" class="ident">int</a>          <span class="comment">// immutable</span></code></span>
+<span class="codeline" id="line-50"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.device^263a4.html" class="ident">device</a> <a href="device.go.html#line-11" class="ident">DeviceConfig</a> <span class="comment">// immutable</span></code></span>
+<span class="codeline" id="line-51"><code></code></span>
+<span class="codeline" id="line-52"><code>	<span class="comment">// setup is callback which called after initConnection, but before ready signaling.</span></code></span>
+<span class="codeline" id="line-53"><code><span class="comment">	// This is necessary to transfer auth from previous connection to another DC.</span></code></span>
+<span class="codeline" id="line-54"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.setup^8fb6d.html" class="ident">setup</a> <a href="create.go.html#line-16" class="ident">SetupCallback</a> <span class="comment">// nilable</span></code></span>
+<span class="codeline" id="line-55"><code></code></span>
+<span class="codeline" id="line-56"><code>	<span class="comment">// Wrappers for external world, like logs or PRNG.</span></code></span>
+<span class="codeline" id="line-57"><code><span class="comment">	// Should be immutable.</span></code></span>
+<span class="codeline" id="line-58"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.clock^d8198.html" class="ident">clock</a> <a href="../../../../../../../pkg/github.com/gotd/td/clock.html" class="ident i7">clock</a>.<a href="../../../clock/clock.go.html#line-11" class="ident">Clock</a> <span class="comment">// immutable</span></code></span>
+<span class="codeline" id="line-59"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.log^836ff.html" class="ident">log</a>   *<a href="../../../../../../../pkg/go.uber.org/zap.html" class="ident i5">zap</a>.<a href="../../../../../../go.uber.org/zap/logger.go.html#line-40" class="ident">Logger</a> <span class="comment">// immutable</span></code></span>
+<span class="codeline" id="line-60"><code></code></span>
+<span class="codeline" id="line-61"><code>	<span class="comment">// Handler passed by client.</span></code></span>
+<span class="codeline" id="line-62"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.handler^31283.html" class="ident">handler</a> <a href="handler.go.html#line-10" class="ident">Handler</a> <span class="comment">// immutable</span></code></span>
+<span class="codeline" id="line-63"><code></code></span>
+<span class="codeline" id="line-64"><code>	<span class="comment">// State fields.</span></code></span>
+<span class="codeline" id="line-65"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.cfg^e67d2.html" class="ident">cfg</a>     <a href="../../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i11">tg</a>.<a href="../../../tg/tl_config_gen.go.html#line-38" class="ident">Config</a></code></span>
+<span class="codeline" id="line-66"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.ongoing^2e0d9.html" class="ident">ongoing</a> <a href="../../../../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-67"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.latest^5e1e2.html" class="ident">latest</a>  <a href="../../../../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../../../../time/time.go.html#line-129" class="ident">Time</a></code></span>
+<span class="codeline" id="line-68"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.mux^99830.html" class="ident">mux</a>     <a href="../../../../../../../pkg/sync.html" class="ident i1">sync</a>.<a href="../../../../../../sync/mutex.go.html#line-34" class="ident">Mutex</a></code></span>
+<span class="codeline" id="line-69"><code></code></span>
+<span class="codeline" id="line-70"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.sessionInit^51588.html" class="ident">sessionInit</a> *<a href="../../../../../../../pkg/github.com/gotd/td/internal/tdsync.html" class="ident i10">tdsync</a>.<a href="../../../internal/tdsync/ready.go.html#line-7" class="ident">Ready</a> <span class="comment">// immutable</span></code></span>
+<span class="codeline" id="line-71"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.gotConfig^d5093.html" class="ident">gotConfig</a>   *<a href="../../../../../../../pkg/github.com/gotd/td/internal/tdsync.html" class="ident i10">tdsync</a>.<a href="../../../internal/tdsync/ready.go.html#line-7" class="ident">Ready</a> <span class="comment">// immutable</span></code></span>
+<span class="codeline" id="line-72"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.dead^28a3a.html" class="ident">dead</a>        *<a href="../../../../../../../pkg/github.com/gotd/td/internal/tdsync.html" class="ident i10">tdsync</a>.<a href="../../../internal/tdsync/ready.go.html#line-7" class="ident">Ready</a> <span class="comment">// immutable</span></code></span>
+<span class="codeline" id="line-73"><code></code></span>
+<span class="codeline" id="line-74"><code>	<a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.connBackoff^d4bf7.html" class="ident">connBackoff</a> <span class="keyword">func</span>(ctx <a href="../../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../../../../../pkg/github.com/cenkalti/backoff/v4.html" class="ident i3">backoff</a>.<a href="../../../../../cenkalti/backoff/v4/backoff.go.html#line-16" class="ident">BackOff</a> <span class="comment">// immutable</span></code></span>
+<span class="codeline" id="line-75"><code>}</code></span>
+<span class="codeline" id="line-76"><code></code></span>
+<span class="codeline" id="line-77"><code><span class="comment">// OnSession implements mtproto.Handler.</span></code></span>
+<span class="codeline" id="line-78"><code><span class="keyword">func</span> (<label for="r0" class="ident">c</label> *<a href="#line-42" class="ident">Conn</a>) <label for="r1" class="ident"><a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.OnSession.html" class="ident">OnSession</a></label>(<label for="r2" class="ident">session</label> <a href="../../../../../../../pkg/github.com/gotd/td/internal/mtproto.html" class="ident i8">mtproto</a>.<a href="../../../internal/mtproto/session.go.html#line-6" class="ident">Session</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-79"><code>	<label for="r0" class="ident">c</label>.<a href="#line-59" class="ident">log</a>.<a href="../../../../../../go.uber.org/zap/logger.go.html#line-190" class="ident">Info</a>(<span class="lit-string">"SessionInit"</span>)</code></span>
+<span class="codeline" id="line-80"><code>	<label for="r0" class="ident">c</label>.<a href="#line-70" class="ident">sessionInit</a>.<a href="../../../internal/tdsync/ready.go.html#line-26" class="ident">Signal</a>()</code></span>
+<span class="codeline" id="line-81"><code></code></span>
+<span class="codeline" id="line-82"><code>	<span class="comment">// Waiting for config, because OnSession can occur before we set config.</span></code></span>
+<span class="codeline" id="line-83"><code>	<a href="../../../../../../runtime/select.go.html#line-122"><span class="keyword">select</span></a> {</code></span>
+<span class="codeline" id="line-84"><code>	<span class="keyword">case</span> <a href="../../../../../../runtime/chan.go.html#line-441">&lt;-</a><label for="r0" class="ident">c</label>.<a href="#line-71" class="ident">gotConfig</a>.<a href="../../../internal/tdsync/ready.go.html#line-33" class="ident">Ready</a>():</code></span>
+<span class="codeline" id="line-85"><code>	<span class="keyword">case</span> <a href="../../../../../../runtime/chan.go.html#line-441">&lt;-</a><label for="r0" class="ident">c</label>.<a href="#line-72" class="ident">dead</a>.<a href="../../../internal/tdsync/ready.go.html#line-33" class="ident">Ready</a>():</code></span>
+<span class="codeline" id="line-86"><code>		<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-87"><code>	}</code></span>
+<span class="codeline" id="line-88"><code></code></span>
+<span class="codeline" id="line-89"><code>	<label for="r0" class="ident">c</label>.<a href="#line-68" class="ident">mux</a>.<a href="../../../../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-90"><code>	<label for="r3" class="ident">cfg</label> := <label for="r0" class="ident">c</label>.<a href="#line-65" class="ident">cfg</a></code></span>
+<span class="codeline" id="line-91"><code>	<label for="r0" class="ident">c</label>.<a href="#line-68" class="ident">mux</a>.<a href="../../../../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-92"><code></code></span>
+<span class="codeline" id="line-93"><code>	<span class="keyword">return</span> <label for="r0" class="ident">c</label>.<a href="#line-62" class="ident">handler</a>.<a href="handler.go.html#line-11" class="ident">OnSession</a>(<label for="r3" class="ident">cfg</label>, <label for="r2" class="ident">session</label>)</code></span>
+<span class="codeline" id="line-94"><code>}</code></span>
+<span class="codeline" id="line-95"><code></code></span>
+<span class="codeline" id="line-96"><code><span class="keyword">func</span> (<label for="r4" class="ident">c</label> *<a href="#line-42" class="ident">Conn</a>) <label for="r5" class="ident"><a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.trackInvoke^2224d.html" class="ident">trackInvoke</a></label>() <span class="keyword">func</span>() {</code></span>
+<span class="codeline" id="line-97"><code>	<label for="r6" class="ident">start</label> := <label for="r4" class="ident">c</label>.<a href="#line-58" class="ident">clock</a>.<a href="../../../clock/clock.go.html#line-12" class="ident">Now</a>()</code></span>
+<span class="codeline" id="line-98"><code></code></span>
+<span class="codeline" id="line-99"><code>	<label for="r4" class="ident">c</label>.<a href="#line-68" class="ident">mux</a>.<a href="../../../../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-100"><code>	<span class="keyword">defer</span> <label for="r4" class="ident">c</label>.<a href="#line-68" class="ident">mux</a>.<a href="../../../../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-101"><code></code></span>
+<span class="codeline" id="line-102"><code>	<label for="r4" class="ident">c</label>.<a href="#line-66" class="ident">ongoing</a>++</code></span>
+<span class="codeline" id="line-103"><code>	<label for="r4" class="ident">c</label>.<a href="#line-67" class="ident">latest</a> = <label for="r6" class="ident">start</label></code></span>
+<span class="codeline" id="line-104"><code></code></span>
+<span class="codeline" id="line-105"><code>	<span class="keyword">return</span> <span class="keyword">func</span>() {</code></span>
+<span class="codeline" id="line-106"><code>		<label for="r4" class="ident">c</label>.<a href="#line-68" class="ident">mux</a>.<a href="../../../../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-107"><code>		<span class="keyword">defer</span> <label for="r4" class="ident">c</label>.<a href="#line-68" class="ident">mux</a>.<a href="../../../../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-108"><code></code></span>
+<span class="codeline" id="line-109"><code>		<label for="r4" class="ident">c</label>.<a href="#line-66" class="ident">ongoing</a>--</code></span>
+<span class="codeline" id="line-110"><code>		<label for="r7" class="ident">end</label> := <label for="r4" class="ident">c</label>.<a href="#line-58" class="ident">clock</a>.<a href="../../../clock/clock.go.html#line-12" class="ident">Now</a>()</code></span>
+<span class="codeline" id="line-111"><code>		<label for="r4" class="ident">c</label>.<a href="#line-67" class="ident">latest</a> = <label for="r7" class="ident">end</label></code></span>
+<span class="codeline" id="line-112"><code></code></span>
+<span class="codeline" id="line-113"><code>		<label for="r4" class="ident">c</label>.<a href="#line-59" class="ident">log</a>.<a href="../../../../../../go.uber.org/zap/logger.go.html#line-182" class="ident">Debug</a>(<span class="lit-string">"Invoke"</span>,</code></span>
+<span class="codeline" id="line-114"><code>			<a href="../../../../../../../pkg/go.uber.org/zap.html" class="ident i5">zap</a>.<a href="../../../../../../go.uber.org/zap/field.go.html#line-382" class="ident">Duration</a>(<span class="lit-string">"duration"</span>, <label for="r7" class="ident">end</label>.<a href="../../../../../../time/time.go.html#line-863" class="ident">Sub</a>(<label for="r6" class="ident">start</label>)),</code></span>
+<span class="codeline" id="line-115"><code>			<a href="../../../../../../../pkg/go.uber.org/zap.html" class="ident i5">zap</a>.<a href="../../../../../../go.uber.org/zap/field.go.html#line-151" class="ident">Int</a>(<span class="lit-string">"ongoing"</span>, <label for="r4" class="ident">c</label>.<a href="#line-66" class="ident">ongoing</a>),</code></span>
+<span class="codeline" id="line-116"><code>		)</code></span>
+<span class="codeline" id="line-117"><code>	}</code></span>
+<span class="codeline" id="line-118"><code>}</code></span>
+<span class="codeline" id="line-119"><code></code></span>
+<span class="codeline" id="line-120"><code><span class="comment">// Run initialize connection.</span></code></span>
+<span class="codeline" id="line-121"><code><span class="keyword">func</span> (<label for="r8" class="ident">c</label> *<a href="#line-42" class="ident">Conn</a>) <label for="r9" class="ident"><a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.Run.html" class="ident">Run</a></label>(<label for="r10" class="ident">ctx</label> <a href="../../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../../context/context.go.html#line-62" class="ident">Context</a>) (<label for="r11" class="ident">err</label> <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-122"><code>	<span class="keyword">defer</span> <label for="r8" class="ident">c</label>.<a href="#line-72" class="ident">dead</a>.<a href="../../../internal/tdsync/ready.go.html#line-26" class="ident">Signal</a>()</code></span>
+<span class="codeline" id="line-123"><code>	<span class="keyword">defer</span> <span class="keyword">func</span>() {</code></span>
+<span class="codeline" id="line-124"><code>		<span class="keyword">if</span> <label for="r11" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> &amp;&amp; <label for="r10" class="ident">ctx</label>.<a href="../../../../../../context/context.go.html#line-106" class="ident">Err</a>() == <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-125"><code>			<label for="r8" class="ident">c</label>.<a href="#line-59" class="ident">log</a>.<a href="../../../../../../go.uber.org/zap/logger.go.html#line-182" class="ident">Debug</a>(<span class="lit-string">"Connection dead"</span>, <a href="../../../../../../../pkg/go.uber.org/zap.html" class="ident i5">zap</a>.<a href="../../../../../../go.uber.org/zap/error.go.html#line-34" class="ident">Error</a>(<label for="r11" class="ident">err</label>))</code></span>
+<span class="codeline" id="line-126"><code>		}</code></span>
+<span class="codeline" id="line-127"><code>	}()</code></span>
+<span class="codeline" id="line-128"><code>	<span class="keyword">return</span> <label for="r8" class="ident">c</label>.<a href="#line-46" class="ident">proto</a>.<a href="#line-23" class="ident">Run</a>(<label for="r10" class="ident">ctx</label>, <span class="keyword">func</span>(<label for="r12" class="ident">ctx</label> <a href="../../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-129"><code>		<span class="comment">// Signal death on init error. Otherwise connection shutdown</span></code></span>
+<span class="codeline" id="line-130"><code><span class="comment">		// deadlocks in OnSession that occurs before init fails.</span></code></span>
+<span class="codeline" id="line-131"><code>		<label for="r13" class="ident">err</label> := <label for="r8" class="ident">c</label>.<a href="#line-190" class="ident">init</a>(<label for="r12" class="ident">ctx</label>)</code></span>
+<span class="codeline" id="line-132"><code>		<span class="keyword">if</span> <label for="r13" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-133"><code>			<label for="r8" class="ident">c</label>.<a href="#line-72" class="ident">dead</a>.<a href="../../../internal/tdsync/ready.go.html#line-26" class="ident">Signal</a>()</code></span>
+<span class="codeline" id="line-134"><code>		}</code></span>
+<span class="codeline" id="line-135"><code>		<span class="keyword">return</span> <label for="r13" class="ident">err</label></code></span>
+<span class="codeline" id="line-136"><code>	})</code></span>
+<span class="codeline" id="line-137"><code>}</code></span>
+<span class="codeline" id="line-138"><code></code></span>
+<span class="codeline" id="line-139"><code><span class="keyword">func</span> (<label for="r14" class="ident">c</label> *<a href="#line-42" class="ident">Conn</a>) <label for="r15" class="ident"><a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.waitSession^92313.html" class="ident">waitSession</a></label>(<label for="r16" class="ident">ctx</label> <a href="../../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-140"><code>	<a href="../../../../../../runtime/select.go.html#line-122"><span class="keyword">select</span></a> {</code></span>
+<span class="codeline" id="line-141"><code>	<span class="keyword">case</span> <a href="../../../../../../runtime/chan.go.html#line-441">&lt;-</a><label for="r14" class="ident">c</label>.<a href="#line-70" class="ident">sessionInit</a>.<a href="../../../internal/tdsync/ready.go.html#line-33" class="ident">Ready</a>():</code></span>
+<span class="codeline" id="line-142"><code>		<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-143"><code>	<span class="keyword">case</span> <a href="../../../../../../runtime/chan.go.html#line-441">&lt;-</a><label for="r14" class="ident">c</label>.<a href="#line-72" class="ident">dead</a>.<a href="../../../internal/tdsync/ready.go.html#line-33" class="ident">Ready</a>():</code></span>
+<span class="codeline" id="line-144"><code>		<span class="keyword">return</span> <a href="../../../../../../../pkg/github.com/gotd/td/internal/pool.html" class="ident i9">pool</a>.<a href="../../../internal/pool/pool_conn.go.html#line-14" class="ident">ErrConnDead</a></code></span>
+<span class="codeline" id="line-145"><code>	<span class="keyword">case</span> <a href="../../../../../../runtime/chan.go.html#line-441">&lt;-</a><label for="r16" class="ident">ctx</label>.<a href="../../../../../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
+<span class="codeline" id="line-146"><code>		<span class="keyword">return</span> <label for="r16" class="ident">ctx</label>.<a href="../../../../../../context/context.go.html#line-106" class="ident">Err</a>()</code></span>
+<span class="codeline" id="line-147"><code>	}</code></span>
+<span class="codeline" id="line-148"><code>}</code></span>
+<span class="codeline" id="line-149"><code></code></span>
+<span class="codeline" id="line-150"><code><span class="comment">// Ready returns channel to determine connection readiness.</span></code></span>
+<span class="codeline" id="line-151"><code><span class="comment">// Useful for pooling.</span></code></span>
+<span class="codeline" id="line-152"><code><span class="keyword">func</span> (<label for="r17" class="ident">c</label> *<a href="#line-42" class="ident">Conn</a>) <label for="r18" class="ident"><a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.Ready.html" class="ident">Ready</a></label>() &lt;-<span class="keyword">chan</span> <span class="keyword">struct</span>{} {</code></span>
+<span class="codeline" id="line-153"><code>	<span class="keyword">return</span> <label for="r17" class="ident">c</label>.<a href="#line-70" class="ident">sessionInit</a>.<a href="../../../internal/tdsync/ready.go.html#line-33" class="ident">Ready</a>()</code></span>
+<span class="codeline" id="line-154"><code>}</code></span>
+<span class="codeline" id="line-155"><code></code></span>
+<span class="codeline" id="line-156"><code><span class="comment">// Invoke implements Invoker.</span></code></span>
+<span class="codeline" id="line-157"><code><span class="keyword">func</span> (<label for="r19" class="ident">c</label> *<a href="#line-42" class="ident">Conn</a>) <label for="r20" class="ident"><a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.Invoke.html" class="ident">Invoke</a></label>(<label for="r21" class="ident">ctx</label> <a href="../../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r22" class="ident">input</label> <a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../../bin/bin.go.html#line-37" class="ident">Encoder</a>, <label for="r23" class="ident">output</label> <a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../../bin/bin.go.html#line-42" class="ident">Decoder</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-158"><code>	<span class="comment">// Tracking ongoing invokes.</span></code></span>
+<span class="codeline" id="line-159"><code>	<span class="keyword">defer</span> <label for="r19" class="ident">c</label>.<a href="#line-96" class="ident">trackInvoke</a>()()</code></span>
+<span class="codeline" id="line-160"><code>	<span class="keyword">if</span> <label for="r24" class="ident">err</label> := <label for="r19" class="ident">c</label>.<a href="#line-139" class="ident">waitSession</a>(<label for="r21" class="ident">ctx</label>); <label for="r24" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-161"><code>		<span class="keyword">return</span> <a href="../../../../../../../pkg/github.com/go-faster/errors.html" class="ident i4">errors</a>.<a href="../../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r24" class="ident">err</label>, <span class="lit-string">"waitSession"</span>)</code></span>
+<span class="codeline" id="line-162"><code>	}</code></span>
+<span class="codeline" id="line-163"><code></code></span>
+<span class="codeline" id="line-164"><code>	<span class="keyword">return</span> <label for="r19" class="ident">c</label>.<a href="#line-46" class="ident">proto</a>.<a href="#line-22" class="ident">Invoke</a>(<label for="r21" class="ident">ctx</label>, <label for="r19" class="ident">c</label>.<a href="#line-180" class="ident">wrapRequest</a>(<a href="#line-172" class="ident">noopDecoder</a>{<label for="r22" class="ident">input</label>}), <label for="r23" class="ident">output</label>)</code></span>
 <span class="codeline" id="line-165"><code>}</code></span>
 <span class="codeline" id="line-166"><code></code></span>
-<span class="codeline" id="line-167"><code><span class="keyword">func</span> (<label for="r29" class="ident">c</label> *<a href="#line-40" class="ident">Conn</a>) <label for="r30" class="ident"><a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.wrapRequest^81916.html" class="ident">wrapRequest</a></label>(<label for="r31" class="ident">req</label> <a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../../bin/bin.go.html#line-59" class="ident">Object</a>) <a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../../bin/bin.go.html#line-59" class="ident">Object</a> {</code></span>
-<span class="codeline" id="line-168"><code>	<span class="keyword">if</span> <label for="r29" class="ident">c</label>.<a href="#line-42" class="ident">mode</a> != <a href="#line-32" class="ident">ConnModeUpdates</a> {</code></span>
-<span class="codeline" id="line-169"><code>		<span class="keyword">return</span> &amp;<a href="../../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i11">tg</a>.<a href="../../../tg/tl_invoke_without_updates_gen.go.html#line-41" class="ident">InvokeWithoutUpdatesRequest</a>{</code></span>
-<span class="codeline" id="line-170"><code>			<a href="../../../tg/tl_invoke_without_updates_gen.go.html#line-43" class="ident">Query</a>: <label for="r31" class="ident">req</label>,</code></span>
-<span class="codeline" id="line-171"><code>		}</code></span>
-<span class="codeline" id="line-172"><code>	}</code></span>
-<span class="codeline" id="line-173"><code></code></span>
-<span class="codeline" id="line-174"><code>	<span class="keyword">return</span> <label for="r31" class="ident">req</label></code></span>
-<span class="codeline" id="line-175"><code>}</code></span>
-<span class="codeline" id="line-176"><code></code></span>
-<span class="codeline" id="line-177"><code><span class="keyword">func</span> (<label for="r32" class="ident">c</label> *<a href="#line-40" class="ident">Conn</a>) <label for="r33" class="ident"><a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.init^bb540.html" class="ident">init</a></label>(<label for="r34" class="ident">ctx</label> <a href="../../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-178"><code>	<span class="keyword">defer</span> <label for="r32" class="ident">c</label>.<a href="#line-69" class="ident">gotConfig</a>.<a href="../../../internal/tdsync/ready.go.html#line-26" class="ident">Signal</a>()</code></span>
-<span class="codeline" id="line-179"><code>	<label for="r32" class="ident">c</label>.<a href="#line-57" class="ident">log</a>.<a href="../../../../../../go.uber.org/zap/logger.go.html#line-179" class="ident">Debug</a>(<span class="lit-string">"Initializing"</span>)</code></span>
-<span class="codeline" id="line-180"><code></code></span>
-<span class="codeline" id="line-181"><code>	<label for="r35" class="ident">q</label> := <label for="r32" class="ident">c</label>.<a href="#line-167" class="ident">wrapRequest</a>(&amp;<a href="../../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i11">tg</a>.<a href="../../../tg/tl_init_connection_gen.go.html#line-36" class="ident">InitConnectionRequest</a>{</code></span>
-<span class="codeline" id="line-182"><code>		<a href="../../../tg/tl_init_connection_gen.go.html#line-46" class="ident">APIID</a>:          <label for="r32" class="ident">c</label>.<a href="#line-47" class="ident">appID</a>,</code></span>
-<span class="codeline" id="line-183"><code>		<a href="../../../tg/tl_init_connection_gen.go.html#line-48" class="ident">DeviceModel</a>:    <label for="r32" class="ident">c</label>.<a href="#line-48" class="ident">device</a>.<a href="device.go.html#line-6" class="ident">DeviceModel</a>,</code></span>
-<span class="codeline" id="line-184"><code>		<a href="../../../tg/tl_init_connection_gen.go.html#line-50" class="ident">SystemVersion</a>:  <label for="r32" class="ident">c</label>.<a href="#line-48" class="ident">device</a>.<a href="device.go.html#line-8" class="ident">SystemVersion</a>,</code></span>
-<span class="codeline" id="line-185"><code>		<a href="../../../tg/tl_init_connection_gen.go.html#line-52" class="ident">AppVersion</a>:     <label for="r32" class="ident">c</label>.<a href="#line-48" class="ident">device</a>.<a href="device.go.html#line-10" class="ident">AppVersion</a>,</code></span>
-<span class="codeline" id="line-186"><code>		<a href="../../../tg/tl_init_connection_gen.go.html#line-54" class="ident">SystemLangCode</a>: <label for="r32" class="ident">c</label>.<a href="#line-48" class="ident">device</a>.<a href="device.go.html#line-12" class="ident">SystemLangCode</a>,</code></span>
-<span class="codeline" id="line-187"><code>		<a href="../../../tg/tl_init_connection_gen.go.html#line-56" class="ident">LangPack</a>:       <label for="r32" class="ident">c</label>.<a href="#line-48" class="ident">device</a>.<a href="device.go.html#line-14" class="ident">LangPack</a>,</code></span>
-<span class="codeline" id="line-188"><code>		<a href="../../../tg/tl_init_connection_gen.go.html#line-58" class="ident">LangCode</a>:       <label for="r32" class="ident">c</label>.<a href="#line-48" class="ident">device</a>.<a href="device.go.html#line-16" class="ident">LangCode</a>,</code></span>
-<span class="codeline" id="line-189"><code>		<a href="../../../tg/tl_init_connection_gen.go.html#line-69" class="ident">Query</a>:          <label for="r32" class="ident">c</label>.<a href="#line-167" class="ident">wrapRequest</a>(&amp;<a href="../../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i11">tg</a>.<a href="../../../tg/tl_help_get_config_gen.go.html#line-36" class="ident">HelpGetConfigRequest</a>{}),</code></span>
-<span class="codeline" id="line-190"><code>	})</code></span>
-<span class="codeline" id="line-191"><code>	<label for="r36" class="ident">req</label> := <label for="r32" class="ident">c</label>.<a href="#line-167" class="ident">wrapRequest</a>(&amp;<a href="../../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i11">tg</a>.<a href="../../../tg/tl_invoke_with_layer_gen.go.html#line-39" class="ident">InvokeWithLayerRequest</a>{</code></span>
-<span class="codeline" id="line-192"><code>		<a href="../../../tg/tl_invoke_with_layer_gen.go.html#line-41" class="ident">Layer</a>: <a href="../../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i11">tg</a>.<a href="../../../tg/tl_registry_gen.go.html#line-33" class="ident">Layer</a>,</code></span>
-<span class="codeline" id="line-193"><code>		<a href="../../../tg/tl_invoke_with_layer_gen.go.html#line-43" class="ident">Query</a>: <label for="r35" class="ident">q</label>,</code></span>
-<span class="codeline" id="line-194"><code>	})</code></span>
-<span class="codeline" id="line-195"><code></code></span>
-<span class="codeline" id="line-196"><code>	<span class="keyword">var</span> <label for="r37" class="ident">cfg</label> <a href="../../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i11">tg</a>.<a href="../../../tg/tl_config_gen.go.html#line-36" class="ident">Config</a></code></span>
-<span class="codeline" id="line-197"><code>	<span class="keyword">if</span> <label for="r38" class="ident">err</label> := <label for="r32" class="ident">c</label>.<a href="#line-44" class="ident">proto</a>.<a href="#line-21" class="ident">Invoke</a>(<label for="r34" class="ident">ctx</label>, <label for="r36" class="ident">req</label>, &amp;<label for="r37" class="ident">cfg</label>); <label for="r38" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-198"><code>		<span class="keyword">return</span> <a href="../../../../../../../pkg/golang.org/x/xerrors.html" class="ident i5">xerrors</a>.<a href="../../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"invoke: %w"</span>, <label for="r38" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-199"><code>	}</code></span>
-<span class="codeline" id="line-200"><code></code></span>
-<span class="codeline" id="line-201"><code>	<span class="keyword">if</span> <label for="r32" class="ident">c</label>.<a href="#line-52" class="ident">setup</a> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-202"><code>		<span class="keyword">if</span> <label for="r39" class="ident">err</label> := <label for="r32" class="ident">c</label>.<a href="#line-52" class="ident">setup</a>(<label for="r34" class="ident">ctx</label>, <label for="r32" class="ident">c</label>); <label for="r39" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-203"><code>			<span class="keyword">return</span> <a href="../../../../../../../pkg/golang.org/x/xerrors.html" class="ident i5">xerrors</a>.<a href="../../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"setup: %w"</span>, <label for="r39" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-204"><code>		}</code></span>
-<span class="codeline" id="line-205"><code>	}</code></span>
-<span class="codeline" id="line-206"><code></code></span>
-<span class="codeline" id="line-207"><code>	<label for="r32" class="ident">c</label>.<a href="#line-66" class="ident">mux</a>.<a href="../../../../../../sync/mutex.go.html#line-72" class="ident">Lock</a>()</code></span>
-<span class="codeline" id="line-208"><code>	<label for="r32" class="ident">c</label>.<a href="#line-65" class="ident">latest</a> = <label for="r32" class="ident">c</label>.<a href="#line-56" class="ident">clock</a>.<a href="../../../clock/clock.go.html#line-12" class="ident">Now</a>()</code></span>
-<span class="codeline" id="line-209"><code>	<label for="r32" class="ident">c</label>.<a href="#line-63" class="ident">cfg</a> = <label for="r37" class="ident">cfg</label></code></span>
-<span class="codeline" id="line-210"><code>	<label for="r32" class="ident">c</label>.<a href="#line-66" class="ident">mux</a>.<a href="../../../../../../sync/mutex.go.html#line-179" class="ident">Unlock</a>()</code></span>
-<span class="codeline" id="line-211"><code></code></span>
-<span class="codeline" id="line-212"><code>	<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-213"><code>}</code></span>
+<span class="codeline" id="line-167"><code><span class="comment">// OnMessage implements mtproto.Handler.</span></code></span>
+<span class="codeline" id="line-168"><code><span class="keyword">func</span> (<label for="r25" class="ident">c</label> *<a href="#line-42" class="ident">Conn</a>) <label for="r26" class="ident"><a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.OnMessage.html" class="ident">OnMessage</a></label>(<label for="r27" class="ident">b</label> *<a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../../bin/buffer.go.html#line-8" class="ident">Buffer</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-169"><code>	<span class="keyword">return</span> <label for="r25" class="ident">c</label>.<a href="#line-62" class="ident">handler</a>.<a href="handler.go.html#line-12" class="ident">OnMessage</a>(<label for="r27" class="ident">b</label>)</code></span>
+<span class="codeline" id="line-170"><code>}</code></span>
+<span class="codeline" id="line-171"><code></code></span>
+<span class="codeline" id="line-172"><code><span class="keyword">type</span> <a href="../../../../../../../pkg/github.com/gotd/td/telegram/internal/manager.html#name-noopDecoder" class="ident">noopDecoder</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-173"><code>	<a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../../bin/bin.go.html#line-37" class="ident">Encoder</a></code></span>
+<span class="codeline" id="line-174"><code>}</code></span>
+<span class="codeline" id="line-175"><code></code></span>
+<span class="codeline" id="line-176"><code><span class="keyword">func</span> (<label for="r28" class="ident">n</label> <a href="#line-172" class="ident">noopDecoder</a>) <label for="r29" class="ident"><a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..noopDecoder^a665e.Decode.html" class="ident">Decode</a></label>(<label for="r30" class="ident">b</label> *<a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../../bin/buffer.go.html#line-8" class="ident">Buffer</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-177"><code>	<span class="keyword">return</span> <a href="../../../../../../../pkg/github.com/go-faster/errors.html" class="ident i4">errors</a>.<a href="../../../../../go-faster/errors/errors.go.html#line-22" class="ident">New</a>(<span class="lit-string">"not implemented"</span>)</code></span>
+<span class="codeline" id="line-178"><code>}</code></span>
+<span class="codeline" id="line-179"><code></code></span>
+<span class="codeline" id="line-180"><code><span class="keyword">func</span> (<label for="r31" class="ident">c</label> *<a href="#line-42" class="ident">Conn</a>) <label for="r32" class="ident"><a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.wrapRequest^81916.html" class="ident">wrapRequest</a></label>(<label for="r33" class="ident">req</label> <a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../../bin/bin.go.html#line-59" class="ident">Object</a>) <a href="../../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../../bin/bin.go.html#line-59" class="ident">Object</a> {</code></span>
+<span class="codeline" id="line-181"><code>	<span class="keyword">if</span> <label for="r31" class="ident">c</label>.<a href="#line-44" class="ident">mode</a> != <a href="#line-34" class="ident">ConnModeUpdates</a> {</code></span>
+<span class="codeline" id="line-182"><code>		<span class="keyword">return</span> &amp;<a href="../../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i11">tg</a>.<a href="../../../tg/tl_invoke_without_updates_gen.go.html#line-43" class="ident">InvokeWithoutUpdatesRequest</a>{</code></span>
+<span class="codeline" id="line-183"><code>			<a href="../../../tg/tl_invoke_without_updates_gen.go.html#line-45" class="ident">Query</a>: <label for="r33" class="ident">req</label>,</code></span>
+<span class="codeline" id="line-184"><code>		}</code></span>
+<span class="codeline" id="line-185"><code>	}</code></span>
+<span class="codeline" id="line-186"><code></code></span>
+<span class="codeline" id="line-187"><code>	<span class="keyword">return</span> <label for="r33" class="ident">req</label></code></span>
+<span class="codeline" id="line-188"><code>}</code></span>
+<span class="codeline" id="line-189"><code></code></span>
+<span class="codeline" id="line-190"><code><span class="keyword">func</span> (<label for="r34" class="ident">c</label> *<a href="#line-42" class="ident">Conn</a>) <label for="r35" class="ident"><a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.init^bb540.html" class="ident">init</a></label>(<label for="r36" class="ident">ctx</label> <a href="../../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-191"><code>	<label for="r34" class="ident">c</label>.<a href="#line-59" class="ident">log</a>.<a href="../../../../../../go.uber.org/zap/logger.go.html#line-182" class="ident">Debug</a>(<span class="lit-string">"Initializing"</span>)</code></span>
+<span class="codeline" id="line-192"><code></code></span>
+<span class="codeline" id="line-193"><code>	<label for="r37" class="ident">q</label> := <label for="r34" class="ident">c</label>.<a href="#line-180" class="ident">wrapRequest</a>(&amp;<a href="../../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i11">tg</a>.<a href="../../../tg/tl_init_connection_gen.go.html#line-38" class="ident">InitConnectionRequest</a>{</code></span>
+<span class="codeline" id="line-194"><code>		<a href="../../../tg/tl_init_connection_gen.go.html#line-48" class="ident">APIID</a>:          <label for="r34" class="ident">c</label>.<a href="#line-49" class="ident">appID</a>,</code></span>
+<span class="codeline" id="line-195"><code>		<a href="../../../tg/tl_init_connection_gen.go.html#line-50" class="ident">DeviceModel</a>:    <label for="r34" class="ident">c</label>.<a href="#line-50" class="ident">device</a>.<a href="device.go.html#line-13" class="ident">DeviceModel</a>,</code></span>
+<span class="codeline" id="line-196"><code>		<a href="../../../tg/tl_init_connection_gen.go.html#line-52" class="ident">SystemVersion</a>:  <label for="r34" class="ident">c</label>.<a href="#line-50" class="ident">device</a>.<a href="device.go.html#line-15" class="ident">SystemVersion</a>,</code></span>
+<span class="codeline" id="line-197"><code>		<a href="../../../tg/tl_init_connection_gen.go.html#line-54" class="ident">AppVersion</a>:     <label for="r34" class="ident">c</label>.<a href="#line-50" class="ident">device</a>.<a href="device.go.html#line-17" class="ident">AppVersion</a>,</code></span>
+<span class="codeline" id="line-198"><code>		<a href="../../../tg/tl_init_connection_gen.go.html#line-56" class="ident">SystemLangCode</a>: <label for="r34" class="ident">c</label>.<a href="#line-50" class="ident">device</a>.<a href="device.go.html#line-19" class="ident">SystemLangCode</a>,</code></span>
+<span class="codeline" id="line-199"><code>		<a href="../../../tg/tl_init_connection_gen.go.html#line-58" class="ident">LangPack</a>:       <label for="r34" class="ident">c</label>.<a href="#line-50" class="ident">device</a>.<a href="device.go.html#line-21" class="ident">LangPack</a>,</code></span>
+<span class="codeline" id="line-200"><code>		<a href="../../../tg/tl_init_connection_gen.go.html#line-60" class="ident">LangCode</a>:       <label for="r34" class="ident">c</label>.<a href="#line-50" class="ident">device</a>.<a href="device.go.html#line-23" class="ident">LangCode</a>,</code></span>
+<span class="codeline" id="line-201"><code>		<a href="../../../tg/tl_init_connection_gen.go.html#line-64" class="ident">Proxy</a>:          <label for="r34" class="ident">c</label>.<a href="#line-50" class="ident">device</a>.<a href="device.go.html#line-25" class="ident">Proxy</a>,</code></span>
+<span class="codeline" id="line-202"><code>		<a href="../../../tg/tl_init_connection_gen.go.html#line-69" class="ident">Params</a>:         <label for="r34" class="ident">c</label>.<a href="#line-50" class="ident">device</a>.<a href="device.go.html#line-28" class="ident">Params</a>,</code></span>
+<span class="codeline" id="line-203"><code>		<a href="../../../tg/tl_init_connection_gen.go.html#line-71" class="ident">Query</a>:          <label for="r34" class="ident">c</label>.<a href="#line-180" class="ident">wrapRequest</a>(&amp;<a href="../../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i11">tg</a>.<a href="../../../tg/tl_help_get_config_gen.go.html#line-38" class="ident">HelpGetConfigRequest</a>{}),</code></span>
+<span class="codeline" id="line-204"><code>	})</code></span>
+<span class="codeline" id="line-205"><code>	<label for="r38" class="ident">req</label> := <label for="r34" class="ident">c</label>.<a href="#line-180" class="ident">wrapRequest</a>(&amp;<a href="../../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i11">tg</a>.<a href="../../../tg/tl_invoke_with_layer_gen.go.html#line-41" class="ident">InvokeWithLayerRequest</a>{</code></span>
+<span class="codeline" id="line-206"><code>		<a href="../../../tg/tl_invoke_with_layer_gen.go.html#line-43" class="ident">Layer</a>: <a href="../../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i11">tg</a>.<a href="../../../tg/tl_registry_gen.go.html#line-35" class="ident">Layer</a>,</code></span>
+<span class="codeline" id="line-207"><code>		<a href="../../../tg/tl_invoke_with_layer_gen.go.html#line-45" class="ident">Query</a>: <label for="r37" class="ident">q</label>,</code></span>
+<span class="codeline" id="line-208"><code>	})</code></span>
+<span class="codeline" id="line-209"><code></code></span>
+<span class="codeline" id="line-210"><code>	<span class="keyword">var</span> <label for="r39" class="ident">cfg</label> <a href="../../../../../../../pkg/github.com/gotd/td/tg.html" class="ident i11">tg</a>.<a href="../../../tg/tl_config_gen.go.html#line-38" class="ident">Config</a></code></span>
+<span class="codeline" id="line-211"><code>	<span class="keyword">if</span> <label for="r40" class="ident">err</label> := <a href="../../../../../../../pkg/github.com/cenkalti/backoff/v4.html" class="ident i3">backoff</a>.<a href="../../../../../cenkalti/backoff/v4/retry.go.html#line-33" class="ident">RetryNotify</a>(<span class="keyword">func</span>() <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-212"><code>		<span class="keyword">if</span> <label for="r41" class="ident">err</label> := <label for="r34" class="ident">c</label>.<a href="#line-46" class="ident">proto</a>.<a href="#line-22" class="ident">Invoke</a>(<label for="r36" class="ident">ctx</label>, <label for="r38" class="ident">req</label>, &amp;<label for="r39" class="ident">cfg</label>); <label for="r41" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-213"><code>			<span class="keyword">if</span> <a href="../../../../../../../pkg/github.com/gotd/td/tgerr.html" class="ident i12">tgerr</a>.<a href="../../../tgerr/error.go.html#line-139" class="ident">Is</a>(<label for="r41" class="ident">err</label>, <a href="../../../../../../../pkg/github.com/gotd/td/tgerr.html" class="ident i12">tgerr</a>.<a href="../../../tgerr/flood_wait.go.html#line-11" class="ident">ErrFloodWait</a>) {</code></span>
+<span class="codeline" id="line-214"><code>				<span class="comment">// Server sometimes returns FLOOD_WAIT(0) if you create</span></code></span>
+<span class="codeline" id="line-215"><code><span class="comment">				// multiple connections in short period of time.</span></code></span>
+<span class="codeline" id="line-216"><code><span class="comment">				//</span></code></span>
+<span class="codeline" id="line-217"><code><span class="comment">				// See https://github.com/gotd/td/issues/388.</span></code></span>
+<span class="codeline" id="line-218"><code>				<span class="keyword">return</span> <a href="../../../../../../../pkg/github.com/go-faster/errors.html" class="ident i4">errors</a>.<a href="../../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r41" class="ident">err</label>, <span class="lit-string">"flood wait"</span>)</code></span>
+<span class="codeline" id="line-219"><code>			}</code></span>
+<span class="codeline" id="line-220"><code>			<span class="comment">// Not retrying other errors.</span></code></span>
+<span class="codeline" id="line-221"><code>			<span class="keyword">return</span> <a href="../../../../../../../pkg/github.com/cenkalti/backoff/v4.html" class="ident i3">backoff</a>.<a href="../../../../../cenkalti/backoff/v4/retry.go.html#line-105" class="ident">Permanent</a>(<a href="../../../../../../../pkg/github.com/go-faster/errors.html" class="ident i4">errors</a>.<a href="../../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r41" class="ident">err</label>, <span class="lit-string">"invoke"</span>))</code></span>
+<span class="codeline" id="line-222"><code>		}</code></span>
+<span class="codeline" id="line-223"><code></code></span>
+<span class="codeline" id="line-224"><code>		<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-225"><code>	}, <label for="r34" class="ident">c</label>.<a href="#line-74" class="ident">connBackoff</a>(<label for="r36" class="ident">ctx</label>), <span class="keyword">func</span>(<label for="r42" class="ident">err</label> <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a>, <label for="r43" class="ident">duration</label> <a href="../../../../../../../pkg/time.html" class="ident i2">time</a>.<a href="../../../../../../time/time.go.html#line-591" class="ident">Duration</a>) {</code></span>
+<span class="codeline" id="line-226"><code>		<label for="r34" class="ident">c</label>.<a href="#line-59" class="ident">log</a>.<a href="../../../../../../go.uber.org/zap/logger.go.html#line-182" class="ident">Debug</a>(<span class="lit-string">"Retrying connection initialization"</span>,</code></span>
+<span class="codeline" id="line-227"><code>			<a href="../../../../../../../pkg/go.uber.org/zap.html" class="ident i5">zap</a>.<a href="../../../../../../go.uber.org/zap/error.go.html#line-34" class="ident">Error</a>(<label for="r42" class="ident">err</label>), <a href="../../../../../../../pkg/go.uber.org/zap.html" class="ident i5">zap</a>.<a href="../../../../../../go.uber.org/zap/field.go.html#line-382" class="ident">Duration</a>(<span class="lit-string">"duration"</span>, <label for="r43" class="ident">duration</label>),</code></span>
+<span class="codeline" id="line-228"><code>		)</code></span>
+<span class="codeline" id="line-229"><code>	}); <label for="r40" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-230"><code>		<span class="keyword">return</span> <a href="../../../../../../../pkg/github.com/go-faster/errors.html" class="ident i4">errors</a>.<a href="../../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r40" class="ident">err</label>, <span class="lit-string">"initConnection"</span>)</code></span>
+<span class="codeline" id="line-231"><code>	}</code></span>
+<span class="codeline" id="line-232"><code></code></span>
+<span class="codeline" id="line-233"><code>	<span class="keyword">if</span> <label for="r34" class="ident">c</label>.<a href="#line-54" class="ident">setup</a> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-234"><code>		<span class="keyword">if</span> <label for="r44" class="ident">err</label> := <label for="r34" class="ident">c</label>.<a href="#line-54" class="ident">setup</a>(<label for="r36" class="ident">ctx</label>, <label for="r34" class="ident">c</label>); <label for="r44" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-235"><code>			<span class="keyword">return</span> <a href="../../../../../../../pkg/github.com/go-faster/errors.html" class="ident i4">errors</a>.<a href="../../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r44" class="ident">err</label>, <span class="lit-string">"setup"</span>)</code></span>
+<span class="codeline" id="line-236"><code>		}</code></span>
+<span class="codeline" id="line-237"><code>	}</code></span>
+<span class="codeline" id="line-238"><code></code></span>
+<span class="codeline" id="line-239"><code>	<label for="r34" class="ident">c</label>.<a href="#line-68" class="ident">mux</a>.<a href="../../../../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-240"><code>	<label for="r34" class="ident">c</label>.<a href="#line-67" class="ident">latest</a> = <label for="r34" class="ident">c</label>.<a href="#line-58" class="ident">clock</a>.<a href="../../../clock/clock.go.html#line-12" class="ident">Now</a>()</code></span>
+<span class="codeline" id="line-241"><code>	<label for="r34" class="ident">c</label>.<a href="#line-65" class="ident">cfg</a> = <label for="r39" class="ident">cfg</label></code></span>
+<span class="codeline" id="line-242"><code>	<label for="r34" class="ident">c</label>.<a href="#line-68" class="ident">mux</a>.<a href="../../../../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-243"><code></code></span>
+<span class="codeline" id="line-244"><code>	<label for="r34" class="ident">c</label>.<a href="#line-71" class="ident">gotConfig</a>.<a href="../../../internal/tdsync/ready.go.html#line-26" class="ident">Signal</a>()</code></span>
+<span class="codeline" id="line-245"><code>	<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-246"><code>}</code></span>
+<span class="codeline" id="line-247"><code></code></span>
+<span class="codeline" id="line-248"><code><span class="comment">// Ping calls ping for underlying protocol connection.</span></code></span>
+<span class="codeline" id="line-249"><code><span class="keyword">func</span> (<label for="r45" class="ident">c</label> *<a href="#line-42" class="ident">Conn</a>) <label for="r46" class="ident"><a href="../../../../../../../use/github.com/gotd/td/telegram/internal/manager..Conn.Ping.html" class="ident">Ping</a></label>(<label for="r47" class="ident">ctx</label> <a href="../../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-250"><code>	<span class="keyword">return</span> <label for="r45" class="ident">c</label>.<a href="#line-46" class="ident">proto</a>.<a href="#line-24" class="ident">Ping</a>(<label for="r47" class="ident">ctx</label>)</code></span>
+<span class="codeline" id="line-251"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

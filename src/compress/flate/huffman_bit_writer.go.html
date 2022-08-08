@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: huffman_bit_writer.go in package compress/flate</title>
-<link href="../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -536,9 +536,9 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-194"><code><span class="comment">// Codes 0-15 are single byte codes. Codes 16-18 are followed by additional</span></code></span>
 <span class="codeline" id="line-195"><code><span class="comment">// information. Code badCode is an end marker</span></code></span>
 <span class="codeline" id="line-196"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-197"><code><span class="comment">//  numLiterals      The number of literals in literalEncoding</span></code></span>
-<span class="codeline" id="line-198"><code><span class="comment">//  numOffsets       The number of offsets in offsetEncoding</span></code></span>
-<span class="codeline" id="line-199"><code><span class="comment">//  litenc, offenc   The literal and offset encoder to use</span></code></span>
+<span class="codeline" id="line-197"><code><span class="comment">//	numLiterals      The number of literals in literalEncoding</span></code></span>
+<span class="codeline" id="line-198"><code><span class="comment">//	numOffsets       The number of offsets in offsetEncoding</span></code></span>
+<span class="codeline" id="line-199"><code><span class="comment">//	litenc, offenc   The literal and offset encoder to use</span></code></span>
 <span class="codeline" id="line-200"><code><span class="keyword">func</span> (<label for="r22" class="ident">w</label> *<a href="#line-71" class="ident">huffmanBitWriter</a>) <label for="r23" class="ident"><a href="../../../use/compress/flate..huffmanBitWriter^5dc06.generateCodegen^346b7.html" class="ident">generateCodegen</a></label>(<label for="r24" class="ident">numLiterals</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r25" class="ident">numOffsets</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r26" class="ident">litEnc</label>, <label for="r27" class="ident">offEnc</label> *<a href="huffman_code.go.html#line-18" class="ident">huffmanEncoder</a>) {</code></span>
 <span class="codeline" id="line-201"><code>	<span class="keyword">for</span> <label for="r28" class="ident">i</label> := <span class="keyword">range</span> <label for="r22" class="ident">w</label>.<a href="#line-83" class="ident">codegenFreq</a> {</code></span>
 <span class="codeline" id="line-202"><code>		<label for="r22" class="ident">w</label>.<a href="#line-83" class="ident">codegenFreq</a>[<label for="r28" class="ident">i</label>] = <span class="lit-number">0</span></code></span>
@@ -660,7 +660,7 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-318"><code>	<span class="keyword">if</span> <label for="r53" class="ident">in</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-319"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
 <span class="codeline" id="line-320"><code>	}</code></span>
-<span class="codeline" id="line-321"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r53" class="ident">in</label>) &lt;= <a href="deflate.go.html#line-51" class="ident">maxStoreBlockSize</a> {</code></span>
+<span class="codeline" id="line-321"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r53" class="ident">in</label>) &lt;= <a href="deflate.go.html#line-52" class="ident">maxStoreBlockSize</a> {</code></span>
 <span class="codeline" id="line-322"><code>		<span class="keyword">return</span> (<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r53" class="ident">in</label>) + <span class="lit-number">5</span>) * <span class="lit-number">8</span>, <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
 <span class="codeline" id="line-323"><code>	}</code></span>
 <span class="codeline" id="line-324"><code>	<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
@@ -695,9 +695,9 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-353"><code></code></span>
 <span class="codeline" id="line-354"><code><span class="comment">// Write the header of a dynamic Huffman block to the output stream.</span></code></span>
 <span class="codeline" id="line-355"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-356"><code><span class="comment">//  numLiterals  The number of literals specified in codegen</span></code></span>
-<span class="codeline" id="line-357"><code><span class="comment">//  numOffsets   The number of offsets specified in codegen</span></code></span>
-<span class="codeline" id="line-358"><code><span class="comment">//  numCodegens  The number of codegens used in codegen</span></code></span>
+<span class="codeline" id="line-356"><code><span class="comment">//	numLiterals  The number of literals specified in codegen</span></code></span>
+<span class="codeline" id="line-357"><code><span class="comment">//	numOffsets   The number of offsets specified in codegen</span></code></span>
+<span class="codeline" id="line-358"><code><span class="comment">//	numCodegens  The number of codegens used in codegen</span></code></span>
 <span class="codeline" id="line-359"><code><span class="keyword">func</span> (<label for="r60" class="ident">w</label> *<a href="#line-71" class="ident">huffmanBitWriter</a>) <label for="r61" class="ident"><a href="../../../use/compress/flate..huffmanBitWriter^5dc06.writeDynamicHeader^d2ccc.html" class="ident">writeDynamicHeader</a></label>(<label for="r62" class="ident">numLiterals</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r63" class="ident">numOffsets</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r64" class="ident">numCodegens</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r65" class="ident">isEof</label> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
 <span class="codeline" id="line-360"><code>	<span class="keyword">if</span> <label for="r60" class="ident">w</label>.<a href="#line-91" class="ident">err</a> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-361"><code>		<span class="keyword">return</span></code></span>
@@ -810,7 +810,7 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-468"><code>	<span class="comment">// Generate codegen and codegenFrequencies, which indicates how to encode</span></code></span>
 <span class="codeline" id="line-469"><code><span class="comment">	// the literalEncoding and the offsetEncoding.</span></code></span>
 <span class="codeline" id="line-470"><code>	<label for="r80" class="ident">w</label>.<a href="#line-200" class="ident">generateCodegen</a>(<label for="r85" class="ident">numLiterals</label>, <label for="r86" class="ident">numOffsets</label>, <label for="r80" class="ident">w</label>.<a href="#line-88" class="ident">literalEncoding</a>, <label for="r80" class="ident">w</label>.<a href="#line-89" class="ident">offsetEncoding</a>)</code></span>
-<span class="codeline" id="line-471"><code>	<label for="r80" class="ident">w</label>.<a href="#line-90" class="ident">codegenEncoding</a>.<a href="huffman_code.go.html#line-274" class="ident">generate</a>(<label for="r80" class="ident">w</label>.<a href="#line-83" class="ident">codegenFreq</a>[:], <span class="lit-number">7</span>)</code></span>
+<span class="codeline" id="line-471"><code>	<label for="r80" class="ident">w</label>.<a href="#line-90" class="ident">codegenEncoding</a>.<a href="huffman_code.go.html#line-275" class="ident">generate</a>(<label for="r80" class="ident">w</label>.<a href="#line-83" class="ident">codegenFreq</a>[:], <span class="lit-number">7</span>)</code></span>
 <span class="codeline" id="line-472"><code>	<label for="r96" class="ident">dynamicSize</label>, <label for="r95" class="ident">numCodegens</label> := <label for="r80" class="ident">w</label>.<a href="#line-288" class="ident">dynamicSize</a>(<label for="r80" class="ident">w</label>.<a href="#line-88" class="ident">literalEncoding</a>, <label for="r80" class="ident">w</label>.<a href="#line-89" class="ident">offsetEncoding</a>, <label for="r87" class="ident">extraBits</label>)</code></span>
 <span class="codeline" id="line-473"><code></code></span>
 <span class="codeline" id="line-474"><code>	<span class="keyword">if</span> <label for="r96" class="ident">dynamicSize</label> &lt; <label for="r94" class="ident">size</label> {</code></span>
@@ -853,7 +853,7 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-511"><code>	<span class="comment">// Generate codegen and codegenFrequencies, which indicates how to encode</span></code></span>
 <span class="codeline" id="line-512"><code><span class="comment">	// the literalEncoding and the offsetEncoding.</span></code></span>
 <span class="codeline" id="line-513"><code>	<label for="r97" class="ident">w</label>.<a href="#line-200" class="ident">generateCodegen</a>(<label for="r102" class="ident">numLiterals</label>, <label for="r103" class="ident">numOffsets</label>, <label for="r97" class="ident">w</label>.<a href="#line-88" class="ident">literalEncoding</a>, <label for="r97" class="ident">w</label>.<a href="#line-89" class="ident">offsetEncoding</a>)</code></span>
-<span class="codeline" id="line-514"><code>	<label for="r97" class="ident">w</label>.<a href="#line-90" class="ident">codegenEncoding</a>.<a href="huffman_code.go.html#line-274" class="ident">generate</a>(<label for="r97" class="ident">w</label>.<a href="#line-83" class="ident">codegenFreq</a>[:], <span class="lit-number">7</span>)</code></span>
+<span class="codeline" id="line-514"><code>	<label for="r97" class="ident">w</label>.<a href="#line-90" class="ident">codegenEncoding</a>.<a href="huffman_code.go.html#line-275" class="ident">generate</a>(<label for="r97" class="ident">w</label>.<a href="#line-83" class="ident">codegenFreq</a>[:], <span class="lit-number">7</span>)</code></span>
 <span class="codeline" id="line-515"><code>	<label for="r104" class="ident">size</label>, <label for="r105" class="ident">numCodegens</label> := <label for="r97" class="ident">w</label>.<a href="#line-288" class="ident">dynamicSize</a>(<label for="r97" class="ident">w</label>.<a href="#line-88" class="ident">literalEncoding</a>, <label for="r97" class="ident">w</label>.<a href="#line-89" class="ident">offsetEncoding</a>, <span class="lit-number">0</span>)</code></span>
 <span class="codeline" id="line-516"><code></code></span>
 <span class="codeline" id="line-517"><code>	<span class="comment">// Store bytes, if we don't get a reasonable improvement.</span></code></span>
@@ -909,8 +909,8 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-567"><code>		<label for="r108" class="ident">w</label>.<a href="#line-86" class="ident">offsetFreq</a>[<span class="lit-number">0</span>] = <span class="lit-number">1</span></code></span>
 <span class="codeline" id="line-568"><code>		<label for="r112" class="ident">numOffsets</label> = <span class="lit-number">1</span></code></span>
 <span class="codeline" id="line-569"><code>	}</code></span>
-<span class="codeline" id="line-570"><code>	<label for="r108" class="ident">w</label>.<a href="#line-88" class="ident">literalEncoding</a>.<a href="huffman_code.go.html#line-274" class="ident">generate</a>(<label for="r108" class="ident">w</label>.<a href="#line-85" class="ident">literalFreq</a>, <span class="lit-number">15</span>)</code></span>
-<span class="codeline" id="line-571"><code>	<label for="r108" class="ident">w</label>.<a href="#line-89" class="ident">offsetEncoding</a>.<a href="huffman_code.go.html#line-274" class="ident">generate</a>(<label for="r108" class="ident">w</label>.<a href="#line-86" class="ident">offsetFreq</a>, <span class="lit-number">15</span>)</code></span>
+<span class="codeline" id="line-570"><code>	<label for="r108" class="ident">w</label>.<a href="#line-88" class="ident">literalEncoding</a>.<a href="huffman_code.go.html#line-275" class="ident">generate</a>(<label for="r108" class="ident">w</label>.<a href="#line-85" class="ident">literalFreq</a>, <span class="lit-number">15</span>)</code></span>
+<span class="codeline" id="line-571"><code>	<label for="r108" class="ident">w</label>.<a href="#line-89" class="ident">offsetEncoding</a>.<a href="huffman_code.go.html#line-275" class="ident">generate</a>(<label for="r108" class="ident">w</label>.<a href="#line-86" class="ident">offsetFreq</a>, <span class="lit-number">15</span>)</code></span>
 <span class="codeline" id="line-572"><code>	<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-573"><code>}</code></span>
 <span class="codeline" id="line-574"><code></code></span>
@@ -954,7 +954,7 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-612"><code>	<label for="r135" class="ident">offsetFreq</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../pkg/builtin.html#name-int32" class="ident">int32</a>, <a href="#line-13" class="ident">offsetCodeCount</a>)</code></span>
 <span class="codeline" id="line-613"><code>	<label for="r135" class="ident">offsetFreq</label>[<span class="lit-number">0</span>] = <span class="lit-number">1</span></code></span>
 <span class="codeline" id="line-614"><code>	<a href="#line-609" class="ident">huffOffset</a> = <a href="huffman_code.go.html#line-59" class="ident">newHuffmanEncoder</a>(<a href="#line-13" class="ident">offsetCodeCount</a>)</code></span>
-<span class="codeline" id="line-615"><code>	<a href="#line-609" class="ident">huffOffset</a>.<a href="huffman_code.go.html#line-274" class="ident">generate</a>(<label for="r135" class="ident">offsetFreq</label>, <span class="lit-number">15</span>)</code></span>
+<span class="codeline" id="line-615"><code>	<a href="#line-609" class="ident">huffOffset</a>.<a href="huffman_code.go.html#line-275" class="ident">generate</a>(<label for="r135" class="ident">offsetFreq</label>, <span class="lit-number">15</span>)</code></span>
 <span class="codeline" id="line-616"><code>}</code></span>
 <span class="codeline" id="line-617"><code></code></span>
 <span class="codeline" id="line-618"><code><span class="comment">// writeBlockHuff encodes a block of bytes as either</span></code></span>
@@ -979,7 +979,7 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-637"><code>	<label for="r136" class="ident">w</label>.<a href="#line-86" class="ident">offsetFreq</a>[<span class="lit-number">0</span>] = <span class="lit-number">1</span></code></span>
 <span class="codeline" id="line-638"><code>	<span class="keyword">const</span> <label for="r142" class="ident">numOffsets</label> = <span class="lit-number">1</span></code></span>
 <span class="codeline" id="line-639"><code></code></span>
-<span class="codeline" id="line-640"><code>	<label for="r136" class="ident">w</label>.<a href="#line-88" class="ident">literalEncoding</a>.<a href="huffman_code.go.html#line-274" class="ident">generate</a>(<label for="r136" class="ident">w</label>.<a href="#line-85" class="ident">literalFreq</a>, <span class="lit-number">15</span>)</code></span>
+<span class="codeline" id="line-640"><code>	<label for="r136" class="ident">w</label>.<a href="#line-88" class="ident">literalEncoding</a>.<a href="huffman_code.go.html#line-275" class="ident">generate</a>(<label for="r136" class="ident">w</label>.<a href="#line-85" class="ident">literalFreq</a>, <span class="lit-number">15</span>)</code></span>
 <span class="codeline" id="line-641"><code></code></span>
 <span class="codeline" id="line-642"><code>	<span class="comment">// Figure out smallest code.</span></code></span>
 <span class="codeline" id="line-643"><code><span class="comment">	// Always use dynamic Huffman or Store</span></code></span>
@@ -988,7 +988,7 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-646"><code>	<span class="comment">// Generate codegen and codegenFrequencies, which indicates how to encode</span></code></span>
 <span class="codeline" id="line-647"><code><span class="comment">	// the literalEncoding and the offsetEncoding.</span></code></span>
 <span class="codeline" id="line-648"><code>	<label for="r136" class="ident">w</label>.<a href="#line-200" class="ident">generateCodegen</a>(<label for="r141" class="ident">numLiterals</label>, <label for="r142" class="ident">numOffsets</label>, <label for="r136" class="ident">w</label>.<a href="#line-88" class="ident">literalEncoding</a>, <a href="#line-609" class="ident">huffOffset</a>)</code></span>
-<span class="codeline" id="line-649"><code>	<label for="r136" class="ident">w</label>.<a href="#line-90" class="ident">codegenEncoding</a>.<a href="huffman_code.go.html#line-274" class="ident">generate</a>(<label for="r136" class="ident">w</label>.<a href="#line-83" class="ident">codegenFreq</a>[:], <span class="lit-number">7</span>)</code></span>
+<span class="codeline" id="line-649"><code>	<label for="r136" class="ident">w</label>.<a href="#line-90" class="ident">codegenEncoding</a>.<a href="huffman_code.go.html#line-275" class="ident">generate</a>(<label for="r136" class="ident">w</label>.<a href="#line-83" class="ident">codegenFreq</a>[:], <span class="lit-number">7</span>)</code></span>
 <span class="codeline" id="line-650"><code>	<label for="r144" class="ident">size</label>, <label for="r143" class="ident">numCodegens</label> := <label for="r136" class="ident">w</label>.<a href="#line-288" class="ident">dynamicSize</a>(<label for="r136" class="ident">w</label>.<a href="#line-88" class="ident">literalEncoding</a>, <a href="#line-609" class="ident">huffOffset</a>, <span class="lit-number">0</span>)</code></span>
 <span class="codeline" id="line-651"><code></code></span>
 <span class="codeline" id="line-652"><code>	<span class="comment">// Store bytes, if we don't get a reasonable improvement.</span></code></span>
@@ -1046,7 +1046,7 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-704"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

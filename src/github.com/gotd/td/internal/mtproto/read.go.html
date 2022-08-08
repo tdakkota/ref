@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: read.go in package github.com/gotd/td/internal/mtproto</title>
-<link href="../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -53,7 +53,12 @@ input[id=r33]:checked ~pre label[for=r33],
 input[id=r34]:checked ~pre label[for=r34],
 input[id=r35]:checked ~pre label[for=r35],
 input[id=r36]:checked ~pre label[for=r36],
-input[id=r37]:checked ~pre label[for=r37]
+input[id=r37]:checked ~pre label[for=r37],
+input[id=r38]:checked ~pre label[for=r38],
+input[id=r39]:checked ~pre label[for=r39],
+input[id=r40]:checked ~pre label[for=r40],
+input[id=r41]:checked ~pre label[for=r41],
+input[id=r42]:checked ~pre label[for=r42]
 {background: #226; color: #ff8;}
 input[id=i0]:checked ~pre .i0,
 input[id=i1]:checked ~pre .i1,
@@ -64,7 +69,8 @@ input[id=i5]:checked ~pre .i5,
 input[id=i6]:checked ~pre .i6,
 input[id=i7]:checked ~pre .i7,
 input[id=i8]:checked ~pre .i8,
-input[id=i9]:checked ~pre .i9
+input[id=i9]:checked ~pre .i9,
+input[id=i10]:checked ~pre .i10
 {background: brown; color: #eed;}
 </style><input id="r0" type="radio" name="g"/>
 <input id="r1" type="radio" name="g"/>
@@ -104,6 +110,11 @@ input[id=i9]:checked ~pre .i9
 <input id="r35" type="radio" name="g"/>
 <input id="r36" type="radio" name="g"/>
 <input id="r37" type="radio" name="g"/>
+<input id="r38" type="radio" name="g"/>
+<input id="r39" type="radio" name="g"/>
+<input id="r40" type="radio" name="g"/>
+<input id="r41" type="radio" name="g"/>
+<input id="r42" type="radio" name="g"/>
 <input id="i0" type="radio" name="i"/>
 <input id="i1" type="radio" name="i"/>
 <input id="i2" type="radio" name="i"/>
@@ -114,192 +125,225 @@ input[id=i9]:checked ~pre .i9
 <input id="i7" type="radio" name="i"/>
 <input id="i8" type="radio" name="i"/>
 <input id="i9" type="radio" name="i"/>
+<input id="i10" type="radio" name="i"/>
 
 <pre class="line-numbers">
 <span class="codeline" id="line-1"><code><span class="keyword">package</span> mtproto</code></span>
 <span class="codeline" id="line-2"><code></code></span>
 <span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
 <span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"context"</span></label></code></span>
-<span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"errors"</span></label></code></span>
-<span class="codeline" id="line-6"><code>	<label for="i2"><span class="lit-string i2">"net"</span></label></code></span>
-<span class="codeline" id="line-7"><code>	<label for="i3"><span class="lit-string i3">"time"</span></label></code></span>
-<span class="codeline" id="line-8"><code></code></span>
-<span class="codeline" id="line-9"><code>	<label for="i4"><span class="lit-string i4">"go.uber.org/zap"</span></label></code></span>
-<span class="codeline" id="line-10"><code>	<label for="i5"><span class="lit-string i5">"golang.org/x/xerrors"</span></label></code></span>
-<span class="codeline" id="line-11"><code></code></span>
-<span class="codeline" id="line-12"><code>	<label for="i6"><span class="lit-string i6">"github.com/gotd/td/bin"</span></label></code></span>
-<span class="codeline" id="line-13"><code>	<label for="i7"><span class="lit-string i7">"github.com/gotd/td/internal/crypto"</span></label></code></span>
-<span class="codeline" id="line-14"><code>	<label for="i8"><span class="lit-string i8">"github.com/gotd/td/internal/proto"</span></label></code></span>
-<span class="codeline" id="line-15"><code>	<label for="i9"><span class="lit-string i9">"github.com/gotd/td/internal/proto/codec"</span></label></code></span>
-<span class="codeline" id="line-16"><code>)</code></span>
-<span class="codeline" id="line-17"><code></code></span>
-<span class="codeline" id="line-18"><code><span class="comment">// https://core.telegram.org/mtproto/description#message-identifier-msg-id</span></code></span>
-<span class="codeline" id="line-19"><code><span class="comment">// A message is rejected over 300 seconds after it is created or 30 seconds</span></code></span>
-<span class="codeline" id="line-20"><code><span class="comment">// before it is created (this is needed to protect from replay attacks).</span></code></span>
-<span class="codeline" id="line-21"><code><span class="keyword">const</span> (</code></span>
-<span class="codeline" id="line-22"><code>	<a href="../../../../../../pkg/github.com/gotd/td/internal/mtproto.html#name-maxPast" class="ident">maxPast</a>   = <a href="../../../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../../../time/time.go.html#line-612" class="ident">Second</a> * <span class="lit-number">300</span></code></span>
-<span class="codeline" id="line-23"><code>	<a href="../../../../../../pkg/github.com/gotd/td/internal/mtproto.html#name-maxFuture" class="ident">maxFuture</a> = <a href="../../../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../../../time/time.go.html#line-612" class="ident">Second</a> * <span class="lit-number">30</span></code></span>
-<span class="codeline" id="line-24"><code>)</code></span>
-<span class="codeline" id="line-25"><code></code></span>
-<span class="codeline" id="line-26"><code><span class="comment">// errRejected is returned on invalid message that should not be processed.</span></code></span>
-<span class="codeline" id="line-27"><code><span class="keyword">var</span> <a href="../../../../../../pkg/github.com/gotd/td/internal/mtproto.html#name-errRejected" class="ident">errRejected</a> = <a href="../../../../../../pkg/errors.html" class="ident i1">errors</a>.<a href="../../../../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"message rejected"</span>)</code></span>
-<span class="codeline" id="line-28"><code></code></span>
-<span class="codeline" id="line-29"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/mtproto.html#name-checkMessageID" class="ident">checkMessageID</a></label>(<label for="r1" class="ident">now</label> <a href="../../../../../../pkg/time.html" class="ident i3">time</a>.<a href="../../../../../time/time.go.html#line-127" class="ident">Time</a>, <label for="r2" class="ident">rawID</label> <a href="../../../../../../pkg/builtin.html#name-int64" class="ident">int64</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-30"><code>	<label for="r3" class="ident">id</label> := <a href="../../../../../../pkg/github.com/gotd/td/internal/proto.html" class="ident i8">proto</a>.<a href="../proto/message_id.go.html#line-40" class="ident">MessageID</a>(<label for="r2" class="ident">rawID</label>)</code></span>
-<span class="codeline" id="line-31"><code></code></span>
-<span class="codeline" id="line-32"><code>	<span class="comment">// Check that message is from server.</span></code></span>
-<span class="codeline" id="line-33"><code>	<span class="keyword">switch</span> <label for="r3" class="ident">id</label>.<a href="../proto/message_id.go.html#line-90" class="ident">Type</a>() {</code></span>
-<span class="codeline" id="line-34"><code>	<span class="keyword">case</span> <a href="../../../../../../pkg/github.com/gotd/td/internal/proto.html" class="ident i8">proto</a>.<a href="../proto/message_id.go.html#line-66" class="ident">MessageFromServer</a>, <a href="../../../../../../pkg/github.com/gotd/td/internal/proto.html" class="ident i8">proto</a>.<a href="../proto/message_id.go.html#line-64" class="ident">MessageServerResponse</a>:</code></span>
-<span class="codeline" id="line-35"><code>		<span class="comment">// Valid.</span></code></span>
-<span class="codeline" id="line-36"><code>	<span class="keyword">default</span>:</code></span>
-<span class="codeline" id="line-37"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i5">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"unexpected type %s: %w"</span>, <label for="r3" class="ident">id</label>.<a href="../proto/message_id.go.html#line-90" class="ident">Type</a>(), <a href="#line-27" class="ident">errRejected</a>)</code></span>
-<span class="codeline" id="line-38"><code>	}</code></span>
-<span class="codeline" id="line-39"><code></code></span>
-<span class="codeline" id="line-40"><code>	<label for="r4" class="ident">created</label> := <label for="r3" class="ident">id</label>.<a href="../proto/message_id.go.html#line-83" class="ident">Time</a>()</code></span>
-<span class="codeline" id="line-41"><code>	<span class="keyword">if</span> <label for="r4" class="ident">created</label>.<a href="../../../../../time/time.go.html#line-258" class="ident">Before</a>(<label for="r1" class="ident">now</label>) &amp;&amp; <label for="r1" class="ident">now</label>.<a href="../../../../../time/time.go.html#line-848" class="ident">Sub</a>(<label for="r4" class="ident">created</label>) &gt; <a href="#line-22" class="ident">maxPast</a> {</code></span>
-<span class="codeline" id="line-42"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i5">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"created too far in past: %w"</span>, <a href="#line-27" class="ident">errRejected</a>)</code></span>
-<span class="codeline" id="line-43"><code>	}</code></span>
-<span class="codeline" id="line-44"><code>	<span class="keyword">if</span> <label for="r4" class="ident">created</label>.<a href="../../../../../time/time.go.html#line-848" class="ident">Sub</a>(<label for="r1" class="ident">now</label>) &gt; <a href="#line-23" class="ident">maxFuture</a> {</code></span>
-<span class="codeline" id="line-45"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i5">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"created too far in future: %w"</span>, <a href="#line-27" class="ident">errRejected</a>)</code></span>
-<span class="codeline" id="line-46"><code>	}</code></span>
-<span class="codeline" id="line-47"><code></code></span>
-<span class="codeline" id="line-48"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-49"><code>}</code></span>
-<span class="codeline" id="line-50"><code></code></span>
-<span class="codeline" id="line-51"><code><span class="keyword">func</span> (<label for="r5" class="ident">c</label> *<a href="conn.go.html#line-51" class="ident">Conn</a>) <label for="r6" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/mtproto..Conn.decryptMessage^03c60.html" class="ident">decryptMessage</a></label>(<label for="r7" class="ident">b</label> *<a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../bin/buffer.go.html#line-8" class="ident">Buffer</a>) (*<a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i7">crypto</a>.<a href="../crypto/encrypted_message_data.go.html#line-12" class="ident">EncryptedMessageData</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-52"><code>	<label for="r8" class="ident">session</label> := <label for="r5" class="ident">c</label>.<a href="session.go.html#line-13" class="ident">session</a>()</code></span>
-<span class="codeline" id="line-53"><code>	<label for="r9" class="ident">msg</label>, <label for="r10" class="ident">err</label> := <label for="r5" class="ident">c</label>.<a href="conn.go.html#line-63" class="ident">cipher</a>.<a href="conn.go.html#line-43" class="ident">DecryptFromBuffer</a>(<label for="r8" class="ident">session</label>.<a href="session.go.html#line-8" class="ident">Key</a>, <label for="r7" class="ident">b</label>)</code></span>
-<span class="codeline" id="line-54"><code>	<span class="keyword">if</span> <label for="r10" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-55"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i5">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"decrypt: %w"</span>, <label for="r10" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-56"><code>	}</code></span>
-<span class="codeline" id="line-57"><code></code></span>
-<span class="codeline" id="line-58"><code>	<span class="comment">// Validating message. This protects from replay attacks.</span></code></span>
-<span class="codeline" id="line-59"><code>	<span class="keyword">if</span> <label for="r9" class="ident">msg</label>.<a href="../crypto/encrypted_message_data.go.html#line-14" class="ident">SessionID</a> != <label for="r8" class="ident">session</label>.<a href="session.go.html#line-7" class="ident">ID</a> {</code></span>
-<span class="codeline" id="line-60"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i5">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"invalid session (got %d, expected %d): %w"</span>, <label for="r9" class="ident">msg</label>.<a href="../crypto/encrypted_message_data.go.html#line-14" class="ident">SessionID</a>, <label for="r8" class="ident">session</label>.<a href="session.go.html#line-7" class="ident">ID</a>, <a href="#line-27" class="ident">errRejected</a>)</code></span>
-<span class="codeline" id="line-61"><code>	}</code></span>
-<span class="codeline" id="line-62"><code>	<span class="keyword">if</span> <label for="r11" class="ident">err</label> := <a href="#line-29" class="ident">checkMessageID</a>(<label for="r5" class="ident">c</label>.<a href="conn.go.html#line-61" class="ident">clock</a>.<a href="../../clock/clock.go.html#line-12" class="ident">Now</a>(), <label for="r9" class="ident">msg</label>.<a href="../crypto/encrypted_message_data.go.html#line-15" class="ident">MessageID</a>); <label for="r11" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-63"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i5">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"bad message id %d: %w"</span>, <label for="r9" class="ident">msg</label>.<a href="../crypto/encrypted_message_data.go.html#line-15" class="ident">MessageID</a>, <label for="r11" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-64"><code>	}</code></span>
-<span class="codeline" id="line-65"><code>	<span class="keyword">if</span> !<label for="r5" class="ident">c</label>.<a href="conn.go.html#line-66" class="ident">messageIDBuf</a>.<a href="conn.go.html#line-38" class="ident">Consume</a>(<label for="r9" class="ident">msg</label>.<a href="../crypto/encrypted_message_data.go.html#line-15" class="ident">MessageID</a>) {</code></span>
-<span class="codeline" id="line-66"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i5">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"duplicate or too low message id %d: %w"</span>, <label for="r9" class="ident">msg</label>.<a href="../crypto/encrypted_message_data.go.html#line-15" class="ident">MessageID</a>, <a href="#line-27" class="ident">errRejected</a>)</code></span>
-<span class="codeline" id="line-67"><code>	}</code></span>
-<span class="codeline" id="line-68"><code></code></span>
-<span class="codeline" id="line-69"><code>	<span class="keyword">return</span> <label for="r9" class="ident">msg</label>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-70"><code>}</code></span>
-<span class="codeline" id="line-71"><code></code></span>
-<span class="codeline" id="line-72"><code><span class="keyword">func</span> (<label for="r12" class="ident">c</label> *<a href="conn.go.html#line-51" class="ident">Conn</a>) <label for="r13" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/mtproto..Conn.consumeMessage^bea23.html" class="ident">consumeMessage</a></label>(<label for="r14" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r15" class="ident">buf</label> *<a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../bin/buffer.go.html#line-8" class="ident">Buffer</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-73"><code>	<label for="r16" class="ident">msg</label>, <label for="r17" class="ident">err</label> := <label for="r12" class="ident">c</label>.<a href="#line-51" class="ident">decryptMessage</a>(<label for="r15" class="ident">buf</label>)</code></span>
-<span class="codeline" id="line-74"><code>	<span class="keyword">if</span> <a href="../../../../../../pkg/errors.html" class="ident i1">errors</a>.<a href="../../../../../errors/wrap.go.html#line-39" class="ident">Is</a>(<label for="r17" class="ident">err</label>, <a href="#line-27" class="ident">errRejected</a>) {</code></span>
-<span class="codeline" id="line-75"><code>		<label for="r12" class="ident">c</label>.<a href="conn.go.html#line-64" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-195" class="ident">Warn</a>(<span class="lit-string">"Ignoring rejected message"</span>, <a href="../../../../../../pkg/go.uber.org/zap.html" class="ident i4">zap</a>.<a href="../../../../../go.uber.org/zap/error.go.html#line-34" class="ident">Error</a>(<label for="r17" class="ident">err</label>))</code></span>
-<span class="codeline" id="line-76"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-77"><code>	}</code></span>
-<span class="codeline" id="line-78"><code>	<span class="keyword">if</span> <label for="r17" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-79"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i5">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"consume message: %w"</span>, <label for="r17" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-80"><code>	}</code></span>
-<span class="codeline" id="line-81"><code></code></span>
-<span class="codeline" id="line-82"><code>	<span class="keyword">if</span> <label for="r18" class="ident">err</label> := <label for="r12" class="ident">c</label>.<a href="handle_message.go.html#line-12" class="ident">handleMessage</a>(<label for="r16" class="ident">msg</label>.<a href="../crypto/encrypted_message_data.go.html#line-15" class="ident">MessageID</a>, &amp;<a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../bin/buffer.go.html#line-8" class="ident">Buffer</a>{<a href="../../bin/buffer.go.html#line-9" class="ident">Buf</a>: <label for="r16" class="ident">msg</label>.<a href="../crypto/encrypted_message_data.go.html#line-150" class="ident">Data</a>()}); <label for="r18" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-83"><code>		<span class="comment">// Probably we can return here, but this will shutdown whole</span></code></span>
-<span class="codeline" id="line-84"><code><span class="comment">		// connection which can be unexpected.</span></code></span>
-<span class="codeline" id="line-85"><code>		<label for="r12" class="ident">c</label>.<a href="conn.go.html#line-64" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-195" class="ident">Warn</a>(<span class="lit-string">"Error while handling message"</span>, <a href="../../../../../../pkg/go.uber.org/zap.html" class="ident i4">zap</a>.<a href="../../../../../go.uber.org/zap/error.go.html#line-34" class="ident">Error</a>(<label for="r18" class="ident">err</label>))</code></span>
-<span class="codeline" id="line-86"><code>		<span class="comment">// Sending acknowledge even on error. Client should restore</span></code></span>
-<span class="codeline" id="line-87"><code><span class="comment">		// from missing updates via explicit pts check and getDiff call.</span></code></span>
-<span class="codeline" id="line-88"><code>	}</code></span>
-<span class="codeline" id="line-89"><code></code></span>
-<span class="codeline" id="line-90"><code>	<label for="r19" class="ident">needAck</label> := (<label for="r16" class="ident">msg</label>.<a href="../crypto/encrypted_message_data.go.html#line-16" class="ident">SeqNo</a> &amp; <span class="lit-number">0x01</span>) != <span class="lit-number">0</span></code></span>
-<span class="codeline" id="line-91"><code>	<span class="keyword">if</span> <label for="r19" class="ident">needAck</label> {</code></span>
-<span class="codeline" id="line-92"><code>		<a href="../../../../../runtime/select.go.html#line-121"><span class="keyword">select</span></a> {</code></span>
-<span class="codeline" id="line-93"><code>		<span class="keyword">case</span> <a href="../../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r14" class="ident">ctx</label>.<a href="../../../../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
-<span class="codeline" id="line-94"><code>			<span class="keyword">return</span> <label for="r14" class="ident">ctx</label>.<a href="../../../../../context/context.go.html#line-106" class="ident">Err</a>()</code></span>
-<span class="codeline" id="line-95"><code>		<span class="keyword">case</span> <label for="r12" class="ident">c</label>.<a href="conn.go.html#line-84" class="ident">ackSendChan</a> <a href="../../../../../runtime/chan.go.html#line-158">&lt;-</a> <label for="r16" class="ident">msg</label>.<a href="../crypto/encrypted_message_data.go.html#line-15" class="ident">MessageID</a>:</code></span>
-<span class="codeline" id="line-96"><code>		}</code></span>
-<span class="codeline" id="line-97"><code>	}</code></span>
-<span class="codeline" id="line-98"><code></code></span>
-<span class="codeline" id="line-99"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-100"><code>}</code></span>
-<span class="codeline" id="line-101"><code></code></span>
-<span class="codeline" id="line-102"><code><span class="keyword">func</span> (<label for="r20" class="ident">c</label> *<a href="conn.go.html#line-51" class="ident">Conn</a>) <label for="r21" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/mtproto..Conn.noUpdates^1ff71.html" class="ident">noUpdates</a></label>(<label for="r22" class="ident">err</label> <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-103"><code>	<span class="comment">// Checking for read timeout.</span></code></span>
-<span class="codeline" id="line-104"><code>	<span class="keyword">var</span> <label for="r23" class="ident">syscall</label> *<a href="../../../../../../pkg/net.html" class="ident i2">net</a>.<a href="../../../../../net/net.go.html#line-435" class="ident">OpError</a></code></span>
-<span class="codeline" id="line-105"><code>	<span class="keyword">if</span> <a href="../../../../../../pkg/errors.html" class="ident i1">errors</a>.<a href="../../../../../errors/wrap.go.html#line-77" class="ident">As</a>(<label for="r22" class="ident">err</label>, &amp;<label for="r23" class="ident">syscall</label>) &amp;&amp; <label for="r23" class="ident">syscall</label>.<a href="../../../../../net/net.go.html#line-502" class="ident">Timeout</a>() {</code></span>
-<span class="codeline" id="line-106"><code>		<span class="comment">// We call SetReadDeadline so such error is expected.</span></code></span>
-<span class="codeline" id="line-107"><code>		<label for="r20" class="ident">c</label>.<a href="conn.go.html#line-64" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-179" class="ident">Debug</a>(<span class="lit-string">"No updates"</span>)</code></span>
-<span class="codeline" id="line-108"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-109"><code>	}</code></span>
-<span class="codeline" id="line-110"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-111"><code>}</code></span>
-<span class="codeline" id="line-112"><code></code></span>
-<span class="codeline" id="line-113"><code><span class="keyword">func</span> (<label for="r24" class="ident">c</label> *<a href="conn.go.html#line-51" class="ident">Conn</a>) <label for="r25" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/mtproto..Conn.handleAuthKeyNotFound^5667d.html" class="ident">handleAuthKeyNotFound</a></label>(<label for="r26" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-114"><code>	<span class="keyword">if</span> <label for="r24" class="ident">c</label>.<a href="session.go.html#line-13" class="ident">session</a>().<a href="session.go.html#line-7" class="ident">ID</a> == <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-115"><code>		<span class="comment">// The 404 error can also be caused by zero session id.</span></code></span>
-<span class="codeline" id="line-116"><code><span class="comment">		// See https://github.com/gotd/td/issues/107</span></code></span>
-<span class="codeline" id="line-117"><code><span class="comment">		//</span></code></span>
-<span class="codeline" id="line-118"><code><span class="comment">		// We should recover from this in createAuthKey, but in general</span></code></span>
-<span class="codeline" id="line-119"><code><span class="comment">		// this code branch should be unreachable.</span></code></span>
-<span class="codeline" id="line-120"><code>		<label for="r24" class="ident">c</label>.<a href="conn.go.html#line-64" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-195" class="ident">Warn</a>(<span class="lit-string">"BUG: zero session id found"</span>)</code></span>
-<span class="codeline" id="line-121"><code>	}</code></span>
-<span class="codeline" id="line-122"><code>	<label for="r24" class="ident">c</label>.<a href="conn.go.html#line-64" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-195" class="ident">Warn</a>(<span class="lit-string">"Re-generating keys (server not found key that we provided)"</span>)</code></span>
-<span class="codeline" id="line-123"><code>	<span class="keyword">if</span> <label for="r27" class="ident">err</label> := <label for="r24" class="ident">c</label>.<a href="create_auth_key.go.html#line-10" class="ident">createAuthKey</a>(<label for="r26" class="ident">ctx</label>); <label for="r27" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-124"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i5">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"unable to create auth key: %w"</span>, <label for="r27" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-125"><code>	}</code></span>
-<span class="codeline" id="line-126"><code>	<label for="r24" class="ident">c</label>.<a href="conn.go.html#line-64" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-187" class="ident">Info</a>(<span class="lit-string">"Re-created auth keys"</span>)</code></span>
-<span class="codeline" id="line-127"><code>	<span class="comment">// Request will be retried by ack loop.</span></code></span>
-<span class="codeline" id="line-128"><code><span class="comment">	// Probably we can speed-up this.</span></code></span>
-<span class="codeline" id="line-129"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-130"><code>}</code></span>
-<span class="codeline" id="line-131"><code></code></span>
-<span class="codeline" id="line-132"><code><span class="keyword">func</span> (<label for="r28" class="ident">c</label> *<a href="conn.go.html#line-51" class="ident">Conn</a>) <label for="r29" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/mtproto..Conn.readLoop^f528e.html" class="ident">readLoop</a></label>(<label for="r30" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>) (<label for="r31" class="ident">err</label> <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-133"><code>	<label for="r32" class="ident">b</label> := <a href="../../../../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../../bin/buffer.go.html#line-8" class="ident">Buffer</a>)</code></span>
-<span class="codeline" id="line-134"><code></code></span>
-<span class="codeline" id="line-135"><code>	<label for="r33" class="ident">log</label> := <label for="r28" class="ident">c</label>.<a href="conn.go.html#line-64" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-136" class="ident">Named</a>(<span class="lit-string">"read"</span>)</code></span>
-<span class="codeline" id="line-136"><code>	<label for="r33" class="ident">log</label>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-179" class="ident">Debug</a>(<span class="lit-string">"Read loop started"</span>)</code></span>
-<span class="codeline" id="line-137"><code>	<span class="keyword">defer</span> <span class="keyword">func</span>() {</code></span>
-<span class="codeline" id="line-138"><code>		<label for="r34" class="ident">l</label> := <label for="r33" class="ident">log</label></code></span>
-<span class="codeline" id="line-139"><code>		<span class="keyword">if</span> <label for="r31" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-140"><code>			<label for="r34" class="ident">l</label> = <label for="r33" class="ident">log</label>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-161" class="ident">With</a>(<a href="../../../../../../pkg/go.uber.org/zap.html" class="ident i4">zap</a>.<a href="../../../../../go.uber.org/zap/error.go.html#line-45" class="ident">NamedError</a>(<span class="lit-string">"reason"</span>, <label for="r31" class="ident">err</label>))</code></span>
-<span class="codeline" id="line-141"><code>		}</code></span>
-<span class="codeline" id="line-142"><code>		<label for="r34" class="ident">l</label>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-179" class="ident">Debug</a>(<span class="lit-string">"Read loop done"</span>)</code></span>
-<span class="codeline" id="line-143"><code>	}()</code></span>
-<span class="codeline" id="line-144"><code></code></span>
-<span class="codeline" id="line-145"><code>	<span class="keyword">for</span> {</code></span>
-<span class="codeline" id="line-146"><code>		<label for="r32" class="ident">b</label>.<a href="../../bin/encode.go.html#line-100" class="ident">Reset</a>()</code></span>
-<span class="codeline" id="line-147"><code></code></span>
-<span class="codeline" id="line-148"><code>		<label for="r31" class="ident">err</label> = <label for="r28" class="ident">c</label>.<a href="conn.go.html#line-53" class="ident">conn</a>.<a href="../../transport/connection.go.html#line-17" class="ident">Recv</a>(<label for="r30" class="ident">ctx</label>, <label for="r32" class="ident">b</label>)</code></span>
-<span class="codeline" id="line-149"><code>		<span class="keyword">if</span> <label for="r31" class="ident">err</label> == <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-150"><code>			<span class="keyword">if</span> <label for="r35" class="ident">err</label> := <label for="r28" class="ident">c</label>.<a href="#line-72" class="ident">consumeMessage</a>(<label for="r30" class="ident">ctx</label>, <label for="r32" class="ident">b</label>); <label for="r35" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-151"><code>				<span class="keyword">return</span> <label for="r35" class="ident">err</label></code></span>
-<span class="codeline" id="line-152"><code>			}</code></span>
-<span class="codeline" id="line-153"><code></code></span>
-<span class="codeline" id="line-154"><code>			<span class="keyword">continue</span></code></span>
-<span class="codeline" id="line-155"><code>		}</code></span>
-<span class="codeline" id="line-156"><code></code></span>
-<span class="codeline" id="line-157"><code>		<a href="../../../../../runtime/chan.go.html#line-707"><span class="keyword">select</span></a> {</code></span>
-<span class="codeline" id="line-158"><code>		<span class="keyword">case</span> <a href="../../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r30" class="ident">ctx</label>.<a href="../../../../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
-<span class="codeline" id="line-159"><code>			<span class="keyword">return</span> <label for="r30" class="ident">ctx</label>.<a href="../../../../../context/context.go.html#line-106" class="ident">Err</a>()</code></span>
-<span class="codeline" id="line-160"><code>		<span class="keyword">default</span>:</code></span>
-<span class="codeline" id="line-161"><code>			<span class="keyword">if</span> <label for="r28" class="ident">c</label>.<a href="#line-102" class="ident">noUpdates</a>(<label for="r31" class="ident">err</label>) {</code></span>
-<span class="codeline" id="line-162"><code>				<span class="keyword">continue</span></code></span>
-<span class="codeline" id="line-163"><code>			}</code></span>
-<span class="codeline" id="line-164"><code>		}</code></span>
-<span class="codeline" id="line-165"><code></code></span>
-<span class="codeline" id="line-166"><code>		<span class="keyword">var</span> <label for="r36" class="ident">protoErr</label> *<a href="../../../../../../pkg/github.com/gotd/td/internal/proto/codec.html" class="ident i9">codec</a>.<a href="../proto/codec/errors.go.html#line-21" class="ident">ProtocolErr</a></code></span>
-<span class="codeline" id="line-167"><code>		<span class="keyword">if</span> <a href="../../../../../../pkg/errors.html" class="ident i1">errors</a>.<a href="../../../../../errors/wrap.go.html#line-77" class="ident">As</a>(<label for="r31" class="ident">err</label>, &amp;<label for="r36" class="ident">protoErr</label>) &amp;&amp; <label for="r36" class="ident">protoErr</label>.<a href="../proto/codec/errors.go.html#line-22" class="ident">Code</a> == <a href="../../../../../../pkg/github.com/gotd/td/internal/proto/codec.html" class="ident i9">codec</a>.<a href="../proto/codec/errors.go.html#line-12" class="ident">CodeAuthKeyNotFound</a> {</code></span>
-<span class="codeline" id="line-168"><code>			<span class="keyword">if</span> <label for="r37" class="ident">err</label> := <label for="r28" class="ident">c</label>.<a href="#line-113" class="ident">handleAuthKeyNotFound</a>(<label for="r30" class="ident">ctx</label>); <label for="r37" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-169"><code>				<span class="keyword">return</span> <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i5">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"auth key not found: %w"</span>, <label for="r37" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-170"><code>			}</code></span>
-<span class="codeline" id="line-171"><code>			<span class="keyword">continue</span></code></span>
-<span class="codeline" id="line-172"><code>		}</code></span>
-<span class="codeline" id="line-173"><code></code></span>
-<span class="codeline" id="line-174"><code>		<a href="../../../../../runtime/chan.go.html#line-707"><span class="keyword">select</span></a> {</code></span>
-<span class="codeline" id="line-175"><code>		<span class="keyword">case</span> <a href="../../../../../runtime/chan.go.html#line-438">&lt;-</a><label for="r30" class="ident">ctx</label>.<a href="../../../../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
-<span class="codeline" id="line-176"><code>			<span class="keyword">return</span> <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i5">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"read loop: %w"</span>, <label for="r30" class="ident">ctx</label>.<a href="../../../../../context/context.go.html#line-106" class="ident">Err</a>())</code></span>
-<span class="codeline" id="line-177"><code>		<span class="keyword">default</span>:</code></span>
-<span class="codeline" id="line-178"><code>			<span class="keyword">return</span> <a href="../../../../../../pkg/golang.org/x/xerrors.html" class="ident i5">xerrors</a>.<a href="../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"read: %w"</span>, <label for="r31" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-179"><code>		}</code></span>
-<span class="codeline" id="line-180"><code>	}</code></span>
-<span class="codeline" id="line-181"><code>}</code></span>
+<span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"net"</span></label></code></span>
+<span class="codeline" id="line-6"><code>	<label for="i2"><span class="lit-string i2">"sync"</span></label></code></span>
+<span class="codeline" id="line-7"><code>	<label for="i3"><span class="lit-string i3">"sync/atomic"</span></label></code></span>
+<span class="codeline" id="line-8"><code>	<label for="i4"><span class="lit-string i4">"time"</span></label></code></span>
+<span class="codeline" id="line-9"><code></code></span>
+<span class="codeline" id="line-10"><code>	<label for="i5"><span class="lit-string i5">"github.com/go-faster/errors"</span></label></code></span>
+<span class="codeline" id="line-11"><code>	<label for="i6"><span class="lit-string i6">"go.uber.org/zap"</span></label></code></span>
+<span class="codeline" id="line-12"><code></code></span>
+<span class="codeline" id="line-13"><code>	<label for="i7"><span class="lit-string i7">"github.com/gotd/td/bin"</span></label></code></span>
+<span class="codeline" id="line-14"><code>	<label for="i8"><span class="lit-string i8">"github.com/gotd/td/internal/crypto"</span></label></code></span>
+<span class="codeline" id="line-15"><code>	<label for="i9"><span class="lit-string i9">"github.com/gotd/td/internal/proto"</span></label></code></span>
+<span class="codeline" id="line-16"><code>	<label for="i10"><span class="lit-string i10">"github.com/gotd/td/internal/proto/codec"</span></label></code></span>
+<span class="codeline" id="line-17"><code>)</code></span>
+<span class="codeline" id="line-18"><code></code></span>
+<span class="codeline" id="line-19"><code><span class="comment">// https://core.telegram.org/mtproto/description#message-identifier-msg-id</span></code></span>
+<span class="codeline" id="line-20"><code><span class="comment">// A message is rejected over 300 seconds after it is created or 30 seconds</span></code></span>
+<span class="codeline" id="line-21"><code><span class="comment">// before it is created (this is needed to protect from replay attacks).</span></code></span>
+<span class="codeline" id="line-22"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-23"><code>	<a href="../../../../../../pkg/github.com/gotd/td/internal/mtproto.html#name-maxPast" class="ident">maxPast</a>   = <a href="../../../../../../pkg/time.html" class="ident i4">time</a>.<a href="../../../../../time/time.go.html#line-614" class="ident">Second</a> * <span class="lit-number">300</span></code></span>
+<span class="codeline" id="line-24"><code>	<a href="../../../../../../pkg/github.com/gotd/td/internal/mtproto.html#name-maxFuture" class="ident">maxFuture</a> = <a href="../../../../../../pkg/time.html" class="ident i4">time</a>.<a href="../../../../../time/time.go.html#line-614" class="ident">Second</a> * <span class="lit-number">30</span></code></span>
+<span class="codeline" id="line-25"><code>)</code></span>
+<span class="codeline" id="line-26"><code></code></span>
+<span class="codeline" id="line-27"><code><span class="comment">// errRejected is returned on invalid message that should not be processed.</span></code></span>
+<span class="codeline" id="line-28"><code><span class="keyword">var</span> <a href="../../../../../../pkg/github.com/gotd/td/internal/mtproto.html#name-errRejected" class="ident">errRejected</a> = <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i5">errors</a>.<a href="../../../../go-faster/errors/errors.go.html#line-22" class="ident">New</a>(<span class="lit-string">"message rejected"</span>)</code></span>
+<span class="codeline" id="line-29"><code></code></span>
+<span class="codeline" id="line-30"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../pkg/github.com/gotd/td/internal/mtproto.html#name-checkMessageID" class="ident">checkMessageID</a></label>(<label for="r1" class="ident">now</label> <a href="../../../../../../pkg/time.html" class="ident i4">time</a>.<a href="../../../../../time/time.go.html#line-129" class="ident">Time</a>, <label for="r2" class="ident">rawID</label> <a href="../../../../../../pkg/builtin.html#name-int64" class="ident">int64</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-31"><code>	<label for="r3" class="ident">id</label> := <a href="../../../../../../pkg/github.com/gotd/td/internal/proto.html" class="ident i9">proto</a>.<a href="../proto/message_id.go.html#line-40" class="ident">MessageID</a>(<label for="r2" class="ident">rawID</label>)</code></span>
+<span class="codeline" id="line-32"><code></code></span>
+<span class="codeline" id="line-33"><code>	<span class="comment">// Check that message is from server.</span></code></span>
+<span class="codeline" id="line-34"><code>	<span class="keyword">switch</span> <label for="r3" class="ident">id</label>.<a href="../proto/message_id.go.html#line-90" class="ident">Type</a>() {</code></span>
+<span class="codeline" id="line-35"><code>	<span class="keyword">case</span> <a href="../../../../../../pkg/github.com/gotd/td/internal/proto.html" class="ident i9">proto</a>.<a href="../proto/message_id.go.html#line-66" class="ident">MessageFromServer</a>, <a href="../../../../../../pkg/github.com/gotd/td/internal/proto.html" class="ident i9">proto</a>.<a href="../proto/message_id.go.html#line-64" class="ident">MessageServerResponse</a>:</code></span>
+<span class="codeline" id="line-36"><code>		<span class="comment">// Valid.</span></code></span>
+<span class="codeline" id="line-37"><code>	<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-38"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i5">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-90" class="ident">Wrapf</a>(<a href="#line-28" class="ident">errRejected</a>, <span class="lit-string">"unexpected type %s"</span>, <label for="r3" class="ident">id</label>.<a href="../proto/message_id.go.html#line-90" class="ident">Type</a>())</code></span>
+<span class="codeline" id="line-39"><code>	}</code></span>
+<span class="codeline" id="line-40"><code></code></span>
+<span class="codeline" id="line-41"><code>	<label for="r4" class="ident">created</label> := <label for="r3" class="ident">id</label>.<a href="../proto/message_id.go.html#line-83" class="ident">Time</a>()</code></span>
+<span class="codeline" id="line-42"><code>	<span class="keyword">if</span> <label for="r4" class="ident">created</label>.<a href="../../../../../time/time.go.html#line-260" class="ident">Before</a>(<label for="r1" class="ident">now</label>) &amp;&amp; <label for="r1" class="ident">now</label>.<a href="../../../../../time/time.go.html#line-863" class="ident">Sub</a>(<label for="r4" class="ident">created</label>) &gt; <a href="#line-23" class="ident">maxPast</a> {</code></span>
+<span class="codeline" id="line-43"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i5">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<a href="#line-28" class="ident">errRejected</a>, <span class="lit-string">"created too far in past"</span>)</code></span>
+<span class="codeline" id="line-44"><code>	}</code></span>
+<span class="codeline" id="line-45"><code>	<span class="keyword">if</span> <label for="r4" class="ident">created</label>.<a href="../../../../../time/time.go.html#line-863" class="ident">Sub</a>(<label for="r1" class="ident">now</label>) &gt; <a href="#line-24" class="ident">maxFuture</a> {</code></span>
+<span class="codeline" id="line-46"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i5">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<a href="#line-28" class="ident">errRejected</a>, <span class="lit-string">"created too far in future"</span>)</code></span>
+<span class="codeline" id="line-47"><code>	}</code></span>
+<span class="codeline" id="line-48"><code></code></span>
+<span class="codeline" id="line-49"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-50"><code>}</code></span>
+<span class="codeline" id="line-51"><code></code></span>
+<span class="codeline" id="line-52"><code><span class="keyword">func</span> (<label for="r5" class="ident">c</label> *<a href="conn.go.html#line-51" class="ident">Conn</a>) <label for="r6" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/mtproto..Conn.decryptMessage^03c60.html" class="ident">decryptMessage</a></label>(<label for="r7" class="ident">b</label> *<a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i7">bin</a>.<a href="../../bin/buffer.go.html#line-8" class="ident">Buffer</a>) (*<a href="../../../../../../pkg/github.com/gotd/td/internal/crypto.html" class="ident i8">crypto</a>.<a href="../crypto/encrypted_message_data.go.html#line-10" class="ident">EncryptedMessageData</a>, <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-53"><code>	<label for="r8" class="ident">session</label> := <label for="r5" class="ident">c</label>.<a href="session.go.html#line-13" class="ident">session</a>()</code></span>
+<span class="codeline" id="line-54"><code>	<label for="r9" class="ident">msg</label>, <label for="r10" class="ident">err</label> := <label for="r5" class="ident">c</label>.<a href="conn.go.html#line-65" class="ident">cipher</a>.<a href="conn.go.html#line-43" class="ident">DecryptFromBuffer</a>(<label for="r8" class="ident">session</label>.<a href="session.go.html#line-8" class="ident">Key</a>, <label for="r7" class="ident">b</label>)</code></span>
+<span class="codeline" id="line-55"><code>	<span class="keyword">if</span> <label for="r10" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-56"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i5">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r10" class="ident">err</label>, <span class="lit-string">"decrypt"</span>)</code></span>
+<span class="codeline" id="line-57"><code>	}</code></span>
+<span class="codeline" id="line-58"><code></code></span>
+<span class="codeline" id="line-59"><code>	<span class="comment">// Validating message. This protects from replay attacks.</span></code></span>
+<span class="codeline" id="line-60"><code>	<span class="keyword">if</span> <label for="r9" class="ident">msg</label>.<a href="../crypto/encrypted_message_data.go.html#line-12" class="ident">SessionID</a> != <label for="r8" class="ident">session</label>.<a href="session.go.html#line-7" class="ident">ID</a> {</code></span>
+<span class="codeline" id="line-61"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i5">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-90" class="ident">Wrapf</a>(<a href="#line-28" class="ident">errRejected</a>, <span class="lit-string">"invalid session (got %d, expected %d)"</span>, <label for="r9" class="ident">msg</label>.<a href="../crypto/encrypted_message_data.go.html#line-12" class="ident">SessionID</a>, <label for="r8" class="ident">session</label>.<a href="session.go.html#line-7" class="ident">ID</a>)</code></span>
+<span class="codeline" id="line-62"><code>	}</code></span>
+<span class="codeline" id="line-63"><code>	<span class="keyword">if</span> <label for="r11" class="ident">err</label> := <a href="#line-30" class="ident">checkMessageID</a>(<label for="r5" class="ident">c</label>.<a href="conn.go.html#line-63" class="ident">clock</a>.<a href="../../clock/clock.go.html#line-12" class="ident">Now</a>(), <label for="r9" class="ident">msg</label>.<a href="../crypto/encrypted_message_data.go.html#line-13" class="ident">MessageID</a>); <label for="r11" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-64"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i5">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-90" class="ident">Wrapf</a>(<label for="r11" class="ident">err</label>, <span class="lit-string">"bad message id %d"</span>, <label for="r9" class="ident">msg</label>.<a href="../crypto/encrypted_message_data.go.html#line-13" class="ident">MessageID</a>)</code></span>
+<span class="codeline" id="line-65"><code>	}</code></span>
+<span class="codeline" id="line-66"><code>	<span class="keyword">if</span> !<label for="r5" class="ident">c</label>.<a href="conn.go.html#line-68" class="ident">messageIDBuf</a>.<a href="conn.go.html#line-38" class="ident">Consume</a>(<label for="r9" class="ident">msg</label>.<a href="../crypto/encrypted_message_data.go.html#line-13" class="ident">MessageID</a>) {</code></span>
+<span class="codeline" id="line-67"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i5">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-90" class="ident">Wrapf</a>(<a href="#line-28" class="ident">errRejected</a>, <span class="lit-string">"duplicate or too low message id %d"</span>, <label for="r9" class="ident">msg</label>.<a href="../crypto/encrypted_message_data.go.html#line-13" class="ident">MessageID</a>)</code></span>
+<span class="codeline" id="line-68"><code>	}</code></span>
+<span class="codeline" id="line-69"><code></code></span>
+<span class="codeline" id="line-70"><code>	<span class="keyword">return</span> <label for="r9" class="ident">msg</label>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-71"><code>}</code></span>
+<span class="codeline" id="line-72"><code></code></span>
+<span class="codeline" id="line-73"><code><span class="keyword">func</span> (<label for="r12" class="ident">c</label> *<a href="conn.go.html#line-51" class="ident">Conn</a>) <label for="r13" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/mtproto..Conn.consumeMessage^bea23.html" class="ident">consumeMessage</a></label>(<label for="r14" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r15" class="ident">buf</label> *<a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i7">bin</a>.<a href="../../bin/buffer.go.html#line-8" class="ident">Buffer</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-74"><code>	<label for="r16" class="ident">msg</label>, <label for="r17" class="ident">err</label> := <label for="r12" class="ident">c</label>.<a href="#line-52" class="ident">decryptMessage</a>(<label for="r15" class="ident">buf</label>)</code></span>
+<span class="codeline" id="line-75"><code>	<span class="keyword">if</span> <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i5">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-114" class="ident">Is</a>(<label for="r17" class="ident">err</label>, <a href="#line-28" class="ident">errRejected</a>) {</code></span>
+<span class="codeline" id="line-76"><code>		<label for="r12" class="ident">c</label>.<a href="conn.go.html#line-66" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-198" class="ident">Warn</a>(<span class="lit-string">"Ignoring rejected message"</span>, <a href="../../../../../../pkg/go.uber.org/zap.html" class="ident i6">zap</a>.<a href="../../../../../go.uber.org/zap/error.go.html#line-34" class="ident">Error</a>(<label for="r17" class="ident">err</label>))</code></span>
+<span class="codeline" id="line-77"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-78"><code>	}</code></span>
+<span class="codeline" id="line-79"><code>	<span class="keyword">if</span> <label for="r17" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-80"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i5">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r17" class="ident">err</label>, <span class="lit-string">"consume message"</span>)</code></span>
+<span class="codeline" id="line-81"><code>	}</code></span>
+<span class="codeline" id="line-82"><code></code></span>
+<span class="codeline" id="line-83"><code>	<span class="keyword">if</span> <label for="r18" class="ident">err</label> := <label for="r12" class="ident">c</label>.<a href="handle_message.go.html#line-12" class="ident">handleMessage</a>(<label for="r16" class="ident">msg</label>.<a href="../crypto/encrypted_message_data.go.html#line-13" class="ident">MessageID</a>, &amp;<a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i7">bin</a>.<a href="../../bin/buffer.go.html#line-8" class="ident">Buffer</a>{<a href="../../bin/buffer.go.html#line-9" class="ident">Buf</a>: <label for="r16" class="ident">msg</label>.<a href="../crypto/encrypted_message_data.go.html#line-154" class="ident">Data</a>()}); <label for="r18" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-84"><code>		<span class="comment">// Probably we can return here, but this will shutdown whole</span></code></span>
+<span class="codeline" id="line-85"><code><span class="comment">		// connection which can be unexpected.</span></code></span>
+<span class="codeline" id="line-86"><code>		<label for="r12" class="ident">c</label>.<a href="conn.go.html#line-66" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-198" class="ident">Warn</a>(<span class="lit-string">"Error while handling message"</span>, <a href="../../../../../../pkg/go.uber.org/zap.html" class="ident i6">zap</a>.<a href="../../../../../go.uber.org/zap/error.go.html#line-34" class="ident">Error</a>(<label for="r18" class="ident">err</label>))</code></span>
+<span class="codeline" id="line-87"><code>		<span class="comment">// Sending acknowledge even on error. Client should restore</span></code></span>
+<span class="codeline" id="line-88"><code><span class="comment">		// from missing updates via explicit pts check and getDiff call.</span></code></span>
+<span class="codeline" id="line-89"><code>	}</code></span>
+<span class="codeline" id="line-90"><code></code></span>
+<span class="codeline" id="line-91"><code>	<label for="r19" class="ident">needAck</label> := (<label for="r16" class="ident">msg</label>.<a href="../crypto/encrypted_message_data.go.html#line-14" class="ident">SeqNo</a> &amp; <span class="lit-number">0x01</span>) != <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-92"><code>	<span class="keyword">if</span> <label for="r19" class="ident">needAck</label> {</code></span>
+<span class="codeline" id="line-93"><code>		<a href="../../../../../runtime/select.go.html#line-122"><span class="keyword">select</span></a> {</code></span>
+<span class="codeline" id="line-94"><code>		<span class="keyword">case</span> <a href="../../../../../runtime/chan.go.html#line-441">&lt;-</a><label for="r14" class="ident">ctx</label>.<a href="../../../../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
+<span class="codeline" id="line-95"><code>			<span class="keyword">return</span> <label for="r14" class="ident">ctx</label>.<a href="../../../../../context/context.go.html#line-106" class="ident">Err</a>()</code></span>
+<span class="codeline" id="line-96"><code>		<span class="keyword">case</span> <label for="r12" class="ident">c</label>.<a href="conn.go.html#line-86" class="ident">ackSendChan</a> <a href="../../../../../runtime/chan.go.html#line-160">&lt;-</a> <label for="r16" class="ident">msg</label>.<a href="../crypto/encrypted_message_data.go.html#line-13" class="ident">MessageID</a>:</code></span>
+<span class="codeline" id="line-97"><code>		}</code></span>
+<span class="codeline" id="line-98"><code>	}</code></span>
+<span class="codeline" id="line-99"><code></code></span>
+<span class="codeline" id="line-100"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-101"><code>}</code></span>
+<span class="codeline" id="line-102"><code></code></span>
+<span class="codeline" id="line-103"><code><span class="keyword">func</span> (<label for="r20" class="ident">c</label> *<a href="conn.go.html#line-51" class="ident">Conn</a>) <label for="r21" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/mtproto..Conn.noUpdates^1ff71.html" class="ident">noUpdates</a></label>(<label for="r22" class="ident">err</label> <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) <a href="../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-104"><code>	<span class="comment">// Checking for read timeout.</span></code></span>
+<span class="codeline" id="line-105"><code>	<span class="keyword">var</span> <label for="r23" class="ident">syscall</label> *<a href="../../../../../../pkg/net.html" class="ident i1">net</a>.<a href="../../../../../net/net.go.html#line-444" class="ident">OpError</a></code></span>
+<span class="codeline" id="line-106"><code>	<span class="keyword">if</span> <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i5">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-134" class="ident">As</a>(<label for="r22" class="ident">err</label>, &amp;<label for="r23" class="ident">syscall</label>) &amp;&amp; <label for="r23" class="ident">syscall</label>.<a href="../../../../../net/net.go.html#line-511" class="ident">Timeout</a>() {</code></span>
+<span class="codeline" id="line-107"><code>		<span class="comment">// We call SetReadDeadline so such error is expected.</span></code></span>
+<span class="codeline" id="line-108"><code>		<label for="r20" class="ident">c</label>.<a href="conn.go.html#line-66" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-182" class="ident">Debug</a>(<span class="lit-string">"No updates"</span>)</code></span>
+<span class="codeline" id="line-109"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-110"><code>	}</code></span>
+<span class="codeline" id="line-111"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-112"><code>}</code></span>
+<span class="codeline" id="line-113"><code></code></span>
+<span class="codeline" id="line-114"><code><span class="keyword">func</span> (<label for="r24" class="ident">c</label> *<a href="conn.go.html#line-51" class="ident">Conn</a>) <label for="r25" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/mtproto..Conn.handleAuthKeyNotFound^5667d.html" class="ident">handleAuthKeyNotFound</a></label>(<label for="r26" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>) <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-115"><code>	<span class="keyword">if</span> <label for="r24" class="ident">c</label>.<a href="session.go.html#line-13" class="ident">session</a>().<a href="session.go.html#line-7" class="ident">ID</a> == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-116"><code>		<span class="comment">// The 404 error can also be caused by zero session id.</span></code></span>
+<span class="codeline" id="line-117"><code><span class="comment">		// See https://github.com/gotd/td/issues/107</span></code></span>
+<span class="codeline" id="line-118"><code><span class="comment">		//</span></code></span>
+<span class="codeline" id="line-119"><code><span class="comment">		// We should recover from this in createAuthKey, but in general</span></code></span>
+<span class="codeline" id="line-120"><code><span class="comment">		// this code branch should be unreachable.</span></code></span>
+<span class="codeline" id="line-121"><code>		<label for="r24" class="ident">c</label>.<a href="conn.go.html#line-66" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-198" class="ident">Warn</a>(<span class="lit-string">"BUG: zero session id found"</span>)</code></span>
+<span class="codeline" id="line-122"><code>	}</code></span>
+<span class="codeline" id="line-123"><code>	<label for="r24" class="ident">c</label>.<a href="conn.go.html#line-66" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-198" class="ident">Warn</a>(<span class="lit-string">"Re-generating keys (server not found key that we provided)"</span>)</code></span>
+<span class="codeline" id="line-124"><code>	<span class="keyword">if</span> <label for="r27" class="ident">err</label> := <label for="r24" class="ident">c</label>.<a href="connect.go.html#line-59" class="ident">createAuthKey</a>(<label for="r26" class="ident">ctx</label>); <label for="r27" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-125"><code>		<span class="keyword">return</span> <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i5">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r27" class="ident">err</label>, <span class="lit-string">"unable to create auth key"</span>)</code></span>
+<span class="codeline" id="line-126"><code>	}</code></span>
+<span class="codeline" id="line-127"><code>	<label for="r24" class="ident">c</label>.<a href="conn.go.html#line-66" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-190" class="ident">Info</a>(<span class="lit-string">"Re-created auth keys"</span>)</code></span>
+<span class="codeline" id="line-128"><code>	<span class="comment">// Request will be retried by ack loop.</span></code></span>
+<span class="codeline" id="line-129"><code><span class="comment">	// Probably we can speed-up this.</span></code></span>
+<span class="codeline" id="line-130"><code>	<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-131"><code>}</code></span>
+<span class="codeline" id="line-132"><code></code></span>
+<span class="codeline" id="line-133"><code><span class="keyword">func</span> (<label for="r28" class="ident">c</label> *<a href="conn.go.html#line-51" class="ident">Conn</a>) <label for="r29" class="ident"><a href="../../../../../../use/github.com/gotd/td/internal/mtproto..Conn.readLoop^f528e.html" class="ident">readLoop</a></label>(<label for="r30" class="ident">ctx</label> <a href="../../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../../context/context.go.html#line-62" class="ident">Context</a>) (<label for="r31" class="ident">err</label> <a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-134"><code>	<label for="r32" class="ident">log</label> := <label for="r28" class="ident">c</label>.<a href="conn.go.html#line-66" class="ident">log</a>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-139" class="ident">Named</a>(<span class="lit-string">"read"</span>)</code></span>
+<span class="codeline" id="line-135"><code>	<label for="r32" class="ident">log</label>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-182" class="ident">Debug</a>(<span class="lit-string">"Read loop started"</span>)</code></span>
+<span class="codeline" id="line-136"><code>	<span class="keyword">defer</span> <span class="keyword">func</span>() {</code></span>
+<span class="codeline" id="line-137"><code>		<label for="r33" class="ident">l</label> := <label for="r32" class="ident">log</label></code></span>
+<span class="codeline" id="line-138"><code>		<span class="keyword">if</span> <label for="r31" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-139"><code>			<label for="r33" class="ident">l</label> = <label for="r32" class="ident">log</label>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-164" class="ident">With</a>(<a href="../../../../../../pkg/go.uber.org/zap.html" class="ident i6">zap</a>.<a href="../../../../../go.uber.org/zap/error.go.html#line-45" class="ident">NamedError</a>(<span class="lit-string">"reason"</span>, <label for="r31" class="ident">err</label>))</code></span>
+<span class="codeline" id="line-140"><code>		}</code></span>
+<span class="codeline" id="line-141"><code>		<label for="r33" class="ident">l</label>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-182" class="ident">Debug</a>(<span class="lit-string">"Read loop done"</span>)</code></span>
+<span class="codeline" id="line-142"><code>	}()</code></span>
+<span class="codeline" id="line-143"><code></code></span>
+<span class="codeline" id="line-144"><code>	<span class="keyword">var</span> (</code></span>
+<span class="codeline" id="line-145"><code>		<span class="comment">// Last error encountered by consumeMessage.</span></code></span>
+<span class="codeline" id="line-146"><code>		<label for="r34" class="ident">lastErr</label> <a href="../../../../../../pkg/sync/atomic.html" class="ident i3">atomic</a>.<a href="../../../../../sync/atomic/value.go.html#line-16" class="ident">Value</a></code></span>
+<span class="codeline" id="line-147"><code>		<span class="comment">// To wait all spawned goroutines</span></code></span>
+<span class="codeline" id="line-148"><code>		<label for="r35" class="ident">handlers</label> <a href="../../../../../../pkg/sync.html" class="ident i2">sync</a>.<a href="../../../../../sync/waitgroup.go.html#line-23" class="ident">WaitGroup</a></code></span>
+<span class="codeline" id="line-149"><code>	)</code></span>
+<span class="codeline" id="line-150"><code>	<span class="keyword">defer</span> <label for="r35" class="ident">handlers</label>.<a href="../../../../../sync/waitgroup.go.html#line-112" class="ident">Wait</a>()</code></span>
+<span class="codeline" id="line-151"><code></code></span>
+<span class="codeline" id="line-152"><code>	<span class="keyword">for</span> {</code></span>
+<span class="codeline" id="line-153"><code>		<span class="comment">// We've tried multiple ways to reduce allocations via reusing buffer,</span></code></span>
+<span class="codeline" id="line-154"><code><span class="comment">		// but naive implementation induces high idle memory waste.</span></code></span>
+<span class="codeline" id="line-155"><code><span class="comment">		//</span></code></span>
+<span class="codeline" id="line-156"><code><span class="comment">		// Proper optimization will probably require total rework of bin.Buffer</span></code></span>
+<span class="codeline" id="line-157"><code><span class="comment">		// with sharded (by payload size?) pool that can be used after message</span></code></span>
+<span class="codeline" id="line-158"><code><span class="comment">		// size read (after readLen).</span></code></span>
+<span class="codeline" id="line-159"><code><span class="comment">		//</span></code></span>
+<span class="codeline" id="line-160"><code><span class="comment">		// Such optimization can introduce additional complexity overhead and</span></code></span>
+<span class="codeline" id="line-161"><code><span class="comment">		// is probably not worth it.</span></code></span>
+<span class="codeline" id="line-162"><code>		<label for="r36" class="ident">buf</label> := &amp;<a href="../../../../../../pkg/github.com/gotd/td/bin.html" class="ident i7">bin</a>.<a href="../../bin/buffer.go.html#line-8" class="ident">Buffer</a>{}</code></span>
+<span class="codeline" id="line-163"><code></code></span>
+<span class="codeline" id="line-164"><code>		<span class="comment">// Halting if consumeMessage encountered error.</span></code></span>
+<span class="codeline" id="line-165"><code><span class="comment">		// Should be something critical with crypto.</span></code></span>
+<span class="codeline" id="line-166"><code>		<span class="keyword">if</span> <label for="r37" class="ident">err</label>, <label for="r38" class="ident">ok</label> := <label for="r34" class="ident">lastErr</label>.<a href="../../../../../sync/atomic/value.go.html#line-28" class="ident">Load</a>().(<a href="../../../../../../pkg/builtin.html#name-error" class="ident">error</a>); <label for="r38" class="ident">ok</label> &amp;&amp; <label for="r37" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-167"><code>			<span class="keyword">return</span> <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i5">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r37" class="ident">err</label>, <span class="lit-string">"halting"</span>)</code></span>
+<span class="codeline" id="line-168"><code>		}</code></span>
+<span class="codeline" id="line-169"><code></code></span>
+<span class="codeline" id="line-170"><code>		<span class="keyword">if</span> <label for="r39" class="ident">err</label> := <label for="r28" class="ident">c</label>.<a href="conn.go.html#line-55" class="ident">conn</a>.<a href="../../transport/connection.go.html#line-17" class="ident">Recv</a>(<label for="r30" class="ident">ctx</label>, <label for="r36" class="ident">buf</label>); <label for="r39" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-171"><code>			<a href="../../../../../runtime/chan.go.html#line-713"><span class="keyword">select</span></a> {</code></span>
+<span class="codeline" id="line-172"><code>			<span class="keyword">case</span> <a href="../../../../../runtime/chan.go.html#line-441">&lt;-</a><label for="r30" class="ident">ctx</label>.<a href="../../../../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
+<span class="codeline" id="line-173"><code>				<span class="keyword">return</span> <label for="r30" class="ident">ctx</label>.<a href="../../../../../context/context.go.html#line-106" class="ident">Err</a>()</code></span>
+<span class="codeline" id="line-174"><code>			<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-175"><code>				<span class="keyword">if</span> <label for="r28" class="ident">c</label>.<a href="#line-103" class="ident">noUpdates</a>(<label for="r39" class="ident">err</label>) {</code></span>
+<span class="codeline" id="line-176"><code>					<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-177"><code>				}</code></span>
+<span class="codeline" id="line-178"><code>			}</code></span>
+<span class="codeline" id="line-179"><code></code></span>
+<span class="codeline" id="line-180"><code>			<span class="keyword">var</span> <label for="r40" class="ident">protoErr</label> *<a href="../../../../../../pkg/github.com/gotd/td/internal/proto/codec.html" class="ident i10">codec</a>.<a href="../proto/codec/errors.go.html#line-27" class="ident">ProtocolErr</a></code></span>
+<span class="codeline" id="line-181"><code>			<span class="keyword">if</span> <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i5">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-134" class="ident">As</a>(<label for="r39" class="ident">err</label>, &amp;<label for="r40" class="ident">protoErr</label>) &amp;&amp; <label for="r40" class="ident">protoErr</label>.<a href="../proto/codec/errors.go.html#line-28" class="ident">Code</a> == <a href="../../../../../../pkg/github.com/gotd/td/internal/proto/codec.html" class="ident i10">codec</a>.<a href="../proto/codec/errors.go.html#line-14" class="ident">CodeAuthKeyNotFound</a> {</code></span>
+<span class="codeline" id="line-182"><code>				<span class="keyword">if</span> <label for="r41" class="ident">err</label> := <label for="r28" class="ident">c</label>.<a href="#line-114" class="ident">handleAuthKeyNotFound</a>(<label for="r30" class="ident">ctx</label>); <label for="r41" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-183"><code>					<span class="keyword">return</span> <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i5">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r41" class="ident">err</label>, <span class="lit-string">"auth key not found"</span>)</code></span>
+<span class="codeline" id="line-184"><code>				}</code></span>
+<span class="codeline" id="line-185"><code></code></span>
+<span class="codeline" id="line-186"><code>				<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-187"><code>			}</code></span>
+<span class="codeline" id="line-188"><code></code></span>
+<span class="codeline" id="line-189"><code>			<a href="../../../../../runtime/chan.go.html#line-713"><span class="keyword">select</span></a> {</code></span>
+<span class="codeline" id="line-190"><code>			<span class="keyword">case</span> <a href="../../../../../runtime/chan.go.html#line-441">&lt;-</a><label for="r30" class="ident">ctx</label>.<a href="../../../../../context/context.go.html#line-99" class="ident">Done</a>():</code></span>
+<span class="codeline" id="line-191"><code>				<span class="keyword">return</span> <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i5">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r30" class="ident">ctx</label>.<a href="../../../../../context/context.go.html#line-106" class="ident">Err</a>(), <span class="lit-string">"read loop"</span>)</code></span>
+<span class="codeline" id="line-192"><code>			<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-193"><code>				<span class="keyword">return</span> <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i5">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r39" class="ident">err</label>, <span class="lit-string">"read"</span>)</code></span>
+<span class="codeline" id="line-194"><code>			}</code></span>
+<span class="codeline" id="line-195"><code>		}</code></span>
+<span class="codeline" id="line-196"><code></code></span>
+<span class="codeline" id="line-197"><code>		<label for="r35" class="ident">handlers</label>.<a href="../../../../../sync/waitgroup.go.html#line-62" class="ident">Add</a>(<span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-198"><code>		<span class="keyword">go</span> <span class="keyword">func</span>() {</code></span>
+<span class="codeline" id="line-199"><code>			<span class="keyword">defer</span> <label for="r35" class="ident">handlers</label>.<a href="../../../../../sync/waitgroup.go.html#line-107" class="ident">Done</a>()</code></span>
+<span class="codeline" id="line-200"><code></code></span>
+<span class="codeline" id="line-201"><code>			<span class="comment">// Spawning goroutine per incoming message to utilize as much</span></code></span>
+<span class="codeline" id="line-202"><code><span class="comment">			// resources as possible while keeping idle utilization low.</span></code></span>
+<span class="codeline" id="line-203"><code><span class="comment">			//</span></code></span>
+<span class="codeline" id="line-204"><code><span class="comment">			// The "worker" model was replaced by this due to idle utilization</span></code></span>
+<span class="codeline" id="line-205"><code><span class="comment">			// overhead, especially on multi-CPU systems with multiple running</span></code></span>
+<span class="codeline" id="line-206"><code><span class="comment">			// clients.</span></code></span>
+<span class="codeline" id="line-207"><code>			<span class="keyword">if</span> <label for="r42" class="ident">err</label> := <label for="r28" class="ident">c</label>.<a href="#line-73" class="ident">consumeMessage</a>(<label for="r30" class="ident">ctx</label>, <label for="r36" class="ident">buf</label>); <label for="r42" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-208"><code>				<label for="r32" class="ident">log</label>.<a href="../../../../../go.uber.org/zap/logger.go.html#line-206" class="ident">Error</a>(<span class="lit-string">"Failed to process message"</span>, <a href="../../../../../../pkg/go.uber.org/zap.html" class="ident i6">zap</a>.<a href="../../../../../go.uber.org/zap/error.go.html#line-34" class="ident">Error</a>(<label for="r42" class="ident">err</label>))</code></span>
+<span class="codeline" id="line-209"><code>				<label for="r34" class="ident">lastErr</label>.<a href="../../../../../sync/atomic/value.go.html#line-47" class="ident">Store</a>(<a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i5">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r42" class="ident">err</label>, <span class="lit-string">"consume"</span>))</code></span>
+<span class="codeline" id="line-210"><code>			}</code></span>
+<span class="codeline" id="line-211"><code>		}()</code></span>
+<span class="codeline" id="line-212"><code>	}</code></span>
+<span class="codeline" id="line-213"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

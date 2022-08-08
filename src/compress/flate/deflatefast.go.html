@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: deflatefast.go in package compress/flate</title>
-<link href="../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -160,7 +160,7 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-20"><code><span class="comment">	// Since the offset we are checking against is at the beginning</span></code></span>
 <span class="codeline" id="line-21"><code><span class="comment">	// of the buffer, we need to subtract the current and input</span></code></span>
 <span class="codeline" id="line-22"><code><span class="comment">	// buffer to not risk overflowing the int32.</span></code></span>
-<span class="codeline" id="line-23"><code>	<a href="../../../pkg/compress/flate.html#name-bufferReset" class="ident">bufferReset</a> = <a href="../../../pkg/math.html" class="ident i0">math</a>.<a href="../../math/const.go.html#line-48" class="ident">MaxInt32</a> - <a href="deflate.go.html#line-51" class="ident">maxStoreBlockSize</a>*<span class="lit-number">2</span></code></span>
+<span class="codeline" id="line-23"><code>	<a href="../../../pkg/compress/flate.html#name-bufferReset" class="ident">bufferReset</a> = <a href="../../../pkg/math.html" class="ident i0">math</a>.<a href="../../math/const.go.html#line-48" class="ident">MaxInt32</a> - <a href="deflate.go.html#line-52" class="ident">maxStoreBlockSize</a>*<span class="lit-number">2</span></code></span>
 <span class="codeline" id="line-24"><code>)</code></span>
 <span class="codeline" id="line-25"><code></code></span>
 <span class="codeline" id="line-26"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../pkg/compress/flate.html#name-load32" class="ident">load32</a></label>(<label for="r1" class="ident">b</label> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r2" class="ident">i</label> <a href="../../../pkg/builtin.html#name-int32" class="ident">int32</a>) <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> {</code></span>
@@ -201,7 +201,7 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-61"><code>}</code></span>
 <span class="codeline" id="line-62"><code></code></span>
 <span class="codeline" id="line-63"><code><span class="keyword">func</span> <label for="r8" class="ident"><a href="../../../pkg/compress/flate.html#name-newDeflateFast" class="ident">newDeflateFast</a></label>() *<a href="#line-57" class="ident">deflateFast</a> {</code></span>
-<span class="codeline" id="line-64"><code>	<span class="keyword">return</span> &amp;<a href="#line-57" class="ident">deflateFast</a>{<a href="#line-60" class="ident">cur</a>: <a href="deflate.go.html#line-51" class="ident">maxStoreBlockSize</a>, <a href="#line-59" class="ident">prev</a>: <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <span class="lit-number">0</span>, <a href="deflate.go.html#line-51" class="ident">maxStoreBlockSize</a>)}</code></span>
+<span class="codeline" id="line-64"><code>	<span class="keyword">return</span> &amp;<a href="#line-57" class="ident">deflateFast</a>{<a href="#line-60" class="ident">cur</a>: <a href="deflate.go.html#line-52" class="ident">maxStoreBlockSize</a>, <a href="#line-59" class="ident">prev</a>: <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <span class="lit-number">0</span>, <a href="deflate.go.html#line-52" class="ident">maxStoreBlockSize</a>)}</code></span>
 <span class="codeline" id="line-65"><code>}</code></span>
 <span class="codeline" id="line-66"><code></code></span>
 <span class="codeline" id="line-67"><code><span class="comment">// encode encodes a block given in src and appends tokens</span></code></span>
@@ -215,7 +215,7 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-75"><code>	<span class="comment">// This check isn't in the Snappy implementation, but there, the caller</span></code></span>
 <span class="codeline" id="line-76"><code><span class="comment">	// instead of the callee handles this case.</span></code></span>
 <span class="codeline" id="line-77"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r12" class="ident">src</label>) &lt; <a href="#line-47" class="ident">minNonLiteralBlockSize</a> {</code></span>
-<span class="codeline" id="line-78"><code>		<label for="r9" class="ident">e</label>.<a href="#line-60" class="ident">cur</a> += <a href="deflate.go.html#line-51" class="ident">maxStoreBlockSize</a></code></span>
+<span class="codeline" id="line-78"><code>		<label for="r9" class="ident">e</label>.<a href="#line-60" class="ident">cur</a> += <a href="deflate.go.html#line-52" class="ident">maxStoreBlockSize</a></code></span>
 <span class="codeline" id="line-79"><code>		<label for="r9" class="ident">e</label>.<a href="#line-59" class="ident">prev</a> = <label for="r9" class="ident">e</label>.<a href="#line-59" class="ident">prev</a>[:<span class="lit-number">0</span>]</code></span>
 <span class="codeline" id="line-80"><code>		<span class="keyword">return</span> <a href="#line-201" class="ident">emitLiteral</a>(<label for="r11" class="ident">dst</label>, <label for="r12" class="ident">src</label>)</code></span>
 <span class="codeline" id="line-81"><code>	}</code></span>
@@ -265,7 +265,7 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-125"><code>			<label for="r17" class="ident">nextHash</label> = <a href="#line-37" class="ident">hash</a>(<label for="r23" class="ident">now</label>)</code></span>
 <span class="codeline" id="line-126"><code></code></span>
 <span class="codeline" id="line-127"><code>			<label for="r24" class="ident">offset</label> := <label for="r15" class="ident">s</label> - (<label for="r20" class="ident">candidate</label>.<a href="#line-52" class="ident">offset</a> - <label for="r9" class="ident">e</label>.<a href="#line-60" class="ident">cur</a>)</code></span>
-<span class="codeline" id="line-128"><code>			<span class="keyword">if</span> <label for="r24" class="ident">offset</label> &gt; <a href="deflate.go.html#line-46" class="ident">maxMatchOffset</a> || <label for="r16" class="ident">cv</label> != <label for="r20" class="ident">candidate</label>.<a href="#line-51" class="ident">val</a> {</code></span>
+<span class="codeline" id="line-128"><code>			<span class="keyword">if</span> <label for="r24" class="ident">offset</label> &gt; <a href="deflate.go.html#line-47" class="ident">maxMatchOffset</a> || <label for="r16" class="ident">cv</label> != <label for="r20" class="ident">candidate</label>.<a href="#line-51" class="ident">val</a> {</code></span>
 <span class="codeline" id="line-129"><code>				<span class="comment">// Out of range or not matched.</span></code></span>
 <span class="codeline" id="line-130"><code>				<label for="r16" class="ident">cv</label> = <label for="r23" class="ident">now</label></code></span>
 <span class="codeline" id="line-131"><code>				<span class="keyword">continue</span></code></span>
@@ -297,7 +297,7 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-157"><code>			<label for="r26" class="ident">l</label> := <label for="r9" class="ident">e</label>.<a href="#line-211" class="ident">matchLen</a>(<label for="r15" class="ident">s</label>, <label for="r25" class="ident">t</label>, <label for="r12" class="ident">src</label>)</code></span>
 <span class="codeline" id="line-158"><code></code></span>
 <span class="codeline" id="line-159"><code>			<span class="comment">// matchToken is flate's equivalent of Snappy's emitCopy. (length,offset)</span></code></span>
-<span class="codeline" id="line-160"><code>			<label for="r11" class="ident">dst</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r11" class="ident">dst</label>, <a href="token.go.html#line-74" class="ident">matchToken</a>(<a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r26" class="ident">l</label>+<span class="lit-number">4</span>-<a href="deflate.go.html#line-42" class="ident">baseMatchLength</a>), <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r15" class="ident">s</label>-<label for="r25" class="ident">t</label>-<a href="deflate.go.html#line-45" class="ident">baseMatchOffset</a>)))</code></span>
+<span class="codeline" id="line-160"><code>			<label for="r11" class="ident">dst</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r11" class="ident">dst</label>, <a href="token.go.html#line-74" class="ident">matchToken</a>(<a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r26" class="ident">l</label>+<span class="lit-number">4</span>-<a href="deflate.go.html#line-43" class="ident">baseMatchLength</a>), <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r15" class="ident">s</label>-<label for="r25" class="ident">t</label>-<a href="deflate.go.html#line-46" class="ident">baseMatchOffset</a>)))</code></span>
 <span class="codeline" id="line-161"><code>			<label for="r15" class="ident">s</label> += <label for="r26" class="ident">l</label></code></span>
 <span class="codeline" id="line-162"><code>			<label for="r14" class="ident">nextEmit</label> = <label for="r15" class="ident">s</label></code></span>
 <span class="codeline" id="line-163"><code>			<span class="keyword">if</span> <label for="r15" class="ident">s</label> &gt;= <label for="r13" class="ident">sLimit</label> {</code></span>
@@ -319,7 +319,7 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-179"><code>			<label for="r9" class="ident">e</label>.<a href="#line-58" class="ident">table</a>[<label for="r29" class="ident">currHash</label>&amp;<a href="#line-15" class="ident">tableMask</a>] = <a href="#line-50" class="ident">tableEntry</a>{<a href="#line-52" class="ident">offset</a>: <label for="r9" class="ident">e</label>.<a href="#line-60" class="ident">cur</a> + <label for="r15" class="ident">s</label>, <a href="#line-51" class="ident">val</a>: <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r27" class="ident">x</label>)}</code></span>
 <span class="codeline" id="line-180"><code></code></span>
 <span class="codeline" id="line-181"><code>			<label for="r30" class="ident">offset</label> := <label for="r15" class="ident">s</label> - (<label for="r20" class="ident">candidate</label>.<a href="#line-52" class="ident">offset</a> - <label for="r9" class="ident">e</label>.<a href="#line-60" class="ident">cur</a>)</code></span>
-<span class="codeline" id="line-182"><code>			<span class="keyword">if</span> <label for="r30" class="ident">offset</label> &gt; <a href="deflate.go.html#line-46" class="ident">maxMatchOffset</a> || <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r27" class="ident">x</label>) != <label for="r20" class="ident">candidate</label>.<a href="#line-51" class="ident">val</a> {</code></span>
+<span class="codeline" id="line-182"><code>			<span class="keyword">if</span> <label for="r30" class="ident">offset</label> &gt; <a href="deflate.go.html#line-47" class="ident">maxMatchOffset</a> || <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r27" class="ident">x</label>) != <label for="r20" class="ident">candidate</label>.<a href="#line-51" class="ident">val</a> {</code></span>
 <span class="codeline" id="line-183"><code>				<label for="r16" class="ident">cv</label> = <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r27" class="ident">x</label> &gt;&gt; <span class="lit-number">8</span>)</code></span>
 <span class="codeline" id="line-184"><code>				<label for="r17" class="ident">nextHash</label> = <a href="#line-37" class="ident">hash</a>(<label for="r16" class="ident">cv</label>)</code></span>
 <span class="codeline" id="line-185"><code>				<label for="r15" class="ident">s</label>++</code></span>
@@ -349,7 +349,7 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-209"><code><span class="comment">// t can be negative to indicate the match is starting in e.prev.</span></code></span>
 <span class="codeline" id="line-210"><code><span class="comment">// We assume that src[s-4:s] and src[t-4:t] already match.</span></code></span>
 <span class="codeline" id="line-211"><code><span class="keyword">func</span> (<label for="r36" class="ident">e</label> *<a href="#line-57" class="ident">deflateFast</a>) <label for="r37" class="ident"><a href="../../../use/compress/flate..deflateFast^70eb8.matchLen^aad5b.html" class="ident">matchLen</a></label>(<label for="r38" class="ident">s</label>, <label for="r39" class="ident">t</label> <a href="../../../pkg/builtin.html#name-int32" class="ident">int32</a>, <label for="r40" class="ident">src</label> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>) <a href="../../../pkg/builtin.html#name-int32" class="ident">int32</a> {</code></span>
-<span class="codeline" id="line-212"><code>	<label for="r41" class="ident">s1</label> := <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r38" class="ident">s</label>) + <a href="deflate.go.html#line-44" class="ident">maxMatchLength</a> - <span class="lit-number">4</span></code></span>
+<span class="codeline" id="line-212"><code>	<label for="r41" class="ident">s1</label> := <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r38" class="ident">s</label>) + <a href="deflate.go.html#line-45" class="ident">maxMatchLength</a> - <span class="lit-number">4</span></code></span>
 <span class="codeline" id="line-213"><code>	<span class="keyword">if</span> <label for="r41" class="ident">s1</label> &gt; <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r40" class="ident">src</label>) {</code></span>
 <span class="codeline" id="line-214"><code>		<label for="r41" class="ident">s1</label> = <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r40" class="ident">src</label>)</code></span>
 <span class="codeline" id="line-215"><code>	}</code></span>
@@ -411,7 +411,7 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-271"><code>	<label for="r51" class="ident">e</label>.<a href="#line-59" class="ident">prev</a> = <label for="r51" class="ident">e</label>.<a href="#line-59" class="ident">prev</a>[:<span class="lit-number">0</span>]</code></span>
 <span class="codeline" id="line-272"><code>	<span class="comment">// Bump the offset, so all matches will fail distance check.</span></code></span>
 <span class="codeline" id="line-273"><code><span class="comment">	// Nothing should be &gt;= e.cur in the table.</span></code></span>
-<span class="codeline" id="line-274"><code>	<label for="r51" class="ident">e</label>.<a href="#line-60" class="ident">cur</a> += <a href="deflate.go.html#line-46" class="ident">maxMatchOffset</a></code></span>
+<span class="codeline" id="line-274"><code>	<label for="r51" class="ident">e</label>.<a href="#line-60" class="ident">cur</a> += <a href="deflate.go.html#line-47" class="ident">maxMatchOffset</a></code></span>
 <span class="codeline" id="line-275"><code></code></span>
 <span class="codeline" id="line-276"><code>	<span class="comment">// Protect against e.cur wraparound.</span></code></span>
 <span class="codeline" id="line-277"><code>	<span class="keyword">if</span> <label for="r51" class="ident">e</label>.<a href="#line-60" class="ident">cur</a> &gt;= <a href="#line-23" class="ident">bufferReset</a> {</code></span>
@@ -429,13 +429,13 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-289"><code>		<span class="keyword">for</span> <label for="r55" class="ident">i</label> := <span class="keyword">range</span> <label for="r53" class="ident">e</label>.<a href="#line-58" class="ident">table</a>[:] {</code></span>
 <span class="codeline" id="line-290"><code>			<label for="r53" class="ident">e</label>.<a href="#line-58" class="ident">table</a>[<label for="r55" class="ident">i</label>] = <a href="#line-50" class="ident">tableEntry</a>{}</code></span>
 <span class="codeline" id="line-291"><code>		}</code></span>
-<span class="codeline" id="line-292"><code>		<label for="r53" class="ident">e</label>.<a href="#line-60" class="ident">cur</a> = <a href="deflate.go.html#line-46" class="ident">maxMatchOffset</a> + <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-292"><code>		<label for="r53" class="ident">e</label>.<a href="#line-60" class="ident">cur</a> = <a href="deflate.go.html#line-47" class="ident">maxMatchOffset</a> + <span class="lit-number">1</span></code></span>
 <span class="codeline" id="line-293"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-294"><code>	}</code></span>
 <span class="codeline" id="line-295"><code></code></span>
 <span class="codeline" id="line-296"><code>	<span class="comment">// Shift down everything in the table that isn't already too far away.</span></code></span>
 <span class="codeline" id="line-297"><code>	<span class="keyword">for</span> <label for="r56" class="ident">i</label> := <span class="keyword">range</span> <label for="r53" class="ident">e</label>.<a href="#line-58" class="ident">table</a>[:] {</code></span>
-<span class="codeline" id="line-298"><code>		<label for="r57" class="ident">v</label> := <label for="r53" class="ident">e</label>.<a href="#line-58" class="ident">table</a>[<label for="r56" class="ident">i</label>].<a href="#line-52" class="ident">offset</a> - <label for="r53" class="ident">e</label>.<a href="#line-60" class="ident">cur</a> + <a href="deflate.go.html#line-46" class="ident">maxMatchOffset</a> + <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-298"><code>		<label for="r57" class="ident">v</label> := <label for="r53" class="ident">e</label>.<a href="#line-58" class="ident">table</a>[<label for="r56" class="ident">i</label>].<a href="#line-52" class="ident">offset</a> - <label for="r53" class="ident">e</label>.<a href="#line-60" class="ident">cur</a> + <a href="deflate.go.html#line-47" class="ident">maxMatchOffset</a> + <span class="lit-number">1</span></code></span>
 <span class="codeline" id="line-299"><code>		<span class="keyword">if</span> <label for="r57" class="ident">v</label> &lt; <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-300"><code>			<span class="comment">// We want to reset e.cur to maxMatchOffset + 1, so we need to shift</span></code></span>
 <span class="codeline" id="line-301"><code><span class="comment">			// all table entries down by (e.cur - (maxMatchOffset + 1)).</span></code></span>
@@ -445,11 +445,11 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-305"><code>		}</code></span>
 <span class="codeline" id="line-306"><code>		<label for="r53" class="ident">e</label>.<a href="#line-58" class="ident">table</a>[<label for="r56" class="ident">i</label>].<a href="#line-52" class="ident">offset</a> = <label for="r57" class="ident">v</label></code></span>
 <span class="codeline" id="line-307"><code>	}</code></span>
-<span class="codeline" id="line-308"><code>	<label for="r53" class="ident">e</label>.<a href="#line-60" class="ident">cur</a> = <a href="deflate.go.html#line-46" class="ident">maxMatchOffset</a> + <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-308"><code>	<label for="r53" class="ident">e</label>.<a href="#line-60" class="ident">cur</a> = <a href="deflate.go.html#line-47" class="ident">maxMatchOffset</a> + <span class="lit-number">1</span></code></span>
 <span class="codeline" id="line-309"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

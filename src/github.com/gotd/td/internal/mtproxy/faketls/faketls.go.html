@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: faketls.go in package github.com/gotd/td/internal/mtproxy/faketls</title>
-<link href="../../../../../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../../../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../../../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../../../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -39,12 +39,15 @@ input[id=r19]:checked ~pre label[for=r19],
 input[id=r20]:checked ~pre label[for=r20],
 input[id=r21]:checked ~pre label[for=r21],
 input[id=r22]:checked ~pre label[for=r22],
-input[id=r23]:checked ~pre label[for=r23]
+input[id=r23]:checked ~pre label[for=r23],
+input[id=r24]:checked ~pre label[for=r24]
 {background: #226; color: #ff8;}
 input[id=i0]:checked ~pre .i0,
 input[id=i1]:checked ~pre .i1,
 input[id=i2]:checked ~pre .i2,
-input[id=i3]:checked ~pre .i3
+input[id=i3]:checked ~pre .i3,
+input[id=i4]:checked ~pre .i4,
+input[id=i5]:checked ~pre .i5
 {background: brown; color: #eed;}
 </style><input id="r0" type="radio" name="g"/>
 <input id="r1" type="radio" name="g"/>
@@ -70,10 +73,13 @@ input[id=i3]:checked ~pre .i3
 <input id="r21" type="radio" name="g"/>
 <input id="r22" type="radio" name="g"/>
 <input id="r23" type="radio" name="g"/>
+<input id="r24" type="radio" name="g"/>
 <input id="i0" type="radio" name="i"/>
 <input id="i1" type="radio" name="i"/>
 <input id="i2" type="radio" name="i"/>
 <input id="i3" type="radio" name="i"/>
+<input id="i4" type="radio" name="i"/>
+<input id="i5" type="radio" name="i"/>
 
 <pre class="line-numbers">
 <span class="codeline" id="line-1"><code><span class="keyword">package</span> faketls</code></span>
@@ -81,91 +87,116 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-3"><code><span class="keyword">import</span> (</code></span>
 <span class="codeline" id="line-4"><code>	<label for="i0"><span class="lit-string i0">"bytes"</span></label></code></span>
 <span class="codeline" id="line-5"><code>	<label for="i1"><span class="lit-string i1">"io"</span></label></code></span>
-<span class="codeline" id="line-6"><code></code></span>
-<span class="codeline" id="line-7"><code>	<label for="i2"><span class="lit-string i2">"golang.org/x/xerrors"</span></label></code></span>
-<span class="codeline" id="line-8"><code></code></span>
-<span class="codeline" id="line-9"><code>	<label for="i3"><span class="lit-string i3">"github.com/gotd/td/internal/mtproxy"</span></label></code></span>
-<span class="codeline" id="line-10"><code>)</code></span>
-<span class="codeline" id="line-11"><code></code></span>
-<span class="codeline" id="line-12"><code><span class="comment">// FakeTLS implements FakeTLS obfuscation protocol.</span></code></span>
-<span class="codeline" id="line-13"><code><span class="keyword">type</span> <a href="../../../../../../../pkg/github.com/gotd/td/internal/mtproxy/faketls.html#name-FakeTLS" class="ident">FakeTLS</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-14"><code>	<a href="../../../../../../../use/github.com/gotd/td/internal/mtproxy/faketls..FakeTLS.rand^1c1c6.html" class="ident">rand</a> <a href="../../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../../io/io.go.html#line-83" class="ident">Reader</a></code></span>
-<span class="codeline" id="line-15"><code>	<a href="../../../../../../../use/github.com/gotd/td/internal/mtproxy/faketls..FakeTLS.conn^08041.html" class="ident">conn</a> <a href="../../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../../io/io.go.html#line-126" class="ident">ReadWriter</a></code></span>
-<span class="codeline" id="line-16"><code></code></span>
-<span class="codeline" id="line-17"><code>	<a href="../../../../../../../use/github.com/gotd/td/internal/mtproxy/faketls..FakeTLS.version^5ca4f.html" class="ident">version</a> [<span class="lit-number">2</span>]<a href="../../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
-<span class="codeline" id="line-18"><code>	<a href="../../../../../../../use/github.com/gotd/td/internal/mtproxy/faketls..FakeTLS.buf^3ef31.html" class="ident">buf</a>     <a href="../../../../../../../pkg/bytes.html" class="ident i0">bytes</a>.<a href="../../../../../../bytes/buffer.go.html#line-20" class="ident">Buffer</a></code></span>
-<span class="codeline" id="line-19"><code>}</code></span>
-<span class="codeline" id="line-20"><code></code></span>
-<span class="codeline" id="line-21"><code><span class="comment">// NewFakeTLS creates new FakeTLS.</span></code></span>
-<span class="codeline" id="line-22"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../../pkg/github.com/gotd/td/internal/mtproxy/faketls.html#name-NewFakeTLS" class="ident">NewFakeTLS</a></label>(<label for="r1" class="ident">r</label> <a href="../../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../../io/io.go.html#line-83" class="ident">Reader</a>, <label for="r2" class="ident">conn</label> <a href="../../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../../io/io.go.html#line-126" class="ident">ReadWriter</a>) *<a href="#line-13" class="ident">FakeTLS</a> {</code></span>
-<span class="codeline" id="line-23"><code>	<span class="keyword">return</span> &amp;<a href="#line-13" class="ident">FakeTLS</a>{</code></span>
-<span class="codeline" id="line-24"><code>		<a href="#line-14" class="ident">rand</a>:    <label for="r1" class="ident">r</label>,</code></span>
-<span class="codeline" id="line-25"><code>		<a href="#line-15" class="ident">conn</a>:    <label for="r2" class="ident">conn</label>,</code></span>
-<span class="codeline" id="line-26"><code>		<a href="#line-17" class="ident">version</a>: <a href="tls.go.html#line-31" class="ident">Version10Bytes</a>,</code></span>
-<span class="codeline" id="line-27"><code>		<a href="#line-18" class="ident">buf</a>:     <a href="../../../../../../../pkg/bytes.html" class="ident i0">bytes</a>.<a href="../../../../../../bytes/buffer.go.html#line-20" class="ident">Buffer</a>{},</code></span>
-<span class="codeline" id="line-28"><code>	}</code></span>
-<span class="codeline" id="line-29"><code>}</code></span>
-<span class="codeline" id="line-30"><code></code></span>
-<span class="codeline" id="line-31"><code><span class="comment">// Handshake performs FakeTLS handshake.</span></code></span>
-<span class="codeline" id="line-32"><code><span class="keyword">func</span> (<label for="r3" class="ident">o</label> *<a href="#line-13" class="ident">FakeTLS</a>) <label for="r4" class="ident"><a href="../../../../../../../use/github.com/gotd/td/internal/mtproxy/faketls..FakeTLS.Handshake.html" class="ident">Handshake</a></label>(<label for="r5" class="ident">protocol</label> [<span class="lit-number">4</span>]<a href="../../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r6" class="ident">s</label> <a href="../../../../../../../pkg/github.com/gotd/td/internal/mtproxy.html" class="ident i3">mtproxy</a>.<a href="../secret.go.html#line-23" class="ident">Secret</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-33"><code>	<label for="r3" class="ident">o</label>.<a href="#line-18" class="ident">buf</a>.<a href="../../../../../../bytes/buffer.go.html#line-97" class="ident">Reset</a>()</code></span>
-<span class="codeline" id="line-34"><code></code></span>
-<span class="codeline" id="line-35"><code>	<span class="keyword">var</span> <label for="r7" class="ident">sessionID</label> [<span class="lit-number">32</span>]<a href="../../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
-<span class="codeline" id="line-36"><code>	<span class="keyword">if</span> <label for="r8" class="ident">_</label>, <label for="r9" class="ident">err</label> := <label for="r3" class="ident">o</label>.<a href="#line-14" class="ident">rand</a>.<a href="../../../../../../io/io.go.html#line-84" class="ident">Read</a>(<label for="r7" class="ident">sessionID</label>[:]); <label for="r9" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-37"><code>		<span class="keyword">return</span> <a href="../../../../../../../pkg/golang.org/x/xerrors.html" class="ident i2">xerrors</a>.<a href="../../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"generate sessionID: %w"</span>, <label for="r9" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-38"><code>	}</code></span>
-<span class="codeline" id="line-39"><code></code></span>
-<span class="codeline" id="line-40"><code>	<label for="r10" class="ident">clientDigest</label>, <label for="r11" class="ident">err</label> := <a href="client_hello.go.html#line-18" class="ident">writeClientHello</a>(<label for="r3" class="ident">o</label>.<a href="#line-15" class="ident">conn</a>, <label for="r7" class="ident">sessionID</label>, <label for="r6" class="ident">s</label>.<a href="../secret.go.html#line-25" class="ident">Secret</a>)</code></span>
-<span class="codeline" id="line-41"><code>	<span class="keyword">if</span> <label for="r11" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-42"><code>		<span class="keyword">return</span> <a href="../../../../../../../pkg/golang.org/x/xerrors.html" class="ident i2">xerrors</a>.<a href="../../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"send ClientHello: %w"</span>, <label for="r11" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-43"><code>	}</code></span>
-<span class="codeline" id="line-44"><code></code></span>
-<span class="codeline" id="line-45"><code>	<span class="keyword">if</span> <label for="r12" class="ident">err</label> := <a href="server_hello.go.html#line-14" class="ident">readServerHello</a>(<label for="r3" class="ident">o</label>.<a href="#line-15" class="ident">conn</a>, <label for="r10" class="ident">clientDigest</label>, <label for="r6" class="ident">s</label>.<a href="../secret.go.html#line-25" class="ident">Secret</a>); <label for="r12" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-46"><code>		<span class="keyword">return</span> <a href="../../../../../../../pkg/golang.org/x/xerrors.html" class="ident i2">xerrors</a>.<a href="../../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"receive ServerHello: %w"</span>, <label for="r12" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-6"><code>	<label for="i2"><span class="lit-string i2">"sync"</span></label></code></span>
+<span class="codeline" id="line-7"><code></code></span>
+<span class="codeline" id="line-8"><code>	<label for="i3"><span class="lit-string i3">"github.com/go-faster/errors"</span></label></code></span>
+<span class="codeline" id="line-9"><code></code></span>
+<span class="codeline" id="line-10"><code>	<label for="i4"><span class="lit-string i4">"github.com/gotd/td/clock"</span></label></code></span>
+<span class="codeline" id="line-11"><code>	<label for="i5"><span class="lit-string i5">"github.com/gotd/td/internal/mtproxy"</span></label></code></span>
+<span class="codeline" id="line-12"><code>)</code></span>
+<span class="codeline" id="line-13"><code></code></span>
+<span class="codeline" id="line-14"><code><span class="comment">// FakeTLS implements FakeTLS obfuscation protocol.</span></code></span>
+<span class="codeline" id="line-15"><code><span class="keyword">type</span> <a href="../../../../../../../pkg/github.com/gotd/td/internal/mtproxy/faketls.html#name-FakeTLS" class="ident">FakeTLS</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-16"><code>	<a href="../../../../../../../use/github.com/gotd/td/internal/mtproxy/faketls..FakeTLS.rand^1c1c6.html" class="ident">rand</a>  <a href="../../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../../io/io.go.html#line-83" class="ident">Reader</a></code></span>
+<span class="codeline" id="line-17"><code>	<a href="../../../../../../../use/github.com/gotd/td/internal/mtproxy/faketls..FakeTLS.clock^d8198.html" class="ident">clock</a> <a href="../../../../../../../pkg/github.com/gotd/td/clock.html" class="ident i4">clock</a>.<a href="../../../clock/clock.go.html#line-11" class="ident">Clock</a></code></span>
+<span class="codeline" id="line-18"><code>	<a href="../../../../../../../use/github.com/gotd/td/internal/mtproxy/faketls..FakeTLS.conn^08041.html" class="ident">conn</a>  <a href="../../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../../io/io.go.html#line-128" class="ident">ReadWriter</a></code></span>
+<span class="codeline" id="line-19"><code></code></span>
+<span class="codeline" id="line-20"><code>	<a href="../../../../../../../use/github.com/gotd/td/internal/mtproxy/faketls..FakeTLS.version^5ca4f.html" class="ident">version</a>     [<span class="lit-number">2</span>]<a href="../../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-21"><code>	<a href="../../../../../../../use/github.com/gotd/td/internal/mtproxy/faketls..FakeTLS.firstPacket^963fb.html" class="ident">firstPacket</a> <a href="../../../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-22"><code></code></span>
+<span class="codeline" id="line-23"><code>	<a href="../../../../../../../use/github.com/gotd/td/internal/mtproxy/faketls..FakeTLS.readBuf^0e196.html" class="ident">readBuf</a>    <a href="../../../../../../../pkg/bytes.html" class="ident i0">bytes</a>.<a href="../../../../../../bytes/buffer.go.html#line-20" class="ident">Buffer</a></code></span>
+<span class="codeline" id="line-24"><code>	<a href="../../../../../../../use/github.com/gotd/td/internal/mtproxy/faketls..FakeTLS.readBufMux^b5a6c.html" class="ident">readBufMux</a> <a href="../../../../../../../pkg/sync.html" class="ident i2">sync</a>.<a href="../../../../../../sync/mutex.go.html#line-34" class="ident">Mutex</a></code></span>
+<span class="codeline" id="line-25"><code>}</code></span>
+<span class="codeline" id="line-26"><code></code></span>
+<span class="codeline" id="line-27"><code><span class="comment">// NewFakeTLS creates new FakeTLS.</span></code></span>
+<span class="codeline" id="line-28"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../../../pkg/github.com/gotd/td/internal/mtproxy/faketls.html#name-NewFakeTLS" class="ident">NewFakeTLS</a></label>(<label for="r1" class="ident">r</label> <a href="../../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../../io/io.go.html#line-83" class="ident">Reader</a>, <label for="r2" class="ident">conn</label> <a href="../../../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../../../io/io.go.html#line-128" class="ident">ReadWriter</a>) *<a href="#line-15" class="ident">FakeTLS</a> {</code></span>
+<span class="codeline" id="line-29"><code>	<span class="keyword">return</span> &amp;<a href="#line-15" class="ident">FakeTLS</a>{</code></span>
+<span class="codeline" id="line-30"><code>		<a href="#line-16" class="ident">rand</a>:    <label for="r1" class="ident">r</label>,</code></span>
+<span class="codeline" id="line-31"><code>		<a href="#line-17" class="ident">clock</a>:   <a href="../../../../../../../pkg/github.com/gotd/td/clock.html" class="ident i4">clock</a>.<a href="../../../clock/system.go.html#line-50" class="ident">System</a>,</code></span>
+<span class="codeline" id="line-32"><code>		<a href="#line-18" class="ident">conn</a>:    <label for="r2" class="ident">conn</label>,</code></span>
+<span class="codeline" id="line-33"><code>		<a href="#line-20" class="ident">version</a>: <a href="tls.go.html#line-33" class="ident">Version12Bytes</a>,</code></span>
+<span class="codeline" id="line-34"><code>		<a href="#line-23" class="ident">readBuf</a>: <a href="../../../../../../../pkg/bytes.html" class="ident i0">bytes</a>.<a href="../../../../../../bytes/buffer.go.html#line-20" class="ident">Buffer</a>{},</code></span>
+<span class="codeline" id="line-35"><code>	}</code></span>
+<span class="codeline" id="line-36"><code>}</code></span>
+<span class="codeline" id="line-37"><code></code></span>
+<span class="codeline" id="line-38"><code><span class="comment">// Handshake performs FakeTLS handshake.</span></code></span>
+<span class="codeline" id="line-39"><code><span class="keyword">func</span> (<label for="r3" class="ident">o</label> *<a href="#line-15" class="ident">FakeTLS</a>) <label for="r4" class="ident"><a href="../../../../../../../use/github.com/gotd/td/internal/mtproxy/faketls..FakeTLS.Handshake.html" class="ident">Handshake</a></label>(<label for="r5" class="ident">protocol</label> [<span class="lit-number">4</span>]<a href="../../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r6" class="ident">dc</label> <a href="../../../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r7" class="ident">s</label> <a href="../../../../../../../pkg/github.com/gotd/td/internal/mtproxy.html" class="ident i5">mtproxy</a>.<a href="../secret.go.html#line-23" class="ident">Secret</a>) <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-40"><code>	<label for="r3" class="ident">o</label>.<a href="#line-24" class="ident">readBufMux</a>.<a href="../../../../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-41"><code>	<label for="r3" class="ident">o</label>.<a href="#line-23" class="ident">readBuf</a>.<a href="../../../../../../bytes/buffer.go.html#line-97" class="ident">Reset</a>()</code></span>
+<span class="codeline" id="line-42"><code>	<label for="r3" class="ident">o</label>.<a href="#line-24" class="ident">readBufMux</a>.<a href="../../../../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-43"><code></code></span>
+<span class="codeline" id="line-44"><code>	<span class="keyword">var</span> <label for="r8" class="ident">sessionID</label> [<span class="lit-number">32</span>]<a href="../../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-45"><code>	<span class="keyword">if</span> <label for="r9" class="ident">_</label>, <label for="r10" class="ident">err</label> := <label for="r3" class="ident">o</label>.<a href="#line-16" class="ident">rand</a>.<a href="../../../../../../io/io.go.html#line-84" class="ident">Read</a>(<label for="r8" class="ident">sessionID</label>[:]); <label for="r10" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-46"><code>		<span class="keyword">return</span> <a href="../../../../../../../pkg/github.com/go-faster/errors.html" class="ident i3">errors</a>.<a href="../../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r10" class="ident">err</label>, <span class="lit-string">"generate sessionID"</span>)</code></span>
 <span class="codeline" id="line-47"><code>	}</code></span>
 <span class="codeline" id="line-48"><code></code></span>
-<span class="codeline" id="line-49"><code>	<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-50"><code>}</code></span>
-<span class="codeline" id="line-51"><code></code></span>
-<span class="codeline" id="line-52"><code><span class="comment">// Write implements io.Writer.</span></code></span>
-<span class="codeline" id="line-53"><code><span class="keyword">func</span> (<label for="r13" class="ident">o</label> *<a href="#line-13" class="ident">FakeTLS</a>) <label for="r14" class="ident"><a href="../../../../../../../use/github.com/gotd/td/internal/mtproxy/faketls..FakeTLS.Write.html" class="ident">Write</a></label>(<label for="r15" class="ident">b</label> []<a href="../../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) (<label for="r16" class="ident">n</label> <a href="../../../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r17" class="ident">err</label> <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-54"><code>	<label for="r16" class="ident">n</label>, <label for="r17" class="ident">err</label> = <a href="record.go.html#line-55" class="ident">writeRecord</a>(<label for="r13" class="ident">o</label>.<a href="#line-15" class="ident">conn</a>, <a href="record.go.html#line-13" class="ident">record</a>{</code></span>
-<span class="codeline" id="line-55"><code>		<a href="record.go.html#line-14" class="ident">Type</a>:    <a href="tls.go.html#line-14" class="ident">RecordTypeApplication</a>,</code></span>
-<span class="codeline" id="line-56"><code>		<a href="record.go.html#line-15" class="ident">Version</a>: <label for="r13" class="ident">o</label>.<a href="#line-17" class="ident">version</a>,</code></span>
-<span class="codeline" id="line-57"><code>		<a href="record.go.html#line-16" class="ident">Data</a>:    <label for="r15" class="ident">b</label>,</code></span>
-<span class="codeline" id="line-58"><code>	})</code></span>
-<span class="codeline" id="line-59"><code>	<span class="keyword">if</span> <label for="r17" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-60"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="../../../../../../../pkg/golang.org/x/xerrors.html" class="ident i2">xerrors</a>.<a href="../../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"write TLS record: %w"</span>, <label for="r17" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-61"><code>	}</code></span>
-<span class="codeline" id="line-62"><code>	<span class="keyword">return</span></code></span>
-<span class="codeline" id="line-63"><code>}</code></span>
-<span class="codeline" id="line-64"><code></code></span>
-<span class="codeline" id="line-65"><code><span class="comment">// Read implements io.Reader.</span></code></span>
-<span class="codeline" id="line-66"><code><span class="keyword">func</span> (<label for="r18" class="ident">o</label> *<a href="#line-13" class="ident">FakeTLS</a>) <label for="r19" class="ident"><a href="../../../../../../../use/github.com/gotd/td/internal/mtproxy/faketls..FakeTLS.Read.html" class="ident">Read</a></label>(<label for="r20" class="ident">b</label> []<a href="../../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) (<label for="r21" class="ident">n</label> <a href="../../../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r22" class="ident">err</label> <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-67"><code>	<span class="keyword">if</span> <label for="r18" class="ident">o</label>.<a href="#line-18" class="ident">buf</a>.<a href="../../../../../../bytes/buffer.go.html#line-73" class="ident">Len</a>() &gt; <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-68"><code>		<span class="keyword">return</span> <label for="r18" class="ident">o</label>.<a href="#line-18" class="ident">buf</a>.<a href="../../../../../../bytes/buffer.go.html#line-297" class="ident">Read</a>(<label for="r20" class="ident">b</label>)</code></span>
-<span class="codeline" id="line-69"><code>	}</code></span>
-<span class="codeline" id="line-70"><code></code></span>
-<span class="codeline" id="line-71"><code>	<label for="r23" class="ident">rec</label>, <label for="r22" class="ident">err</label> := <a href="record.go.html#line-19" class="ident">readRecord</a>(<label for="r18" class="ident">o</label>.<a href="#line-15" class="ident">conn</a>)</code></span>
-<span class="codeline" id="line-72"><code>	<span class="keyword">if</span> <label for="r22" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-73"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="../../../../../../../pkg/golang.org/x/xerrors.html" class="ident i2">xerrors</a>.<a href="../../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"read TLS record: %w"</span>, <label for="r22" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-74"><code>	}</code></span>
-<span class="codeline" id="line-75"><code></code></span>
-<span class="codeline" id="line-76"><code>	<span class="keyword">switch</span> <label for="r23" class="ident">rec</label>.<a href="record.go.html#line-14" class="ident">Type</a> {</code></span>
-<span class="codeline" id="line-77"><code>	<span class="keyword">case</span> <a href="tls.go.html#line-8" class="ident">RecordTypeChangeCipherSpec</a>:</code></span>
-<span class="codeline" id="line-78"><code>	<span class="keyword">case</span> <a href="tls.go.html#line-14" class="ident">RecordTypeApplication</a>:</code></span>
-<span class="codeline" id="line-79"><code>	<span class="keyword">case</span> <a href="tls.go.html#line-12" class="ident">RecordTypeHandshake</a>:</code></span>
-<span class="codeline" id="line-80"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="../../../../../../../pkg/golang.org/x/xerrors.html" class="ident i2">xerrors</a>.<a href="../../../../../../golang.org/x/xerrors/errors.go.html#line-19" class="ident">New</a>(<span class="lit-string">"unexpected record type handshake"</span>)</code></span>
-<span class="codeline" id="line-81"><code>	<span class="keyword">default</span>:</code></span>
-<span class="codeline" id="line-82"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="../../../../../../../pkg/golang.org/x/xerrors.html" class="ident i2">xerrors</a>.<a href="../../../../../../golang.org/x/xerrors/fmt.go.html#line-36" class="ident">Errorf</a>(<span class="lit-string">"unsupported record type %v"</span>, <label for="r23" class="ident">rec</label>.<a href="record.go.html#line-14" class="ident">Type</a>)</code></span>
+<span class="codeline" id="line-49"><code>	<label for="r11" class="ident">clientDigest</label>, <label for="r12" class="ident">err</label> := <a href="client_hello.go.html#line-95" class="ident">writeClientHello</a>(<label for="r3" class="ident">o</label>.<a href="#line-18" class="ident">conn</a>, <label for="r3" class="ident">o</label>.<a href="#line-17" class="ident">clock</a>, <label for="r8" class="ident">sessionID</label>, <label for="r7" class="ident">s</label>.<a href="../secret.go.html#line-26" class="ident">CloakHost</a>, <label for="r7" class="ident">s</label>.<a href="../secret.go.html#line-24" class="ident">Secret</a>)</code></span>
+<span class="codeline" id="line-50"><code>	<span class="keyword">if</span> <label for="r12" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-51"><code>		<span class="keyword">return</span> <a href="../../../../../../../pkg/github.com/go-faster/errors.html" class="ident i3">errors</a>.<a href="../../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r12" class="ident">err</label>, <span class="lit-string">"send ClientHello"</span>)</code></span>
+<span class="codeline" id="line-52"><code>	}</code></span>
+<span class="codeline" id="line-53"><code></code></span>
+<span class="codeline" id="line-54"><code>	<span class="keyword">if</span> <label for="r13" class="ident">err</label> := <a href="server_hello.go.html#line-13" class="ident">readServerHello</a>(<label for="r3" class="ident">o</label>.<a href="#line-18" class="ident">conn</a>, <label for="r11" class="ident">clientDigest</label>, <label for="r7" class="ident">s</label>.<a href="../secret.go.html#line-24" class="ident">Secret</a>); <label for="r13" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-55"><code>		<span class="keyword">return</span> <a href="../../../../../../../pkg/github.com/go-faster/errors.html" class="ident i3">errors</a>.<a href="../../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r13" class="ident">err</label>, <span class="lit-string">"receive ServerHello"</span>)</code></span>
+<span class="codeline" id="line-56"><code>	}</code></span>
+<span class="codeline" id="line-57"><code>	<span class="keyword">return</span> <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-58"><code>}</code></span>
+<span class="codeline" id="line-59"><code></code></span>
+<span class="codeline" id="line-60"><code><span class="comment">// Write implements io.Writer.</span></code></span>
+<span class="codeline" id="line-61"><code><span class="keyword">func</span> (<label for="r14" class="ident">o</label> *<a href="#line-15" class="ident">FakeTLS</a>) <label for="r15" class="ident"><a href="../../../../../../../use/github.com/gotd/td/internal/mtproxy/faketls..FakeTLS.Write.html" class="ident">Write</a></label>(<label for="r16" class="ident">b</label> []<a href="../../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) (<label for="r17" class="ident">n</label> <a href="../../../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r18" class="ident">err</label> <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-62"><code>	<span class="comment">// Some proxies require sending first packet with RecordTypeChangeCipherSpec.</span></code></span>
+<span class="codeline" id="line-63"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-64"><code><span class="comment">	// See https://github.com/tdlib/td/blob/master/td/mtproto/TcpTransport.cpp#L266.</span></code></span>
+<span class="codeline" id="line-65"><code>	<span class="keyword">if</span> !<label for="r14" class="ident">o</label>.<a href="#line-21" class="ident">firstPacket</a> {</code></span>
+<span class="codeline" id="line-66"><code>		_, <label for="r18" class="ident">err</label> = <a href="record.go.html#line-55" class="ident">writeRecord</a>(<label for="r14" class="ident">o</label>.<a href="#line-18" class="ident">conn</a>, <a href="record.go.html#line-13" class="ident">record</a>{</code></span>
+<span class="codeline" id="line-67"><code>			<a href="record.go.html#line-14" class="ident">Type</a>:    <a href="tls.go.html#line-8" class="ident">RecordTypeChangeCipherSpec</a>,</code></span>
+<span class="codeline" id="line-68"><code>			<a href="record.go.html#line-15" class="ident">Version</a>: <label for="r14" class="ident">o</label>.<a href="#line-20" class="ident">version</a>,</code></span>
+<span class="codeline" id="line-69"><code>			<a href="record.go.html#line-16" class="ident">Data</a>:    []<a href="../../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>(<span class="lit-string">"\x01"</span>),</code></span>
+<span class="codeline" id="line-70"><code>		})</code></span>
+<span class="codeline" id="line-71"><code>		<span class="keyword">if</span> <label for="r18" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-72"><code>			<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="../../../../../../../pkg/github.com/go-faster/errors.html" class="ident i3">errors</a>.<a href="../../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r18" class="ident">err</label>, <span class="lit-string">"write first TLS packet"</span>)</code></span>
+<span class="codeline" id="line-73"><code>		}</code></span>
+<span class="codeline" id="line-74"><code>		<label for="r14" class="ident">o</label>.<a href="#line-21" class="ident">firstPacket</a> = <a href="../../../../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-75"><code>	}</code></span>
+<span class="codeline" id="line-76"><code>	<label for="r17" class="ident">n</label>, <label for="r18" class="ident">err</label> = <a href="record.go.html#line-55" class="ident">writeRecord</a>(<label for="r14" class="ident">o</label>.<a href="#line-18" class="ident">conn</a>, <a href="record.go.html#line-13" class="ident">record</a>{</code></span>
+<span class="codeline" id="line-77"><code>		<a href="record.go.html#line-14" class="ident">Type</a>:    <a href="tls.go.html#line-14" class="ident">RecordTypeApplication</a>,</code></span>
+<span class="codeline" id="line-78"><code>		<a href="record.go.html#line-15" class="ident">Version</a>: <label for="r14" class="ident">o</label>.<a href="#line-20" class="ident">version</a>,</code></span>
+<span class="codeline" id="line-79"><code>		<a href="record.go.html#line-16" class="ident">Data</a>:    <label for="r16" class="ident">b</label>,</code></span>
+<span class="codeline" id="line-80"><code>	})</code></span>
+<span class="codeline" id="line-81"><code>	<span class="keyword">if</span> <label for="r18" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-82"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="../../../../../../../pkg/github.com/go-faster/errors.html" class="ident i3">errors</a>.<a href="../../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r18" class="ident">err</label>, <span class="lit-string">"write TLS record"</span>)</code></span>
 <span class="codeline" id="line-83"><code>	}</code></span>
-<span class="codeline" id="line-84"><code>	<label for="r18" class="ident">o</label>.<a href="#line-18" class="ident">buf</a>.<a href="../../../../../../bytes/buffer.go.html#line-168" class="ident">Write</a>(<label for="r23" class="ident">rec</label>.<a href="record.go.html#line-16" class="ident">Data</a>)</code></span>
-<span class="codeline" id="line-85"><code></code></span>
-<span class="codeline" id="line-86"><code>	<span class="keyword">return</span> <label for="r18" class="ident">o</label>.<a href="#line-18" class="ident">buf</a>.<a href="../../../../../../bytes/buffer.go.html#line-297" class="ident">Read</a>(<label for="r20" class="ident">b</label>)</code></span>
-<span class="codeline" id="line-87"><code>}</code></span>
+<span class="codeline" id="line-84"><code>	<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-85"><code>}</code></span>
+<span class="codeline" id="line-86"><code></code></span>
+<span class="codeline" id="line-87"><code><span class="comment">// Read implements io.Reader.</span></code></span>
+<span class="codeline" id="line-88"><code><span class="keyword">func</span> (<label for="r19" class="ident">o</label> *<a href="#line-15" class="ident">FakeTLS</a>) <label for="r20" class="ident"><a href="../../../../../../../use/github.com/gotd/td/internal/mtproxy/faketls..FakeTLS.Read.html" class="ident">Read</a></label>(<label for="r21" class="ident">b</label> []<a href="../../../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) (<label for="r22" class="ident">n</label> <a href="../../../../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r23" class="ident">err</label> <a href="../../../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-89"><code>	<label for="r19" class="ident">o</label>.<a href="#line-24" class="ident">readBufMux</a>.<a href="../../../../../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-90"><code>	<span class="keyword">defer</span> <label for="r19" class="ident">o</label>.<a href="#line-24" class="ident">readBufMux</a>.<a href="../../../../../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-91"><code></code></span>
+<span class="codeline" id="line-92"><code>	<span class="keyword">if</span> <label for="r19" class="ident">o</label>.<a href="#line-23" class="ident">readBuf</a>.<a href="../../../../../../bytes/buffer.go.html#line-73" class="ident">Len</a>() &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-93"><code>		<span class="keyword">return</span> <label for="r19" class="ident">o</label>.<a href="#line-23" class="ident">readBuf</a>.<a href="../../../../../../bytes/buffer.go.html#line-310" class="ident">Read</a>(<label for="r21" class="ident">b</label>)</code></span>
+<span class="codeline" id="line-94"><code>	}</code></span>
+<span class="codeline" id="line-95"><code></code></span>
+<span class="codeline" id="line-96"><code>	<label for="r24" class="ident">rec</label>, <label for="r23" class="ident">err</label> := <a href="record.go.html#line-19" class="ident">readRecord</a>(<label for="r19" class="ident">o</label>.<a href="#line-18" class="ident">conn</a>)</code></span>
+<span class="codeline" id="line-97"><code>	<span class="keyword">if</span> <label for="r23" class="ident">err</label> != <a href="../../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-98"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="../../../../../../../pkg/github.com/go-faster/errors.html" class="ident i3">errors</a>.<a href="../../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r23" class="ident">err</label>, <span class="lit-string">"read TLS record"</span>)</code></span>
+<span class="codeline" id="line-99"><code>	}</code></span>
+<span class="codeline" id="line-100"><code></code></span>
+<span class="codeline" id="line-101"><code>	<span class="keyword">switch</span> <label for="r24" class="ident">rec</label>.<a href="record.go.html#line-14" class="ident">Type</a> {</code></span>
+<span class="codeline" id="line-102"><code>	<span class="keyword">case</span> <a href="tls.go.html#line-8" class="ident">RecordTypeChangeCipherSpec</a>:</code></span>
+<span class="codeline" id="line-103"><code>	<span class="keyword">case</span> <a href="tls.go.html#line-14" class="ident">RecordTypeApplication</a>:</code></span>
+<span class="codeline" id="line-104"><code>	<span class="keyword">case</span> <a href="tls.go.html#line-12" class="ident">RecordTypeHandshake</a>:</code></span>
+<span class="codeline" id="line-105"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="../../../../../../../pkg/github.com/go-faster/errors.html" class="ident i3">errors</a>.<a href="../../../../../go-faster/errors/errors.go.html#line-22" class="ident">New</a>(<span class="lit-string">"unexpected record type handshake"</span>)</code></span>
+<span class="codeline" id="line-106"><code>	<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-107"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="../../../../../../../pkg/github.com/go-faster/errors.html" class="ident i3">errors</a>.<a href="../../../../../go-faster/errors/format.go.html#line-42" class="ident">Errorf</a>(<span class="lit-string">"unsupported record type %v"</span>, <label for="r24" class="ident">rec</label>.<a href="record.go.html#line-14" class="ident">Type</a>)</code></span>
+<span class="codeline" id="line-108"><code>	}</code></span>
+<span class="codeline" id="line-109"><code>	<label for="r19" class="ident">o</label>.<a href="#line-23" class="ident">readBuf</a>.<a href="../../../../../../bytes/buffer.go.html#line-166" class="ident">Write</a>(<label for="r24" class="ident">rec</label>.<a href="record.go.html#line-16" class="ident">Data</a>)</code></span>
+<span class="codeline" id="line-110"><code></code></span>
+<span class="codeline" id="line-111"><code>	<span class="keyword">return</span> <label for="r19" class="ident">o</label>.<a href="#line-23" class="ident">readBuf</a>.<a href="../../../../../../bytes/buffer.go.html#line-310" class="ident">Read</a>(<label for="r21" class="ident">b</label>)</code></span>
+<span class="codeline" id="line-112"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

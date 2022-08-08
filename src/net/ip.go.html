@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: ip.go in package net</title>
-<link href="../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../jvs/golds-v0.3.6.js"></script>
+<link href="../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -664,7 +664,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-308"><code><span class="comment">// It returns one of 4 forms:</span></code></span>
 <span class="codeline" id="line-309"><code><span class="comment">//   - "&lt;nil&gt;", if ip has length 0</span></code></span>
 <span class="codeline" id="line-310"><code><span class="comment">//   - dotted decimal ("192.0.2.1"), if ip is an IPv4 or IP4-mapped IPv6 address</span></code></span>
-<span class="codeline" id="line-311"><code><span class="comment">//   - IPv6 ("2001:db8::1"), if ip is a valid IPv6 address</span></code></span>
+<span class="codeline" id="line-311"><code><span class="comment">//   - IPv6 conforming to RFC 5952 ("2001:db8::1"), if ip is a valid IPv6 address</span></code></span>
 <span class="codeline" id="line-312"><code><span class="comment">//   - the hexadecimal form of ip, without punctuation, if no other cases apply</span></code></span>
 <span class="codeline" id="line-313"><code><span class="keyword">func</span> (<label for="r63" class="ident">ip</label> <a href="#line-35" class="ident">IP</a>) <label for="r64" class="ident"><a href="../../use/net..IP.String.html" class="ident">String</a></label>() <a href="../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
 <span class="codeline" id="line-314"><code>	<label for="r65" class="ident">p</label> := <label for="r63" class="ident">ip</label></code></span>
@@ -761,7 +761,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-405"><code>		<span class="keyword">return</span> []<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>(<span class="lit-string">""</span>), <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-406"><code>	}</code></span>
 <span class="codeline" id="line-407"><code>	<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r84" class="ident">ip</label>) != <a href="#line-22" class="ident">IPv4len</a> &amp;&amp; <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r84" class="ident">ip</label>) != <a href="#line-23" class="ident">IPv6len</a> {</code></span>
-<span class="codeline" id="line-408"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, &amp;<a href="net.go.html#line-545" class="ident">AddrError</a>{<a href="net.go.html#line-546" class="ident">Err</a>: <span class="lit-string">"invalid IP address"</span>, <a href="net.go.html#line-547" class="ident">Addr</a>: <a href="#line-383" class="ident">hexString</a>(<label for="r84" class="ident">ip</label>)}</code></span>
+<span class="codeline" id="line-408"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, &amp;<a href="net.go.html#line-554" class="ident">AddrError</a>{<a href="net.go.html#line-555" class="ident">Err</a>: <span class="lit-string">"invalid IP address"</span>, <a href="net.go.html#line-556" class="ident">Addr</a>: <a href="#line-383" class="ident">hexString</a>(<label for="r84" class="ident">ip</label>)}</code></span>
 <span class="codeline" id="line-409"><code>	}</code></span>
 <span class="codeline" id="line-410"><code>	<span class="keyword">return</span> []<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>(<label for="r84" class="ident">ip</label>.<a href="#line-313" class="ident">String</a>()), <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-411"><code>}</code></span>
@@ -774,9 +774,9 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-418"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-419"><code>	}</code></span>
 <span class="codeline" id="line-420"><code>	<label for="r89" class="ident">s</label> := <a href="../../pkg/builtin.html#name-string" class="ident">string</a>(<label for="r88" class="ident">text</label>)</code></span>
-<span class="codeline" id="line-421"><code>	<label for="r90" class="ident">x</label> := <a href="#line-704" class="ident">ParseIP</a>(<label for="r89" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-421"><code>	<label for="r90" class="ident">x</label> := <a href="#line-707" class="ident">ParseIP</a>(<label for="r89" class="ident">s</label>)</code></span>
 <span class="codeline" id="line-422"><code>	<span class="keyword">if</span> <label for="r90" class="ident">x</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-423"><code>		<span class="keyword">return</span> &amp;<a href="net.go.html#line-531" class="ident">ParseError</a>{<a href="net.go.html#line-534" class="ident">Type</a>: <span class="lit-string">"IP address"</span>, <a href="net.go.html#line-537" class="ident">Text</a>: <label for="r89" class="ident">s</label>}</code></span>
+<span class="codeline" id="line-423"><code>		<span class="keyword">return</span> &amp;<a href="net.go.html#line-540" class="ident">ParseError</a>{<a href="net.go.html#line-543" class="ident">Type</a>: <span class="lit-string">"IP address"</span>, <a href="net.go.html#line-546" class="ident">Text</a>: <label for="r89" class="ident">s</label>}</code></span>
 <span class="codeline" id="line-424"><code>	}</code></span>
 <span class="codeline" id="line-425"><code>	*<label for="r86" class="ident">ip</label> = <label for="r90" class="ident">x</label></code></span>
 <span class="codeline" id="line-426"><code>	<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
@@ -901,218 +901,221 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-545"><code><span class="comment">// character and a mask expressed as hexadecimal form with no</span></code></span>
 <span class="codeline" id="line-546"><code><span class="comment">// punctuation like "198.51.100.0/c000ff00".</span></code></span>
 <span class="codeline" id="line-547"><code><span class="keyword">func</span> (<label for="r122" class="ident">n</label> *<a href="#line-44" class="ident">IPNet</a>) <label for="r123" class="ident"><a href="../../use/net..IPNet.String.html" class="ident">String</a></label>() <a href="../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
-<span class="codeline" id="line-548"><code>	<label for="r124" class="ident">nn</label>, <label for="r125" class="ident">m</label> := <a href="#line-497" class="ident">networkNumberAndMask</a>(<label for="r122" class="ident">n</label>)</code></span>
-<span class="codeline" id="line-549"><code>	<span class="keyword">if</span> <label for="r124" class="ident">nn</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> || <label for="r125" class="ident">m</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-550"><code>		<span class="keyword">return</span> <span class="lit-string">"&lt;nil&gt;"</span></code></span>
-<span class="codeline" id="line-551"><code>	}</code></span>
-<span class="codeline" id="line-552"><code>	<label for="r126" class="ident">l</label> := <a href="#line-451" class="ident">simpleMaskLength</a>(<label for="r125" class="ident">m</label>)</code></span>
-<span class="codeline" id="line-553"><code>	<span class="keyword">if</span> <label for="r126" class="ident">l</label> == -<span class="lit-number">1</span> {</code></span>
-<span class="codeline" id="line-554"><code>		<span class="keyword">return</span> <label for="r124" class="ident">nn</label>.<a href="#line-313" class="ident">String</a>() + <span class="lit-string">"/"</span> + <label for="r125" class="ident">m</label>.<a href="#line-490" class="ident">String</a>()</code></span>
-<span class="codeline" id="line-555"><code>	}</code></span>
-<span class="codeline" id="line-556"><code>	<span class="keyword">return</span> <label for="r124" class="ident">nn</label>.<a href="#line-313" class="ident">String</a>() + <span class="lit-string">"/"</span> + <a href="../../pkg/internal/itoa.html" class="ident i1">itoa</a>.<a href="../internal/itoa/itoa.go.html#line-18" class="ident">Uitoa</a>(<a href="../../pkg/builtin.html#name-uint" class="ident">uint</a>(<label for="r126" class="ident">l</label>))</code></span>
-<span class="codeline" id="line-557"><code>}</code></span>
-<span class="codeline" id="line-558"><code></code></span>
-<span class="codeline" id="line-559"><code><span class="comment">// Parse IPv4 address (d.d.d.d).</span></code></span>
-<span class="codeline" id="line-560"><code><span class="keyword">func</span> <label for="r127" class="ident"><a href="../../pkg/net.html#name-parseIPv4" class="ident">parseIPv4</a></label>(<label for="r128" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="#line-35" class="ident">IP</a> {</code></span>
-<span class="codeline" id="line-561"><code>	<span class="keyword">var</span> <label for="r129" class="ident">p</label> [<a href="#line-22" class="ident">IPv4len</a>]<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
-<span class="codeline" id="line-562"><code>	<span class="keyword">for</span> <label for="r130" class="ident">i</label> := <span class="lit-number">0</span>; <label for="r130" class="ident">i</label> &lt; <a href="#line-22" class="ident">IPv4len</a>; <label for="r130" class="ident">i</label>++ {</code></span>
-<span class="codeline" id="line-563"><code>		<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r128" class="ident">s</label>) == <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-564"><code>			<span class="comment">// Missing octets.</span></code></span>
-<span class="codeline" id="line-565"><code>			<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-566"><code>		}</code></span>
-<span class="codeline" id="line-567"><code>		<span class="keyword">if</span> <label for="r130" class="ident">i</label> &gt; <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-568"><code>			<span class="keyword">if</span> <label for="r128" class="ident">s</label>[<span class="lit-number">0</span>] != <span class="lit-number">'.'</span> {</code></span>
-<span class="codeline" id="line-569"><code>				<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-570"><code>			}</code></span>
-<span class="codeline" id="line-571"><code>			<label for="r128" class="ident">s</label> = <label for="r128" class="ident">s</label>[<span class="lit-number">1</span>:]</code></span>
-<span class="codeline" id="line-572"><code>		}</code></span>
-<span class="codeline" id="line-573"><code>		<label for="r131" class="ident">n</label>, <label for="r132" class="ident">c</label>, <label for="r133" class="ident">ok</label> := <a href="parse.go.html#line-122" class="ident">dtoi</a>(<label for="r128" class="ident">s</label>)</code></span>
-<span class="codeline" id="line-574"><code>		<span class="keyword">if</span> !<label for="r133" class="ident">ok</label> || <label for="r131" class="ident">n</label> &gt; <span class="lit-number">0xFF</span> {</code></span>
-<span class="codeline" id="line-575"><code>			<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-576"><code>		}</code></span>
-<span class="codeline" id="line-577"><code>		<span class="keyword">if</span> <label for="r132" class="ident">c</label> &gt; <span class="lit-number">1</span> &amp;&amp; <label for="r128" class="ident">s</label>[<span class="lit-number">0</span>] == <span class="lit-number">'0'</span> {</code></span>
-<span class="codeline" id="line-578"><code>			<span class="comment">// Reject non-zero components with leading zeroes.</span></code></span>
-<span class="codeline" id="line-579"><code>			<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-580"><code>		}</code></span>
-<span class="codeline" id="line-581"><code>		<label for="r128" class="ident">s</label> = <label for="r128" class="ident">s</label>[<label for="r132" class="ident">c</label>:]</code></span>
-<span class="codeline" id="line-582"><code>		<label for="r129" class="ident">p</label>[<label for="r130" class="ident">i</label>] = <a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>(<label for="r131" class="ident">n</label>)</code></span>
-<span class="codeline" id="line-583"><code>	}</code></span>
-<span class="codeline" id="line-584"><code>	<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r128" class="ident">s</label>) != <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-585"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-548"><code>	<span class="keyword">if</span> <label for="r122" class="ident">n</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-549"><code>		<span class="keyword">return</span> <span class="lit-string">"&lt;nil&gt;"</span></code></span>
+<span class="codeline" id="line-550"><code>	}</code></span>
+<span class="codeline" id="line-551"><code>	<label for="r124" class="ident">nn</label>, <label for="r125" class="ident">m</label> := <a href="#line-497" class="ident">networkNumberAndMask</a>(<label for="r122" class="ident">n</label>)</code></span>
+<span class="codeline" id="line-552"><code>	<span class="keyword">if</span> <label for="r124" class="ident">nn</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> || <label for="r125" class="ident">m</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-553"><code>		<span class="keyword">return</span> <span class="lit-string">"&lt;nil&gt;"</span></code></span>
+<span class="codeline" id="line-554"><code>	}</code></span>
+<span class="codeline" id="line-555"><code>	<label for="r126" class="ident">l</label> := <a href="#line-451" class="ident">simpleMaskLength</a>(<label for="r125" class="ident">m</label>)</code></span>
+<span class="codeline" id="line-556"><code>	<span class="keyword">if</span> <label for="r126" class="ident">l</label> == -<span class="lit-number">1</span> {</code></span>
+<span class="codeline" id="line-557"><code>		<span class="keyword">return</span> <label for="r124" class="ident">nn</label>.<a href="#line-313" class="ident">String</a>() + <span class="lit-string">"/"</span> + <label for="r125" class="ident">m</label>.<a href="#line-490" class="ident">String</a>()</code></span>
+<span class="codeline" id="line-558"><code>	}</code></span>
+<span class="codeline" id="line-559"><code>	<span class="keyword">return</span> <label for="r124" class="ident">nn</label>.<a href="#line-313" class="ident">String</a>() + <span class="lit-string">"/"</span> + <a href="../../pkg/internal/itoa.html" class="ident i1">itoa</a>.<a href="../internal/itoa/itoa.go.html#line-18" class="ident">Uitoa</a>(<a href="../../pkg/builtin.html#name-uint" class="ident">uint</a>(<label for="r126" class="ident">l</label>))</code></span>
+<span class="codeline" id="line-560"><code>}</code></span>
+<span class="codeline" id="line-561"><code></code></span>
+<span class="codeline" id="line-562"><code><span class="comment">// Parse IPv4 address (d.d.d.d).</span></code></span>
+<span class="codeline" id="line-563"><code><span class="keyword">func</span> <label for="r127" class="ident"><a href="../../pkg/net.html#name-parseIPv4" class="ident">parseIPv4</a></label>(<label for="r128" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="#line-35" class="ident">IP</a> {</code></span>
+<span class="codeline" id="line-564"><code>	<span class="keyword">var</span> <label for="r129" class="ident">p</label> [<a href="#line-22" class="ident">IPv4len</a>]<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-565"><code>	<span class="keyword">for</span> <label for="r130" class="ident">i</label> := <span class="lit-number">0</span>; <label for="r130" class="ident">i</label> &lt; <a href="#line-22" class="ident">IPv4len</a>; <label for="r130" class="ident">i</label>++ {</code></span>
+<span class="codeline" id="line-566"><code>		<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r128" class="ident">s</label>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-567"><code>			<span class="comment">// Missing octets.</span></code></span>
+<span class="codeline" id="line-568"><code>			<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-569"><code>		}</code></span>
+<span class="codeline" id="line-570"><code>		<span class="keyword">if</span> <label for="r130" class="ident">i</label> &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-571"><code>			<span class="keyword">if</span> <label for="r128" class="ident">s</label>[<span class="lit-number">0</span>] != <span class="lit-number">'.'</span> {</code></span>
+<span class="codeline" id="line-572"><code>				<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-573"><code>			}</code></span>
+<span class="codeline" id="line-574"><code>			<label for="r128" class="ident">s</label> = <label for="r128" class="ident">s</label>[<span class="lit-number">1</span>:]</code></span>
+<span class="codeline" id="line-575"><code>		}</code></span>
+<span class="codeline" id="line-576"><code>		<label for="r131" class="ident">n</label>, <label for="r132" class="ident">c</label>, <label for="r133" class="ident">ok</label> := <a href="parse.go.html#line-122" class="ident">dtoi</a>(<label for="r128" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-577"><code>		<span class="keyword">if</span> !<label for="r133" class="ident">ok</label> || <label for="r131" class="ident">n</label> &gt; <span class="lit-number">0xFF</span> {</code></span>
+<span class="codeline" id="line-578"><code>			<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-579"><code>		}</code></span>
+<span class="codeline" id="line-580"><code>		<span class="keyword">if</span> <label for="r132" class="ident">c</label> &gt; <span class="lit-number">1</span> &amp;&amp; <label for="r128" class="ident">s</label>[<span class="lit-number">0</span>] == <span class="lit-number">'0'</span> {</code></span>
+<span class="codeline" id="line-581"><code>			<span class="comment">// Reject non-zero components with leading zeroes.</span></code></span>
+<span class="codeline" id="line-582"><code>			<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-583"><code>		}</code></span>
+<span class="codeline" id="line-584"><code>		<label for="r128" class="ident">s</label> = <label for="r128" class="ident">s</label>[<label for="r132" class="ident">c</label>:]</code></span>
+<span class="codeline" id="line-585"><code>		<label for="r129" class="ident">p</label>[<label for="r130" class="ident">i</label>] = <a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>(<label for="r131" class="ident">n</label>)</code></span>
 <span class="codeline" id="line-586"><code>	}</code></span>
-<span class="codeline" id="line-587"><code>	<span class="keyword">return</span> <a href="#line-51" class="ident">IPv4</a>(<label for="r129" class="ident">p</label>[<span class="lit-number">0</span>], <label for="r129" class="ident">p</label>[<span class="lit-number">1</span>], <label for="r129" class="ident">p</label>[<span class="lit-number">2</span>], <label for="r129" class="ident">p</label>[<span class="lit-number">3</span>])</code></span>
-<span class="codeline" id="line-588"><code>}</code></span>
-<span class="codeline" id="line-589"><code></code></span>
-<span class="codeline" id="line-590"><code><span class="comment">// parseIPv6Zone parses s as a literal IPv6 address and its associated zone</span></code></span>
-<span class="codeline" id="line-591"><code><span class="comment">// identifier which is described in RFC 4007.</span></code></span>
-<span class="codeline" id="line-592"><code><span class="keyword">func</span> <label for="r134" class="ident"><a href="../../pkg/net.html#name-parseIPv6Zone" class="ident">parseIPv6Zone</a></label>(<label for="r135" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) (<a href="#line-35" class="ident">IP</a>, <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) {</code></span>
-<span class="codeline" id="line-593"><code>	<label for="r135" class="ident">s</label>, <label for="r136" class="ident">zone</label> := <a href="ipsock.go.html#line-219" class="ident">splitHostZone</a>(<label for="r135" class="ident">s</label>)</code></span>
-<span class="codeline" id="line-594"><code>	<span class="keyword">return</span> <a href="#line-599" class="ident">parseIPv6</a>(<label for="r135" class="ident">s</label>), <label for="r136" class="ident">zone</label></code></span>
-<span class="codeline" id="line-595"><code>}</code></span>
-<span class="codeline" id="line-596"><code></code></span>
-<span class="codeline" id="line-597"><code><span class="comment">// parseIPv6 parses s as a literal IPv6 address described in RFC 4291</span></code></span>
-<span class="codeline" id="line-598"><code><span class="comment">// and RFC 5952.</span></code></span>
-<span class="codeline" id="line-599"><code><span class="keyword">func</span> <label for="r137" class="ident"><a href="../../pkg/net.html#name-parseIPv6" class="ident">parseIPv6</a></label>(<label for="r138" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) (<label for="r139" class="ident">ip</label> <a href="#line-35" class="ident">IP</a>) {</code></span>
-<span class="codeline" id="line-600"><code>	<label for="r139" class="ident">ip</label> = <a href="../../pkg/builtin.html#name-make" class="ident">make</a>(<a href="#line-35" class="ident">IP</a>, <a href="#line-23" class="ident">IPv6len</a>)</code></span>
-<span class="codeline" id="line-601"><code>	<label for="r140" class="ident">ellipsis</label> := -<span class="lit-number">1</span> <span class="comment">// position of ellipsis in ip</span></code></span>
-<span class="codeline" id="line-602"><code></code></span>
-<span class="codeline" id="line-603"><code>	<span class="comment">// Might have leading ellipsis</span></code></span>
-<span class="codeline" id="line-604"><code>	<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r138" class="ident">s</label>) &gt;= <span class="lit-number">2</span> &amp;&amp; <label for="r138" class="ident">s</label>[<span class="lit-number">0</span>] == <span class="lit-number">':'</span> &amp;&amp; <label for="r138" class="ident">s</label>[<span class="lit-number">1</span>] == <span class="lit-number">':'</span> {</code></span>
-<span class="codeline" id="line-605"><code>		<label for="r140" class="ident">ellipsis</label> = <span class="lit-number">0</span></code></span>
-<span class="codeline" id="line-606"><code>		<label for="r138" class="ident">s</label> = <label for="r138" class="ident">s</label>[<span class="lit-number">2</span>:]</code></span>
-<span class="codeline" id="line-607"><code>		<span class="comment">// Might be only ellipsis</span></code></span>
-<span class="codeline" id="line-608"><code>		<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r138" class="ident">s</label>) == <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-609"><code>			<span class="keyword">return</span> <label for="r139" class="ident">ip</label></code></span>
-<span class="codeline" id="line-610"><code>		}</code></span>
-<span class="codeline" id="line-611"><code>	}</code></span>
-<span class="codeline" id="line-612"><code></code></span>
-<span class="codeline" id="line-613"><code>	<span class="comment">// Loop, parsing hex numbers followed by colon.</span></code></span>
-<span class="codeline" id="line-614"><code>	<label for="r141" class="ident">i</label> := <span class="lit-number">0</span></code></span>
-<span class="codeline" id="line-615"><code>	<span class="keyword">for</span> <label for="r141" class="ident">i</label> &lt; <a href="#line-23" class="ident">IPv6len</a> {</code></span>
-<span class="codeline" id="line-616"><code>		<span class="comment">// Hex number.</span></code></span>
-<span class="codeline" id="line-617"><code>		<label for="r142" class="ident">n</label>, <label for="r143" class="ident">c</label>, <label for="r144" class="ident">ok</label> := <a href="parse.go.html#line-138" class="ident">xtoi</a>(<label for="r138" class="ident">s</label>)</code></span>
-<span class="codeline" id="line-618"><code>		<span class="keyword">if</span> !<label for="r144" class="ident">ok</label> || <label for="r142" class="ident">n</label> &gt; <span class="lit-number">0xFFFF</span> {</code></span>
-<span class="codeline" id="line-619"><code>			<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-620"><code>		}</code></span>
-<span class="codeline" id="line-621"><code></code></span>
-<span class="codeline" id="line-622"><code>		<span class="comment">// If followed by dot, might be in trailing IPv4.</span></code></span>
-<span class="codeline" id="line-623"><code>		<span class="keyword">if</span> <label for="r143" class="ident">c</label> &lt; <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r138" class="ident">s</label>) &amp;&amp; <label for="r138" class="ident">s</label>[<label for="r143" class="ident">c</label>] == <span class="lit-number">'.'</span> {</code></span>
-<span class="codeline" id="line-624"><code>			<span class="keyword">if</span> <label for="r140" class="ident">ellipsis</label> &lt; <span class="lit-number">0</span> &amp;&amp; <label for="r141" class="ident">i</label> != <a href="#line-23" class="ident">IPv6len</a>-<a href="#line-22" class="ident">IPv4len</a> {</code></span>
-<span class="codeline" id="line-625"><code>				<span class="comment">// Not the right place.</span></code></span>
-<span class="codeline" id="line-626"><code>				<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-627"><code>			}</code></span>
-<span class="codeline" id="line-628"><code>			<span class="keyword">if</span> <label for="r141" class="ident">i</label>+<a href="#line-22" class="ident">IPv4len</a> &gt; <a href="#line-23" class="ident">IPv6len</a> {</code></span>
-<span class="codeline" id="line-629"><code>				<span class="comment">// Not enough room.</span></code></span>
-<span class="codeline" id="line-630"><code>				<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-631"><code>			}</code></span>
-<span class="codeline" id="line-632"><code>			<label for="r145" class="ident">ip4</label> := <a href="#line-560" class="ident">parseIPv4</a>(<label for="r138" class="ident">s</label>)</code></span>
-<span class="codeline" id="line-633"><code>			<span class="keyword">if</span> <label for="r145" class="ident">ip4</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-634"><code>				<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-635"><code>			}</code></span>
-<span class="codeline" id="line-636"><code>			<label for="r139" class="ident">ip</label>[<label for="r141" class="ident">i</label>] = <label for="r145" class="ident">ip4</label>[<span class="lit-number">12</span>]</code></span>
-<span class="codeline" id="line-637"><code>			<label for="r139" class="ident">ip</label>[<label for="r141" class="ident">i</label>+<span class="lit-number">1</span>] = <label for="r145" class="ident">ip4</label>[<span class="lit-number">13</span>]</code></span>
-<span class="codeline" id="line-638"><code>			<label for="r139" class="ident">ip</label>[<label for="r141" class="ident">i</label>+<span class="lit-number">2</span>] = <label for="r145" class="ident">ip4</label>[<span class="lit-number">14</span>]</code></span>
-<span class="codeline" id="line-639"><code>			<label for="r139" class="ident">ip</label>[<label for="r141" class="ident">i</label>+<span class="lit-number">3</span>] = <label for="r145" class="ident">ip4</label>[<span class="lit-number">15</span>]</code></span>
-<span class="codeline" id="line-640"><code>			<label for="r138" class="ident">s</label> = <span class="lit-string">""</span></code></span>
-<span class="codeline" id="line-641"><code>			<label for="r141" class="ident">i</label> += <a href="#line-22" class="ident">IPv4len</a></code></span>
-<span class="codeline" id="line-642"><code>			<span class="keyword">break</span></code></span>
-<span class="codeline" id="line-643"><code>		}</code></span>
-<span class="codeline" id="line-644"><code></code></span>
-<span class="codeline" id="line-645"><code>		<span class="comment">// Save this 16-bit chunk.</span></code></span>
-<span class="codeline" id="line-646"><code>		<label for="r139" class="ident">ip</label>[<label for="r141" class="ident">i</label>] = <a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>(<label for="r142" class="ident">n</label> &gt;&gt; <span class="lit-number">8</span>)</code></span>
-<span class="codeline" id="line-647"><code>		<label for="r139" class="ident">ip</label>[<label for="r141" class="ident">i</label>+<span class="lit-number">1</span>] = <a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>(<label for="r142" class="ident">n</label>)</code></span>
-<span class="codeline" id="line-648"><code>		<label for="r141" class="ident">i</label> += <span class="lit-number">2</span></code></span>
-<span class="codeline" id="line-649"><code></code></span>
-<span class="codeline" id="line-650"><code>		<span class="comment">// Stop at end of string.</span></code></span>
-<span class="codeline" id="line-651"><code>		<label for="r138" class="ident">s</label> = <label for="r138" class="ident">s</label>[<label for="r143" class="ident">c</label>:]</code></span>
-<span class="codeline" id="line-652"><code>		<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r138" class="ident">s</label>) == <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-653"><code>			<span class="keyword">break</span></code></span>
-<span class="codeline" id="line-654"><code>		}</code></span>
-<span class="codeline" id="line-655"><code></code></span>
-<span class="codeline" id="line-656"><code>		<span class="comment">// Otherwise must be followed by colon and more.</span></code></span>
-<span class="codeline" id="line-657"><code>		<span class="keyword">if</span> <label for="r138" class="ident">s</label>[<span class="lit-number">0</span>] != <span class="lit-number">':'</span> || <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r138" class="ident">s</label>) == <span class="lit-number">1</span> {</code></span>
-<span class="codeline" id="line-658"><code>			<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-659"><code>		}</code></span>
-<span class="codeline" id="line-660"><code>		<label for="r138" class="ident">s</label> = <label for="r138" class="ident">s</label>[<span class="lit-number">1</span>:]</code></span>
-<span class="codeline" id="line-661"><code></code></span>
-<span class="codeline" id="line-662"><code>		<span class="comment">// Look for ellipsis.</span></code></span>
-<span class="codeline" id="line-663"><code>		<span class="keyword">if</span> <label for="r138" class="ident">s</label>[<span class="lit-number">0</span>] == <span class="lit-number">':'</span> {</code></span>
-<span class="codeline" id="line-664"><code>			<span class="keyword">if</span> <label for="r140" class="ident">ellipsis</label> &gt;= <span class="lit-number">0</span> { <span class="comment">// already have one</span></code></span>
-<span class="codeline" id="line-665"><code>				<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-666"><code>			}</code></span>
-<span class="codeline" id="line-667"><code>			<label for="r140" class="ident">ellipsis</label> = <label for="r141" class="ident">i</label></code></span>
-<span class="codeline" id="line-668"><code>			<label for="r138" class="ident">s</label> = <label for="r138" class="ident">s</label>[<span class="lit-number">1</span>:]</code></span>
-<span class="codeline" id="line-669"><code>			<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r138" class="ident">s</label>) == <span class="lit-number">0</span> { <span class="comment">// can be at end</span></code></span>
-<span class="codeline" id="line-670"><code>				<span class="keyword">break</span></code></span>
-<span class="codeline" id="line-671"><code>			}</code></span>
-<span class="codeline" id="line-672"><code>		}</code></span>
-<span class="codeline" id="line-673"><code>	}</code></span>
-<span class="codeline" id="line-674"><code></code></span>
-<span class="codeline" id="line-675"><code>	<span class="comment">// Must have used entire string.</span></code></span>
-<span class="codeline" id="line-676"><code>	<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r138" class="ident">s</label>) != <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-677"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-678"><code>	}</code></span>
-<span class="codeline" id="line-679"><code></code></span>
-<span class="codeline" id="line-680"><code>	<span class="comment">// If didn't parse enough, expand ellipsis.</span></code></span>
-<span class="codeline" id="line-681"><code>	<span class="keyword">if</span> <label for="r141" class="ident">i</label> &lt; <a href="#line-23" class="ident">IPv6len</a> {</code></span>
-<span class="codeline" id="line-682"><code>		<span class="keyword">if</span> <label for="r140" class="ident">ellipsis</label> &lt; <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-683"><code>			<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-684"><code>		}</code></span>
-<span class="codeline" id="line-685"><code>		<label for="r146" class="ident">n</label> := <a href="#line-23" class="ident">IPv6len</a> - <label for="r141" class="ident">i</label></code></span>
-<span class="codeline" id="line-686"><code>		<span class="keyword">for</span> <label for="r147" class="ident">j</label> := <label for="r141" class="ident">i</label> - <span class="lit-number">1</span>; <label for="r147" class="ident">j</label> &gt;= <label for="r140" class="ident">ellipsis</label>; <label for="r147" class="ident">j</label>-- {</code></span>
-<span class="codeline" id="line-687"><code>			<label for="r139" class="ident">ip</label>[<label for="r147" class="ident">j</label>+<label for="r146" class="ident">n</label>] = <label for="r139" class="ident">ip</label>[<label for="r147" class="ident">j</label>]</code></span>
-<span class="codeline" id="line-688"><code>		}</code></span>
-<span class="codeline" id="line-689"><code>		<span class="keyword">for</span> <label for="r148" class="ident">j</label> := <label for="r140" class="ident">ellipsis</label> + <label for="r146" class="ident">n</label> - <span class="lit-number">1</span>; <label for="r148" class="ident">j</label> &gt;= <label for="r140" class="ident">ellipsis</label>; <label for="r148" class="ident">j</label>-- {</code></span>
-<span class="codeline" id="line-690"><code>			<label for="r139" class="ident">ip</label>[<label for="r148" class="ident">j</label>] = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-587"><code>	<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r128" class="ident">s</label>) != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-588"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-589"><code>	}</code></span>
+<span class="codeline" id="line-590"><code>	<span class="keyword">return</span> <a href="#line-51" class="ident">IPv4</a>(<label for="r129" class="ident">p</label>[<span class="lit-number">0</span>], <label for="r129" class="ident">p</label>[<span class="lit-number">1</span>], <label for="r129" class="ident">p</label>[<span class="lit-number">2</span>], <label for="r129" class="ident">p</label>[<span class="lit-number">3</span>])</code></span>
+<span class="codeline" id="line-591"><code>}</code></span>
+<span class="codeline" id="line-592"><code></code></span>
+<span class="codeline" id="line-593"><code><span class="comment">// parseIPv6Zone parses s as a literal IPv6 address and its associated zone</span></code></span>
+<span class="codeline" id="line-594"><code><span class="comment">// identifier which is described in RFC 4007.</span></code></span>
+<span class="codeline" id="line-595"><code><span class="keyword">func</span> <label for="r134" class="ident"><a href="../../pkg/net.html#name-parseIPv6Zone" class="ident">parseIPv6Zone</a></label>(<label for="r135" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) (<a href="#line-35" class="ident">IP</a>, <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) {</code></span>
+<span class="codeline" id="line-596"><code>	<label for="r135" class="ident">s</label>, <label for="r136" class="ident">zone</label> := <a href="ipsock.go.html#line-219" class="ident">splitHostZone</a>(<label for="r135" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-597"><code>	<span class="keyword">return</span> <a href="#line-602" class="ident">parseIPv6</a>(<label for="r135" class="ident">s</label>), <label for="r136" class="ident">zone</label></code></span>
+<span class="codeline" id="line-598"><code>}</code></span>
+<span class="codeline" id="line-599"><code></code></span>
+<span class="codeline" id="line-600"><code><span class="comment">// parseIPv6 parses s as a literal IPv6 address described in RFC 4291</span></code></span>
+<span class="codeline" id="line-601"><code><span class="comment">// and RFC 5952.</span></code></span>
+<span class="codeline" id="line-602"><code><span class="keyword">func</span> <label for="r137" class="ident"><a href="../../pkg/net.html#name-parseIPv6" class="ident">parseIPv6</a></label>(<label for="r138" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) (<label for="r139" class="ident">ip</label> <a href="#line-35" class="ident">IP</a>) {</code></span>
+<span class="codeline" id="line-603"><code>	<label for="r139" class="ident">ip</label> = <a href="../../pkg/builtin.html#name-make" class="ident">make</a>(<a href="#line-35" class="ident">IP</a>, <a href="#line-23" class="ident">IPv6len</a>)</code></span>
+<span class="codeline" id="line-604"><code>	<label for="r140" class="ident">ellipsis</label> := -<span class="lit-number">1</span> <span class="comment">// position of ellipsis in ip</span></code></span>
+<span class="codeline" id="line-605"><code></code></span>
+<span class="codeline" id="line-606"><code>	<span class="comment">// Might have leading ellipsis</span></code></span>
+<span class="codeline" id="line-607"><code>	<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r138" class="ident">s</label>) &gt;= <span class="lit-number">2</span> &amp;&amp; <label for="r138" class="ident">s</label>[<span class="lit-number">0</span>] == <span class="lit-number">':'</span> &amp;&amp; <label for="r138" class="ident">s</label>[<span class="lit-number">1</span>] == <span class="lit-number">':'</span> {</code></span>
+<span class="codeline" id="line-608"><code>		<label for="r140" class="ident">ellipsis</label> = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-609"><code>		<label for="r138" class="ident">s</label> = <label for="r138" class="ident">s</label>[<span class="lit-number">2</span>:]</code></span>
+<span class="codeline" id="line-610"><code>		<span class="comment">// Might be only ellipsis</span></code></span>
+<span class="codeline" id="line-611"><code>		<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r138" class="ident">s</label>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-612"><code>			<span class="keyword">return</span> <label for="r139" class="ident">ip</label></code></span>
+<span class="codeline" id="line-613"><code>		}</code></span>
+<span class="codeline" id="line-614"><code>	}</code></span>
+<span class="codeline" id="line-615"><code></code></span>
+<span class="codeline" id="line-616"><code>	<span class="comment">// Loop, parsing hex numbers followed by colon.</span></code></span>
+<span class="codeline" id="line-617"><code>	<label for="r141" class="ident">i</label> := <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-618"><code>	<span class="keyword">for</span> <label for="r141" class="ident">i</label> &lt; <a href="#line-23" class="ident">IPv6len</a> {</code></span>
+<span class="codeline" id="line-619"><code>		<span class="comment">// Hex number.</span></code></span>
+<span class="codeline" id="line-620"><code>		<label for="r142" class="ident">n</label>, <label for="r143" class="ident">c</label>, <label for="r144" class="ident">ok</label> := <a href="parse.go.html#line-138" class="ident">xtoi</a>(<label for="r138" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-621"><code>		<span class="keyword">if</span> !<label for="r144" class="ident">ok</label> || <label for="r142" class="ident">n</label> &gt; <span class="lit-number">0xFFFF</span> {</code></span>
+<span class="codeline" id="line-622"><code>			<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-623"><code>		}</code></span>
+<span class="codeline" id="line-624"><code></code></span>
+<span class="codeline" id="line-625"><code>		<span class="comment">// If followed by dot, might be in trailing IPv4.</span></code></span>
+<span class="codeline" id="line-626"><code>		<span class="keyword">if</span> <label for="r143" class="ident">c</label> &lt; <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r138" class="ident">s</label>) &amp;&amp; <label for="r138" class="ident">s</label>[<label for="r143" class="ident">c</label>] == <span class="lit-number">'.'</span> {</code></span>
+<span class="codeline" id="line-627"><code>			<span class="keyword">if</span> <label for="r140" class="ident">ellipsis</label> &lt; <span class="lit-number">0</span> &amp;&amp; <label for="r141" class="ident">i</label> != <a href="#line-23" class="ident">IPv6len</a>-<a href="#line-22" class="ident">IPv4len</a> {</code></span>
+<span class="codeline" id="line-628"><code>				<span class="comment">// Not the right place.</span></code></span>
+<span class="codeline" id="line-629"><code>				<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-630"><code>			}</code></span>
+<span class="codeline" id="line-631"><code>			<span class="keyword">if</span> <label for="r141" class="ident">i</label>+<a href="#line-22" class="ident">IPv4len</a> &gt; <a href="#line-23" class="ident">IPv6len</a> {</code></span>
+<span class="codeline" id="line-632"><code>				<span class="comment">// Not enough room.</span></code></span>
+<span class="codeline" id="line-633"><code>				<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-634"><code>			}</code></span>
+<span class="codeline" id="line-635"><code>			<label for="r145" class="ident">ip4</label> := <a href="#line-563" class="ident">parseIPv4</a>(<label for="r138" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-636"><code>			<span class="keyword">if</span> <label for="r145" class="ident">ip4</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-637"><code>				<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-638"><code>			}</code></span>
+<span class="codeline" id="line-639"><code>			<label for="r139" class="ident">ip</label>[<label for="r141" class="ident">i</label>] = <label for="r145" class="ident">ip4</label>[<span class="lit-number">12</span>]</code></span>
+<span class="codeline" id="line-640"><code>			<label for="r139" class="ident">ip</label>[<label for="r141" class="ident">i</label>+<span class="lit-number">1</span>] = <label for="r145" class="ident">ip4</label>[<span class="lit-number">13</span>]</code></span>
+<span class="codeline" id="line-641"><code>			<label for="r139" class="ident">ip</label>[<label for="r141" class="ident">i</label>+<span class="lit-number">2</span>] = <label for="r145" class="ident">ip4</label>[<span class="lit-number">14</span>]</code></span>
+<span class="codeline" id="line-642"><code>			<label for="r139" class="ident">ip</label>[<label for="r141" class="ident">i</label>+<span class="lit-number">3</span>] = <label for="r145" class="ident">ip4</label>[<span class="lit-number">15</span>]</code></span>
+<span class="codeline" id="line-643"><code>			<label for="r138" class="ident">s</label> = <span class="lit-string">""</span></code></span>
+<span class="codeline" id="line-644"><code>			<label for="r141" class="ident">i</label> += <a href="#line-22" class="ident">IPv4len</a></code></span>
+<span class="codeline" id="line-645"><code>			<span class="keyword">break</span></code></span>
+<span class="codeline" id="line-646"><code>		}</code></span>
+<span class="codeline" id="line-647"><code></code></span>
+<span class="codeline" id="line-648"><code>		<span class="comment">// Save this 16-bit chunk.</span></code></span>
+<span class="codeline" id="line-649"><code>		<label for="r139" class="ident">ip</label>[<label for="r141" class="ident">i</label>] = <a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>(<label for="r142" class="ident">n</label> &gt;&gt; <span class="lit-number">8</span>)</code></span>
+<span class="codeline" id="line-650"><code>		<label for="r139" class="ident">ip</label>[<label for="r141" class="ident">i</label>+<span class="lit-number">1</span>] = <a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>(<label for="r142" class="ident">n</label>)</code></span>
+<span class="codeline" id="line-651"><code>		<label for="r141" class="ident">i</label> += <span class="lit-number">2</span></code></span>
+<span class="codeline" id="line-652"><code></code></span>
+<span class="codeline" id="line-653"><code>		<span class="comment">// Stop at end of string.</span></code></span>
+<span class="codeline" id="line-654"><code>		<label for="r138" class="ident">s</label> = <label for="r138" class="ident">s</label>[<label for="r143" class="ident">c</label>:]</code></span>
+<span class="codeline" id="line-655"><code>		<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r138" class="ident">s</label>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-656"><code>			<span class="keyword">break</span></code></span>
+<span class="codeline" id="line-657"><code>		}</code></span>
+<span class="codeline" id="line-658"><code></code></span>
+<span class="codeline" id="line-659"><code>		<span class="comment">// Otherwise must be followed by colon and more.</span></code></span>
+<span class="codeline" id="line-660"><code>		<span class="keyword">if</span> <label for="r138" class="ident">s</label>[<span class="lit-number">0</span>] != <span class="lit-number">':'</span> || <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r138" class="ident">s</label>) == <span class="lit-number">1</span> {</code></span>
+<span class="codeline" id="line-661"><code>			<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-662"><code>		}</code></span>
+<span class="codeline" id="line-663"><code>		<label for="r138" class="ident">s</label> = <label for="r138" class="ident">s</label>[<span class="lit-number">1</span>:]</code></span>
+<span class="codeline" id="line-664"><code></code></span>
+<span class="codeline" id="line-665"><code>		<span class="comment">// Look for ellipsis.</span></code></span>
+<span class="codeline" id="line-666"><code>		<span class="keyword">if</span> <label for="r138" class="ident">s</label>[<span class="lit-number">0</span>] == <span class="lit-number">':'</span> {</code></span>
+<span class="codeline" id="line-667"><code>			<span class="keyword">if</span> <label for="r140" class="ident">ellipsis</label> &gt;= <span class="lit-number">0</span> { <span class="comment">// already have one</span></code></span>
+<span class="codeline" id="line-668"><code>				<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-669"><code>			}</code></span>
+<span class="codeline" id="line-670"><code>			<label for="r140" class="ident">ellipsis</label> = <label for="r141" class="ident">i</label></code></span>
+<span class="codeline" id="line-671"><code>			<label for="r138" class="ident">s</label> = <label for="r138" class="ident">s</label>[<span class="lit-number">1</span>:]</code></span>
+<span class="codeline" id="line-672"><code>			<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r138" class="ident">s</label>) == <span class="lit-number">0</span> { <span class="comment">// can be at end</span></code></span>
+<span class="codeline" id="line-673"><code>				<span class="keyword">break</span></code></span>
+<span class="codeline" id="line-674"><code>			}</code></span>
+<span class="codeline" id="line-675"><code>		}</code></span>
+<span class="codeline" id="line-676"><code>	}</code></span>
+<span class="codeline" id="line-677"><code></code></span>
+<span class="codeline" id="line-678"><code>	<span class="comment">// Must have used entire string.</span></code></span>
+<span class="codeline" id="line-679"><code>	<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r138" class="ident">s</label>) != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-680"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-681"><code>	}</code></span>
+<span class="codeline" id="line-682"><code></code></span>
+<span class="codeline" id="line-683"><code>	<span class="comment">// If didn't parse enough, expand ellipsis.</span></code></span>
+<span class="codeline" id="line-684"><code>	<span class="keyword">if</span> <label for="r141" class="ident">i</label> &lt; <a href="#line-23" class="ident">IPv6len</a> {</code></span>
+<span class="codeline" id="line-685"><code>		<span class="keyword">if</span> <label for="r140" class="ident">ellipsis</label> &lt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-686"><code>			<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-687"><code>		}</code></span>
+<span class="codeline" id="line-688"><code>		<label for="r146" class="ident">n</label> := <a href="#line-23" class="ident">IPv6len</a> - <label for="r141" class="ident">i</label></code></span>
+<span class="codeline" id="line-689"><code>		<span class="keyword">for</span> <label for="r147" class="ident">j</label> := <label for="r141" class="ident">i</label> - <span class="lit-number">1</span>; <label for="r147" class="ident">j</label> &gt;= <label for="r140" class="ident">ellipsis</label>; <label for="r147" class="ident">j</label>-- {</code></span>
+<span class="codeline" id="line-690"><code>			<label for="r139" class="ident">ip</label>[<label for="r147" class="ident">j</label>+<label for="r146" class="ident">n</label>] = <label for="r139" class="ident">ip</label>[<label for="r147" class="ident">j</label>]</code></span>
 <span class="codeline" id="line-691"><code>		}</code></span>
-<span class="codeline" id="line-692"><code>	} <span class="keyword">else</span> <span class="keyword">if</span> <label for="r140" class="ident">ellipsis</label> &gt;= <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-693"><code>		<span class="comment">// Ellipsis must represent at least one 0 group.</span></code></span>
-<span class="codeline" id="line-694"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-695"><code>	}</code></span>
-<span class="codeline" id="line-696"><code>	<span class="keyword">return</span> <label for="r139" class="ident">ip</label></code></span>
-<span class="codeline" id="line-697"><code>}</code></span>
-<span class="codeline" id="line-698"><code></code></span>
-<span class="codeline" id="line-699"><code><span class="comment">// ParseIP parses s as an IP address, returning the result.</span></code></span>
-<span class="codeline" id="line-700"><code><span class="comment">// The string s can be in IPv4 dotted decimal ("192.0.2.1"), IPv6</span></code></span>
-<span class="codeline" id="line-701"><code><span class="comment">// ("2001:db8::68"), or IPv4-mapped IPv6 ("::ffff:192.0.2.1") form.</span></code></span>
-<span class="codeline" id="line-702"><code><span class="comment">// If s is not a valid textual representation of an IP address,</span></code></span>
-<span class="codeline" id="line-703"><code><span class="comment">// ParseIP returns nil.</span></code></span>
-<span class="codeline" id="line-704"><code><span class="keyword">func</span> <label for="r149" class="ident"><a href="../../pkg/net.html#name-ParseIP" class="ident">ParseIP</a></label>(<label for="r150" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="#line-35" class="ident">IP</a> {</code></span>
-<span class="codeline" id="line-705"><code>	<span class="keyword">for</span> <label for="r151" class="ident">i</label> := <span class="lit-number">0</span>; <label for="r151" class="ident">i</label> &lt; <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r150" class="ident">s</label>); <label for="r151" class="ident">i</label>++ {</code></span>
-<span class="codeline" id="line-706"><code>		<span class="keyword">switch</span> <label for="r150" class="ident">s</label>[<label for="r151" class="ident">i</label>] {</code></span>
-<span class="codeline" id="line-707"><code>		<span class="keyword">case</span> <span class="lit-number">'.'</span>:</code></span>
-<span class="codeline" id="line-708"><code>			<span class="keyword">return</span> <a href="#line-560" class="ident">parseIPv4</a>(<label for="r150" class="ident">s</label>)</code></span>
-<span class="codeline" id="line-709"><code>		<span class="keyword">case</span> <span class="lit-number">':'</span>:</code></span>
-<span class="codeline" id="line-710"><code>			<span class="keyword">return</span> <a href="#line-599" class="ident">parseIPv6</a>(<label for="r150" class="ident">s</label>)</code></span>
-<span class="codeline" id="line-711"><code>		}</code></span>
-<span class="codeline" id="line-712"><code>	}</code></span>
-<span class="codeline" id="line-713"><code>	<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-714"><code>}</code></span>
-<span class="codeline" id="line-715"><code></code></span>
-<span class="codeline" id="line-716"><code><span class="comment">// parseIPZone parses s as an IP address, return it and its associated zone</span></code></span>
-<span class="codeline" id="line-717"><code><span class="comment">// identifier (IPv6 only).</span></code></span>
-<span class="codeline" id="line-718"><code><span class="keyword">func</span> <label for="r152" class="ident"><a href="../../pkg/net.html#name-parseIPZone" class="ident">parseIPZone</a></label>(<label for="r153" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) (<a href="#line-35" class="ident">IP</a>, <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) {</code></span>
-<span class="codeline" id="line-719"><code>	<span class="keyword">for</span> <label for="r154" class="ident">i</label> := <span class="lit-number">0</span>; <label for="r154" class="ident">i</label> &lt; <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r153" class="ident">s</label>); <label for="r154" class="ident">i</label>++ {</code></span>
-<span class="codeline" id="line-720"><code>		<span class="keyword">switch</span> <label for="r153" class="ident">s</label>[<label for="r154" class="ident">i</label>] {</code></span>
-<span class="codeline" id="line-721"><code>		<span class="keyword">case</span> <span class="lit-number">'.'</span>:</code></span>
-<span class="codeline" id="line-722"><code>			<span class="keyword">return</span> <a href="#line-560" class="ident">parseIPv4</a>(<label for="r153" class="ident">s</label>), <span class="lit-string">""</span></code></span>
-<span class="codeline" id="line-723"><code>		<span class="keyword">case</span> <span class="lit-number">':'</span>:</code></span>
-<span class="codeline" id="line-724"><code>			<span class="keyword">return</span> <a href="#line-592" class="ident">parseIPv6Zone</a>(<label for="r153" class="ident">s</label>)</code></span>
-<span class="codeline" id="line-725"><code>		}</code></span>
-<span class="codeline" id="line-726"><code>	}</code></span>
-<span class="codeline" id="line-727"><code>	<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <span class="lit-string">""</span></code></span>
-<span class="codeline" id="line-728"><code>}</code></span>
-<span class="codeline" id="line-729"><code></code></span>
-<span class="codeline" id="line-730"><code><span class="comment">// ParseCIDR parses s as a CIDR notation IP address and prefix length,</span></code></span>
-<span class="codeline" id="line-731"><code><span class="comment">// like "192.0.2.0/24" or "2001:db8::/32", as defined in</span></code></span>
-<span class="codeline" id="line-732"><code><span class="comment">// RFC 4632 and RFC 4291.</span></code></span>
-<span class="codeline" id="line-733"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-734"><code><span class="comment">// It returns the IP address and the network implied by the IP and</span></code></span>
-<span class="codeline" id="line-735"><code><span class="comment">// prefix length.</span></code></span>
-<span class="codeline" id="line-736"><code><span class="comment">// For example, ParseCIDR("192.0.2.1/24") returns the IP address</span></code></span>
-<span class="codeline" id="line-737"><code><span class="comment">// 192.0.2.1 and the network 192.0.2.0/24.</span></code></span>
-<span class="codeline" id="line-738"><code><span class="keyword">func</span> <label for="r155" class="ident"><a href="../../pkg/net.html#name-ParseCIDR" class="ident">ParseCIDR</a></label>(<label for="r156" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) (<a href="#line-35" class="ident">IP</a>, *<a href="#line-44" class="ident">IPNet</a>, <a href="../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-739"><code>	<label for="r157" class="ident">i</label> := <a href="../../pkg/internal/bytealg.html" class="ident i0">bytealg</a>.<a href="../internal/bytealg/indexbyte_native.go.html#line-14" class="ident">IndexByteString</a>(<label for="r156" class="ident">s</label>, <span class="lit-number">'/'</span>)</code></span>
-<span class="codeline" id="line-740"><code>	<span class="keyword">if</span> <label for="r157" class="ident">i</label> &lt; <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-741"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, &amp;<a href="net.go.html#line-531" class="ident">ParseError</a>{<a href="net.go.html#line-534" class="ident">Type</a>: <span class="lit-string">"CIDR address"</span>, <a href="net.go.html#line-537" class="ident">Text</a>: <label for="r156" class="ident">s</label>}</code></span>
-<span class="codeline" id="line-742"><code>	}</code></span>
-<span class="codeline" id="line-743"><code>	<label for="r158" class="ident">addr</label>, <label for="r159" class="ident">mask</label> := <label for="r156" class="ident">s</label>[:<label for="r157" class="ident">i</label>], <label for="r156" class="ident">s</label>[<label for="r157" class="ident">i</label>+<span class="lit-number">1</span>:]</code></span>
-<span class="codeline" id="line-744"><code>	<label for="r160" class="ident">iplen</label> := <a href="#line-22" class="ident">IPv4len</a></code></span>
-<span class="codeline" id="line-745"><code>	<label for="r161" class="ident">ip</label> := <a href="#line-560" class="ident">parseIPv4</a>(<label for="r158" class="ident">addr</label>)</code></span>
-<span class="codeline" id="line-746"><code>	<span class="keyword">if</span> <label for="r161" class="ident">ip</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-747"><code>		<label for="r160" class="ident">iplen</label> = <a href="#line-23" class="ident">IPv6len</a></code></span>
-<span class="codeline" id="line-748"><code>		<label for="r161" class="ident">ip</label> = <a href="#line-599" class="ident">parseIPv6</a>(<label for="r158" class="ident">addr</label>)</code></span>
-<span class="codeline" id="line-749"><code>	}</code></span>
-<span class="codeline" id="line-750"><code>	<label for="r162" class="ident">n</label>, <label for="r157" class="ident">i</label>, <label for="r163" class="ident">ok</label> := <a href="parse.go.html#line-122" class="ident">dtoi</a>(<label for="r159" class="ident">mask</label>)</code></span>
-<span class="codeline" id="line-751"><code>	<span class="keyword">if</span> <label for="r161" class="ident">ip</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> || !<label for="r163" class="ident">ok</label> || <label for="r157" class="ident">i</label> != <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r159" class="ident">mask</label>) || <label for="r162" class="ident">n</label> &lt; <span class="lit-number">0</span> || <label for="r162" class="ident">n</label> &gt; <span class="lit-number">8</span>*<label for="r160" class="ident">iplen</label> {</code></span>
-<span class="codeline" id="line-752"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, &amp;<a href="net.go.html#line-531" class="ident">ParseError</a>{<a href="net.go.html#line-534" class="ident">Type</a>: <span class="lit-string">"CIDR address"</span>, <a href="net.go.html#line-537" class="ident">Text</a>: <label for="r156" class="ident">s</label>}</code></span>
-<span class="codeline" id="line-753"><code>	}</code></span>
-<span class="codeline" id="line-754"><code>	<label for="r164" class="ident">m</label> := <a href="#line-77" class="ident">CIDRMask</a>(<label for="r162" class="ident">n</label>, <span class="lit-number">8</span>*<label for="r160" class="ident">iplen</label>)</code></span>
-<span class="codeline" id="line-755"><code>	<span class="keyword">return</span> <label for="r161" class="ident">ip</label>, &amp;<a href="#line-44" class="ident">IPNet</a>{<a href="#line-45" class="ident">IP</a>: <label for="r161" class="ident">ip</label>.<a href="#line-270" class="ident">Mask</a>(<label for="r164" class="ident">m</label>), <a href="#line-46" class="ident">Mask</a>: <label for="r164" class="ident">m</label>}, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-756"><code>}</code></span>
+<span class="codeline" id="line-692"><code>		<span class="keyword">for</span> <label for="r148" class="ident">j</label> := <label for="r140" class="ident">ellipsis</label> + <label for="r146" class="ident">n</label> - <span class="lit-number">1</span>; <label for="r148" class="ident">j</label> &gt;= <label for="r140" class="ident">ellipsis</label>; <label for="r148" class="ident">j</label>-- {</code></span>
+<span class="codeline" id="line-693"><code>			<label for="r139" class="ident">ip</label>[<label for="r148" class="ident">j</label>] = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-694"><code>		}</code></span>
+<span class="codeline" id="line-695"><code>	} <span class="keyword">else</span> <span class="keyword">if</span> <label for="r140" class="ident">ellipsis</label> &gt;= <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-696"><code>		<span class="comment">// Ellipsis must represent at least one 0 group.</span></code></span>
+<span class="codeline" id="line-697"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-698"><code>	}</code></span>
+<span class="codeline" id="line-699"><code>	<span class="keyword">return</span> <label for="r139" class="ident">ip</label></code></span>
+<span class="codeline" id="line-700"><code>}</code></span>
+<span class="codeline" id="line-701"><code></code></span>
+<span class="codeline" id="line-702"><code><span class="comment">// ParseIP parses s as an IP address, returning the result.</span></code></span>
+<span class="codeline" id="line-703"><code><span class="comment">// The string s can be in IPv4 dotted decimal ("192.0.2.1"), IPv6</span></code></span>
+<span class="codeline" id="line-704"><code><span class="comment">// ("2001:db8::68"), or IPv4-mapped IPv6 ("::ffff:192.0.2.1") form.</span></code></span>
+<span class="codeline" id="line-705"><code><span class="comment">// If s is not a valid textual representation of an IP address,</span></code></span>
+<span class="codeline" id="line-706"><code><span class="comment">// ParseIP returns nil.</span></code></span>
+<span class="codeline" id="line-707"><code><span class="keyword">func</span> <label for="r149" class="ident"><a href="../../pkg/net.html#name-ParseIP" class="ident">ParseIP</a></label>(<label for="r150" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="#line-35" class="ident">IP</a> {</code></span>
+<span class="codeline" id="line-708"><code>	<span class="keyword">for</span> <label for="r151" class="ident">i</label> := <span class="lit-number">0</span>; <label for="r151" class="ident">i</label> &lt; <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r150" class="ident">s</label>); <label for="r151" class="ident">i</label>++ {</code></span>
+<span class="codeline" id="line-709"><code>		<span class="keyword">switch</span> <label for="r150" class="ident">s</label>[<label for="r151" class="ident">i</label>] {</code></span>
+<span class="codeline" id="line-710"><code>		<span class="keyword">case</span> <span class="lit-number">'.'</span>:</code></span>
+<span class="codeline" id="line-711"><code>			<span class="keyword">return</span> <a href="#line-563" class="ident">parseIPv4</a>(<label for="r150" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-712"><code>		<span class="keyword">case</span> <span class="lit-number">':'</span>:</code></span>
+<span class="codeline" id="line-713"><code>			<span class="keyword">return</span> <a href="#line-602" class="ident">parseIPv6</a>(<label for="r150" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-714"><code>		}</code></span>
+<span class="codeline" id="line-715"><code>	}</code></span>
+<span class="codeline" id="line-716"><code>	<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-717"><code>}</code></span>
+<span class="codeline" id="line-718"><code></code></span>
+<span class="codeline" id="line-719"><code><span class="comment">// parseIPZone parses s as an IP address, return it and its associated zone</span></code></span>
+<span class="codeline" id="line-720"><code><span class="comment">// identifier (IPv6 only).</span></code></span>
+<span class="codeline" id="line-721"><code><span class="keyword">func</span> <label for="r152" class="ident"><a href="../../pkg/net.html#name-parseIPZone" class="ident">parseIPZone</a></label>(<label for="r153" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) (<a href="#line-35" class="ident">IP</a>, <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) {</code></span>
+<span class="codeline" id="line-722"><code>	<span class="keyword">for</span> <label for="r154" class="ident">i</label> := <span class="lit-number">0</span>; <label for="r154" class="ident">i</label> &lt; <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r153" class="ident">s</label>); <label for="r154" class="ident">i</label>++ {</code></span>
+<span class="codeline" id="line-723"><code>		<span class="keyword">switch</span> <label for="r153" class="ident">s</label>[<label for="r154" class="ident">i</label>] {</code></span>
+<span class="codeline" id="line-724"><code>		<span class="keyword">case</span> <span class="lit-number">'.'</span>:</code></span>
+<span class="codeline" id="line-725"><code>			<span class="keyword">return</span> <a href="#line-563" class="ident">parseIPv4</a>(<label for="r153" class="ident">s</label>), <span class="lit-string">""</span></code></span>
+<span class="codeline" id="line-726"><code>		<span class="keyword">case</span> <span class="lit-number">':'</span>:</code></span>
+<span class="codeline" id="line-727"><code>			<span class="keyword">return</span> <a href="#line-595" class="ident">parseIPv6Zone</a>(<label for="r153" class="ident">s</label>)</code></span>
+<span class="codeline" id="line-728"><code>		}</code></span>
+<span class="codeline" id="line-729"><code>	}</code></span>
+<span class="codeline" id="line-730"><code>	<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <span class="lit-string">""</span></code></span>
+<span class="codeline" id="line-731"><code>}</code></span>
+<span class="codeline" id="line-732"><code></code></span>
+<span class="codeline" id="line-733"><code><span class="comment">// ParseCIDR parses s as a CIDR notation IP address and prefix length,</span></code></span>
+<span class="codeline" id="line-734"><code><span class="comment">// like "192.0.2.0/24" or "2001:db8::/32", as defined in</span></code></span>
+<span class="codeline" id="line-735"><code><span class="comment">// RFC 4632 and RFC 4291.</span></code></span>
+<span class="codeline" id="line-736"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-737"><code><span class="comment">// It returns the IP address and the network implied by the IP and</span></code></span>
+<span class="codeline" id="line-738"><code><span class="comment">// prefix length.</span></code></span>
+<span class="codeline" id="line-739"><code><span class="comment">// For example, ParseCIDR("192.0.2.1/24") returns the IP address</span></code></span>
+<span class="codeline" id="line-740"><code><span class="comment">// 192.0.2.1 and the network 192.0.2.0/24.</span></code></span>
+<span class="codeline" id="line-741"><code><span class="keyword">func</span> <label for="r155" class="ident"><a href="../../pkg/net.html#name-ParseCIDR" class="ident">ParseCIDR</a></label>(<label for="r156" class="ident">s</label> <a href="../../pkg/builtin.html#name-string" class="ident">string</a>) (<a href="#line-35" class="ident">IP</a>, *<a href="#line-44" class="ident">IPNet</a>, <a href="../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-742"><code>	<label for="r157" class="ident">i</label> := <a href="../../pkg/internal/bytealg.html" class="ident i0">bytealg</a>.<a href="../internal/bytealg/indexbyte_native.go.html#line-13" class="ident">IndexByteString</a>(<label for="r156" class="ident">s</label>, <span class="lit-number">'/'</span>)</code></span>
+<span class="codeline" id="line-743"><code>	<span class="keyword">if</span> <label for="r157" class="ident">i</label> &lt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-744"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, &amp;<a href="net.go.html#line-540" class="ident">ParseError</a>{<a href="net.go.html#line-543" class="ident">Type</a>: <span class="lit-string">"CIDR address"</span>, <a href="net.go.html#line-546" class="ident">Text</a>: <label for="r156" class="ident">s</label>}</code></span>
+<span class="codeline" id="line-745"><code>	}</code></span>
+<span class="codeline" id="line-746"><code>	<label for="r158" class="ident">addr</label>, <label for="r159" class="ident">mask</label> := <label for="r156" class="ident">s</label>[:<label for="r157" class="ident">i</label>], <label for="r156" class="ident">s</label>[<label for="r157" class="ident">i</label>+<span class="lit-number">1</span>:]</code></span>
+<span class="codeline" id="line-747"><code>	<label for="r160" class="ident">iplen</label> := <a href="#line-22" class="ident">IPv4len</a></code></span>
+<span class="codeline" id="line-748"><code>	<label for="r161" class="ident">ip</label> := <a href="#line-563" class="ident">parseIPv4</a>(<label for="r158" class="ident">addr</label>)</code></span>
+<span class="codeline" id="line-749"><code>	<span class="keyword">if</span> <label for="r161" class="ident">ip</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-750"><code>		<label for="r160" class="ident">iplen</label> = <a href="#line-23" class="ident">IPv6len</a></code></span>
+<span class="codeline" id="line-751"><code>		<label for="r161" class="ident">ip</label> = <a href="#line-602" class="ident">parseIPv6</a>(<label for="r158" class="ident">addr</label>)</code></span>
+<span class="codeline" id="line-752"><code>	}</code></span>
+<span class="codeline" id="line-753"><code>	<label for="r162" class="ident">n</label>, <label for="r157" class="ident">i</label>, <label for="r163" class="ident">ok</label> := <a href="parse.go.html#line-122" class="ident">dtoi</a>(<label for="r159" class="ident">mask</label>)</code></span>
+<span class="codeline" id="line-754"><code>	<span class="keyword">if</span> <label for="r161" class="ident">ip</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> || !<label for="r163" class="ident">ok</label> || <label for="r157" class="ident">i</label> != <a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r159" class="ident">mask</label>) || <label for="r162" class="ident">n</label> &lt; <span class="lit-number">0</span> || <label for="r162" class="ident">n</label> &gt; <span class="lit-number">8</span>*<label for="r160" class="ident">iplen</label> {</code></span>
+<span class="codeline" id="line-755"><code>		<span class="keyword">return</span> <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a>, &amp;<a href="net.go.html#line-540" class="ident">ParseError</a>{<a href="net.go.html#line-543" class="ident">Type</a>: <span class="lit-string">"CIDR address"</span>, <a href="net.go.html#line-546" class="ident">Text</a>: <label for="r156" class="ident">s</label>}</code></span>
+<span class="codeline" id="line-756"><code>	}</code></span>
+<span class="codeline" id="line-757"><code>	<label for="r164" class="ident">m</label> := <a href="#line-77" class="ident">CIDRMask</a>(<label for="r162" class="ident">n</label>, <span class="lit-number">8</span>*<label for="r160" class="ident">iplen</label>)</code></span>
+<span class="codeline" id="line-758"><code>	<span class="keyword">return</span> <label for="r161" class="ident">ip</label>, &amp;<a href="#line-44" class="ident">IPNet</a>{<a href="#line-45" class="ident">IP</a>: <label for="r161" class="ident">ip</label>.<a href="#line-270" class="ident">Mask</a>(<label for="r164" class="ident">m</label>), <a href="#line-46" class="ident">Mask</a>: <label for="r164" class="ident">m</label>}, <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-759"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: http.go in package net/http</title>
-<link href="../../../css/light-v0.3.6.css" rel="stylesheet">
-<script src="../../../jvs/golds-v0.3.6.js"></script>
+<link href="../../../css/light-v0.5.2.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -103,7 +103,7 @@ input[id=i5]:checked ~pre .i5
 <span class="codeline" id="line-27"><code></code></span>
 <span class="codeline" id="line-28"><code><span class="comment">// aLongTimeAgo is a non-zero time, far in the past, used for</span></code></span>
 <span class="codeline" id="line-29"><code><span class="comment">// immediate cancellation of network operations.</span></code></span>
-<span class="codeline" id="line-30"><code><span class="keyword">var</span> <a href="../../../pkg/net/http.html#name-aLongTimeAgo" class="ident">aLongTimeAgo</a> = <a href="../../../pkg/time.html" class="ident i3">time</a>.<a href="../../time/time.go.html#line-1317" class="ident">Unix</a>(<span class="lit-number">1</span>, <span class="lit-number">0</span>)</code></span>
+<span class="codeline" id="line-30"><code><span class="keyword">var</span> <a href="../../../pkg/net/http.html#name-aLongTimeAgo" class="ident">aLongTimeAgo</a> = <a href="../../../pkg/time.html" class="ident i3">time</a>.<a href="../../time/time.go.html#line-1369" class="ident">Unix</a>(<span class="lit-number">1</span>, <span class="lit-number">0</span>)</code></span>
 <span class="codeline" id="line-31"><code></code></span>
 <span class="codeline" id="line-32"><code><span class="comment">// omitBundledHTTP2 is set by omithttp2.go when the nethttpomithttp2</span></code></span>
 <span class="codeline" id="line-33"><code><span class="comment">// build tag is set. That means h2_bundle.go isn't compiled in and we</span></code></span>
@@ -129,7 +129,7 @@ input[id=i5]:checked ~pre .i5
 <span class="codeline" id="line-53"><code><span class="comment">// as mandated by RFC 3986 Section 6.2.3.</span></code></span>
 <span class="codeline" id="line-54"><code><span class="keyword">func</span> <label for="r4" class="ident"><a href="../../../pkg/net/http.html#name-removeEmptyPort" class="ident">removeEmptyPort</a></label>(<label for="r5" class="ident">host</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
 <span class="codeline" id="line-55"><code>	<span class="keyword">if</span> <a href="#line-50" class="ident">hasPort</a>(<label for="r5" class="ident">host</label>) {</code></span>
-<span class="codeline" id="line-56"><code>		<span class="keyword">return</span> <a href="../../../pkg/strings.html" class="ident i2">strings</a>.<a href="../../strings/strings.go.html#line-911" class="ident">TrimSuffix</a>(<label for="r5" class="ident">host</label>, <span class="lit-string">":"</span>)</code></span>
+<span class="codeline" id="line-56"><code>		<span class="keyword">return</span> <a href="../../../pkg/strings.html" class="ident i2">strings</a>.<a href="../../strings/strings.go.html#line-990" class="ident">TrimSuffix</a>(<label for="r5" class="ident">host</label>, <span class="lit-string">":"</span>)</code></span>
 <span class="codeline" id="line-57"><code>	}</code></span>
 <span class="codeline" id="line-58"><code>	<span class="keyword">return</span> <label for="r5" class="ident">host</label></code></span>
 <span class="codeline" id="line-59"><code>}</code></span>
@@ -187,8 +187,8 @@ input[id=i5]:checked ~pre .i5
 <span class="codeline" id="line-111"><code></code></span>
 <span class="codeline" id="line-112"><code><span class="keyword">var</span> (</code></span>
 <span class="codeline" id="line-113"><code>	<span class="comment">// verify that an io.Copy from NoBody won't require a buffer:</span></code></span>
-<span class="codeline" id="line-114"><code>	_ <a href="../../../pkg/io.html" class="ident i0">io</a>.<a href="../../io/io.go.html#line-195" class="ident">WriterTo</a>   = <a href="#line-104" class="ident">NoBody</a></code></span>
-<span class="codeline" id="line-115"><code>	_ <a href="../../../pkg/io.html" class="ident i0">io</a>.<a href="../../io/io.go.html#line-132" class="ident">ReadCloser</a> = <a href="#line-104" class="ident">NoBody</a></code></span>
+<span class="codeline" id="line-114"><code>	_ <a href="../../../pkg/io.html" class="ident i0">io</a>.<a href="../../io/io.go.html#line-197" class="ident">WriterTo</a>   = <a href="#line-104" class="ident">NoBody</a></code></span>
+<span class="codeline" id="line-115"><code>	_ <a href="../../../pkg/io.html" class="ident i0">io</a>.<a href="../../io/io.go.html#line-134" class="ident">ReadCloser</a> = <a href="#line-104" class="ident">NoBody</a></code></span>
 <span class="codeline" id="line-116"><code>)</code></span>
 <span class="codeline" id="line-117"><code></code></span>
 <span class="codeline" id="line-118"><code><span class="comment">// PushOptions describes options for Pusher.Push.</span></code></span>
@@ -200,7 +200,7 @@ input[id=i5]:checked ~pre .i5
 <span class="codeline" id="line-124"><code>	<span class="comment">// Header specifies additional promised request headers. This cannot</span></code></span>
 <span class="codeline" id="line-125"><code><span class="comment">	// include HTTP/2 pseudo header fields like ":path" and ":scheme",</span></code></span>
 <span class="codeline" id="line-126"><code><span class="comment">	// which will be added automatically.</span></code></span>
-<span class="codeline" id="line-127"><code>	<a href="../../../use/net/http..PushOptions.Header.html" class="ident">Header</a> <a href="header.go.html#line-22" class="ident">Header</a></code></span>
+<span class="codeline" id="line-127"><code>	<a href="../../../use/net/http..PushOptions.Header.html" class="ident">Header</a> <a href="header.go.html#line-24" class="ident">Header</a></code></span>
 <span class="codeline" id="line-128"><code>}</code></span>
 <span class="codeline" id="line-129"><code></code></span>
 <span class="codeline" id="line-130"><code><span class="comment">// Pusher is the interface implemented by ResponseWriters that support</span></code></span>
@@ -235,7 +235,7 @@ input[id=i5]:checked ~pre .i5
 <span class="codeline" id="line-159"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>
