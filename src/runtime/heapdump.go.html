@@ -358,12 +358,12 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-26"><code><span class="comment">	// This is safe because the world is stopped, so we don't</span></code></span>
 <span class="codeline" id="line-27"><code><span class="comment">	// need to worry about anyone shrinking and therefore moving</span></code></span>
 <span class="codeline" id="line-28"><code><span class="comment">	// our stack.</span></code></span>
-<span class="codeline" id="line-29"><code>	<span class="keyword">var</span> <label for="r2" class="ident">m</label> <a href="mstats.go.html#line-107" class="ident">MemStats</a></code></span>
+<span class="codeline" id="line-29"><code>	<span class="keyword">var</span> <label for="r2" class="ident">m</label> <a href="mstats.go.html#line-106" class="ident">MemStats</a></code></span>
 <span class="codeline" id="line-30"><code>	<a href="stubs.go.html#line-58" class="ident">systemstack</a>(<span class="keyword">func</span>() {</code></span>
 <span class="codeline" id="line-31"><code>		<span class="comment">// Call readmemstats_m here instead of deeper in</span></code></span>
 <span class="codeline" id="line-32"><code><span class="comment">		// writeheapdump_m because we might blow the system stack</span></code></span>
 <span class="codeline" id="line-33"><code><span class="comment">		// otherwise.</span></code></span>
-<span class="codeline" id="line-34"><code>		<a href="mstats.go.html#line-412" class="ident">readmemstats_m</a>(&amp;<label for="r2" class="ident">m</label>)</code></span>
+<span class="codeline" id="line-34"><code>		<a href="mstats.go.html#line-411" class="ident">readmemstats_m</a>(&amp;<label for="r2" class="ident">m</label>)</code></span>
 <span class="codeline" id="line-35"><code>		<a href="#line-692" class="ident">writeheapdump_m</a>(<label for="r1" class="ident">fd</label>, &amp;<label for="r2" class="ident">m</label>)</code></span>
 <span class="codeline" id="line-36"><code>	})</code></span>
 <span class="codeline" id="line-37"><code></code></span>
@@ -890,41 +890,41 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-558"><code>}</code></span>
 <span class="codeline" id="line-559"><code></code></span>
 <span class="codeline" id="line-560"><code><span class="comment">//go:systemstack</span></code></span>
-<span class="codeline" id="line-561"><code><span class="keyword">func</span> <label for="r110" class="ident"><a href="../../pkg/runtime.html#name-dumpmemstats" class="ident">dumpmemstats</a></label>(<label for="r111" class="ident">m</label> *<a href="mstats.go.html#line-107" class="ident">MemStats</a>) {</code></span>
+<span class="codeline" id="line-561"><code><span class="keyword">func</span> <label for="r110" class="ident"><a href="../../pkg/runtime.html#name-dumpmemstats" class="ident">dumpmemstats</a></label>(<label for="r111" class="ident">m</label> *<a href="mstats.go.html#line-106" class="ident">MemStats</a>) {</code></span>
 <span class="codeline" id="line-562"><code>	<a href="lockrank_off.go.html#line-60" class="ident">assertWorldStopped</a>()</code></span>
 <span class="codeline" id="line-563"><code></code></span>
 <span class="codeline" id="line-564"><code>	<span class="comment">// These ints should be identical to the exported</span></code></span>
 <span class="codeline" id="line-565"><code><span class="comment">	// MemStats structure and should be ordered the same</span></code></span>
 <span class="codeline" id="line-566"><code><span class="comment">	// way too.</span></code></span>
 <span class="codeline" id="line-567"><code>	<a href="#line-124" class="ident">dumpint</a>(<a href="#line-56" class="ident">tagMemStats</a>)</code></span>
-<span class="codeline" id="line-568"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-113" class="ident">Alloc</a>)</code></span>
-<span class="codeline" id="line-569"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-120" class="ident">TotalAlloc</a>)</code></span>
-<span class="codeline" id="line-570"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-130" class="ident">Sys</a>)</code></span>
-<span class="codeline" id="line-571"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-136" class="ident">Lookups</a>)</code></span>
-<span class="codeline" id="line-572"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-140" class="ident">Mallocs</a>)</code></span>
-<span class="codeline" id="line-573"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-143" class="ident">Frees</a>)</code></span>
-<span class="codeline" id="line-574"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-177" class="ident">HeapAlloc</a>)</code></span>
-<span class="codeline" id="line-575"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-190" class="ident">HeapSys</a>)</code></span>
-<span class="codeline" id="line-576"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-205" class="ident">HeapIdle</a>)</code></span>
-<span class="codeline" id="line-577"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-218" class="ident">HeapInuse</a>)</code></span>
-<span class="codeline" id="line-578"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-224" class="ident">HeapReleased</a>)</code></span>
-<span class="codeline" id="line-579"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-231" class="ident">HeapObjects</a>)</code></span>
-<span class="codeline" id="line-580"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-246" class="ident">StackInuse</a>)</code></span>
-<span class="codeline" id="line-581"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-252" class="ident">StackSys</a>)</code></span>
-<span class="codeline" id="line-582"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-266" class="ident">MSpanInuse</a>)</code></span>
-<span class="codeline" id="line-583"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-270" class="ident">MSpanSys</a>)</code></span>
-<span class="codeline" id="line-584"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-273" class="ident">MCacheInuse</a>)</code></span>
-<span class="codeline" id="line-585"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-277" class="ident">MCacheSys</a>)</code></span>
-<span class="codeline" id="line-586"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-280" class="ident">BuckHashSys</a>)</code></span>
-<span class="codeline" id="line-587"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-283" class="ident">GCSys</a>)</code></span>
-<span class="codeline" id="line-588"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-287" class="ident">OtherSys</a>)</code></span>
-<span class="codeline" id="line-589"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-297" class="ident">NextGC</a>)</code></span>
-<span class="codeline" id="line-590"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-301" class="ident">LastGC</a>)</code></span>
-<span class="codeline" id="line-591"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-308" class="ident">PauseTotalNs</a>)</code></span>
+<span class="codeline" id="line-568"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-112" class="ident">Alloc</a>)</code></span>
+<span class="codeline" id="line-569"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-119" class="ident">TotalAlloc</a>)</code></span>
+<span class="codeline" id="line-570"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-129" class="ident">Sys</a>)</code></span>
+<span class="codeline" id="line-571"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-135" class="ident">Lookups</a>)</code></span>
+<span class="codeline" id="line-572"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-139" class="ident">Mallocs</a>)</code></span>
+<span class="codeline" id="line-573"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-142" class="ident">Frees</a>)</code></span>
+<span class="codeline" id="line-574"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-176" class="ident">HeapAlloc</a>)</code></span>
+<span class="codeline" id="line-575"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-189" class="ident">HeapSys</a>)</code></span>
+<span class="codeline" id="line-576"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-204" class="ident">HeapIdle</a>)</code></span>
+<span class="codeline" id="line-577"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-217" class="ident">HeapInuse</a>)</code></span>
+<span class="codeline" id="line-578"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-223" class="ident">HeapReleased</a>)</code></span>
+<span class="codeline" id="line-579"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-230" class="ident">HeapObjects</a>)</code></span>
+<span class="codeline" id="line-580"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-245" class="ident">StackInuse</a>)</code></span>
+<span class="codeline" id="line-581"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-251" class="ident">StackSys</a>)</code></span>
+<span class="codeline" id="line-582"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-265" class="ident">MSpanInuse</a>)</code></span>
+<span class="codeline" id="line-583"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-269" class="ident">MSpanSys</a>)</code></span>
+<span class="codeline" id="line-584"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-272" class="ident">MCacheInuse</a>)</code></span>
+<span class="codeline" id="line-585"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-276" class="ident">MCacheSys</a>)</code></span>
+<span class="codeline" id="line-586"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-279" class="ident">BuckHashSys</a>)</code></span>
+<span class="codeline" id="line-587"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-282" class="ident">GCSys</a>)</code></span>
+<span class="codeline" id="line-588"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-286" class="ident">OtherSys</a>)</code></span>
+<span class="codeline" id="line-589"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-296" class="ident">NextGC</a>)</code></span>
+<span class="codeline" id="line-590"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-300" class="ident">LastGC</a>)</code></span>
+<span class="codeline" id="line-591"><code>	<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-307" class="ident">PauseTotalNs</a>)</code></span>
 <span class="codeline" id="line-592"><code>	<span class="keyword">for</span> <label for="r112" class="ident">i</label> := <span class="lit-number">0</span>; <label for="r112" class="ident">i</label> &lt; <span class="lit-number">256</span>; <label for="r112" class="ident">i</label>++ {</code></span>
-<span class="codeline" id="line-593"><code>		<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-317" class="ident">PauseNs</a>[<label for="r112" class="ident">i</label>])</code></span>
+<span class="codeline" id="line-593"><code>		<a href="#line-124" class="ident">dumpint</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-316" class="ident">PauseNs</a>[<label for="r112" class="ident">i</label>])</code></span>
 <span class="codeline" id="line-594"><code>	}</code></span>
-<span class="codeline" id="line-595"><code>	<a href="#line-124" class="ident">dumpint</a>(<a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-328" class="ident">NumGC</a>))</code></span>
+<span class="codeline" id="line-595"><code>	<a href="#line-124" class="ident">dumpint</a>(<a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>(<label for="r111" class="ident">m</label>.<a href="mstats.go.html#line-327" class="ident">NumGC</a>))</code></span>
 <span class="codeline" id="line-596"><code>}</code></span>
 <span class="codeline" id="line-597"><code></code></span>
 <span class="codeline" id="line-598"><code><span class="keyword">func</span> <label for="r113" class="ident"><a href="../../pkg/runtime.html#name-dumpmemprof_callback" class="ident">dumpmemprof_callback</a></label>(<label for="r114" class="ident">b</label> *<a href="mprof.go.html#line-48" class="ident">bucket</a>, <label for="r115" class="ident">nstk</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>, <label for="r116" class="ident">pstk</label> *<a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>, <label for="r117" class="ident">size</label>, <label for="r118" class="ident">allocs</label>, <label for="r119" class="ident">frees</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) {</code></span>
@@ -998,7 +998,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-666"><code></code></span>
 <span class="codeline" id="line-667"><code><span class="keyword">var</span> <a href="../../pkg/runtime.html#name-dumphdr" class="ident">dumphdr</a> = []<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a>(<span class="lit-string">"go1.7 heap dump\n"</span>)</code></span>
 <span class="codeline" id="line-668"><code></code></span>
-<span class="codeline" id="line-669"><code><span class="keyword">func</span> <label for="r134" class="ident"><a href="../../pkg/runtime.html#name-mdump" class="ident">mdump</a></label>(<label for="r135" class="ident">m</label> *<a href="mstats.go.html#line-107" class="ident">MemStats</a>) {</code></span>
+<span class="codeline" id="line-669"><code><span class="keyword">func</span> <label for="r134" class="ident"><a href="../../pkg/runtime.html#name-mdump" class="ident">mdump</a></label>(<label for="r135" class="ident">m</label> *<a href="mstats.go.html#line-106" class="ident">MemStats</a>) {</code></span>
 <span class="codeline" id="line-670"><code>	<a href="lockrank_off.go.html#line-60" class="ident">assertWorldStopped</a>()</code></span>
 <span class="codeline" id="line-671"><code></code></span>
 <span class="codeline" id="line-672"><code>	<span class="comment">// make sure we're done sweeping</span></code></span>
@@ -1021,7 +1021,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-689"><code>	<a href="#line-101" class="ident">flush</a>()</code></span>
 <span class="codeline" id="line-690"><code>}</code></span>
 <span class="codeline" id="line-691"><code></code></span>
-<span class="codeline" id="line-692"><code><span class="keyword">func</span> <label for="r138" class="ident"><a href="../../pkg/runtime.html#name-writeheapdump_m" class="ident">writeheapdump_m</a></label>(<label for="r139" class="ident">fd</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>, <label for="r140" class="ident">m</label> *<a href="mstats.go.html#line-107" class="ident">MemStats</a>) {</code></span>
+<span class="codeline" id="line-692"><code><span class="keyword">func</span> <label for="r138" class="ident"><a href="../../pkg/runtime.html#name-writeheapdump_m" class="ident">writeheapdump_m</a></label>(<label for="r139" class="ident">fd</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>, <label for="r140" class="ident">m</label> *<a href="mstats.go.html#line-106" class="ident">MemStats</a>) {</code></span>
 <span class="codeline" id="line-693"><code>	<a href="lockrank_off.go.html#line-60" class="ident">assertWorldStopped</a>()</code></span>
 <span class="codeline" id="line-694"><code></code></span>
 <span class="codeline" id="line-695"><code>	<label for="r141" class="ident">_g_</label> := <a href="stubs.go.html#line-22" class="ident">getg</a>()</code></span>
@@ -1031,7 +1031,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-699"><code>	<span class="comment">// Update stats so we can dump them.</span></code></span>
 <span class="codeline" id="line-700"><code><span class="comment">	// As a side effect, flushes all the mcaches so the mspan.freelist</span></code></span>
 <span class="codeline" id="line-701"><code><span class="comment">	// lists contain all the free objects.</span></code></span>
-<span class="codeline" id="line-702"><code>	<a href="mstats.go.html#line-533" class="ident">updatememstats</a>()</code></span>
+<span class="codeline" id="line-702"><code>	<a href="mstats.go.html#line-532" class="ident">updatememstats</a>()</code></span>
 <span class="codeline" id="line-703"><code></code></span>
 <span class="codeline" id="line-704"><code>	<span class="comment">// Set dump file.</span></code></span>
 <span class="codeline" id="line-705"><code>	<a href="#line-66" class="ident">dumpfd</a> = <label for="r139" class="ident">fd</label></code></span>
@@ -1042,7 +1042,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-710"><code>	<span class="comment">// Reset dump file.</span></code></span>
 <span class="codeline" id="line-711"><code>	<a href="#line-66" class="ident">dumpfd</a> = <span class="lit-number">0</span></code></span>
 <span class="codeline" id="line-712"><code>	<span class="keyword">if</span> <a href="#line-67" class="ident">tmpbuf</a> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-713"><code>		<a href="mem_linux.go.html#line-147" class="ident">sysFree</a>(<a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(&amp;<a href="#line-67" class="ident">tmpbuf</a>[<span class="lit-number">0</span>]), <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<a href="#line-67" class="ident">tmpbuf</a>)), &amp;<a href="mstats.go.html#line-104" class="ident">memstats</a>.<a href="mstats.go.html#line-62" class="ident">other_sys</a>)</code></span>
+<span class="codeline" id="line-713"><code>		<a href="mem_linux.go.html#line-147" class="ident">sysFree</a>(<a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(&amp;<a href="#line-67" class="ident">tmpbuf</a>[<span class="lit-number">0</span>]), <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<a href="#line-67" class="ident">tmpbuf</a>)), &amp;<a href="mstats.go.html#line-103" class="ident">memstats</a>.<a href="mstats.go.html#line-61" class="ident">other_sys</a>)</code></span>
 <span class="codeline" id="line-714"><code>		<a href="#line-67" class="ident">tmpbuf</a> = <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-715"><code>	}</code></span>
 <span class="codeline" id="line-716"><code></code></span>
@@ -1060,10 +1060,10 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-728"><code>	<label for="r147" class="ident">nptr</label> := <label for="r146" class="ident">size</label> / <a href="../../pkg/runtime/internal/sys.html" class="ident i0">sys</a>.<a href="internal/sys/arch.go.html#line-24" class="ident">PtrSize</a></code></span>
 <span class="codeline" id="line-729"><code>	<span class="keyword">if</span> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<a href="#line-67" class="ident">tmpbuf</a>)) &lt; <label for="r147" class="ident">nptr</label>/<span class="lit-number">8</span>+<span class="lit-number">1</span> {</code></span>
 <span class="codeline" id="line-730"><code>		<span class="keyword">if</span> <a href="#line-67" class="ident">tmpbuf</a> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-731"><code>			<a href="mem_linux.go.html#line-147" class="ident">sysFree</a>(<a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(&amp;<a href="#line-67" class="ident">tmpbuf</a>[<span class="lit-number">0</span>]), <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<a href="#line-67" class="ident">tmpbuf</a>)), &amp;<a href="mstats.go.html#line-104" class="ident">memstats</a>.<a href="mstats.go.html#line-62" class="ident">other_sys</a>)</code></span>
+<span class="codeline" id="line-731"><code>			<a href="mem_linux.go.html#line-147" class="ident">sysFree</a>(<a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(&amp;<a href="#line-67" class="ident">tmpbuf</a>[<span class="lit-number">0</span>]), <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<a href="#line-67" class="ident">tmpbuf</a>)), &amp;<a href="mstats.go.html#line-103" class="ident">memstats</a>.<a href="mstats.go.html#line-61" class="ident">other_sys</a>)</code></span>
 <span class="codeline" id="line-732"><code>		}</code></span>
 <span class="codeline" id="line-733"><code>		<label for="r148" class="ident">n</label> := <label for="r147" class="ident">nptr</label>/<span class="lit-number">8</span> + <span class="lit-number">1</span></code></span>
-<span class="codeline" id="line-734"><code>		<label for="r149" class="ident">p</label> := <a href="mem_linux.go.html#line-20" class="ident">sysAlloc</a>(<label for="r148" class="ident">n</label>, &amp;<a href="mstats.go.html#line-104" class="ident">memstats</a>.<a href="mstats.go.html#line-62" class="ident">other_sys</a>)</code></span>
+<span class="codeline" id="line-734"><code>		<label for="r149" class="ident">p</label> := <a href="mem_linux.go.html#line-20" class="ident">sysAlloc</a>(<label for="r148" class="ident">n</label>, &amp;<a href="mstats.go.html#line-103" class="ident">memstats</a>.<a href="mstats.go.html#line-61" class="ident">other_sys</a>)</code></span>
 <span class="codeline" id="line-735"><code>		<span class="keyword">if</span> <label for="r149" class="ident">p</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-736"><code>			<a href="panic.go.html#line-1188" class="ident">throw</a>(<span class="lit-string">"heapdump: out of memory"</span>)</code></span>
 <span class="codeline" id="line-737"><code>		}</code></span>

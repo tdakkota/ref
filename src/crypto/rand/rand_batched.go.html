@@ -20,26 +20,18 @@ input[id=r0]:checked ~pre label[for=r0],
 input[id=r1]:checked ~pre label[for=r1],
 input[id=r2]:checked ~pre label[for=r2],
 input[id=r3]:checked ~pre label[for=r3],
-input[id=r4]:checked ~pre label[for=r4],
-input[id=r5]:checked ~pre label[for=r5],
-input[id=r6]:checked ~pre label[for=r6],
-input[id=r7]:checked ~pre label[for=r7],
-input[id=r8]:checked ~pre label[for=r8],
-input[id=r9]:checked ~pre label[for=r9]
+input[id=r4]:checked ~pre label[for=r4]
 {background: #226; color: #ff8;}
-input[id=i0]:checked ~pre .i0
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1
 {background: brown; color: #eed;}
 </style><input id="r0" type="radio" name="g"/>
 <input id="r1" type="radio" name="g"/>
 <input id="r2" type="radio" name="g"/>
 <input id="r3" type="radio" name="g"/>
 <input id="r4" type="radio" name="g"/>
-<input id="r5" type="radio" name="g"/>
-<input id="r6" type="radio" name="g"/>
-<input id="r7" type="radio" name="g"/>
-<input id="r8" type="radio" name="g"/>
-<input id="r9" type="radio" name="g"/>
 <input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
 
 <pre class="line-numbers">
 <span class="codeline" id="line-1"><code><span class="comment">// Copyright 2014 The Go Authors. All rights reserved.</span></code></span>
@@ -52,39 +44,29 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-8"><code><span class="keyword">package</span> rand</code></span>
 <span class="codeline" id="line-9"><code></code></span>
 <span class="codeline" id="line-10"><code><span class="keyword">import</span> (</code></span>
-<span class="codeline" id="line-11"><code>	<label for="i0"><span class="lit-string i0">"internal/syscall/unix"</span></label></code></span>
-<span class="codeline" id="line-12"><code>)</code></span>
-<span class="codeline" id="line-13"><code></code></span>
-<span class="codeline" id="line-14"><code><span class="comment">// maxGetRandomRead is platform dependent.</span></code></span>
-<span class="codeline" id="line-15"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../pkg/crypto/rand.html#name-init" class="ident">init</a></label>() {</code></span>
-<span class="codeline" id="line-16"><code>	<a href="rand_unix.go.html#line-49" class="ident">altGetRandom</a> = <a href="#line-21" class="ident">batched</a>(<a href="#line-40" class="ident">getRandomBatch</a>, <a href="rand_linux.go.html#line-14" class="ident">maxGetRandomRead</a>)</code></span>
-<span class="codeline" id="line-17"><code>}</code></span>
-<span class="codeline" id="line-18"><code></code></span>
-<span class="codeline" id="line-19"><code><span class="comment">// batched returns a function that calls f to populate a []byte by chunking it</span></code></span>
-<span class="codeline" id="line-20"><code><span class="comment">// into subslices of, at most, readMax bytes.</span></code></span>
-<span class="codeline" id="line-21"><code><span class="keyword">func</span> <label for="r1" class="ident"><a href="../../../pkg/crypto/rand.html#name-batched" class="ident">batched</a></label>(<label for="r2" class="ident">f</label> <span class="keyword">func</span>([]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>) <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>, <label for="r3" class="ident">readMax</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>) <span class="keyword">func</span>([]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>) <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-22"><code>	<span class="keyword">return</span> <span class="keyword">func</span>(<label for="r4" class="ident">buf</label> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>) <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-23"><code>		<span class="keyword">for</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r4" class="ident">buf</label>) &gt; <label for="r3" class="ident">readMax</label> {</code></span>
-<span class="codeline" id="line-24"><code>			<span class="keyword">if</span> !<label for="r2" class="ident">f</label>(<label for="r4" class="ident">buf</label>[:<label for="r3" class="ident">readMax</label>]) {</code></span>
-<span class="codeline" id="line-25"><code>				<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-26"><code>			}</code></span>
-<span class="codeline" id="line-27"><code>			<label for="r4" class="ident">buf</label> = <label for="r4" class="ident">buf</label>[<label for="r3" class="ident">readMax</label>:]</code></span>
-<span class="codeline" id="line-28"><code>		}</code></span>
-<span class="codeline" id="line-29"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r4" class="ident">buf</label>) == <span class="lit-number">0</span> || <label for="r2" class="ident">f</label>(<label for="r4" class="ident">buf</label>)</code></span>
-<span class="codeline" id="line-30"><code>	}</code></span>
-<span class="codeline" id="line-31"><code>}</code></span>
-<span class="codeline" id="line-32"><code></code></span>
-<span class="codeline" id="line-33"><code><span class="comment">// If the kernel is too old to support the getrandom syscall(),</span></code></span>
-<span class="codeline" id="line-34"><code><span class="comment">// unix.GetRandom will immediately return ENOSYS and we will then fall back to</span></code></span>
-<span class="codeline" id="line-35"><code><span class="comment">// reading from /dev/urandom in rand_unix.go. unix.GetRandom caches the ENOSYS</span></code></span>
-<span class="codeline" id="line-36"><code><span class="comment">// result so we only suffer the syscall overhead once in this case.</span></code></span>
-<span class="codeline" id="line-37"><code><span class="comment">// If the kernel supports the getrandom() syscall, unix.GetRandom will block</span></code></span>
-<span class="codeline" id="line-38"><code><span class="comment">// until the kernel has sufficient randomness (as we don't use GRND_NONBLOCK).</span></code></span>
-<span class="codeline" id="line-39"><code><span class="comment">// In this case, unix.GetRandom will not return an error.</span></code></span>
-<span class="codeline" id="line-40"><code><span class="keyword">func</span> <label for="r5" class="ident"><a href="../../../pkg/crypto/rand.html#name-getRandomBatch" class="ident">getRandomBatch</a></label>(<label for="r6" class="ident">p</label> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>) (<label for="r7" class="ident">ok</label> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>) {</code></span>
-<span class="codeline" id="line-41"><code>	<label for="r8" class="ident">n</label>, <label for="r9" class="ident">err</label> := <a href="../../../pkg/internal/syscall/unix.html" class="ident i0">unix</a>.<a href="../../internal/syscall/unix/getrandom.go.html#line-22" class="ident">GetRandom</a>(<label for="r6" class="ident">p</label>, <span class="lit-number">0</span>)</code></span>
-<span class="codeline" id="line-42"><code>	<span class="keyword">return</span> <label for="r8" class="ident">n</label> == <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r6" class="ident">p</label>) &amp;&amp; <label for="r9" class="ident">err</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-43"><code>}</code></span>
+<span class="codeline" id="line-11"><code>	<label for="i0"><span class="lit-string i0">"errors"</span></label></code></span>
+<span class="codeline" id="line-12"><code>	<label for="i1"><span class="lit-string i1">"internal/syscall/unix"</span></label></code></span>
+<span class="codeline" id="line-13"><code>)</code></span>
+<span class="codeline" id="line-14"><code></code></span>
+<span class="codeline" id="line-15"><code><span class="comment">// maxGetRandomRead is platform dependent.</span></code></span>
+<span class="codeline" id="line-16"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../pkg/crypto/rand.html#name-init" class="ident">init</a></label>() {</code></span>
+<span class="codeline" id="line-17"><code>	<a href="rand_unix.go.html#line-49" class="ident">altGetRandom</a> = <a href="rand.go.html#line-29" class="ident">batched</a>(<a href="#line-27" class="ident">getRandomBatch</a>, <a href="rand_linux.go.html#line-14" class="ident">maxGetRandomRead</a>)</code></span>
+<span class="codeline" id="line-18"><code>}</code></span>
+<span class="codeline" id="line-19"><code></code></span>
+<span class="codeline" id="line-20"><code><span class="comment">// If the kernel is too old to support the getrandom syscall(),</span></code></span>
+<span class="codeline" id="line-21"><code><span class="comment">// unix.GetRandom will immediately return ENOSYS and we will then fall back to</span></code></span>
+<span class="codeline" id="line-22"><code><span class="comment">// reading from /dev/urandom in rand_unix.go. unix.GetRandom caches the ENOSYS</span></code></span>
+<span class="codeline" id="line-23"><code><span class="comment">// result so we only suffer the syscall overhead once in this case.</span></code></span>
+<span class="codeline" id="line-24"><code><span class="comment">// If the kernel supports the getrandom() syscall, unix.GetRandom will block</span></code></span>
+<span class="codeline" id="line-25"><code><span class="comment">// until the kernel has sufficient randomness (as we don't use GRND_NONBLOCK).</span></code></span>
+<span class="codeline" id="line-26"><code><span class="comment">// In this case, unix.GetRandom will not return an error.</span></code></span>
+<span class="codeline" id="line-27"><code><span class="keyword">func</span> <label for="r1" class="ident"><a href="../../../pkg/crypto/rand.html#name-getRandomBatch" class="ident">getRandomBatch</a></label>(<label for="r2" class="ident">p</label> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>) <a href="../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-28"><code>	<label for="r3" class="ident">n</label>, <label for="r4" class="ident">err</label> := <a href="../../../pkg/internal/syscall/unix.html" class="ident i1">unix</a>.<a href="../../internal/syscall/unix/getrandom.go.html#line-22" class="ident">GetRandom</a>(<label for="r2" class="ident">p</label>, <span class="lit-number">0</span>)</code></span>
+<span class="codeline" id="line-29"><code>	<span class="keyword">if</span> <label for="r3" class="ident">n</label> != <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r2" class="ident">p</label>) {</code></span>
+<span class="codeline" id="line-30"><code>		<span class="keyword">return</span> <a href="../../../pkg/errors.html" class="ident i0">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"short read"</span>)</code></span>
+<span class="codeline" id="line-31"><code>	}</code></span>
+<span class="codeline" id="line-32"><code>	<span class="keyword">return</span> <label for="r4" class="ident">err</label></code></span>
+<span class="codeline" id="line-33"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.6</i>. (GOOS=linux GOARCH=amd64)
