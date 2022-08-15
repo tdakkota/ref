@@ -348,32 +348,34 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-210"><code><span class="comment">// Possible errors:</span></code></span>
 <span class="codeline" id="line-211"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-212"><code><span class="comment">//	400 BOT_MISSING: This method can only be run by a bot.</span></code></span>
-<span class="codeline" id="line-213"><code><span class="comment">//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.</span></code></span>
-<span class="codeline" id="line-214"><code><span class="comment">//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.</span></code></span>
-<span class="codeline" id="line-215"><code><span class="comment">//	400 CHAT_RESTRICTED: You can't send messages in this chat, you were restricted.</span></code></span>
-<span class="codeline" id="line-216"><code><span class="comment">//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.</span></code></span>
-<span class="codeline" id="line-217"><code><span class="comment">//	400 FILE_PARTS_INVALID: The number of file parts is invalid.</span></code></span>
-<span class="codeline" id="line-218"><code><span class="comment">//	400 IMAGE_PROCESS_FAILED: Failure while processing image.</span></code></span>
-<span class="codeline" id="line-219"><code><span class="comment">//	400 INPUT_USER_DEACTIVATED: The specified user was deleted.</span></code></span>
-<span class="codeline" id="line-220"><code><span class="comment">//	400 MEDIA_INVALID: Media invalid.</span></code></span>
-<span class="codeline" id="line-221"><code><span class="comment">//	400 MSG_ID_INVALID: Invalid message ID provided.</span></code></span>
-<span class="codeline" id="line-222"><code><span class="comment">//	400 PEER_ID_INVALID: The provided peer id is invalid.</span></code></span>
-<span class="codeline" id="line-223"><code><span class="comment">//	400 PHOTO_EXT_INVALID: The extension of the photo is invalid.</span></code></span>
-<span class="codeline" id="line-224"><code><span class="comment">//	400 PHOTO_INVALID_DIMENSIONS: The photo dimensions are invalid.</span></code></span>
-<span class="codeline" id="line-225"><code><span class="comment">//	400 PHOTO_SAVE_FILE_INVALID: Internal issues, try again later.</span></code></span>
-<span class="codeline" id="line-226"><code><span class="comment">//	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.</span></code></span>
-<span class="codeline" id="line-227"><code><span class="comment">//	400 WEBPAGE_CURL_FAILED: Failure while fetching the webpage with cURL.</span></code></span>
-<span class="codeline" id="line-228"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-229"><code><span class="comment">// See https://core.telegram.org/method/messages.uploadMedia for reference.</span></code></span>
-<span class="codeline" id="line-230"><code><span class="comment">// Can be used by bots.</span></code></span>
-<span class="codeline" id="line-231"><code><span class="keyword">func</span> (<label for="r42" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r43" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.MessagesUploadMedia.html" class="ident">MessagesUploadMedia</a></label>(<label for="r44" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r45" class="ident">request</label> *<a href="#line-38" class="ident">MessagesUploadMediaRequest</a>) (<a href="tl_message_media_gen.go.html#line-2770" class="ident">MessageMediaClass</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-232"><code>	<span class="keyword">var</span> <label for="r46" class="ident">result</label> <a href="tl_message_media_gen.go.html#line-2893" class="ident">MessageMediaBox</a></code></span>
-<span class="codeline" id="line-233"><code></code></span>
-<span class="codeline" id="line-234"><code>	<span class="keyword">if</span> <label for="r47" class="ident">err</label> := <label for="r42" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r44" class="ident">ctx</label>, <label for="r45" class="ident">request</label>, &amp;<label for="r46" class="ident">result</label>); <label for="r47" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-235"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r47" class="ident">err</label></code></span>
-<span class="codeline" id="line-236"><code>	}</code></span>
-<span class="codeline" id="line-237"><code>	<span class="keyword">return</span> <label for="r46" class="ident">result</label>.<a href="tl_message_media_gen.go.html#line-2894" class="ident">MessageMedia</a>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-238"><code>}</code></span>
+<span class="codeline" id="line-213"><code><span class="comment">//	400 CHANNEL_INVALID: The provided channel is invalid.</span></code></span>
+<span class="codeline" id="line-214"><code><span class="comment">//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.</span></code></span>
+<span class="codeline" id="line-215"><code><span class="comment">//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.</span></code></span>
+<span class="codeline" id="line-216"><code><span class="comment">//	400 CHAT_ID_INVALID: The provided chat id is invalid.</span></code></span>
+<span class="codeline" id="line-217"><code><span class="comment">//	400 CHAT_RESTRICTED: You can't send messages in this chat, you were restricted.</span></code></span>
+<span class="codeline" id="line-218"><code><span class="comment">//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.</span></code></span>
+<span class="codeline" id="line-219"><code><span class="comment">//	400 FILE_PARTS_INVALID: The number of file parts is invalid.</span></code></span>
+<span class="codeline" id="line-220"><code><span class="comment">//	400 IMAGE_PROCESS_FAILED: Failure while processing image.</span></code></span>
+<span class="codeline" id="line-221"><code><span class="comment">//	400 INPUT_USER_DEACTIVATED: The specified user was deleted.</span></code></span>
+<span class="codeline" id="line-222"><code><span class="comment">//	400 MEDIA_INVALID: Media invalid.</span></code></span>
+<span class="codeline" id="line-223"><code><span class="comment">//	400 MSG_ID_INVALID: Invalid message ID provided.</span></code></span>
+<span class="codeline" id="line-224"><code><span class="comment">//	400 PEER_ID_INVALID: The provided peer id is invalid.</span></code></span>
+<span class="codeline" id="line-225"><code><span class="comment">//	400 PHOTO_EXT_INVALID: The extension of the photo is invalid.</span></code></span>
+<span class="codeline" id="line-226"><code><span class="comment">//	400 PHOTO_INVALID_DIMENSIONS: The photo dimensions are invalid.</span></code></span>
+<span class="codeline" id="line-227"><code><span class="comment">//	400 PHOTO_SAVE_FILE_INVALID: Internal issues, try again later.</span></code></span>
+<span class="codeline" id="line-228"><code><span class="comment">//	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.</span></code></span>
+<span class="codeline" id="line-229"><code><span class="comment">//	400 WEBPAGE_CURL_FAILED: Failure while fetching the webpage with cURL.</span></code></span>
+<span class="codeline" id="line-230"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-231"><code><span class="comment">// See https://core.telegram.org/method/messages.uploadMedia for reference.</span></code></span>
+<span class="codeline" id="line-232"><code><span class="comment">// Can be used by bots.</span></code></span>
+<span class="codeline" id="line-233"><code><span class="keyword">func</span> (<label for="r42" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r43" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.MessagesUploadMedia.html" class="ident">MessagesUploadMedia</a></label>(<label for="r44" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r45" class="ident">request</label> *<a href="#line-38" class="ident">MessagesUploadMediaRequest</a>) (<a href="tl_message_media_gen.go.html#line-2770" class="ident">MessageMediaClass</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-234"><code>	<span class="keyword">var</span> <label for="r46" class="ident">result</label> <a href="tl_message_media_gen.go.html#line-2893" class="ident">MessageMediaBox</a></code></span>
+<span class="codeline" id="line-235"><code></code></span>
+<span class="codeline" id="line-236"><code>	<span class="keyword">if</span> <label for="r47" class="ident">err</label> := <label for="r42" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r44" class="ident">ctx</label>, <label for="r45" class="ident">request</label>, &amp;<label for="r46" class="ident">result</label>); <label for="r47" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-237"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r47" class="ident">err</label></code></span>
+<span class="codeline" id="line-238"><code>	}</code></span>
+<span class="codeline" id="line-239"><code>	<span class="keyword">return</span> <label for="r46" class="ident">result</label>.<a href="tl_message_media_gen.go.html#line-2894" class="ident">MessageMedia</a>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-240"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)

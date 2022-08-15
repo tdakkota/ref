@@ -434,23 +434,24 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-268"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-269"><code><span class="comment">//	400 BOT_INVALID: This is not a valid bot.</span></code></span>
 <span class="codeline" id="line-270"><code><span class="comment">//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.</span></code></span>
-<span class="codeline" id="line-271"><code><span class="comment">//	400 INPUT_USER_DEACTIVATED: The specified user was deleted.</span></code></span>
-<span class="codeline" id="line-272"><code><span class="comment">//	400 MSG_ID_INVALID: Invalid message ID provided.</span></code></span>
-<span class="codeline" id="line-273"><code><span class="comment">//	400 PEER_ID_INVALID: The provided peer id is invalid.</span></code></span>
-<span class="codeline" id="line-274"><code><span class="comment">//	500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.</span></code></span>
-<span class="codeline" id="line-275"><code><span class="comment">//	400 START_PARAM_EMPTY: The start parameter is empty.</span></code></span>
-<span class="codeline" id="line-276"><code><span class="comment">//	400 START_PARAM_INVALID: Start parameter invalid.</span></code></span>
-<span class="codeline" id="line-277"><code><span class="comment">//	400 START_PARAM_TOO_LONG: Start parameter is too long.</span></code></span>
-<span class="codeline" id="line-278"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-279"><code><span class="comment">// See https://core.telegram.org/method/messages.startBot for reference.</span></code></span>
-<span class="codeline" id="line-280"><code><span class="keyword">func</span> (<label for="r56" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r57" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.MessagesStartBot.html" class="ident">MessagesStartBot</a></label>(<label for="r58" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r59" class="ident">request</label> *<a href="#line-41" class="ident">MessagesStartBotRequest</a>) (<a href="tl_updates_gen.go.html#line-2891" class="ident">UpdatesClass</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-281"><code>	<span class="keyword">var</span> <label for="r60" class="ident">result</label> <a href="tl_updates_gen.go.html#line-2972" class="ident">UpdatesBox</a></code></span>
-<span class="codeline" id="line-282"><code></code></span>
-<span class="codeline" id="line-283"><code>	<span class="keyword">if</span> <label for="r61" class="ident">err</label> := <label for="r56" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r58" class="ident">ctx</label>, <label for="r59" class="ident">request</label>, &amp;<label for="r60" class="ident">result</label>); <label for="r61" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-284"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r61" class="ident">err</label></code></span>
-<span class="codeline" id="line-285"><code>	}</code></span>
-<span class="codeline" id="line-286"><code>	<span class="keyword">return</span> <label for="r60" class="ident">result</label>.<a href="tl_updates_gen.go.html#line-2973" class="ident">Updates</a>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-287"><code>}</code></span>
+<span class="codeline" id="line-271"><code><span class="comment">//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.</span></code></span>
+<span class="codeline" id="line-272"><code><span class="comment">//	400 INPUT_USER_DEACTIVATED: The specified user was deleted.</span></code></span>
+<span class="codeline" id="line-273"><code><span class="comment">//	400 MSG_ID_INVALID: Invalid message ID provided.</span></code></span>
+<span class="codeline" id="line-274"><code><span class="comment">//	400 PEER_ID_INVALID: The provided peer id is invalid.</span></code></span>
+<span class="codeline" id="line-275"><code><span class="comment">//	500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.</span></code></span>
+<span class="codeline" id="line-276"><code><span class="comment">//	400 START_PARAM_EMPTY: The start parameter is empty.</span></code></span>
+<span class="codeline" id="line-277"><code><span class="comment">//	400 START_PARAM_INVALID: Start parameter invalid.</span></code></span>
+<span class="codeline" id="line-278"><code><span class="comment">//	400 START_PARAM_TOO_LONG: Start parameter is too long.</span></code></span>
+<span class="codeline" id="line-279"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-280"><code><span class="comment">// See https://core.telegram.org/method/messages.startBot for reference.</span></code></span>
+<span class="codeline" id="line-281"><code><span class="keyword">func</span> (<label for="r56" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r57" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.MessagesStartBot.html" class="ident">MessagesStartBot</a></label>(<label for="r58" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r59" class="ident">request</label> *<a href="#line-41" class="ident">MessagesStartBotRequest</a>) (<a href="tl_updates_gen.go.html#line-2891" class="ident">UpdatesClass</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-282"><code>	<span class="keyword">var</span> <label for="r60" class="ident">result</label> <a href="tl_updates_gen.go.html#line-2972" class="ident">UpdatesBox</a></code></span>
+<span class="codeline" id="line-283"><code></code></span>
+<span class="codeline" id="line-284"><code>	<span class="keyword">if</span> <label for="r61" class="ident">err</label> := <label for="r56" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r58" class="ident">ctx</label>, <label for="r59" class="ident">request</label>, &amp;<label for="r60" class="ident">result</label>); <label for="r61" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-285"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r61" class="ident">err</label></code></span>
+<span class="codeline" id="line-286"><code>	}</code></span>
+<span class="codeline" id="line-287"><code>	<span class="keyword">return</span> <label for="r60" class="ident">result</label>.<a href="tl_updates_gen.go.html#line-2973" class="ident">Updates</a>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-288"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)

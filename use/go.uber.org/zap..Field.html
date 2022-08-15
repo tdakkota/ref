@@ -11,7 +11,7 @@
 
 <pre><code><span style="font-size:x-large;">type <b><a href="../../pkg/go.uber.org/zap.html">go.uber.org/zap</a>.<a href="../../src/go.uber.org/zap/field.go.html#line-33">Field</a></b></span>
 
-<span class="title">118 uses</span>
+<span class="title">121 uses</span>
 
 	go.uber.org/zap (current package)
 		<a href="../../src/go.uber.org/zap/array.go.html#line-32">array.go#L32</a>: func Array(key string, val zapcore.ArrayMarshaler) <b>Field</b> {
@@ -37,6 +37,8 @@
 		<a href="../../src/go.uber.org/zap/array.go.html#line-128" class="path-duplicate">array.go</a><a href="../../src/go.uber.org/zap/array.go.html#line-128">#L128</a>: func Uint8s(key string, nums []uint8) <b>Field</b> {
 		<a href="../../src/go.uber.org/zap/array.go.html#line-133" class="path-duplicate">array.go</a><a href="../../src/go.uber.org/zap/array.go.html#line-133">#L133</a>: func Uintptrs(key string, us []uintptr) <b>Field</b> {
 		<a href="../../src/go.uber.org/zap/array.go.html#line-138" class="path-duplicate">array.go</a><a href="../../src/go.uber.org/zap/array.go.html#line-138">#L138</a>: func Errors(key string, errs []error) <b>Field</b> {
+		<a href="../../src/go.uber.org/zap/array_go118.go.html#line-60">array_go118.go#L60</a>: func Objects[T zapcore.ObjectMarshaler](key string, values []T) <b>Field</b> {
+		<a href="../../src/go.uber.org/zap/array_go118.go.html#line-104" class="path-duplicate">array_go118.go</a><a href="../../src/go.uber.org/zap/array_go118.go.html#line-104">#L104</a>: func ObjectValues[T any, P objectMarshalerPtr[T]](key string, values []T) <b>Field</b> {
 		<a href="../../src/go.uber.org/zap/config.go.html#line-234">config.go#L234</a>: 		fs := make([]<b>Field</b>, 0, len(cfg.InitialFields))
 		<a href="../../src/go.uber.org/zap/error.go.html#line-34">error.go#L34</a>: func Error(err error) <b>Field</b> {
 		<a href="../../src/go.uber.org/zap/error.go.html#line-45" class="path-duplicate">error.go</a><a href="../../src/go.uber.org/zap/error.go.html#line-45">#L45</a>: func NamedError(key string, err error) <b>Field</b> {
@@ -119,18 +121,19 @@
 		<a href="../../src/go.uber.org/zap/field.go.html#line-420" class="path-duplicate">field.go</a><a href="../../src/go.uber.org/zap/field.go.html#line-420">#L420</a>: func Any(key string, value interface{}) <b>Field</b> {
 		<a href="../../src/go.uber.org/zap/global.go.html#line-141">global.go#L141</a>: func levelToFunc(logger *Logger, lvl zapcore.Level) (func(string, ...<b>Field</b>), error) {
 		<a href="../../src/go.uber.org/zap/global.go.html#line-162" class="path-duplicate">global.go</a><a href="../../src/go.uber.org/zap/global.go.html#line-162">#L162</a>: 	logFunc func(msg string, fields ...<b>Field</b>)
-		<a href="../../src/go.uber.org/zap/logger.go.html#line-164">logger.go#L164</a>: func (log *Logger) With(fields ...<b>Field</b>) *Logger {
-		<a href="../../src/go.uber.org/zap/logger.go.html#line-182" class="path-duplicate">logger.go</a><a href="../../src/go.uber.org/zap/logger.go.html#line-182">#L182</a>: func (log *Logger) Debug(msg string, fields ...<b>Field</b>) {
-		<a href="../../src/go.uber.org/zap/logger.go.html#line-190" class="path-duplicate">logger.go</a><a href="../../src/go.uber.org/zap/logger.go.html#line-190">#L190</a>: func (log *Logger) Info(msg string, fields ...<b>Field</b>) {
-		<a href="../../src/go.uber.org/zap/logger.go.html#line-198" class="path-duplicate">logger.go</a><a href="../../src/go.uber.org/zap/logger.go.html#line-198">#L198</a>: func (log *Logger) Warn(msg string, fields ...<b>Field</b>) {
-		<a href="../../src/go.uber.org/zap/logger.go.html#line-206" class="path-duplicate">logger.go</a><a href="../../src/go.uber.org/zap/logger.go.html#line-206">#L206</a>: func (log *Logger) Error(msg string, fields ...<b>Field</b>) {
-		<a href="../../src/go.uber.org/zap/logger.go.html#line-218" class="path-duplicate">logger.go</a><a href="../../src/go.uber.org/zap/logger.go.html#line-218">#L218</a>: func (log *Logger) DPanic(msg string, fields ...<b>Field</b>) {
-		<a href="../../src/go.uber.org/zap/logger.go.html#line-228" class="path-duplicate">logger.go</a><a href="../../src/go.uber.org/zap/logger.go.html#line-228">#L228</a>: func (log *Logger) Panic(msg string, fields ...<b>Field</b>) {
-		<a href="../../src/go.uber.org/zap/logger.go.html#line-239" class="path-duplicate">logger.go</a><a href="../../src/go.uber.org/zap/logger.go.html#line-239">#L239</a>: func (log *Logger) Fatal(msg string, fields ...<b>Field</b>) {
+		<a href="../../src/go.uber.org/zap/logger.go.html#line-177">logger.go#L177</a>: func (log *Logger) With(fields ...<b>Field</b>) *Logger {
+		<a href="../../src/go.uber.org/zap/logger.go.html#line-195" class="path-duplicate">logger.go</a><a href="../../src/go.uber.org/zap/logger.go.html#line-195">#L195</a>: func (log *Logger) Log(lvl zapcore.Level, msg string, fields ...<b>Field</b>) {
+		<a href="../../src/go.uber.org/zap/logger.go.html#line-203" class="path-duplicate">logger.go</a><a href="../../src/go.uber.org/zap/logger.go.html#line-203">#L203</a>: func (log *Logger) Debug(msg string, fields ...<b>Field</b>) {
+		<a href="../../src/go.uber.org/zap/logger.go.html#line-211" class="path-duplicate">logger.go</a><a href="../../src/go.uber.org/zap/logger.go.html#line-211">#L211</a>: func (log *Logger) Info(msg string, fields ...<b>Field</b>) {
+		<a href="../../src/go.uber.org/zap/logger.go.html#line-219" class="path-duplicate">logger.go</a><a href="../../src/go.uber.org/zap/logger.go.html#line-219">#L219</a>: func (log *Logger) Warn(msg string, fields ...<b>Field</b>) {
+		<a href="../../src/go.uber.org/zap/logger.go.html#line-227" class="path-duplicate">logger.go</a><a href="../../src/go.uber.org/zap/logger.go.html#line-227">#L227</a>: func (log *Logger) Error(msg string, fields ...<b>Field</b>) {
+		<a href="../../src/go.uber.org/zap/logger.go.html#line-239" class="path-duplicate">logger.go</a><a href="../../src/go.uber.org/zap/logger.go.html#line-239">#L239</a>: func (log *Logger) DPanic(msg string, fields ...<b>Field</b>) {
+		<a href="../../src/go.uber.org/zap/logger.go.html#line-249" class="path-duplicate">logger.go</a><a href="../../src/go.uber.org/zap/logger.go.html#line-249">#L249</a>: func (log *Logger) Panic(msg string, fields ...<b>Field</b>) {
+		<a href="../../src/go.uber.org/zap/logger.go.html#line-260" class="path-duplicate">logger.go</a><a href="../../src/go.uber.org/zap/logger.go.html#line-260">#L260</a>: func (log *Logger) Fatal(msg string, fields ...<b>Field</b>) {
 		<a href="../../src/go.uber.org/zap/options.go.html#line-62">options.go#L62</a>: func Fields(fs ...<b>Field</b>) Option {
-		<a href="../../src/go.uber.org/zap/sugar.go.html#line-249">sugar.go#L249</a>: func (s *SugaredLogger) sweetenFields(args []interface{}) []<b>Field</b> {
-		<a href="../../src/go.uber.org/zap/sugar.go.html#line-256" class="path-duplicate">sugar.go</a><a href="../../src/go.uber.org/zap/sugar.go.html#line-256">#L256</a>: 	fields := make([]<b>Field</b>, 0, len(args))
-		<a href="../../src/go.uber.org/zap/sugar.go.html#line-261" class="path-duplicate">sugar.go</a><a href="../../src/go.uber.org/zap/sugar.go.html#line-261">#L261</a>: 		if f, ok := args[i].(<b>Field</b>); ok {
+		<a href="../../src/go.uber.org/zap/sugar.go.html#line-327">sugar.go#L327</a>: func (s *SugaredLogger) sweetenFields(args []interface{}) []<b>Field</b> {
+		<a href="../../src/go.uber.org/zap/sugar.go.html#line-334" class="path-duplicate">sugar.go</a><a href="../../src/go.uber.org/zap/sugar.go.html#line-334">#L334</a>: 	fields := make([]<b>Field</b>, 0, len(args))
+		<a href="../../src/go.uber.org/zap/sugar.go.html#line-339" class="path-duplicate">sugar.go</a><a href="../../src/go.uber.org/zap/sugar.go.html#line-339">#L339</a>: 		if f, ok := args[i].(<b>Field</b>); ok {
 
 	<a href="../../pkg/github.com/gotd/td/internal/mtproto.html">github.com/gotd/td/internal/mtproto</a>
 		<a href="../../src/github.com/gotd/td/internal/mtproto/connect.go.html#line-67">connect.go#L67</a>: 		fields := []zap.<b>Field</b>{

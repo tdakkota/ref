@@ -159,7 +159,7 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-35"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-36"><code><span class="comment">// See https://core.telegram.org/method/bots.getBotMenuButton for reference.</span></code></span>
 <span class="codeline" id="line-37"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/tg.html#name-BotsGetBotMenuButtonRequest" class="ident">BotsGetBotMenuButtonRequest</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-38"><code>	<span class="comment">// UserID field of BotsGetBotMenuButtonRequest.</span></code></span>
+<span class="codeline" id="line-38"><code>	<span class="comment">//</span></code></span>
 <span class="codeline" id="line-39"><code>	<a href="../../../../../use/github.com/gotd/td/tg..BotsGetBotMenuButtonRequest.UserID.html" class="ident">UserID</a> <a href="tl_input_user_gen.go.html#line-620" class="ident">InputUserClass</a></code></span>
 <span class="codeline" id="line-40"><code>}</code></span>
 <span class="codeline" id="line-41"><code></code></span>
@@ -291,18 +291,23 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-167"><code></code></span>
 <span class="codeline" id="line-168"><code><span class="comment">// BotsGetBotMenuButton invokes method bots.getBotMenuButton#9c60eb28 returning error if any.</span></code></span>
 <span class="codeline" id="line-169"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-170"><code><span class="comment">// See https://core.telegram.org/method/bots.getBotMenuButton for reference.</span></code></span>
-<span class="codeline" id="line-171"><code><span class="keyword">func</span> (<label for="r34" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r35" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.BotsGetBotMenuButton.html" class="ident">BotsGetBotMenuButton</a></label>(<label for="r36" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r37" class="ident">userid</label> <a href="tl_input_user_gen.go.html#line-620" class="ident">InputUserClass</a>) (<a href="tl_bot_menu_button_gen.go.html#line-416" class="ident">BotMenuButtonClass</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-172"><code>	<span class="keyword">var</span> <label for="r38" class="ident">result</label> <a href="tl_bot_menu_button_gen.go.html#line-469" class="ident">BotMenuButtonBox</a></code></span>
-<span class="codeline" id="line-173"><code></code></span>
-<span class="codeline" id="line-174"><code>	<label for="r39" class="ident">request</label> := &amp;<a href="#line-37" class="ident">BotsGetBotMenuButtonRequest</a>{</code></span>
-<span class="codeline" id="line-175"><code>		<a href="#line-39" class="ident">UserID</a>: <label for="r37" class="ident">userid</label>,</code></span>
-<span class="codeline" id="line-176"><code>	}</code></span>
-<span class="codeline" id="line-177"><code>	<span class="keyword">if</span> <label for="r40" class="ident">err</label> := <label for="r34" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r36" class="ident">ctx</label>, <label for="r39" class="ident">request</label>, &amp;<label for="r38" class="ident">result</label>); <label for="r40" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-178"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r40" class="ident">err</label></code></span>
-<span class="codeline" id="line-179"><code>	}</code></span>
-<span class="codeline" id="line-180"><code>	<span class="keyword">return</span> <label for="r38" class="ident">result</label>.<a href="tl_bot_menu_button_gen.go.html#line-470" class="ident">BotMenuButton</a>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-181"><code>}</code></span>
+<span class="codeline" id="line-170"><code><span class="comment">// Possible errors:</span></code></span>
+<span class="codeline" id="line-171"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-172"><code><span class="comment">//	400 USER_BOT_REQUIRED: This method can only be called by a bot.</span></code></span>
+<span class="codeline" id="line-173"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-174"><code><span class="comment">// See https://core.telegram.org/method/bots.getBotMenuButton for reference.</span></code></span>
+<span class="codeline" id="line-175"><code><span class="comment">// Can be used by bots.</span></code></span>
+<span class="codeline" id="line-176"><code><span class="keyword">func</span> (<label for="r34" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r35" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.BotsGetBotMenuButton.html" class="ident">BotsGetBotMenuButton</a></label>(<label for="r36" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r37" class="ident">userid</label> <a href="tl_input_user_gen.go.html#line-620" class="ident">InputUserClass</a>) (<a href="tl_bot_menu_button_gen.go.html#line-416" class="ident">BotMenuButtonClass</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-177"><code>	<span class="keyword">var</span> <label for="r38" class="ident">result</label> <a href="tl_bot_menu_button_gen.go.html#line-469" class="ident">BotMenuButtonBox</a></code></span>
+<span class="codeline" id="line-178"><code></code></span>
+<span class="codeline" id="line-179"><code>	<label for="r39" class="ident">request</label> := &amp;<a href="#line-37" class="ident">BotsGetBotMenuButtonRequest</a>{</code></span>
+<span class="codeline" id="line-180"><code>		<a href="#line-39" class="ident">UserID</a>: <label for="r37" class="ident">userid</label>,</code></span>
+<span class="codeline" id="line-181"><code>	}</code></span>
+<span class="codeline" id="line-182"><code>	<span class="keyword">if</span> <label for="r40" class="ident">err</label> := <label for="r34" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r36" class="ident">ctx</label>, <label for="r39" class="ident">request</label>, &amp;<label for="r38" class="ident">result</label>); <label for="r40" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-183"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r40" class="ident">err</label></code></span>
+<span class="codeline" id="line-184"><code>	}</code></span>
+<span class="codeline" id="line-185"><code>	<span class="keyword">return</span> <label for="r38" class="ident">result</label>.<a href="tl_bot_menu_button_gen.go.html#line-470" class="ident">BotMenuButton</a>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-186"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)

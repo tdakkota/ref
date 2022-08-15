@@ -304,20 +304,22 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-176"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-177"><code><span class="comment">// Possible errors:</span></code></span>
 <span class="codeline" id="line-178"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-179"><code><span class="comment">//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.</span></code></span>
-<span class="codeline" id="line-180"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-181"><code><span class="comment">// See https://core.telegram.org/method/channels.getSponsoredMessages for reference.</span></code></span>
-<span class="codeline" id="line-182"><code><span class="keyword">func</span> (<label for="r36" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r37" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.ChannelsGetSponsoredMessages.html" class="ident">ChannelsGetSponsoredMessages</a></label>(<label for="r38" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r39" class="ident">channel</label> <a href="tl_input_channel_gen.go.html#line-517" class="ident">InputChannelClass</a>) (*<a href="tl_messages_sponsored_messages_gen.go.html#line-38" class="ident">MessagesSponsoredMessages</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-183"><code>	<span class="keyword">var</span> <label for="r40" class="ident">result</label> <a href="tl_messages_sponsored_messages_gen.go.html#line-38" class="ident">MessagesSponsoredMessages</a></code></span>
-<span class="codeline" id="line-184"><code></code></span>
-<span class="codeline" id="line-185"><code>	<label for="r41" class="ident">request</label> := &amp;<a href="#line-38" class="ident">ChannelsGetSponsoredMessagesRequest</a>{</code></span>
-<span class="codeline" id="line-186"><code>		<a href="#line-40" class="ident">Channel</a>: <label for="r39" class="ident">channel</label>,</code></span>
-<span class="codeline" id="line-187"><code>	}</code></span>
-<span class="codeline" id="line-188"><code>	<span class="keyword">if</span> <label for="r42" class="ident">err</label> := <label for="r36" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r38" class="ident">ctx</label>, <label for="r41" class="ident">request</label>, &amp;<label for="r40" class="ident">result</label>); <label for="r42" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-189"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r42" class="ident">err</label></code></span>
-<span class="codeline" id="line-190"><code>	}</code></span>
-<span class="codeline" id="line-191"><code>	<span class="keyword">return</span> &amp;<label for="r40" class="ident">result</label>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-192"><code>}</code></span>
+<span class="codeline" id="line-179"><code><span class="comment">//	400 CHANNEL_INVALID: The provided channel is invalid.</span></code></span>
+<span class="codeline" id="line-180"><code><span class="comment">//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.</span></code></span>
+<span class="codeline" id="line-181"><code><span class="comment">//	400 MSG_ID_INVALID: Invalid message ID provided.</span></code></span>
+<span class="codeline" id="line-182"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-183"><code><span class="comment">// See https://core.telegram.org/method/channels.getSponsoredMessages for reference.</span></code></span>
+<span class="codeline" id="line-184"><code><span class="keyword">func</span> (<label for="r36" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r37" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.ChannelsGetSponsoredMessages.html" class="ident">ChannelsGetSponsoredMessages</a></label>(<label for="r38" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r39" class="ident">channel</label> <a href="tl_input_channel_gen.go.html#line-517" class="ident">InputChannelClass</a>) (*<a href="tl_messages_sponsored_messages_gen.go.html#line-38" class="ident">MessagesSponsoredMessages</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-185"><code>	<span class="keyword">var</span> <label for="r40" class="ident">result</label> <a href="tl_messages_sponsored_messages_gen.go.html#line-38" class="ident">MessagesSponsoredMessages</a></code></span>
+<span class="codeline" id="line-186"><code></code></span>
+<span class="codeline" id="line-187"><code>	<label for="r41" class="ident">request</label> := &amp;<a href="#line-38" class="ident">ChannelsGetSponsoredMessagesRequest</a>{</code></span>
+<span class="codeline" id="line-188"><code>		<a href="#line-40" class="ident">Channel</a>: <label for="r39" class="ident">channel</label>,</code></span>
+<span class="codeline" id="line-189"><code>	}</code></span>
+<span class="codeline" id="line-190"><code>	<span class="keyword">if</span> <label for="r42" class="ident">err</label> := <label for="r36" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r38" class="ident">ctx</label>, <label for="r41" class="ident">request</label>, &amp;<label for="r40" class="ident">result</label>); <label for="r42" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-191"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r42" class="ident">err</label></code></span>
+<span class="codeline" id="line-192"><code>	}</code></span>
+<span class="codeline" id="line-193"><code>	<span class="keyword">return</span> &amp;<label for="r40" class="ident">result</label>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-194"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)

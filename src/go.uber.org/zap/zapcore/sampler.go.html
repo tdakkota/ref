@@ -235,7 +235,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-105"><code>}</code></span>
 <span class="codeline" id="line-106"><code></code></span>
 <span class="codeline" id="line-107"><code><span class="comment">// nopSamplingHook is the default hook used by sampler.</span></code></span>
-<span class="codeline" id="line-108"><code><span class="keyword">func</span> <label for="r23" class="ident"><a href="../../../../pkg/go.uber.org/zap/zapcore.html#name-nopSamplingHook" class="ident">nopSamplingHook</a></label>(<a href="entry.go.html#line-146" class="ident">Entry</a>, <a href="#line-86" class="ident">SamplingDecision</a>) {}</code></span>
+<span class="codeline" id="line-108"><code><span class="keyword">func</span> <label for="r23" class="ident"><a href="../../../../pkg/go.uber.org/zap/zapcore.html#name-nopSamplingHook" class="ident">nopSamplingHook</a></label>(<a href="entry.go.html#line-145" class="ident">Entry</a>, <a href="#line-86" class="ident">SamplingDecision</a>) {}</code></span>
 <span class="codeline" id="line-109"><code></code></span>
 <span class="codeline" id="line-110"><code><span class="comment">// SamplerHook registers a function  which will be called when Sampler makes a</span></code></span>
 <span class="codeline" id="line-111"><code><span class="comment">// decision.</span></code></span>
@@ -243,13 +243,13 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-113"><code><span class="comment">// This hook may be used to get visibility into the performance of the sampler.</span></code></span>
 <span class="codeline" id="line-114"><code><span class="comment">// For example, use it to track metrics of dropped versus sampled logs.</span></code></span>
 <span class="codeline" id="line-115"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-116"><code><span class="comment">//  var dropped atomic.Int64</span></code></span>
-<span class="codeline" id="line-117"><code><span class="comment">//  zapcore.SamplerHook(func(ent zapcore.Entry, dec zapcore.SamplingDecision) {</span></code></span>
-<span class="codeline" id="line-118"><code><span class="comment">//    if dec&amp;zapcore.LogDropped &gt; 0 {</span></code></span>
-<span class="codeline" id="line-119"><code><span class="comment">//      dropped.Inc()</span></code></span>
-<span class="codeline" id="line-120"><code><span class="comment">//    }</span></code></span>
-<span class="codeline" id="line-121"><code><span class="comment">//  })</span></code></span>
-<span class="codeline" id="line-122"><code><span class="keyword">func</span> <label for="r24" class="ident"><a href="../../../../pkg/go.uber.org/zap/zapcore.html#name-SamplerHook" class="ident">SamplerHook</a></label>(<label for="r25" class="ident">hook</label> <span class="keyword">func</span>(<label for="r26" class="ident">entry</label> <a href="entry.go.html#line-146" class="ident">Entry</a>, <label for="r27" class="ident">dec</label> <a href="#line-86" class="ident">SamplingDecision</a>)) <a href="#line-103" class="ident">SamplerOption</a> {</code></span>
+<span class="codeline" id="line-116"><code><span class="comment">//	var dropped atomic.Int64</span></code></span>
+<span class="codeline" id="line-117"><code><span class="comment">//	zapcore.SamplerHook(func(ent zapcore.Entry, dec zapcore.SamplingDecision) {</span></code></span>
+<span class="codeline" id="line-118"><code><span class="comment">//	  if dec&amp;zapcore.LogDropped &gt; 0 {</span></code></span>
+<span class="codeline" id="line-119"><code><span class="comment">//	    dropped.Inc()</span></code></span>
+<span class="codeline" id="line-120"><code><span class="comment">//	  }</span></code></span>
+<span class="codeline" id="line-121"><code><span class="comment">//	})</span></code></span>
+<span class="codeline" id="line-122"><code><span class="keyword">func</span> <label for="r24" class="ident"><a href="../../../../pkg/go.uber.org/zap/zapcore.html#name-SamplerHook" class="ident">SamplerHook</a></label>(<label for="r25" class="ident">hook</label> <span class="keyword">func</span>(<label for="r26" class="ident">entry</label> <a href="entry.go.html#line-145" class="ident">Entry</a>, <label for="r27" class="ident">dec</label> <a href="#line-86" class="ident">SamplingDecision</a>)) <a href="#line-103" class="ident">SamplerOption</a> {</code></span>
 <span class="codeline" id="line-123"><code>	<span class="keyword">return</span> <a href="#line-96" class="ident">optionFunc</a>(<span class="keyword">func</span>(<label for="r28" class="ident">s</label> *<a href="#line-169" class="ident">sampler</a>) {</code></span>
 <span class="codeline" id="line-124"><code>		<label for="r28" class="ident">s</label>.<a href="#line-175" class="ident">hook</a> = <label for="r25" class="ident">hook</label></code></span>
 <span class="codeline" id="line-125"><code>	})</code></span>
@@ -265,7 +265,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-135"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-136"><code><span class="comment">// For example,</span></code></span>
 <span class="codeline" id="line-137"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-138"><code><span class="comment">//   core = NewSamplerWithOptions(core, time.Second, 10, 5)</span></code></span>
+<span class="codeline" id="line-138"><code><span class="comment">//	core = NewSamplerWithOptions(core, time.Second, 10, 5)</span></code></span>
 <span class="codeline" id="line-139"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-140"><code><span class="comment">// This will log the first 10 log entries with the same level and message</span></code></span>
 <span class="codeline" id="line-141"><code><span class="comment">// in a one second interval as-is. Following that, it will allow through</span></code></span>
@@ -302,7 +302,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-172"><code>	<a href="../../../../use/go.uber.org/zap/zapcore..sampler^b7a56.counts^cdd93.html" class="ident">counts</a>            *<a href="#line-39" class="ident">counters</a></code></span>
 <span class="codeline" id="line-173"><code>	<a href="../../../../use/go.uber.org/zap/zapcore..sampler^b7a56.tick^55a4b.html" class="ident">tick</a>              <a href="../../../../pkg/time.html" class="ident i0">time</a>.<a href="../../../time/time.go.html#line-591" class="ident">Duration</a></code></span>
 <span class="codeline" id="line-174"><code>	<a href="../../../../use/go.uber.org/zap/zapcore..sampler^b7a56.first^a7937.html" class="ident">first</a>, <a href="../../../../use/go.uber.org/zap/zapcore..sampler^b7a56.thereafter^81885.html" class="ident">thereafter</a> <a href="../../../../pkg/builtin.html#name-uint64" class="ident">uint64</a></code></span>
-<span class="codeline" id="line-175"><code>	<a href="../../../../use/go.uber.org/zap/zapcore..sampler^b7a56.hook^06482.html" class="ident">hook</a>              <span class="keyword">func</span>(<a href="entry.go.html#line-146" class="ident">Entry</a>, <a href="#line-86" class="ident">SamplingDecision</a>)</code></span>
+<span class="codeline" id="line-175"><code>	<a href="../../../../use/go.uber.org/zap/zapcore..sampler^b7a56.hook^06482.html" class="ident">hook</a>              <span class="keyword">func</span>(<a href="entry.go.html#line-145" class="ident">Entry</a>, <a href="#line-86" class="ident">SamplingDecision</a>)</code></span>
 <span class="codeline" id="line-176"><code>}</code></span>
 <span class="codeline" id="line-177"><code></code></span>
 <span class="codeline" id="line-178"><code><span class="comment">// NewSampler creates a Core that samples incoming entries, which</span></code></span>
@@ -333,14 +333,14 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-203"><code>	}</code></span>
 <span class="codeline" id="line-204"><code>}</code></span>
 <span class="codeline" id="line-205"><code></code></span>
-<span class="codeline" id="line-206"><code><span class="keyword">func</span> (<label for="r46" class="ident">s</label> *<a href="#line-169" class="ident">sampler</a>) <label for="r47" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..sampler^b7a56.Check.html" class="ident">Check</a></label>(<label for="r48" class="ident">ent</label> <a href="entry.go.html#line-146" class="ident">Entry</a>, <label for="r49" class="ident">ce</label> *<a href="entry.go.html#line-177" class="ident">CheckedEntry</a>) *<a href="entry.go.html#line-177" class="ident">CheckedEntry</a> {</code></span>
-<span class="codeline" id="line-207"><code>	<span class="keyword">if</span> !<label for="r46" class="ident">s</label>.<a href="level.go.html#line-186" class="ident">Enabled</a>(<label for="r48" class="ident">ent</label>.<a href="entry.go.html#line-147" class="ident">Level</a>) {</code></span>
+<span class="codeline" id="line-206"><code><span class="keyword">func</span> (<label for="r46" class="ident">s</label> *<a href="#line-169" class="ident">sampler</a>) <label for="r47" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..sampler^b7a56.Check.html" class="ident">Check</a></label>(<label for="r48" class="ident">ent</label> <a href="entry.go.html#line-145" class="ident">Entry</a>, <label for="r49" class="ident">ce</label> *<a href="entry.go.html#line-212" class="ident">CheckedEntry</a>) *<a href="entry.go.html#line-212" class="ident">CheckedEntry</a> {</code></span>
+<span class="codeline" id="line-207"><code>	<span class="keyword">if</span> !<label for="r46" class="ident">s</label>.<a href="level.go.html#line-186" class="ident">Enabled</a>(<label for="r48" class="ident">ent</label>.<a href="entry.go.html#line-146" class="ident">Level</a>) {</code></span>
 <span class="codeline" id="line-208"><code>		<span class="keyword">return</span> <label for="r49" class="ident">ce</label></code></span>
 <span class="codeline" id="line-209"><code>	}</code></span>
 <span class="codeline" id="line-210"><code></code></span>
-<span class="codeline" id="line-211"><code>	<span class="keyword">if</span> <label for="r48" class="ident">ent</label>.<a href="entry.go.html#line-147" class="ident">Level</a> &gt;= <a href="level.go.html#line-54" class="ident">_minLevel</a> &amp;&amp; <label for="r48" class="ident">ent</label>.<a href="entry.go.html#line-147" class="ident">Level</a> &lt;= <a href="level.go.html#line-55" class="ident">_maxLevel</a> {</code></span>
-<span class="codeline" id="line-212"><code>		<label for="r50" class="ident">counter</label> := <label for="r46" class="ident">s</label>.<a href="#line-172" class="ident">counts</a>.<a href="#line-45" class="ident">get</a>(<label for="r48" class="ident">ent</label>.<a href="entry.go.html#line-147" class="ident">Level</a>, <label for="r48" class="ident">ent</label>.<a href="entry.go.html#line-150" class="ident">Message</a>)</code></span>
-<span class="codeline" id="line-213"><code>		<label for="r51" class="ident">n</label> := <label for="r50" class="ident">counter</label>.<a href="#line-65" class="ident">IncCheckReset</a>(<label for="r48" class="ident">ent</label>.<a href="entry.go.html#line-148" class="ident">Time</a>, <label for="r46" class="ident">s</label>.<a href="#line-173" class="ident">tick</a>)</code></span>
+<span class="codeline" id="line-211"><code>	<span class="keyword">if</span> <label for="r48" class="ident">ent</label>.<a href="entry.go.html#line-146" class="ident">Level</a> &gt;= <a href="level.go.html#line-54" class="ident">_minLevel</a> &amp;&amp; <label for="r48" class="ident">ent</label>.<a href="entry.go.html#line-146" class="ident">Level</a> &lt;= <a href="level.go.html#line-55" class="ident">_maxLevel</a> {</code></span>
+<span class="codeline" id="line-212"><code>		<label for="r50" class="ident">counter</label> := <label for="r46" class="ident">s</label>.<a href="#line-172" class="ident">counts</a>.<a href="#line-45" class="ident">get</a>(<label for="r48" class="ident">ent</label>.<a href="entry.go.html#line-146" class="ident">Level</a>, <label for="r48" class="ident">ent</label>.<a href="entry.go.html#line-149" class="ident">Message</a>)</code></span>
+<span class="codeline" id="line-213"><code>		<label for="r51" class="ident">n</label> := <label for="r50" class="ident">counter</label>.<a href="#line-65" class="ident">IncCheckReset</a>(<label for="r48" class="ident">ent</label>.<a href="entry.go.html#line-147" class="ident">Time</a>, <label for="r46" class="ident">s</label>.<a href="#line-173" class="ident">tick</a>)</code></span>
 <span class="codeline" id="line-214"><code>		<span class="keyword">if</span> <label for="r51" class="ident">n</label> &gt; <label for="r46" class="ident">s</label>.<a href="#line-174" class="ident">first</a> &amp;&amp; (<label for="r46" class="ident">s</label>.<a href="#line-174" class="ident">thereafter</a> == <span class="lit-number">0</span> || (<label for="r51" class="ident">n</label>-<label for="r46" class="ident">s</label>.<a href="#line-174" class="ident">first</a>)%<label for="r46" class="ident">s</label>.<a href="#line-174" class="ident">thereafter</a> != <span class="lit-number">0</span>) {</code></span>
 <span class="codeline" id="line-215"><code>			<label for="r46" class="ident">s</label>.<a href="#line-175" class="ident">hook</a>(<label for="r48" class="ident">ent</label>, <a href="#line-90" class="ident">LogDropped</a>)</code></span>
 <span class="codeline" id="line-216"><code>			<span class="keyword">return</span> <label for="r49" class="ident">ce</label></code></span>

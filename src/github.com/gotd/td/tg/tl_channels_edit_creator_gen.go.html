@@ -410,25 +410,26 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-248"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-249"><code><span class="comment">// Possible errors:</span></code></span>
 <span class="codeline" id="line-250"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-251"><code><span class="comment">//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.</span></code></span>
-<span class="codeline" id="line-252"><code><span class="comment">//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.</span></code></span>
-<span class="codeline" id="line-253"><code><span class="comment">//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.</span></code></span>
-<span class="codeline" id="line-254"><code><span class="comment">//	400 PASSWORD_HASH_INVALID: The provided password hash is invalid.</span></code></span>
-<span class="codeline" id="line-255"><code><span class="comment">//	400 PASSWORD_MISSING: You must enable 2FA in order to transfer ownership of a channel.</span></code></span>
-<span class="codeline" id="line-256"><code><span class="comment">//	400 PASSWORD_TOO_FRESH_%d: The password was modified less than 24 hours ago, try again in %d seconds.</span></code></span>
-<span class="codeline" id="line-257"><code><span class="comment">//	400 SESSION_TOO_FRESH_%d: This session was created less than 24 hours ago, try again in %d seconds.</span></code></span>
-<span class="codeline" id="line-258"><code><span class="comment">//	400 SRP_ID_INVALID: Invalid SRP ID provided.</span></code></span>
-<span class="codeline" id="line-259"><code><span class="comment">//	400 USER_ID_INVALID: The provided user ID is invalid.</span></code></span>
-<span class="codeline" id="line-260"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-261"><code><span class="comment">// See https://core.telegram.org/method/channels.editCreator for reference.</span></code></span>
-<span class="codeline" id="line-262"><code><span class="keyword">func</span> (<label for="r54" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r55" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.ChannelsEditCreator.html" class="ident">ChannelsEditCreator</a></label>(<label for="r56" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r57" class="ident">request</label> *<a href="#line-38" class="ident">ChannelsEditCreatorRequest</a>) (<a href="tl_updates_gen.go.html#line-2891" class="ident">UpdatesClass</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-263"><code>	<span class="keyword">var</span> <label for="r58" class="ident">result</label> <a href="tl_updates_gen.go.html#line-2972" class="ident">UpdatesBox</a></code></span>
-<span class="codeline" id="line-264"><code></code></span>
-<span class="codeline" id="line-265"><code>	<span class="keyword">if</span> <label for="r59" class="ident">err</label> := <label for="r54" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r56" class="ident">ctx</label>, <label for="r57" class="ident">request</label>, &amp;<label for="r58" class="ident">result</label>); <label for="r59" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-266"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r59" class="ident">err</label></code></span>
-<span class="codeline" id="line-267"><code>	}</code></span>
-<span class="codeline" id="line-268"><code>	<span class="keyword">return</span> <label for="r58" class="ident">result</label>.<a href="tl_updates_gen.go.html#line-2973" class="ident">Updates</a>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-269"><code>}</code></span>
+<span class="codeline" id="line-251"><code><span class="comment">//	400 CHANNELS_ADMIN_PUBLIC_TOO_MUCH: You're admin of too many public channels, make some channels private to change the username of this channel.</span></code></span>
+<span class="codeline" id="line-252"><code><span class="comment">//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.</span></code></span>
+<span class="codeline" id="line-253"><code><span class="comment">//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.</span></code></span>
+<span class="codeline" id="line-254"><code><span class="comment">//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.</span></code></span>
+<span class="codeline" id="line-255"><code><span class="comment">//	400 PASSWORD_HASH_INVALID: The provided password hash is invalid.</span></code></span>
+<span class="codeline" id="line-256"><code><span class="comment">//	400 PASSWORD_MISSING: You must enable 2FA in order to transfer ownership of a channel.</span></code></span>
+<span class="codeline" id="line-257"><code><span class="comment">//	400 PASSWORD_TOO_FRESH_%d: The password was modified less than 24 hours ago, try again in %d seconds.</span></code></span>
+<span class="codeline" id="line-258"><code><span class="comment">//	400 SESSION_TOO_FRESH_%d: This session was created less than 24 hours ago, try again in %d seconds.</span></code></span>
+<span class="codeline" id="line-259"><code><span class="comment">//	400 SRP_ID_INVALID: Invalid SRP ID provided.</span></code></span>
+<span class="codeline" id="line-260"><code><span class="comment">//	400 USER_ID_INVALID: The provided user ID is invalid.</span></code></span>
+<span class="codeline" id="line-261"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-262"><code><span class="comment">// See https://core.telegram.org/method/channels.editCreator for reference.</span></code></span>
+<span class="codeline" id="line-263"><code><span class="keyword">func</span> (<label for="r54" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r55" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.ChannelsEditCreator.html" class="ident">ChannelsEditCreator</a></label>(<label for="r56" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r57" class="ident">request</label> *<a href="#line-38" class="ident">ChannelsEditCreatorRequest</a>) (<a href="tl_updates_gen.go.html#line-2891" class="ident">UpdatesClass</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-264"><code>	<span class="keyword">var</span> <label for="r58" class="ident">result</label> <a href="tl_updates_gen.go.html#line-2972" class="ident">UpdatesBox</a></code></span>
+<span class="codeline" id="line-265"><code></code></span>
+<span class="codeline" id="line-266"><code>	<span class="keyword">if</span> <label for="r59" class="ident">err</label> := <label for="r54" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r56" class="ident">ctx</label>, <label for="r57" class="ident">request</label>, &amp;<label for="r58" class="ident">result</label>); <label for="r59" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-267"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r59" class="ident">err</label></code></span>
+<span class="codeline" id="line-268"><code>	}</code></span>
+<span class="codeline" id="line-269"><code>	<span class="keyword">return</span> <label for="r58" class="ident">result</label>.<a href="tl_updates_gen.go.html#line-2973" class="ident">Updates</a>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-270"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)

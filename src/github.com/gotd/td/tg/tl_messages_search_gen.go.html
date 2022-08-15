@@ -925,24 +925,25 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-595"><code><span class="comment">//	400 CHANNEL_INVALID: The provided channel is invalid.</span></code></span>
 <span class="codeline" id="line-596"><code><span class="comment">//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.</span></code></span>
 <span class="codeline" id="line-597"><code><span class="comment">//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.</span></code></span>
-<span class="codeline" id="line-598"><code><span class="comment">//	400 FROM_PEER_INVALID: The specified from_id is invalid.</span></code></span>
-<span class="codeline" id="line-599"><code><span class="comment">//	400 INPUT_FILTER_INVALID: The specified filter is invalid.</span></code></span>
-<span class="codeline" id="line-600"><code><span class="comment">//	400 INPUT_USER_DEACTIVATED: The specified user was deleted.</span></code></span>
-<span class="codeline" id="line-601"><code><span class="comment">//	400 MSG_ID_INVALID: Invalid message ID provided.</span></code></span>
-<span class="codeline" id="line-602"><code><span class="comment">//	400 PEER_ID_INVALID: The provided peer id is invalid.</span></code></span>
-<span class="codeline" id="line-603"><code><span class="comment">//	400 PEER_ID_NOT_SUPPORTED: The provided peer ID is not supported.</span></code></span>
-<span class="codeline" id="line-604"><code><span class="comment">//	400 SEARCH_QUERY_EMPTY: The search query is empty.</span></code></span>
-<span class="codeline" id="line-605"><code><span class="comment">//	400 USER_ID_INVALID: The provided user ID is invalid.</span></code></span>
-<span class="codeline" id="line-606"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-607"><code><span class="comment">// See https://core.telegram.org/method/messages.search for reference.</span></code></span>
-<span class="codeline" id="line-608"><code><span class="keyword">func</span> (<label for="r138" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r139" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.MessagesSearch.html" class="ident">MessagesSearch</a></label>(<label for="r140" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r141" class="ident">request</label> *<a href="#line-38" class="ident">MessagesSearchRequest</a>) (<a href="tl_messages_messages_gen.go.html#line-1312" class="ident">MessagesMessagesClass</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-609"><code>	<span class="keyword">var</span> <label for="r142" class="ident">result</label> <a href="tl_messages_messages_gen.go.html#line-1428" class="ident">MessagesMessagesBox</a></code></span>
-<span class="codeline" id="line-610"><code></code></span>
-<span class="codeline" id="line-611"><code>	<span class="keyword">if</span> <label for="r143" class="ident">err</label> := <label for="r138" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r140" class="ident">ctx</label>, <label for="r141" class="ident">request</label>, &amp;<label for="r142" class="ident">result</label>); <label for="r143" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-612"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r143" class="ident">err</label></code></span>
-<span class="codeline" id="line-613"><code>	}</code></span>
-<span class="codeline" id="line-614"><code>	<span class="keyword">return</span> <label for="r142" class="ident">result</label>.<a href="tl_messages_messages_gen.go.html#line-1429" class="ident">Messages</a>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-615"><code>}</code></span>
+<span class="codeline" id="line-598"><code><span class="comment">//	400 CHAT_ID_INVALID: The provided chat id is invalid.</span></code></span>
+<span class="codeline" id="line-599"><code><span class="comment">//	400 FROM_PEER_INVALID: The specified from_id is invalid.</span></code></span>
+<span class="codeline" id="line-600"><code><span class="comment">//	400 INPUT_FILTER_INVALID: The specified filter is invalid.</span></code></span>
+<span class="codeline" id="line-601"><code><span class="comment">//	400 INPUT_USER_DEACTIVATED: The specified user was deleted.</span></code></span>
+<span class="codeline" id="line-602"><code><span class="comment">//	400 MSG_ID_INVALID: Invalid message ID provided.</span></code></span>
+<span class="codeline" id="line-603"><code><span class="comment">//	400 PEER_ID_INVALID: The provided peer id is invalid.</span></code></span>
+<span class="codeline" id="line-604"><code><span class="comment">//	400 PEER_ID_NOT_SUPPORTED: The provided peer ID is not supported.</span></code></span>
+<span class="codeline" id="line-605"><code><span class="comment">//	400 SEARCH_QUERY_EMPTY: The search query is empty.</span></code></span>
+<span class="codeline" id="line-606"><code><span class="comment">//	400 USER_ID_INVALID: The provided user ID is invalid.</span></code></span>
+<span class="codeline" id="line-607"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-608"><code><span class="comment">// See https://core.telegram.org/method/messages.search for reference.</span></code></span>
+<span class="codeline" id="line-609"><code><span class="keyword">func</span> (<label for="r138" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r139" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.MessagesSearch.html" class="ident">MessagesSearch</a></label>(<label for="r140" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r141" class="ident">request</label> *<a href="#line-38" class="ident">MessagesSearchRequest</a>) (<a href="tl_messages_messages_gen.go.html#line-1312" class="ident">MessagesMessagesClass</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-610"><code>	<span class="keyword">var</span> <label for="r142" class="ident">result</label> <a href="tl_messages_messages_gen.go.html#line-1428" class="ident">MessagesMessagesBox</a></code></span>
+<span class="codeline" id="line-611"><code></code></span>
+<span class="codeline" id="line-612"><code>	<span class="keyword">if</span> <label for="r143" class="ident">err</label> := <label for="r138" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r140" class="ident">ctx</label>, <label for="r141" class="ident">request</label>, &amp;<label for="r142" class="ident">result</label>); <label for="r143" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-613"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r143" class="ident">err</label></code></span>
+<span class="codeline" id="line-614"><code>	}</code></span>
+<span class="codeline" id="line-615"><code>	<span class="keyword">return</span> <label for="r142" class="ident">result</label>.<a href="tl_messages_messages_gen.go.html#line-1429" class="ident">Messages</a>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-616"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)

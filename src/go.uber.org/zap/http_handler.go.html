@@ -45,7 +45,8 @@ input[id=i0]:checked ~pre .i0,
 input[id=i1]:checked ~pre .i1,
 input[id=i2]:checked ~pre .i2,
 input[id=i3]:checked ~pre .i3,
-input[id=i4]:checked ~pre .i4
+input[id=i4]:checked ~pre .i4,
+input[id=i5]:checked ~pre .i5
 {background: brown; color: #eed;}
 </style><input id="r0" type="radio" name="g"/>
 <input id="r1" type="radio" name="g"/>
@@ -76,6 +77,7 @@ input[id=i4]:checked ~pre .i4
 <input id="i2" type="radio" name="i"/>
 <input id="i3" type="radio" name="i"/>
 <input id="i4" type="radio" name="i"/>
+<input id="i5" type="radio" name="i"/>
 
 <pre class="line-numbers">
 <span class="codeline" id="line-1"><code><span class="comment">// Copyright (c) 2016 Uber Technologies, Inc.</span></code></span>
@@ -102,114 +104,115 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-22"><code></code></span>
 <span class="codeline" id="line-23"><code><span class="keyword">import</span> (</code></span>
 <span class="codeline" id="line-24"><code>	<label for="i0"><span class="lit-string i0">"encoding/json"</span></label></code></span>
-<span class="codeline" id="line-25"><code>	<label for="i1"><span class="lit-string i1">"fmt"</span></label></code></span>
-<span class="codeline" id="line-26"><code>	<label for="i2"><span class="lit-string i2">"io"</span></label></code></span>
-<span class="codeline" id="line-27"><code>	<label for="i3"><span class="lit-string i3">"net/http"</span></label></code></span>
-<span class="codeline" id="line-28"><code></code></span>
-<span class="codeline" id="line-29"><code>	<label for="i4"><span class="lit-string i4">"go.uber.org/zap/zapcore"</span></label></code></span>
-<span class="codeline" id="line-30"><code>)</code></span>
-<span class="codeline" id="line-31"><code></code></span>
-<span class="codeline" id="line-32"><code><span class="comment">// ServeHTTP is a simple JSON endpoint that can report on or change the current</span></code></span>
-<span class="codeline" id="line-33"><code><span class="comment">// logging level.</span></code></span>
-<span class="codeline" id="line-34"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-35"><code><span class="comment">// GET</span></code></span>
-<span class="codeline" id="line-36"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-37"><code><span class="comment">// The GET request returns a JSON description of the current logging level like:</span></code></span>
-<span class="codeline" id="line-38"><code><span class="comment">//   {"level":"info"}</span></code></span>
+<span class="codeline" id="line-25"><code>	<label for="i1"><span class="lit-string i1">"errors"</span></label></code></span>
+<span class="codeline" id="line-26"><code>	<label for="i2"><span class="lit-string i2">"fmt"</span></label></code></span>
+<span class="codeline" id="line-27"><code>	<label for="i3"><span class="lit-string i3">"io"</span></label></code></span>
+<span class="codeline" id="line-28"><code>	<label for="i4"><span class="lit-string i4">"net/http"</span></label></code></span>
+<span class="codeline" id="line-29"><code></code></span>
+<span class="codeline" id="line-30"><code>	<label for="i5"><span class="lit-string i5">"go.uber.org/zap/zapcore"</span></label></code></span>
+<span class="codeline" id="line-31"><code>)</code></span>
+<span class="codeline" id="line-32"><code></code></span>
+<span class="codeline" id="line-33"><code><span class="comment">// ServeHTTP is a simple JSON endpoint that can report on or change the current</span></code></span>
+<span class="codeline" id="line-34"><code><span class="comment">// logging level.</span></code></span>
+<span class="codeline" id="line-35"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-36"><code><span class="comment">// # GET</span></code></span>
+<span class="codeline" id="line-37"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-38"><code><span class="comment">// The GET request returns a JSON description of the current logging level like:</span></code></span>
 <span class="codeline" id="line-39"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-40"><code><span class="comment">// PUT</span></code></span>
+<span class="codeline" id="line-40"><code><span class="comment">//	{"level":"info"}</span></code></span>
 <span class="codeline" id="line-41"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-42"><code><span class="comment">// The PUT request changes the logging level. It is perfectly safe to change the</span></code></span>
-<span class="codeline" id="line-43"><code><span class="comment">// logging level while a program is running. Two content types are supported:</span></code></span>
-<span class="codeline" id="line-44"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-45"><code><span class="comment">//    Content-Type: application/x-www-form-urlencoded</span></code></span>
+<span class="codeline" id="line-42"><code><span class="comment">// # PUT</span></code></span>
+<span class="codeline" id="line-43"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-44"><code><span class="comment">// The PUT request changes the logging level. It is perfectly safe to change the</span></code></span>
+<span class="codeline" id="line-45"><code><span class="comment">// logging level while a program is running. Two content types are supported:</span></code></span>
 <span class="codeline" id="line-46"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-47"><code><span class="comment">// With this content type, the level can be provided through the request body or</span></code></span>
-<span class="codeline" id="line-48"><code><span class="comment">// a query parameter. The log level is URL encoded like:</span></code></span>
-<span class="codeline" id="line-49"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-50"><code><span class="comment">//    level=debug</span></code></span>
+<span class="codeline" id="line-47"><code><span class="comment">//	Content-Type: application/x-www-form-urlencoded</span></code></span>
+<span class="codeline" id="line-48"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-49"><code><span class="comment">// With this content type, the level can be provided through the request body or</span></code></span>
+<span class="codeline" id="line-50"><code><span class="comment">// a query parameter. The log level is URL encoded like:</span></code></span>
 <span class="codeline" id="line-51"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-52"><code><span class="comment">// The request body takes precedence over the query parameter, if both are</span></code></span>
-<span class="codeline" id="line-53"><code><span class="comment">// specified.</span></code></span>
-<span class="codeline" id="line-54"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-55"><code><span class="comment">// This content type is the default for a curl PUT request. Following are two</span></code></span>
-<span class="codeline" id="line-56"><code><span class="comment">// example curl requests that both set the logging level to debug.</span></code></span>
-<span class="codeline" id="line-57"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-58"><code><span class="comment">//    curl -X PUT localhost:8080/log/level?level=debug</span></code></span>
-<span class="codeline" id="line-59"><code><span class="comment">//    curl -X PUT localhost:8080/log/level -d level=debug</span></code></span>
-<span class="codeline" id="line-60"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-61"><code><span class="comment">// For any other content type, the payload is expected to be JSON encoded and</span></code></span>
-<span class="codeline" id="line-62"><code><span class="comment">// look like:</span></code></span>
-<span class="codeline" id="line-63"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-64"><code><span class="comment">//   {"level":"info"}</span></code></span>
+<span class="codeline" id="line-52"><code><span class="comment">//	level=debug</span></code></span>
+<span class="codeline" id="line-53"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-54"><code><span class="comment">// The request body takes precedence over the query parameter, if both are</span></code></span>
+<span class="codeline" id="line-55"><code><span class="comment">// specified.</span></code></span>
+<span class="codeline" id="line-56"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-57"><code><span class="comment">// This content type is the default for a curl PUT request. Following are two</span></code></span>
+<span class="codeline" id="line-58"><code><span class="comment">// example curl requests that both set the logging level to debug.</span></code></span>
+<span class="codeline" id="line-59"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-60"><code><span class="comment">//	curl -X PUT localhost:8080/log/level?level=debug</span></code></span>
+<span class="codeline" id="line-61"><code><span class="comment">//	curl -X PUT localhost:8080/log/level -d level=debug</span></code></span>
+<span class="codeline" id="line-62"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-63"><code><span class="comment">// For any other content type, the payload is expected to be JSON encoded and</span></code></span>
+<span class="codeline" id="line-64"><code><span class="comment">// look like:</span></code></span>
 <span class="codeline" id="line-65"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-66"><code><span class="comment">// An example curl request could look like this:</span></code></span>
+<span class="codeline" id="line-66"><code><span class="comment">//	{"level":"info"}</span></code></span>
 <span class="codeline" id="line-67"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-68"><code><span class="comment">//    curl -X PUT localhost:8080/log/level -H "Content-Type: application/json" -d '{"level":"debug"}'</span></code></span>
+<span class="codeline" id="line-68"><code><span class="comment">// An example curl request could look like this:</span></code></span>
 <span class="codeline" id="line-69"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-70"><code><span class="keyword">func</span> (<label for="r0" class="ident">lvl</label> <a href="level.go.html#line-69" class="ident">AtomicLevel</a>) <label for="r1" class="ident"><a href="../../../use/go.uber.org/zap..AtomicLevel.ServeHTTP.html" class="ident">ServeHTTP</a></label>(<label for="r2" class="ident">w</label> <a href="../../../pkg/net/http.html" class="ident i3">http</a>.<a href="../../net/http/server.go.html#line-95" class="ident">ResponseWriter</a>, <label for="r3" class="ident">r</label> *<a href="../../../pkg/net/http.html" class="ident i3">http</a>.<a href="../../net/http/request.go.html#line-103" class="ident">Request</a>) {</code></span>
-<span class="codeline" id="line-71"><code>	<span class="keyword">type</span> <label for="r4" class="ident">errorResponse</label> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-72"><code>		<label for="r5" class="ident">Error</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> <span class="lit-string">`json:"error"`</span></code></span>
-<span class="codeline" id="line-73"><code>	}</code></span>
-<span class="codeline" id="line-74"><code>	<span class="keyword">type</span> <label for="r6" class="ident">payload</label> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-75"><code>		<label for="r7" class="ident">Level</label> <a href="../../../pkg/go.uber.org/zap/zapcore.html" class="ident i4">zapcore</a>.<a href="zapcore/level.go.html#line-32" class="ident">Level</a> <span class="lit-string">`json:"level"`</span></code></span>
-<span class="codeline" id="line-76"><code>	}</code></span>
-<span class="codeline" id="line-77"><code></code></span>
-<span class="codeline" id="line-78"><code>	<label for="r8" class="ident">enc</label> := <a href="../../../pkg/encoding/json.html" class="ident i0">json</a>.<a href="../../encoding/json/stream.go.html#line-192" class="ident">NewEncoder</a>(<label for="r2" class="ident">w</label>)</code></span>
-<span class="codeline" id="line-79"><code></code></span>
-<span class="codeline" id="line-80"><code>	<span class="keyword">switch</span> <label for="r3" class="ident">r</label>.<a href="../../net/http/request.go.html#line-110" class="ident">Method</a> {</code></span>
-<span class="codeline" id="line-81"><code>	<span class="keyword">case</span> <a href="../../../pkg/net/http.html" class="ident i3">http</a>.<a href="../../net/http/method.go.html#line-11" class="ident">MethodGet</a>:</code></span>
-<span class="codeline" id="line-82"><code>		<label for="r8" class="ident">enc</label>.<a href="../../encoding/json/stream.go.html#line-201" class="ident">Encode</a>(<label for="r6" class="ident">payload</label>{<label for="r7" class="ident">Level</label>: <label for="r0" class="ident">lvl</label>.<a href="level.go.html#line-113" class="ident">Level</a>()})</code></span>
-<span class="codeline" id="line-83"><code>	<span class="keyword">case</span> <a href="../../../pkg/net/http.html" class="ident i3">http</a>.<a href="../../net/http/method.go.html#line-14" class="ident">MethodPut</a>:</code></span>
-<span class="codeline" id="line-84"><code>		<label for="r9" class="ident">requestedLvl</label>, <label for="r10" class="ident">err</label> := <a href="#line-101" class="ident">decodePutRequest</a>(<label for="r3" class="ident">r</label>.<a href="../../net/http/request.go.html#line-166" class="ident">Header</a>.<a href="../../net/http/header.go.html#line-49" class="ident">Get</a>(<span class="lit-string">"Content-Type"</span>), <label for="r3" class="ident">r</label>)</code></span>
-<span class="codeline" id="line-85"><code>		<span class="keyword">if</span> <label for="r10" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-86"><code>			<label for="r2" class="ident">w</label>.<a href="../../net/http/server.go.html#line-159" class="ident">WriteHeader</a>(<a href="../../../pkg/net/http.html" class="ident i3">http</a>.<a href="../../net/http/status.go.html#line-36" class="ident">StatusBadRequest</a>)</code></span>
-<span class="codeline" id="line-87"><code>			<label for="r8" class="ident">enc</label>.<a href="../../encoding/json/stream.go.html#line-201" class="ident">Encode</a>(<label for="r4" class="ident">errorResponse</label>{<label for="r5" class="ident">Error</label>: <label for="r10" class="ident">err</label>.Error()})</code></span>
-<span class="codeline" id="line-88"><code>			<span class="keyword">return</span></code></span>
-<span class="codeline" id="line-89"><code>		}</code></span>
-<span class="codeline" id="line-90"><code>		<label for="r0" class="ident">lvl</label>.<a href="level.go.html#line-118" class="ident">SetLevel</a>(<label for="r9" class="ident">requestedLvl</label>)</code></span>
-<span class="codeline" id="line-91"><code>		<label for="r8" class="ident">enc</label>.<a href="../../encoding/json/stream.go.html#line-201" class="ident">Encode</a>(<label for="r6" class="ident">payload</label>{<label for="r7" class="ident">Level</label>: <label for="r0" class="ident">lvl</label>.<a href="level.go.html#line-113" class="ident">Level</a>()})</code></span>
-<span class="codeline" id="line-92"><code>	<span class="keyword">default</span>:</code></span>
-<span class="codeline" id="line-93"><code>		<label for="r2" class="ident">w</label>.<a href="../../net/http/server.go.html#line-159" class="ident">WriteHeader</a>(<a href="../../../pkg/net/http.html" class="ident i3">http</a>.<a href="../../net/http/status.go.html#line-41" class="ident">StatusMethodNotAllowed</a>)</code></span>
-<span class="codeline" id="line-94"><code>		<label for="r8" class="ident">enc</label>.<a href="../../encoding/json/stream.go.html#line-201" class="ident">Encode</a>(<label for="r4" class="ident">errorResponse</label>{</code></span>
-<span class="codeline" id="line-95"><code>			<label for="r5" class="ident">Error</label>: <span class="lit-string">"Only GET and PUT are supported."</span>,</code></span>
-<span class="codeline" id="line-96"><code>		})</code></span>
-<span class="codeline" id="line-97"><code>	}</code></span>
-<span class="codeline" id="line-98"><code>}</code></span>
-<span class="codeline" id="line-99"><code></code></span>
-<span class="codeline" id="line-100"><code><span class="comment">// Decodes incoming PUT requests and returns the requested logging level.</span></code></span>
-<span class="codeline" id="line-101"><code><span class="keyword">func</span> <label for="r11" class="ident"><a href="../../../pkg/go.uber.org/zap.html#name-decodePutRequest" class="ident">decodePutRequest</a></label>(<label for="r12" class="ident">contentType</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r13" class="ident">r</label> *<a href="../../../pkg/net/http.html" class="ident i3">http</a>.<a href="../../net/http/request.go.html#line-103" class="ident">Request</a>) (<a href="../../../pkg/go.uber.org/zap/zapcore.html" class="ident i4">zapcore</a>.<a href="zapcore/level.go.html#line-32" class="ident">Level</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-102"><code>	<span class="keyword">if</span> <label for="r12" class="ident">contentType</label> == <span class="lit-string">"application/x-www-form-urlencoded"</span> {</code></span>
-<span class="codeline" id="line-103"><code>		<span class="keyword">return</span> <a href="#line-108" class="ident">decodePutURL</a>(<label for="r13" class="ident">r</label>)</code></span>
-<span class="codeline" id="line-104"><code>	}</code></span>
-<span class="codeline" id="line-105"><code>	<span class="keyword">return</span> <a href="#line-120" class="ident">decodePutJSON</a>(<label for="r13" class="ident">r</label>.<a href="../../net/http/request.go.html#line-182" class="ident">Body</a>)</code></span>
-<span class="codeline" id="line-106"><code>}</code></span>
-<span class="codeline" id="line-107"><code></code></span>
-<span class="codeline" id="line-108"><code><span class="keyword">func</span> <label for="r14" class="ident"><a href="../../../pkg/go.uber.org/zap.html#name-decodePutURL" class="ident">decodePutURL</a></label>(<label for="r15" class="ident">r</label> *<a href="../../../pkg/net/http.html" class="ident i3">http</a>.<a href="../../net/http/request.go.html#line-103" class="ident">Request</a>) (<a href="../../../pkg/go.uber.org/zap/zapcore.html" class="ident i4">zapcore</a>.<a href="zapcore/level.go.html#line-32" class="ident">Level</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-109"><code>	<label for="r16" class="ident">lvl</label> := <label for="r15" class="ident">r</label>.<a href="../../net/http/request.go.html#line-1364" class="ident">FormValue</a>(<span class="lit-string">"level"</span>)</code></span>
-<span class="codeline" id="line-110"><code>	<span class="keyword">if</span> <label for="r16" class="ident">lvl</label> == <span class="lit-string">""</span> {</code></span>
-<span class="codeline" id="line-111"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"must specify logging level"</span>)</code></span>
-<span class="codeline" id="line-112"><code>	}</code></span>
-<span class="codeline" id="line-113"><code>	<span class="keyword">var</span> <label for="r17" class="ident">l</label> <a href="../../../pkg/go.uber.org/zap/zapcore.html" class="ident i4">zapcore</a>.<a href="zapcore/level.go.html#line-32" class="ident">Level</a></code></span>
-<span class="codeline" id="line-114"><code>	<span class="keyword">if</span> <label for="r18" class="ident">err</label> := <label for="r17" class="ident">l</label>.<a href="zapcore/level.go.html#line-128" class="ident">UnmarshalText</a>([]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>(<label for="r16" class="ident">lvl</label>)); <label for="r18" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-115"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <label for="r18" class="ident">err</label></code></span>
-<span class="codeline" id="line-116"><code>	}</code></span>
-<span class="codeline" id="line-117"><code>	<span class="keyword">return</span> <label for="r17" class="ident">l</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-118"><code>}</code></span>
-<span class="codeline" id="line-119"><code></code></span>
-<span class="codeline" id="line-120"><code><span class="keyword">func</span> <label for="r19" class="ident"><a href="../../../pkg/go.uber.org/zap.html#name-decodePutJSON" class="ident">decodePutJSON</a></label>(<label for="r20" class="ident">body</label> <a href="../../../pkg/io.html" class="ident i2">io</a>.<a href="../../io/io.go.html#line-83" class="ident">Reader</a>) (<a href="../../../pkg/go.uber.org/zap/zapcore.html" class="ident i4">zapcore</a>.<a href="zapcore/level.go.html#line-32" class="ident">Level</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-121"><code>	<span class="keyword">var</span> <label for="r21" class="ident">pld</label> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-122"><code>		<label for="r22" class="ident">Level</label> *<a href="../../../pkg/go.uber.org/zap/zapcore.html" class="ident i4">zapcore</a>.<a href="zapcore/level.go.html#line-32" class="ident">Level</a> <span class="lit-string">`json:"level"`</span></code></span>
-<span class="codeline" id="line-123"><code>	}</code></span>
-<span class="codeline" id="line-124"><code>	<span class="keyword">if</span> <label for="r23" class="ident">err</label> := <a href="../../../pkg/encoding/json.html" class="ident i0">json</a>.<a href="../../encoding/json/stream.go.html#line-31" class="ident">NewDecoder</a>(<label for="r20" class="ident">body</label>).<a href="../../encoding/json/stream.go.html#line-49" class="ident">Decode</a>(&amp;<label for="r21" class="ident">pld</label>); <label for="r23" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-125"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"malformed request body: %v"</span>, <label for="r23" class="ident">err</label>)</code></span>
-<span class="codeline" id="line-126"><code>	}</code></span>
-<span class="codeline" id="line-127"><code>	<span class="keyword">if</span> <label for="r21" class="ident">pld</label>.<label for="r22" class="ident">Level</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-128"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"must specify logging level"</span>)</code></span>
-<span class="codeline" id="line-129"><code>	}</code></span>
-<span class="codeline" id="line-130"><code>	<span class="keyword">return</span> *<label for="r21" class="ident">pld</label>.<label for="r22" class="ident">Level</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-131"><code></code></span>
-<span class="codeline" id="line-132"><code>}</code></span>
+<span class="codeline" id="line-70"><code><span class="comment">//	curl -X PUT localhost:8080/log/level -H "Content-Type: application/json" -d '{"level":"debug"}'</span></code></span>
+<span class="codeline" id="line-71"><code><span class="keyword">func</span> (<label for="r0" class="ident">lvl</label> <a href="level.go.html#line-69" class="ident">AtomicLevel</a>) <label for="r1" class="ident"><a href="../../../use/go.uber.org/zap..AtomicLevel.ServeHTTP.html" class="ident">ServeHTTP</a></label>(<label for="r2" class="ident">w</label> <a href="../../../pkg/net/http.html" class="ident i4">http</a>.<a href="../../net/http/server.go.html#line-95" class="ident">ResponseWriter</a>, <label for="r3" class="ident">r</label> *<a href="../../../pkg/net/http.html" class="ident i4">http</a>.<a href="../../net/http/request.go.html#line-103" class="ident">Request</a>) {</code></span>
+<span class="codeline" id="line-72"><code>	<span class="keyword">type</span> <label for="r4" class="ident">errorResponse</label> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-73"><code>		<label for="r5" class="ident">Error</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> <span class="lit-string">`json:"error"`</span></code></span>
+<span class="codeline" id="line-74"><code>	}</code></span>
+<span class="codeline" id="line-75"><code>	<span class="keyword">type</span> <label for="r6" class="ident">payload</label> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-76"><code>		<label for="r7" class="ident">Level</label> <a href="../../../pkg/go.uber.org/zap/zapcore.html" class="ident i5">zapcore</a>.<a href="zapcore/level.go.html#line-32" class="ident">Level</a> <span class="lit-string">`json:"level"`</span></code></span>
+<span class="codeline" id="line-77"><code>	}</code></span>
+<span class="codeline" id="line-78"><code></code></span>
+<span class="codeline" id="line-79"><code>	<label for="r8" class="ident">enc</label> := <a href="../../../pkg/encoding/json.html" class="ident i0">json</a>.<a href="../../encoding/json/stream.go.html#line-192" class="ident">NewEncoder</a>(<label for="r2" class="ident">w</label>)</code></span>
+<span class="codeline" id="line-80"><code></code></span>
+<span class="codeline" id="line-81"><code>	<span class="keyword">switch</span> <label for="r3" class="ident">r</label>.<a href="../../net/http/request.go.html#line-110" class="ident">Method</a> {</code></span>
+<span class="codeline" id="line-82"><code>	<span class="keyword">case</span> <a href="../../../pkg/net/http.html" class="ident i4">http</a>.<a href="../../net/http/method.go.html#line-11" class="ident">MethodGet</a>:</code></span>
+<span class="codeline" id="line-83"><code>		<label for="r8" class="ident">enc</label>.<a href="../../encoding/json/stream.go.html#line-201" class="ident">Encode</a>(<label for="r6" class="ident">payload</label>{<label for="r7" class="ident">Level</label>: <label for="r0" class="ident">lvl</label>.<a href="level.go.html#line-113" class="ident">Level</a>()})</code></span>
+<span class="codeline" id="line-84"><code>	<span class="keyword">case</span> <a href="../../../pkg/net/http.html" class="ident i4">http</a>.<a href="../../net/http/method.go.html#line-14" class="ident">MethodPut</a>:</code></span>
+<span class="codeline" id="line-85"><code>		<label for="r9" class="ident">requestedLvl</label>, <label for="r10" class="ident">err</label> := <a href="#line-102" class="ident">decodePutRequest</a>(<label for="r3" class="ident">r</label>.<a href="../../net/http/request.go.html#line-166" class="ident">Header</a>.<a href="../../net/http/header.go.html#line-49" class="ident">Get</a>(<span class="lit-string">"Content-Type"</span>), <label for="r3" class="ident">r</label>)</code></span>
+<span class="codeline" id="line-86"><code>		<span class="keyword">if</span> <label for="r10" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-87"><code>			<label for="r2" class="ident">w</label>.<a href="../../net/http/server.go.html#line-159" class="ident">WriteHeader</a>(<a href="../../../pkg/net/http.html" class="ident i4">http</a>.<a href="../../net/http/status.go.html#line-36" class="ident">StatusBadRequest</a>)</code></span>
+<span class="codeline" id="line-88"><code>			<label for="r8" class="ident">enc</label>.<a href="../../encoding/json/stream.go.html#line-201" class="ident">Encode</a>(<label for="r4" class="ident">errorResponse</label>{<label for="r5" class="ident">Error</label>: <label for="r10" class="ident">err</label>.Error()})</code></span>
+<span class="codeline" id="line-89"><code>			<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-90"><code>		}</code></span>
+<span class="codeline" id="line-91"><code>		<label for="r0" class="ident">lvl</label>.<a href="level.go.html#line-118" class="ident">SetLevel</a>(<label for="r9" class="ident">requestedLvl</label>)</code></span>
+<span class="codeline" id="line-92"><code>		<label for="r8" class="ident">enc</label>.<a href="../../encoding/json/stream.go.html#line-201" class="ident">Encode</a>(<label for="r6" class="ident">payload</label>{<label for="r7" class="ident">Level</label>: <label for="r0" class="ident">lvl</label>.<a href="level.go.html#line-113" class="ident">Level</a>()})</code></span>
+<span class="codeline" id="line-93"><code>	<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-94"><code>		<label for="r2" class="ident">w</label>.<a href="../../net/http/server.go.html#line-159" class="ident">WriteHeader</a>(<a href="../../../pkg/net/http.html" class="ident i4">http</a>.<a href="../../net/http/status.go.html#line-41" class="ident">StatusMethodNotAllowed</a>)</code></span>
+<span class="codeline" id="line-95"><code>		<label for="r8" class="ident">enc</label>.<a href="../../encoding/json/stream.go.html#line-201" class="ident">Encode</a>(<label for="r4" class="ident">errorResponse</label>{</code></span>
+<span class="codeline" id="line-96"><code>			<label for="r5" class="ident">Error</label>: <span class="lit-string">"Only GET and PUT are supported."</span>,</code></span>
+<span class="codeline" id="line-97"><code>		})</code></span>
+<span class="codeline" id="line-98"><code>	}</code></span>
+<span class="codeline" id="line-99"><code>}</code></span>
+<span class="codeline" id="line-100"><code></code></span>
+<span class="codeline" id="line-101"><code><span class="comment">// Decodes incoming PUT requests and returns the requested logging level.</span></code></span>
+<span class="codeline" id="line-102"><code><span class="keyword">func</span> <label for="r11" class="ident"><a href="../../../pkg/go.uber.org/zap.html#name-decodePutRequest" class="ident">decodePutRequest</a></label>(<label for="r12" class="ident">contentType</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r13" class="ident">r</label> *<a href="../../../pkg/net/http.html" class="ident i4">http</a>.<a href="../../net/http/request.go.html#line-103" class="ident">Request</a>) (<a href="../../../pkg/go.uber.org/zap/zapcore.html" class="ident i5">zapcore</a>.<a href="zapcore/level.go.html#line-32" class="ident">Level</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-103"><code>	<span class="keyword">if</span> <label for="r12" class="ident">contentType</label> == <span class="lit-string">"application/x-www-form-urlencoded"</span> {</code></span>
+<span class="codeline" id="line-104"><code>		<span class="keyword">return</span> <a href="#line-109" class="ident">decodePutURL</a>(<label for="r13" class="ident">r</label>)</code></span>
+<span class="codeline" id="line-105"><code>	}</code></span>
+<span class="codeline" id="line-106"><code>	<span class="keyword">return</span> <a href="#line-121" class="ident">decodePutJSON</a>(<label for="r13" class="ident">r</label>.<a href="../../net/http/request.go.html#line-182" class="ident">Body</a>)</code></span>
+<span class="codeline" id="line-107"><code>}</code></span>
+<span class="codeline" id="line-108"><code></code></span>
+<span class="codeline" id="line-109"><code><span class="keyword">func</span> <label for="r14" class="ident"><a href="../../../pkg/go.uber.org/zap.html#name-decodePutURL" class="ident">decodePutURL</a></label>(<label for="r15" class="ident">r</label> *<a href="../../../pkg/net/http.html" class="ident i4">http</a>.<a href="../../net/http/request.go.html#line-103" class="ident">Request</a>) (<a href="../../../pkg/go.uber.org/zap/zapcore.html" class="ident i5">zapcore</a>.<a href="zapcore/level.go.html#line-32" class="ident">Level</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-110"><code>	<label for="r16" class="ident">lvl</label> := <label for="r15" class="ident">r</label>.<a href="../../net/http/request.go.html#line-1364" class="ident">FormValue</a>(<span class="lit-string">"level"</span>)</code></span>
+<span class="codeline" id="line-111"><code>	<span class="keyword">if</span> <label for="r16" class="ident">lvl</label> == <span class="lit-string">""</span> {</code></span>
+<span class="codeline" id="line-112"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="../../../pkg/errors.html" class="ident i1">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"must specify logging level"</span>)</code></span>
+<span class="codeline" id="line-113"><code>	}</code></span>
+<span class="codeline" id="line-114"><code>	<span class="keyword">var</span> <label for="r17" class="ident">l</label> <a href="../../../pkg/go.uber.org/zap/zapcore.html" class="ident i5">zapcore</a>.<a href="zapcore/level.go.html#line-32" class="ident">Level</a></code></span>
+<span class="codeline" id="line-115"><code>	<span class="keyword">if</span> <label for="r18" class="ident">err</label> := <label for="r17" class="ident">l</label>.<a href="zapcore/level.go.html#line-128" class="ident">UnmarshalText</a>([]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>(<label for="r16" class="ident">lvl</label>)); <label for="r18" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-116"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <label for="r18" class="ident">err</label></code></span>
+<span class="codeline" id="line-117"><code>	}</code></span>
+<span class="codeline" id="line-118"><code>	<span class="keyword">return</span> <label for="r17" class="ident">l</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-119"><code>}</code></span>
+<span class="codeline" id="line-120"><code></code></span>
+<span class="codeline" id="line-121"><code><span class="keyword">func</span> <label for="r19" class="ident"><a href="../../../pkg/go.uber.org/zap.html#name-decodePutJSON" class="ident">decodePutJSON</a></label>(<label for="r20" class="ident">body</label> <a href="../../../pkg/io.html" class="ident i3">io</a>.<a href="../../io/io.go.html#line-83" class="ident">Reader</a>) (<a href="../../../pkg/go.uber.org/zap/zapcore.html" class="ident i5">zapcore</a>.<a href="zapcore/level.go.html#line-32" class="ident">Level</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-122"><code>	<span class="keyword">var</span> <label for="r21" class="ident">pld</label> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-123"><code>		<label for="r22" class="ident">Level</label> *<a href="../../../pkg/go.uber.org/zap/zapcore.html" class="ident i5">zapcore</a>.<a href="zapcore/level.go.html#line-32" class="ident">Level</a> <span class="lit-string">`json:"level"`</span></code></span>
+<span class="codeline" id="line-124"><code>	}</code></span>
+<span class="codeline" id="line-125"><code>	<span class="keyword">if</span> <label for="r23" class="ident">err</label> := <a href="../../../pkg/encoding/json.html" class="ident i0">json</a>.<a href="../../encoding/json/stream.go.html#line-31" class="ident">NewDecoder</a>(<label for="r20" class="ident">body</label>).<a href="../../encoding/json/stream.go.html#line-49" class="ident">Decode</a>(&amp;<label for="r21" class="ident">pld</label>); <label for="r23" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-126"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="../../../pkg/fmt.html" class="ident i2">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"malformed request body: %v"</span>, <label for="r23" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-127"><code>	}</code></span>
+<span class="codeline" id="line-128"><code>	<span class="keyword">if</span> <label for="r21" class="ident">pld</label>.<label for="r22" class="ident">Level</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-129"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="../../../pkg/errors.html" class="ident i1">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"must specify logging level"</span>)</code></span>
+<span class="codeline" id="line-130"><code>	}</code></span>
+<span class="codeline" id="line-131"><code>	<span class="keyword">return</span> *<label for="r21" class="ident">pld</label>.<label for="r22" class="ident">Level</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-132"><code></code></span>
+<span class="codeline" id="line-133"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)

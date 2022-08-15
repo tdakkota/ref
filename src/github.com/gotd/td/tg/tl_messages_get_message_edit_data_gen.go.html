@@ -335,19 +335,20 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-199"><code><span class="comment">// Possible errors:</span></code></span>
 <span class="codeline" id="line-200"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-201"><code><span class="comment">//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.</span></code></span>
-<span class="codeline" id="line-202"><code><span class="comment">//	403 MESSAGE_AUTHOR_REQUIRED: Message author required.</span></code></span>
-<span class="codeline" id="line-203"><code><span class="comment">//	400 MESSAGE_ID_INVALID: The provided message id is invalid.</span></code></span>
-<span class="codeline" id="line-204"><code><span class="comment">//	400 PEER_ID_INVALID: The provided peer id is invalid.</span></code></span>
-<span class="codeline" id="line-205"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-206"><code><span class="comment">// See https://core.telegram.org/method/messages.getMessageEditData for reference.</span></code></span>
-<span class="codeline" id="line-207"><code><span class="keyword">func</span> (<label for="r41" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r42" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.MessagesGetMessageEditData.html" class="ident">MessagesGetMessageEditData</a></label>(<label for="r43" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r44" class="ident">request</label> *<a href="#line-38" class="ident">MessagesGetMessageEditDataRequest</a>) (*<a href="tl_messages_message_edit_data_gen.go.html#line-38" class="ident">MessagesMessageEditData</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-208"><code>	<span class="keyword">var</span> <label for="r45" class="ident">result</label> <a href="tl_messages_message_edit_data_gen.go.html#line-38" class="ident">MessagesMessageEditData</a></code></span>
-<span class="codeline" id="line-209"><code></code></span>
-<span class="codeline" id="line-210"><code>	<span class="keyword">if</span> <label for="r46" class="ident">err</label> := <label for="r41" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r43" class="ident">ctx</label>, <label for="r44" class="ident">request</label>, &amp;<label for="r45" class="ident">result</label>); <label for="r46" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-211"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r46" class="ident">err</label></code></span>
-<span class="codeline" id="line-212"><code>	}</code></span>
-<span class="codeline" id="line-213"><code>	<span class="keyword">return</span> &amp;<label for="r45" class="ident">result</label>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-214"><code>}</code></span>
+<span class="codeline" id="line-202"><code><span class="comment">//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.</span></code></span>
+<span class="codeline" id="line-203"><code><span class="comment">//	403 MESSAGE_AUTHOR_REQUIRED: Message author required.</span></code></span>
+<span class="codeline" id="line-204"><code><span class="comment">//	400 MESSAGE_ID_INVALID: The provided message id is invalid.</span></code></span>
+<span class="codeline" id="line-205"><code><span class="comment">//	400 PEER_ID_INVALID: The provided peer id is invalid.</span></code></span>
+<span class="codeline" id="line-206"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-207"><code><span class="comment">// See https://core.telegram.org/method/messages.getMessageEditData for reference.</span></code></span>
+<span class="codeline" id="line-208"><code><span class="keyword">func</span> (<label for="r41" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r42" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.MessagesGetMessageEditData.html" class="ident">MessagesGetMessageEditData</a></label>(<label for="r43" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r44" class="ident">request</label> *<a href="#line-38" class="ident">MessagesGetMessageEditDataRequest</a>) (*<a href="tl_messages_message_edit_data_gen.go.html#line-38" class="ident">MessagesMessageEditData</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-209"><code>	<span class="keyword">var</span> <label for="r45" class="ident">result</label> <a href="tl_messages_message_edit_data_gen.go.html#line-38" class="ident">MessagesMessageEditData</a></code></span>
+<span class="codeline" id="line-210"><code></code></span>
+<span class="codeline" id="line-211"><code>	<span class="keyword">if</span> <label for="r46" class="ident">err</label> := <label for="r41" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r43" class="ident">ctx</label>, <label for="r44" class="ident">request</label>, &amp;<label for="r45" class="ident">result</label>); <label for="r46" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-212"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r46" class="ident">err</label></code></span>
+<span class="codeline" id="line-213"><code>	}</code></span>
+<span class="codeline" id="line-214"><code>	<span class="keyword">return</span> &amp;<label for="r45" class="ident">result</label>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-215"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
