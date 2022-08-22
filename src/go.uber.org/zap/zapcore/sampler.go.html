@@ -199,10 +199,10 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-69"><code>		<span class="keyword">return</span> <label for="r13" class="ident">c</label>.<a href="#line-36" class="ident">counter</a>.<a href="../../atomic/uint64.go.html#line-59" class="ident">Inc</a>()</code></span>
 <span class="codeline" id="line-70"><code>	}</code></span>
 <span class="codeline" id="line-71"><code></code></span>
-<span class="codeline" id="line-72"><code>	<label for="r13" class="ident">c</label>.<a href="#line-36" class="ident">counter</a>.<a href="../../atomic/uint64.go.html#line-74" class="ident">Store</a>(<span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-72"><code>	<label for="r13" class="ident">c</label>.<a href="#line-36" class="ident">counter</a>.<a href="../../atomic/uint64.go.html#line-81" class="ident">Store</a>(<span class="lit-number">1</span>)</code></span>
 <span class="codeline" id="line-73"><code></code></span>
 <span class="codeline" id="line-74"><code>	<label for="r19" class="ident">newResetAfter</label> := <label for="r17" class="ident">tn</label> + <label for="r16" class="ident">tick</label>.<a href="../../../time/time.go.html#line-738" class="ident">Nanoseconds</a>()</code></span>
-<span class="codeline" id="line-75"><code>	<span class="keyword">if</span> !<label for="r13" class="ident">c</label>.<a href="#line-35" class="ident">resetAt</a>.<a href="../../atomic/int64.go.html#line-69" class="ident">CAS</a>(<label for="r18" class="ident">resetAfter</label>, <label for="r19" class="ident">newResetAfter</label>) {</code></span>
+<span class="codeline" id="line-75"><code>	<span class="keyword">if</span> !<label for="r13" class="ident">c</label>.<a href="#line-35" class="ident">resetAt</a>.<a href="../../atomic/int64.go.html#line-71" class="ident">CAS</a>(<label for="r18" class="ident">resetAfter</label>, <label for="r19" class="ident">newResetAfter</label>) {</code></span>
 <span class="codeline" id="line-76"><code>		<span class="comment">// We raced with another goroutine trying to reset, and it also reset</span></code></span>
 <span class="codeline" id="line-77"><code><span class="comment">		// the counter to 1, so we need to reincrement the counter.</span></code></span>
 <span class="codeline" id="line-78"><code>		<span class="keyword">return</span> <label for="r13" class="ident">c</label>.<a href="#line-36" class="ident">counter</a>.<a href="../../atomic/uint64.go.html#line-59" class="ident">Inc</a>()</code></span>
