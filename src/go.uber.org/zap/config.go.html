@@ -157,7 +157,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-59"><code>	<span class="comment">// Level is the minimum enabled logging level. Note that this is a dynamic</span></code></span>
 <span class="codeline" id="line-60"><code><span class="comment">	// level, so calling Config.Level.SetLevel will atomically change the log</span></code></span>
 <span class="codeline" id="line-61"><code><span class="comment">	// level of all loggers descended from this config.</span></code></span>
-<span class="codeline" id="line-62"><code>	<a href="../../../use/go.uber.org/zap..Config.Level.html" class="ident">Level</a> <a href="level.go.html#line-69" class="ident">AtomicLevel</a> <span class="lit-string">`json:"level" yaml:"level"`</span></code></span>
+<span class="codeline" id="line-62"><code>	<a href="../../../use/go.uber.org/zap..Config.Level.html" class="ident">Level</a> <a href="level.go.html#line-70" class="ident">AtomicLevel</a> <span class="lit-string">`json:"level" yaml:"level"`</span></code></span>
 <span class="codeline" id="line-63"><code>	<span class="comment">// Development puts the logger in development mode, which changes the</span></code></span>
 <span class="codeline" id="line-64"><code><span class="comment">	// behavior of DPanicLevel and takes stacktraces more liberally.</span></code></span>
 <span class="codeline" id="line-65"><code>	<a href="../../../use/go.uber.org/zap..Config.Development.html" class="ident">Development</a> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="lit-string">`json:"development" yaml:"development"`</span></code></span>
@@ -217,7 +217,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-119"><code><span class="comment">// Stacktraces are automatically included on logs of ErrorLevel and above.</span></code></span>
 <span class="codeline" id="line-120"><code><span class="keyword">func</span> <label for="r1" class="ident"><a href="../../../pkg/go.uber.org/zap.html#name-NewProductionConfig" class="ident">NewProductionConfig</a></label>() <a href="#line-58" class="ident">Config</a> {</code></span>
 <span class="codeline" id="line-121"><code>	<span class="keyword">return</span> <a href="#line-58" class="ident">Config</a>{</code></span>
-<span class="codeline" id="line-122"><code>		<a href="#line-62" class="ident">Level</a>:       <a href="level.go.html#line-83" class="ident">NewAtomicLevelAt</a>(<a href="level.go.html#line-33" class="ident">InfoLevel</a>),</code></span>
+<span class="codeline" id="line-122"><code>		<a href="#line-62" class="ident">Level</a>:       <a href="level.go.html#line-86" class="ident">NewAtomicLevelAt</a>(<a href="level.go.html#line-34" class="ident">InfoLevel</a>),</code></span>
 <span class="codeline" id="line-123"><code>		<a href="#line-65" class="ident">Development</a>: <a href="../../../pkg/builtin.html#name-false" class="ident">false</a>,</code></span>
 <span class="codeline" id="line-124"><code>		<a href="#line-74" class="ident">Sampling</a>: &amp;<a href="#line-39" class="ident">SamplingConfig</a>{</code></span>
 <span class="codeline" id="line-125"><code>			<a href="#line-40" class="ident">Initial</a>:    <span class="lit-number">100</span>,</code></span>
@@ -258,7 +258,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-160"><code><span class="comment">// Stacktraces are automatically included on logs of WarnLevel and above.</span></code></span>
 <span class="codeline" id="line-161"><code><span class="keyword">func</span> <label for="r3" class="ident"><a href="../../../pkg/go.uber.org/zap.html#name-NewDevelopmentConfig" class="ident">NewDevelopmentConfig</a></label>() <a href="#line-58" class="ident">Config</a> {</code></span>
 <span class="codeline" id="line-162"><code>	<span class="keyword">return</span> <a href="#line-58" class="ident">Config</a>{</code></span>
-<span class="codeline" id="line-163"><code>		<a href="#line-62" class="ident">Level</a>:            <a href="level.go.html#line-83" class="ident">NewAtomicLevelAt</a>(<a href="level.go.html#line-31" class="ident">DebugLevel</a>),</code></span>
+<span class="codeline" id="line-163"><code>		<a href="#line-62" class="ident">Level</a>:            <a href="level.go.html#line-86" class="ident">NewAtomicLevelAt</a>(<a href="level.go.html#line-32" class="ident">DebugLevel</a>),</code></span>
 <span class="codeline" id="line-164"><code>		<a href="#line-65" class="ident">Development</a>:      <a href="../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
 <span class="codeline" id="line-165"><code>		<a href="#line-78" class="ident">Encoding</a>:         <span class="lit-string">"console"</span>,</code></span>
 <span class="codeline" id="line-166"><code>		<a href="#line-81" class="ident">EncoderConfig</a>:    <a href="#line-137" class="ident">NewDevelopmentEncoderConfig</a>(),</code></span>
@@ -279,7 +279,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-181"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r8" class="ident">err</label></code></span>
 <span class="codeline" id="line-182"><code>	}</code></span>
 <span class="codeline" id="line-183"><code></code></span>
-<span class="codeline" id="line-184"><code>	<span class="keyword">if</span> <label for="r4" class="ident">cfg</label>.<a href="#line-62" class="ident">Level</a> == (<a href="level.go.html#line-69" class="ident">AtomicLevel</a>{}) {</code></span>
+<span class="codeline" id="line-184"><code>	<span class="keyword">if</span> <label for="r4" class="ident">cfg</label>.<a href="#line-62" class="ident">Level</a> == (<a href="level.go.html#line-70" class="ident">AtomicLevel</a>{}) {</code></span>
 <span class="codeline" id="line-185"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i0">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"missing Level"</span>)</code></span>
 <span class="codeline" id="line-186"><code>	}</code></span>
 <span class="codeline" id="line-187"><code></code></span>
@@ -304,9 +304,9 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-206"><code>		<label for="r15" class="ident">opts</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r15" class="ident">opts</label>, <a href="options.go.html#line-91" class="ident">AddCaller</a>())</code></span>
 <span class="codeline" id="line-207"><code>	}</code></span>
 <span class="codeline" id="line-208"><code></code></span>
-<span class="codeline" id="line-209"><code>	<label for="r16" class="ident">stackLevel</label> := <a href="level.go.html#line-39" class="ident">ErrorLevel</a></code></span>
+<span class="codeline" id="line-209"><code>	<label for="r16" class="ident">stackLevel</label> := <a href="level.go.html#line-40" class="ident">ErrorLevel</a></code></span>
 <span class="codeline" id="line-210"><code>	<span class="keyword">if</span> <label for="r12" class="ident">cfg</label>.<a href="#line-65" class="ident">Development</a> {</code></span>
-<span class="codeline" id="line-211"><code>		<label for="r16" class="ident">stackLevel</label> = <a href="level.go.html#line-36" class="ident">WarnLevel</a></code></span>
+<span class="codeline" id="line-211"><code>		<label for="r16" class="ident">stackLevel</label> = <a href="level.go.html#line-37" class="ident">WarnLevel</a></code></span>
 <span class="codeline" id="line-212"><code>	}</code></span>
 <span class="codeline" id="line-213"><code>	<span class="keyword">if</span> !<label for="r12" class="ident">cfg</label>.<a href="#line-72" class="ident">DisableStacktrace</a> {</code></span>
 <span class="codeline" id="line-214"><code>		<label for="r15" class="ident">opts</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r15" class="ident">opts</label>, <a href="options.go.html#line-116" class="ident">AddStacktrace</a>(<label for="r16" class="ident">stackLevel</label>))</code></span>

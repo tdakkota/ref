@@ -46,7 +46,9 @@ input[id=r26]:checked ~pre label[for=r26],
 input[id=r27]:checked ~pre label[for=r27],
 input[id=r28]:checked ~pre label[for=r28],
 input[id=r29]:checked ~pre label[for=r29],
-input[id=r30]:checked ~pre label[for=r30]
+input[id=r30]:checked ~pre label[for=r30],
+input[id=r31]:checked ~pre label[for=r31],
+input[id=r32]:checked ~pre label[for=r32]
 {background: #226; color: #ff8;}
 {background: brown; color: #eed;}
 </style><input id="r0" type="radio" name="g"/>
@@ -80,6 +82,8 @@ input[id=r30]:checked ~pre label[for=r30]
 <input id="r28" type="radio" name="g"/>
 <input id="r29" type="radio" name="g"/>
 <input id="r30" type="radio" name="g"/>
+<input id="r31" type="radio" name="g"/>
+<input id="r32" type="radio" name="g"/>
 
 <pre class="line-numbers">
 <span class="codeline" id="line-1"><code><span class="comment">// Copyright (c) 2016 Uber Technologies, Inc.</span></code></span>
@@ -107,7 +111,7 @@ input[id=r30]:checked ~pre label[for=r30]
 <span class="codeline" id="line-23"><code><span class="comment">// Core is a minimal, fast logger interface. It's designed for library authors</span></code></span>
 <span class="codeline" id="line-24"><code><span class="comment">// to wrap in a more user-friendly API.</span></code></span>
 <span class="codeline" id="line-25"><code><span class="keyword">type</span> <a href="../../../../pkg/go.uber.org/zap/zapcore.html#name-Core" class="ident">Core</a> <span class="keyword">interface</span> {</code></span>
-<span class="codeline" id="line-26"><code>	<a href="level.go.html#line-185" class="ident">LevelEnabler</a></code></span>
+<span class="codeline" id="line-26"><code>	<a href="level.go.html#line-227" class="ident">LevelEnabler</a></code></span>
 <span class="codeline" id="line-27"><code></code></span>
 <span class="codeline" id="line-28"><code>	<span class="comment">// With adds structured context to the Core.</span></code></span>
 <span class="codeline" id="line-29"><code>	<a href="../../../../imp/go.uber.org/zap/zapcore.Core.html#name-With" class="ident">With</a>([]<a href="field.go.html#line-104" class="ident">Field</a>) <a href="#line-25" class="ident">Core</a></code></span>
@@ -139,7 +143,7 @@ input[id=r30]:checked ~pre label[for=r30]
 <span class="codeline" id="line-55"><code><span class="keyword">func</span> (<a href="#line-47" class="ident">nopCore</a>) <label for="r8" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..nopCore^e9e03.Sync.html" class="ident">Sync</a></label>() <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a>                                   { <span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> }</code></span>
 <span class="codeline" id="line-56"><code></code></span>
 <span class="codeline" id="line-57"><code><span class="comment">// NewCore creates a Core that writes logs to a WriteSyncer.</span></code></span>
-<span class="codeline" id="line-58"><code><span class="keyword">func</span> <label for="r9" class="ident"><a href="../../../../pkg/go.uber.org/zap/zapcore.html#name-NewCore" class="ident">NewCore</a></label>(<label for="r10" class="ident">enc</label> <a href="encoder.go.html#line-440" class="ident">Encoder</a>, <label for="r11" class="ident">ws</label> <a href="write_syncer.go.html#line-32" class="ident">WriteSyncer</a>, <label for="r12" class="ident">enab</label> <a href="level.go.html#line-185" class="ident">LevelEnabler</a>) <a href="#line-25" class="ident">Core</a> {</code></span>
+<span class="codeline" id="line-58"><code><span class="keyword">func</span> <label for="r9" class="ident"><a href="../../../../pkg/go.uber.org/zap/zapcore.html#name-NewCore" class="ident">NewCore</a></label>(<label for="r10" class="ident">enc</label> <a href="encoder.go.html#line-440" class="ident">Encoder</a>, <label for="r11" class="ident">ws</label> <a href="write_syncer.go.html#line-32" class="ident">WriteSyncer</a>, <label for="r12" class="ident">enab</label> <a href="level.go.html#line-227" class="ident">LevelEnabler</a>) <a href="#line-25" class="ident">Core</a> {</code></span>
 <span class="codeline" id="line-59"><code>	<span class="keyword">return</span> &amp;<a href="#line-66" class="ident">ioCore</a>{</code></span>
 <span class="codeline" id="line-60"><code>		<a href="#line-67" class="ident">LevelEnabler</a>: <label for="r12" class="ident">enab</label>,</code></span>
 <span class="codeline" id="line-61"><code>		<a href="#line-68" class="ident">enc</a>:          <label for="r10" class="ident">enc</label>,</code></span>
@@ -148,53 +152,62 @@ input[id=r30]:checked ~pre label[for=r30]
 <span class="codeline" id="line-64"><code>}</code></span>
 <span class="codeline" id="line-65"><code></code></span>
 <span class="codeline" id="line-66"><code><span class="keyword">type</span> <a href="../../../../pkg/go.uber.org/zap/zapcore.html#name-ioCore" class="ident">ioCore</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-67"><code>	<a href="level.go.html#line-185" class="ident">LevelEnabler</a></code></span>
+<span class="codeline" id="line-67"><code>	<a href="level.go.html#line-227" class="ident">LevelEnabler</a></code></span>
 <span class="codeline" id="line-68"><code>	<a href="../../../../use/go.uber.org/zap/zapcore..ioCore^bd068.enc^5fb2a.html" class="ident">enc</a> <a href="encoder.go.html#line-440" class="ident">Encoder</a></code></span>
 <span class="codeline" id="line-69"><code>	<a href="../../../../use/go.uber.org/zap/zapcore..ioCore^bd068.out^76206.html" class="ident">out</a> <a href="write_syncer.go.html#line-32" class="ident">WriteSyncer</a></code></span>
 <span class="codeline" id="line-70"><code>}</code></span>
 <span class="codeline" id="line-71"><code></code></span>
-<span class="codeline" id="line-72"><code><span class="keyword">func</span> (<label for="r13" class="ident">c</label> *<a href="#line-66" class="ident">ioCore</a>) <label for="r14" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..ioCore^bd068.With.html" class="ident">With</a></label>(<label for="r15" class="ident">fields</label> []<a href="field.go.html#line-104" class="ident">Field</a>) <a href="#line-25" class="ident">Core</a> {</code></span>
-<span class="codeline" id="line-73"><code>	<label for="r16" class="ident">clone</label> := <label for="r13" class="ident">c</label>.<a href="#line-107" class="ident">clone</a>()</code></span>
-<span class="codeline" id="line-74"><code>	<a href="field.go.html#line-208" class="ident">addFields</a>(<label for="r16" class="ident">clone</label>.<a href="#line-68" class="ident">enc</a>, <label for="r15" class="ident">fields</label>)</code></span>
-<span class="codeline" id="line-75"><code>	<span class="keyword">return</span> <label for="r16" class="ident">clone</label></code></span>
-<span class="codeline" id="line-76"><code>}</code></span>
-<span class="codeline" id="line-77"><code></code></span>
-<span class="codeline" id="line-78"><code><span class="keyword">func</span> (<label for="r17" class="ident">c</label> *<a href="#line-66" class="ident">ioCore</a>) <label for="r18" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..ioCore^bd068.Check.html" class="ident">Check</a></label>(<label for="r19" class="ident">ent</label> <a href="entry.go.html#line-145" class="ident">Entry</a>, <label for="r20" class="ident">ce</label> *<a href="entry.go.html#line-212" class="ident">CheckedEntry</a>) *<a href="entry.go.html#line-212" class="ident">CheckedEntry</a> {</code></span>
-<span class="codeline" id="line-79"><code>	<span class="keyword">if</span> <label for="r17" class="ident">c</label>.<a href="level.go.html#line-186" class="ident">Enabled</a>(<label for="r19" class="ident">ent</label>.<a href="entry.go.html#line-146" class="ident">Level</a>) {</code></span>
-<span class="codeline" id="line-80"><code>		<span class="keyword">return</span> <label for="r20" class="ident">ce</label>.<a href="entry.go.html#line-272" class="ident">AddCore</a>(<label for="r19" class="ident">ent</label>, <label for="r17" class="ident">c</label>)</code></span>
-<span class="codeline" id="line-81"><code>	}</code></span>
-<span class="codeline" id="line-82"><code>	<span class="keyword">return</span> <label for="r20" class="ident">ce</label></code></span>
-<span class="codeline" id="line-83"><code>}</code></span>
-<span class="codeline" id="line-84"><code></code></span>
-<span class="codeline" id="line-85"><code><span class="keyword">func</span> (<label for="r21" class="ident">c</label> *<a href="#line-66" class="ident">ioCore</a>) <label for="r22" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..ioCore^bd068.Write.html" class="ident">Write</a></label>(<label for="r23" class="ident">ent</label> <a href="entry.go.html#line-145" class="ident">Entry</a>, <label for="r24" class="ident">fields</label> []<a href="field.go.html#line-104" class="ident">Field</a>) <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-86"><code>	<label for="r25" class="ident">buf</label>, <label for="r26" class="ident">err</label> := <label for="r21" class="ident">c</label>.<a href="#line-68" class="ident">enc</a>.<a href="encoder.go.html#line-450" class="ident">EncodeEntry</a>(<label for="r23" class="ident">ent</label>, <label for="r24" class="ident">fields</label>)</code></span>
-<span class="codeline" id="line-87"><code>	<span class="keyword">if</span> <label for="r26" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-88"><code>		<span class="keyword">return</span> <label for="r26" class="ident">err</label></code></span>
-<span class="codeline" id="line-89"><code>	}</code></span>
-<span class="codeline" id="line-90"><code>	_, <label for="r26" class="ident">err</label> = <label for="r21" class="ident">c</label>.<a href="#line-69" class="ident">out</a>.<a href="../../../io/io.go.html#line-97" class="ident">Write</a>(<label for="r25" class="ident">buf</label>.<a href="../buffer/buffer.go.html#line-88" class="ident">Bytes</a>())</code></span>
-<span class="codeline" id="line-91"><code>	<label for="r25" class="ident">buf</label>.<a href="../buffer/buffer.go.html#line-139" class="ident">Free</a>()</code></span>
-<span class="codeline" id="line-92"><code>	<span class="keyword">if</span> <label for="r26" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-93"><code>		<span class="keyword">return</span> <label for="r26" class="ident">err</label></code></span>
-<span class="codeline" id="line-94"><code>	}</code></span>
-<span class="codeline" id="line-95"><code>	<span class="keyword">if</span> <label for="r23" class="ident">ent</label>.<a href="entry.go.html#line-146" class="ident">Level</a> &gt; <a href="level.go.html#line-45" class="ident">ErrorLevel</a> {</code></span>
-<span class="codeline" id="line-96"><code>		<span class="comment">// Since we may be crashing the program, sync the output. Ignore Sync</span></code></span>
-<span class="codeline" id="line-97"><code><span class="comment">		// errors, pending a clean solution to issue #370.</span></code></span>
-<span class="codeline" id="line-98"><code>		<label for="r21" class="ident">c</label>.<a href="#line-103" class="ident">Sync</a>()</code></span>
-<span class="codeline" id="line-99"><code>	}</code></span>
-<span class="codeline" id="line-100"><code>	<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-101"><code>}</code></span>
-<span class="codeline" id="line-102"><code></code></span>
-<span class="codeline" id="line-103"><code><span class="keyword">func</span> (<label for="r27" class="ident">c</label> *<a href="#line-66" class="ident">ioCore</a>) <label for="r28" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..ioCore^bd068.Sync.html" class="ident">Sync</a></label>() <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-104"><code>	<span class="keyword">return</span> <label for="r27" class="ident">c</label>.<a href="#line-69" class="ident">out</a>.<a href="write_syncer.go.html#line-34" class="ident">Sync</a>()</code></span>
-<span class="codeline" id="line-105"><code>}</code></span>
-<span class="codeline" id="line-106"><code></code></span>
-<span class="codeline" id="line-107"><code><span class="keyword">func</span> (<label for="r29" class="ident">c</label> *<a href="#line-66" class="ident">ioCore</a>) <label for="r30" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..ioCore^bd068.clone^b5d61.html" class="ident">clone</a></label>() *<a href="#line-66" class="ident">ioCore</a> {</code></span>
-<span class="codeline" id="line-108"><code>	<span class="keyword">return</span> &amp;<a href="#line-66" class="ident">ioCore</a>{</code></span>
-<span class="codeline" id="line-109"><code>		<a href="#line-67" class="ident">LevelEnabler</a>: <label for="r29" class="ident">c</label>.<a href="#line-67" class="ident">LevelEnabler</a>,</code></span>
-<span class="codeline" id="line-110"><code>		<a href="#line-68" class="ident">enc</a>:          <label for="r29" class="ident">c</label>.<a href="#line-68" class="ident">enc</a>.<a href="encoder.go.html#line-445" class="ident">Clone</a>(),</code></span>
-<span class="codeline" id="line-111"><code>		<a href="#line-69" class="ident">out</a>:          <label for="r29" class="ident">c</label>.<a href="#line-69" class="ident">out</a>,</code></span>
-<span class="codeline" id="line-112"><code>	}</code></span>
-<span class="codeline" id="line-113"><code>}</code></span>
+<span class="codeline" id="line-72"><code><span class="keyword">var</span> (</code></span>
+<span class="codeline" id="line-73"><code>	_ <a href="#line-25" class="ident">Core</a>           = (*<a href="#line-66" class="ident">ioCore</a>)(<a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-74"><code>	_ <a href="level.go.html#line-75" class="ident">leveledEnabler</a> = (*<a href="#line-66" class="ident">ioCore</a>)(<a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-75"><code>)</code></span>
+<span class="codeline" id="line-76"><code></code></span>
+<span class="codeline" id="line-77"><code><span class="keyword">func</span> (<label for="r13" class="ident">c</label> *<a href="#line-66" class="ident">ioCore</a>) <label for="r14" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..ioCore^bd068.Level.html" class="ident">Level</a></label>() <a href="level.go.html#line-32" class="ident">Level</a> {</code></span>
+<span class="codeline" id="line-78"><code>	<span class="keyword">return</span> <a href="level.go.html#line-98" class="ident">LevelOf</a>(<label for="r13" class="ident">c</label>.<a href="#line-67" class="ident">LevelEnabler</a>)</code></span>
+<span class="codeline" id="line-79"><code>}</code></span>
+<span class="codeline" id="line-80"><code></code></span>
+<span class="codeline" id="line-81"><code><span class="keyword">func</span> (<label for="r15" class="ident">c</label> *<a href="#line-66" class="ident">ioCore</a>) <label for="r16" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..ioCore^bd068.With.html" class="ident">With</a></label>(<label for="r17" class="ident">fields</label> []<a href="field.go.html#line-104" class="ident">Field</a>) <a href="#line-25" class="ident">Core</a> {</code></span>
+<span class="codeline" id="line-82"><code>	<label for="r18" class="ident">clone</label> := <label for="r15" class="ident">c</label>.<a href="#line-116" class="ident">clone</a>()</code></span>
+<span class="codeline" id="line-83"><code>	<a href="field.go.html#line-208" class="ident">addFields</a>(<label for="r18" class="ident">clone</label>.<a href="#line-68" class="ident">enc</a>, <label for="r17" class="ident">fields</label>)</code></span>
+<span class="codeline" id="line-84"><code>	<span class="keyword">return</span> <label for="r18" class="ident">clone</label></code></span>
+<span class="codeline" id="line-85"><code>}</code></span>
+<span class="codeline" id="line-86"><code></code></span>
+<span class="codeline" id="line-87"><code><span class="keyword">func</span> (<label for="r19" class="ident">c</label> *<a href="#line-66" class="ident">ioCore</a>) <label for="r20" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..ioCore^bd068.Check.html" class="ident">Check</a></label>(<label for="r21" class="ident">ent</label> <a href="entry.go.html#line-145" class="ident">Entry</a>, <label for="r22" class="ident">ce</label> *<a href="entry.go.html#line-212" class="ident">CheckedEntry</a>) *<a href="entry.go.html#line-212" class="ident">CheckedEntry</a> {</code></span>
+<span class="codeline" id="line-88"><code>	<span class="keyword">if</span> <label for="r19" class="ident">c</label>.<a href="level.go.html#line-228" class="ident">Enabled</a>(<label for="r21" class="ident">ent</label>.<a href="entry.go.html#line-146" class="ident">Level</a>) {</code></span>
+<span class="codeline" id="line-89"><code>		<span class="keyword">return</span> <label for="r22" class="ident">ce</label>.<a href="entry.go.html#line-272" class="ident">AddCore</a>(<label for="r21" class="ident">ent</label>, <label for="r19" class="ident">c</label>)</code></span>
+<span class="codeline" id="line-90"><code>	}</code></span>
+<span class="codeline" id="line-91"><code>	<span class="keyword">return</span> <label for="r22" class="ident">ce</label></code></span>
+<span class="codeline" id="line-92"><code>}</code></span>
+<span class="codeline" id="line-93"><code></code></span>
+<span class="codeline" id="line-94"><code><span class="keyword">func</span> (<label for="r23" class="ident">c</label> *<a href="#line-66" class="ident">ioCore</a>) <label for="r24" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..ioCore^bd068.Write.html" class="ident">Write</a></label>(<label for="r25" class="ident">ent</label> <a href="entry.go.html#line-145" class="ident">Entry</a>, <label for="r26" class="ident">fields</label> []<a href="field.go.html#line-104" class="ident">Field</a>) <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-95"><code>	<label for="r27" class="ident">buf</label>, <label for="r28" class="ident">err</label> := <label for="r23" class="ident">c</label>.<a href="#line-68" class="ident">enc</a>.<a href="encoder.go.html#line-450" class="ident">EncodeEntry</a>(<label for="r25" class="ident">ent</label>, <label for="r26" class="ident">fields</label>)</code></span>
+<span class="codeline" id="line-96"><code>	<span class="keyword">if</span> <label for="r28" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-97"><code>		<span class="keyword">return</span> <label for="r28" class="ident">err</label></code></span>
+<span class="codeline" id="line-98"><code>	}</code></span>
+<span class="codeline" id="line-99"><code>	_, <label for="r28" class="ident">err</label> = <label for="r23" class="ident">c</label>.<a href="#line-69" class="ident">out</a>.<a href="../../../io/io.go.html#line-97" class="ident">Write</a>(<label for="r27" class="ident">buf</label>.<a href="../buffer/buffer.go.html#line-88" class="ident">Bytes</a>())</code></span>
+<span class="codeline" id="line-100"><code>	<label for="r27" class="ident">buf</label>.<a href="../buffer/buffer.go.html#line-139" class="ident">Free</a>()</code></span>
+<span class="codeline" id="line-101"><code>	<span class="keyword">if</span> <label for="r28" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-102"><code>		<span class="keyword">return</span> <label for="r28" class="ident">err</label></code></span>
+<span class="codeline" id="line-103"><code>	}</code></span>
+<span class="codeline" id="line-104"><code>	<span class="keyword">if</span> <label for="r25" class="ident">ent</label>.<a href="entry.go.html#line-146" class="ident">Level</a> &gt; <a href="level.go.html#line-45" class="ident">ErrorLevel</a> {</code></span>
+<span class="codeline" id="line-105"><code>		<span class="comment">// Since we may be crashing the program, sync the output. Ignore Sync</span></code></span>
+<span class="codeline" id="line-106"><code><span class="comment">		// errors, pending a clean solution to issue #370.</span></code></span>
+<span class="codeline" id="line-107"><code>		<label for="r23" class="ident">c</label>.<a href="#line-112" class="ident">Sync</a>()</code></span>
+<span class="codeline" id="line-108"><code>	}</code></span>
+<span class="codeline" id="line-109"><code>	<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-110"><code>}</code></span>
+<span class="codeline" id="line-111"><code></code></span>
+<span class="codeline" id="line-112"><code><span class="keyword">func</span> (<label for="r29" class="ident">c</label> *<a href="#line-66" class="ident">ioCore</a>) <label for="r30" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..ioCore^bd068.Sync.html" class="ident">Sync</a></label>() <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-113"><code>	<span class="keyword">return</span> <label for="r29" class="ident">c</label>.<a href="#line-69" class="ident">out</a>.<a href="write_syncer.go.html#line-34" class="ident">Sync</a>()</code></span>
+<span class="codeline" id="line-114"><code>}</code></span>
+<span class="codeline" id="line-115"><code></code></span>
+<span class="codeline" id="line-116"><code><span class="keyword">func</span> (<label for="r31" class="ident">c</label> *<a href="#line-66" class="ident">ioCore</a>) <label for="r32" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..ioCore^bd068.clone^b5d61.html" class="ident">clone</a></label>() *<a href="#line-66" class="ident">ioCore</a> {</code></span>
+<span class="codeline" id="line-117"><code>	<span class="keyword">return</span> &amp;<a href="#line-66" class="ident">ioCore</a>{</code></span>
+<span class="codeline" id="line-118"><code>		<a href="#line-67" class="ident">LevelEnabler</a>: <label for="r31" class="ident">c</label>.<a href="#line-67" class="ident">LevelEnabler</a>,</code></span>
+<span class="codeline" id="line-119"><code>		<a href="#line-68" class="ident">enc</a>:          <label for="r31" class="ident">c</label>.<a href="#line-68" class="ident">enc</a>.<a href="encoder.go.html#line-445" class="ident">Clone</a>(),</code></span>
+<span class="codeline" id="line-120"><code>		<a href="#line-69" class="ident">out</a>:          <label for="r31" class="ident">c</label>.<a href="#line-69" class="ident">out</a>,</code></span>
+<span class="codeline" id="line-121"><code>	}</code></span>
+<span class="codeline" id="line-122"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
