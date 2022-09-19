@@ -421,7 +421,7 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-41"><code>	<span class="comment">// Blocked chats</span></code></span>
 <span class="codeline" id="line-42"><code>	<a href="../../../../../use/github.com/gotd/td/tg..ContactsBlocked.Chats.html" class="ident">Chats</a> []<a href="tl_chat_gen.go.html#line-2644" class="ident">ChatClass</a></code></span>
 <span class="codeline" id="line-43"><code>	<span class="comment">// List of users</span></code></span>
-<span class="codeline" id="line-44"><code>	<a href="../../../../../use/github.com/gotd/td/tg..ContactsBlocked.Users.html" class="ident">Users</a> []<a href="tl_user_gen.go.html#line-1539" class="ident">UserClass</a></code></span>
+<span class="codeline" id="line-44"><code>	<a href="../../../../../use/github.com/gotd/td/tg..ContactsBlocked.Users.html" class="ident">Users</a> []<a href="tl_user_gen.go.html#line-1592" class="ident">UserClass</a></code></span>
 <span class="codeline" id="line-45"><code>}</code></span>
 <span class="codeline" id="line-46"><code></code></span>
 <span class="codeline" id="line-47"><code><span class="comment">// ContactsBlockedTypeID is TL type id of ContactsBlocked.</span></code></span>
@@ -470,7 +470,7 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-90"><code><span class="keyword">func</span> (<label for="r7" class="ident">b</label> *<a href="#line-38" class="ident">ContactsBlocked</a>) <label for="r8" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..ContactsBlocked.FillFrom.html" class="ident">FillFrom</a></label>(<label for="r9" class="ident">from</label> <span class="keyword">interface</span> {</code></span>
 <span class="codeline" id="line-91"><code>	<label for="r10" class="ident">GetBlocked</label>() (<label for="r11" class="ident">value</label> []<a href="tl_peer_blocked_gen.go.html#line-38" class="ident">PeerBlocked</a>)</code></span>
 <span class="codeline" id="line-92"><code>	<label for="r12" class="ident">GetChats</label>() (<label for="r13" class="ident">value</label> []<a href="tl_chat_gen.go.html#line-2644" class="ident">ChatClass</a>)</code></span>
-<span class="codeline" id="line-93"><code>	<label for="r14" class="ident">GetUsers</label>() (<label for="r15" class="ident">value</label> []<a href="tl_user_gen.go.html#line-1539" class="ident">UserClass</a>)</code></span>
+<span class="codeline" id="line-93"><code>	<label for="r14" class="ident">GetUsers</label>() (<label for="r15" class="ident">value</label> []<a href="tl_user_gen.go.html#line-1592" class="ident">UserClass</a>)</code></span>
 <span class="codeline" id="line-94"><code>}) {</code></span>
 <span class="codeline" id="line-95"><code>	<label for="r7" class="ident">b</label>.<a href="#line-40" class="ident">Blocked</a> = <label for="r9" class="ident">from</label>.<label for="r10" class="ident">GetBlocked</label>()</code></span>
 <span class="codeline" id="line-96"><code>	<label for="r7" class="ident">b</label>.<a href="#line-42" class="ident">Chats</a> = <label for="r9" class="ident">from</label>.<label for="r12" class="ident">GetChats</label>()</code></span>
@@ -614,10 +614,10 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-234"><code>		}</code></span>
 <span class="codeline" id="line-235"><code></code></span>
 <span class="codeline" id="line-236"><code>		<span class="keyword">if</span> <label for="r53" class="ident">headerLen</label> &gt; <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-237"><code>			<label for="r40" class="ident">b</label>.<a href="#line-44" class="ident">Users</a> = <a href="../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="tl_user_gen.go.html#line-1539" class="ident">UserClass</a>, <span class="lit-number">0</span>, <label for="r53" class="ident">headerLen</label>%<a href="../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../bin/const.go.html#line-4" class="ident">PreallocateLimit</a>)</code></span>
+<span class="codeline" id="line-237"><code>			<label for="r40" class="ident">b</label>.<a href="#line-44" class="ident">Users</a> = <a href="../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="tl_user_gen.go.html#line-1592" class="ident">UserClass</a>, <span class="lit-number">0</span>, <label for="r53" class="ident">headerLen</label>%<a href="../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../bin/const.go.html#line-4" class="ident">PreallocateLimit</a>)</code></span>
 <span class="codeline" id="line-238"><code>		}</code></span>
 <span class="codeline" id="line-239"><code>		<span class="keyword">for</span> <label for="r55" class="ident">idx</label> := <span class="lit-number">0</span>; <label for="r55" class="ident">idx</label> &lt; <label for="r53" class="ident">headerLen</label>; <label for="r55" class="ident">idx</label>++ {</code></span>
-<span class="codeline" id="line-240"><code>			<label for="r56" class="ident">value</label>, <label for="r57" class="ident">err</label> := <a href="tl_user_gen.go.html#line-1597" class="ident">DecodeUser</a>(<label for="r42" class="ident">buf</label>)</code></span>
+<span class="codeline" id="line-240"><code>			<label for="r56" class="ident">value</label>, <label for="r57" class="ident">err</label> := <a href="tl_user_gen.go.html#line-1650" class="ident">DecodeUser</a>(<label for="r42" class="ident">buf</label>)</code></span>
 <span class="codeline" id="line-241"><code>			<span class="keyword">if</span> <label for="r57" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-242"><code>				<span class="keyword">return</span> <a href="../../../../../pkg/fmt.html" class="ident i2">fmt</a>.<a href="../../../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"unable to decode contacts.blocked#ade1591: field users: %w"</span>, <label for="r57" class="ident">err</label>)</code></span>
 <span class="codeline" id="line-243"><code>			}</code></span>
@@ -644,7 +644,7 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-264"><code>}</code></span>
 <span class="codeline" id="line-265"><code></code></span>
 <span class="codeline" id="line-266"><code><span class="comment">// GetUsers returns value of Users field.</span></code></span>
-<span class="codeline" id="line-267"><code><span class="keyword">func</span> (<label for="r64" class="ident">b</label> *<a href="#line-38" class="ident">ContactsBlocked</a>) <label for="r65" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..ContactsBlocked.GetUsers.html" class="ident">GetUsers</a></label>() (<label for="r66" class="ident">value</label> []<a href="tl_user_gen.go.html#line-1539" class="ident">UserClass</a>) {</code></span>
+<span class="codeline" id="line-267"><code><span class="keyword">func</span> (<label for="r64" class="ident">b</label> *<a href="#line-38" class="ident">ContactsBlocked</a>) <label for="r65" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..ContactsBlocked.GetUsers.html" class="ident">GetUsers</a></label>() (<label for="r66" class="ident">value</label> []<a href="tl_user_gen.go.html#line-1592" class="ident">UserClass</a>) {</code></span>
 <span class="codeline" id="line-268"><code>	<span class="keyword">if</span> <label for="r64" class="ident">b</label> == <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-269"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-270"><code>	}</code></span>
@@ -673,7 +673,7 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-293"><code>	<span class="comment">// Blocked chats</span></code></span>
 <span class="codeline" id="line-294"><code>	<a href="../../../../../use/github.com/gotd/td/tg..ContactsBlockedSlice.Chats.html" class="ident">Chats</a> []<a href="tl_chat_gen.go.html#line-2644" class="ident">ChatClass</a></code></span>
 <span class="codeline" id="line-295"><code>	<span class="comment">// List of users</span></code></span>
-<span class="codeline" id="line-296"><code>	<a href="../../../../../use/github.com/gotd/td/tg..ContactsBlockedSlice.Users.html" class="ident">Users</a> []<a href="tl_user_gen.go.html#line-1539" class="ident">UserClass</a></code></span>
+<span class="codeline" id="line-296"><code>	<a href="../../../../../use/github.com/gotd/td/tg..ContactsBlockedSlice.Users.html" class="ident">Users</a> []<a href="tl_user_gen.go.html#line-1592" class="ident">UserClass</a></code></span>
 <span class="codeline" id="line-297"><code>}</code></span>
 <span class="codeline" id="line-298"><code></code></span>
 <span class="codeline" id="line-299"><code><span class="comment">// ContactsBlockedSliceTypeID is TL type id of ContactsBlockedSlice.</span></code></span>
@@ -726,7 +726,7 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-346"><code>	<label for="r83" class="ident">GetCount</label>() (<label for="r84" class="ident">value</label> <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a>)</code></span>
 <span class="codeline" id="line-347"><code>	<label for="r85" class="ident">GetBlocked</label>() (<label for="r86" class="ident">value</label> []<a href="tl_peer_blocked_gen.go.html#line-38" class="ident">PeerBlocked</a>)</code></span>
 <span class="codeline" id="line-348"><code>	<label for="r87" class="ident">GetChats</label>() (<label for="r88" class="ident">value</label> []<a href="tl_chat_gen.go.html#line-2644" class="ident">ChatClass</a>)</code></span>
-<span class="codeline" id="line-349"><code>	<label for="r89" class="ident">GetUsers</label>() (<label for="r90" class="ident">value</label> []<a href="tl_user_gen.go.html#line-1539" class="ident">UserClass</a>)</code></span>
+<span class="codeline" id="line-349"><code>	<label for="r89" class="ident">GetUsers</label>() (<label for="r90" class="ident">value</label> []<a href="tl_user_gen.go.html#line-1592" class="ident">UserClass</a>)</code></span>
 <span class="codeline" id="line-350"><code>}) {</code></span>
 <span class="codeline" id="line-351"><code>	<label for="r80" class="ident">b</label>.<a href="#line-290" class="ident">Count</a> = <label for="r82" class="ident">from</label>.<label for="r83" class="ident">GetCount</label>()</code></span>
 <span class="codeline" id="line-352"><code>	<label for="r80" class="ident">b</label>.<a href="#line-292" class="ident">Blocked</a> = <label for="r82" class="ident">from</label>.<label for="r85" class="ident">GetBlocked</label>()</code></span>
@@ -883,10 +883,10 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-503"><code>		}</code></span>
 <span class="codeline" id="line-504"><code></code></span>
 <span class="codeline" id="line-505"><code>		<span class="keyword">if</span> <label for="r130" class="ident">headerLen</label> &gt; <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-506"><code>			<label for="r115" class="ident">b</label>.<a href="#line-296" class="ident">Users</a> = <a href="../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="tl_user_gen.go.html#line-1539" class="ident">UserClass</a>, <span class="lit-number">0</span>, <label for="r130" class="ident">headerLen</label>%<a href="../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../bin/const.go.html#line-4" class="ident">PreallocateLimit</a>)</code></span>
+<span class="codeline" id="line-506"><code>			<label for="r115" class="ident">b</label>.<a href="#line-296" class="ident">Users</a> = <a href="../../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="tl_user_gen.go.html#line-1592" class="ident">UserClass</a>, <span class="lit-number">0</span>, <label for="r130" class="ident">headerLen</label>%<a href="../../../../../pkg/github.com/gotd/td/bin.html" class="ident i6">bin</a>.<a href="../bin/const.go.html#line-4" class="ident">PreallocateLimit</a>)</code></span>
 <span class="codeline" id="line-507"><code>		}</code></span>
 <span class="codeline" id="line-508"><code>		<span class="keyword">for</span> <label for="r132" class="ident">idx</label> := <span class="lit-number">0</span>; <label for="r132" class="ident">idx</label> &lt; <label for="r130" class="ident">headerLen</label>; <label for="r132" class="ident">idx</label>++ {</code></span>
-<span class="codeline" id="line-509"><code>			<label for="r133" class="ident">value</label>, <label for="r134" class="ident">err</label> := <a href="tl_user_gen.go.html#line-1597" class="ident">DecodeUser</a>(<label for="r117" class="ident">buf</label>)</code></span>
+<span class="codeline" id="line-509"><code>			<label for="r133" class="ident">value</label>, <label for="r134" class="ident">err</label> := <a href="tl_user_gen.go.html#line-1650" class="ident">DecodeUser</a>(<label for="r117" class="ident">buf</label>)</code></span>
 <span class="codeline" id="line-510"><code>			<span class="keyword">if</span> <label for="r134" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-511"><code>				<span class="keyword">return</span> <a href="../../../../../pkg/fmt.html" class="ident i2">fmt</a>.<a href="../../../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"unable to decode contacts.blockedSlice#e1664194: field users: %w"</span>, <label for="r134" class="ident">err</label>)</code></span>
 <span class="codeline" id="line-512"><code>			}</code></span>
@@ -921,7 +921,7 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-541"><code>}</code></span>
 <span class="codeline" id="line-542"><code></code></span>
 <span class="codeline" id="line-543"><code><span class="comment">// GetUsers returns value of Users field.</span></code></span>
-<span class="codeline" id="line-544"><code><span class="keyword">func</span> (<label for="r144" class="ident">b</label> *<a href="#line-288" class="ident">ContactsBlockedSlice</a>) <label for="r145" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..ContactsBlockedSlice.GetUsers.html" class="ident">GetUsers</a></label>() (<label for="r146" class="ident">value</label> []<a href="tl_user_gen.go.html#line-1539" class="ident">UserClass</a>) {</code></span>
+<span class="codeline" id="line-544"><code><span class="keyword">func</span> (<label for="r144" class="ident">b</label> *<a href="#line-288" class="ident">ContactsBlockedSlice</a>) <label for="r145" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..ContactsBlockedSlice.GetUsers.html" class="ident">GetUsers</a></label>() (<label for="r146" class="ident">value</label> []<a href="tl_user_gen.go.html#line-1592" class="ident">UserClass</a>) {</code></span>
 <span class="codeline" id="line-545"><code>	<span class="keyword">if</span> <label for="r144" class="ident">b</label> == <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-546"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-547"><code>	}</code></span>
@@ -981,7 +981,7 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-601"><code>	<span class="comment">// Blocked chats</span></code></span>
 <span class="codeline" id="line-602"><code>	<a href="../../../../../imp/github.com/gotd/td/tg.ContactsBlockedClass.html#name-MapChats" class="ident">MapChats</a>() (value <a href="tl_chat_slices_gen.go.html#line-38" class="ident">ChatClassArray</a>)</code></span>
 <span class="codeline" id="line-603"><code>	<span class="comment">// List of users</span></code></span>
-<span class="codeline" id="line-604"><code>	<a href="../../../../../imp/github.com/gotd/td/tg.ContactsBlockedClass.html#name-GetUsers" class="ident">GetUsers</a>() (value []<a href="tl_user_gen.go.html#line-1539" class="ident">UserClass</a>)</code></span>
+<span class="codeline" id="line-604"><code>	<a href="../../../../../imp/github.com/gotd/td/tg.ContactsBlockedClass.html#name-GetUsers" class="ident">GetUsers</a>() (value []<a href="tl_user_gen.go.html#line-1592" class="ident">UserClass</a>)</code></span>
 <span class="codeline" id="line-605"><code>	<span class="comment">// List of users</span></code></span>
 <span class="codeline" id="line-606"><code>	<a href="../../../../../imp/github.com/gotd/td/tg.ContactsBlockedClass.html#name-MapUsers" class="ident">MapUsers</a>() (value <a href="tl_user_slices_gen.go.html#line-38" class="ident">UserClassArray</a>)</code></span>
 <span class="codeline" id="line-607"><code>}</code></span>
