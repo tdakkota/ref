@@ -1084,7 +1084,7 @@ input[id=i5]:checked ~pre .i5
 <span class="codeline" id="line-497"><code>	<span class="keyword">var</span> <label for="r89" class="ident">rest</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
 <span class="codeline" id="line-498"><code>	<span class="keyword">var</span> <label for="r90" class="ident">err</label> <a href="../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
 <span class="codeline" id="line-499"><code></code></span>
-<span class="codeline" id="line-500"><code>	<span class="keyword">if</span> <a href="#line-1240" class="ident">stringContainsCTLByte</a>(<label for="r87" class="ident">rawURL</label>) {</code></span>
+<span class="codeline" id="line-500"><code>	<span class="keyword">if</span> <a href="#line-1246" class="ident">stringContainsCTLByte</a>(<label for="r87" class="ident">rawURL</label>) {</code></span>
 <span class="codeline" id="line-501"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i0">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"net/url: invalid control character in URL"</span>)</code></span>
 <span class="codeline" id="line-502"><code>	}</code></span>
 <span class="codeline" id="line-503"><code></code></span>
@@ -1174,7 +1174,7 @@ input[id=i5]:checked ~pre .i5
 <span class="codeline" id="line-587"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r101" class="ident">host</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-588"><code>	}</code></span>
 <span class="codeline" id="line-589"><code>	<label for="r104" class="ident">userinfo</label> := <label for="r99" class="ident">authority</label>[:<label for="r103" class="ident">i</label>]</code></span>
-<span class="codeline" id="line-590"><code>	<span class="keyword">if</span> !<a href="#line-1217" class="ident">validUserinfo</a>(<label for="r104" class="ident">userinfo</label>) {</code></span>
+<span class="codeline" id="line-590"><code>	<span class="keyword">if</span> !<a href="#line-1223" class="ident">validUserinfo</a>(<label for="r104" class="ident">userinfo</label>) {</code></span>
 <span class="codeline" id="line-591"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <span class="lit-string">""</span>, <a href="../../../pkg/errors.html" class="ident i0">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"net/url: invalid userinfo"</span>)</code></span>
 <span class="codeline" id="line-592"><code>	}</code></span>
 <span class="codeline" id="line-593"><code>	<span class="keyword">if</span> !<a href="../../../pkg/strings.html" class="ident i5">strings</a>.<a href="../../strings/strings.go.html#line-61" class="ident">Contains</a>(<label for="r104" class="ident">userinfo</label>, <span class="lit-string">":"</span>) {</code></span>
@@ -1778,72 +1778,78 @@ input[id=i5]:checked ~pre .i5
 <span class="codeline" id="line-1191"><code><span class="comment">// any existing path and the resulting path cleaned of any ./ or ../ elements.</span></code></span>
 <span class="codeline" id="line-1192"><code><span class="comment">// Any sequences of multiple / characters will be reduced to a single /.</span></code></span>
 <span class="codeline" id="line-1193"><code><span class="keyword">func</span> (<label for="r258" class="ident">u</label> *<a href="#line-359" class="ident">URL</a>) <label for="r259" class="ident"><a href="../../../use/net/url..URL.JoinPath.html" class="ident">JoinPath</a></label>(<label for="r260" class="ident">elem</label> ...<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) *<a href="#line-359" class="ident">URL</a> {</code></span>
-<span class="codeline" id="line-1194"><code>	<label for="r261" class="ident">url</label> := *<label for="r258" class="ident">u</label></code></span>
-<span class="codeline" id="line-1195"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r260" class="ident">elem</label>) &gt; <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-1196"><code>		<label for="r260" class="ident">elem</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>([]<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>{<label for="r258" class="ident">u</label>.<a href="#line-694" class="ident">EscapedPath</a>()}, <label for="r260" class="ident">elem</label>...)</code></span>
-<span class="codeline" id="line-1197"><code>		<label for="r262" class="ident">p</label> := <a href="../../../pkg/path.html" class="ident i2">path</a>.<a href="../../path/path.go.html#line-162" class="ident">Join</a>(<label for="r260" class="ident">elem</label>...)</code></span>
-<span class="codeline" id="line-1198"><code>		<span class="comment">// path.Join will remove any trailing slashes.</span></code></span>
-<span class="codeline" id="line-1199"><code><span class="comment">		// Preserve at least one.</span></code></span>
-<span class="codeline" id="line-1200"><code>		<span class="keyword">if</span> <a href="../../../pkg/strings.html" class="ident i5">strings</a>.<a href="../../strings/strings.go.html#line-458" class="ident">HasSuffix</a>(<label for="r260" class="ident">elem</label>[<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r260" class="ident">elem</label>)-<span class="lit-number">1</span>], <span class="lit-string">"/"</span>) &amp;&amp; !<a href="../../../pkg/strings.html" class="ident i5">strings</a>.<a href="../../strings/strings.go.html#line-458" class="ident">HasSuffix</a>(<label for="r262" class="ident">p</label>, <span class="lit-string">"/"</span>) {</code></span>
-<span class="codeline" id="line-1201"><code>			<label for="r262" class="ident">p</label> += <span class="lit-string">"/"</span></code></span>
-<span class="codeline" id="line-1202"><code>		}</code></span>
-<span class="codeline" id="line-1203"><code>		<label for="r261" class="ident">url</label>.<a href="#line-670" class="ident">setPath</a>(<label for="r262" class="ident">p</label>)</code></span>
-<span class="codeline" id="line-1204"><code>	}</code></span>
-<span class="codeline" id="line-1205"><code>	<span class="keyword">return</span> &amp;<label for="r261" class="ident">url</label></code></span>
-<span class="codeline" id="line-1206"><code>}</code></span>
-<span class="codeline" id="line-1207"><code></code></span>
-<span class="codeline" id="line-1208"><code><span class="comment">// validUserinfo reports whether s is a valid userinfo string per RFC 3986</span></code></span>
-<span class="codeline" id="line-1209"><code><span class="comment">// Section 3.2.1:</span></code></span>
-<span class="codeline" id="line-1210"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-1211"><code><span class="comment">//	userinfo    = *( unreserved / pct-encoded / sub-delims / ":" )</span></code></span>
-<span class="codeline" id="line-1212"><code><span class="comment">//	unreserved  = ALPHA / DIGIT / "-" / "." / "_" / "~"</span></code></span>
-<span class="codeline" id="line-1213"><code><span class="comment">//	sub-delims  = "!" / "$" / "&amp;" / "'" / "(" / ")"</span></code></span>
-<span class="codeline" id="line-1214"><code><span class="comment">//	              / "*" / "+" / "," / ";" / "="</span></code></span>
-<span class="codeline" id="line-1215"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-1216"><code><span class="comment">// It doesn't validate pct-encoded. The caller does that via func unescape.</span></code></span>
-<span class="codeline" id="line-1217"><code><span class="keyword">func</span> <label for="r263" class="ident"><a href="../../../pkg/net/url.html#name-validUserinfo" class="ident">validUserinfo</a></label>(<label for="r264" class="ident">s</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-1218"><code>	<span class="keyword">for</span> <label for="r265" class="ident">_</label>, <label for="r266" class="ident">r</label> := <span class="keyword">range</span> <label for="r264" class="ident">s</label> {</code></span>
-<span class="codeline" id="line-1219"><code>		<span class="keyword">if</span> <span class="lit-number">'A'</span> &lt;= <label for="r266" class="ident">r</label> &amp;&amp; <label for="r266" class="ident">r</label> &lt;= <span class="lit-number">'Z'</span> {</code></span>
-<span class="codeline" id="line-1220"><code>			<span class="keyword">continue</span></code></span>
-<span class="codeline" id="line-1221"><code>		}</code></span>
-<span class="codeline" id="line-1222"><code>		<span class="keyword">if</span> <span class="lit-number">'a'</span> &lt;= <label for="r266" class="ident">r</label> &amp;&amp; <label for="r266" class="ident">r</label> &lt;= <span class="lit-number">'z'</span> {</code></span>
-<span class="codeline" id="line-1223"><code>			<span class="keyword">continue</span></code></span>
-<span class="codeline" id="line-1224"><code>		}</code></span>
-<span class="codeline" id="line-1225"><code>		<span class="keyword">if</span> <span class="lit-number">'0'</span> &lt;= <label for="r266" class="ident">r</label> &amp;&amp; <label for="r266" class="ident">r</label> &lt;= <span class="lit-number">'9'</span> {</code></span>
+<span class="codeline" id="line-1194"><code>	<label for="r260" class="ident">elem</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>([]<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>{<label for="r258" class="ident">u</label>.<a href="#line-694" class="ident">EscapedPath</a>()}, <label for="r260" class="ident">elem</label>...)</code></span>
+<span class="codeline" id="line-1195"><code>	<span class="keyword">var</span> <label for="r261" class="ident">p</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-1196"><code>	<span class="keyword">if</span> !<a href="../../../pkg/strings.html" class="ident i5">strings</a>.<a href="../../strings/strings.go.html#line-453" class="ident">HasPrefix</a>(<label for="r260" class="ident">elem</label>[<span class="lit-number">0</span>], <span class="lit-string">"/"</span>) {</code></span>
+<span class="codeline" id="line-1197"><code>		<span class="comment">// Return a relative path if u is relative,</span></code></span>
+<span class="codeline" id="line-1198"><code><span class="comment">		// but ensure that it contains no ../ elements.</span></code></span>
+<span class="codeline" id="line-1199"><code>		<label for="r260" class="ident">elem</label>[<span class="lit-number">0</span>] = <span class="lit-string">"/"</span> + <label for="r260" class="ident">elem</label>[<span class="lit-number">0</span>]</code></span>
+<span class="codeline" id="line-1200"><code>		<label for="r261" class="ident">p</label> = <a href="../../../pkg/path.html" class="ident i2">path</a>.<a href="../../path/path.go.html#line-162" class="ident">Join</a>(<label for="r260" class="ident">elem</label>...)[<span class="lit-number">1</span>:]</code></span>
+<span class="codeline" id="line-1201"><code>	} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-1202"><code>		<label for="r261" class="ident">p</label> = <a href="../../../pkg/path.html" class="ident i2">path</a>.<a href="../../path/path.go.html#line-162" class="ident">Join</a>(<label for="r260" class="ident">elem</label>...)</code></span>
+<span class="codeline" id="line-1203"><code>	}</code></span>
+<span class="codeline" id="line-1204"><code>	<span class="comment">// path.Join will remove any trailing slashes.</span></code></span>
+<span class="codeline" id="line-1205"><code><span class="comment">	// Preserve at least one.</span></code></span>
+<span class="codeline" id="line-1206"><code>	<span class="keyword">if</span> <a href="../../../pkg/strings.html" class="ident i5">strings</a>.<a href="../../strings/strings.go.html#line-458" class="ident">HasSuffix</a>(<label for="r260" class="ident">elem</label>[<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r260" class="ident">elem</label>)-<span class="lit-number">1</span>], <span class="lit-string">"/"</span>) &amp;&amp; !<a href="../../../pkg/strings.html" class="ident i5">strings</a>.<a href="../../strings/strings.go.html#line-458" class="ident">HasSuffix</a>(<label for="r261" class="ident">p</label>, <span class="lit-string">"/"</span>) {</code></span>
+<span class="codeline" id="line-1207"><code>		<label for="r261" class="ident">p</label> += <span class="lit-string">"/"</span></code></span>
+<span class="codeline" id="line-1208"><code>	}</code></span>
+<span class="codeline" id="line-1209"><code>	<label for="r262" class="ident">url</label> := *<label for="r258" class="ident">u</label></code></span>
+<span class="codeline" id="line-1210"><code>	<label for="r262" class="ident">url</label>.<a href="#line-670" class="ident">setPath</a>(<label for="r261" class="ident">p</label>)</code></span>
+<span class="codeline" id="line-1211"><code>	<span class="keyword">return</span> &amp;<label for="r262" class="ident">url</label></code></span>
+<span class="codeline" id="line-1212"><code>}</code></span>
+<span class="codeline" id="line-1213"><code></code></span>
+<span class="codeline" id="line-1214"><code><span class="comment">// validUserinfo reports whether s is a valid userinfo string per RFC 3986</span></code></span>
+<span class="codeline" id="line-1215"><code><span class="comment">// Section 3.2.1:</span></code></span>
+<span class="codeline" id="line-1216"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-1217"><code><span class="comment">//	userinfo    = *( unreserved / pct-encoded / sub-delims / ":" )</span></code></span>
+<span class="codeline" id="line-1218"><code><span class="comment">//	unreserved  = ALPHA / DIGIT / "-" / "." / "_" / "~"</span></code></span>
+<span class="codeline" id="line-1219"><code><span class="comment">//	sub-delims  = "!" / "$" / "&amp;" / "'" / "(" / ")"</span></code></span>
+<span class="codeline" id="line-1220"><code><span class="comment">//	              / "*" / "+" / "," / ";" / "="</span></code></span>
+<span class="codeline" id="line-1221"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-1222"><code><span class="comment">// It doesn't validate pct-encoded. The caller does that via func unescape.</span></code></span>
+<span class="codeline" id="line-1223"><code><span class="keyword">func</span> <label for="r263" class="ident"><a href="../../../pkg/net/url.html#name-validUserinfo" class="ident">validUserinfo</a></label>(<label for="r264" class="ident">s</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-1224"><code>	<span class="keyword">for</span> <label for="r265" class="ident">_</label>, <label for="r266" class="ident">r</label> := <span class="keyword">range</span> <label for="r264" class="ident">s</label> {</code></span>
+<span class="codeline" id="line-1225"><code>		<span class="keyword">if</span> <span class="lit-number">'A'</span> &lt;= <label for="r266" class="ident">r</label> &amp;&amp; <label for="r266" class="ident">r</label> &lt;= <span class="lit-number">'Z'</span> {</code></span>
 <span class="codeline" id="line-1226"><code>			<span class="keyword">continue</span></code></span>
 <span class="codeline" id="line-1227"><code>		}</code></span>
-<span class="codeline" id="line-1228"><code>		<span class="keyword">switch</span> <label for="r266" class="ident">r</label> {</code></span>
-<span class="codeline" id="line-1229"><code>		<span class="keyword">case</span> <span class="lit-number">'-'</span>, <span class="lit-number">'.'</span>, <span class="lit-number">'_'</span>, <span class="lit-number">':'</span>, <span class="lit-number">'~'</span>, <span class="lit-number">'!'</span>, <span class="lit-number">'$'</span>, <span class="lit-number">'&amp;'</span>, <span class="lit-number">'\''</span>,</code></span>
-<span class="codeline" id="line-1230"><code>			<span class="lit-number">'('</span>, <span class="lit-number">')'</span>, <span class="lit-number">'*'</span>, <span class="lit-number">'+'</span>, <span class="lit-number">','</span>, <span class="lit-number">';'</span>, <span class="lit-number">'='</span>, <span class="lit-number">'%'</span>, <span class="lit-number">'@'</span>:</code></span>
-<span class="codeline" id="line-1231"><code>			<span class="keyword">continue</span></code></span>
-<span class="codeline" id="line-1232"><code>		<span class="keyword">default</span>:</code></span>
-<span class="codeline" id="line-1233"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-1234"><code>		}</code></span>
-<span class="codeline" id="line-1235"><code>	}</code></span>
-<span class="codeline" id="line-1236"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-1237"><code>}</code></span>
-<span class="codeline" id="line-1238"><code></code></span>
-<span class="codeline" id="line-1239"><code><span class="comment">// stringContainsCTLByte reports whether s contains any ASCII control character.</span></code></span>
-<span class="codeline" id="line-1240"><code><span class="keyword">func</span> <label for="r267" class="ident"><a href="../../../pkg/net/url.html#name-stringContainsCTLByte" class="ident">stringContainsCTLByte</a></label>(<label for="r268" class="ident">s</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-1241"><code>	<span class="keyword">for</span> <label for="r269" class="ident">i</label> := <span class="lit-number">0</span>; <label for="r269" class="ident">i</label> &lt; <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r268" class="ident">s</label>); <label for="r269" class="ident">i</label>++ {</code></span>
-<span class="codeline" id="line-1242"><code>		<label for="r270" class="ident">b</label> := <label for="r268" class="ident">s</label>[<label for="r269" class="ident">i</label>]</code></span>
-<span class="codeline" id="line-1243"><code>		<span class="keyword">if</span> <label for="r270" class="ident">b</label> &lt; <span class="lit-number">' '</span> || <label for="r270" class="ident">b</label> == <span class="lit-number">0x7f</span> {</code></span>
-<span class="codeline" id="line-1244"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-1245"><code>		}</code></span>
-<span class="codeline" id="line-1246"><code>	}</code></span>
-<span class="codeline" id="line-1247"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-1248"><code>}</code></span>
-<span class="codeline" id="line-1249"><code></code></span>
-<span class="codeline" id="line-1250"><code><span class="comment">// JoinPath returns a URL string with the provided path elements joined to</span></code></span>
-<span class="codeline" id="line-1251"><code><span class="comment">// the existing path of base and the resulting path cleaned of any ./ or ../ elements.</span></code></span>
-<span class="codeline" id="line-1252"><code><span class="keyword">func</span> <label for="r271" class="ident"><a href="../../../pkg/net/url.html#name-JoinPath" class="ident">JoinPath</a></label>(<label for="r272" class="ident">base</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r273" class="ident">elem</label> ...<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) (<label for="r274" class="ident">result</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r275" class="ident">err</label> <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-1253"><code>	<label for="r276" class="ident">url</label>, <label for="r275" class="ident">err</label> := <a href="#line-463" class="ident">Parse</a>(<label for="r272" class="ident">base</label>)</code></span>
-<span class="codeline" id="line-1254"><code>	<span class="keyword">if</span> <label for="r275" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-1255"><code>		<span class="keyword">return</span></code></span>
-<span class="codeline" id="line-1256"><code>	}</code></span>
-<span class="codeline" id="line-1257"><code>	<label for="r274" class="ident">result</label> = <label for="r276" class="ident">url</label>.<a href="#line-1193" class="ident">JoinPath</a>(<label for="r273" class="ident">elem</label>...).<a href="#line-805" class="ident">String</a>()</code></span>
-<span class="codeline" id="line-1258"><code>	<span class="keyword">return</span></code></span>
-<span class="codeline" id="line-1259"><code>}</code></span>
+<span class="codeline" id="line-1228"><code>		<span class="keyword">if</span> <span class="lit-number">'a'</span> &lt;= <label for="r266" class="ident">r</label> &amp;&amp; <label for="r266" class="ident">r</label> &lt;= <span class="lit-number">'z'</span> {</code></span>
+<span class="codeline" id="line-1229"><code>			<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-1230"><code>		}</code></span>
+<span class="codeline" id="line-1231"><code>		<span class="keyword">if</span> <span class="lit-number">'0'</span> &lt;= <label for="r266" class="ident">r</label> &amp;&amp; <label for="r266" class="ident">r</label> &lt;= <span class="lit-number">'9'</span> {</code></span>
+<span class="codeline" id="line-1232"><code>			<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-1233"><code>		}</code></span>
+<span class="codeline" id="line-1234"><code>		<span class="keyword">switch</span> <label for="r266" class="ident">r</label> {</code></span>
+<span class="codeline" id="line-1235"><code>		<span class="keyword">case</span> <span class="lit-number">'-'</span>, <span class="lit-number">'.'</span>, <span class="lit-number">'_'</span>, <span class="lit-number">':'</span>, <span class="lit-number">'~'</span>, <span class="lit-number">'!'</span>, <span class="lit-number">'$'</span>, <span class="lit-number">'&amp;'</span>, <span class="lit-number">'\''</span>,</code></span>
+<span class="codeline" id="line-1236"><code>			<span class="lit-number">'('</span>, <span class="lit-number">')'</span>, <span class="lit-number">'*'</span>, <span class="lit-number">'+'</span>, <span class="lit-number">','</span>, <span class="lit-number">';'</span>, <span class="lit-number">'='</span>, <span class="lit-number">'%'</span>, <span class="lit-number">'@'</span>:</code></span>
+<span class="codeline" id="line-1237"><code>			<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-1238"><code>		<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-1239"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-1240"><code>		}</code></span>
+<span class="codeline" id="line-1241"><code>	}</code></span>
+<span class="codeline" id="line-1242"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-1243"><code>}</code></span>
+<span class="codeline" id="line-1244"><code></code></span>
+<span class="codeline" id="line-1245"><code><span class="comment">// stringContainsCTLByte reports whether s contains any ASCII control character.</span></code></span>
+<span class="codeline" id="line-1246"><code><span class="keyword">func</span> <label for="r267" class="ident"><a href="../../../pkg/net/url.html#name-stringContainsCTLByte" class="ident">stringContainsCTLByte</a></label>(<label for="r268" class="ident">s</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-1247"><code>	<span class="keyword">for</span> <label for="r269" class="ident">i</label> := <span class="lit-number">0</span>; <label for="r269" class="ident">i</label> &lt; <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r268" class="ident">s</label>); <label for="r269" class="ident">i</label>++ {</code></span>
+<span class="codeline" id="line-1248"><code>		<label for="r270" class="ident">b</label> := <label for="r268" class="ident">s</label>[<label for="r269" class="ident">i</label>]</code></span>
+<span class="codeline" id="line-1249"><code>		<span class="keyword">if</span> <label for="r270" class="ident">b</label> &lt; <span class="lit-number">' '</span> || <label for="r270" class="ident">b</label> == <span class="lit-number">0x7f</span> {</code></span>
+<span class="codeline" id="line-1250"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-1251"><code>		}</code></span>
+<span class="codeline" id="line-1252"><code>	}</code></span>
+<span class="codeline" id="line-1253"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-1254"><code>}</code></span>
+<span class="codeline" id="line-1255"><code></code></span>
+<span class="codeline" id="line-1256"><code><span class="comment">// JoinPath returns a URL string with the provided path elements joined to</span></code></span>
+<span class="codeline" id="line-1257"><code><span class="comment">// the existing path of base and the resulting path cleaned of any ./ or ../ elements.</span></code></span>
+<span class="codeline" id="line-1258"><code><span class="keyword">func</span> <label for="r271" class="ident"><a href="../../../pkg/net/url.html#name-JoinPath" class="ident">JoinPath</a></label>(<label for="r272" class="ident">base</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r273" class="ident">elem</label> ...<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) (<label for="r274" class="ident">result</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r275" class="ident">err</label> <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-1259"><code>	<label for="r276" class="ident">url</label>, <label for="r275" class="ident">err</label> := <a href="#line-463" class="ident">Parse</a>(<label for="r272" class="ident">base</label>)</code></span>
+<span class="codeline" id="line-1260"><code>	<span class="keyword">if</span> <label for="r275" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-1261"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-1262"><code>	}</code></span>
+<span class="codeline" id="line-1263"><code>	<label for="r274" class="ident">result</label> = <label for="r276" class="ident">url</label>.<a href="#line-1193" class="ident">JoinPath</a>(<label for="r273" class="ident">elem</label>...).<a href="#line-805" class="ident">String</a>()</code></span>
+<span class="codeline" id="line-1264"><code>	<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-1265"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
