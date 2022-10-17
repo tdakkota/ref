@@ -568,190 +568,191 @@ input[id=i5]:checked ~pre .i5
 <span class="codeline" id="line-364"><code>	<a href="../../../../imp/go.opentelemetry.io/otel/trace.Span.html#name-SpanContext" class="ident">SpanContext</a>() <a href="#line-205" class="ident">SpanContext</a></code></span>
 <span class="codeline" id="line-365"><code></code></span>
 <span class="codeline" id="line-366"><code>	<span class="comment">// SetStatus sets the status of the Span in the form of a code and a</span></code></span>
-<span class="codeline" id="line-367"><code><span class="comment">	// description, overriding previous values set. The description is only</span></code></span>
-<span class="codeline" id="line-368"><code><span class="comment">	// included in a status when the code is for an error.</span></code></span>
-<span class="codeline" id="line-369"><code>	<a href="../../../../imp/go.opentelemetry.io/otel/trace.Span.html#name-SetStatus" class="ident">SetStatus</a>(code <a href="../../../../pkg/go.opentelemetry.io/otel/codes.html" class="ident i5">codes</a>.<a href="../codes/codes.go.html#line-36" class="ident">Code</a>, description <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>)</code></span>
-<span class="codeline" id="line-370"><code></code></span>
-<span class="codeline" id="line-371"><code>	<span class="comment">// SetName sets the Span name.</span></code></span>
-<span class="codeline" id="line-372"><code>	<a href="../../../../imp/go.opentelemetry.io/otel/trace.Span.html#name-SetName" class="ident">SetName</a>(name <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>)</code></span>
-<span class="codeline" id="line-373"><code></code></span>
-<span class="codeline" id="line-374"><code>	<span class="comment">// SetAttributes sets kv as attributes of the Span. If a key from kv</span></code></span>
-<span class="codeline" id="line-375"><code><span class="comment">	// already exists for an attribute of the Span it will be overwritten with</span></code></span>
-<span class="codeline" id="line-376"><code><span class="comment">	// the value contained in kv.</span></code></span>
-<span class="codeline" id="line-377"><code>	<a href="../../../../imp/go.opentelemetry.io/otel/trace.Span.html#name-SetAttributes" class="ident">SetAttributes</a>(kv ...<a href="../../../../pkg/go.opentelemetry.io/otel/attribute.html" class="ident i4">attribute</a>.<a href="../attribute/kv.go.html#line-22" class="ident">KeyValue</a>)</code></span>
-<span class="codeline" id="line-378"><code></code></span>
-<span class="codeline" id="line-379"><code>	<span class="comment">// TracerProvider returns a TracerProvider that can be used to generate</span></code></span>
-<span class="codeline" id="line-380"><code><span class="comment">	// additional Spans on the same telemetry pipeline as the current Span.</span></code></span>
-<span class="codeline" id="line-381"><code>	<a href="../../../../imp/go.opentelemetry.io/otel/trace.Span.html#name-TracerProvider" class="ident">TracerProvider</a>() <a href="#line-521" class="ident">TracerProvider</a></code></span>
-<span class="codeline" id="line-382"><code>}</code></span>
-<span class="codeline" id="line-383"><code></code></span>
-<span class="codeline" id="line-384"><code><span class="comment">// Link is the relationship between two Spans. The relationship can be within</span></code></span>
-<span class="codeline" id="line-385"><code><span class="comment">// the same Trace or across different Traces.</span></code></span>
-<span class="codeline" id="line-386"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-387"><code><span class="comment">// For example, a Link is used in the following situations:</span></code></span>
-<span class="codeline" id="line-388"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-389"><code><span class="comment">//  1. Batch Processing: A batch of operations may contain operations</span></code></span>
-<span class="codeline" id="line-390"><code><span class="comment">//     associated with one or more traces/spans. Since there can only be one</span></code></span>
-<span class="codeline" id="line-391"><code><span class="comment">//     parent SpanContext, a Link is used to keep reference to the</span></code></span>
-<span class="codeline" id="line-392"><code><span class="comment">//     SpanContext of all operations in the batch.</span></code></span>
-<span class="codeline" id="line-393"><code><span class="comment">//  2. Public Endpoint: A SpanContext for an in incoming client request on a</span></code></span>
-<span class="codeline" id="line-394"><code><span class="comment">//     public endpoint should be considered untrusted. In such a case, a new</span></code></span>
-<span class="codeline" id="line-395"><code><span class="comment">//     trace with its own identity and sampling decision needs to be created,</span></code></span>
-<span class="codeline" id="line-396"><code><span class="comment">//     but this new trace needs to be related to the original trace in some</span></code></span>
-<span class="codeline" id="line-397"><code><span class="comment">//     form. A Link is used to keep reference to the original SpanContext and</span></code></span>
-<span class="codeline" id="line-398"><code><span class="comment">//     track the relationship.</span></code></span>
-<span class="codeline" id="line-399"><code><span class="keyword">type</span> <a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-Link" class="ident">Link</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-400"><code>	<span class="comment">// SpanContext of the linked Span.</span></code></span>
-<span class="codeline" id="line-401"><code>	<a href="../../../../use/go.opentelemetry.io/otel/trace..Link.SpanContext.html" class="ident">SpanContext</a> <a href="#line-205" class="ident">SpanContext</a></code></span>
-<span class="codeline" id="line-402"><code></code></span>
-<span class="codeline" id="line-403"><code>	<span class="comment">// Attributes describe the aspects of the link.</span></code></span>
-<span class="codeline" id="line-404"><code>	<a href="../../../../use/go.opentelemetry.io/otel/trace..Link.Attributes.html" class="ident">Attributes</a> []<a href="../../../../pkg/go.opentelemetry.io/otel/attribute.html" class="ident i4">attribute</a>.<a href="../attribute/kv.go.html#line-22" class="ident">KeyValue</a></code></span>
-<span class="codeline" id="line-405"><code>}</code></span>
-<span class="codeline" id="line-406"><code></code></span>
-<span class="codeline" id="line-407"><code><span class="comment">// LinkFromContext returns a link encapsulating the SpanContext in the provided ctx.</span></code></span>
-<span class="codeline" id="line-408"><code><span class="keyword">func</span> <label for="r78" class="ident"><a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-LinkFromContext" class="ident">LinkFromContext</a></label>(<label for="r79" class="ident">ctx</label> <a href="../../../../pkg/context.html" class="ident i1">context</a>.<a href="../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r80" class="ident">attrs</label> ...<a href="../../../../pkg/go.opentelemetry.io/otel/attribute.html" class="ident i4">attribute</a>.<a href="../attribute/kv.go.html#line-22" class="ident">KeyValue</a>) <a href="#line-399" class="ident">Link</a> {</code></span>
-<span class="codeline" id="line-409"><code>	<span class="keyword">return</span> <a href="#line-399" class="ident">Link</a>{</code></span>
-<span class="codeline" id="line-410"><code>		<a href="#line-401" class="ident">SpanContext</a>: <a href="context.go.html#line-59" class="ident">SpanContextFromContext</a>(<label for="r79" class="ident">ctx</label>),</code></span>
-<span class="codeline" id="line-411"><code>		<a href="#line-404" class="ident">Attributes</a>:  <label for="r80" class="ident">attrs</label>,</code></span>
-<span class="codeline" id="line-412"><code>	}</code></span>
-<span class="codeline" id="line-413"><code>}</code></span>
-<span class="codeline" id="line-414"><code></code></span>
-<span class="codeline" id="line-415"><code><span class="comment">// SpanKind is the role a Span plays in a Trace.</span></code></span>
-<span class="codeline" id="line-416"><code><span class="keyword">type</span> <a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-SpanKind" class="ident">SpanKind</a> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
-<span class="codeline" id="line-417"><code></code></span>
-<span class="codeline" id="line-418"><code><span class="comment">// As a convenience, these match the proto definition, see</span></code></span>
-<span class="codeline" id="line-419"><code><span class="comment">// https://github.com/open-telemetry/opentelemetry-proto/blob/30d237e1ff3ab7aa50e0922b5bebdd93505090af/opentelemetry/proto/trace/v1/trace.proto#L101-L129</span></code></span>
-<span class="codeline" id="line-420"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-421"><code><span class="comment">// The unspecified value is not a valid `SpanKind`. Use `ValidateSpanKind()`</span></code></span>
-<span class="codeline" id="line-422"><code><span class="comment">// to coerce a span kind to a valid value.</span></code></span>
-<span class="codeline" id="line-423"><code><span class="keyword">const</span> (</code></span>
-<span class="codeline" id="line-424"><code>	<span class="comment">// SpanKindUnspecified is an unspecified SpanKind and is not a valid</span></code></span>
-<span class="codeline" id="line-425"><code><span class="comment">	// SpanKind. SpanKindUnspecified should be replaced with SpanKindInternal</span></code></span>
-<span class="codeline" id="line-426"><code><span class="comment">	// if it is received.</span></code></span>
-<span class="codeline" id="line-427"><code>	<a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-SpanKindUnspecified" class="ident">SpanKindUnspecified</a> <a href="#line-416" class="ident">SpanKind</a> = <span class="lit-number">0</span></code></span>
-<span class="codeline" id="line-428"><code>	<span class="comment">// SpanKindInternal is a SpanKind for a Span that represents an internal</span></code></span>
-<span class="codeline" id="line-429"><code><span class="comment">	// operation within an application.</span></code></span>
-<span class="codeline" id="line-430"><code>	<a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-SpanKindInternal" class="ident">SpanKindInternal</a> <a href="#line-416" class="ident">SpanKind</a> = <span class="lit-number">1</span></code></span>
-<span class="codeline" id="line-431"><code>	<span class="comment">// SpanKindServer is a SpanKind for a Span that represents the operation</span></code></span>
-<span class="codeline" id="line-432"><code><span class="comment">	// of handling a request from a client.</span></code></span>
-<span class="codeline" id="line-433"><code>	<a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-SpanKindServer" class="ident">SpanKindServer</a> <a href="#line-416" class="ident">SpanKind</a> = <span class="lit-number">2</span></code></span>
-<span class="codeline" id="line-434"><code>	<span class="comment">// SpanKindClient is a SpanKind for a Span that represents the operation</span></code></span>
-<span class="codeline" id="line-435"><code><span class="comment">	// of client making a request to a server.</span></code></span>
-<span class="codeline" id="line-436"><code>	<a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-SpanKindClient" class="ident">SpanKindClient</a> <a href="#line-416" class="ident">SpanKind</a> = <span class="lit-number">3</span></code></span>
-<span class="codeline" id="line-437"><code>	<span class="comment">// SpanKindProducer is a SpanKind for a Span that represents the operation</span></code></span>
-<span class="codeline" id="line-438"><code><span class="comment">	// of a producer sending a message to a message broker. Unlike</span></code></span>
-<span class="codeline" id="line-439"><code><span class="comment">	// SpanKindClient and SpanKindServer, there is often no direct</span></code></span>
-<span class="codeline" id="line-440"><code><span class="comment">	// relationship between this kind of Span and a SpanKindConsumer kind. A</span></code></span>
-<span class="codeline" id="line-441"><code><span class="comment">	// SpanKindProducer Span will end once the message is accepted by the</span></code></span>
-<span class="codeline" id="line-442"><code><span class="comment">	// message broker which might not overlap with the processing of that</span></code></span>
-<span class="codeline" id="line-443"><code><span class="comment">	// message.</span></code></span>
-<span class="codeline" id="line-444"><code>	<a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-SpanKindProducer" class="ident">SpanKindProducer</a> <a href="#line-416" class="ident">SpanKind</a> = <span class="lit-number">4</span></code></span>
-<span class="codeline" id="line-445"><code>	<span class="comment">// SpanKindConsumer is a SpanKind for a Span that represents the operation</span></code></span>
-<span class="codeline" id="line-446"><code><span class="comment">	// of a consumer receiving a message from a message broker. Like</span></code></span>
-<span class="codeline" id="line-447"><code><span class="comment">	// SpanKindProducer Spans, there is often no direct relationship between</span></code></span>
-<span class="codeline" id="line-448"><code><span class="comment">	// this Span and the Span that produced the message.</span></code></span>
-<span class="codeline" id="line-449"><code>	<a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-SpanKindConsumer" class="ident">SpanKindConsumer</a> <a href="#line-416" class="ident">SpanKind</a> = <span class="lit-number">5</span></code></span>
-<span class="codeline" id="line-450"><code>)</code></span>
-<span class="codeline" id="line-451"><code></code></span>
-<span class="codeline" id="line-452"><code><span class="comment">// ValidateSpanKind returns a valid span kind value.  This will coerce</span></code></span>
-<span class="codeline" id="line-453"><code><span class="comment">// invalid values into the default value, SpanKindInternal.</span></code></span>
-<span class="codeline" id="line-454"><code><span class="keyword">func</span> <label for="r81" class="ident"><a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-ValidateSpanKind" class="ident">ValidateSpanKind</a></label>(<label for="r82" class="ident">spanKind</label> <a href="#line-416" class="ident">SpanKind</a>) <a href="#line-416" class="ident">SpanKind</a> {</code></span>
-<span class="codeline" id="line-455"><code>	<span class="keyword">switch</span> <label for="r82" class="ident">spanKind</label> {</code></span>
-<span class="codeline" id="line-456"><code>	<span class="keyword">case</span> <a href="#line-430" class="ident">SpanKindInternal</a>,</code></span>
-<span class="codeline" id="line-457"><code>		<a href="#line-433" class="ident">SpanKindServer</a>,</code></span>
-<span class="codeline" id="line-458"><code>		<a href="#line-436" class="ident">SpanKindClient</a>,</code></span>
-<span class="codeline" id="line-459"><code>		<a href="#line-444" class="ident">SpanKindProducer</a>,</code></span>
-<span class="codeline" id="line-460"><code>		<a href="#line-449" class="ident">SpanKindConsumer</a>:</code></span>
-<span class="codeline" id="line-461"><code>		<span class="comment">// valid</span></code></span>
-<span class="codeline" id="line-462"><code>		<span class="keyword">return</span> <label for="r82" class="ident">spanKind</label></code></span>
-<span class="codeline" id="line-463"><code>	<span class="keyword">default</span>:</code></span>
-<span class="codeline" id="line-464"><code>		<span class="keyword">return</span> <a href="#line-430" class="ident">SpanKindInternal</a></code></span>
-<span class="codeline" id="line-465"><code>	}</code></span>
-<span class="codeline" id="line-466"><code>}</code></span>
-<span class="codeline" id="line-467"><code></code></span>
-<span class="codeline" id="line-468"><code><span class="comment">// String returns the specified name of the SpanKind in lower-case.</span></code></span>
-<span class="codeline" id="line-469"><code><span class="keyword">func</span> (<label for="r83" class="ident">sk</label> <a href="#line-416" class="ident">SpanKind</a>) <label for="r84" class="ident"><a href="../../../../use/go.opentelemetry.io/otel/trace..SpanKind.String.html" class="ident">String</a></label>() <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
-<span class="codeline" id="line-470"><code>	<span class="keyword">switch</span> <label for="r83" class="ident">sk</label> {</code></span>
-<span class="codeline" id="line-471"><code>	<span class="keyword">case</span> <a href="#line-430" class="ident">SpanKindInternal</a>:</code></span>
-<span class="codeline" id="line-472"><code>		<span class="keyword">return</span> <span class="lit-string">"internal"</span></code></span>
-<span class="codeline" id="line-473"><code>	<span class="keyword">case</span> <a href="#line-433" class="ident">SpanKindServer</a>:</code></span>
-<span class="codeline" id="line-474"><code>		<span class="keyword">return</span> <span class="lit-string">"server"</span></code></span>
-<span class="codeline" id="line-475"><code>	<span class="keyword">case</span> <a href="#line-436" class="ident">SpanKindClient</a>:</code></span>
-<span class="codeline" id="line-476"><code>		<span class="keyword">return</span> <span class="lit-string">"client"</span></code></span>
-<span class="codeline" id="line-477"><code>	<span class="keyword">case</span> <a href="#line-444" class="ident">SpanKindProducer</a>:</code></span>
-<span class="codeline" id="line-478"><code>		<span class="keyword">return</span> <span class="lit-string">"producer"</span></code></span>
-<span class="codeline" id="line-479"><code>	<span class="keyword">case</span> <a href="#line-449" class="ident">SpanKindConsumer</a>:</code></span>
-<span class="codeline" id="line-480"><code>		<span class="keyword">return</span> <span class="lit-string">"consumer"</span></code></span>
-<span class="codeline" id="line-481"><code>	<span class="keyword">default</span>:</code></span>
-<span class="codeline" id="line-482"><code>		<span class="keyword">return</span> <span class="lit-string">"unspecified"</span></code></span>
-<span class="codeline" id="line-483"><code>	}</code></span>
-<span class="codeline" id="line-484"><code>}</code></span>
-<span class="codeline" id="line-485"><code></code></span>
-<span class="codeline" id="line-486"><code><span class="comment">// Tracer is the creator of Spans.</span></code></span>
-<span class="codeline" id="line-487"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-488"><code><span class="comment">// Warning: methods may be added to this interface in minor releases.</span></code></span>
-<span class="codeline" id="line-489"><code><span class="keyword">type</span> <a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-Tracer" class="ident">Tracer</a> <span class="keyword">interface</span> {</code></span>
-<span class="codeline" id="line-490"><code>	<span class="comment">// Start creates a span and a context.Context containing the newly-created span.</span></code></span>
-<span class="codeline" id="line-491"><code><span class="comment">	//</span></code></span>
-<span class="codeline" id="line-492"><code><span class="comment">	// If the context.Context provided in `ctx` contains a Span then the newly-created</span></code></span>
-<span class="codeline" id="line-493"><code><span class="comment">	// Span will be a child of that span, otherwise it will be a root span. This behavior</span></code></span>
-<span class="codeline" id="line-494"><code><span class="comment">	// can be overridden by providing `WithNewRoot()` as a SpanOption, causing the</span></code></span>
-<span class="codeline" id="line-495"><code><span class="comment">	// newly-created Span to be a root span even if `ctx` contains a Span.</span></code></span>
-<span class="codeline" id="line-496"><code><span class="comment">	//</span></code></span>
-<span class="codeline" id="line-497"><code><span class="comment">	// When creating a Span it is recommended to provide all known span attributes using</span></code></span>
-<span class="codeline" id="line-498"><code><span class="comment">	// the `WithAttributes()` SpanOption as samplers will only have access to the</span></code></span>
-<span class="codeline" id="line-499"><code><span class="comment">	// attributes provided when a Span is created.</span></code></span>
-<span class="codeline" id="line-500"><code><span class="comment">	//</span></code></span>
-<span class="codeline" id="line-501"><code><span class="comment">	// Any Span that is created MUST also be ended. This is the responsibility of the user.</span></code></span>
-<span class="codeline" id="line-502"><code><span class="comment">	// Implementations of this API may leak memory or other resources if Spans are not ended.</span></code></span>
-<span class="codeline" id="line-503"><code>	<a href="../../../../imp/go.opentelemetry.io/otel/trace.Tracer.html#name-Start" class="ident">Start</a>(ctx <a href="../../../../pkg/context.html" class="ident i1">context</a>.<a href="../../../context/context.go.html#line-62" class="ident">Context</a>, spanName <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>, opts ...<a href="config.go.html#line-128" class="ident">SpanStartOption</a>) (<a href="../../../../pkg/context.html" class="ident i1">context</a>.<a href="../../../context/context.go.html#line-62" class="ident">Context</a>, <a href="#line-342" class="ident">Span</a>)</code></span>
-<span class="codeline" id="line-504"><code>}</code></span>
-<span class="codeline" id="line-505"><code></code></span>
-<span class="codeline" id="line-506"><code><span class="comment">// TracerProvider provides Tracers that are used by instrumentation code to</span></code></span>
-<span class="codeline" id="line-507"><code><span class="comment">// trace computational workflows.</span></code></span>
-<span class="codeline" id="line-508"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-509"><code><span class="comment">// A TracerProvider is the collection destination of all Spans from Tracers it</span></code></span>
-<span class="codeline" id="line-510"><code><span class="comment">// provides, it represents a unique telemetry collection pipeline. How that</span></code></span>
-<span class="codeline" id="line-511"><code><span class="comment">// pipeline is defined, meaning how those Spans are collected, processed, and</span></code></span>
-<span class="codeline" id="line-512"><code><span class="comment">// where they are exported, depends on its implementation. Instrumentation</span></code></span>
-<span class="codeline" id="line-513"><code><span class="comment">// authors do not need to define this implementation, rather just use the</span></code></span>
-<span class="codeline" id="line-514"><code><span class="comment">// provided Tracers to instrument code.</span></code></span>
-<span class="codeline" id="line-515"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-516"><code><span class="comment">// Commonly, instrumentation code will accept a TracerProvider implementation</span></code></span>
-<span class="codeline" id="line-517"><code><span class="comment">// at runtime from its users or it can simply use the globally registered one</span></code></span>
-<span class="codeline" id="line-518"><code><span class="comment">// (see https://pkg.go.dev/go.opentelemetry.io/otel#GetTracerProvider).</span></code></span>
-<span class="codeline" id="line-519"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-520"><code><span class="comment">// Warning: methods may be added to this interface in minor releases.</span></code></span>
-<span class="codeline" id="line-521"><code><span class="keyword">type</span> <a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-TracerProvider" class="ident">TracerProvider</a> <span class="keyword">interface</span> {</code></span>
-<span class="codeline" id="line-522"><code>	<span class="comment">// Tracer returns a unique Tracer scoped to be used by instrumentation code</span></code></span>
-<span class="codeline" id="line-523"><code><span class="comment">	// to trace computational workflows. The scope and identity of that</span></code></span>
-<span class="codeline" id="line-524"><code><span class="comment">	// instrumentation code is uniquely defined by the name and options passed.</span></code></span>
-<span class="codeline" id="line-525"><code><span class="comment">	//</span></code></span>
-<span class="codeline" id="line-526"><code><span class="comment">	// The passed name needs to uniquely identify instrumentation code.</span></code></span>
-<span class="codeline" id="line-527"><code><span class="comment">	// Therefore, it is recommended that name is the Go package name of the</span></code></span>
-<span class="codeline" id="line-528"><code><span class="comment">	// library providing instrumentation (note: not the code being</span></code></span>
-<span class="codeline" id="line-529"><code><span class="comment">	// instrumented). Instrumentation libraries can have multiple versions,</span></code></span>
-<span class="codeline" id="line-530"><code><span class="comment">	// therefore, the WithInstrumentationVersion option should be used to</span></code></span>
-<span class="codeline" id="line-531"><code><span class="comment">	// distinguish these different codebases. Additionally, instrumentation</span></code></span>
-<span class="codeline" id="line-532"><code><span class="comment">	// libraries may sometimes use traces to communicate different domains of</span></code></span>
-<span class="codeline" id="line-533"><code><span class="comment">	// workflow data (i.e. using spans to communicate workflow events only). If</span></code></span>
-<span class="codeline" id="line-534"><code><span class="comment">	// this is the case, the WithScopeAttributes option should be used to</span></code></span>
-<span class="codeline" id="line-535"><code><span class="comment">	// uniquely identify Tracers that handle the different domains of workflow</span></code></span>
-<span class="codeline" id="line-536"><code><span class="comment">	// data.</span></code></span>
-<span class="codeline" id="line-537"><code><span class="comment">	//</span></code></span>
-<span class="codeline" id="line-538"><code><span class="comment">	// If the same name and options are passed multiple times, the same Tracer</span></code></span>
-<span class="codeline" id="line-539"><code><span class="comment">	// will be returned (it is up to the implementation if this will be the</span></code></span>
-<span class="codeline" id="line-540"><code><span class="comment">	// same underlying instance of that Tracer or not). It is not necessary to</span></code></span>
-<span class="codeline" id="line-541"><code><span class="comment">	// call this multiple times with the same name and options to get an</span></code></span>
-<span class="codeline" id="line-542"><code><span class="comment">	// up-to-date Tracer. All implementations will ensure any TracerProvider</span></code></span>
-<span class="codeline" id="line-543"><code><span class="comment">	// configuration changes are propagated to all provided Tracers.</span></code></span>
-<span class="codeline" id="line-544"><code><span class="comment">	//</span></code></span>
-<span class="codeline" id="line-545"><code><span class="comment">	// If name is empty, then an implementation defined default name will be</span></code></span>
-<span class="codeline" id="line-546"><code><span class="comment">	// used instead.</span></code></span>
-<span class="codeline" id="line-547"><code><span class="comment">	//</span></code></span>
-<span class="codeline" id="line-548"><code><span class="comment">	// This method is safe to call concurrently.</span></code></span>
-<span class="codeline" id="line-549"><code>	<a href="../../../../imp/go.opentelemetry.io/otel/trace.TracerProvider.html#name-Tracer" class="ident">Tracer</a>(name <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>, options ...<a href="config.go.html#line-50" class="ident">TracerOption</a>) <a href="#line-489" class="ident">Tracer</a></code></span>
-<span class="codeline" id="line-550"><code>}</code></span>
+<span class="codeline" id="line-367"><code><span class="comment">	// description, provided the status hasn't already been set to a higher</span></code></span>
+<span class="codeline" id="line-368"><code><span class="comment">	// value before (OK &gt; Error &gt; Unset). The description is only included in a</span></code></span>
+<span class="codeline" id="line-369"><code><span class="comment">	// status when the code is for an error.</span></code></span>
+<span class="codeline" id="line-370"><code>	<a href="../../../../imp/go.opentelemetry.io/otel/trace.Span.html#name-SetStatus" class="ident">SetStatus</a>(code <a href="../../../../pkg/go.opentelemetry.io/otel/codes.html" class="ident i5">codes</a>.<a href="../codes/codes.go.html#line-36" class="ident">Code</a>, description <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>)</code></span>
+<span class="codeline" id="line-371"><code></code></span>
+<span class="codeline" id="line-372"><code>	<span class="comment">// SetName sets the Span name.</span></code></span>
+<span class="codeline" id="line-373"><code>	<a href="../../../../imp/go.opentelemetry.io/otel/trace.Span.html#name-SetName" class="ident">SetName</a>(name <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>)</code></span>
+<span class="codeline" id="line-374"><code></code></span>
+<span class="codeline" id="line-375"><code>	<span class="comment">// SetAttributes sets kv as attributes of the Span. If a key from kv</span></code></span>
+<span class="codeline" id="line-376"><code><span class="comment">	// already exists for an attribute of the Span it will be overwritten with</span></code></span>
+<span class="codeline" id="line-377"><code><span class="comment">	// the value contained in kv.</span></code></span>
+<span class="codeline" id="line-378"><code>	<a href="../../../../imp/go.opentelemetry.io/otel/trace.Span.html#name-SetAttributes" class="ident">SetAttributes</a>(kv ...<a href="../../../../pkg/go.opentelemetry.io/otel/attribute.html" class="ident i4">attribute</a>.<a href="../attribute/kv.go.html#line-22" class="ident">KeyValue</a>)</code></span>
+<span class="codeline" id="line-379"><code></code></span>
+<span class="codeline" id="line-380"><code>	<span class="comment">// TracerProvider returns a TracerProvider that can be used to generate</span></code></span>
+<span class="codeline" id="line-381"><code><span class="comment">	// additional Spans on the same telemetry pipeline as the current Span.</span></code></span>
+<span class="codeline" id="line-382"><code>	<a href="../../../../imp/go.opentelemetry.io/otel/trace.Span.html#name-TracerProvider" class="ident">TracerProvider</a>() <a href="#line-522" class="ident">TracerProvider</a></code></span>
+<span class="codeline" id="line-383"><code>}</code></span>
+<span class="codeline" id="line-384"><code></code></span>
+<span class="codeline" id="line-385"><code><span class="comment">// Link is the relationship between two Spans. The relationship can be within</span></code></span>
+<span class="codeline" id="line-386"><code><span class="comment">// the same Trace or across different Traces.</span></code></span>
+<span class="codeline" id="line-387"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-388"><code><span class="comment">// For example, a Link is used in the following situations:</span></code></span>
+<span class="codeline" id="line-389"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-390"><code><span class="comment">//  1. Batch Processing: A batch of operations may contain operations</span></code></span>
+<span class="codeline" id="line-391"><code><span class="comment">//     associated with one or more traces/spans. Since there can only be one</span></code></span>
+<span class="codeline" id="line-392"><code><span class="comment">//     parent SpanContext, a Link is used to keep reference to the</span></code></span>
+<span class="codeline" id="line-393"><code><span class="comment">//     SpanContext of all operations in the batch.</span></code></span>
+<span class="codeline" id="line-394"><code><span class="comment">//  2. Public Endpoint: A SpanContext for an in incoming client request on a</span></code></span>
+<span class="codeline" id="line-395"><code><span class="comment">//     public endpoint should be considered untrusted. In such a case, a new</span></code></span>
+<span class="codeline" id="line-396"><code><span class="comment">//     trace with its own identity and sampling decision needs to be created,</span></code></span>
+<span class="codeline" id="line-397"><code><span class="comment">//     but this new trace needs to be related to the original trace in some</span></code></span>
+<span class="codeline" id="line-398"><code><span class="comment">//     form. A Link is used to keep reference to the original SpanContext and</span></code></span>
+<span class="codeline" id="line-399"><code><span class="comment">//     track the relationship.</span></code></span>
+<span class="codeline" id="line-400"><code><span class="keyword">type</span> <a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-Link" class="ident">Link</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-401"><code>	<span class="comment">// SpanContext of the linked Span.</span></code></span>
+<span class="codeline" id="line-402"><code>	<a href="../../../../use/go.opentelemetry.io/otel/trace..Link.SpanContext.html" class="ident">SpanContext</a> <a href="#line-205" class="ident">SpanContext</a></code></span>
+<span class="codeline" id="line-403"><code></code></span>
+<span class="codeline" id="line-404"><code>	<span class="comment">// Attributes describe the aspects of the link.</span></code></span>
+<span class="codeline" id="line-405"><code>	<a href="../../../../use/go.opentelemetry.io/otel/trace..Link.Attributes.html" class="ident">Attributes</a> []<a href="../../../../pkg/go.opentelemetry.io/otel/attribute.html" class="ident i4">attribute</a>.<a href="../attribute/kv.go.html#line-22" class="ident">KeyValue</a></code></span>
+<span class="codeline" id="line-406"><code>}</code></span>
+<span class="codeline" id="line-407"><code></code></span>
+<span class="codeline" id="line-408"><code><span class="comment">// LinkFromContext returns a link encapsulating the SpanContext in the provided ctx.</span></code></span>
+<span class="codeline" id="line-409"><code><span class="keyword">func</span> <label for="r78" class="ident"><a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-LinkFromContext" class="ident">LinkFromContext</a></label>(<label for="r79" class="ident">ctx</label> <a href="../../../../pkg/context.html" class="ident i1">context</a>.<a href="../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r80" class="ident">attrs</label> ...<a href="../../../../pkg/go.opentelemetry.io/otel/attribute.html" class="ident i4">attribute</a>.<a href="../attribute/kv.go.html#line-22" class="ident">KeyValue</a>) <a href="#line-400" class="ident">Link</a> {</code></span>
+<span class="codeline" id="line-410"><code>	<span class="keyword">return</span> <a href="#line-400" class="ident">Link</a>{</code></span>
+<span class="codeline" id="line-411"><code>		<a href="#line-402" class="ident">SpanContext</a>: <a href="context.go.html#line-59" class="ident">SpanContextFromContext</a>(<label for="r79" class="ident">ctx</label>),</code></span>
+<span class="codeline" id="line-412"><code>		<a href="#line-405" class="ident">Attributes</a>:  <label for="r80" class="ident">attrs</label>,</code></span>
+<span class="codeline" id="line-413"><code>	}</code></span>
+<span class="codeline" id="line-414"><code>}</code></span>
+<span class="codeline" id="line-415"><code></code></span>
+<span class="codeline" id="line-416"><code><span class="comment">// SpanKind is the role a Span plays in a Trace.</span></code></span>
+<span class="codeline" id="line-417"><code><span class="keyword">type</span> <a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-SpanKind" class="ident">SpanKind</a> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-418"><code></code></span>
+<span class="codeline" id="line-419"><code><span class="comment">// As a convenience, these match the proto definition, see</span></code></span>
+<span class="codeline" id="line-420"><code><span class="comment">// https://github.com/open-telemetry/opentelemetry-proto/blob/30d237e1ff3ab7aa50e0922b5bebdd93505090af/opentelemetry/proto/trace/v1/trace.proto#L101-L129</span></code></span>
+<span class="codeline" id="line-421"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-422"><code><span class="comment">// The unspecified value is not a valid `SpanKind`. Use `ValidateSpanKind()`</span></code></span>
+<span class="codeline" id="line-423"><code><span class="comment">// to coerce a span kind to a valid value.</span></code></span>
+<span class="codeline" id="line-424"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-425"><code>	<span class="comment">// SpanKindUnspecified is an unspecified SpanKind and is not a valid</span></code></span>
+<span class="codeline" id="line-426"><code><span class="comment">	// SpanKind. SpanKindUnspecified should be replaced with SpanKindInternal</span></code></span>
+<span class="codeline" id="line-427"><code><span class="comment">	// if it is received.</span></code></span>
+<span class="codeline" id="line-428"><code>	<a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-SpanKindUnspecified" class="ident">SpanKindUnspecified</a> <a href="#line-417" class="ident">SpanKind</a> = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-429"><code>	<span class="comment">// SpanKindInternal is a SpanKind for a Span that represents an internal</span></code></span>
+<span class="codeline" id="line-430"><code><span class="comment">	// operation within an application.</span></code></span>
+<span class="codeline" id="line-431"><code>	<a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-SpanKindInternal" class="ident">SpanKindInternal</a> <a href="#line-417" class="ident">SpanKind</a> = <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-432"><code>	<span class="comment">// SpanKindServer is a SpanKind for a Span that represents the operation</span></code></span>
+<span class="codeline" id="line-433"><code><span class="comment">	// of handling a request from a client.</span></code></span>
+<span class="codeline" id="line-434"><code>	<a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-SpanKindServer" class="ident">SpanKindServer</a> <a href="#line-417" class="ident">SpanKind</a> = <span class="lit-number">2</span></code></span>
+<span class="codeline" id="line-435"><code>	<span class="comment">// SpanKindClient is a SpanKind for a Span that represents the operation</span></code></span>
+<span class="codeline" id="line-436"><code><span class="comment">	// of client making a request to a server.</span></code></span>
+<span class="codeline" id="line-437"><code>	<a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-SpanKindClient" class="ident">SpanKindClient</a> <a href="#line-417" class="ident">SpanKind</a> = <span class="lit-number">3</span></code></span>
+<span class="codeline" id="line-438"><code>	<span class="comment">// SpanKindProducer is a SpanKind for a Span that represents the operation</span></code></span>
+<span class="codeline" id="line-439"><code><span class="comment">	// of a producer sending a message to a message broker. Unlike</span></code></span>
+<span class="codeline" id="line-440"><code><span class="comment">	// SpanKindClient and SpanKindServer, there is often no direct</span></code></span>
+<span class="codeline" id="line-441"><code><span class="comment">	// relationship between this kind of Span and a SpanKindConsumer kind. A</span></code></span>
+<span class="codeline" id="line-442"><code><span class="comment">	// SpanKindProducer Span will end once the message is accepted by the</span></code></span>
+<span class="codeline" id="line-443"><code><span class="comment">	// message broker which might not overlap with the processing of that</span></code></span>
+<span class="codeline" id="line-444"><code><span class="comment">	// message.</span></code></span>
+<span class="codeline" id="line-445"><code>	<a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-SpanKindProducer" class="ident">SpanKindProducer</a> <a href="#line-417" class="ident">SpanKind</a> = <span class="lit-number">4</span></code></span>
+<span class="codeline" id="line-446"><code>	<span class="comment">// SpanKindConsumer is a SpanKind for a Span that represents the operation</span></code></span>
+<span class="codeline" id="line-447"><code><span class="comment">	// of a consumer receiving a message from a message broker. Like</span></code></span>
+<span class="codeline" id="line-448"><code><span class="comment">	// SpanKindProducer Spans, there is often no direct relationship between</span></code></span>
+<span class="codeline" id="line-449"><code><span class="comment">	// this Span and the Span that produced the message.</span></code></span>
+<span class="codeline" id="line-450"><code>	<a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-SpanKindConsumer" class="ident">SpanKindConsumer</a> <a href="#line-417" class="ident">SpanKind</a> = <span class="lit-number">5</span></code></span>
+<span class="codeline" id="line-451"><code>)</code></span>
+<span class="codeline" id="line-452"><code></code></span>
+<span class="codeline" id="line-453"><code><span class="comment">// ValidateSpanKind returns a valid span kind value.  This will coerce</span></code></span>
+<span class="codeline" id="line-454"><code><span class="comment">// invalid values into the default value, SpanKindInternal.</span></code></span>
+<span class="codeline" id="line-455"><code><span class="keyword">func</span> <label for="r81" class="ident"><a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-ValidateSpanKind" class="ident">ValidateSpanKind</a></label>(<label for="r82" class="ident">spanKind</label> <a href="#line-417" class="ident">SpanKind</a>) <a href="#line-417" class="ident">SpanKind</a> {</code></span>
+<span class="codeline" id="line-456"><code>	<span class="keyword">switch</span> <label for="r82" class="ident">spanKind</label> {</code></span>
+<span class="codeline" id="line-457"><code>	<span class="keyword">case</span> <a href="#line-431" class="ident">SpanKindInternal</a>,</code></span>
+<span class="codeline" id="line-458"><code>		<a href="#line-434" class="ident">SpanKindServer</a>,</code></span>
+<span class="codeline" id="line-459"><code>		<a href="#line-437" class="ident">SpanKindClient</a>,</code></span>
+<span class="codeline" id="line-460"><code>		<a href="#line-445" class="ident">SpanKindProducer</a>,</code></span>
+<span class="codeline" id="line-461"><code>		<a href="#line-450" class="ident">SpanKindConsumer</a>:</code></span>
+<span class="codeline" id="line-462"><code>		<span class="comment">// valid</span></code></span>
+<span class="codeline" id="line-463"><code>		<span class="keyword">return</span> <label for="r82" class="ident">spanKind</label></code></span>
+<span class="codeline" id="line-464"><code>	<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-465"><code>		<span class="keyword">return</span> <a href="#line-431" class="ident">SpanKindInternal</a></code></span>
+<span class="codeline" id="line-466"><code>	}</code></span>
+<span class="codeline" id="line-467"><code>}</code></span>
+<span class="codeline" id="line-468"><code></code></span>
+<span class="codeline" id="line-469"><code><span class="comment">// String returns the specified name of the SpanKind in lower-case.</span></code></span>
+<span class="codeline" id="line-470"><code><span class="keyword">func</span> (<label for="r83" class="ident">sk</label> <a href="#line-417" class="ident">SpanKind</a>) <label for="r84" class="ident"><a href="../../../../use/go.opentelemetry.io/otel/trace..SpanKind.String.html" class="ident">String</a></label>() <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-471"><code>	<span class="keyword">switch</span> <label for="r83" class="ident">sk</label> {</code></span>
+<span class="codeline" id="line-472"><code>	<span class="keyword">case</span> <a href="#line-431" class="ident">SpanKindInternal</a>:</code></span>
+<span class="codeline" id="line-473"><code>		<span class="keyword">return</span> <span class="lit-string">"internal"</span></code></span>
+<span class="codeline" id="line-474"><code>	<span class="keyword">case</span> <a href="#line-434" class="ident">SpanKindServer</a>:</code></span>
+<span class="codeline" id="line-475"><code>		<span class="keyword">return</span> <span class="lit-string">"server"</span></code></span>
+<span class="codeline" id="line-476"><code>	<span class="keyword">case</span> <a href="#line-437" class="ident">SpanKindClient</a>:</code></span>
+<span class="codeline" id="line-477"><code>		<span class="keyword">return</span> <span class="lit-string">"client"</span></code></span>
+<span class="codeline" id="line-478"><code>	<span class="keyword">case</span> <a href="#line-445" class="ident">SpanKindProducer</a>:</code></span>
+<span class="codeline" id="line-479"><code>		<span class="keyword">return</span> <span class="lit-string">"producer"</span></code></span>
+<span class="codeline" id="line-480"><code>	<span class="keyword">case</span> <a href="#line-450" class="ident">SpanKindConsumer</a>:</code></span>
+<span class="codeline" id="line-481"><code>		<span class="keyword">return</span> <span class="lit-string">"consumer"</span></code></span>
+<span class="codeline" id="line-482"><code>	<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-483"><code>		<span class="keyword">return</span> <span class="lit-string">"unspecified"</span></code></span>
+<span class="codeline" id="line-484"><code>	}</code></span>
+<span class="codeline" id="line-485"><code>}</code></span>
+<span class="codeline" id="line-486"><code></code></span>
+<span class="codeline" id="line-487"><code><span class="comment">// Tracer is the creator of Spans.</span></code></span>
+<span class="codeline" id="line-488"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-489"><code><span class="comment">// Warning: methods may be added to this interface in minor releases.</span></code></span>
+<span class="codeline" id="line-490"><code><span class="keyword">type</span> <a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-Tracer" class="ident">Tracer</a> <span class="keyword">interface</span> {</code></span>
+<span class="codeline" id="line-491"><code>	<span class="comment">// Start creates a span and a context.Context containing the newly-created span.</span></code></span>
+<span class="codeline" id="line-492"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-493"><code><span class="comment">	// If the context.Context provided in `ctx` contains a Span then the newly-created</span></code></span>
+<span class="codeline" id="line-494"><code><span class="comment">	// Span will be a child of that span, otherwise it will be a root span. This behavior</span></code></span>
+<span class="codeline" id="line-495"><code><span class="comment">	// can be overridden by providing `WithNewRoot()` as a SpanOption, causing the</span></code></span>
+<span class="codeline" id="line-496"><code><span class="comment">	// newly-created Span to be a root span even if `ctx` contains a Span.</span></code></span>
+<span class="codeline" id="line-497"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-498"><code><span class="comment">	// When creating a Span it is recommended to provide all known span attributes using</span></code></span>
+<span class="codeline" id="line-499"><code><span class="comment">	// the `WithAttributes()` SpanOption as samplers will only have access to the</span></code></span>
+<span class="codeline" id="line-500"><code><span class="comment">	// attributes provided when a Span is created.</span></code></span>
+<span class="codeline" id="line-501"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-502"><code><span class="comment">	// Any Span that is created MUST also be ended. This is the responsibility of the user.</span></code></span>
+<span class="codeline" id="line-503"><code><span class="comment">	// Implementations of this API may leak memory or other resources if Spans are not ended.</span></code></span>
+<span class="codeline" id="line-504"><code>	<a href="../../../../imp/go.opentelemetry.io/otel/trace.Tracer.html#name-Start" class="ident">Start</a>(ctx <a href="../../../../pkg/context.html" class="ident i1">context</a>.<a href="../../../context/context.go.html#line-62" class="ident">Context</a>, spanName <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>, opts ...<a href="config.go.html#line-128" class="ident">SpanStartOption</a>) (<a href="../../../../pkg/context.html" class="ident i1">context</a>.<a href="../../../context/context.go.html#line-62" class="ident">Context</a>, <a href="#line-342" class="ident">Span</a>)</code></span>
+<span class="codeline" id="line-505"><code>}</code></span>
+<span class="codeline" id="line-506"><code></code></span>
+<span class="codeline" id="line-507"><code><span class="comment">// TracerProvider provides Tracers that are used by instrumentation code to</span></code></span>
+<span class="codeline" id="line-508"><code><span class="comment">// trace computational workflows.</span></code></span>
+<span class="codeline" id="line-509"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-510"><code><span class="comment">// A TracerProvider is the collection destination of all Spans from Tracers it</span></code></span>
+<span class="codeline" id="line-511"><code><span class="comment">// provides, it represents a unique telemetry collection pipeline. How that</span></code></span>
+<span class="codeline" id="line-512"><code><span class="comment">// pipeline is defined, meaning how those Spans are collected, processed, and</span></code></span>
+<span class="codeline" id="line-513"><code><span class="comment">// where they are exported, depends on its implementation. Instrumentation</span></code></span>
+<span class="codeline" id="line-514"><code><span class="comment">// authors do not need to define this implementation, rather just use the</span></code></span>
+<span class="codeline" id="line-515"><code><span class="comment">// provided Tracers to instrument code.</span></code></span>
+<span class="codeline" id="line-516"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-517"><code><span class="comment">// Commonly, instrumentation code will accept a TracerProvider implementation</span></code></span>
+<span class="codeline" id="line-518"><code><span class="comment">// at runtime from its users or it can simply use the globally registered one</span></code></span>
+<span class="codeline" id="line-519"><code><span class="comment">// (see https://pkg.go.dev/go.opentelemetry.io/otel#GetTracerProvider).</span></code></span>
+<span class="codeline" id="line-520"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-521"><code><span class="comment">// Warning: methods may be added to this interface in minor releases.</span></code></span>
+<span class="codeline" id="line-522"><code><span class="keyword">type</span> <a href="../../../../pkg/go.opentelemetry.io/otel/trace.html#name-TracerProvider" class="ident">TracerProvider</a> <span class="keyword">interface</span> {</code></span>
+<span class="codeline" id="line-523"><code>	<span class="comment">// Tracer returns a unique Tracer scoped to be used by instrumentation code</span></code></span>
+<span class="codeline" id="line-524"><code><span class="comment">	// to trace computational workflows. The scope and identity of that</span></code></span>
+<span class="codeline" id="line-525"><code><span class="comment">	// instrumentation code is uniquely defined by the name and options passed.</span></code></span>
+<span class="codeline" id="line-526"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-527"><code><span class="comment">	// The passed name needs to uniquely identify instrumentation code.</span></code></span>
+<span class="codeline" id="line-528"><code><span class="comment">	// Therefore, it is recommended that name is the Go package name of the</span></code></span>
+<span class="codeline" id="line-529"><code><span class="comment">	// library providing instrumentation (note: not the code being</span></code></span>
+<span class="codeline" id="line-530"><code><span class="comment">	// instrumented). Instrumentation libraries can have multiple versions,</span></code></span>
+<span class="codeline" id="line-531"><code><span class="comment">	// therefore, the WithInstrumentationVersion option should be used to</span></code></span>
+<span class="codeline" id="line-532"><code><span class="comment">	// distinguish these different codebases. Additionally, instrumentation</span></code></span>
+<span class="codeline" id="line-533"><code><span class="comment">	// libraries may sometimes use traces to communicate different domains of</span></code></span>
+<span class="codeline" id="line-534"><code><span class="comment">	// workflow data (i.e. using spans to communicate workflow events only). If</span></code></span>
+<span class="codeline" id="line-535"><code><span class="comment">	// this is the case, the WithScopeAttributes option should be used to</span></code></span>
+<span class="codeline" id="line-536"><code><span class="comment">	// uniquely identify Tracers that handle the different domains of workflow</span></code></span>
+<span class="codeline" id="line-537"><code><span class="comment">	// data.</span></code></span>
+<span class="codeline" id="line-538"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-539"><code><span class="comment">	// If the same name and options are passed multiple times, the same Tracer</span></code></span>
+<span class="codeline" id="line-540"><code><span class="comment">	// will be returned (it is up to the implementation if this will be the</span></code></span>
+<span class="codeline" id="line-541"><code><span class="comment">	// same underlying instance of that Tracer or not). It is not necessary to</span></code></span>
+<span class="codeline" id="line-542"><code><span class="comment">	// call this multiple times with the same name and options to get an</span></code></span>
+<span class="codeline" id="line-543"><code><span class="comment">	// up-to-date Tracer. All implementations will ensure any TracerProvider</span></code></span>
+<span class="codeline" id="line-544"><code><span class="comment">	// configuration changes are propagated to all provided Tracers.</span></code></span>
+<span class="codeline" id="line-545"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-546"><code><span class="comment">	// If name is empty, then an implementation defined default name will be</span></code></span>
+<span class="codeline" id="line-547"><code><span class="comment">	// used instead.</span></code></span>
+<span class="codeline" id="line-548"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-549"><code><span class="comment">	// This method is safe to call concurrently.</span></code></span>
+<span class="codeline" id="line-550"><code>	<a href="../../../../imp/go.opentelemetry.io/otel/trace.TracerProvider.html#name-Tracer" class="ident">Tracer</a>(name <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>, options ...<a href="config.go.html#line-50" class="ident">TracerOption</a>) <a href="#line-490" class="ident">Tracer</a></code></span>
+<span class="codeline" id="line-551"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)

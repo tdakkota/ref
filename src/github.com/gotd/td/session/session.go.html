@@ -30,7 +30,11 @@ input[id=r10]:checked ~pre label[for=r10],
 input[id=r11]:checked ~pre label[for=r11],
 input[id=r12]:checked ~pre label[for=r12],
 input[id=r13]:checked ~pre label[for=r13],
-input[id=r14]:checked ~pre label[for=r14]
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16],
+input[id=r17]:checked ~pre label[for=r17],
+input[id=r18]:checked ~pre label[for=r18]
 {background: #226; color: #ff8;}
 input[id=i0]:checked ~pre .i0,
 input[id=i1]:checked ~pre .i1,
@@ -52,6 +56,10 @@ input[id=i3]:checked ~pre .i3
 <input id="r12" type="radio" name="g"/>
 <input id="r13" type="radio" name="g"/>
 <input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="r17" type="radio" name="g"/>
+<input id="r18" type="radio" name="g"/>
 <input id="i0" type="radio" name="i"/>
 <input id="i1" type="radio" name="i"/>
 <input id="i2" type="radio" name="i"/>
@@ -69,77 +77,159 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-10"><code>	<label for="i3"><span class="lit-string i3">"github.com/gotd/td/tg"</span></label></code></span>
 <span class="codeline" id="line-11"><code>)</code></span>
 <span class="codeline" id="line-12"><code></code></span>
-<span class="codeline" id="line-13"><code><span class="comment">// Data of session.</span></code></span>
-<span class="codeline" id="line-14"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/session.html#name-Data" class="ident">Data</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-15"><code>	<a href="../../../../../use/github.com/gotd/td/session..Data.Config.html" class="ident">Config</a>    <a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i3">tg</a>.<a href="../tg/tl_config_gen.go.html#line-38" class="ident">Config</a></code></span>
-<span class="codeline" id="line-16"><code>	<a href="../../../../../use/github.com/gotd/td/session..Data.DC.html" class="ident">DC</a>        <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
-<span class="codeline" id="line-17"><code>	<a href="../../../../../use/github.com/gotd/td/session..Data.Addr.html" class="ident">Addr</a>      <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
-<span class="codeline" id="line-18"><code>	<a href="../../../../../use/github.com/gotd/td/session..Data.AuthKey.html" class="ident">AuthKey</a>   []<a href="../../../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
-<span class="codeline" id="line-19"><code>	<a href="../../../../../use/github.com/gotd/td/session..Data.AuthKeyID.html" class="ident">AuthKeyID</a> []<a href="../../../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
-<span class="codeline" id="line-20"><code>	<a href="../../../../../use/github.com/gotd/td/session..Data.Salt.html" class="ident">Salt</a>      <a href="../../../../../pkg/builtin.html#name-int64" class="ident">int64</a></code></span>
-<span class="codeline" id="line-21"><code>}</code></span>
-<span class="codeline" id="line-22"><code></code></span>
-<span class="codeline" id="line-23"><code><span class="comment">// Storage is secure persistent storage for client session.</span></code></span>
-<span class="codeline" id="line-24"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-25"><code><span class="comment">// NB: Implementation security is important, attacker can abuse it not only for</span></code></span>
-<span class="codeline" id="line-26"><code><span class="comment">// connecting as authenticated user or bot, but even decrypting previous</span></code></span>
-<span class="codeline" id="line-27"><code><span class="comment">// messages in some situations.</span></code></span>
-<span class="codeline" id="line-28"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/session.html#name-Storage" class="ident">Storage</a> <span class="keyword">interface</span> {</code></span>
-<span class="codeline" id="line-29"><code>	<a href="../../../../../imp/github.com/gotd/td/session.Storage.html#name-LoadSession" class="ident">LoadSession</a>(ctx <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>) ([]<a href="../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>)</code></span>
-<span class="codeline" id="line-30"><code>	<a href="../../../../../imp/github.com/gotd/td/session.Storage.html#name-StoreSession" class="ident">StoreSession</a>(ctx <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, data []<a href="../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
-<span class="codeline" id="line-31"><code>}</code></span>
-<span class="codeline" id="line-32"><code></code></span>
-<span class="codeline" id="line-33"><code><span class="comment">// ErrNotFound means that session is not found in storage.</span></code></span>
-<span class="codeline" id="line-34"><code><span class="keyword">var</span> <a href="../../../../../pkg/github.com/gotd/td/session.html#name-ErrNotFound" class="ident">ErrNotFound</a> = <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i2">errors</a>.<a href="../../../go-faster/errors/errors.go.html#line-22" class="ident">New</a>(<span class="lit-string">"session storage: not found"</span>)</code></span>
-<span class="codeline" id="line-35"><code></code></span>
-<span class="codeline" id="line-36"><code><span class="comment">// Loader wraps Storage implementing Data (un-)marshaling.</span></code></span>
-<span class="codeline" id="line-37"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/session.html#name-Loader" class="ident">Loader</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-38"><code>	<a href="../../../../../use/github.com/gotd/td/session..Loader.Storage.html" class="ident">Storage</a> <a href="#line-28" class="ident">Storage</a></code></span>
-<span class="codeline" id="line-39"><code>}</code></span>
-<span class="codeline" id="line-40"><code></code></span>
-<span class="codeline" id="line-41"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/session.html#name-jsonData" class="ident">jsonData</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-42"><code>	<a href="../../../../../use/github.com/gotd/td/session..jsonData^71b27.Version.html" class="ident">Version</a> <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
-<span class="codeline" id="line-43"><code>	<a href="../../../../../use/github.com/gotd/td/session..jsonData^71b27.Data.html" class="ident">Data</a>    <a href="#line-14" class="ident">Data</a></code></span>
-<span class="codeline" id="line-44"><code>}</code></span>
-<span class="codeline" id="line-45"><code></code></span>
-<span class="codeline" id="line-46"><code><span class="keyword">const</span> <a href="../../../../../pkg/github.com/gotd/td/session.html#name-latestVersion" class="ident">latestVersion</a> = <span class="lit-number">1</span></code></span>
-<span class="codeline" id="line-47"><code></code></span>
-<span class="codeline" id="line-48"><code><span class="comment">// Load loads Data from Storage.</span></code></span>
-<span class="codeline" id="line-49"><code><span class="keyword">func</span> (<label for="r0" class="ident">l</label> *<a href="#line-37" class="ident">Loader</a>) <label for="r1" class="ident"><a href="../../../../../use/github.com/gotd/td/session..Loader.Load.html" class="ident">Load</a></label>(<label for="r2" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>) (*<a href="#line-14" class="ident">Data</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-50"><code>	<label for="r3" class="ident">buf</label>, <label for="r4" class="ident">err</label> := <label for="r0" class="ident">l</label>.<a href="#line-38" class="ident">Storage</a>.<a href="#line-29" class="ident">LoadSession</a>(<label for="r2" class="ident">ctx</label>)</code></span>
-<span class="codeline" id="line-51"><code>	<span class="keyword">if</span> <label for="r4" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-52"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i2">errors</a>.<a href="../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r4" class="ident">err</label>, <span class="lit-string">"load"</span>)</code></span>
-<span class="codeline" id="line-53"><code>	}</code></span>
-<span class="codeline" id="line-54"><code>	<span class="keyword">if</span> <a href="../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r3" class="ident">buf</label>) == <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-55"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="#line-34" class="ident">ErrNotFound</a></code></span>
-<span class="codeline" id="line-56"><code>	}</code></span>
-<span class="codeline" id="line-57"><code></code></span>
-<span class="codeline" id="line-58"><code>	<span class="keyword">var</span> <label for="r5" class="ident">v</label> <a href="#line-41" class="ident">jsonData</a></code></span>
-<span class="codeline" id="line-59"><code>	<span class="keyword">if</span> <label for="r6" class="ident">err</label> := <a href="../../../../../pkg/encoding/json.html" class="ident i1">json</a>.<a href="../../../../encoding/json/decode.go.html#line-97" class="ident">Unmarshal</a>(<label for="r3" class="ident">buf</label>, &amp;<label for="r5" class="ident">v</label>); <label for="r6" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-60"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i2">errors</a>.<a href="../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r6" class="ident">err</label>, <span class="lit-string">"unmarshal"</span>)</code></span>
-<span class="codeline" id="line-61"><code>	}</code></span>
-<span class="codeline" id="line-62"><code>	<span class="keyword">if</span> <label for="r5" class="ident">v</label>.<a href="#line-42" class="ident">Version</a> != <a href="#line-46" class="ident">latestVersion</a> {</code></span>
-<span class="codeline" id="line-63"><code>		<span class="comment">// HACK(ernado): backward compatibility super shenanigan.</span></code></span>
-<span class="codeline" id="line-64"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i2">errors</a>.<a href="../../../go-faster/errors/wrap.go.html#line-90" class="ident">Wrapf</a>(<a href="#line-34" class="ident">ErrNotFound</a>, <span class="lit-string">"version mismatch (%d != %d)"</span>, <label for="r5" class="ident">v</label>.<a href="#line-42" class="ident">Version</a>, <a href="#line-46" class="ident">latestVersion</a>)</code></span>
-<span class="codeline" id="line-65"><code>	}</code></span>
-<span class="codeline" id="line-66"><code>	<span class="keyword">return</span> &amp;<label for="r5" class="ident">v</label>.<a href="#line-43" class="ident">Data</a>, <label for="r4" class="ident">err</label></code></span>
-<span class="codeline" id="line-67"><code>}</code></span>
-<span class="codeline" id="line-68"><code></code></span>
-<span class="codeline" id="line-69"><code><span class="comment">// Save saves Data to Storage.</span></code></span>
-<span class="codeline" id="line-70"><code><span class="keyword">func</span> (<label for="r7" class="ident">l</label> *<a href="#line-37" class="ident">Loader</a>) <label for="r8" class="ident"><a href="../../../../../use/github.com/gotd/td/session..Loader.Save.html" class="ident">Save</a></label>(<label for="r9" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r10" class="ident">data</label> *<a href="#line-14" class="ident">Data</a>) <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-71"><code>	<label for="r11" class="ident">v</label> := <a href="#line-41" class="ident">jsonData</a>{</code></span>
-<span class="codeline" id="line-72"><code>		<a href="#line-42" class="ident">Version</a>: <a href="#line-46" class="ident">latestVersion</a>,</code></span>
-<span class="codeline" id="line-73"><code>		<a href="#line-43" class="ident">Data</a>:    *<label for="r10" class="ident">data</label>,</code></span>
-<span class="codeline" id="line-74"><code>	}</code></span>
-<span class="codeline" id="line-75"><code>	<label for="r12" class="ident">buf</label>, <label for="r13" class="ident">err</label> := <a href="../../../../../pkg/encoding/json.html" class="ident i1">json</a>.<a href="../../../../encoding/json/encode.go.html#line-157" class="ident">Marshal</a>(<label for="r11" class="ident">v</label>)</code></span>
-<span class="codeline" id="line-76"><code>	<span class="keyword">if</span> <label for="r13" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-77"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i2">errors</a>.<a href="../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r13" class="ident">err</label>, <span class="lit-string">"marshal"</span>)</code></span>
-<span class="codeline" id="line-78"><code>	}</code></span>
-<span class="codeline" id="line-79"><code>	<span class="keyword">if</span> <label for="r14" class="ident">err</label> := <label for="r7" class="ident">l</label>.<a href="#line-38" class="ident">Storage</a>.<a href="#line-30" class="ident">StoreSession</a>(<label for="r9" class="ident">ctx</label>, <label for="r12" class="ident">buf</label>); <label for="r14" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-80"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i2">errors</a>.<a href="../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r14" class="ident">err</label>, <span class="lit-string">"store"</span>)</code></span>
-<span class="codeline" id="line-81"><code>	}</code></span>
-<span class="codeline" id="line-82"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-83"><code>}</code></span>
+<span class="codeline" id="line-13"><code><span class="comment">// Config is subset of tg.Config.</span></code></span>
+<span class="codeline" id="line-14"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/session.html#name-Config" class="ident">Config</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-15"><code>	<span class="comment">// Indicates that telegram is probably censored by governments/ISPs in the current region</span></code></span>
+<span class="codeline" id="line-16"><code>	<a href="../../../../../use/github.com/gotd/td/session..Config.BlockedMode.html" class="ident">BlockedMode</a> <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-17"><code>	<span class="comment">// Whether pfs¹ was used</span></code></span>
+<span class="codeline" id="line-18"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-19"><code><span class="comment">	// Links:</span></code></span>
+<span class="codeline" id="line-20"><code><span class="comment">	//  1) https://core.telegram.org/api/pfs</span></code></span>
+<span class="codeline" id="line-21"><code>	<a href="../../../../../use/github.com/gotd/td/session..Config.PFSEnabled.html" class="ident">PFSEnabled</a> <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-22"><code>	<span class="comment">// Whether to forcefully try connecting using IPv6 dcOptions¹</span></code></span>
+<span class="codeline" id="line-23"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-24"><code><span class="comment">	// Links:</span></code></span>
+<span class="codeline" id="line-25"><code><span class="comment">	//  1) https://core.telegram.org/type/DcOption</span></code></span>
+<span class="codeline" id="line-26"><code>	<a href="../../../../../use/github.com/gotd/td/session..Config.ForceTryIpv6.html" class="ident">ForceTryIpv6</a> <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-27"><code>	<span class="comment">// Current date at the server</span></code></span>
+<span class="codeline" id="line-28"><code>	<a href="../../../../../use/github.com/gotd/td/session..Config.Date.html" class="ident">Date</a> <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-29"><code>	<span class="comment">// Expiration date of this config: when it expires it'll have to be refetched using help</span></code></span>
+<span class="codeline" id="line-30"><code><span class="comment">	// getConfig¹</span></code></span>
+<span class="codeline" id="line-31"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-32"><code><span class="comment">	// Links:</span></code></span>
+<span class="codeline" id="line-33"><code><span class="comment">	//  1) https://core.telegram.org/method/help.getConfig</span></code></span>
+<span class="codeline" id="line-34"><code>	<a href="../../../../../use/github.com/gotd/td/session..Config.Expires.html" class="ident">Expires</a> <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-35"><code>	<span class="comment">// Whether we're connected to the test DCs</span></code></span>
+<span class="codeline" id="line-36"><code>	<a href="../../../../../use/github.com/gotd/td/session..Config.TestMode.html" class="ident">TestMode</a> <a href="../../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-37"><code>	<span class="comment">// ID of the DC that returned the reply</span></code></span>
+<span class="codeline" id="line-38"><code>	<a href="../../../../../use/github.com/gotd/td/session..Config.ThisDC.html" class="ident">ThisDC</a> <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-39"><code>	<span class="comment">// DC IP list</span></code></span>
+<span class="codeline" id="line-40"><code>	<a href="../../../../../use/github.com/gotd/td/session..Config.DCOptions.html" class="ident">DCOptions</a> []<a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i3">tg</a>.<a href="../tg/tl_dc_option_gen.go.html#line-38" class="ident">DCOption</a></code></span>
+<span class="codeline" id="line-41"><code>	<span class="comment">// Domain name for fetching encrypted DC list from DNS TXT record</span></code></span>
+<span class="codeline" id="line-42"><code>	<a href="../../../../../use/github.com/gotd/td/session..Config.DCTxtDomainName.html" class="ident">DCTxtDomainName</a> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-43"><code>	<span class="comment">// Temporary passport¹ sessions</span></code></span>
+<span class="codeline" id="line-44"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-45"><code><span class="comment">	// Links:</span></code></span>
+<span class="codeline" id="line-46"><code><span class="comment">	//  1) https://core.telegram.org/passport</span></code></span>
+<span class="codeline" id="line-47"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-48"><code><span class="comment">	// Use SetTmpSessions and GetTmpSessions helpers.</span></code></span>
+<span class="codeline" id="line-49"><code>	<a href="../../../../../use/github.com/gotd/td/session..Config.TmpSessions.html" class="ident">TmpSessions</a> <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-50"><code>	<span class="comment">// DC ID to use to download webfiles¹</span></code></span>
+<span class="codeline" id="line-51"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-52"><code><span class="comment">	// Links:</span></code></span>
+<span class="codeline" id="line-53"><code><span class="comment">	//  1) https://core.telegram.org/api/files#downloading-webfiles</span></code></span>
+<span class="codeline" id="line-54"><code>	<a href="../../../../../use/github.com/gotd/td/session..Config.WebfileDCID.html" class="ident">WebfileDCID</a> <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-55"><code>}</code></span>
+<span class="codeline" id="line-56"><code></code></span>
+<span class="codeline" id="line-57"><code><span class="comment">// ConfigFromTG converts tg.Config to Config.</span></code></span>
+<span class="codeline" id="line-58"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-59"><code><span class="comment">// Note that Config is the subset of tg.Config, so data loss is possible.</span></code></span>
+<span class="codeline" id="line-60"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../../pkg/github.com/gotd/td/session.html#name-ConfigFromTG" class="ident">ConfigFromTG</a></label>(<label for="r1" class="ident">c</label> <a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i3">tg</a>.<a href="../tg/tl_config_gen.go.html#line-38" class="ident">Config</a>) <a href="#line-14" class="ident">Config</a> {</code></span>
+<span class="codeline" id="line-61"><code>	<span class="keyword">return</span> <a href="#line-14" class="ident">Config</a>{</code></span>
+<span class="codeline" id="line-62"><code>		<a href="#line-16" class="ident">BlockedMode</a>:     <label for="r1" class="ident">c</label>.<a href="../tg/tl_config_gen.go.html#line-58" class="ident">BlockedMode</a>,</code></span>
+<span class="codeline" id="line-63"><code>		<a href="#line-26" class="ident">ForceTryIpv6</a>:    <label for="r1" class="ident">c</label>.<a href="../tg/tl_config_gen.go.html#line-68" class="ident">ForceTryIpv6</a>,</code></span>
+<span class="codeline" id="line-64"><code>		<a href="#line-21" class="ident">PFSEnabled</a>:      <label for="r1" class="ident">c</label>.<a href="../tg/tl_config_gen.go.html#line-63" class="ident">PFSEnabled</a>,</code></span>
+<span class="codeline" id="line-65"><code>		<a href="#line-28" class="ident">Date</a>:            <label for="r1" class="ident">c</label>.<a href="../tg/tl_config_gen.go.html#line-70" class="ident">Date</a>,</code></span>
+<span class="codeline" id="line-66"><code>		<a href="#line-34" class="ident">Expires</a>:         <label for="r1" class="ident">c</label>.<a href="../tg/tl_config_gen.go.html#line-76" class="ident">Expires</a>,</code></span>
+<span class="codeline" id="line-67"><code>		<a href="#line-36" class="ident">TestMode</a>:        <label for="r1" class="ident">c</label>.<a href="../tg/tl_config_gen.go.html#line-78" class="ident">TestMode</a>,</code></span>
+<span class="codeline" id="line-68"><code>		<a href="#line-38" class="ident">ThisDC</a>:          <label for="r1" class="ident">c</label>.<a href="../tg/tl_config_gen.go.html#line-80" class="ident">ThisDC</a>,</code></span>
+<span class="codeline" id="line-69"><code>		<a href="#line-40" class="ident">DCOptions</a>:       <label for="r1" class="ident">c</label>.<a href="../tg/tl_config_gen.go.html#line-82" class="ident">DCOptions</a>,</code></span>
+<span class="codeline" id="line-70"><code>		<a href="#line-42" class="ident">DCTxtDomainName</a>: <label for="r1" class="ident">c</label>.<a href="../tg/tl_config_gen.go.html#line-84" class="ident">DCTxtDomainName</a>,</code></span>
+<span class="codeline" id="line-71"><code>		<a href="#line-54" class="ident">WebfileDCID</a>:     <label for="r1" class="ident">c</label>.<a href="../tg/tl_config_gen.go.html#line-201" class="ident">WebfileDCID</a>,</code></span>
+<span class="codeline" id="line-72"><code>		<a href="#line-49" class="ident">TmpSessions</a>:     <label for="r1" class="ident">c</label>.<a href="../tg/tl_config_gen.go.html#line-150" class="ident">TmpSessions</a>,</code></span>
+<span class="codeline" id="line-73"><code>	}</code></span>
+<span class="codeline" id="line-74"><code>}</code></span>
+<span class="codeline" id="line-75"><code></code></span>
+<span class="codeline" id="line-76"><code><span class="comment">// TG returns tg.Config from Config.</span></code></span>
+<span class="codeline" id="line-77"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-78"><code><span class="comment">// Note that config is the subset of tg.Config, so some fields will be unset.</span></code></span>
+<span class="codeline" id="line-79"><code><span class="keyword">func</span> (<label for="r2" class="ident">c</label> <a href="#line-14" class="ident">Config</a>) <label for="r3" class="ident"><a href="../../../../../use/github.com/gotd/td/session..Config.TG.html" class="ident">TG</a></label>() <a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i3">tg</a>.<a href="../tg/tl_config_gen.go.html#line-38" class="ident">Config</a> {</code></span>
+<span class="codeline" id="line-80"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/github.com/gotd/td/tg.html" class="ident i3">tg</a>.<a href="../tg/tl_config_gen.go.html#line-38" class="ident">Config</a>{</code></span>
+<span class="codeline" id="line-81"><code>		<a href="../tg/tl_config_gen.go.html#line-58" class="ident">BlockedMode</a>:     <label for="r2" class="ident">c</label>.<a href="#line-16" class="ident">BlockedMode</a>,</code></span>
+<span class="codeline" id="line-82"><code>		<a href="../tg/tl_config_gen.go.html#line-68" class="ident">ForceTryIpv6</a>:    <label for="r2" class="ident">c</label>.<a href="#line-26" class="ident">ForceTryIpv6</a>,</code></span>
+<span class="codeline" id="line-83"><code>		<a href="../tg/tl_config_gen.go.html#line-63" class="ident">PFSEnabled</a>:      <label for="r2" class="ident">c</label>.<a href="#line-21" class="ident">PFSEnabled</a>,</code></span>
+<span class="codeline" id="line-84"><code>		<a href="../tg/tl_config_gen.go.html#line-70" class="ident">Date</a>:            <label for="r2" class="ident">c</label>.<a href="#line-28" class="ident">Date</a>,</code></span>
+<span class="codeline" id="line-85"><code>		<a href="../tg/tl_config_gen.go.html#line-76" class="ident">Expires</a>:         <label for="r2" class="ident">c</label>.<a href="#line-34" class="ident">Expires</a>,</code></span>
+<span class="codeline" id="line-86"><code>		<a href="../tg/tl_config_gen.go.html#line-78" class="ident">TestMode</a>:        <label for="r2" class="ident">c</label>.<a href="#line-36" class="ident">TestMode</a>,</code></span>
+<span class="codeline" id="line-87"><code>		<a href="../tg/tl_config_gen.go.html#line-80" class="ident">ThisDC</a>:          <label for="r2" class="ident">c</label>.<a href="#line-38" class="ident">ThisDC</a>,</code></span>
+<span class="codeline" id="line-88"><code>		<a href="../tg/tl_config_gen.go.html#line-82" class="ident">DCOptions</a>:       <label for="r2" class="ident">c</label>.<a href="#line-40" class="ident">DCOptions</a>,</code></span>
+<span class="codeline" id="line-89"><code>		<a href="../tg/tl_config_gen.go.html#line-84" class="ident">DCTxtDomainName</a>: <label for="r2" class="ident">c</label>.<a href="#line-42" class="ident">DCTxtDomainName</a>,</code></span>
+<span class="codeline" id="line-90"><code>		<a href="../tg/tl_config_gen.go.html#line-201" class="ident">WebfileDCID</a>:     <label for="r2" class="ident">c</label>.<a href="#line-54" class="ident">WebfileDCID</a>,</code></span>
+<span class="codeline" id="line-91"><code>		<a href="../tg/tl_config_gen.go.html#line-150" class="ident">TmpSessions</a>:     <label for="r2" class="ident">c</label>.<a href="#line-49" class="ident">TmpSessions</a>,</code></span>
+<span class="codeline" id="line-92"><code>	}</code></span>
+<span class="codeline" id="line-93"><code>}</code></span>
+<span class="codeline" id="line-94"><code></code></span>
+<span class="codeline" id="line-95"><code><span class="comment">// Data of session.</span></code></span>
+<span class="codeline" id="line-96"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/session.html#name-Data" class="ident">Data</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-97"><code>	<a href="../../../../../use/github.com/gotd/td/session..Data.Config.html" class="ident">Config</a>    <a href="#line-14" class="ident">Config</a></code></span>
+<span class="codeline" id="line-98"><code>	<a href="../../../../../use/github.com/gotd/td/session..Data.DC.html" class="ident">DC</a>        <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-99"><code>	<a href="../../../../../use/github.com/gotd/td/session..Data.Addr.html" class="ident">Addr</a>      <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-100"><code>	<a href="../../../../../use/github.com/gotd/td/session..Data.AuthKey.html" class="ident">AuthKey</a>   []<a href="../../../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-101"><code>	<a href="../../../../../use/github.com/gotd/td/session..Data.AuthKeyID.html" class="ident">AuthKeyID</a> []<a href="../../../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-102"><code>	<a href="../../../../../use/github.com/gotd/td/session..Data.Salt.html" class="ident">Salt</a>      <a href="../../../../../pkg/builtin.html#name-int64" class="ident">int64</a></code></span>
+<span class="codeline" id="line-103"><code>}</code></span>
+<span class="codeline" id="line-104"><code></code></span>
+<span class="codeline" id="line-105"><code><span class="comment">// Storage is secure persistent storage for client session.</span></code></span>
+<span class="codeline" id="line-106"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-107"><code><span class="comment">// NB: Implementation security is important, attacker can abuse it not only for</span></code></span>
+<span class="codeline" id="line-108"><code><span class="comment">// connecting as authenticated user or bot, but even decrypting previous</span></code></span>
+<span class="codeline" id="line-109"><code><span class="comment">// messages in some situations.</span></code></span>
+<span class="codeline" id="line-110"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/session.html#name-Storage" class="ident">Storage</a> <span class="keyword">interface</span> {</code></span>
+<span class="codeline" id="line-111"><code>	<a href="../../../../../imp/github.com/gotd/td/session.Storage.html#name-LoadSession" class="ident">LoadSession</a>(ctx <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>) ([]<a href="../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>)</code></span>
+<span class="codeline" id="line-112"><code>	<a href="../../../../../imp/github.com/gotd/td/session.Storage.html#name-StoreSession" class="ident">StoreSession</a>(ctx <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, data []<a href="../../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-113"><code>}</code></span>
+<span class="codeline" id="line-114"><code></code></span>
+<span class="codeline" id="line-115"><code><span class="comment">// ErrNotFound means that session is not found in storage.</span></code></span>
+<span class="codeline" id="line-116"><code><span class="keyword">var</span> <a href="../../../../../pkg/github.com/gotd/td/session.html#name-ErrNotFound" class="ident">ErrNotFound</a> = <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i2">errors</a>.<a href="../../../go-faster/errors/errors.go.html#line-22" class="ident">New</a>(<span class="lit-string">"session storage: not found"</span>)</code></span>
+<span class="codeline" id="line-117"><code></code></span>
+<span class="codeline" id="line-118"><code><span class="comment">// Loader wraps Storage implementing Data (un-)marshaling.</span></code></span>
+<span class="codeline" id="line-119"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/session.html#name-Loader" class="ident">Loader</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-120"><code>	<a href="../../../../../use/github.com/gotd/td/session..Loader.Storage.html" class="ident">Storage</a> <a href="#line-110" class="ident">Storage</a></code></span>
+<span class="codeline" id="line-121"><code>}</code></span>
+<span class="codeline" id="line-122"><code></code></span>
+<span class="codeline" id="line-123"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/session.html#name-jsonData" class="ident">jsonData</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-124"><code>	<a href="../../../../../use/github.com/gotd/td/session..jsonData^71b27.Version.html" class="ident">Version</a> <a href="../../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-125"><code>	<a href="../../../../../use/github.com/gotd/td/session..jsonData^71b27.Data.html" class="ident">Data</a>    <a href="#line-96" class="ident">Data</a></code></span>
+<span class="codeline" id="line-126"><code>}</code></span>
+<span class="codeline" id="line-127"><code></code></span>
+<span class="codeline" id="line-128"><code><span class="keyword">const</span> <a href="../../../../../pkg/github.com/gotd/td/session.html#name-latestVersion" class="ident">latestVersion</a> = <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-129"><code></code></span>
+<span class="codeline" id="line-130"><code><span class="comment">// Load loads Data from Storage.</span></code></span>
+<span class="codeline" id="line-131"><code><span class="keyword">func</span> (<label for="r4" class="ident">l</label> *<a href="#line-119" class="ident">Loader</a>) <label for="r5" class="ident"><a href="../../../../../use/github.com/gotd/td/session..Loader.Load.html" class="ident">Load</a></label>(<label for="r6" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>) (*<a href="#line-96" class="ident">Data</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-132"><code>	<label for="r7" class="ident">buf</label>, <label for="r8" class="ident">err</label> := <label for="r4" class="ident">l</label>.<a href="#line-120" class="ident">Storage</a>.<a href="#line-111" class="ident">LoadSession</a>(<label for="r6" class="ident">ctx</label>)</code></span>
+<span class="codeline" id="line-133"><code>	<span class="keyword">if</span> <label for="r8" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-134"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i2">errors</a>.<a href="../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r8" class="ident">err</label>, <span class="lit-string">"load"</span>)</code></span>
+<span class="codeline" id="line-135"><code>	}</code></span>
+<span class="codeline" id="line-136"><code>	<span class="keyword">if</span> <a href="../../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r7" class="ident">buf</label>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-137"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="#line-116" class="ident">ErrNotFound</a></code></span>
+<span class="codeline" id="line-138"><code>	}</code></span>
+<span class="codeline" id="line-139"><code></code></span>
+<span class="codeline" id="line-140"><code>	<span class="keyword">var</span> <label for="r9" class="ident">v</label> <a href="#line-123" class="ident">jsonData</a></code></span>
+<span class="codeline" id="line-141"><code>	<span class="keyword">if</span> <label for="r10" class="ident">err</label> := <a href="../../../../../pkg/encoding/json.html" class="ident i1">json</a>.<a href="../../../../encoding/json/decode.go.html#line-97" class="ident">Unmarshal</a>(<label for="r7" class="ident">buf</label>, &amp;<label for="r9" class="ident">v</label>); <label for="r10" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-142"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i2">errors</a>.<a href="../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r10" class="ident">err</label>, <span class="lit-string">"unmarshal"</span>)</code></span>
+<span class="codeline" id="line-143"><code>	}</code></span>
+<span class="codeline" id="line-144"><code>	<span class="keyword">if</span> <label for="r9" class="ident">v</label>.<a href="#line-124" class="ident">Version</a> != <a href="#line-128" class="ident">latestVersion</a> {</code></span>
+<span class="codeline" id="line-145"><code>		<span class="comment">// HACK(ernado): backward compatibility super shenanigan.</span></code></span>
+<span class="codeline" id="line-146"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i2">errors</a>.<a href="../../../go-faster/errors/wrap.go.html#line-90" class="ident">Wrapf</a>(<a href="#line-116" class="ident">ErrNotFound</a>, <span class="lit-string">"version mismatch (%d != %d)"</span>, <label for="r9" class="ident">v</label>.<a href="#line-124" class="ident">Version</a>, <a href="#line-128" class="ident">latestVersion</a>)</code></span>
+<span class="codeline" id="line-147"><code>	}</code></span>
+<span class="codeline" id="line-148"><code>	<span class="keyword">return</span> &amp;<label for="r9" class="ident">v</label>.<a href="#line-125" class="ident">Data</a>, <label for="r8" class="ident">err</label></code></span>
+<span class="codeline" id="line-149"><code>}</code></span>
+<span class="codeline" id="line-150"><code></code></span>
+<span class="codeline" id="line-151"><code><span class="comment">// Save saves Data to Storage.</span></code></span>
+<span class="codeline" id="line-152"><code><span class="keyword">func</span> (<label for="r11" class="ident">l</label> *<a href="#line-119" class="ident">Loader</a>) <label for="r12" class="ident"><a href="../../../../../use/github.com/gotd/td/session..Loader.Save.html" class="ident">Save</a></label>(<label for="r13" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r14" class="ident">data</label> *<a href="#line-96" class="ident">Data</a>) <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-153"><code>	<label for="r15" class="ident">v</label> := <a href="#line-123" class="ident">jsonData</a>{</code></span>
+<span class="codeline" id="line-154"><code>		<a href="#line-124" class="ident">Version</a>: <a href="#line-128" class="ident">latestVersion</a>,</code></span>
+<span class="codeline" id="line-155"><code>		<a href="#line-125" class="ident">Data</a>:    *<label for="r14" class="ident">data</label>,</code></span>
+<span class="codeline" id="line-156"><code>	}</code></span>
+<span class="codeline" id="line-157"><code>	<label for="r16" class="ident">buf</label>, <label for="r17" class="ident">err</label> := <a href="../../../../../pkg/encoding/json.html" class="ident i1">json</a>.<a href="../../../../encoding/json/encode.go.html#line-157" class="ident">Marshal</a>(<label for="r15" class="ident">v</label>)</code></span>
+<span class="codeline" id="line-158"><code>	<span class="keyword">if</span> <label for="r17" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-159"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i2">errors</a>.<a href="../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r17" class="ident">err</label>, <span class="lit-string">"marshal"</span>)</code></span>
+<span class="codeline" id="line-160"><code>	}</code></span>
+<span class="codeline" id="line-161"><code>	<span class="keyword">if</span> <label for="r18" class="ident">err</label> := <label for="r11" class="ident">l</label>.<a href="#line-120" class="ident">Storage</a>.<a href="#line-112" class="ident">StoreSession</a>(<label for="r13" class="ident">ctx</label>, <label for="r16" class="ident">buf</label>); <label for="r18" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-162"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/github.com/go-faster/errors.html" class="ident i2">errors</a>.<a href="../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r18" class="ident">err</label>, <span class="lit-string">"store"</span>)</code></span>
+<span class="codeline" id="line-163"><code>	}</code></span>
+<span class="codeline" id="line-164"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-165"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
