@@ -179,7 +179,7 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-35"><code><span class="comment">// Get an invite link¹ for a group call or livestream</span></code></span>
 <span class="codeline" id="line-36"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-37"><code><span class="comment">// Links:</span></code></span>
-<span class="codeline" id="line-38"><code><span class="comment">//  1. https://core.telegram.org/api/links#voice-chat-video-chat-livestream-links</span></code></span>
+<span class="codeline" id="line-38"><code><span class="comment">//  1. https://core.telegram.org/api/links#voice-chatvideo-chatlivestream-links</span></code></span>
 <span class="codeline" id="line-39"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-40"><code><span class="comment">// See https://core.telegram.org/method/phone.exportGroupCallInvite for reference.</span></code></span>
 <span class="codeline" id="line-41"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/tg.html#name-PhoneExportGroupCallInviteRequest" class="ident">PhoneExportGroupCallInviteRequest</a> <span class="keyword">struct</span> {</code></span>
@@ -370,17 +370,21 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-226"><code><span class="comment">// Get an invite link¹ for a group call or livestream</span></code></span>
 <span class="codeline" id="line-227"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-228"><code><span class="comment">// Links:</span></code></span>
-<span class="codeline" id="line-229"><code><span class="comment">//  1. https://core.telegram.org/api/links#voice-chat-video-chat-livestream-links</span></code></span>
+<span class="codeline" id="line-229"><code><span class="comment">//  1. https://core.telegram.org/api/links#voice-chatvideo-chatlivestream-links</span></code></span>
 <span class="codeline" id="line-230"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-231"><code><span class="comment">// See https://core.telegram.org/method/phone.exportGroupCallInvite for reference.</span></code></span>
-<span class="codeline" id="line-232"><code><span class="keyword">func</span> (<label for="r45" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r46" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.PhoneExportGroupCallInvite.html" class="ident">PhoneExportGroupCallInvite</a></label>(<label for="r47" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r48" class="ident">request</label> *<a href="#line-41" class="ident">PhoneExportGroupCallInviteRequest</a>) (*<a href="tl_phone_exported_group_call_invite_gen.go.html#line-38" class="ident">PhoneExportedGroupCallInvite</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-233"><code>	<span class="keyword">var</span> <label for="r49" class="ident">result</label> <a href="tl_phone_exported_group_call_invite_gen.go.html#line-38" class="ident">PhoneExportedGroupCallInvite</a></code></span>
-<span class="codeline" id="line-234"><code></code></span>
-<span class="codeline" id="line-235"><code>	<span class="keyword">if</span> <label for="r50" class="ident">err</label> := <label for="r45" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r47" class="ident">ctx</label>, <label for="r48" class="ident">request</label>, &amp;<label for="r49" class="ident">result</label>); <label for="r50" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-236"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r50" class="ident">err</label></code></span>
-<span class="codeline" id="line-237"><code>	}</code></span>
-<span class="codeline" id="line-238"><code>	<span class="keyword">return</span> &amp;<label for="r49" class="ident">result</label>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-239"><code>}</code></span>
+<span class="codeline" id="line-231"><code><span class="comment">// Possible errors:</span></code></span>
+<span class="codeline" id="line-232"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-233"><code><span class="comment">//	403 PUBLIC_CHANNEL_MISSING: You can only export group call invite links for public chats or channels.</span></code></span>
+<span class="codeline" id="line-234"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-235"><code><span class="comment">// See https://core.telegram.org/method/phone.exportGroupCallInvite for reference.</span></code></span>
+<span class="codeline" id="line-236"><code><span class="keyword">func</span> (<label for="r45" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r46" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.PhoneExportGroupCallInvite.html" class="ident">PhoneExportGroupCallInvite</a></label>(<label for="r47" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r48" class="ident">request</label> *<a href="#line-41" class="ident">PhoneExportGroupCallInviteRequest</a>) (*<a href="tl_phone_exported_group_call_invite_gen.go.html#line-38" class="ident">PhoneExportedGroupCallInvite</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-237"><code>	<span class="keyword">var</span> <label for="r49" class="ident">result</label> <a href="tl_phone_exported_group_call_invite_gen.go.html#line-38" class="ident">PhoneExportedGroupCallInvite</a></code></span>
+<span class="codeline" id="line-238"><code></code></span>
+<span class="codeline" id="line-239"><code>	<span class="keyword">if</span> <label for="r50" class="ident">err</label> := <label for="r45" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r47" class="ident">ctx</label>, <label for="r48" class="ident">request</label>, &amp;<label for="r49" class="ident">result</label>); <label for="r50" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-240"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r50" class="ident">err</label></code></span>
+<span class="codeline" id="line-241"><code>	}</code></span>
+<span class="codeline" id="line-242"><code>	<span class="keyword">return</span> &amp;<label for="r49" class="ident">result</label>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-243"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)

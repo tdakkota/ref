@@ -33,7 +33,9 @@ input[id=r13]:checked ~pre label[for=r13],
 input[id=r14]:checked ~pre label[for=r14],
 input[id=r15]:checked ~pre label[for=r15],
 input[id=r16]:checked ~pre label[for=r16],
-input[id=r17]:checked ~pre label[for=r17]
+input[id=r17]:checked ~pre label[for=r17],
+input[id=r18]:checked ~pre label[for=r18],
+input[id=r19]:checked ~pre label[for=r19]
 {background: #226; color: #ff8;}
 input[id=i0]:checked ~pre .i0,
 input[id=i1]:checked ~pre .i1,
@@ -59,6 +61,8 @@ input[id=i4]:checked ~pre .i4
 <input id="r15" type="radio" name="g"/>
 <input id="r16" type="radio" name="g"/>
 <input id="r17" type="radio" name="g"/>
+<input id="r18" type="radio" name="g"/>
+<input id="r19" type="radio" name="g"/>
 <input id="i0" type="radio" name="i"/>
 <input id="i1" type="radio" name="i"/>
 <input id="i2" type="radio" name="i"/>
@@ -117,35 +121,34 @@ input[id=i4]:checked ~pre .i4
 <span class="codeline" id="line-50"><code>			<label for="r12" class="ident">keyFile</label> = <a href="md5.go.html#line-18" class="ident">fileKey</a>(<a href="../../../../../../pkg/fmt.html" class="ident i0">fmt</a>.<a href="../../../../../fmt/print.go.html#line-217" class="ident">Sprintf</a>(<span class="lit-string">"data#%d"</span>, <label for="r11" class="ident">account</label>+<span class="lit-number">1</span>))</code></span>
 <span class="codeline" id="line-51"><code>		}</code></span>
 <span class="codeline" id="line-52"><code></code></span>
-<span class="codeline" id="line-53"><code>		<label for="r13" class="ident">mtpConfigFile</label>, <label for="r14" class="ident">err</label> := <a href="file.go.html#line-21" class="ident">open</a>(<label for="r4" class="ident">root</label>, <a href="../../../../../../pkg/path.html" class="ident i3">path</a>.<a href="../../../../../path/path.go.html#line-162" class="ident">Join</a>(<label for="r12" class="ident">keyFile</label>, <span class="lit-string">"config"</span>))</code></span>
+<span class="codeline" id="line-53"><code>		<label for="r13" class="ident">mtpDataFile</label>, <label for="r14" class="ident">err</label> := <a href="file.go.html#line-21" class="ident">open</a>(<label for="r4" class="ident">root</label>, <label for="r12" class="ident">keyFile</label>)</code></span>
 <span class="codeline" id="line-54"><code>		<span class="keyword">if</span> <label for="r14" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-55"><code>			<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i4">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r14" class="ident">err</label>, <span class="lit-string">"open mtp config"</span>)</code></span>
+<span class="codeline" id="line-55"><code>			<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i4">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r14" class="ident">err</label>, <span class="lit-string">"open key_data"</span>)</code></span>
 <span class="codeline" id="line-56"><code>		}</code></span>
 <span class="codeline" id="line-57"><code></code></span>
-<span class="codeline" id="line-58"><code>		<label for="r15" class="ident">mtpConfig</label>, <label for="r14" class="ident">err</label> := <a href="mtp_config.go.html#line-73" class="ident">readMTPConfig</a>(<label for="r13" class="ident">mtpConfigFile</label>, <label for="r8" class="ident">kd</label>.<a href="key_data.go.html#line-12" class="ident">localKey</a>)</code></span>
+<span class="codeline" id="line-58"><code>		<label for="r15" class="ident">mtpData</label>, <label for="r14" class="ident">err</label> := <a href="mtp_authorization.go.html#line-23" class="ident">readMTPData</a>(<label for="r13" class="ident">mtpDataFile</label>, <label for="r8" class="ident">kd</label>.<a href="key_data.go.html#line-12" class="ident">localKey</a>)</code></span>
 <span class="codeline" id="line-59"><code>		<span class="keyword">if</span> <label for="r14" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-60"><code>			<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i4">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r14" class="ident">err</label>, <span class="lit-string">"read mtp config"</span>)</code></span>
+<span class="codeline" id="line-60"><code>			<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i4">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r14" class="ident">err</label>, <span class="lit-string">"read mtp"</span>)</code></span>
 <span class="codeline" id="line-61"><code>		}</code></span>
 <span class="codeline" id="line-62"><code></code></span>
-<span class="codeline" id="line-63"><code>		<label for="r16" class="ident">mtpDataFile</label>, <label for="r14" class="ident">err</label> := <a href="file.go.html#line-21" class="ident">open</a>(<label for="r4" class="ident">root</label>, <label for="r12" class="ident">keyFile</label>)</code></span>
-<span class="codeline" id="line-64"><code>		<span class="keyword">if</span> <label for="r14" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-65"><code>			<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i4">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r14" class="ident">err</label>, <span class="lit-string">"open key_data"</span>)</code></span>
+<span class="codeline" id="line-63"><code>		<label for="r16" class="ident">a</label> := <a href="#line-14" class="ident">Account</a>{</code></span>
+<span class="codeline" id="line-64"><code>			<a href="#line-16" class="ident">IDx</a>:           <label for="r11" class="ident">account</label>,</code></span>
+<span class="codeline" id="line-65"><code>			<a href="#line-18" class="ident">Authorization</a>: <label for="r15" class="ident">mtpData</label>,</code></span>
 <span class="codeline" id="line-66"><code>		}</code></span>
-<span class="codeline" id="line-67"><code></code></span>
-<span class="codeline" id="line-68"><code>		<label for="r17" class="ident">mtpData</label>, <label for="r14" class="ident">err</label> := <a href="mtp_authorization.go.html#line-23" class="ident">readMTPData</a>(<label for="r16" class="ident">mtpDataFile</label>, <label for="r8" class="ident">kd</label>.<a href="key_data.go.html#line-12" class="ident">localKey</a>)</code></span>
-<span class="codeline" id="line-69"><code>		<span class="keyword">if</span> <label for="r14" class="ident">err</label> != <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-70"><code>			<span class="keyword">return</span> <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../../../pkg/github.com/go-faster/errors.html" class="ident i4">errors</a>.<a href="../../../../go-faster/errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r14" class="ident">err</label>, <span class="lit-string">"read mtp"</span>)</code></span>
-<span class="codeline" id="line-71"><code>		}</code></span>
-<span class="codeline" id="line-72"><code></code></span>
-<span class="codeline" id="line-73"><code>		<label for="r9" class="ident">r</label> = <a href="../../../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r9" class="ident">r</label>, <a href="#line-14" class="ident">Account</a>{</code></span>
-<span class="codeline" id="line-74"><code>			<a href="#line-16" class="ident">IDx</a>:           <label for="r11" class="ident">account</label>,</code></span>
-<span class="codeline" id="line-75"><code>			<a href="#line-18" class="ident">Authorization</a>: <label for="r17" class="ident">mtpData</label>,</code></span>
-<span class="codeline" id="line-76"><code>			<a href="#line-20" class="ident">Config</a>:        <label for="r15" class="ident">mtpConfig</label>,</code></span>
-<span class="codeline" id="line-77"><code>		})</code></span>
-<span class="codeline" id="line-78"><code>	}</code></span>
-<span class="codeline" id="line-79"><code></code></span>
-<span class="codeline" id="line-80"><code>	<span class="keyword">return</span> <label for="r9" class="ident">r</label>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-81"><code>}</code></span>
+<span class="codeline" id="line-67"><code>		<label for="r17" class="ident">mtpConfigFile</label>, <label for="r14" class="ident">err</label> := <a href="file.go.html#line-21" class="ident">open</a>(<label for="r4" class="ident">root</label>, <a href="../../../../../../pkg/path.html" class="ident i3">path</a>.<a href="../../../../../path/path.go.html#line-162" class="ident">Join</a>(<label for="r12" class="ident">keyFile</label>, <span class="lit-string">"config"</span>))</code></span>
+<span class="codeline" id="line-68"><code>		<span class="keyword">if</span> <label for="r14" class="ident">err</label> == <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-69"><code>			<label for="r18" class="ident">mtpConfig</label>, <label for="r19" class="ident">err</label> := <a href="mtp_config.go.html#line-73" class="ident">readMTPConfig</a>(<label for="r17" class="ident">mtpConfigFile</label>, <label for="r8" class="ident">kd</label>.<a href="key_data.go.html#line-12" class="ident">localKey</a>)</code></span>
+<span class="codeline" id="line-70"><code>			<span class="comment">// HACK: ignoring error, because config is optional.</span></code></span>
+<span class="codeline" id="line-71"><code>			<span class="keyword">if</span> <label for="r19" class="ident">err</label> == <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-72"><code>				<label for="r16" class="ident">a</label>.<a href="#line-20" class="ident">Config</a> = <label for="r18" class="ident">mtpConfig</label></code></span>
+<span class="codeline" id="line-73"><code>			}</code></span>
+<span class="codeline" id="line-74"><code>		}</code></span>
+<span class="codeline" id="line-75"><code></code></span>
+<span class="codeline" id="line-76"><code>		<label for="r9" class="ident">r</label> = <a href="../../../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r9" class="ident">r</label>, <label for="r16" class="ident">a</label>)</code></span>
+<span class="codeline" id="line-77"><code>	}</code></span>
+<span class="codeline" id="line-78"><code></code></span>
+<span class="codeline" id="line-79"><code>	<span class="keyword">return</span> <label for="r9" class="ident">r</label>, <a href="../../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-80"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)

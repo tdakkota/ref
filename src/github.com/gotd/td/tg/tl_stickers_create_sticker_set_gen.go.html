@@ -351,8 +351,8 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-53"><code>	<a href="../../../../../use/github.com/gotd/td/tg..StickersCreateStickerSetRequest.Title.html" class="ident">Title</a> <a href="../../../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
 <span class="codeline" id="line-54"><code>	<span class="comment">// Short name of sticker set, to be used in sticker deep links »¹. Can contain only</span></code></span>
 <span class="codeline" id="line-55"><code><span class="comment">	// english letters, digits and underscores. Must begin with a letter, can't contain</span></code></span>
-<span class="codeline" id="line-56"><code><span class="comment">	// consecutive underscores and must end in "_by_&lt;bot_username&gt;". &lt;bot_username&gt; is case</span></code></span>
-<span class="codeline" id="line-57"><code><span class="comment">	// insensitive. 1-64 characters.</span></code></span>
+<span class="codeline" id="line-56"><code><span class="comment">	// consecutive underscores and, if called by a bot, must end in "_by_&lt;bot_username&gt;".</span></code></span>
+<span class="codeline" id="line-57"><code><span class="comment">	// &lt;bot_username&gt; is case insensitive. 1-64 characters.</span></code></span>
 <span class="codeline" id="line-58"><code><span class="comment">	//</span></code></span>
 <span class="codeline" id="line-59"><code><span class="comment">	// Links:</span></code></span>
 <span class="codeline" id="line-60"><code><span class="comment">	//  1) https://core.telegram.org/api/links#stickerset-links</span></code></span>
@@ -811,36 +811,35 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-513"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-514"><code><span class="comment">// Possible errors:</span></code></span>
 <span class="codeline" id="line-515"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-516"><code><span class="comment">//	400 BOT_MISSING: This method can only be run by a bot.</span></code></span>
-<span class="codeline" id="line-517"><code><span class="comment">//	400 PACK_SHORT_NAME_INVALID: Short pack name invalid.</span></code></span>
-<span class="codeline" id="line-518"><code><span class="comment">//	400 PACK_SHORT_NAME_OCCUPIED: A stickerpack with this name already exists.</span></code></span>
-<span class="codeline" id="line-519"><code><span class="comment">//	400 PACK_TITLE_INVALID: The stickerpack title is invalid.</span></code></span>
-<span class="codeline" id="line-520"><code><span class="comment">//	400 PEER_ID_INVALID: The provided peer id is invalid.</span></code></span>
-<span class="codeline" id="line-521"><code><span class="comment">//	400 STICKERS_EMPTY: No sticker provided.</span></code></span>
-<span class="codeline" id="line-522"><code><span class="comment">//	400 STICKER_EMOJI_INVALID: Sticker emoji invalid.</span></code></span>
-<span class="codeline" id="line-523"><code><span class="comment">//	400 STICKER_FILE_INVALID: Sticker file invalid.</span></code></span>
-<span class="codeline" id="line-524"><code><span class="comment">//	400 STICKER_GIF_DIMENSIONS: The specified video sticker has invalid dimensions.</span></code></span>
-<span class="codeline" id="line-525"><code><span class="comment">//	400 STICKER_PNG_DIMENSIONS: Sticker png dimensions invalid.</span></code></span>
-<span class="codeline" id="line-526"><code><span class="comment">//	400 STICKER_PNG_NOPNG: One of the specified stickers is not a valid PNG file.</span></code></span>
-<span class="codeline" id="line-527"><code><span class="comment">//	400 STICKER_TGS_NODOC: You must send the animated sticker as a document.</span></code></span>
-<span class="codeline" id="line-528"><code><span class="comment">//	400 STICKER_TGS_NOTGS: Invalid TGS sticker provided.</span></code></span>
-<span class="codeline" id="line-529"><code><span class="comment">//	400 STICKER_THUMB_PNG_NOPNG: Incorrect stickerset thumb file provided, PNG / WEBP expected.</span></code></span>
-<span class="codeline" id="line-530"><code><span class="comment">//	400 STICKER_THUMB_TGS_NOTGS: Incorrect stickerset TGS thumb file provided.</span></code></span>
-<span class="codeline" id="line-531"><code><span class="comment">//	400 STICKER_VIDEO_BIG: The specified video sticker is too big.</span></code></span>
-<span class="codeline" id="line-532"><code><span class="comment">//	400 STICKER_VIDEO_NODOC: You must send the video sticker as a document.</span></code></span>
-<span class="codeline" id="line-533"><code><span class="comment">//	400 STICKER_VIDEO_NOWEBM: The specified video sticker is not in webm format.</span></code></span>
-<span class="codeline" id="line-534"><code><span class="comment">//	400 USER_ID_INVALID: The provided user ID is invalid.</span></code></span>
-<span class="codeline" id="line-535"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-536"><code><span class="comment">// See https://core.telegram.org/method/stickers.createStickerSet for reference.</span></code></span>
-<span class="codeline" id="line-537"><code><span class="comment">// Can be used by bots.</span></code></span>
-<span class="codeline" id="line-538"><code><span class="keyword">func</span> (<label for="r122" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r123" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.StickersCreateStickerSet.html" class="ident">StickersCreateStickerSet</a></label>(<label for="r124" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r125" class="ident">request</label> *<a href="#line-38" class="ident">StickersCreateStickerSetRequest</a>) (<a href="tl_messages_sticker_set_gen.go.html#line-381" class="ident">MessagesStickerSetClass</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-539"><code>	<span class="keyword">var</span> <label for="r126" class="ident">result</label> <a href="tl_messages_sticker_set_gen.go.html#line-440" class="ident">MessagesStickerSetBox</a></code></span>
-<span class="codeline" id="line-540"><code></code></span>
-<span class="codeline" id="line-541"><code>	<span class="keyword">if</span> <label for="r127" class="ident">err</label> := <label for="r122" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r124" class="ident">ctx</label>, <label for="r125" class="ident">request</label>, &amp;<label for="r126" class="ident">result</label>); <label for="r127" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-542"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r127" class="ident">err</label></code></span>
-<span class="codeline" id="line-543"><code>	}</code></span>
-<span class="codeline" id="line-544"><code>	<span class="keyword">return</span> <label for="r126" class="ident">result</label>.<a href="tl_messages_sticker_set_gen.go.html#line-441" class="ident">StickerSet</a>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-545"><code>}</code></span>
+<span class="codeline" id="line-516"><code><span class="comment">//	400 PACK_SHORT_NAME_INVALID: Short pack name invalid.</span></code></span>
+<span class="codeline" id="line-517"><code><span class="comment">//	400 PACK_SHORT_NAME_OCCUPIED: A stickerpack with this name already exists.</span></code></span>
+<span class="codeline" id="line-518"><code><span class="comment">//	400 PACK_TITLE_INVALID: The stickerpack title is invalid.</span></code></span>
+<span class="codeline" id="line-519"><code><span class="comment">//	400 PEER_ID_INVALID: The provided peer id is invalid.</span></code></span>
+<span class="codeline" id="line-520"><code><span class="comment">//	400 STICKERS_EMPTY: No sticker provided.</span></code></span>
+<span class="codeline" id="line-521"><code><span class="comment">//	400 STICKER_EMOJI_INVALID: Sticker emoji invalid.</span></code></span>
+<span class="codeline" id="line-522"><code><span class="comment">//	400 STICKER_FILE_INVALID: Sticker file invalid.</span></code></span>
+<span class="codeline" id="line-523"><code><span class="comment">//	400 STICKER_GIF_DIMENSIONS: The specified video sticker has invalid dimensions.</span></code></span>
+<span class="codeline" id="line-524"><code><span class="comment">//	400 STICKER_PNG_DIMENSIONS: Sticker png dimensions invalid.</span></code></span>
+<span class="codeline" id="line-525"><code><span class="comment">//	400 STICKER_PNG_NOPNG: One of the specified stickers is not a valid PNG file.</span></code></span>
+<span class="codeline" id="line-526"><code><span class="comment">//	400 STICKER_TGS_NODOC: You must send the animated sticker as a document.</span></code></span>
+<span class="codeline" id="line-527"><code><span class="comment">//	400 STICKER_TGS_NOTGS: Invalid TGS sticker provided.</span></code></span>
+<span class="codeline" id="line-528"><code><span class="comment">//	400 STICKER_THUMB_PNG_NOPNG: Incorrect stickerset thumb file provided, PNG / WEBP expected.</span></code></span>
+<span class="codeline" id="line-529"><code><span class="comment">//	400 STICKER_THUMB_TGS_NOTGS: Incorrect stickerset TGS thumb file provided.</span></code></span>
+<span class="codeline" id="line-530"><code><span class="comment">//	400 STICKER_VIDEO_BIG: The specified video sticker is too big.</span></code></span>
+<span class="codeline" id="line-531"><code><span class="comment">//	400 STICKER_VIDEO_NODOC: You must send the video sticker as a document.</span></code></span>
+<span class="codeline" id="line-532"><code><span class="comment">//	400 STICKER_VIDEO_NOWEBM: The specified video sticker is not in webm format.</span></code></span>
+<span class="codeline" id="line-533"><code><span class="comment">//	400 USER_ID_INVALID: The provided user ID is invalid.</span></code></span>
+<span class="codeline" id="line-534"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-535"><code><span class="comment">// See https://core.telegram.org/method/stickers.createStickerSet for reference.</span></code></span>
+<span class="codeline" id="line-536"><code><span class="comment">// Can be used by bots.</span></code></span>
+<span class="codeline" id="line-537"><code><span class="keyword">func</span> (<label for="r122" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r123" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.StickersCreateStickerSet.html" class="ident">StickersCreateStickerSet</a></label>(<label for="r124" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r125" class="ident">request</label> *<a href="#line-38" class="ident">StickersCreateStickerSetRequest</a>) (<a href="tl_messages_sticker_set_gen.go.html#line-381" class="ident">MessagesStickerSetClass</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-538"><code>	<span class="keyword">var</span> <label for="r126" class="ident">result</label> <a href="tl_messages_sticker_set_gen.go.html#line-440" class="ident">MessagesStickerSetBox</a></code></span>
+<span class="codeline" id="line-539"><code></code></span>
+<span class="codeline" id="line-540"><code>	<span class="keyword">if</span> <label for="r127" class="ident">err</label> := <label for="r122" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r124" class="ident">ctx</label>, <label for="r125" class="ident">request</label>, &amp;<label for="r126" class="ident">result</label>); <label for="r127" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-541"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r127" class="ident">err</label></code></span>
+<span class="codeline" id="line-542"><code>	}</code></span>
+<span class="codeline" id="line-543"><code>	<span class="keyword">return</span> <label for="r126" class="ident">result</label>.<a href="tl_messages_sticker_set_gen.go.html#line-441" class="ident">StickerSet</a>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-544"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)

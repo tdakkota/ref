@@ -496,22 +496,25 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-312"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-313"><code><span class="comment">//	400 CDN_METHOD_INVALID: You can't call this method in a CDN DC.</span></code></span>
 <span class="codeline" id="line-314"><code><span class="comment">//	400 CHANNEL_INVALID: The provided channel is invalid.</span></code></span>
-<span class="codeline" id="line-315"><code><span class="comment">//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.</span></code></span>
-<span class="codeline" id="line-316"><code><span class="comment">//	400 DATE_EMPTY: Date empty.</span></code></span>
-<span class="codeline" id="line-317"><code><span class="comment">//	400 MSG_ID_INVALID: Invalid message ID provided.</span></code></span>
-<span class="codeline" id="line-318"><code><span class="comment">//	400 PERSISTENT_TIMESTAMP_EMPTY: Persistent timestamp empty.</span></code></span>
-<span class="codeline" id="line-319"><code><span class="comment">//	400 PERSISTENT_TIMESTAMP_INVALID: Persistent timestamp invalid.</span></code></span>
-<span class="codeline" id="line-320"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-321"><code><span class="comment">// See https://core.telegram.org/method/updates.getDifference for reference.</span></code></span>
-<span class="codeline" id="line-322"><code><span class="comment">// Can be used by bots.</span></code></span>
-<span class="codeline" id="line-323"><code><span class="keyword">func</span> (<label for="r65" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r66" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.UpdatesGetDifference.html" class="ident">UpdatesGetDifference</a></label>(<label for="r67" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r68" class="ident">request</label> *<a href="#line-41" class="ident">UpdatesGetDifferenceRequest</a>) (<a href="tl_updates_difference_gen.go.html#line-1127" class="ident">UpdatesDifferenceClass</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-324"><code>	<span class="keyword">var</span> <label for="r69" class="ident">result</label> <a href="tl_updates_difference_gen.go.html#line-1187" class="ident">UpdatesDifferenceBox</a></code></span>
-<span class="codeline" id="line-325"><code></code></span>
-<span class="codeline" id="line-326"><code>	<span class="keyword">if</span> <label for="r70" class="ident">err</label> := <label for="r65" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r67" class="ident">ctx</label>, <label for="r68" class="ident">request</label>, &amp;<label for="r69" class="ident">result</label>); <label for="r70" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-327"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r70" class="ident">err</label></code></span>
-<span class="codeline" id="line-328"><code>	}</code></span>
-<span class="codeline" id="line-329"><code>	<span class="keyword">return</span> <label for="r69" class="ident">result</label>.<a href="tl_updates_difference_gen.go.html#line-1188" class="ident">Difference</a>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-330"><code>}</code></span>
+<span class="codeline" id="line-315"><code><span class="comment">//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.</span></code></span>
+<span class="codeline" id="line-316"><code><span class="comment">//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.</span></code></span>
+<span class="codeline" id="line-317"><code><span class="comment">//	400 DATE_EMPTY: Date empty.</span></code></span>
+<span class="codeline" id="line-318"><code><span class="comment">//	400 MSG_ID_INVALID: Invalid message ID provided.</span></code></span>
+<span class="codeline" id="line-319"><code><span class="comment">//	400 PERSISTENT_TIMESTAMP_EMPTY: Persistent timestamp empty.</span></code></span>
+<span class="codeline" id="line-320"><code><span class="comment">//	400 PERSISTENT_TIMESTAMP_INVALID: Persistent timestamp invalid.</span></code></span>
+<span class="codeline" id="line-321"><code><span class="comment">//	500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.</span></code></span>
+<span class="codeline" id="line-322"><code><span class="comment">//	400 USERNAME_INVALID: The provided username is not valid.</span></code></span>
+<span class="codeline" id="line-323"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-324"><code><span class="comment">// See https://core.telegram.org/method/updates.getDifference for reference.</span></code></span>
+<span class="codeline" id="line-325"><code><span class="comment">// Can be used by bots.</span></code></span>
+<span class="codeline" id="line-326"><code><span class="keyword">func</span> (<label for="r65" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r66" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.UpdatesGetDifference.html" class="ident">UpdatesGetDifference</a></label>(<label for="r67" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r68" class="ident">request</label> *<a href="#line-41" class="ident">UpdatesGetDifferenceRequest</a>) (<a href="tl_updates_difference_gen.go.html#line-1127" class="ident">UpdatesDifferenceClass</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-327"><code>	<span class="keyword">var</span> <label for="r69" class="ident">result</label> <a href="tl_updates_difference_gen.go.html#line-1187" class="ident">UpdatesDifferenceBox</a></code></span>
+<span class="codeline" id="line-328"><code></code></span>
+<span class="codeline" id="line-329"><code>	<span class="keyword">if</span> <label for="r70" class="ident">err</label> := <label for="r65" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r67" class="ident">ctx</label>, <label for="r68" class="ident">request</label>, &amp;<label for="r69" class="ident">result</label>); <label for="r70" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-330"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r70" class="ident">err</label></code></span>
+<span class="codeline" id="line-331"><code>	}</code></span>
+<span class="codeline" id="line-332"><code>	<span class="keyword">return</span> <label for="r69" class="ident">result</label>.<a href="tl_updates_difference_gen.go.html#line-1188" class="ident">Difference</a>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-333"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
