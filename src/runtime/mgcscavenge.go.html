@@ -662,7 +662,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-374"><code>	}</code></span>
 <span class="codeline" id="line-375"><code>	<span class="keyword">if</span> <label for="r10" class="ident">s</label>.<a href="#line-314" class="ident">gomaxprocs</a> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-376"><code>		<label for="r10" class="ident">s</label>.<a href="#line-314" class="ident">gomaxprocs</a> = <span class="keyword">func</span>() <a href="../../pkg/builtin.html#name-int32" class="ident">int32</a> {</code></span>
-<span class="codeline" id="line-377"><code>			<span class="keyword">return</span> <a href="runtime2.go.html#line-1100" class="ident">gomaxprocs</a></code></span>
+<span class="codeline" id="line-377"><code>			<span class="keyword">return</span> <a href="runtime2.go.html#line-1107" class="ident">gomaxprocs</a></code></span>
 <span class="codeline" id="line-378"><code>		}</code></span>
 <span class="codeline" id="line-379"><code>	}</code></span>
 <span class="codeline" id="line-380"><code>}</code></span>
@@ -674,7 +674,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-386"><code>		<a href="panic.go.html#line-1040" class="ident">throw</a>(<span class="lit-string">"tried to park scavenger from another goroutine"</span>)</code></span>
 <span class="codeline" id="line-387"><code>	}</code></span>
 <span class="codeline" id="line-388"><code>	<label for="r18" class="ident">s</label>.<a href="#line-249" class="ident">parked</a> = <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-389"><code>	<a href="proc.go.html#line-368" class="ident">goparkunlock</a>(&amp;<label for="r18" class="ident">s</label>.<a href="#line-243" class="ident">lock</a>, <a href="runtime2.go.html#line-1045" class="ident">waitReasonGCScavengeWait</a>, <a href="trace.go.html#line-44" class="ident">traceEvGoBlock</a>, <span class="lit-number">2</span>)</code></span>
+<span class="codeline" id="line-389"><code>	<a href="proc.go.html#line-368" class="ident">goparkunlock</a>(&amp;<label for="r18" class="ident">s</label>.<a href="#line-243" class="ident">lock</a>, <a href="runtime2.go.html#line-1052" class="ident">waitReasonGCScavengeWait</a>, <a href="trace.go.html#line-44" class="ident">traceEvGoBlock</a>, <span class="lit-number">2</span>)</code></span>
 <span class="codeline" id="line-390"><code>}</code></span>
 <span class="codeline" id="line-391"><code></code></span>
 <span class="codeline" id="line-392"><code><span class="comment">// ready signals to sysmon that the scavenger should be awoken.</span></code></span>
@@ -700,9 +700,9 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-412"><code><span class="comment">		// the current P's runnext slot, which is desirable to prevent</span></code></span>
 <span class="codeline" id="line-413"><code><span class="comment">		// the scavenger from interfering with user goroutine scheduling</span></code></span>
 <span class="codeline" id="line-414"><code><span class="comment">		// too much.</span></code></span>
-<span class="codeline" id="line-415"><code>		<span class="keyword">var</span> <label for="r24" class="ident">list</label> <a href="proc.go.html#line-6098" class="ident">gList</a></code></span>
-<span class="codeline" id="line-416"><code>		<label for="r24" class="ident">list</label>.<a href="proc.go.html#line-6108" class="ident">push</a>(<label for="r22" class="ident">s</label>.<a href="#line-246" class="ident">g</a>)</code></span>
-<span class="codeline" id="line-417"><code>		<a href="proc.go.html#line-3113" class="ident">injectglist</a>(&amp;<label for="r24" class="ident">list</label>)</code></span>
+<span class="codeline" id="line-415"><code>		<span class="keyword">var</span> <label for="r24" class="ident">list</label> <a href="proc.go.html#line-6106" class="ident">gList</a></code></span>
+<span class="codeline" id="line-416"><code>		<label for="r24" class="ident">list</label>.<a href="proc.go.html#line-6116" class="ident">push</a>(<label for="r22" class="ident">s</label>.<a href="#line-246" class="ident">g</a>)</code></span>
+<span class="codeline" id="line-417"><code>		<a href="proc.go.html#line-3121" class="ident">injectglist</a>(&amp;<label for="r24" class="ident">list</label>)</code></span>
 <span class="codeline" id="line-418"><code>	}</code></span>
 <span class="codeline" id="line-419"><code>	<a href="lock_futex.go.html#line-111" class="ident">unlock</a>(&amp;<label for="r22" class="ident">s</label>.<a href="#line-243" class="ident">lock</a>)</code></span>
 <span class="codeline" id="line-420"><code>}</code></span>
@@ -753,7 +753,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-465"><code></code></span>
 <span class="codeline" id="line-466"><code>		<span class="comment">// Mark ourselves as asleep and go to sleep.</span></code></span>
 <span class="codeline" id="line-467"><code>		<label for="r25" class="ident">s</label>.<a href="#line-249" class="ident">parked</a> = <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-468"><code>		<a href="proc.go.html#line-368" class="ident">goparkunlock</a>(&amp;<label for="r25" class="ident">s</label>.<a href="#line-243" class="ident">lock</a>, <a href="runtime2.go.html#line-1051" class="ident">waitReasonSleep</a>, <a href="trace.go.html#line-43" class="ident">traceEvGoSleep</a>, <span class="lit-number">2</span>)</code></span>
+<span class="codeline" id="line-468"><code>		<a href="proc.go.html#line-368" class="ident">goparkunlock</a>(&amp;<label for="r25" class="ident">s</label>.<a href="#line-243" class="ident">lock</a>, <a href="runtime2.go.html#line-1058" class="ident">waitReasonSleep</a>, <a href="trace.go.html#line-43" class="ident">traceEvGoSleep</a>, <span class="lit-number">2</span>)</code></span>
 <span class="codeline" id="line-469"><code></code></span>
 <span class="codeline" id="line-470"><code>		<span class="comment">// How long we actually slept for.</span></code></span>
 <span class="codeline" id="line-471"><code>		<label for="r29" class="ident">slept</label> = <a href="time_nofake.go.html#line-18" class="ident">nanotime</a>() - <label for="r30" class="ident">start</label></code></span>

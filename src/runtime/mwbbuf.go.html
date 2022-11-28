@@ -270,11 +270,11 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-176"><code><span class="comment">	// (which seems unlikely to change since it costs little and</span></code></span>
 <span class="codeline" id="line-177"><code><span class="comment">	// helps with debugging).</span></code></span>
 <span class="codeline" id="line-178"><code></code></span>
-<span class="codeline" id="line-179"><code>	<span class="keyword">if</span> <a href="stubs.go.html#line-24" class="ident">getg</a>().<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-542" class="ident">dying</a> &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-179"><code>	<span class="keyword">if</span> <a href="stubs.go.html#line-24" class="ident">getg</a>().<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-549" class="ident">dying</a> &gt; <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-180"><code>		<span class="comment">// We're going down. Not much point in write barriers</span></code></span>
 <span class="codeline" id="line-181"><code><span class="comment">		// and this way we can allow write barriers in the</span></code></span>
 <span class="codeline" id="line-182"><code><span class="comment">		// panic path.</span></code></span>
-<span class="codeline" id="line-183"><code>		<a href="stubs.go.html#line-24" class="ident">getg</a>().<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-534" class="ident">p</a>.<a href="runtime2.go.html#line-285" class="ident">ptr</a>().<a href="runtime2.go.html#line-710" class="ident">wbBuf</a>.<a href="#line-107" class="ident">discard</a>()</code></span>
+<span class="codeline" id="line-183"><code>		<a href="stubs.go.html#line-24" class="ident">getg</a>().<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-541" class="ident">p</a>.<a href="runtime2.go.html#line-285" class="ident">ptr</a>().<a href="runtime2.go.html#line-717" class="ident">wbBuf</a>.<a href="#line-107" class="ident">discard</a>()</code></span>
 <span class="codeline" id="line-184"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-185"><code>	}</code></span>
 <span class="codeline" id="line-186"><code></code></span>
@@ -284,7 +284,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-190"><code>		<a href="cgocheck.go.html#line-25" class="ident">cgoCheckWriteBarrier</a>(<label for="r13" class="ident">dst</label>, <label for="r14" class="ident">src</label>)</code></span>
 <span class="codeline" id="line-191"><code>		<span class="keyword">if</span> !<a href="mgc.go.html#line-193" class="ident">writeBarrier</a>.<a href="mgc.go.html#line-196" class="ident">needed</a> {</code></span>
 <span class="codeline" id="line-192"><code>			<span class="comment">// We were only called for cgocheck.</span></code></span>
-<span class="codeline" id="line-193"><code>			<a href="stubs.go.html#line-24" class="ident">getg</a>().<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-534" class="ident">p</a>.<a href="runtime2.go.html#line-285" class="ident">ptr</a>().<a href="runtime2.go.html#line-710" class="ident">wbBuf</a>.<a href="#line-107" class="ident">discard</a>()</code></span>
+<span class="codeline" id="line-193"><code>			<a href="stubs.go.html#line-24" class="ident">getg</a>().<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-541" class="ident">p</a>.<a href="runtime2.go.html#line-285" class="ident">ptr</a>().<a href="runtime2.go.html#line-717" class="ident">wbBuf</a>.<a href="#line-107" class="ident">discard</a>()</code></span>
 <span class="codeline" id="line-194"><code>			<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-195"><code>		}</code></span>
 <span class="codeline" id="line-196"><code>	}</code></span>
@@ -292,7 +292,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-198"><code>	<span class="comment">// Switch to the system stack so we don't have to worry about</span></code></span>
 <span class="codeline" id="line-199"><code><span class="comment">	// the untyped stack slots or safe points.</span></code></span>
 <span class="codeline" id="line-200"><code>	<a href="stubs.go.html#line-60" class="ident">systemstack</a>(<span class="keyword">func</span>() {</code></span>
-<span class="codeline" id="line-201"><code>		<a href="#line-215" class="ident">wbBufFlush1</a>(<a href="stubs.go.html#line-24" class="ident">getg</a>().<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-534" class="ident">p</a>.<a href="runtime2.go.html#line-285" class="ident">ptr</a>())</code></span>
+<span class="codeline" id="line-201"><code>		<a href="#line-215" class="ident">wbBufFlush1</a>(<a href="stubs.go.html#line-24" class="ident">getg</a>().<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-541" class="ident">p</a>.<a href="runtime2.go.html#line-285" class="ident">ptr</a>())</code></span>
 <span class="codeline" id="line-202"><code>	})</code></span>
 <span class="codeline" id="line-203"><code>}</code></span>
 <span class="codeline" id="line-204"><code></code></span>
@@ -306,22 +306,22 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-212"><code><span class="comment">//</span></code></span>
 <span class="codeline" id="line-213"><code><span class="comment">//go:nowritebarrierrec</span></code></span>
 <span class="codeline" id="line-214"><code><span class="comment">//go:systemstack</span></code></span>
-<span class="codeline" id="line-215"><code><span class="keyword">func</span> <label for="r15" class="ident"><a href="../../pkg/runtime.html#name-wbBufFlush1" class="ident">wbBufFlush1</a></label>(<label for="r16" class="ident">_p_</label> *<a href="runtime2.go.html#line-602" class="ident">p</a>) {</code></span>
+<span class="codeline" id="line-215"><code><span class="keyword">func</span> <label for="r15" class="ident"><a href="../../pkg/runtime.html#name-wbBufFlush1" class="ident">wbBufFlush1</a></label>(<label for="r16" class="ident">_p_</label> *<a href="runtime2.go.html#line-609" class="ident">p</a>) {</code></span>
 <span class="codeline" id="line-216"><code>	<span class="comment">// Get the buffered pointers.</span></code></span>
-<span class="codeline" id="line-217"><code>	<label for="r17" class="ident">start</label> := <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<a href="../../pkg/unsafe.html" class="ident i2">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(&amp;<label for="r16" class="ident">_p_</label>.<a href="runtime2.go.html#line-710" class="ident">wbBuf</a>.<a href="#line-59" class="ident">buf</a>[<span class="lit-number">0</span>]))</code></span>
-<span class="codeline" id="line-218"><code>	<label for="r18" class="ident">n</label> := (<label for="r16" class="ident">_p_</label>.<a href="runtime2.go.html#line-710" class="ident">wbBuf</a>.<a href="#line-49" class="ident">next</a> - <label for="r17" class="ident">start</label>) / <a href="../../pkg/unsafe.html" class="ident i2">unsafe</a>.<a href="../../pkg/unsafe.html#name-Sizeof" class="ident">Sizeof</a>(<label for="r16" class="ident">_p_</label>.<a href="runtime2.go.html#line-710" class="ident">wbBuf</a>.<a href="#line-59" class="ident">buf</a>[<span class="lit-number">0</span>])</code></span>
-<span class="codeline" id="line-219"><code>	<label for="r19" class="ident">ptrs</label> := <label for="r16" class="ident">_p_</label>.<a href="runtime2.go.html#line-710" class="ident">wbBuf</a>.<a href="#line-59" class="ident">buf</a>[:<label for="r18" class="ident">n</label>]</code></span>
+<span class="codeline" id="line-217"><code>	<label for="r17" class="ident">start</label> := <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<a href="../../pkg/unsafe.html" class="ident i2">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(&amp;<label for="r16" class="ident">_p_</label>.<a href="runtime2.go.html#line-717" class="ident">wbBuf</a>.<a href="#line-59" class="ident">buf</a>[<span class="lit-number">0</span>]))</code></span>
+<span class="codeline" id="line-218"><code>	<label for="r18" class="ident">n</label> := (<label for="r16" class="ident">_p_</label>.<a href="runtime2.go.html#line-717" class="ident">wbBuf</a>.<a href="#line-49" class="ident">next</a> - <label for="r17" class="ident">start</label>) / <a href="../../pkg/unsafe.html" class="ident i2">unsafe</a>.<a href="../../pkg/unsafe.html#name-Sizeof" class="ident">Sizeof</a>(<label for="r16" class="ident">_p_</label>.<a href="runtime2.go.html#line-717" class="ident">wbBuf</a>.<a href="#line-59" class="ident">buf</a>[<span class="lit-number">0</span>])</code></span>
+<span class="codeline" id="line-219"><code>	<label for="r19" class="ident">ptrs</label> := <label for="r16" class="ident">_p_</label>.<a href="runtime2.go.html#line-717" class="ident">wbBuf</a>.<a href="#line-59" class="ident">buf</a>[:<label for="r18" class="ident">n</label>]</code></span>
 <span class="codeline" id="line-220"><code></code></span>
 <span class="codeline" id="line-221"><code>	<span class="comment">// Poison the buffer to make extra sure nothing is enqueued</span></code></span>
 <span class="codeline" id="line-222"><code><span class="comment">	// while we're processing the buffer.</span></code></span>
-<span class="codeline" id="line-223"><code>	<label for="r16" class="ident">_p_</label>.<a href="runtime2.go.html#line-710" class="ident">wbBuf</a>.<a href="#line-49" class="ident">next</a> = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-223"><code>	<label for="r16" class="ident">_p_</label>.<a href="runtime2.go.html#line-717" class="ident">wbBuf</a>.<a href="#line-49" class="ident">next</a> = <span class="lit-number">0</span></code></span>
 <span class="codeline" id="line-224"><code></code></span>
 <span class="codeline" id="line-225"><code>	<span class="keyword">if</span> <a href="mcheckmark.go.html#line-31" class="ident">useCheckmark</a> {</code></span>
 <span class="codeline" id="line-226"><code>		<span class="comment">// Slow path for checkmark mode.</span></code></span>
 <span class="codeline" id="line-227"><code>		<span class="keyword">for</span> <label for="r20" class="ident">_</label>, <label for="r21" class="ident">ptr</label> := <span class="keyword">range</span> <label for="r19" class="ident">ptrs</label> {</code></span>
 <span class="codeline" id="line-228"><code>			<a href="mgcmark.go.html#line-1447" class="ident">shade</a>(<label for="r21" class="ident">ptr</label>)</code></span>
 <span class="codeline" id="line-229"><code>		}</code></span>
-<span class="codeline" id="line-230"><code>		<label for="r16" class="ident">_p_</label>.<a href="runtime2.go.html#line-710" class="ident">wbBuf</a>.<a href="#line-80" class="ident">reset</a>()</code></span>
+<span class="codeline" id="line-230"><code>		<label for="r16" class="ident">_p_</label>.<a href="runtime2.go.html#line-717" class="ident">wbBuf</a>.<a href="#line-80" class="ident">reset</a>()</code></span>
 <span class="codeline" id="line-231"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-232"><code>	}</code></span>
 <span class="codeline" id="line-233"><code></code></span>
@@ -339,7 +339,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-245"><code><span class="comment">	// could track whether any un-shaded goroutine has used the</span></code></span>
 <span class="codeline" id="line-246"><code><span class="comment">	// buffer, or just track globally whether there are any</span></code></span>
 <span class="codeline" id="line-247"><code><span class="comment">	// un-shaded stacks and flush after each stack scan.</span></code></span>
-<span class="codeline" id="line-248"><code>	<label for="r22" class="ident">gcw</label> := &amp;<label for="r16" class="ident">_p_</label>.<a href="runtime2.go.html#line-705" class="ident">gcw</a></code></span>
+<span class="codeline" id="line-248"><code>	<label for="r22" class="ident">gcw</label> := &amp;<label for="r16" class="ident">_p_</label>.<a href="runtime2.go.html#line-712" class="ident">gcw</a></code></span>
 <span class="codeline" id="line-249"><code>	<label for="r23" class="ident">pos</label> := <span class="lit-number">0</span></code></span>
 <span class="codeline" id="line-250"><code>	<span class="keyword">for</span> <label for="r24" class="ident">_</label>, <label for="r25" class="ident">ptr</label> := <span class="keyword">range</span> <label for="r19" class="ident">ptrs</label> {</code></span>
 <span class="codeline" id="line-251"><code>		<span class="keyword">if</span> <label for="r25" class="ident">ptr</label> &lt; <a href="malloc.go.html#line-323" class="ident">minLegalPointer</a> {</code></span>
@@ -380,7 +380,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-286"><code>	<span class="comment">// Enqueue the greyed objects.</span></code></span>
 <span class="codeline" id="line-287"><code>	<label for="r22" class="ident">gcw</label>.<a href="mgcwork.go.html#line-166" class="ident">putBatch</a>(<label for="r19" class="ident">ptrs</label>[:<label for="r23" class="ident">pos</label>])</code></span>
 <span class="codeline" id="line-288"><code></code></span>
-<span class="codeline" id="line-289"><code>	<label for="r16" class="ident">_p_</label>.<a href="runtime2.go.html#line-710" class="ident">wbBuf</a>.<a href="#line-80" class="ident">reset</a>()</code></span>
+<span class="codeline" id="line-289"><code>	<label for="r16" class="ident">_p_</label>.<a href="runtime2.go.html#line-717" class="ident">wbBuf</a>.<a href="#line-80" class="ident">reset</a>()</code></span>
 <span class="codeline" id="line-290"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../png/go101-twitter.png"></td>

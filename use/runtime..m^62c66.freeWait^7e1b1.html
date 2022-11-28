@@ -9,15 +9,16 @@
 <script src="../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
-<pre><code><span style="font-size:x-large;"><b><a href="../pkg/runtime.html">runtime</a>.<a href="../src/runtime/runtime2.go.html#line-519">m</a>.<a href="../src/runtime/runtime2.go.html#line-549">freeWait</a></b></span><span style="font-size: large;"><i> (field)</i></span>
+<pre><code><span style="font-size:x-large;"><b><a href="../pkg/runtime.html">runtime</a>.<a href="../src/runtime/runtime2.go.html#line-526">m</a>.<a href="../src/runtime/runtime2.go.html#line-556">freeWait</a></b></span><span style="font-size: large;"><i> (field)</i></span>
 
-<span class="title">4 uses</span>
+<span class="title">5 uses</span>
 
 	runtime (current package)
-		<a href="../src/runtime/proc.go.html#line-1524">proc.go#L1524</a>: 		atomic.Store(&amp;m.<b>freeWait</b>, 1)
-		<a href="../src/runtime/proc.go.html#line-1570" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-1570">#L1570</a>: 	exitThread(&amp;m.<b>freeWait</b>)
-		<a href="../src/runtime/proc.go.html#line-1732" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-1732">#L1732</a>: 			if freem.<b>freeWait</b> != 0 {
-		<a href="../src/runtime/runtime2.go.html#line-549">runtime2.go#L549</a>: 	<b>freeWait</b>      uint32 // if == 0, safe to free g0 and delete m (atomic)
+		<a href="../src/runtime/proc.go.html#line-1528">proc.go#L1528</a>: 	m.<b>freeWait</b>.Store(freeMWait)
+		<a href="../src/runtime/proc.go.html#line-1561" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-1561">#L1561</a>: 		m.<b>freeWait</b>.Store(freeMRef)
+		<a href="../src/runtime/proc.go.html#line-1572" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-1572">#L1572</a>: 	exitThread(&amp;m.<b>freeWait</b>)
+		<a href="../src/runtime/proc.go.html#line-1734" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-1734">#L1734</a>: 			wait := freem.<b>freeWait</b>.Load()
+		<a href="../src/runtime/runtime2.go.html#line-556">runtime2.go#L556</a>: 	<b>freeWait</b>      atomic.Uint32 // Whether it is safe to free g0 and delete m (one of freeMRef, freeMStack, freeMWait)
 </code></pre><pre id="footer">
 <table><tr><td><img src="../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)

@@ -323,7 +323,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-103"><code></code></span>
 <span class="codeline" id="line-104"><code><span class="keyword">func</span> <label for="r22" class="ident"><a href="../../pkg/runtime.html#name-semacquire1" class="ident">semacquire1</a></label>(<label for="r23" class="ident">addr</label> *<a href="../../pkg/builtin.html#name-uint32" class="ident">uint32</a>, <label for="r24" class="ident">lifo</label> <a href="../../pkg/builtin.html#name-bool" class="ident">bool</a>, <label for="r25" class="ident">profile</label> <a href="#line-92" class="ident">semaProfileFlags</a>, <label for="r26" class="ident">skipframes</label> <a href="../../pkg/builtin.html#name-int" class="ident">int</a>) {</code></span>
 <span class="codeline" id="line-105"><code>	<label for="r27" class="ident">gp</label> := <a href="stubs.go.html#line-24" class="ident">getg</a>()</code></span>
-<span class="codeline" id="line-106"><code>	<span class="keyword">if</span> <label for="r27" class="ident">gp</label> != <label for="r27" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-532" class="ident">curg</a> {</code></span>
+<span class="codeline" id="line-106"><code>	<span class="keyword">if</span> <label for="r27" class="ident">gp</label> != <label for="r27" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-539" class="ident">curg</a> {</code></span>
 <span class="codeline" id="line-107"><code>		<a href="panic.go.html#line-1040" class="ident">throw</a>(<span class="lit-string">"semacquire not on the G stack"</span>)</code></span>
 <span class="codeline" id="line-108"><code>	}</code></span>
 <span class="codeline" id="line-109"><code></code></span>
@@ -367,7 +367,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-147"><code>		<span class="comment">// Any semrelease after the cansemacquire knows we're waiting</span></code></span>
 <span class="codeline" id="line-148"><code><span class="comment">		// (we set nwait above), so go to sleep.</span></code></span>
 <span class="codeline" id="line-149"><code>		<label for="r29" class="ident">root</label>.<a href="#line-236" class="ident">queue</a>(<label for="r23" class="ident">addr</label>, <label for="r28" class="ident">s</label>, <label for="r24" class="ident">lifo</label>)</code></span>
-<span class="codeline" id="line-150"><code>		<a href="proc.go.html#line-368" class="ident">goparkunlock</a>(&amp;<label for="r29" class="ident">root</label>.<a href="#line-41" class="ident">lock</a>, <a href="runtime2.go.html#line-1050" class="ident">waitReasonSemacquire</a>, <a href="trace.go.html#line-49" class="ident">traceEvGoBlockSync</a>, <span class="lit-number">4</span>+<label for="r26" class="ident">skipframes</label>)</code></span>
+<span class="codeline" id="line-150"><code>		<a href="proc.go.html#line-368" class="ident">goparkunlock</a>(&amp;<label for="r29" class="ident">root</label>.<a href="#line-41" class="ident">lock</a>, <a href="runtime2.go.html#line-1057" class="ident">waitReasonSemacquire</a>, <a href="trace.go.html#line-49" class="ident">traceEvGoBlockSync</a>, <span class="lit-number">4</span>+<label for="r26" class="ident">skipframes</label>)</code></span>
 <span class="codeline" id="line-151"><code>		<span class="keyword">if</span> <label for="r28" class="ident">s</label>.<a href="runtime2.go.html#line-366" class="ident">ticket</a> != <span class="lit-number">0</span> || <a href="#line-223" class="ident">cansemacquire</a>(<label for="r23" class="ident">addr</label>) {</code></span>
 <span class="codeline" id="line-152"><code>			<span class="keyword">break</span></code></span>
 <span class="codeline" id="line-153"><code>		}</code></span>
@@ -418,7 +418,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-198"><code>			<label for="r38" class="ident">s</label>.<a href="runtime2.go.html#line-366" class="ident">ticket</a> = <span class="lit-number">1</span></code></span>
 <span class="codeline" id="line-199"><code>		}</code></span>
 <span class="codeline" id="line-200"><code>		<a href="#line-85" class="ident">readyWithTime</a>(<label for="r38" class="ident">s</label>, <span class="lit-number">5</span>+<label for="r36" class="ident">skipframes</label>)</code></span>
-<span class="codeline" id="line-201"><code>		<span class="keyword">if</span> <label for="r38" class="ident">s</label>.<a href="runtime2.go.html#line-366" class="ident">ticket</a> == <span class="lit-number">1</span> &amp;&amp; <a href="stubs.go.html#line-24" class="ident">getg</a>().<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-541" class="ident">locks</a> == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-201"><code>		<span class="keyword">if</span> <label for="r38" class="ident">s</label>.<a href="runtime2.go.html#line-366" class="ident">ticket</a> == <span class="lit-number">1</span> &amp;&amp; <a href="stubs.go.html#line-24" class="ident">getg</a>().<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-548" class="ident">locks</a> == <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-202"><code>			<span class="comment">// Direct G handoff</span></code></span>
 <span class="codeline" id="line-203"><code><span class="comment">			// readyWithTime has added the waiter G as runnext in the</span></code></span>
 <span class="codeline" id="line-204"><code><span class="comment">			// current P; we now call the scheduler so that we start running</span></code></span>
@@ -435,7 +435,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-215"><code><span class="comment">			// regime, and then we start to do direct handoffs of ticket and</span></code></span>
 <span class="codeline" id="line-216"><code><span class="comment">			// P.</span></code></span>
 <span class="codeline" id="line-217"><code><span class="comment">			// See issue 33747 for discussion.</span></code></span>
-<span class="codeline" id="line-218"><code>			<a href="proc.go.html#line-3444" class="ident">goyield</a>()</code></span>
+<span class="codeline" id="line-218"><code>			<a href="proc.go.html#line-3452" class="ident">goyield</a>()</code></span>
 <span class="codeline" id="line-219"><code>		}</code></span>
 <span class="codeline" id="line-220"><code>	}</code></span>
 <span class="codeline" id="line-221"><code>}</code></span>
@@ -734,7 +734,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-514"><code>		<label for="r79" class="ident">l</label>.<a href="#line-468" class="ident">tail</a>.<a href="runtime2.go.html#line-355" class="ident">next</a> = <label for="r81" class="ident">s</label></code></span>
 <span class="codeline" id="line-515"><code>	}</code></span>
 <span class="codeline" id="line-516"><code>	<label for="r79" class="ident">l</label>.<a href="#line-468" class="ident">tail</a> = <label for="r81" class="ident">s</label></code></span>
-<span class="codeline" id="line-517"><code>	<a href="proc.go.html#line-368" class="ident">goparkunlock</a>(&amp;<label for="r79" class="ident">l</label>.<a href="#line-466" class="ident">lock</a>, <a href="runtime2.go.html#line-1052" class="ident">waitReasonSyncCondWait</a>, <a href="trace.go.html#line-50" class="ident">traceEvGoBlockCond</a>, <span class="lit-number">3</span>)</code></span>
+<span class="codeline" id="line-517"><code>	<a href="proc.go.html#line-368" class="ident">goparkunlock</a>(&amp;<label for="r79" class="ident">l</label>.<a href="#line-466" class="ident">lock</a>, <a href="runtime2.go.html#line-1059" class="ident">waitReasonSyncCondWait</a>, <a href="trace.go.html#line-50" class="ident">traceEvGoBlockCond</a>, <span class="lit-number">3</span>)</code></span>
 <span class="codeline" id="line-518"><code>	<span class="keyword">if</span> <label for="r82" class="ident">t0</label> != <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-519"><code>		<a href="mprof.go.html#line-480" class="ident">blockevent</a>(<label for="r81" class="ident">s</label>.<a href="runtime2.go.html#line-365" class="ident">releasetime</a>-<label for="r82" class="ident">t0</label>, <span class="lit-number">2</span>)</code></span>
 <span class="codeline" id="line-520"><code>	}</code></span>

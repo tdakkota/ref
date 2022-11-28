@@ -339,11 +339,11 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-135"><code>	}</code></span>
 <span class="codeline" id="line-136"><code></code></span>
 <span class="codeline" id="line-137"><code>	<label for="r7" class="ident">mp</label> := <a href="stubs.go.html#line-24" class="ident">getg</a>().<a href="runtime2.go.html#line-421" class="ident">m</a></code></span>
-<span class="codeline" id="line-138"><code>	<label for="r7" class="ident">mp</label>.<a href="runtime2.go.html#line-553" class="ident">ncgocall</a>++</code></span>
-<span class="codeline" id="line-139"><code>	<label for="r7" class="ident">mp</label>.<a href="runtime2.go.html#line-554" class="ident">ncgo</a>++</code></span>
+<span class="codeline" id="line-138"><code>	<label for="r7" class="ident">mp</label>.<a href="runtime2.go.html#line-560" class="ident">ncgocall</a>++</code></span>
+<span class="codeline" id="line-139"><code>	<label for="r7" class="ident">mp</label>.<a href="runtime2.go.html#line-561" class="ident">ncgo</a>++</code></span>
 <span class="codeline" id="line-140"><code></code></span>
 <span class="codeline" id="line-141"><code>	<span class="comment">// Reset traceback.</span></code></span>
-<span class="codeline" id="line-142"><code>	<label for="r7" class="ident">mp</label>.<a href="runtime2.go.html#line-556" class="ident">cgoCallers</a>[<span class="lit-number">0</span>] = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-142"><code>	<label for="r7" class="ident">mp</label>.<a href="runtime2.go.html#line-563" class="ident">cgoCallers</a>[<span class="lit-number">0</span>] = <span class="lit-number">0</span></code></span>
 <span class="codeline" id="line-143"><code></code></span>
 <span class="codeline" id="line-144"><code>	<span class="comment">// Announce we are entering a system call</span></code></span>
 <span class="codeline" id="line-145"><code><span class="comment">	// so that the scheduler knows to create another</span></code></span>
@@ -359,7 +359,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-155"><code><span class="comment">	// "system call", run the Go code (which may grow the stack),</span></code></span>
 <span class="codeline" id="line-156"><code><span class="comment">	// and then re-enter the "system call" reusing the PC and SP</span></code></span>
 <span class="codeline" id="line-157"><code><span class="comment">	// saved by entersyscall here.</span></code></span>
-<span class="codeline" id="line-158"><code>	<a href="proc.go.html#line-3670" class="ident">entersyscall</a>()</code></span>
+<span class="codeline" id="line-158"><code>	<a href="proc.go.html#line-3678" class="ident">entersyscall</a>()</code></span>
 <span class="codeline" id="line-159"><code></code></span>
 <span class="codeline" id="line-160"><code>	<span class="comment">// Tell asynchronous preemption that we're entering external</span></code></span>
 <span class="codeline" id="line-161"><code><span class="comment">	// code. We do this after entersyscall because this may block</span></code></span>
@@ -368,17 +368,17 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-164"><code><span class="comment">	// of correctness).</span></code></span>
 <span class="codeline" id="line-165"><code>	<a href="preempt_nonwindows.go.html#line-10" class="ident">osPreemptExtEnter</a>(<label for="r7" class="ident">mp</label>)</code></span>
 <span class="codeline" id="line-166"><code></code></span>
-<span class="codeline" id="line-167"><code>	<label for="r7" class="ident">mp</label>.<a href="runtime2.go.html#line-548" class="ident">incgo</a> = <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-167"><code>	<label for="r7" class="ident">mp</label>.<a href="runtime2.go.html#line-555" class="ident">incgo</a> = <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
 <span class="codeline" id="line-168"><code>	<label for="r8" class="ident">errno</label> := <a href="stubs.go.html#line-365" class="ident">asmcgocall</a>(<label for="r5" class="ident">fn</label>, <label for="r6" class="ident">arg</label>)</code></span>
 <span class="codeline" id="line-169"><code></code></span>
 <span class="codeline" id="line-170"><code>	<span class="comment">// Update accounting before exitsyscall because exitsyscall may</span></code></span>
 <span class="codeline" id="line-171"><code><span class="comment">	// reschedule us on to a different M.</span></code></span>
-<span class="codeline" id="line-172"><code>	<label for="r7" class="ident">mp</label>.<a href="runtime2.go.html#line-548" class="ident">incgo</a> = <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-173"><code>	<label for="r7" class="ident">mp</label>.<a href="runtime2.go.html#line-554" class="ident">ncgo</a>--</code></span>
+<span class="codeline" id="line-172"><code>	<label for="r7" class="ident">mp</label>.<a href="runtime2.go.html#line-555" class="ident">incgo</a> = <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-173"><code>	<label for="r7" class="ident">mp</label>.<a href="runtime2.go.html#line-561" class="ident">ncgo</a>--</code></span>
 <span class="codeline" id="line-174"><code></code></span>
 <span class="codeline" id="line-175"><code>	<a href="preempt_nonwindows.go.html#line-13" class="ident">osPreemptExtExit</a>(<label for="r7" class="ident">mp</label>)</code></span>
 <span class="codeline" id="line-176"><code></code></span>
-<span class="codeline" id="line-177"><code>	<a href="proc.go.html#line-3765" class="ident">exitsyscall</a>()</code></span>
+<span class="codeline" id="line-177"><code>	<a href="proc.go.html#line-3773" class="ident">exitsyscall</a>()</code></span>
 <span class="codeline" id="line-178"><code></code></span>
 <span class="codeline" id="line-179"><code>	<span class="comment">// Note that raceacquire must be called only after exitsyscall has</span></code></span>
 <span class="codeline" id="line-180"><code><span class="comment">	// wired this M to a P.</span></code></span>
@@ -408,22 +408,22 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-204"><code><span class="comment">//go:nosplit</span></code></span>
 <span class="codeline" id="line-205"><code><span class="keyword">func</span> <label for="r9" class="ident"><a href="../../pkg/runtime.html#name-cgocallbackg" class="ident">cgocallbackg</a></label>(<label for="r10" class="ident">fn</label>, <label for="r11" class="ident">frame</label> <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>, <label for="r12" class="ident">ctxt</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) {</code></span>
 <span class="codeline" id="line-206"><code>	<label for="r13" class="ident">gp</label> := <a href="stubs.go.html#line-24" class="ident">getg</a>()</code></span>
-<span class="codeline" id="line-207"><code>	<span class="keyword">if</span> <label for="r13" class="ident">gp</label> != <label for="r13" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-532" class="ident">curg</a> {</code></span>
+<span class="codeline" id="line-207"><code>	<span class="keyword">if</span> <label for="r13" class="ident">gp</label> != <label for="r13" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-539" class="ident">curg</a> {</code></span>
 <span class="codeline" id="line-208"><code>		<a href="../../pkg/builtin.html#name-println" class="ident">println</a>(<span class="lit-string">"runtime: bad g in cgocallback"</span>)</code></span>
-<span class="codeline" id="line-209"><code>		<a href="stubs2.go.html#line-17" class="ident">exit</a>(<span class="lit-number">2</span>)</code></span>
+<span class="codeline" id="line-209"><code>		<a href="stubs2.go.html#line-20" class="ident">exit</a>(<span class="lit-number">2</span>)</code></span>
 <span class="codeline" id="line-210"><code>	}</code></span>
 <span class="codeline" id="line-211"><code></code></span>
 <span class="codeline" id="line-212"><code>	<span class="comment">// The call from C is on gp.m's g0 stack, so we must ensure</span></code></span>
 <span class="codeline" id="line-213"><code><span class="comment">	// that we stay on that M. We have to do this before calling</span></code></span>
 <span class="codeline" id="line-214"><code><span class="comment">	// exitsyscall, since it would otherwise be free to move us to</span></code></span>
 <span class="codeline" id="line-215"><code><span class="comment">	// a different M. The call to unlockOSThread is in unwindm.</span></code></span>
-<span class="codeline" id="line-216"><code>	<a href="proc.go.html#line-4409" class="ident">lockOSThread</a>()</code></span>
+<span class="codeline" id="line-216"><code>	<a href="proc.go.html#line-4417" class="ident">lockOSThread</a>()</code></span>
 <span class="codeline" id="line-217"><code></code></span>
 <span class="codeline" id="line-218"><code>	<label for="r14" class="ident">checkm</label> := <label for="r13" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a></code></span>
 <span class="codeline" id="line-219"><code></code></span>
 <span class="codeline" id="line-220"><code>	<span class="comment">// Save current syscall parameters, so m.syscall can be</span></code></span>
 <span class="codeline" id="line-221"><code><span class="comment">	// used again if callback decide to make syscall.</span></code></span>
-<span class="codeline" id="line-222"><code>	<label for="r15" class="ident">syscall</label> := <label for="r13" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-579" class="ident">syscall</a></code></span>
+<span class="codeline" id="line-222"><code>	<label for="r15" class="ident">syscall</label> := <label for="r13" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-586" class="ident">syscall</a></code></span>
 <span class="codeline" id="line-223"><code></code></span>
 <span class="codeline" id="line-224"><code>	<span class="comment">// entersyscall saves the caller's SP to allow the GC to trace the Go</span></code></span>
 <span class="codeline" id="line-225"><code><span class="comment">	// stack. However, since we're returning to an earlier stack frame and</span></code></span>
@@ -431,8 +431,8 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-227"><code><span class="comment">	// save syscall* and let reentersyscall restore them.</span></code></span>
 <span class="codeline" id="line-228"><code>	<label for="r16" class="ident">savedsp</label> := <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(<label for="r13" class="ident">gp</label>.<a href="runtime2.go.html#line-423" class="ident">syscallsp</a>)</code></span>
 <span class="codeline" id="line-229"><code>	<label for="r17" class="ident">savedpc</label> := <label for="r13" class="ident">gp</label>.<a href="runtime2.go.html#line-424" class="ident">syscallpc</a></code></span>
-<span class="codeline" id="line-230"><code>	<a href="proc.go.html#line-3765" class="ident">exitsyscall</a>() <span class="comment">// coming out of cgo call</span></code></span>
-<span class="codeline" id="line-231"><code>	<label for="r13" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-548" class="ident">incgo</a> = <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-230"><code>	<a href="proc.go.html#line-3773" class="ident">exitsyscall</a>() <span class="comment">// coming out of cgo call</span></code></span>
+<span class="codeline" id="line-231"><code>	<label for="r13" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-555" class="ident">incgo</a> = <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
 <span class="codeline" id="line-232"><code></code></span>
 <span class="codeline" id="line-233"><code>	<a href="preempt_nonwindows.go.html#line-13" class="ident">osPreemptExtExit</a>(<label for="r13" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>)</code></span>
 <span class="codeline" id="line-234"><code></code></span>
@@ -442,7 +442,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-238"><code><span class="comment">	// The following code must not change to a different m.</span></code></span>
 <span class="codeline" id="line-239"><code><span class="comment">	// This is enforced by checking incgo in the schedule function.</span></code></span>
 <span class="codeline" id="line-240"><code></code></span>
-<span class="codeline" id="line-241"><code>	<label for="r13" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-548" class="ident">incgo</a> = <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-241"><code>	<label for="r13" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-555" class="ident">incgo</a> = <a href="../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
 <span class="codeline" id="line-242"><code></code></span>
 <span class="codeline" id="line-243"><code>	<span class="keyword">if</span> <label for="r13" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a> != <label for="r14" class="ident">checkm</label> {</code></span>
 <span class="codeline" id="line-244"><code>		<a href="panic.go.html#line-1040" class="ident">throw</a>(<span class="lit-string">"m changed unexpectedly in cgocallbackg"</span>)</code></span>
@@ -451,9 +451,9 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-247"><code>	<a href="preempt_nonwindows.go.html#line-10" class="ident">osPreemptExtEnter</a>(<label for="r13" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>)</code></span>
 <span class="codeline" id="line-248"><code></code></span>
 <span class="codeline" id="line-249"><code>	<span class="comment">// going back to cgo call</span></code></span>
-<span class="codeline" id="line-250"><code>	<a href="proc.go.html#line-3604" class="ident">reentersyscall</a>(<label for="r17" class="ident">savedpc</label>, <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<label for="r16" class="ident">savedsp</label>))</code></span>
+<span class="codeline" id="line-250"><code>	<a href="proc.go.html#line-3612" class="ident">reentersyscall</a>(<label for="r17" class="ident">savedpc</label>, <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>(<label for="r16" class="ident">savedsp</label>))</code></span>
 <span class="codeline" id="line-251"><code></code></span>
-<span class="codeline" id="line-252"><code>	<label for="r13" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-579" class="ident">syscall</a> = <label for="r15" class="ident">syscall</label></code></span>
+<span class="codeline" id="line-252"><code>	<label for="r13" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-586" class="ident">syscall</a> = <label for="r15" class="ident">syscall</label></code></span>
 <span class="codeline" id="line-253"><code>}</code></span>
 <span class="codeline" id="line-254"><code></code></span>
 <span class="codeline" id="line-255"><code><span class="keyword">func</span> <label for="r18" class="ident"><a href="../../pkg/runtime.html#name-cgocallbackg1" class="ident">cgocallbackg1</a></label>(<label for="r19" class="ident">fn</label>, <label for="r20" class="ident">frame</label> <a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>, <label for="r21" class="ident">ctxt</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) {</code></span>
@@ -461,11 +461,11 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-257"><code></code></span>
 <span class="codeline" id="line-258"><code>	<span class="comment">// When we return, undo the call to lockOSThread in cgocallbackg.</span></code></span>
 <span class="codeline" id="line-259"><code><span class="comment">	// We must still stay on the same m.</span></code></span>
-<span class="codeline" id="line-260"><code>	<span class="keyword">defer</span> <a href="proc.go.html#line-4455" class="ident">unlockOSThread</a>()</code></span>
+<span class="codeline" id="line-260"><code>	<span class="keyword">defer</span> <a href="proc.go.html#line-4463" class="ident">unlockOSThread</a>()</code></span>
 <span class="codeline" id="line-261"><code></code></span>
-<span class="codeline" id="line-262"><code>	<span class="keyword">if</span> <label for="r22" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-551" class="ident">needextram</a> || <a href="../../pkg/runtime/internal/atomic.html" class="ident i1">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-17" class="ident">Load</a>(&amp;<a href="proc.go.html#line-2005" class="ident">extraMWaiters</a>) &gt; <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-263"><code>		<label for="r22" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-551" class="ident">needextram</a> = <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-264"><code>		<a href="stubs.go.html#line-60" class="ident">systemstack</a>(<a href="proc.go.html#line-1881" class="ident">newextram</a>)</code></span>
+<span class="codeline" id="line-262"><code>	<span class="keyword">if</span> <label for="r22" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-558" class="ident">needextram</a> || <a href="../../pkg/runtime/internal/atomic.html" class="ident i1">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-17" class="ident">Load</a>(&amp;<a href="proc.go.html#line-2013" class="ident">extraMWaiters</a>) &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-263"><code>		<label for="r22" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-558" class="ident">needextram</a> = <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-264"><code>		<a href="stubs.go.html#line-60" class="ident">systemstack</a>(<a href="proc.go.html#line-1889" class="ident">newextram</a>)</code></span>
 <span class="codeline" id="line-265"><code>	}</code></span>
 <span class="codeline" id="line-266"><code></code></span>
 <span class="codeline" id="line-267"><code>	<span class="keyword">if</span> <label for="r21" class="ident">ctxt</label> != <span class="lit-number">0</span> {</code></span>
@@ -489,7 +489,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-285"><code>		}(<label for="r22" class="ident">gp</label>)</code></span>
 <span class="codeline" id="line-286"><code>	}</code></span>
 <span class="codeline" id="line-287"><code></code></span>
-<span class="codeline" id="line-288"><code>	<span class="keyword">if</span> <label for="r22" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-554" class="ident">ncgo</a> == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-288"><code>	<span class="keyword">if</span> <label for="r22" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-561" class="ident">ncgo</a> == <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-289"><code>		<span class="comment">// The C call to Go came from a thread not currently running</span></code></span>
 <span class="codeline" id="line-290"><code><span class="comment">		// any Go. In the case of -buildmode=c-archive or c-shared,</span></code></span>
 <span class="codeline" id="line-291"><code><span class="comment">		// this call may be coming in before package initialization</span></code></span>
@@ -499,8 +499,8 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-295"><code></code></span>
 <span class="codeline" id="line-296"><code>	<span class="comment">// Check whether the profiler needs to be turned on or off; this route to</span></code></span>
 <span class="codeline" id="line-297"><code><span class="comment">	// run Go code does not use runtime.execute, so bypasses the check there.</span></code></span>
-<span class="codeline" id="line-298"><code>	<label for="r27" class="ident">hz</label> := <a href="runtime2.go.html#line-1103" class="ident">sched</a>.<a href="runtime2.go.html#line-833" class="ident">profilehz</a></code></span>
-<span class="codeline" id="line-299"><code>	<span class="keyword">if</span> <label for="r22" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-543" class="ident">profilehz</a> != <label for="r27" class="ident">hz</label> {</code></span>
+<span class="codeline" id="line-298"><code>	<label for="r27" class="ident">hz</label> := <a href="runtime2.go.html#line-1110" class="ident">sched</a>.<a href="runtime2.go.html#line-840" class="ident">profilehz</a></code></span>
+<span class="codeline" id="line-299"><code>	<span class="keyword">if</span> <label for="r22" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-550" class="ident">profilehz</a> != <label for="r27" class="ident">hz</label> {</code></span>
 <span class="codeline" id="line-300"><code>		<a href="os_linux.go.html#line-613" class="ident">setThreadCPUProfiler</a>(<label for="r27" class="ident">hz</label>)</code></span>
 <span class="codeline" id="line-301"><code>	}</code></span>
 <span class="codeline" id="line-302"><code></code></span>
@@ -533,7 +533,7 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-329"><code>		<span class="comment">// Restore sp saved by cgocallback during</span></code></span>
 <span class="codeline" id="line-330"><code><span class="comment">		// unwind of g's stack (see comment at top of file).</span></code></span>
 <span class="codeline" id="line-331"><code>		<label for="r34" class="ident">mp</label> := <a href="runtime1.go.html#line-476" class="ident">acquirem</a>()</code></span>
-<span class="codeline" id="line-332"><code>		<label for="r35" class="ident">sched</label> := &amp;<label for="r34" class="ident">mp</label>.<a href="runtime2.go.html#line-520" class="ident">g0</a>.<a href="runtime2.go.html#line-422" class="ident">sched</a></code></span>
+<span class="codeline" id="line-332"><code>		<label for="r35" class="ident">sched</label> := &amp;<label for="r34" class="ident">mp</label>.<a href="runtime2.go.html#line-527" class="ident">g0</a>.<a href="runtime2.go.html#line-422" class="ident">sched</a></code></span>
 <span class="codeline" id="line-333"><code>		<label for="r35" class="ident">sched</label>.<a href="runtime2.go.html#line-329" class="ident">sp</a> = *(*<a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>)(<a href="../../pkg/unsafe.html" class="ident i3">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(<label for="r35" class="ident">sched</label>.<a href="runtime2.go.html#line-329" class="ident">sp</a> + <a href="stubs.go.html#line-412" class="ident">alignUp</a>(<a href="../../pkg/runtime/internal/sys.html" class="ident i2">sys</a>.<a href="internal/sys/consts.go.html#line-30" class="ident">MinFrameSize</a>, <a href="../../pkg/runtime/internal/sys.html" class="ident i2">sys</a>.<a href="internal/sys/consts.go.html#line-34" class="ident">StackAlign</a>)))</code></span>
 <span class="codeline" id="line-334"><code></code></span>
 <span class="codeline" id="line-335"><code>		<span class="comment">// Do the accounting that cgocall will not have a chance to do</span></code></span>
@@ -541,9 +541,9 @@ input[id=i3]:checked ~pre .i3
 <span class="codeline" id="line-337"><code><span class="comment">		//</span></code></span>
 <span class="codeline" id="line-338"><code><span class="comment">		// In the case where a Go call originates from C, ncgo is 0</span></code></span>
 <span class="codeline" id="line-339"><code><span class="comment">		// and there is no matching cgocall to end.</span></code></span>
-<span class="codeline" id="line-340"><code>		<span class="keyword">if</span> <label for="r34" class="ident">mp</label>.<a href="runtime2.go.html#line-554" class="ident">ncgo</a> &gt; <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-341"><code>			<label for="r34" class="ident">mp</label>.<a href="runtime2.go.html#line-548" class="ident">incgo</a> = <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-342"><code>			<label for="r34" class="ident">mp</label>.<a href="runtime2.go.html#line-554" class="ident">ncgo</a>--</code></span>
+<span class="codeline" id="line-340"><code>		<span class="keyword">if</span> <label for="r34" class="ident">mp</label>.<a href="runtime2.go.html#line-561" class="ident">ncgo</a> &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-341"><code>			<label for="r34" class="ident">mp</label>.<a href="runtime2.go.html#line-555" class="ident">incgo</a> = <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-342"><code>			<label for="r34" class="ident">mp</label>.<a href="runtime2.go.html#line-561" class="ident">ncgo</a>--</code></span>
 <span class="codeline" id="line-343"><code>			<a href="preempt_nonwindows.go.html#line-13" class="ident">osPreemptExtExit</a>(<label for="r34" class="ident">mp</label>)</code></span>
 <span class="codeline" id="line-344"><code>		}</code></span>
 <span class="codeline" id="line-345"><code></code></span>

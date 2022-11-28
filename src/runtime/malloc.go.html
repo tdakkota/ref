@@ -1216,9 +1216,9 @@ input[id=i5]:checked ~pre .i5
 <span class="codeline" id="line-880"><code>			<span class="keyword">return</span> <a href="#line-1327" class="ident">persistentalloc</a>(<label for="r56" class="ident">size</label>, <label for="r60" class="ident">align</label>, &amp;<a href="mstats.go.html#line-57" class="ident">memstats</a>.<a href="mstats.go.html#line-30" class="ident">other_sys</a>)</code></span>
 <span class="codeline" id="line-881"><code>		}</code></span>
 <span class="codeline" id="line-882"><code></code></span>
-<span class="codeline" id="line-883"><code>		<span class="keyword">if</span> <a href="proc.go.html#line-6277" class="ident">inittrace</a>.<a href="proc.go.html#line-6280" class="ident">active</a> &amp;&amp; <a href="proc.go.html#line-6277" class="ident">inittrace</a>.<a href="proc.go.html#line-6281" class="ident">id</a> == <a href="stubs.go.html#line-24" class="ident">getg</a>().<a href="runtime2.go.html#line-440" class="ident">goid</a> {</code></span>
+<span class="codeline" id="line-883"><code>		<span class="keyword">if</span> <a href="proc.go.html#line-6285" class="ident">inittrace</a>.<a href="proc.go.html#line-6288" class="ident">active</a> &amp;&amp; <a href="proc.go.html#line-6285" class="ident">inittrace</a>.<a href="proc.go.html#line-6289" class="ident">id</a> == <a href="stubs.go.html#line-24" class="ident">getg</a>().<a href="runtime2.go.html#line-440" class="ident">goid</a> {</code></span>
 <span class="codeline" id="line-884"><code>			<span class="comment">// Init functions are executed sequentially in a single goroutine.</span></code></span>
-<span class="codeline" id="line-885"><code>			<a href="proc.go.html#line-6277" class="ident">inittrace</a>.<a href="proc.go.html#line-6282" class="ident">allocs</a> += <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-885"><code>			<a href="proc.go.html#line-6285" class="ident">inittrace</a>.<a href="proc.go.html#line-6290" class="ident">allocs</a> += <span class="lit-number">1</span></code></span>
 <span class="codeline" id="line-886"><code>		}</code></span>
 <span class="codeline" id="line-887"><code>	}</code></span>
 <span class="codeline" id="line-888"><code></code></span>
@@ -1228,8 +1228,8 @@ input[id=i5]:checked ~pre .i5
 <span class="codeline" id="line-892"><code>	<span class="keyword">if</span> <a href="mgc.go.html#line-204" class="ident">gcBlackenEnabled</a> != <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-893"><code>		<span class="comment">// Charge the current user G for this allocation.</span></code></span>
 <span class="codeline" id="line-894"><code>		<label for="r61" class="ident">assistG</label> = <a href="stubs.go.html#line-24" class="ident">getg</a>()</code></span>
-<span class="codeline" id="line-895"><code>		<span class="keyword">if</span> <label for="r61" class="ident">assistG</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-532" class="ident">curg</a> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-896"><code>			<label for="r61" class="ident">assistG</label> = <label for="r61" class="ident">assistG</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-532" class="ident">curg</a></code></span>
+<span class="codeline" id="line-895"><code>		<span class="keyword">if</span> <label for="r61" class="ident">assistG</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-539" class="ident">curg</a> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-896"><code>			<label for="r61" class="ident">assistG</label> = <label for="r61" class="ident">assistG</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-539" class="ident">curg</a></code></span>
 <span class="codeline" id="line-897"><code>		}</code></span>
 <span class="codeline" id="line-898"><code>		<span class="comment">// Charge the allocation against the G. We'll account</span></code></span>
 <span class="codeline" id="line-899"><code><span class="comment">		// for internal fragmentation at the end of mallocgc.</span></code></span>
@@ -1245,13 +1245,13 @@ input[id=i5]:checked ~pre .i5
 <span class="codeline" id="line-909"><code></code></span>
 <span class="codeline" id="line-910"><code>	<span class="comment">// Set mp.mallocing to keep from being preempted by GC.</span></code></span>
 <span class="codeline" id="line-911"><code>	<label for="r62" class="ident">mp</label> := <a href="runtime1.go.html#line-476" class="ident">acquirem</a>()</code></span>
-<span class="codeline" id="line-912"><code>	<span class="keyword">if</span> <label for="r62" class="ident">mp</label>.<a href="runtime2.go.html#line-538" class="ident">mallocing</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-912"><code>	<span class="keyword">if</span> <label for="r62" class="ident">mp</label>.<a href="runtime2.go.html#line-545" class="ident">mallocing</a> != <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-913"><code>		<a href="panic.go.html#line-1040" class="ident">throw</a>(<span class="lit-string">"malloc deadlock"</span>)</code></span>
 <span class="codeline" id="line-914"><code>	}</code></span>
-<span class="codeline" id="line-915"><code>	<span class="keyword">if</span> <label for="r62" class="ident">mp</label>.<a href="runtime2.go.html#line-527" class="ident">gsignal</a> == <a href="stubs.go.html#line-24" class="ident">getg</a>() {</code></span>
+<span class="codeline" id="line-915"><code>	<span class="keyword">if</span> <label for="r62" class="ident">mp</label>.<a href="runtime2.go.html#line-534" class="ident">gsignal</a> == <a href="stubs.go.html#line-24" class="ident">getg</a>() {</code></span>
 <span class="codeline" id="line-916"><code>		<a href="panic.go.html#line-1040" class="ident">throw</a>(<span class="lit-string">"malloc during signal"</span>)</code></span>
 <span class="codeline" id="line-917"><code>	}</code></span>
-<span class="codeline" id="line-918"><code>	<label for="r62" class="ident">mp</label>.<a href="runtime2.go.html#line-538" class="ident">mallocing</a> = <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-918"><code>	<label for="r62" class="ident">mp</label>.<a href="runtime2.go.html#line-545" class="ident">mallocing</a> = <span class="lit-number">1</span></code></span>
 <span class="codeline" id="line-919"><code></code></span>
 <span class="codeline" id="line-920"><code>	<label for="r63" class="ident">shouldhelpgc</label> := <a href="../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
 <span class="codeline" id="line-921"><code>	<label for="r64" class="ident">dataSize</label> := <label for="r59" class="ident">userSize</label></code></span>
@@ -1318,7 +1318,7 @@ input[id=i5]:checked ~pre .i5
 <span class="codeline" id="line-982"><code>				<label for="r67" class="ident">x</label> = <a href="../../pkg/unsafe.html" class="ident i5">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(<label for="r65" class="ident">c</label>.<a href="mcache.go.html#line-38" class="ident">tiny</a> + <label for="r70" class="ident">off</label>)</code></span>
 <span class="codeline" id="line-983"><code>				<label for="r65" class="ident">c</label>.<a href="mcache.go.html#line-39" class="ident">tinyoffset</a> = <label for="r70" class="ident">off</label> + <label for="r56" class="ident">size</label></code></span>
 <span class="codeline" id="line-984"><code>				<label for="r65" class="ident">c</label>.<a href="mcache.go.html#line-40" class="ident">tinyAllocs</a>++</code></span>
-<span class="codeline" id="line-985"><code>				<label for="r62" class="ident">mp</label>.<a href="runtime2.go.html#line-538" class="ident">mallocing</a> = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-985"><code>				<label for="r62" class="ident">mp</label>.<a href="runtime2.go.html#line-545" class="ident">mallocing</a> = <span class="lit-number">0</span></code></span>
 <span class="codeline" id="line-986"><code>				<a href="runtime1.go.html#line-483" class="ident">releasem</a>(<label for="r62" class="ident">mp</label>)</code></span>
 <span class="codeline" id="line-987"><code>				<span class="keyword">return</span> <label for="r67" class="ident">x</label></code></span>
 <span class="codeline" id="line-988"><code>			}</code></span>
@@ -1440,7 +1440,7 @@ input[id=i5]:checked ~pre .i5
 <span class="codeline" id="line-1104"><code>			<a href="#line-1222" class="ident">profilealloc</a>(<label for="r62" class="ident">mp</label>, <label for="r67" class="ident">x</label>, <label for="r56" class="ident">size</label>)</code></span>
 <span class="codeline" id="line-1105"><code>		}</code></span>
 <span class="codeline" id="line-1106"><code>	}</code></span>
-<span class="codeline" id="line-1107"><code>	<label for="r62" class="ident">mp</label>.<a href="runtime2.go.html#line-538" class="ident">mallocing</a> = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-1107"><code>	<label for="r62" class="ident">mp</label>.<a href="runtime2.go.html#line-545" class="ident">mallocing</a> = <span class="lit-number">0</span></code></span>
 <span class="codeline" id="line-1108"><code>	<a href="runtime1.go.html#line-483" class="ident">releasem</a>(<label for="r62" class="ident">mp</label>)</code></span>
 <span class="codeline" id="line-1109"><code></code></span>
 <span class="codeline" id="line-1110"><code>	<span class="comment">// Pointerfree data can be zeroed late in a context where preemption can occur.</span></code></span>
@@ -1457,9 +1457,9 @@ input[id=i5]:checked ~pre .i5
 <span class="codeline" id="line-1121"><code>			<a href="mprof.go.html#line-1231" class="ident">tracealloc</a>(<label for="r67" class="ident">x</label>, <label for="r56" class="ident">size</label>, <label for="r57" class="ident">typ</label>)</code></span>
 <span class="codeline" id="line-1122"><code>		}</code></span>
 <span class="codeline" id="line-1123"><code></code></span>
-<span class="codeline" id="line-1124"><code>		<span class="keyword">if</span> <a href="proc.go.html#line-6277" class="ident">inittrace</a>.<a href="proc.go.html#line-6280" class="ident">active</a> &amp;&amp; <a href="proc.go.html#line-6277" class="ident">inittrace</a>.<a href="proc.go.html#line-6281" class="ident">id</a> == <a href="stubs.go.html#line-24" class="ident">getg</a>().<a href="runtime2.go.html#line-440" class="ident">goid</a> {</code></span>
+<span class="codeline" id="line-1124"><code>		<span class="keyword">if</span> <a href="proc.go.html#line-6285" class="ident">inittrace</a>.<a href="proc.go.html#line-6288" class="ident">active</a> &amp;&amp; <a href="proc.go.html#line-6285" class="ident">inittrace</a>.<a href="proc.go.html#line-6289" class="ident">id</a> == <a href="stubs.go.html#line-24" class="ident">getg</a>().<a href="runtime2.go.html#line-440" class="ident">goid</a> {</code></span>
 <span class="codeline" id="line-1125"><code>			<span class="comment">// Init functions are executed sequentially in a single goroutine.</span></code></span>
-<span class="codeline" id="line-1126"><code>			<a href="proc.go.html#line-6277" class="ident">inittrace</a>.<a href="proc.go.html#line-6283" class="ident">bytes</a> += <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>(<label for="r56" class="ident">size</label>)</code></span>
+<span class="codeline" id="line-1126"><code>			<a href="proc.go.html#line-6285" class="ident">inittrace</a>.<a href="proc.go.html#line-6291" class="ident">bytes</a> += <a href="../../pkg/builtin.html#name-uint64" class="ident">uint64</a>(<label for="r56" class="ident">size</label>)</code></span>
 <span class="codeline" id="line-1127"><code>		}</code></span>
 <span class="codeline" id="line-1128"><code>	}</code></span>
 <span class="codeline" id="line-1129"><code></code></span>
@@ -1555,7 +1555,7 @@ input[id=i5]:checked ~pre .i5
 <span class="codeline" id="line-1219"><code>	<span class="keyword">return</span> <a href="#line-1206" class="ident">newarray</a>(<label for="r99" class="ident">typ</label>, <label for="r100" class="ident">n</label>)</code></span>
 <span class="codeline" id="line-1220"><code>}</code></span>
 <span class="codeline" id="line-1221"><code></code></span>
-<span class="codeline" id="line-1222"><code><span class="keyword">func</span> <label for="r101" class="ident"><a href="../../pkg/runtime.html#name-profilealloc" class="ident">profilealloc</a></label>(<label for="r102" class="ident">mp</label> *<a href="runtime2.go.html#line-519" class="ident">m</a>, <label for="r103" class="ident">x</label> <a href="../../pkg/unsafe.html" class="ident i5">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>, <label for="r104" class="ident">size</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) {</code></span>
+<span class="codeline" id="line-1222"><code><span class="keyword">func</span> <label for="r101" class="ident"><a href="../../pkg/runtime.html#name-profilealloc" class="ident">profilealloc</a></label>(<label for="r102" class="ident">mp</label> *<a href="runtime2.go.html#line-526" class="ident">m</a>, <label for="r103" class="ident">x</label> <a href="../../pkg/unsafe.html" class="ident i5">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>, <label for="r104" class="ident">size</label> <a href="../../pkg/builtin.html#name-uintptr" class="ident">uintptr</a>) {</code></span>
 <span class="codeline" id="line-1223"><code>	<label for="r105" class="ident">c</label> := <a href="mcache.go.html#line-125" class="ident">getMCache</a>(<label for="r102" class="ident">mp</label>)</code></span>
 <span class="codeline" id="line-1224"><code>	<span class="keyword">if</span> <label for="r105" class="ident">c</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-1225"><code>		<a href="panic.go.html#line-1040" class="ident">throw</a>(<span class="lit-string">"profilealloc called without a P or outside bootstrapping"</span>)</code></span>
@@ -1581,7 +1581,7 @@ input[id=i5]:checked ~pre .i5
 <span class="codeline" id="line-1245"><code>	}</code></span>
 <span class="codeline" id="line-1246"><code>	<span class="keyword">if</span> <a href="extern.go.html#line-283" class="ident">GOOS</a> == <span class="lit-string">"plan9"</span> {</code></span>
 <span class="codeline" id="line-1247"><code>		<span class="comment">// Plan 9 doesn't support floating point in note handler.</span></code></span>
-<span class="codeline" id="line-1248"><code>		<span class="keyword">if</span> <label for="r107" class="ident">g</label> := <a href="stubs.go.html#line-24" class="ident">getg</a>(); <label for="r107" class="ident">g</label> == <label for="r107" class="ident">g</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-527" class="ident">gsignal</a> {</code></span>
+<span class="codeline" id="line-1248"><code>		<span class="keyword">if</span> <label for="r107" class="ident">g</label> := <a href="stubs.go.html#line-24" class="ident">getg</a>(); <label for="r107" class="ident">g</label> == <label for="r107" class="ident">g</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-534" class="ident">gsignal</a> {</code></span>
 <span class="codeline" id="line-1249"><code>			<span class="keyword">return</span> <a href="#line-1288" class="ident">nextSampleNoFP</a>()</code></span>
 <span class="codeline" id="line-1250"><code>		}</code></span>
 <span class="codeline" id="line-1251"><code>	}</code></span>
@@ -1697,8 +1697,8 @@ input[id=i5]:checked ~pre .i5
 <span class="codeline" id="line-1361"><code></code></span>
 <span class="codeline" id="line-1362"><code>	<label for="r126" class="ident">mp</label> := <a href="runtime1.go.html#line-476" class="ident">acquirem</a>()</code></span>
 <span class="codeline" id="line-1363"><code>	<span class="keyword">var</span> <label for="r127" class="ident">persistent</label> *<a href="#line-1300" class="ident">persistentAlloc</a></code></span>
-<span class="codeline" id="line-1364"><code>	<span class="keyword">if</span> <label for="r126" class="ident">mp</label> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> &amp;&amp; <label for="r126" class="ident">mp</label>.<a href="runtime2.go.html#line-534" class="ident">p</a> != <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-1365"><code>		<label for="r127" class="ident">persistent</label> = &amp;<label for="r126" class="ident">mp</label>.<a href="runtime2.go.html#line-534" class="ident">p</a>.<a href="runtime2.go.html#line-285" class="ident">ptr</a>().<a href="runtime2.go.html#line-669" class="ident">palloc</a></code></span>
+<span class="codeline" id="line-1364"><code>	<span class="keyword">if</span> <label for="r126" class="ident">mp</label> != <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> &amp;&amp; <label for="r126" class="ident">mp</label>.<a href="runtime2.go.html#line-541" class="ident">p</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-1365"><code>		<label for="r127" class="ident">persistent</label> = &amp;<label for="r126" class="ident">mp</label>.<a href="runtime2.go.html#line-541" class="ident">p</a>.<a href="runtime2.go.html#line-285" class="ident">ptr</a>().<a href="runtime2.go.html#line-676" class="ident">palloc</a></code></span>
 <span class="codeline" id="line-1366"><code>	} <span class="keyword">else</span> {</code></span>
 <span class="codeline" id="line-1367"><code>		<a href="lock_futex.go.html#line-47" class="ident">lock</a>(&amp;<a href="#line-1305" class="ident">globalAlloc</a>.<a href="#line-1306" class="ident">mutex</a>)</code></span>
 <span class="codeline" id="line-1368"><code>		<label for="r127" class="ident">persistent</label> = &amp;<a href="#line-1305" class="ident">globalAlloc</a>.<a href="#line-1307" class="ident">persistentAlloc</a></code></span>

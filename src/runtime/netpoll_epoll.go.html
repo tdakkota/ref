@@ -225,9 +225,9 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-103"><code><span class="comment">// delay &lt; 0: blocks indefinitely</span></code></span>
 <span class="codeline" id="line-104"><code><span class="comment">// delay == 0: does not block, just polls</span></code></span>
 <span class="codeline" id="line-105"><code><span class="comment">// delay &gt; 0: block for up to that many nanoseconds</span></code></span>
-<span class="codeline" id="line-106"><code><span class="keyword">func</span> <label for="r36" class="ident"><a href="../../pkg/runtime.html#name-netpoll" class="ident">netpoll</a></label>(<label for="r37" class="ident">delay</label> <a href="../../pkg/builtin.html#name-int64" class="ident">int64</a>) <a href="proc.go.html#line-6098" class="ident">gList</a> {</code></span>
+<span class="codeline" id="line-106"><code><span class="keyword">func</span> <label for="r36" class="ident"><a href="../../pkg/runtime.html#name-netpoll" class="ident">netpoll</a></label>(<label for="r37" class="ident">delay</label> <a href="../../pkg/builtin.html#name-int64" class="ident">int64</a>) <a href="proc.go.html#line-6106" class="ident">gList</a> {</code></span>
 <span class="codeline" id="line-107"><code>	<span class="keyword">if</span> <a href="#line-25" class="ident">epfd</a> == -<span class="lit-number">1</span> {</code></span>
-<span class="codeline" id="line-108"><code>		<span class="keyword">return</span> <a href="proc.go.html#line-6098" class="ident">gList</a>{}</code></span>
+<span class="codeline" id="line-108"><code>		<span class="keyword">return</span> <a href="proc.go.html#line-6106" class="ident">gList</a>{}</code></span>
 <span class="codeline" id="line-109"><code>	}</code></span>
 <span class="codeline" id="line-110"><code>	<span class="keyword">var</span> <label for="r38" class="ident">waitms</label> <a href="../../pkg/builtin.html#name-int32" class="ident">int32</a></code></span>
 <span class="codeline" id="line-111"><code>	<span class="keyword">if</span> <label for="r37" class="ident">delay</label> &lt; <span class="lit-number">0</span> {</code></span>
@@ -254,11 +254,11 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-132"><code>		<span class="comment">// If a timed sleep was interrupted, just return to</span></code></span>
 <span class="codeline" id="line-133"><code><span class="comment">		// recalculate how long we should sleep now.</span></code></span>
 <span class="codeline" id="line-134"><code>		<span class="keyword">if</span> <label for="r38" class="ident">waitms</label> &gt; <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-135"><code>			<span class="keyword">return</span> <a href="proc.go.html#line-6098" class="ident">gList</a>{}</code></span>
+<span class="codeline" id="line-135"><code>			<span class="keyword">return</span> <a href="proc.go.html#line-6106" class="ident">gList</a>{}</code></span>
 <span class="codeline" id="line-136"><code>		}</code></span>
 <span class="codeline" id="line-137"><code>		<span class="keyword">goto</span> <label for="r40" class="ident">retry</label></code></span>
 <span class="codeline" id="line-138"><code>	}</code></span>
-<span class="codeline" id="line-139"><code>	<span class="keyword">var</span> <label for="r42" class="ident">toRun</label> <a href="proc.go.html#line-6098" class="ident">gList</a></code></span>
+<span class="codeline" id="line-139"><code>	<span class="keyword">var</span> <label for="r42" class="ident">toRun</label> <a href="proc.go.html#line-6106" class="ident">gList</a></code></span>
 <span class="codeline" id="line-140"><code>	<span class="keyword">for</span> <label for="r43" class="ident">i</label> := <a href="../../pkg/builtin.html#name-int32" class="ident">int32</a>(<span class="lit-number">0</span>); <label for="r43" class="ident">i</label> &lt; <label for="r41" class="ident">n</label>; <label for="r43" class="ident">i</label>++ {</code></span>
 <span class="codeline" id="line-141"><code>		<label for="r44" class="ident">ev</label> := &amp;<label for="r39" class="ident">events</label>[<label for="r43" class="ident">i</label>]</code></span>
 <span class="codeline" id="line-142"><code>		<span class="keyword">if</span> <label for="r44" class="ident">ev</label>.<a href="defs_linux_amd64.go.html#line-175" class="ident">events</a> == <span class="lit-number">0</span> {</code></span>
@@ -275,7 +275,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-153"><code><span class="comment">				// nonblocking poll. Only read the byte</span></code></span>
 <span class="codeline" id="line-154"><code><span class="comment">				// if blocking.</span></code></span>
 <span class="codeline" id="line-155"><code>				<span class="keyword">var</span> <label for="r45" class="ident">tmp</label> [<span class="lit-number">16</span>]<a href="../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
-<span class="codeline" id="line-156"><code>				<a href="stubs2.go.html#line-13" class="ident">read</a>(<a href="../../pkg/builtin.html#name-int32" class="ident">int32</a>(<a href="#line-27" class="ident">netpollBreakRd</a>), <a href="stubs.go.html#line-220" class="ident">noescape</a>(<a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(&amp;<label for="r45" class="ident">tmp</label>[<span class="lit-number">0</span>])), <a href="../../pkg/builtin.html#name-int32" class="ident">int32</a>(<a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r45" class="ident">tmp</label>)))</code></span>
+<span class="codeline" id="line-156"><code>				<a href="stubs2.go.html#line-16" class="ident">read</a>(<a href="../../pkg/builtin.html#name-int32" class="ident">int32</a>(<a href="#line-27" class="ident">netpollBreakRd</a>), <a href="stubs.go.html#line-220" class="ident">noescape</a>(<a href="../../pkg/unsafe.html" class="ident i1">unsafe</a>.<a href="../../pkg/unsafe.html#name-Pointer" class="ident">Pointer</a>(&amp;<label for="r45" class="ident">tmp</label>[<span class="lit-number">0</span>])), <a href="../../pkg/builtin.html#name-int32" class="ident">int32</a>(<a href="../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r45" class="ident">tmp</label>)))</code></span>
 <span class="codeline" id="line-157"><code>				<a href="../../pkg/runtime/internal/atomic.html" class="ident i0">atomic</a>.<a href="internal/atomic/atomic_amd64.go.html#line-96" class="ident">Store</a>(&amp;<a href="#line-29" class="ident">netpollWakeSig</a>, <span class="lit-number">0</span>)</code></span>
 <span class="codeline" id="line-158"><code>			}</code></span>
 <span class="codeline" id="line-159"><code>			<span class="keyword">continue</span></code></span>

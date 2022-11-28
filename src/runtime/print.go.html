@@ -221,18 +221,18 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-65"><code></code></span>
 <span class="codeline" id="line-66"><code><span class="keyword">func</span> <label for="r9" class="ident"><a href="../../pkg/runtime.html#name-printlock" class="ident">printlock</a></label>() {</code></span>
 <span class="codeline" id="line-67"><code>	<label for="r10" class="ident">mp</label> := <a href="stubs.go.html#line-24" class="ident">getg</a>().<a href="runtime2.go.html#line-421" class="ident">m</a></code></span>
-<span class="codeline" id="line-68"><code>	<label for="r10" class="ident">mp</label>.<a href="runtime2.go.html#line-541" class="ident">locks</a>++ <span class="comment">// do not reschedule between printlock++ and lock(&amp;debuglock).</span></code></span>
-<span class="codeline" id="line-69"><code>	<label for="r10" class="ident">mp</label>.<a href="runtime2.go.html#line-547" class="ident">printlock</a>++</code></span>
-<span class="codeline" id="line-70"><code>	<span class="keyword">if</span> <label for="r10" class="ident">mp</label>.<a href="runtime2.go.html#line-547" class="ident">printlock</a> == <span class="lit-number">1</span> {</code></span>
+<span class="codeline" id="line-68"><code>	<label for="r10" class="ident">mp</label>.<a href="runtime2.go.html#line-548" class="ident">locks</a>++ <span class="comment">// do not reschedule between printlock++ and lock(&amp;debuglock).</span></code></span>
+<span class="codeline" id="line-69"><code>	<label for="r10" class="ident">mp</label>.<a href="runtime2.go.html#line-554" class="ident">printlock</a>++</code></span>
+<span class="codeline" id="line-70"><code>	<span class="keyword">if</span> <label for="r10" class="ident">mp</label>.<a href="runtime2.go.html#line-554" class="ident">printlock</a> == <span class="lit-number">1</span> {</code></span>
 <span class="codeline" id="line-71"><code>		<a href="lock_futex.go.html#line-47" class="ident">lock</a>(&amp;<a href="#line-56" class="ident">debuglock</a>)</code></span>
 <span class="codeline" id="line-72"><code>	}</code></span>
-<span class="codeline" id="line-73"><code>	<label for="r10" class="ident">mp</label>.<a href="runtime2.go.html#line-541" class="ident">locks</a>-- <span class="comment">// now we know debuglock is held and holding up mp.locks for us.</span></code></span>
+<span class="codeline" id="line-73"><code>	<label for="r10" class="ident">mp</label>.<a href="runtime2.go.html#line-548" class="ident">locks</a>-- <span class="comment">// now we know debuglock is held and holding up mp.locks for us.</span></code></span>
 <span class="codeline" id="line-74"><code>}</code></span>
 <span class="codeline" id="line-75"><code></code></span>
 <span class="codeline" id="line-76"><code><span class="keyword">func</span> <label for="r11" class="ident"><a href="../../pkg/runtime.html#name-printunlock" class="ident">printunlock</a></label>() {</code></span>
 <span class="codeline" id="line-77"><code>	<label for="r12" class="ident">mp</label> := <a href="stubs.go.html#line-24" class="ident">getg</a>().<a href="runtime2.go.html#line-421" class="ident">m</a></code></span>
-<span class="codeline" id="line-78"><code>	<label for="r12" class="ident">mp</label>.<a href="runtime2.go.html#line-547" class="ident">printlock</a>--</code></span>
-<span class="codeline" id="line-79"><code>	<span class="keyword">if</span> <label for="r12" class="ident">mp</label>.<a href="runtime2.go.html#line-547" class="ident">printlock</a> == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-78"><code>	<label for="r12" class="ident">mp</label>.<a href="runtime2.go.html#line-554" class="ident">printlock</a>--</code></span>
+<span class="codeline" id="line-79"><code>	<span class="keyword">if</span> <label for="r12" class="ident">mp</label>.<a href="runtime2.go.html#line-554" class="ident">printlock</a> == <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-80"><code>		<a href="lock_futex.go.html#line-111" class="ident">unlock</a>(&amp;<a href="#line-56" class="ident">debuglock</a>)</code></span>
 <span class="codeline" id="line-81"><code>	}</code></span>
 <span class="codeline" id="line-82"><code>}</code></span>
@@ -250,7 +250,7 @@ input[id=i2]:checked ~pre .i2
 <span class="codeline" id="line-94"><code><span class="comment">	// than be written to in some buffer, if we're in a panicking state.</span></code></span>
 <span class="codeline" id="line-95"><code><span class="comment">	// Note that we can't just clear writebuf in the gp.m.dying case</span></code></span>
 <span class="codeline" id="line-96"><code><span class="comment">	// because a panic isn't allowed to have any write barriers.</span></code></span>
-<span class="codeline" id="line-97"><code>	<span class="keyword">if</span> <label for="r15" class="ident">gp</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> || <label for="r15" class="ident">gp</label>.<a href="runtime2.go.html#line-478" class="ident">writebuf</a> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> || <label for="r15" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-542" class="ident">dying</a> &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-97"><code>	<span class="keyword">if</span> <label for="r15" class="ident">gp</label> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> || <label for="r15" class="ident">gp</label>.<a href="runtime2.go.html#line-478" class="ident">writebuf</a> == <a href="../../pkg/builtin.html#name-nil" class="ident">nil</a> || <label for="r15" class="ident">gp</label>.<a href="runtime2.go.html#line-421" class="ident">m</a>.<a href="runtime2.go.html#line-549" class="ident">dying</a> &gt; <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-98"><code>		<a href="write_err.go.html#line-11" class="ident">writeErr</a>(<label for="r14" class="ident">b</label>)</code></span>
 <span class="codeline" id="line-99"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-100"><code>	}</code></span>

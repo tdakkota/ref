@@ -9,32 +9,32 @@
 <script src="../jvs/golds-v0.5.2.js"></script>
 <body onload="onPageLoad()"><div>
 
-<pre><code><span style="font-size:x-large;">var <b><a href="../pkg/runtime.html">runtime</a>.<a href="../src/runtime/proc.go.html#line-2063">newmHandoff</a></b></span>
+<pre><code><span style="font-size:x-large;">var <b><a href="../pkg/runtime.html">runtime</a>.<a href="../src/runtime/proc.go.html#line-2071">newmHandoff</a></b></span>
 
 <span class="title">21 uses</span>
 
 	runtime (current package)
-		<a href="../src/runtime/proc.go.html#line-2063">proc.go#L2063</a>: var <b>newmHandoff</b> struct {
-		<a href="../src/runtime/proc.go.html#line-2116" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2116">#L2116</a>: 		lock(&amp;<b>newmHandoff</b>.lock)
-		<a href="../src/runtime/proc.go.html#line-2117" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2117">#L2117</a>: 		if <b>newmHandoff</b>.haveTemplateThread == 0 {
-		<a href="../src/runtime/proc.go.html#line-2120" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2120">#L2120</a>: 		mp.schedlink = <b>newmHandoff</b>.newm
-		<a href="../src/runtime/proc.go.html#line-2121" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2121">#L2121</a>: 		<b>newmHandoff</b>.newm.set(mp)
-		<a href="../src/runtime/proc.go.html#line-2122" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2122">#L2122</a>: 		if <b>newmHandoff</b>.waiting {
-		<a href="../src/runtime/proc.go.html#line-2123" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2123">#L2123</a>: 			<b>newmHandoff</b>.waiting = false
-		<a href="../src/runtime/proc.go.html#line-2124" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2124">#L2124</a>: 			notewakeup(&amp;<b>newmHandoff</b>.wake)
-		<a href="../src/runtime/proc.go.html#line-2126" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2126">#L2126</a>: 		unlock(&amp;<b>newmHandoff</b>.lock)
-		<a href="../src/runtime/proc.go.html#line-2174" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2174">#L2174</a>: 	if !atomic.Cas(&amp;<b>newmHandoff</b>.haveTemplateThread, 0, 1) {
-		<a href="../src/runtime/proc.go.html#line-2201" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2201">#L2201</a>: 		lock(&amp;<b>newmHandoff</b>.lock)
-		<a href="../src/runtime/proc.go.html#line-2202" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2202">#L2202</a>: 		for <b>newmHandoff</b>.newm != 0 {
-		<a href="../src/runtime/proc.go.html#line-2203" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2203">#L2203</a>: 			newm := <b>newmHandoff</b>.newm.ptr()
-		<a href="../src/runtime/proc.go.html#line-2204" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2204">#L2204</a>: 			<b>newmHandoff</b>.newm = 0
-		<a href="../src/runtime/proc.go.html#line-2205" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2205">#L2205</a>: 			unlock(&amp;<b>newmHandoff</b>.lock)
-		<a href="../src/runtime/proc.go.html#line-2212" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2212">#L2212</a>: 			lock(&amp;<b>newmHandoff</b>.lock)
-		<a href="../src/runtime/proc.go.html#line-2214" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2214">#L2214</a>: 		<b>newmHandoff</b>.waiting = true
-		<a href="../src/runtime/proc.go.html#line-2215" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2215">#L2215</a>: 		noteclear(&amp;<b>newmHandoff</b>.wake)
-		<a href="../src/runtime/proc.go.html#line-2216" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2216">#L2216</a>: 		unlock(&amp;<b>newmHandoff</b>.lock)
-		<a href="../src/runtime/proc.go.html#line-2217" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2217">#L2217</a>: 		notesleep(&amp;<b>newmHandoff</b>.wake)
-		<a href="../src/runtime/proc.go.html#line-4393" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-4393">#L4393</a>: 	if atomic.Load(&amp;<b>newmHandoff</b>.haveTemplateThread) == 0 &amp;&amp; GOOS != "plan9" {
+		<a href="../src/runtime/proc.go.html#line-2071">proc.go#L2071</a>: var <b>newmHandoff</b> struct {
+		<a href="../src/runtime/proc.go.html#line-2124" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2124">#L2124</a>: 		lock(&amp;<b>newmHandoff</b>.lock)
+		<a href="../src/runtime/proc.go.html#line-2125" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2125">#L2125</a>: 		if <b>newmHandoff</b>.haveTemplateThread == 0 {
+		<a href="../src/runtime/proc.go.html#line-2128" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2128">#L2128</a>: 		mp.schedlink = <b>newmHandoff</b>.newm
+		<a href="../src/runtime/proc.go.html#line-2129" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2129">#L2129</a>: 		<b>newmHandoff</b>.newm.set(mp)
+		<a href="../src/runtime/proc.go.html#line-2130" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2130">#L2130</a>: 		if <b>newmHandoff</b>.waiting {
+		<a href="../src/runtime/proc.go.html#line-2131" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2131">#L2131</a>: 			<b>newmHandoff</b>.waiting = false
+		<a href="../src/runtime/proc.go.html#line-2132" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2132">#L2132</a>: 			notewakeup(&amp;<b>newmHandoff</b>.wake)
+		<a href="../src/runtime/proc.go.html#line-2134" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2134">#L2134</a>: 		unlock(&amp;<b>newmHandoff</b>.lock)
+		<a href="../src/runtime/proc.go.html#line-2182" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2182">#L2182</a>: 	if !atomic.Cas(&amp;<b>newmHandoff</b>.haveTemplateThread, 0, 1) {
+		<a href="../src/runtime/proc.go.html#line-2209" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2209">#L2209</a>: 		lock(&amp;<b>newmHandoff</b>.lock)
+		<a href="../src/runtime/proc.go.html#line-2210" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2210">#L2210</a>: 		for <b>newmHandoff</b>.newm != 0 {
+		<a href="../src/runtime/proc.go.html#line-2211" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2211">#L2211</a>: 			newm := <b>newmHandoff</b>.newm.ptr()
+		<a href="../src/runtime/proc.go.html#line-2212" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2212">#L2212</a>: 			<b>newmHandoff</b>.newm = 0
+		<a href="../src/runtime/proc.go.html#line-2213" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2213">#L2213</a>: 			unlock(&amp;<b>newmHandoff</b>.lock)
+		<a href="../src/runtime/proc.go.html#line-2220" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2220">#L2220</a>: 			lock(&amp;<b>newmHandoff</b>.lock)
+		<a href="../src/runtime/proc.go.html#line-2222" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2222">#L2222</a>: 		<b>newmHandoff</b>.waiting = true
+		<a href="../src/runtime/proc.go.html#line-2223" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2223">#L2223</a>: 		noteclear(&amp;<b>newmHandoff</b>.wake)
+		<a href="../src/runtime/proc.go.html#line-2224" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2224">#L2224</a>: 		unlock(&amp;<b>newmHandoff</b>.lock)
+		<a href="../src/runtime/proc.go.html#line-2225" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-2225">#L2225</a>: 		notesleep(&amp;<b>newmHandoff</b>.wake)
+		<a href="../src/runtime/proc.go.html#line-4401" class="path-duplicate">proc.go</a><a href="../src/runtime/proc.go.html#line-4401">#L4401</a>: 	if atomic.Load(&amp;<b>newmHandoff</b>.haveTemplateThread) == 0 &amp;&amp; GOOS != "plan9" {
 </code></pre><pre id="footer">
 <table><tr><td><img src="../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
