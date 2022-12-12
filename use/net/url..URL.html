@@ -11,7 +11,7 @@
 
 <pre><code><span style="font-size:x-large;">type <b><a href="../../pkg/net/url.html">net/url</a>.<a href="../../src/net/url/url.go.html#line-359">URL</a></b></span>
 
-<span class="title">82 uses</span>
+<span class="title">83 uses</span>
 
 	net/url (current package)
 		<a href="../../src/net/url/url.go.html#line-359">url.go#L359</a>: type <b>URL</b> struct {
@@ -76,10 +76,11 @@
 		<a href="../../src/crypto/x509/x509.go.html#line-1753" class="path-duplicate">x509.go</a><a href="../../src/crypto/x509/x509.go.html#line-1753">#L1753</a>: 	URIs           []*url.<b>URL</b>
 
 	<a href="../../pkg/go.uber.org/zap.html">go.uber.org/zap</a>
-		<a href="../../src/go.uber.org/zap/sink.go.html#line-39">sink.go#L39</a>: 	_sinkFactories map[string]func(*url.<b>URL</b>) (Sink, error) // keyed by scheme
-		<a href="../../src/go.uber.org/zap/sink.go.html#line-50" class="path-duplicate">sink.go</a><a href="../../src/go.uber.org/zap/sink.go.html#line-50">#L50</a>: 	_sinkFactories = map[string]func(*url.<b>URL</b>) (Sink, error){
-		<a href="../../src/go.uber.org/zap/sink.go.html#line-80" class="path-duplicate">sink.go</a><a href="../../src/go.uber.org/zap/sink.go.html#line-80">#L80</a>: func RegisterSink(scheme string, factory func(*url.<b>URL</b>) (Sink, error)) error {
-		<a href="../../src/go.uber.org/zap/sink.go.html#line-116" class="path-duplicate">sink.go</a><a href="../../src/go.uber.org/zap/sink.go.html#line-116">#L116</a>: func newFileSink(u *url.<b>URL</b>) (Sink, error) {
+		<a href="../../src/go.uber.org/zap/sink.go.html#line-60">sink.go#L60</a>: 	factories map[string]func(*url.<b>URL</b>) (Sink, error)          // keyed by scheme
+		<a href="../../src/go.uber.org/zap/sink.go.html#line-66" class="path-duplicate">sink.go</a><a href="../../src/go.uber.org/zap/sink.go.html#line-66">#L66</a>: 		factories: make(map[string]func(*url.<b>URL</b>) (Sink, error)),
+		<a href="../../src/go.uber.org/zap/sink.go.html#line-74" class="path-duplicate">sink.go</a><a href="../../src/go.uber.org/zap/sink.go.html#line-74">#L74</a>: func (sr *sinkRegistry) RegisterSink(scheme string, factory func(*url.<b>URL</b>) (Sink, error)) error {
+		<a href="../../src/go.uber.org/zap/sink.go.html#line-125" class="path-duplicate">sink.go</a><a href="../../src/go.uber.org/zap/sink.go.html#line-125">#L125</a>: func RegisterSink(scheme string, factory func(*url.<b>URL</b>) (Sink, error)) error {
+		<a href="../../src/go.uber.org/zap/sink.go.html#line-129" class="path-duplicate">sink.go</a><a href="../../src/go.uber.org/zap/sink.go.html#line-129">#L129</a>: func (sr *sinkRegistry) newFileSinkFromURL(u *url.<b>URL</b>) (Sink, error) {
 
 	<a href="../../pkg/golang.org/x/net/proxy.html">golang.org/x/net/proxy</a>
 		<a href="../../src/golang.org/x/net/proxy/proxy.go.html#line-67">proxy.go#L67</a>: var proxySchemes map[string]func(*url.<b>URL</b>, Dialer) (Dialer, error)

@@ -239,37 +239,38 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-133"><code>}</code></span>
 <span class="codeline" id="line-134"><code></code></span>
 <span class="codeline" id="line-135"><code><span class="comment">// OnFatal sets the action to take on fatal logs.</span></code></span>
-<span class="codeline" id="line-136"><code><span class="comment">// Deprecated: Use WithFatalHook instead.</span></code></span>
-<span class="codeline" id="line-137"><code><span class="keyword">func</span> <label for="r32" class="ident"><a href="../../../pkg/go.uber.org/zap.html#name-OnFatal" class="ident">OnFatal</a></label>(<label for="r33" class="ident">action</label> <a href="../../../pkg/go.uber.org/zap/zapcore.html" class="ident i1">zapcore</a>.<a href="zapcore/entry.go.html#line-177" class="ident">CheckWriteAction</a>) <a href="#line-30" class="ident">Option</a> {</code></span>
-<span class="codeline" id="line-138"><code>	<span class="keyword">return</span> <a href="#line-154" class="ident">WithFatalHook</a>(<label for="r33" class="ident">action</label>)</code></span>
-<span class="codeline" id="line-139"><code>}</code></span>
-<span class="codeline" id="line-140"><code></code></span>
-<span class="codeline" id="line-141"><code><span class="comment">// WithFatalHook sets a CheckWriteHook to run on fatal logs.</span></code></span>
-<span class="codeline" id="line-142"><code><span class="comment">// Zap will call this hook after writing a log statement with a Fatal level.</span></code></span>
-<span class="codeline" id="line-143"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-144"><code><span class="comment">// For example, the following builds a logger that will exit the current</span></code></span>
-<span class="codeline" id="line-145"><code><span class="comment">// goroutine after writing a fatal log message, but it will not exit the</span></code></span>
-<span class="codeline" id="line-146"><code><span class="comment">// program.</span></code></span>
-<span class="codeline" id="line-147"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-148"><code><span class="comment">//	zap.New(core, zap.WithFatalHook(zapcore.WriteThenGoexit))</span></code></span>
-<span class="codeline" id="line-149"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-150"><code><span class="comment">// It is important that the provided CheckWriteHook stops the control flow at</span></code></span>
-<span class="codeline" id="line-151"><code><span class="comment">// the current statement to meet expectations of callers of the logger.</span></code></span>
-<span class="codeline" id="line-152"><code><span class="comment">// We recommend calling os.Exit or runtime.Goexit inside custom hooks at</span></code></span>
-<span class="codeline" id="line-153"><code><span class="comment">// minimum.</span></code></span>
-<span class="codeline" id="line-154"><code><span class="keyword">func</span> <label for="r34" class="ident"><a href="../../../pkg/go.uber.org/zap.html#name-WithFatalHook" class="ident">WithFatalHook</a></label>(<label for="r35" class="ident">hook</label> <a href="../../../pkg/go.uber.org/zap/zapcore.html" class="ident i1">zapcore</a>.<a href="zapcore/entry.go.html#line-166" class="ident">CheckWriteHook</a>) <a href="#line-30" class="ident">Option</a> {</code></span>
-<span class="codeline" id="line-155"><code>	<span class="keyword">return</span> <a href="#line-35" class="ident">optionFunc</a>(<span class="keyword">func</span>(<label for="r36" class="ident">log</label> *<a href="logger.go.html#line-40" class="ident">Logger</a>) {</code></span>
-<span class="codeline" id="line-156"><code>		<label for="r36" class="ident">log</label>.<a href="logger.go.html#line-45" class="ident">onFatal</a> = <label for="r35" class="ident">hook</label></code></span>
-<span class="codeline" id="line-157"><code>	})</code></span>
-<span class="codeline" id="line-158"><code>}</code></span>
-<span class="codeline" id="line-159"><code></code></span>
-<span class="codeline" id="line-160"><code><span class="comment">// WithClock specifies the clock used by the logger to determine the current</span></code></span>
-<span class="codeline" id="line-161"><code><span class="comment">// time for logged entries. Defaults to the system clock with time.Now.</span></code></span>
-<span class="codeline" id="line-162"><code><span class="keyword">func</span> <label for="r37" class="ident"><a href="../../../pkg/go.uber.org/zap.html#name-WithClock" class="ident">WithClock</a></label>(<label for="r38" class="ident">clock</label> <a href="../../../pkg/go.uber.org/zap/zapcore.html" class="ident i1">zapcore</a>.<a href="zapcore/clock.go.html#line-30" class="ident">Clock</a>) <a href="#line-30" class="ident">Option</a> {</code></span>
-<span class="codeline" id="line-163"><code>	<span class="keyword">return</span> <a href="#line-35" class="ident">optionFunc</a>(<span class="keyword">func</span>(<label for="r39" class="ident">log</label> *<a href="logger.go.html#line-40" class="ident">Logger</a>) {</code></span>
-<span class="codeline" id="line-164"><code>		<label for="r39" class="ident">log</label>.<a href="logger.go.html#line-54" class="ident">clock</a> = <label for="r38" class="ident">clock</label></code></span>
-<span class="codeline" id="line-165"><code>	})</code></span>
-<span class="codeline" id="line-166"><code>}</code></span>
+<span class="codeline" id="line-136"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-137"><code><span class="comment">// Deprecated: Use [WithFatalHook] instead.</span></code></span>
+<span class="codeline" id="line-138"><code><span class="keyword">func</span> <label for="r32" class="ident"><a href="../../../pkg/go.uber.org/zap.html#name-OnFatal" class="ident">OnFatal</a></label>(<label for="r33" class="ident">action</label> <a href="../../../pkg/go.uber.org/zap/zapcore.html" class="ident i1">zapcore</a>.<a href="zapcore/entry.go.html#line-177" class="ident">CheckWriteAction</a>) <a href="#line-30" class="ident">Option</a> {</code></span>
+<span class="codeline" id="line-139"><code>	<span class="keyword">return</span> <a href="#line-155" class="ident">WithFatalHook</a>(<label for="r33" class="ident">action</label>)</code></span>
+<span class="codeline" id="line-140"><code>}</code></span>
+<span class="codeline" id="line-141"><code></code></span>
+<span class="codeline" id="line-142"><code><span class="comment">// WithFatalHook sets a CheckWriteHook to run on fatal logs.</span></code></span>
+<span class="codeline" id="line-143"><code><span class="comment">// Zap will call this hook after writing a log statement with a Fatal level.</span></code></span>
+<span class="codeline" id="line-144"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-145"><code><span class="comment">// For example, the following builds a logger that will exit the current</span></code></span>
+<span class="codeline" id="line-146"><code><span class="comment">// goroutine after writing a fatal log message, but it will not exit the</span></code></span>
+<span class="codeline" id="line-147"><code><span class="comment">// program.</span></code></span>
+<span class="codeline" id="line-148"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-149"><code><span class="comment">//	zap.New(core, zap.WithFatalHook(zapcore.WriteThenGoexit))</span></code></span>
+<span class="codeline" id="line-150"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-151"><code><span class="comment">// It is important that the provided CheckWriteHook stops the control flow at</span></code></span>
+<span class="codeline" id="line-152"><code><span class="comment">// the current statement to meet expectations of callers of the logger.</span></code></span>
+<span class="codeline" id="line-153"><code><span class="comment">// We recommend calling os.Exit or runtime.Goexit inside custom hooks at</span></code></span>
+<span class="codeline" id="line-154"><code><span class="comment">// minimum.</span></code></span>
+<span class="codeline" id="line-155"><code><span class="keyword">func</span> <label for="r34" class="ident"><a href="../../../pkg/go.uber.org/zap.html#name-WithFatalHook" class="ident">WithFatalHook</a></label>(<label for="r35" class="ident">hook</label> <a href="../../../pkg/go.uber.org/zap/zapcore.html" class="ident i1">zapcore</a>.<a href="zapcore/entry.go.html#line-166" class="ident">CheckWriteHook</a>) <a href="#line-30" class="ident">Option</a> {</code></span>
+<span class="codeline" id="line-156"><code>	<span class="keyword">return</span> <a href="#line-35" class="ident">optionFunc</a>(<span class="keyword">func</span>(<label for="r36" class="ident">log</label> *<a href="logger.go.html#line-40" class="ident">Logger</a>) {</code></span>
+<span class="codeline" id="line-157"><code>		<label for="r36" class="ident">log</label>.<a href="logger.go.html#line-45" class="ident">onFatal</a> = <label for="r35" class="ident">hook</label></code></span>
+<span class="codeline" id="line-158"><code>	})</code></span>
+<span class="codeline" id="line-159"><code>}</code></span>
+<span class="codeline" id="line-160"><code></code></span>
+<span class="codeline" id="line-161"><code><span class="comment">// WithClock specifies the clock used by the logger to determine the current</span></code></span>
+<span class="codeline" id="line-162"><code><span class="comment">// time for logged entries. Defaults to the system clock with time.Now.</span></code></span>
+<span class="codeline" id="line-163"><code><span class="keyword">func</span> <label for="r37" class="ident"><a href="../../../pkg/go.uber.org/zap.html#name-WithClock" class="ident">WithClock</a></label>(<label for="r38" class="ident">clock</label> <a href="../../../pkg/go.uber.org/zap/zapcore.html" class="ident i1">zapcore</a>.<a href="zapcore/clock.go.html#line-30" class="ident">Clock</a>) <a href="#line-30" class="ident">Option</a> {</code></span>
+<span class="codeline" id="line-164"><code>	<span class="keyword">return</span> <a href="#line-35" class="ident">optionFunc</a>(<span class="keyword">func</span>(<label for="r39" class="ident">log</label> *<a href="logger.go.html#line-40" class="ident">Logger</a>) {</code></span>
+<span class="codeline" id="line-165"><code>		<label for="r39" class="ident">log</label>.<a href="logger.go.html#line-54" class="ident">clock</a> = <label for="r38" class="ident">clock</label></code></span>
+<span class="codeline" id="line-166"><code>	})</code></span>
+<span class="codeline" id="line-167"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)

@@ -409,22 +409,23 @@ input[id=i7]:checked ~pre .i7
 <span class="codeline" id="line-281"><code><span class="comment">// Should sets this CheckedEntry's CheckWriteAction, which controls whether a</span></code></span>
 <span class="codeline" id="line-282"><code><span class="comment">// Core will panic or fatal after writing this log entry. Like AddCore, it's</span></code></span>
 <span class="codeline" id="line-283"><code><span class="comment">// safe to call on nil CheckedEntry references.</span></code></span>
-<span class="codeline" id="line-284"><code><span class="comment">// Deprecated: Use After(ent Entry, after CheckWriteHook) instead.</span></code></span>
-<span class="codeline" id="line-285"><code><span class="keyword">func</span> (<label for="r37" class="ident">ce</label> *<a href="#line-212" class="ident">CheckedEntry</a>) <label for="r38" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..CheckedEntry.Should.html" class="ident">Should</a></label>(<label for="r39" class="ident">ent</label> <a href="#line-145" class="ident">Entry</a>, <label for="r40" class="ident">should</label> <a href="#line-177" class="ident">CheckWriteAction</a>) *<a href="#line-212" class="ident">CheckedEntry</a> {</code></span>
-<span class="codeline" id="line-286"><code>	<span class="keyword">return</span> <label for="r37" class="ident">ce</label>.<a href="#line-292" class="ident">After</a>(<label for="r39" class="ident">ent</label>, <label for="r40" class="ident">should</label>)</code></span>
-<span class="codeline" id="line-287"><code>}</code></span>
-<span class="codeline" id="line-288"><code></code></span>
-<span class="codeline" id="line-289"><code><span class="comment">// After sets this CheckEntry's CheckWriteHook, which will be called after this</span></code></span>
-<span class="codeline" id="line-290"><code><span class="comment">// log entry has been written. It's safe to call this on nil CheckedEntry</span></code></span>
-<span class="codeline" id="line-291"><code><span class="comment">// references.</span></code></span>
-<span class="codeline" id="line-292"><code><span class="keyword">func</span> (<label for="r41" class="ident">ce</label> *<a href="#line-212" class="ident">CheckedEntry</a>) <label for="r42" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..CheckedEntry.After.html" class="ident">After</a></label>(<label for="r43" class="ident">ent</label> <a href="#line-145" class="ident">Entry</a>, <label for="r44" class="ident">hook</label> <a href="#line-166" class="ident">CheckWriteHook</a>) *<a href="#line-212" class="ident">CheckedEntry</a> {</code></span>
-<span class="codeline" id="line-293"><code>	<span class="keyword">if</span> <label for="r41" class="ident">ce</label> == <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-294"><code>		<label for="r41" class="ident">ce</label> = <a href="#line-44" class="ident">getCheckedEntry</a>()</code></span>
-<span class="codeline" id="line-295"><code>		<label for="r41" class="ident">ce</label>.<a href="#line-213" class="ident">Entry</a> = <label for="r43" class="ident">ent</label></code></span>
-<span class="codeline" id="line-296"><code>	}</code></span>
-<span class="codeline" id="line-297"><code>	<label for="r41" class="ident">ce</label>.<a href="#line-216" class="ident">after</a> = <label for="r44" class="ident">hook</label></code></span>
-<span class="codeline" id="line-298"><code>	<span class="keyword">return</span> <label for="r41" class="ident">ce</label></code></span>
-<span class="codeline" id="line-299"><code>}</code></span>
+<span class="codeline" id="line-284"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-285"><code><span class="comment">// Deprecated: Use [CheckedEntry.After] instead.</span></code></span>
+<span class="codeline" id="line-286"><code><span class="keyword">func</span> (<label for="r37" class="ident">ce</label> *<a href="#line-212" class="ident">CheckedEntry</a>) <label for="r38" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..CheckedEntry.Should.html" class="ident">Should</a></label>(<label for="r39" class="ident">ent</label> <a href="#line-145" class="ident">Entry</a>, <label for="r40" class="ident">should</label> <a href="#line-177" class="ident">CheckWriteAction</a>) *<a href="#line-212" class="ident">CheckedEntry</a> {</code></span>
+<span class="codeline" id="line-287"><code>	<span class="keyword">return</span> <label for="r37" class="ident">ce</label>.<a href="#line-293" class="ident">After</a>(<label for="r39" class="ident">ent</label>, <label for="r40" class="ident">should</label>)</code></span>
+<span class="codeline" id="line-288"><code>}</code></span>
+<span class="codeline" id="line-289"><code></code></span>
+<span class="codeline" id="line-290"><code><span class="comment">// After sets this CheckEntry's CheckWriteHook, which will be called after this</span></code></span>
+<span class="codeline" id="line-291"><code><span class="comment">// log entry has been written. It's safe to call this on nil CheckedEntry</span></code></span>
+<span class="codeline" id="line-292"><code><span class="comment">// references.</span></code></span>
+<span class="codeline" id="line-293"><code><span class="keyword">func</span> (<label for="r41" class="ident">ce</label> *<a href="#line-212" class="ident">CheckedEntry</a>) <label for="r42" class="ident"><a href="../../../../use/go.uber.org/zap/zapcore..CheckedEntry.After.html" class="ident">After</a></label>(<label for="r43" class="ident">ent</label> <a href="#line-145" class="ident">Entry</a>, <label for="r44" class="ident">hook</label> <a href="#line-166" class="ident">CheckWriteHook</a>) *<a href="#line-212" class="ident">CheckedEntry</a> {</code></span>
+<span class="codeline" id="line-294"><code>	<span class="keyword">if</span> <label for="r41" class="ident">ce</label> == <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-295"><code>		<label for="r41" class="ident">ce</label> = <a href="#line-44" class="ident">getCheckedEntry</a>()</code></span>
+<span class="codeline" id="line-296"><code>		<label for="r41" class="ident">ce</label>.<a href="#line-213" class="ident">Entry</a> = <label for="r43" class="ident">ent</label></code></span>
+<span class="codeline" id="line-297"><code>	}</code></span>
+<span class="codeline" id="line-298"><code>	<label for="r41" class="ident">ce</label>.<a href="#line-216" class="ident">after</a> = <label for="r44" class="ident">hook</label></code></span>
+<span class="codeline" id="line-299"><code>	<span class="keyword">return</span> <label for="r41" class="ident">ce</label></code></span>
+<span class="codeline" id="line-300"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
