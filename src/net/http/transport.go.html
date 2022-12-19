@@ -1564,7 +1564,7 @@ input[id=i21]:checked ~pre .i21
 <span class="codeline" id="line-396"><code>	<span class="keyword">if</span> <a href="http.go.html#line-35" class="ident">omitBundledHTTP2</a> {</code></span>
 <span class="codeline" id="line-397"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-398"><code>	}</code></span>
-<span class="codeline" id="line-399"><code>	<label for="r22" class="ident">t2</label>, <label for="r23" class="ident">err</label> := <a href="h2_bundle.go.html#line-6942" class="ident">http2configureTransports</a>(<label for="r14" class="ident">t</label>)</code></span>
+<span class="codeline" id="line-399"><code>	<label for="r22" class="ident">t2</label>, <label for="r23" class="ident">err</label> := <a href="h2_bundle.go.html#line-6946" class="ident">http2configureTransports</a>(<label for="r14" class="ident">t</label>)</code></span>
 <span class="codeline" id="line-400"><code>	<span class="keyword">if</span> <label for="r23" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-401"><code>		<a href="../../../pkg/log.html" class="ident i9">log</a>.<a href="../../log/log.go.html#line-350" class="ident">Printf</a>(<span class="lit-string">"Error enabling Transport HTTP/2 support: %v"</span>, <label for="r23" class="ident">err</label>)</code></span>
 <span class="codeline" id="line-402"><code>		<span class="keyword">return</span></code></span>
@@ -1577,12 +1577,12 @@ input[id=i21]:checked ~pre .i21
 <span class="codeline" id="line-409"><code><span class="comment">	//</span></code></span>
 <span class="codeline" id="line-410"><code><span class="comment">	// TODO: also add this to x/net/http2.Configure Transport, behind</span></code></span>
 <span class="codeline" id="line-411"><code><span class="comment">	// a +build go1.7 build tag:</span></code></span>
-<span class="codeline" id="line-412"><code>	<span class="keyword">if</span> <label for="r24" class="ident">limit1</label> := <label for="r14" class="ident">t</label>.<a href="#line-260" class="ident">MaxResponseHeaderBytes</a>; <label for="r24" class="ident">limit1</label> != <span class="lit-number">0</span> &amp;&amp; <label for="r22" class="ident">t2</label>.<a href="h2_bundle.go.html#line-6859" class="ident">MaxHeaderListSize</a> == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-412"><code>	<span class="keyword">if</span> <label for="r24" class="ident">limit1</label> := <label for="r14" class="ident">t</label>.<a href="#line-260" class="ident">MaxResponseHeaderBytes</a>; <label for="r24" class="ident">limit1</label> != <span class="lit-number">0</span> &amp;&amp; <label for="r22" class="ident">t2</label>.<a href="h2_bundle.go.html#line-6863" class="ident">MaxHeaderListSize</a> == <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-413"><code>		<span class="keyword">const</span> <label for="r25" class="ident">h2max</label> = <span class="lit-number">1</span>&lt;&lt;<span class="lit-number">32</span> - <span class="lit-number">1</span></code></span>
 <span class="codeline" id="line-414"><code>		<span class="keyword">if</span> <label for="r24" class="ident">limit1</label> &gt;= <label for="r25" class="ident">h2max</label> {</code></span>
-<span class="codeline" id="line-415"><code>			<label for="r22" class="ident">t2</label>.<a href="h2_bundle.go.html#line-6859" class="ident">MaxHeaderListSize</a> = <label for="r25" class="ident">h2max</label></code></span>
+<span class="codeline" id="line-415"><code>			<label for="r22" class="ident">t2</label>.<a href="h2_bundle.go.html#line-6863" class="ident">MaxHeaderListSize</a> = <label for="r25" class="ident">h2max</label></code></span>
 <span class="codeline" id="line-416"><code>		} <span class="keyword">else</span> {</code></span>
-<span class="codeline" id="line-417"><code>			<label for="r22" class="ident">t2</label>.<a href="h2_bundle.go.html#line-6859" class="ident">MaxHeaderListSize</a> = <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r24" class="ident">limit1</label>)</code></span>
+<span class="codeline" id="line-417"><code>			<label for="r22" class="ident">t2</label>.<a href="h2_bundle.go.html#line-6863" class="ident">MaxHeaderListSize</a> = <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r24" class="ident">limit1</label>)</code></span>
 <span class="codeline" id="line-418"><code>		}</code></span>
 <span class="codeline" id="line-419"><code>	}</code></span>
 <span class="codeline" id="line-420"><code>}</code></span>
@@ -1768,7 +1768,7 @@ input[id=i21]:checked ~pre .i21
 <span class="codeline" id="line-600"><code>		}</code></span>
 <span class="codeline" id="line-601"><code></code></span>
 <span class="codeline" id="line-602"><code>		<span class="comment">// Failed. Clean up and determine whether to retry.</span></code></span>
-<span class="codeline" id="line-603"><code>		<span class="keyword">if</span> <a href="h2_bundle.go.html#line-7194" class="ident">http2isNoCachedConnError</a>(<label for="r62" class="ident">err</label>) {</code></span>
+<span class="codeline" id="line-603"><code>		<span class="keyword">if</span> <a href="h2_bundle.go.html#line-7198" class="ident">http2isNoCachedConnError</a>(<label for="r62" class="ident">err</label>) {</code></span>
 <span class="codeline" id="line-604"><code>			<span class="keyword">if</span> <label for="r43" class="ident">t</label>.<a href="#line-1095" class="ident">removeIdleConn</a>(<label for="r63" class="ident">pconn</label>) {</code></span>
 <span class="codeline" id="line-605"><code>				<label for="r43" class="ident">t</label>.<a href="#line-1465" class="ident">decConnsPerHost</a>(<label for="r63" class="ident">pconn</label>.<a href="#line-1879" class="ident">cacheKey</a>)</code></span>
 <span class="codeline" id="line-606"><code>			}</code></span>
@@ -1851,7 +1851,7 @@ input[id=i21]:checked ~pre .i21
 <span class="codeline" id="line-683"><code><span class="comment">// HTTP request on a new connection. The non-nil input error is the</span></code></span>
 <span class="codeline" id="line-684"><code><span class="comment">// error from roundTrip.</span></code></span>
 <span class="codeline" id="line-685"><code><span class="keyword">func</span> (<label for="r83" class="ident">pc</label> *<a href="#line-1872" class="ident">persistConn</a>) <label for="r84" class="ident"><a href="../../../use/net/http..persistConn^67ae6.shouldRetryRequest^6d37e.html" class="ident">shouldRetryRequest</a></label>(<label for="r85" class="ident">req</label> *<a href="request.go.html#line-103" class="ident">Request</a>, <label for="r86" class="ident">err</label> <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-686"><code>	<span class="keyword">if</span> <a href="h2_bundle.go.html#line-7194" class="ident">http2isNoCachedConnError</a>(<label for="r86" class="ident">err</label>) {</code></span>
+<span class="codeline" id="line-686"><code>	<span class="keyword">if</span> <a href="h2_bundle.go.html#line-7198" class="ident">http2isNoCachedConnError</a>(<label for="r86" class="ident">err</label>) {</code></span>
 <span class="codeline" id="line-687"><code>		<span class="comment">// Issue 16582: if the user started a bunch of</span></code></span>
 <span class="codeline" id="line-688"><code><span class="comment">		// requests at once, they can all pick the same conn</span></code></span>
 <span class="codeline" id="line-689"><code><span class="comment">		// and violate the server's max concurrent streams.</span></code></span>
@@ -3682,7 +3682,7 @@ input[id=i21]:checked ~pre .i21
 <span class="codeline" id="line-2514"><code></code></span>
 <span class="codeline" id="line-2515"><code><span class="comment">// errRequestCanceled is set to be identical to the one from h2 to facilitate</span></code></span>
 <span class="codeline" id="line-2516"><code><span class="comment">// testing.</span></code></span>
-<span class="codeline" id="line-2517"><code><span class="keyword">var</span> <a href="../../../pkg/net/http.html#name-errRequestCanceled" class="ident">errRequestCanceled</a> = <a href="h2_bundle.go.html#line-7801" class="ident">http2errRequestCanceled</a></code></span>
+<span class="codeline" id="line-2517"><code><span class="keyword">var</span> <a href="../../../pkg/net/http.html#name-errRequestCanceled" class="ident">errRequestCanceled</a> = <a href="h2_bundle.go.html#line-7805" class="ident">http2errRequestCanceled</a></code></span>
 <span class="codeline" id="line-2518"><code><span class="keyword">var</span> <a href="../../../pkg/net/http.html#name-errRequestCanceledConn" class="ident">errRequestCanceledConn</a> = <a href="../../../pkg/errors.html" class="ident i5">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"net/http: request canceled while waiting for connection"</span>) <span class="comment">// TODO: unify?</span></code></span>
 <span class="codeline" id="line-2519"><code></code></span>
 <span class="codeline" id="line-2520"><code><span class="keyword">func</span> <label for="r464" class="ident"><a href="../../../pkg/net/http.html#name-nop" class="ident">nop</a></label>() {}</code></span>

@@ -11,7 +11,7 @@
 
 <pre><code><span style="font-size:x-large;"><b><a href="../pkg/runtime.html">runtime</a>.<a href="../src/runtime/runtime2.go.html#line-1005">stkframe</a>.<a href="../src/runtime/runtime2.go.html#line-1007">pc</a></b></span><span style="font-size: large;"><i> (field)</i></span>
 
-<span class="title">30 uses</span>
+<span class="title">31 uses</span>
 
 	runtime (current package)
 		<a href="../src/runtime/heapdump.go.html#line-260">heapdump.go#L260</a>: 	pc := s.<b>pc</b>
@@ -30,20 +30,21 @@
 		<a href="../src/runtime/traceback.go.html#line-154" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-154">#L154</a>: 		if frame.<b>pc</b> == pc0 &amp;&amp; frame.sp == sp0 &amp;&amp; pc0 == gp.syscallpc &amp;&amp; sp0 == gp.syscallsp {
 		<a href="../src/runtime/traceback.go.html#line-174" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-174">#L174</a>: 					frame.<b>pc</b> = gp.m.curg.sched.pc
 		<a href="../src/runtime/traceback.go.html#line-175" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-175">#L175</a>: 					frame.fn = findfunc(frame.<b>pc</b>)
-		<a href="../src/runtime/traceback.go.html#line-191" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-191">#L191</a>: 			frame.fp = frame.sp + uintptr(funcspdelta(f, frame.<b>pc</b>, &amp;cache))
-		<a href="../src/runtime/traceback.go.html#line-315" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-315">#L315</a>: 		frame.continpc = frame.<b>pc</b>
-		<a href="../src/runtime/traceback.go.html#line-340" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-340">#L340</a>: 			pc := frame.<b>pc</b>
-		<a href="../src/runtime/traceback.go.html#line-404" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-404">#L404</a>: 			tracepc := frame.<b>pc</b>
-		<a href="../src/runtime/traceback.go.html#line-405" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-405">#L405</a>: 			if (n &gt; 0 || flags&amp;_TraceTrap == 0) &amp;&amp; frame.<b>pc</b> &gt; f.entry() &amp;&amp; !waspanic {
-		<a href="../src/runtime/traceback.go.html#line-451" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-451">#L451</a>: 				if frame.<b>pc</b> &gt; f.entry() {
-		<a href="../src/runtime/traceback.go.html#line-452" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-452">#L452</a>: 					print(" +", hex(frame.<b>pc</b>-f.entry()))
-		<a href="../src/runtime/traceback.go.html#line-455" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-455">#L455</a>: 					print(" fp=", hex(frame.fp), " sp=", hex(frame.sp), " pc=", hex(frame.<b>pc</b>))
-		<a href="../src/runtime/traceback.go.html#line-484" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-484">#L484</a>: 		if frame.<b>pc</b> == frame.lr &amp;&amp; frame.sp == frame.fp {
-		<a href="../src/runtime/traceback.go.html#line-486" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-486">#L486</a>: 			print("runtime: traceback stuck. pc=", hex(frame.<b>pc</b>), " sp=", hex(frame.sp), "\n")
-		<a href="../src/runtime/traceback.go.html#line-493" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-493">#L493</a>: 		frame.<b>pc</b> = frame.lr
-		<a href="../src/runtime/traceback.go.html#line-504" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-504">#L504</a>: 			f = findfunc(frame.<b>pc</b>)
-		<a href="../src/runtime/traceback.go.html#line-507" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-507">#L507</a>: 				frame.<b>pc</b> = x
-		<a href="../src/runtime/traceback.go.html#line-508" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-508">#L508</a>: 			} else if funcspdelta(f, frame.<b>pc</b>, &amp;cache) == 0 {
+		<a href="../src/runtime/traceback.go.html#line-185" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-185">#L185</a>: 					if usesLR &amp;&amp; funcspdelta(f, frame.<b>pc</b>, &amp;cache) == 0 {
+		<a href="../src/runtime/traceback.go.html#line-202" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-202">#L202</a>: 			frame.fp = frame.sp + uintptr(funcspdelta(f, frame.<b>pc</b>, &amp;cache))
+		<a href="../src/runtime/traceback.go.html#line-326" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-326">#L326</a>: 		frame.continpc = frame.<b>pc</b>
+		<a href="../src/runtime/traceback.go.html#line-351" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-351">#L351</a>: 			pc := frame.<b>pc</b>
+		<a href="../src/runtime/traceback.go.html#line-415" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-415">#L415</a>: 			tracepc := frame.<b>pc</b>
+		<a href="../src/runtime/traceback.go.html#line-416" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-416">#L416</a>: 			if (n &gt; 0 || flags&amp;_TraceTrap == 0) &amp;&amp; frame.<b>pc</b> &gt; f.entry() &amp;&amp; !waspanic {
+		<a href="../src/runtime/traceback.go.html#line-462" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-462">#L462</a>: 				if frame.<b>pc</b> &gt; f.entry() {
+		<a href="../src/runtime/traceback.go.html#line-463" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-463">#L463</a>: 					print(" +", hex(frame.<b>pc</b>-f.entry()))
+		<a href="../src/runtime/traceback.go.html#line-466" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-466">#L466</a>: 					print(" fp=", hex(frame.fp), " sp=", hex(frame.sp), " pc=", hex(frame.<b>pc</b>))
+		<a href="../src/runtime/traceback.go.html#line-495" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-495">#L495</a>: 		if frame.<b>pc</b> == frame.lr &amp;&amp; frame.sp == frame.fp {
+		<a href="../src/runtime/traceback.go.html#line-497" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-497">#L497</a>: 			print("runtime: traceback stuck. pc=", hex(frame.<b>pc</b>), " sp=", hex(frame.sp), "\n")
+		<a href="../src/runtime/traceback.go.html#line-504" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-504">#L504</a>: 		frame.<b>pc</b> = frame.lr
+		<a href="../src/runtime/traceback.go.html#line-515" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-515">#L515</a>: 			f = findfunc(frame.<b>pc</b>)
+		<a href="../src/runtime/traceback.go.html#line-518" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-518">#L518</a>: 				frame.<b>pc</b> = x
+		<a href="../src/runtime/traceback.go.html#line-519" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-519">#L519</a>: 			} else if funcspdelta(f, frame.<b>pc</b>, &amp;cache) == 0 {
 </code></pre><pre id="footer">
 <table><tr><td><img src="../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)

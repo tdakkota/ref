@@ -99,7 +99,7 @@
 		<a href="../../src/runtime/malloc.go.html#line-699" class="path-duplicate">malloc.go</a><a href="../../src/runtime/malloc.go.html#line-699">#L699</a>: 			newArray := (*notInHeap)(persistentalloc(size, goarch.<b>PtrSize</b>, &amp;memstats.gcMiscSys))
 		<a href="../../src/runtime/malloc.go.html#line-704" class="path-duplicate">malloc.go</a><a href="../../src/runtime/malloc.go.html#line-704">#L704</a>: 			*(*notInHeapSlice)(unsafe.Pointer(&amp;h.allArenas)) = notInHeapSlice{newArray, len(h.allArenas), int(size / goarch.<b>PtrSize</b>)}
 		<a href="../../src/runtime/malloc.go.html#line-967" class="path-duplicate">malloc.go</a><a href="../../src/runtime/malloc.go.html#line-967">#L967</a>: 			} else if goarch.<b>PtrSize</b> == 4 &amp;&amp; size == 12 {
-		<a href="../../src/runtime/malloc.go.html#line-1388" class="path-duplicate">malloc.go</a><a href="../../src/runtime/malloc.go.html#line-1388">#L1388</a>: 		persistent.off = alignUp(goarch.<b>PtrSize</b>, align)
+		<a href="../../src/runtime/malloc.go.html#line-1398" class="path-duplicate">malloc.go</a><a href="../../src/runtime/malloc.go.html#line-1398">#L1398</a>: 		persistent.off = alignUp(goarch.<b>PtrSize</b>, align)
 		<a href="../../src/runtime/map.go.html#line-107">map.go#L107</a>: 	noCheck = 1&lt;&lt;(8*goarch.<b>PtrSize</b>) - 1
 		<a href="../../src/runtime/map.go.html#line-186" class="path-duplicate">map.go</a><a href="../../src/runtime/map.go.html#line-186">#L186</a>: 	return uintptr(1) &lt;&lt; (b &amp; (goarch.<b>PtrSize</b>*8 - 1))
 		<a href="../../src/runtime/map.go.html#line-196" class="path-duplicate">map.go</a><a href="../../src/runtime/map.go.html#line-196">#L196</a>: 	top := uint8(hash &gt;&gt; (goarch.<b>PtrSize</b>*8 - 8))
@@ -245,9 +245,9 @@
 		<a href="../../src/runtime/mgcmark.go.html#line-1541" class="path-duplicate">mgcmark.go</a><a href="../../src/runtime/mgcmark.go.html#line-1541">#L1541</a>: 		if !(i &lt; 128*goarch.<b>PtrSize</b> || off-16*goarch.<b>PtrSize</b> &lt; i &amp;&amp; i &lt; off+16*goarch.<b>PtrSize</b>) {
 		<a href="../../src/runtime/mgcstack.go.html#line-110">mgcstack.go#L110</a>: 	obj [(_WorkbufSize - unsafe.Sizeof(stackWorkBufHdr{})) / goarch.<b>PtrSize</b>]uintptr
 		<a href="../../src/runtime/mgcwork.go.html#line-327">mgcwork.go#L327</a>: 	obj [(_WorkbufSize - unsafe.Sizeof(workbufhdr{})) / goarch.<b>PtrSize</b>]uintptr
-		<a href="../../src/runtime/mheap.go.html#line-494">mheap.go#L494</a>: 		n := 64 * 1024 / goarch.<b>PtrSize</b>
-		<a href="../../src/runtime/mheap.go.html#line-500" class="path-duplicate">mheap.go</a><a href="../../src/runtime/mheap.go.html#line-500">#L500</a>: 		sp.array = sysAlloc(uintptr(n)*goarch.<b>PtrSize</b>, &amp;memstats.other_sys)
-		<a href="../../src/runtime/mheap.go.html#line-1873" class="path-duplicate">mheap.go</a><a href="../../src/runtime/mheap.go.html#line-1873">#L1873</a>: 			scanblock(uintptr(unsafe.Pointer(&amp;s.fn)), goarch.<b>PtrSize</b>, &amp;oneptrmask[0], gcw, nil)
+		<a href="../../src/runtime/mheap.go.html#line-502">mheap.go#L502</a>: 		n := 64 * 1024 / goarch.<b>PtrSize</b>
+		<a href="../../src/runtime/mheap.go.html#line-508" class="path-duplicate">mheap.go</a><a href="../../src/runtime/mheap.go.html#line-508">#L508</a>: 		sp.array = sysAlloc(uintptr(n)*goarch.<b>PtrSize</b>, &amp;memstats.other_sys)
+		<a href="../../src/runtime/mheap.go.html#line-1883" class="path-duplicate">mheap.go</a><a href="../../src/runtime/mheap.go.html#line-1883">#L1883</a>: 			scanblock(uintptr(unsafe.Pointer(&amp;s.fn)), goarch.<b>PtrSize</b>, &amp;oneptrmask[0], gcw, nil)
 		<a href="../../src/runtime/mranges.go.html#line-234">mranges.go#L234</a>: 	ranges.array = (*notInHeap)(persistentalloc(unsafe.Sizeof(addrRange{})*uintptr(ranges.cap), goarch.<b>PtrSize</b>, sysStat))
 		<a href="../../src/runtime/mranges.go.html#line-361" class="path-duplicate">mranges.go</a><a href="../../src/runtime/mranges.go.html#line-361">#L361</a>: 			ranges.array = (*notInHeap)(persistentalloc(unsafe.Sizeof(addrRange{})*uintptr(ranges.cap), goarch.<b>PtrSize</b>, a.sysStat))
 		<a href="../../src/runtime/mranges.go.html#line-431" class="path-duplicate">mranges.go</a><a href="../../src/runtime/mranges.go.html#line-431">#L431</a>: 		ranges.array = (*notInHeap)(persistentalloc(unsafe.Sizeof(addrRange{})*uintptr(ranges.cap), goarch.<b>PtrSize</b>, b.sysStat))
@@ -302,15 +302,15 @@
 		<a href="../../src/runtime/trace.go.html#line-1127" class="path-duplicate">trace.go</a><a href="../../src/runtime/trace.go.html#line-1127">#L1127</a>: 	data [64&lt;&lt;10 - goarch.<b>PtrSize</b>]byte
 		<a href="../../src/runtime/trace.go.html#line-1138" class="path-duplicate">trace.go</a><a href="../../src/runtime/trace.go.html#line-1138">#L1138</a>: 	n = alignUp(n, goarch.<b>PtrSize</b>)
 		<a href="../../src/runtime/traceback.go.html#line-96">traceback.go#L96</a>: 			frame.sp += goarch.<b>PtrSize</b>
-		<a href="../../src/runtime/traceback.go.html#line-194" class="path-duplicate">traceback.go</a><a href="../../src/runtime/traceback.go.html#line-194">#L194</a>: 				frame.fp += goarch.<b>PtrSize</b>
-		<a href="../../src/runtime/traceback.go.html#line-235" class="path-duplicate">traceback.go</a><a href="../../src/runtime/traceback.go.html#line-235">#L235</a>: 					lrPtr = frame.fp - goarch.<b>PtrSize</b>
-		<a href="../../src/runtime/traceback.go.html#line-266" class="path-duplicate">traceback.go</a><a href="../../src/runtime/traceback.go.html#line-266">#L266</a>: 			frame.varp -= goarch.<b>PtrSize</b>
-		<a href="../../src/runtime/traceback.go.html#line-287" class="path-duplicate">traceback.go</a><a href="../../src/runtime/traceback.go.html#line-287">#L287</a>: 			frame.varp -= goarch.<b>PtrSize</b>
-		<a href="../../src/runtime/traceback.go.html#line-719" class="path-duplicate">traceback.go</a><a href="../../src/runtime/traceback.go.html#line-719">#L719</a>: 				retValid = *(*bool)(unsafe.Pointer(arg0 + 4*goarch.<b>PtrSize</b>))
-		<a href="../../src/runtime/traceback.go.html#line-726" class="path-duplicate">traceback.go</a><a href="../../src/runtime/traceback.go.html#line-726">#L726</a>: 			arglen = uintptr(bv.n * goarch.<b>PtrSize</b>)
-		<a href="../../src/runtime/traceback.go.html#line-728" class="path-duplicate">traceback.go</a><a href="../../src/runtime/traceback.go.html#line-728">#L728</a>: 				arglen = uintptr(mv.argLen) &amp;^ (goarch.<b>PtrSize</b> - 1)
-		<a href="../../src/runtime/traceback.go.html#line-1071" class="path-duplicate">traceback.go</a><a href="../../src/runtime/traceback.go.html#line-1071">#L1071</a>: 	const expand = 32 * goarch.<b>PtrSize</b>
-		<a href="../../src/runtime/traceback.go.html#line-1072" class="path-duplicate">traceback.go</a><a href="../../src/runtime/traceback.go.html#line-1072">#L1072</a>: 	const maxExpand = 256 * goarch.<b>PtrSize</b>
+		<a href="../../src/runtime/traceback.go.html#line-205" class="path-duplicate">traceback.go</a><a href="../../src/runtime/traceback.go.html#line-205">#L205</a>: 				frame.fp += goarch.<b>PtrSize</b>
+		<a href="../../src/runtime/traceback.go.html#line-246" class="path-duplicate">traceback.go</a><a href="../../src/runtime/traceback.go.html#line-246">#L246</a>: 					lrPtr = frame.fp - goarch.<b>PtrSize</b>
+		<a href="../../src/runtime/traceback.go.html#line-277" class="path-duplicate">traceback.go</a><a href="../../src/runtime/traceback.go.html#line-277">#L277</a>: 			frame.varp -= goarch.<b>PtrSize</b>
+		<a href="../../src/runtime/traceback.go.html#line-298" class="path-duplicate">traceback.go</a><a href="../../src/runtime/traceback.go.html#line-298">#L298</a>: 			frame.varp -= goarch.<b>PtrSize</b>
+		<a href="../../src/runtime/traceback.go.html#line-730" class="path-duplicate">traceback.go</a><a href="../../src/runtime/traceback.go.html#line-730">#L730</a>: 				retValid = *(*bool)(unsafe.Pointer(arg0 + 4*goarch.<b>PtrSize</b>))
+		<a href="../../src/runtime/traceback.go.html#line-737" class="path-duplicate">traceback.go</a><a href="../../src/runtime/traceback.go.html#line-737">#L737</a>: 			arglen = uintptr(bv.n * goarch.<b>PtrSize</b>)
+		<a href="../../src/runtime/traceback.go.html#line-739" class="path-duplicate">traceback.go</a><a href="../../src/runtime/traceback.go.html#line-739">#L739</a>: 				arglen = uintptr(mv.argLen) &amp;^ (goarch.<b>PtrSize</b> - 1)
+		<a href="../../src/runtime/traceback.go.html#line-1082" class="path-duplicate">traceback.go</a><a href="../../src/runtime/traceback.go.html#line-1082">#L1082</a>: 	const expand = 32 * goarch.<b>PtrSize</b>
+		<a href="../../src/runtime/traceback.go.html#line-1083" class="path-duplicate">traceback.go</a><a href="../../src/runtime/traceback.go.html#line-1083">#L1083</a>: 	const maxExpand = 256 * goarch.<b>PtrSize</b>
 
 	<a href="../../pkg/runtime/internal/math.html">runtime/internal/math</a>
 		<a href="../../src/runtime/internal/math/math.go.html#line-14">math.go#L14</a>: 	if a|b &lt; 1&lt;&lt;(4*goarch.<b>PtrSize</b>) || a == 0 {

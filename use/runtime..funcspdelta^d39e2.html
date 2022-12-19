@@ -11,13 +11,14 @@
 
 <pre><code><span style="font-size:x-large;">func <b><a href="../pkg/runtime.html">runtime</a>.<a href="../src/runtime/symtab.go.html#line-1040">funcspdelta</a></b></span>
 
-<span class="title">4 uses</span>
+<span class="title">5 uses</span>
 
 	runtime (current package)
 		<a href="../src/runtime/preempt.go.html#line-389">preempt.go#L389</a>: 	if (GOARCH == "mips" || GOARCH == "mipsle" || GOARCH == "mips64" || GOARCH == "mips64le") &amp;&amp; lr == pc+8 &amp;&amp; <b>funcspdelta</b>(f, pc, nil) == 0 {
 		<a href="../src/runtime/symtab.go.html#line-1040">symtab.go#L1040</a>: func <b>funcspdelta</b>(f funcInfo, targetpc uintptr, cache *pcvalueCache) int32 {
-		<a href="../src/runtime/traceback.go.html#line-191">traceback.go#L191</a>: 			frame.fp = frame.sp + uintptr(<b>funcspdelta</b>(f, frame.pc, &amp;cache))
-		<a href="../src/runtime/traceback.go.html#line-508" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-508">#L508</a>: 			} else if <b>funcspdelta</b>(f, frame.pc, &amp;cache) == 0 {
+		<a href="../src/runtime/traceback.go.html#line-185">traceback.go#L185</a>: 					if usesLR &amp;&amp; <b>funcspdelta</b>(f, frame.pc, &amp;cache) == 0 {
+		<a href="../src/runtime/traceback.go.html#line-202" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-202">#L202</a>: 			frame.fp = frame.sp + uintptr(<b>funcspdelta</b>(f, frame.pc, &amp;cache))
+		<a href="../src/runtime/traceback.go.html#line-519" class="path-duplicate">traceback.go</a><a href="../src/runtime/traceback.go.html#line-519">#L519</a>: 			} else if <b>funcspdelta</b>(f, frame.pc, &amp;cache) == 0 {
 </code></pre><pre id="footer">
 <table><tr><td><img src="../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)

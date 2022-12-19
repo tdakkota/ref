@@ -612,7 +612,7 @@ input[id=i11]:checked ~pre .i11
 <span class="codeline" id="line-100"><code><span class="keyword">func</span> (<label for="r2" class="ident">h</label> <a href="#line-95" class="ident">HostnameError</a>) <label for="r3" class="ident"><a href="../../../use/crypto/x509..HostnameError.Error.html" class="ident">Error</a></label>() <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
 <span class="codeline" id="line-101"><code>	<label for="r4" class="ident">c</label> := <label for="r2" class="ident">h</label>.<a href="#line-96" class="ident">Certificate</a></code></span>
 <span class="codeline" id="line-102"><code></code></span>
-<span class="codeline" id="line-103"><code>	<span class="keyword">if</span> !<label for="r4" class="ident">c</label>.<a href="x509.go.html#line-766" class="ident">hasSANExtension</a>() &amp;&amp; <a href="#line-1010" class="ident">matchHostnames</a>(<label for="r4" class="ident">c</label>.<a href="x509.go.html#line-642" class="ident">Subject</a>.<a href="pkix/pkix.go.html#line-127" class="ident">CommonName</a>, <label for="r2" class="ident">h</label>.<a href="#line-97" class="ident">Host</a>) {</code></span>
+<span class="codeline" id="line-103"><code>	<span class="keyword">if</span> !<label for="r4" class="ident">c</label>.<a href="x509.go.html#line-763" class="ident">hasSANExtension</a>() &amp;&amp; <a href="#line-1010" class="ident">matchHostnames</a>(<label for="r4" class="ident">c</label>.<a href="x509.go.html#line-642" class="ident">Subject</a>.<a href="pkix/pkix.go.html#line-127" class="ident">CommonName</a>, <label for="r2" class="ident">h</label>.<a href="#line-97" class="ident">Host</a>) {</code></span>
 <span class="codeline" id="line-104"><code>		<span class="keyword">return</span> <span class="lit-string">"x509: certificate relies on legacy Common Name field, use SANs instead"</span></code></span>
 <span class="codeline" id="line-105"><code>	}</code></span>
 <span class="codeline" id="line-106"><code></code></span>
@@ -1069,7 +1069,7 @@ input[id=i11]:checked ~pre .i11
 <span class="codeline" id="line-557"><code><span class="comment">// to the chain in currentChain.</span></code></span>
 <span class="codeline" id="line-558"><code><span class="keyword">func</span> (<label for="r87" class="ident">c</label> *<a href="x509.go.html#line-626" class="ident">Certificate</a>) <label for="r88" class="ident"><a href="../../../use/crypto/x509..Certificate.isValid^5339b.html" class="ident">isValid</a></label>(<label for="r89" class="ident">certType</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r90" class="ident">currentChain</label> []*<a href="x509.go.html#line-626" class="ident">Certificate</a>, <label for="r91" class="ident">opts</label> *<a href="#line-176" class="ident">VerifyOptions</a>) <a href="../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
 <span class="codeline" id="line-559"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r87" class="ident">c</label>.<a href="x509.go.html#line-666" class="ident">UnhandledCriticalExtensions</a>) &gt; <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-560"><code>		<span class="keyword">return</span> <a href="x509.go.html#line-891" class="ident">UnhandledCriticalExtension</a>{}</code></span>
+<span class="codeline" id="line-560"><code>		<span class="keyword">return</span> <a href="x509.go.html#line-889" class="ident">UnhandledCriticalExtension</a>{}</code></span>
 <span class="codeline" id="line-561"><code>	}</code></span>
 <span class="codeline" id="line-562"><code></code></span>
 <span class="codeline" id="line-563"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r90" class="ident">currentChain</label>) &gt; <span class="lit-number">0</span> {</code></span>
@@ -1112,18 +1112,18 @@ input[id=i11]:checked ~pre .i11
 <span class="codeline" id="line-600"><code>	}</code></span>
 <span class="codeline" id="line-601"><code></code></span>
 <span class="codeline" id="line-602"><code>	<span class="keyword">if</span> (<label for="r89" class="ident">certType</label> == <a href="#line-208" class="ident">intermediateCertificate</a> || <label for="r89" class="ident">certType</label> == <a href="#line-209" class="ident">rootCertificate</a>) &amp;&amp;</code></span>
-<span class="codeline" id="line-603"><code>		<label for="r87" class="ident">c</label>.<a href="x509.go.html#line-802" class="ident">hasNameConstraints</a>() {</code></span>
+<span class="codeline" id="line-603"><code>		<label for="r87" class="ident">c</label>.<a href="x509.go.html#line-799" class="ident">hasNameConstraints</a>() {</code></span>
 <span class="codeline" id="line-604"><code>		<label for="r97" class="ident">toCheck</label> := []*<a href="x509.go.html#line-626" class="ident">Certificate</a>{}</code></span>
-<span class="codeline" id="line-605"><code>		<span class="keyword">if</span> <label for="r96" class="ident">leaf</label>.<a href="x509.go.html#line-766" class="ident">hasSANExtension</a>() {</code></span>
+<span class="codeline" id="line-605"><code>		<span class="keyword">if</span> <label for="r96" class="ident">leaf</label>.<a href="x509.go.html#line-763" class="ident">hasSANExtension</a>() {</code></span>
 <span class="codeline" id="line-606"><code>			<label for="r97" class="ident">toCheck</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r97" class="ident">toCheck</label>, <label for="r96" class="ident">leaf</label>)</code></span>
 <span class="codeline" id="line-607"><code>		}</code></span>
-<span class="codeline" id="line-608"><code>		<span class="keyword">if</span> <label for="r87" class="ident">c</label>.<a href="x509.go.html#line-766" class="ident">hasSANExtension</a>() {</code></span>
+<span class="codeline" id="line-608"><code>		<span class="keyword">if</span> <label for="r87" class="ident">c</label>.<a href="x509.go.html#line-763" class="ident">hasSANExtension</a>() {</code></span>
 <span class="codeline" id="line-609"><code>			<label for="r97" class="ident">toCheck</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r97" class="ident">toCheck</label>, <label for="r87" class="ident">c</label>)</code></span>
 <span class="codeline" id="line-610"><code>		}</code></span>
 <span class="codeline" id="line-611"><code>		<span class="keyword">for</span> <label for="r98" class="ident">_</label>, <label for="r99" class="ident">sanCert</label> := <span class="keyword">range</span> <label for="r97" class="ident">toCheck</label> {</code></span>
-<span class="codeline" id="line-612"><code>			<label for="r100" class="ident">err</label> := <a href="parser.go.html#line-344" class="ident">forEachSAN</a>(<label for="r99" class="ident">sanCert</label>.<a href="x509.go.html#line-806" class="ident">getSANExtension</a>(), <span class="keyword">func</span>(<label for="r101" class="ident">tag</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r102" class="ident">data</label> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>) <a href="../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-612"><code>			<label for="r100" class="ident">err</label> := <a href="parser.go.html#line-344" class="ident">forEachSAN</a>(<label for="r99" class="ident">sanCert</label>.<a href="x509.go.html#line-803" class="ident">getSANExtension</a>(), <span class="keyword">func</span>(<label for="r101" class="ident">tag</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r102" class="ident">data</label> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>) <a href="../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
 <span class="codeline" id="line-613"><code>				<span class="keyword">switch</span> <label for="r101" class="ident">tag</label> {</code></span>
-<span class="codeline" id="line-614"><code>				<span class="keyword">case</span> <a href="x509.go.html#line-909" class="ident">nameTypeEmail</a>:</code></span>
+<span class="codeline" id="line-614"><code>				<span class="keyword">case</span> <a href="x509.go.html#line-907" class="ident">nameTypeEmail</a>:</code></span>
 <span class="codeline" id="line-615"><code>					<label for="r103" class="ident">name</label> := <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>(<label for="r102" class="ident">data</label>)</code></span>
 <span class="codeline" id="line-616"><code>					<label for="r104" class="ident">mailbox</label>, <label for="r105" class="ident">ok</label> := <a href="#line-223" class="ident">parseRFC2821Mailbox</a>(<label for="r103" class="ident">name</label>)</code></span>
 <span class="codeline" id="line-617"><code>					<span class="keyword">if</span> !<label for="r105" class="ident">ok</label> {</code></span>
@@ -1137,7 +1137,7 @@ input[id=i11]:checked ~pre .i11
 <span class="codeline" id="line-625"><code>						<span class="keyword">return</span> <label for="r106" class="ident">err</label></code></span>
 <span class="codeline" id="line-626"><code>					}</code></span>
 <span class="codeline" id="line-627"><code></code></span>
-<span class="codeline" id="line-628"><code>				<span class="keyword">case</span> <a href="x509.go.html#line-910" class="ident">nameTypeDNS</a>:</code></span>
+<span class="codeline" id="line-628"><code>				<span class="keyword">case</span> <a href="x509.go.html#line-908" class="ident">nameTypeDNS</a>:</code></span>
 <span class="codeline" id="line-629"><code>					<label for="r109" class="ident">name</label> := <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>(<label for="r102" class="ident">data</label>)</code></span>
 <span class="codeline" id="line-630"><code>					<span class="keyword">if</span> <label for="r110" class="ident">_</label>, <label for="r111" class="ident">ok</label> := <a href="#line-361" class="ident">domainToReverseLabels</a>(<label for="r109" class="ident">name</label>); !<label for="r111" class="ident">ok</label> {</code></span>
 <span class="codeline" id="line-631"><code>						<span class="keyword">return</span> <a href="../../../pkg/fmt.html" class="ident i4">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"x509: cannot parse dnsName %q"</span>, <label for="r109" class="ident">name</label>)</code></span>
@@ -1150,7 +1150,7 @@ input[id=i11]:checked ~pre .i11
 <span class="codeline" id="line-638"><code>						<span class="keyword">return</span> <label for="r112" class="ident">err</label></code></span>
 <span class="codeline" id="line-639"><code>					}</code></span>
 <span class="codeline" id="line-640"><code></code></span>
-<span class="codeline" id="line-641"><code>				<span class="keyword">case</span> <a href="x509.go.html#line-911" class="ident">nameTypeURI</a>:</code></span>
+<span class="codeline" id="line-641"><code>				<span class="keyword">case</span> <a href="x509.go.html#line-909" class="ident">nameTypeURI</a>:</code></span>
 <span class="codeline" id="line-642"><code>					<label for="r115" class="ident">name</label> := <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>(<label for="r102" class="ident">data</label>)</code></span>
 <span class="codeline" id="line-643"><code>					<label for="r116" class="ident">uri</label>, <label for="r117" class="ident">err</label> := <a href="../../../pkg/net/url.html" class="ident i6">url</a>.<a href="../../net/url/url.go.html#line-463" class="ident">Parse</a>(<label for="r115" class="ident">name</label>)</code></span>
 <span class="codeline" id="line-644"><code>					<span class="keyword">if</span> <label for="r117" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
@@ -1164,7 +1164,7 @@ input[id=i11]:checked ~pre .i11
 <span class="codeline" id="line-652"><code>						<span class="keyword">return</span> <label for="r118" class="ident">err</label></code></span>
 <span class="codeline" id="line-653"><code>					}</code></span>
 <span class="codeline" id="line-654"><code></code></span>
-<span class="codeline" id="line-655"><code>				<span class="keyword">case</span> <a href="x509.go.html#line-912" class="ident">nameTypeIP</a>:</code></span>
+<span class="codeline" id="line-655"><code>				<span class="keyword">case</span> <a href="x509.go.html#line-910" class="ident">nameTypeIP</a>:</code></span>
 <span class="codeline" id="line-656"><code>					<label for="r121" class="ident">ip</label> := <a href="../../../pkg/net.html" class="ident i5">net</a>.<a href="../../net/ip.go.html#line-35" class="ident">IP</a>(<label for="r102" class="ident">data</label>)</code></span>
 <span class="codeline" id="line-657"><code>					<span class="keyword">if</span> <label for="r122" class="ident">l</label> := <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r121" class="ident">ip</label>); <label for="r122" class="ident">l</label> != <a href="../../../pkg/net.html" class="ident i5">net</a>.<a href="../../net/ip.go.html#line-22" class="ident">IPv4len</a> &amp;&amp; <label for="r122" class="ident">l</label> != <a href="../../../pkg/net.html" class="ident i5">net</a>.<a href="../../net/ip.go.html#line-23" class="ident">IPv6len</a> {</code></span>
 <span class="codeline" id="line-658"><code>						<span class="keyword">return</span> <a href="../../../pkg/fmt.html" class="ident i4">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"x509: internal error: IP SAN %x failed to parse"</span>, <label for="r102" class="ident">data</label>)</code></span>
@@ -1364,7 +1364,7 @@ input[id=i11]:checked ~pre .i11
 <span class="codeline" id="line-852"><code></code></span>
 <span class="codeline" id="line-853"><code>	<span class="keyword">var</span> <label for="r151" class="ident">candidateSAN</label> *<a href="../../../pkg/crypto/x509/pkix.html" class="ident i2">pkix</a>.<a href="pkix/pkix.go.html#line-113" class="ident">Extension</a></code></span>
 <span class="codeline" id="line-854"><code>	<span class="keyword">for</span> <label for="r152" class="ident">_</label>, <label for="r153" class="ident">ext</label> := <span class="keyword">range</span> <label for="r147" class="ident">candidate</label>.<a href="x509.go.html#line-650" class="ident">Extensions</a> {</code></span>
-<span class="codeline" id="line-855"><code>		<span class="keyword">if</span> <label for="r153" class="ident">ext</label>.<a href="pkix/pkix.go.html#line-114" class="ident">Id</a>.<a href="../../encoding/asn1/asn1.go.html#line-225" class="ident">Equal</a>(<a href="x509.go.html#line-966" class="ident">oidExtensionSubjectAltName</a>) {</code></span>
+<span class="codeline" id="line-855"><code>		<span class="keyword">if</span> <label for="r153" class="ident">ext</label>.<a href="pkix/pkix.go.html#line-114" class="ident">Id</a>.<a href="../../encoding/asn1/asn1.go.html#line-225" class="ident">Equal</a>(<a href="x509.go.html#line-964" class="ident">oidExtensionSubjectAltName</a>) {</code></span>
 <span class="codeline" id="line-856"><code>			<label for="r151" class="ident">candidateSAN</label> = &amp;<label for="r153" class="ident">ext</label></code></span>
 <span class="codeline" id="line-857"><code>			<span class="keyword">break</span></code></span>
 <span class="codeline" id="line-858"><code>		}</code></span>
@@ -1379,7 +1379,7 @@ input[id=i11]:checked ~pre .i11
 <span class="codeline" id="line-867"><code>		}</code></span>
 <span class="codeline" id="line-868"><code>		<span class="keyword">var</span> <label for="r156" class="ident">certSAN</label> *<a href="../../../pkg/crypto/x509/pkix.html" class="ident i2">pkix</a>.<a href="pkix/pkix.go.html#line-113" class="ident">Extension</a></code></span>
 <span class="codeline" id="line-869"><code>		<span class="keyword">for</span> <label for="r157" class="ident">_</label>, <label for="r158" class="ident">ext</label> := <span class="keyword">range</span> <label for="r155" class="ident">cert</label>.<a href="x509.go.html#line-650" class="ident">Extensions</a> {</code></span>
-<span class="codeline" id="line-870"><code>			<span class="keyword">if</span> <label for="r158" class="ident">ext</label>.<a href="pkix/pkix.go.html#line-114" class="ident">Id</a>.<a href="../../encoding/asn1/asn1.go.html#line-225" class="ident">Equal</a>(<a href="x509.go.html#line-966" class="ident">oidExtensionSubjectAltName</a>) {</code></span>
+<span class="codeline" id="line-870"><code>			<span class="keyword">if</span> <label for="r158" class="ident">ext</label>.<a href="pkix/pkix.go.html#line-114" class="ident">Id</a>.<a href="../../encoding/asn1/asn1.go.html#line-225" class="ident">Equal</a>(<a href="x509.go.html#line-964" class="ident">oidExtensionSubjectAltName</a>) {</code></span>
 <span class="codeline" id="line-871"><code>				<label for="r156" class="ident">certSAN</label> = &amp;<label for="r158" class="ident">ext</label></code></span>
 <span class="codeline" id="line-872"><code>				<span class="keyword">break</span></code></span>
 <span class="codeline" id="line-873"><code>			}</code></span>
@@ -1422,7 +1422,7 @@ input[id=i11]:checked ~pre .i11
 <span class="codeline" id="line-910"><code>			<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-911"><code>		}</code></span>
 <span class="codeline" id="line-912"><code></code></span>
-<span class="codeline" id="line-913"><code>		<span class="keyword">if</span> <label for="r171" class="ident">err</label> := <label for="r159" class="ident">c</label>.<a href="x509.go.html#line-772" class="ident">CheckSignatureFrom</a>(<label for="r170" class="ident">candidate</label>); <label for="r171" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-913"><code>		<span class="keyword">if</span> <label for="r171" class="ident">err</label> := <label for="r159" class="ident">c</label>.<a href="x509.go.html#line-769" class="ident">CheckSignatureFrom</a>(<label for="r170" class="ident">candidate</label>); <label for="r171" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-914"><code>			<span class="keyword">if</span> <label for="r166" class="ident">hintErr</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-915"><code>				<label for="r166" class="ident">hintErr</label> = <label for="r171" class="ident">err</label></code></span>
 <span class="codeline" id="line-916"><code>				<label for="r167" class="ident">hintCert</label> = <label for="r170" class="ident">candidate</label></code></span>
