@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/gotd/td v0.73.0
-	go101.org/golds v0.5.2
+	go101.org/golds v0.5.6
 )
 
 require (
@@ -23,7 +23,7 @@ require (
 	go.uber.org/zap v1.24.0 // indirect
 	golang.org/x/crypto v0.3.0 // indirect
 	golang.org/x/mod v0.7.0 // indirect
-	golang.org/x/net v0.3.0 // indirect
+	golang.org/x/net v0.4.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
 	golang.org/x/sys v0.3.0 // indirect
 	golang.org/x/text v0.5.0 // indirect
