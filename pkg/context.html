@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Package: context</title>
-<link href="../css/light-v0.5.2.css" rel="stylesheet">
-<script src="../jvs/golds-v0.5.2.js"></script>
+<link href="../css/light-v0.5.6.css" rel="stylesheet">
+<script src="../jvs/golds-v0.5.6.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="package-details"><code><span style="font-size:xx-large;">package <b>context</b></span>
@@ -20,17 +20,17 @@
 <div id="files"><span class="title">Involved Source Files</span>
 
 	<input type='checkbox' checked class="fold" id="file-0-fold-content"><label for="file-0-fold-content">   <a href="../src/context/context.go.html#doc">#d</a> <a href="../src/context/context.go.html">context.go</a></label><span id='file-0-fold-content-items' class="fold-items">
-		Package context defines the Context type, which carries deadlines,
+<span class="md-text">		Package context defines the Context type, which carries deadlines,
 		cancellation signals, and other request-scoped values across API boundaries
 		and between processes.
-
+		
 		Incoming requests to a server should create a Context, and outgoing
 		calls to servers should accept a Context. The chain of function
 		calls between them must propagate the Context, optionally replacing
 		it with a derived Context created using WithCancel, WithDeadline,
 		WithTimeout, or WithValue. When a Context is canceled, all
 		Contexts derived from it are also canceled.
-
+		
 		The WithCancel, WithDeadline, and WithTimeout functions take a
 		Context (the parent) and return a derived Context (the child) and a
 		CancelFunc. Calling the CancelFunc cancels the child and its
@@ -39,30 +39,30 @@
 		child and its children until the parent is canceled or the timer
 		fires. The go vet tool checks that CancelFuncs are used on all
 		control-flow paths.
-
+		
 		Programs that use Contexts should follow these rules to keep interfaces
 		consistent across packages and enable static analysis tools to check context
 		propagation:
-
+		
 		Do not store Contexts inside a struct type; instead, pass a Context
 		explicitly to each function that needs it. The Context should be the first
 		parameter, typically named ctx:
-
-		func DoSomething(ctx context.Context, arg Arg) error {
-			// ... use ctx ...
-		}
-
+		
+			func DoSomething(ctx context.Context, arg Arg) error {
+				// ... use ctx ...
+			}
+		
 		Do not pass a nil Context, even if a function permits it. Pass context.TODO
 		if you are unsure about which Context to use.
-
+		
 		Use context Values only for request-scoped data that transits processes and
 		APIs, not for passing optional parameters to functions.
-
+		
 		The same Context may be passed to functions running in different goroutines;
 		Contexts are safe for simultaneous use by multiple goroutines.
-
+		
 		See https://blog.golang.org/context for example code for a server that uses
-		Contexts.</span></div>
+		Contexts.</span></span></div>
 <div id="examples"><span class="title">Code Examples</span>
 
 	<input type='checkbox' class="fold" id="example-0-fold-content"><label for="example-0-fold-content">WithCancel</label><span id='example-0-fold-content-items' class="fold-items">
@@ -192,10 +192,10 @@
 <div id="exported-types"><span class="title">Package-Level Type Names<span class="title-stat"><i> (total 9, in which 2 are exported)</i></span></span>
 
 <div id="exported-types-buttons" class="js-on">	/* sort exporteds by: <label id="sort-types-by-alphabet" class="button">alphabet</label> | <label id="sort-types-by-popularity" class="button">popularity</label> */</div><div class="anchor type-res" id="name-CancelFunc" data-popularity="225">	<input type='checkbox' class="fold" id="CancelFunc-fold-content"><label for="CancelFunc-fold-content"> <a href="../use/context..CancelFunc.html">type</a> <a href="../src/context/context.go.html#line-224">CancelFunc</a> <i>(func)</i></label><span id='CancelFunc-fold-content-docs' class="fold-docs">
-		A CancelFunc tells an operation to abandon its work.
+<span class="md-text">		A CancelFunc tells an operation to abandon its work.
 		A CancelFunc does not wait for the work to stop.
 		A CancelFunc may be called by multiple goroutines simultaneously.
-		After the first call, subsequent calls to a CancelFunc do nothing.
+		After the first call, subsequent calls to a CancelFunc do nothing.</span>
 
 		<input type='checkbox' class="fold" id="CancelFunc-fold-results"><label for="CancelFunc-fold-results">As Outputs Of (<i>at least 3, all are exported</i>)</label><span id='CancelFunc-fold-results-items' class="fold-items"><span>
 			func <a href="#name-WithCancel">WithCancel</a>(parent <a href="#name-Context">Context</a>) (ctx <a href="#name-Context">Context</a>, cancel <b>CancelFunc</b>)</span><span>
@@ -203,31 +203,31 @@
 			func <a href="#name-WithTimeout">WithTimeout</a>(parent <a href="#name-Context">Context</a>, timeout <a href="time.html">time</a>.<a href="time.html#name-Duration">Duration</a>) (<a href="#name-Context">Context</a>, <b>CancelFunc</b>)</span></span>
 
 </span></div><div class="anchor type-res" id="name-Context" data-popularity="27125">	<input type='checkbox' class="fold" id="Context-fold-content"><label for="Context-fold-content"> <a href="../use/context..Context.html">type</a> <a href="../src/context/context.go.html#line-62">Context</a> <b><i>(interface)</i></b></label><span id='Context-fold-content-docs' class="fold-docs">
-		A Context carries a deadline, a cancellation signal, and other values across
+<span class="md-text">		A Context carries a deadline, a cancellation signal, and other values across
 		API boundaries.
-
-		Context's methods may be called by multiple goroutines simultaneously.
+		
+		Context's methods may be called by multiple goroutines simultaneously.</span>
 
 		<input type='checkbox' class="fold" id="Context-fold-methods"><label for="Context-fold-methods">Methods (<i>total 4, all are exported</i>)</label><span id='Context-fold-methods-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="Context-fold-method-Deadline"><label for="Context-fold-method-Deadline">( Context) <a href="../src/context/context.go.html#line-66">Deadline</a>() (deadline <a href="time.html">time</a>.<a href="time.html#name-Time">Time</a>, ok <a href="builtin.html#name-bool">bool</a>)</label><span id='Context-fold-method-Deadline-docs' class="fold-docs">
-				Deadline returns the time when work done on behalf of this context
+<span class="md-text">				Deadline returns the time when work done on behalf of this context
 				should be canceled. Deadline returns ok==false when no deadline is
-				set. Successive calls to Deadline return the same results.
+				set. Successive calls to Deadline return the same results.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="Context-fold-method-Done"><label for="Context-fold-method-Done">( Context) <a href="../src/context/context.go.html#line-99">Done</a>() &lt;-chan struct{}</label><span id='Context-fold-method-Done-docs' class="fold-docs">
-				Done returns a channel that's closed when work done on behalf of this
+<span class="md-text">				Done returns a channel that's closed when work done on behalf of this
 				context should be canceled. Done may return nil if this context can
 				never be canceled. Successive calls to Done return the same value.
 				The close of the Done channel may happen asynchronously,
 				after the cancel function returns.
-
+				
 				WithCancel arranges for Done to be closed when cancel is called;
 				WithDeadline arranges for Done to be closed when the deadline
 				expires; WithTimeout arranges for Done to be closed when the timeout
 				elapses.
-
+				
 				Done is provided for use in select statements:
-
+				
 				 // Stream generates values with DoSomething and sends them to out
 				 // until DoSomething returns an error or ctx.Done is closed.
 				 func Stream(ctx context.Context, out chan&lt;- Value) error {
@@ -243,63 +243,63 @@
 				 		}
 				 	}
 				 }
-
+				
 				See https://blog.golang.org/pipelines for more examples of how to use
-				a Done channel for cancellation.
+				a Done channel for cancellation.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="Context-fold-method-Err"><label for="Context-fold-method-Err">( Context) <a href="../src/context/context.go.html#line-106">Err</a>() <a href="builtin.html#name-error">error</a></label><span id='Context-fold-method-Err-docs' class="fold-docs">
-				If Done is not yet closed, Err returns nil.
+<span class="md-text">				If Done is not yet closed, Err returns nil.
 				If Done is closed, Err returns a non-nil error explaining why:
 				Canceled if the context was canceled
 				or DeadlineExceeded if the context's deadline passed.
-				After Err returns a non-nil error, successive calls to Err return the same error.
+				After Err returns a non-nil error, successive calls to Err return the same error.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="Context-fold-method-Value"><label for="Context-fold-method-Value">( Context) <a href="../src/context/context.go.html#line-153">Value</a>(key <a href="builtin.html#name-any">any</a>) <a href="builtin.html#name-any">any</a></label><span id='Context-fold-method-Value-docs' class="fold-docs">
-				Value returns the value associated with this context for key, or nil
+<span class="md-text">				Value returns the value associated with this context for key, or nil
 				if no value is associated with key. Successive calls to Value with
 				the same key returns the same result.
-
+				
 				Use context values only for request-scoped data that transits
 				processes and API boundaries, not for passing optional parameters to
 				functions.
-
+				
 				A key identifies a specific value in a Context. Functions that wish
 				to store values in Context typically allocate a key in a global
 				variable then use that key as the argument to context.WithValue and
 				Context.Value. A key can be any type that supports equality;
 				packages should define keys as an unexported type to avoid
 				collisions.
-
+				
 				Packages that define a Context key should provide type-safe accessors
 				for the values stored using that key:
-
+				
 					// Package user defines a User type that's stored in Contexts.
 					package user
-
+				
 					import "context"
-
+				
 					// User is the type of value stored in the Contexts.
 					type User struct {...}
-
+				
 					// key is an unexported type for keys defined in this package.
 					// This prevents collisions with keys defined in other packages.
 					type key int
-
+				
 					// userKey is the key for user.User values in Contexts. It is
 					// unexported; clients use user.NewContext and user.FromContext
 					// instead of using this key directly.
 					var userKey key
-
+				
 					// NewContext returns a new Context that carries value u.
 					func NewContext(ctx context.Context, u *User) context.Context {
 						return context.WithValue(ctx, userKey, u)
 					}
-
+				
 					// FromContext returns the User value stored in ctx, if any.
 					func FromContext(ctx context.Context) (*User, bool) {
 						u, ok := ctx.Value(userKey).(*User)
 						return u, ok
-					}
+					}</span>
 </span></span></span>
 		<input type='checkbox' class="fold" id="Context-fold-impledby"><label for="Context-fold-impledby">Implemented By (<i>at least 5, none are exported</i>)</label><span id='Context-fold-impledby-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="Context-showhide-impedBys"><i><label for="Context-showhide-impedBys" class="show-inline">/* 5+ unexporteds ... */</label><label for="Context-showhide-impedBys" class="hide-inline">/* 5+ unexporteds: */</label></i><span class="hidden"><i>
@@ -1039,29 +1039,29 @@
 			func nhooyr.io/websocket.(*<a href="nhooyr.io/websocket.html#name-Conn">Conn</a>).<a href="../src/nhooyr.io/websocket/write.go.html#line-110">writer</a>(ctx <b>Context</b>, typ <a href="nhooyr.io/websocket.html">websocket</a>.<a href="nhooyr.io/websocket.html#name-MessageType">MessageType</a>) (<a href="io.html">io</a>.<a href="io.html#name-WriteCloser">WriteCloser</a>, <a href="builtin.html#name-error">error</a>)</i></span></span>
 
 </span></div></div><div>	<input type='checkbox' class="showhide" id="unexported-typenames-showhide"><i><label for="unexported-typenames-showhide" class="show-inline">/* 7 unexporteds ... */</label><label for="unexported-typenames-showhide" class="hide-inline">/* 7 unexporteds: */</label></i><div class="anchor type-res hidden" id="name-cancelCtx" data-popularity="700">	<input type='checkbox' class="fold" id="cancelCtx-fold-content"><label for="cancelCtx-fold-content"> <a href="../use/context..cancelCtx^dd5d6.html">type</a> <a href="../src/context/context.go.html#line-342">cancelCtx</a> <i>(struct)</i></label><span id='cancelCtx-fold-content-docs' class="fold-docs">
-		A cancelCtx can be canceled. When canceled, it also cancels any children
-		that implement canceler.
+<span class="md-text">		A cancelCtx can be canceled. When canceled, it also cancels any children
+		that implement canceler.</span>
 
-		<input type='checkbox' class="fold" id="cancelCtx-fold-fields"><label for="cancelCtx-fold-fields">Fields (<i>total 5, in which 1 are exported</i>)</label><span id='cancelCtx-fold-fields-items' class="fold-items"><span>
+		<input type='checkbox' class="fold" id="cancelCtx-fold-fields"><label for="cancelCtx-fold-fields">Fields (<i>total 5, in which 1 is exported</i>)</label><span id='cancelCtx-fold-fields-items' class="fold-items"><span>
 			<span class="nodocs"><a href="../src/context/context.go.html#line-343">Context</a> <i><a href="#name-Context">Context</a></i></span></span>
 			<input type='checkbox' checked class="showhide" id="cancelCtx-showhide-fields"><i><label for="cancelCtx-showhide-fields" class="show-inline">/* 4 unexporteds ... */</label><label for="cancelCtx-showhide-fields" class="hide-inline">/* 4 unexporteds: */</label></i><span class="hidden"><i>
 			<input type='checkbox' class="fold" id="cancelCtx-fold-field-children"><label for="cancelCtx-fold-field-children"><a href="../src/context/context.go.html#line-347">children</a> <i>map[<a href="#name-canceler">canceler</a>]struct{}</i></label><span id='cancelCtx-fold-field-children-docs' class="fold-docs">
-				// set to nil by the first cancel call
+<span class="md-text">				// set to nil by the first cancel call</span>
 </span></i></span><span class="hidden"><i>
 			<input type='checkbox' class="fold" id="cancelCtx-fold-field-done"><label for="cancelCtx-fold-field-done"><a href="../src/context/context.go.html#line-346">done</a> <i><a href="sync/atomic.html">atomic</a>.<a href="sync/atomic.html#name-Value">Value</a></i></label><span id='cancelCtx-fold-field-done-docs' class="fold-docs">
-				// of chan struct{}, created lazily, closed by first cancel call
+<span class="md-text">				// of chan struct{}, created lazily, closed by first cancel call</span>
 </span></i></span><span class="hidden"><i>
 			<input type='checkbox' class="fold" id="cancelCtx-fold-field-err"><label for="cancelCtx-fold-field-err"><a href="../src/context/context.go.html#line-348">err</a> <i><a href="builtin.html#name-error">error</a></i></label><span id='cancelCtx-fold-field-err-docs' class="fold-docs">
-				// set to non-nil by the first cancel call
+<span class="md-text">				// set to non-nil by the first cancel call</span>
 </span></i></span><span class="hidden"><i>
 			<input type='checkbox' class="fold" id="cancelCtx-fold-field-mu"><label for="cancelCtx-fold-field-mu"><a href="../src/context/context.go.html#line-345">mu</a> <i><a href="sync.html">sync</a>.<a href="sync.html#name-Mutex">Mutex</a></i></label><span id='cancelCtx-fold-field-mu-docs' class="fold-docs">
-				// protects following fields
+<span class="md-text">				// protects following fields</span>
 </span></i></span></span>
 		<input type='checkbox' class="fold" id="cancelCtx-fold-methods"><label for="cancelCtx-fold-methods">Methods (<i>total 6, in which 5 are exported</i>)</label><span id='cancelCtx-fold-methods-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="cancelCtx-fold-method-Deadline"><label for="cancelCtx-fold-method-Deadline">( cancelCtx) <a href="../src/context/context.go.html#line-66">Deadline</a>() (deadline <a href="time.html">time</a>.<a href="time.html#name-Time">Time</a>, ok <a href="builtin.html#name-bool">bool</a>)</label><span id='cancelCtx-fold-method-Deadline-docs' class="fold-docs">
-				Deadline returns the time when work done on behalf of this context
+<span class="md-text">				Deadline returns the time when work done on behalf of this context
 				should be canceled. Deadline returns ok==false when no deadline is
-				set. Successive calls to Deadline return the same results.
+				set. Successive calls to Deadline return the same results.</span>
 </span></span><span>
 			<span class="nodocs">(*cancelCtx) <a href="../src/context/context.go.html#line-358">Done</a>() &lt;-chan struct{}</span></span><span>
 			<span class="nodocs">(*cancelCtx) <a href="../src/context/context.go.html#line-373">Err</a>() <a href="builtin.html#name-error">error</a></span></span><span>
@@ -1069,8 +1069,8 @@
 			<span class="nodocs">(*cancelCtx) <a href="../src/context/context.go.html#line-351">Value</a>(key <a href="builtin.html#name-any">any</a>) <a href="builtin.html#name-any">any</a></span></span>
 			<input type='checkbox' checked class="showhide" id="cancelCtx-showhide-methods"><i><label for="cancelCtx-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="cancelCtx-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
 			<input type='checkbox' class="fold" id="cancelCtx-fold-method-cancel"><label for="cancelCtx-fold-method-cancel">(*cancelCtx) <a href="../src/context/context.go.html#line-397">cancel</a>(removeFromParent <a href="builtin.html#name-bool">bool</a>, err <a href="builtin.html#name-error">error</a>)</label><span id='cancelCtx-fold-method-cancel-docs' class="fold-docs">
-				cancel closes c.done, cancels each of c's children, and, if
-				removeFromParent is true, removes c from its parent's children.
+<span class="md-text">				cancel closes c.done, cancels each of c's children, and, if
+				removeFromParent is true, removes c from its parent's children.</span>
 </span></i></span></span>
 		<input type='checkbox' class="fold" id="cancelCtx-fold-impls"><label for="cancelCtx-fold-impls">Implements (<i>at least 5, in which 2 are exported</i>)</label><span id='cancelCtx-fold-impls-items' class="fold-items"><span>
 			*cancelCtx : <a href="#name-Context">Context</a></span><span>
@@ -1085,10 +1085,10 @@
 			func <a href="#name-parentCancelCtx">parentCancelCtx</a>(parent <a href="#name-Context">Context</a>) (*<b>cancelCtx</b>, <a href="builtin.html#name-bool">bool</a>)</i></span></span>
 
 </span></div><div class="anchor type-res hidden" id="name-canceler" data-popularity="470">	<input type='checkbox' class="fold" id="canceler-fold-content"><label for="canceler-fold-content"> <a href="../use/context..canceler^82726.html">type</a> <a href="../src/context/context.go.html#line-328">canceler</a> <b><i>(interface)</i></b></label><span id='canceler-fold-content-docs' class="fold-docs">
-		A canceler is a context type that can be canceled directly. The
-		implementations are *cancelCtx and *timerCtx.
+<span class="md-text">		A canceler is a context type that can be canceled directly. The
+		implementations are *cancelCtx and *timerCtx.</span>
 
-		<input type='checkbox' class="fold" id="canceler-fold-methods"><label for="canceler-fold-methods">Methods (<i>total 2, in which 1 are exported</i>)</label><span id='canceler-fold-methods-items' class="fold-items"><span>
+		<input type='checkbox' class="fold" id="canceler-fold-methods"><label for="canceler-fold-methods">Methods (<i>total 2, in which 1 is exported</i>)</label><span id='canceler-fold-methods-items' class="fold-items"><span>
 			<span class="nodocs">( canceler) <a href="../src/context/context.go.html#line-330">Done</a>() &lt;-chan struct{}</span></span>
 			<input type='checkbox' checked class="showhide" id="canceler-showhide-methods"><i><label for="canceler-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="canceler-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
 			<span class="nodocs">( canceler) <a href="../src/context/context.go.html#line-329">cancel</a>(removeFromParent <a href="builtin.html#name-bool">bool</a>, err <a href="builtin.html#name-error">error</a>)</span></i></span></span>
@@ -1116,8 +1116,8 @@
 			 deadlineExceededError : os.<a href="os.html#name-timeout">timeout</a></i></span></span>
 
 </span></div><div class="anchor type-res hidden" id="name-emptyCtx" data-popularity="460">	<input type='checkbox' class="fold" id="emptyCtx-fold-content"><label for="emptyCtx-fold-content"> <a href="../use/context..emptyCtx^3a3dd.html">type</a> <a href="../src/context/context.go.html#line-171">emptyCtx</a> <a href="builtin.html#name-int">int</a> <i>(basic type)</i></label><span id='emptyCtx-fold-content-docs' class="fold-docs">
-		An emptyCtx is never canceled, has no values, and has no deadline. It is not
-		struct{}, since vars of this type must have distinct addresses.
+<span class="md-text">		An emptyCtx is never canceled, has no values, and has no deadline. It is not
+		struct{}, since vars of this type must have distinct addresses.</span>
 
 		<input type='checkbox' class="fold" id="emptyCtx-fold-methods"><label for="emptyCtx-fold-methods">Methods (<i>total 5, all are exported</i>)</label><span id='emptyCtx-fold-methods-items' class="fold-items"><span>
 			<span class="nodocs">(*emptyCtx) <a href="../src/context/context.go.html#line-173">Deadline</a>() (deadline <a href="time.html">time</a>.<a href="time.html#name-Time">Time</a>, ok <a href="builtin.html#name-bool">bool</a>)</span></span><span>
@@ -1513,11 +1513,11 @@
 			 github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ChannelParticipantClass">ChannelParticipantClass</a> <i>(interface)</i></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ChannelParticipantCreator">ChannelParticipantCreator</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ChannelParticipantLeft">ChannelParticipantLeft</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ChannelParticipantSelf">ChannelParticipantSelf</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ChannelParticipantsAdmins">ChannelParticipantsAdmins</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ChannelParticipantsBanned">ChannelParticipantsBanned</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ChannelParticipantsBots">ChannelParticipantsBots</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ChannelParticipantsContacts">ChannelParticipantsContacts</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ChannelParticipantSelf">ChannelParticipantSelf</a></span><span>
 			 github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ChannelParticipantsFilterClass">ChannelParticipantsFilterClass</a> <i>(interface)</i></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ChannelParticipantsKicked">ChannelParticipantsKicked</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ChannelParticipantsMentions">ChannelParticipantsMentions</a></span><span>
@@ -1617,6 +1617,8 @@
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-CodeSettings">CodeSettings</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-Config">Config</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-Contact">Contact</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ContactStatus">ContactStatus</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ContactStatusVector">ContactStatusVector</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ContactsAcceptContactRequest">ContactsAcceptContactRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ContactsAddContactRequest">ContactsAddContactRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ContactsBlocked">ContactsBlocked</a></span><span>
@@ -1647,8 +1649,6 @@
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ContactsResolvePhoneRequest">ContactsResolvePhoneRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ContactsResolveUsernameRequest">ContactsResolveUsernameRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ContactsSearchRequest">ContactsSearchRequest</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ContactStatus">ContactStatus</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ContactStatusVector">ContactStatusVector</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ContactsToggleTopPeersRequest">ContactsToggleTopPeersRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ContactsTopPeers">ContactsTopPeers</a></span><span>
 			 github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-ContactsTopPeersClass">ContactsTopPeersClass</a> <i>(interface)</i></span><span>
@@ -2049,11 +2049,6 @@
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-KeyboardButtonWebView">KeyboardButtonWebView</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-LabeledPrice">LabeledPrice</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-LangPackDifference">LangPackDifference</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-LangpackGetDifferenceRequest">LangpackGetDifferenceRequest</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-LangpackGetLangPackRequest">LangpackGetLangPackRequest</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-LangpackGetLanguageRequest">LangpackGetLanguageRequest</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-LangpackGetLanguagesRequest">LangpackGetLanguagesRequest</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-LangpackGetStringsRequest">LangpackGetStringsRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-LangPackLanguage">LangPackLanguage</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-LangPackLanguageVector">LangPackLanguageVector</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-LangPackString">LangPackString</a></span><span>
@@ -2061,6 +2056,11 @@
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-LangPackStringClassVector">LangPackStringClassVector</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-LangPackStringDeleted">LangPackStringDeleted</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-LangPackStringPluralized">LangPackStringPluralized</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-LangpackGetDifferenceRequest">LangpackGetDifferenceRequest</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-LangpackGetLangPackRequest">LangpackGetLangPackRequest</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-LangpackGetLanguageRequest">LangpackGetLanguageRequest</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-LangpackGetLanguagesRequest">LangpackGetLanguagesRequest</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-LangpackGetStringsRequest">LangpackGetStringsRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-Long">Long</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-LongVector">LongVector</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MaskCoords">MaskCoords</a></span><span>
@@ -2149,6 +2149,7 @@
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessageReactions">MessageReactions</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessageReplies">MessageReplies</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessageReplyHeader">MessageReplyHeader</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessageService">MessageService</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesAcceptEncryptionRequest">MessagesAcceptEncryptionRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesAcceptURLAuthRequest">MessagesAcceptURLAuthRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesAddChatUserRequest">MessagesAddChatUserRequest</a></span><span>
@@ -2204,7 +2205,6 @@
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesEditExportedChatInviteRequest">MessagesEditExportedChatInviteRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesEditInlineBotMessageRequest">MessagesEditInlineBotMessageRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesEditMessageRequest">MessagesEditMessageRequest</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessageService">MessageService</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesExportChatInviteRequest">MessagesExportChatInviteRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesExportedChatInvite">MessagesExportedChatInvite</a></span><span>
 			 github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesExportedChatInviteClass">MessagesExportedChatInviteClass</a> <i>(interface)</i></span><span>
@@ -2342,10 +2342,10 @@
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesRequestURLAuthRequest">MessagesRequestURLAuthRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesRequestWebViewRequest">MessagesRequestWebViewRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesSaveDefaultSendAsRequest">MessagesSaveDefaultSendAsRequest</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesSaveDraftRequest">MessagesSaveDraftRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesSavedGifs">MessagesSavedGifs</a></span><span>
 			 github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesSavedGifsClass">MessagesSavedGifsClass</a> <i>(interface)</i></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesSavedGifsNotModified">MessagesSavedGifsNotModified</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesSaveDraftRequest">MessagesSaveDraftRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesSaveGifRequest">MessagesSaveGifRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesSaveRecentStickerRequest">MessagesSaveRecentStickerRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesSearchCounter">MessagesSearchCounter</a></span><span>
@@ -2390,14 +2390,14 @@
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesSponsoredMessagesEmpty">MessagesSponsoredMessagesEmpty</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesStartBotRequest">MessagesStartBotRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesStartHistoryImportRequest">MessagesStartHistoryImportRequest</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesStickers">MessagesStickers</a></span><span>
-			 github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesStickersClass">MessagesStickersClass</a> <i>(interface)</i></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesStickerSet">MessagesStickerSet</a></span><span>
 			 github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesStickerSetClass">MessagesStickerSetClass</a> <i>(interface)</i></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesStickerSetInstallResultArchive">MessagesStickerSetInstallResultArchive</a></span><span>
 			 github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesStickerSetInstallResultClass">MessagesStickerSetInstallResultClass</a> <i>(interface)</i></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesStickerSetInstallResultSuccess">MessagesStickerSetInstallResultSuccess</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesStickerSetNotModified">MessagesStickerSetNotModified</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesStickers">MessagesStickers</a></span><span>
+			 github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesStickersClass">MessagesStickersClass</a> <i>(interface)</i></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesStickersNotModified">MessagesStickersNotModified</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesToggleBotInAttachMenuRequest">MessagesToggleBotInAttachMenuRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-MessagesToggleDialogPinRequest">MessagesToggleDialogPinRequest</a></span><span>
@@ -2496,9 +2496,9 @@
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PaymentCharge">PaymentCharge</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PaymentFormMethod">PaymentFormMethod</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PaymentRequestedInfo">PaymentRequestedInfo</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PaymentSavedCredentialsCard">PaymentSavedCredentialsCard</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PaymentsAssignAppStoreTransactionRequest">PaymentsAssignAppStoreTransactionRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PaymentsAssignPlayMarketTransactionRequest">PaymentsAssignPlayMarketTransactionRequest</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PaymentSavedCredentialsCard">PaymentSavedCredentialsCard</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PaymentsBankCardData">PaymentsBankCardData</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PaymentsCanPurchasePremiumRequest">PaymentsCanPurchasePremiumRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PaymentsClearSavedInfoRequest">PaymentsClearSavedInfoRequest</a></span><span>
@@ -2586,17 +2586,17 @@
 			 github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PhotoClass">PhotoClass</a> <i>(interface)</i></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PhotoEmpty">PhotoEmpty</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PhotoPathSize">PhotoPathSize</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PhotosDeletePhotosRequest">PhotosDeletePhotosRequest</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PhotosGetUserPhotosRequest">PhotosGetUserPhotosRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PhotoSize">PhotoSize</a></span><span>
 			 github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PhotoSizeClass">PhotoSizeClass</a> <i>(interface)</i></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PhotoSizeEmpty">PhotoSizeEmpty</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PhotoSizeProgressive">PhotoSizeProgressive</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PhotoStrippedSize">PhotoStrippedSize</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PhotosDeletePhotosRequest">PhotosDeletePhotosRequest</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PhotosGetUserPhotosRequest">PhotosGetUserPhotosRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PhotosPhoto">PhotosPhoto</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PhotosPhotos">PhotosPhotos</a></span><span>
 			 github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PhotosPhotosClass">PhotosPhotosClass</a> <i>(interface)</i></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PhotosPhotosSlice">PhotosPhotosSlice</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PhotoStrippedSize">PhotoStrippedSize</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PhotosUpdateProfilePhotoRequest">PhotosUpdateProfilePhotoRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-PhotosUploadProfilePhotoRequest">PhotosUploadProfilePhotoRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-Poll">Poll</a></span><span>
@@ -2738,16 +2738,16 @@
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-StatsURL">StatsURL</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-StickerKeyword">StickerKeyword</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-StickerPack">StickerPack</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-StickersAddStickerToSetRequest">StickersAddStickerToSetRequest</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-StickersChangeStickerPositionRequest">StickersChangeStickerPositionRequest</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-StickersCheckShortNameRequest">StickersCheckShortNameRequest</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-StickersCreateStickerSetRequest">StickersCreateStickerSetRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-StickerSet">StickerSet</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-StickerSetCovered">StickerSetCovered</a></span><span>
 			 github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-StickerSetCoveredClass">StickerSetCoveredClass</a> <i>(interface)</i></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-StickerSetCoveredClassVector">StickerSetCoveredClassVector</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-StickerSetFullCovered">StickerSetFullCovered</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-StickerSetMultiCovered">StickerSetMultiCovered</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-StickersAddStickerToSetRequest">StickersAddStickerToSetRequest</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-StickersChangeStickerPositionRequest">StickersChangeStickerPositionRequest</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-StickersCheckShortNameRequest">StickersCheckShortNameRequest</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-StickersCreateStickerSetRequest">StickersCreateStickerSetRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-StickersRemoveStickerFromSetRequest">StickersRemoveStickerFromSetRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-StickersSetStickerSetThumbRequest">StickersSetStickerSetThumbRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-StickersSuggestedShortName">StickersSuggestedShortName</a></span><span>
@@ -2891,9 +2891,16 @@
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdateRecentEmojiStatuses">UpdateRecentEmojiStatuses</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdateRecentReactions">UpdateRecentReactions</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdateRecentStickers">UpdateRecentStickers</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-Updates">Updates</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdateSavedGifs">UpdateSavedGifs</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdateSavedRingtones">UpdateSavedRingtones</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdateServiceNotification">UpdateServiceNotification</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdateShort">UpdateShort</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdateShortChatMessage">UpdateShortChatMessage</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdateShortMessage">UpdateShortMessage</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdateShortSentMessage">UpdateShortSentMessage</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdateStickerSets">UpdateStickerSets</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdateStickerSetsOrder">UpdateStickerSetsOrder</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-Updates">Updates</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdatesChannelDifference">UpdatesChannelDifference</a></span><span>
 			 github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdatesChannelDifferenceClass">UpdatesChannelDifferenceClass</a> <i>(interface)</i></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdatesChannelDifferenceEmpty">UpdatesChannelDifferenceEmpty</a></span><span>
@@ -2905,17 +2912,10 @@
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdatesDifferenceEmpty">UpdatesDifferenceEmpty</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdatesDifferenceSlice">UpdatesDifferenceSlice</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdatesDifferenceTooLong">UpdatesDifferenceTooLong</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdateServiceNotification">UpdateServiceNotification</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdatesGetChannelDifferenceRequest">UpdatesGetChannelDifferenceRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdatesGetDifferenceRequest">UpdatesGetDifferenceRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdatesGetStateRequest">UpdatesGetStateRequest</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdateShort">UpdateShort</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdateShortChatMessage">UpdateShortChatMessage</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdateShortMessage">UpdateShortMessage</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdateShortSentMessage">UpdateShortSentMessage</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdatesState">UpdatesState</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdateStickerSets">UpdateStickerSets</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdateStickerSetsOrder">UpdateStickerSetsOrder</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdatesTooLong">UpdatesTooLong</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdateTheme">UpdateTheme</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UpdateTranscribedAudio">UpdateTranscribedAudio</a></span><span>
@@ -2955,9 +2955,6 @@
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UserProfilePhoto">UserProfilePhoto</a></span><span>
 			 github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UserProfilePhotoClass">UserProfilePhotoClass</a> <i>(interface)</i></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UserProfilePhotoEmpty">UserProfilePhotoEmpty</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UsersGetFullUserRequest">UsersGetFullUserRequest</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UsersGetUsersRequest">UsersGetUsersRequest</a></span><span>
-			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UsersSetSecureValueErrorsRequest">UsersSetSecureValueErrorsRequest</a></span><span>
 			 github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UserStatusClass">UserStatusClass</a> <i>(interface)</i></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UserStatusEmpty">UserStatusEmpty</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UserStatusLastMonth">UserStatusLastMonth</a></span><span>
@@ -2965,6 +2962,9 @@
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UserStatusOffline">UserStatusOffline</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UserStatusOnline">UserStatusOnline</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UserStatusRecently">UserStatusRecently</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UsersGetFullUserRequest">UsersGetFullUserRequest</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UsersGetUsersRequest">UsersGetUsersRequest</a></span><span>
+			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UsersSetSecureValueErrorsRequest">UsersSetSecureValueErrorsRequest</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-UsersUserFull">UsersUserFull</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-VideoSize">VideoSize</a></span><span>
 			*github.com/gotd/td/tg.<a href="github.com/gotd/td/tg.html#name-WallPaper">WallPaper</a></span><span>
@@ -3159,35 +3159,35 @@
 			 runtime.<a href="runtime.html#name-waitReason">waitReason</a></i></span><span class="hidden"><i>
 			*strconv.<a href="strconv.html#name-decimal">decimal</a></i></span><span class="hidden"><i>
 			*vendor/golang.org/x/text/unicode/bidi.<a href="vendor/golang.org/x/text/unicode/bidi.html#name-bracketPair">bracketPair</a></i></span></span>
-		<input type='checkbox' class="fold" id="stringer-fold-impls"><label for="stringer-fold-impls">Implements (<i>at least 2, in which 1 are exported</i>)</label><span id='stringer-fold-impls-items' class="fold-items"><span>
+		<input type='checkbox' class="fold" id="stringer-fold-impls"><label for="stringer-fold-impls">Implements (<i>at least 2, in which 1 is exported</i>)</label><span id='stringer-fold-impls-items' class="fold-items"><span>
 			 stringer : fmt.<a href="fmt.html#name-Stringer">Stringer</a></span>
 			<input type='checkbox' checked class="showhide" id="stringer-showhide-impls"><i><label for="stringer-showhide-impls" class="show-inline">/* at least one unexported ... */</label><label for="stringer-showhide-impls" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
 			 stringer : runtime.<a href="runtime.html#name-stringer">stringer</a></i></span></span>
 
 </span></div><div class="anchor type-res hidden" id="name-timerCtx" data-popularity="550">	<input type='checkbox' class="fold" id="timerCtx-fold-content"><label for="timerCtx-fold-content"> <a href="../use/context..timerCtx^07e1a.html">type</a> <a href="../src/context/context.go.html#line-465">timerCtx</a> <i>(struct)</i></label><span id='timerCtx-fold-content-docs' class="fold-docs">
-		A timerCtx carries a timer and a deadline. It embeds a cancelCtx to
+<span class="md-text">		A timerCtx carries a timer and a deadline. It embeds a cancelCtx to
 		implement Done and Err. It implements cancel by stopping its timer then
-		delegating to cancelCtx.cancel.
+		delegating to cancelCtx.cancel.</span>
 
-		<input type='checkbox' class="fold" id="timerCtx-fold-fields"><label for="timerCtx-fold-fields">Fields (<i>total 8, in which 1 are exported</i>)</label><span id='timerCtx-fold-fields-items' class="fold-items"><span>
+		<input type='checkbox' class="fold" id="timerCtx-fold-fields"><label for="timerCtx-fold-fields">Fields (<i>total 8, in which 1 is exported</i>)</label><span id='timerCtx-fold-fields-items' class="fold-items"><span>
 			<span class="nodocs"><a href="../src/context/context.go.html#line-466">cancelCtx</a>.<a href="../src/context/context.go.html#line-343">Context</a> <i><a href="#name-Context">Context</a></i></span></span>
 			<input type='checkbox' checked class="showhide" id="timerCtx-showhide-fields"><i><label for="timerCtx-showhide-fields" class="show-inline">/* 7 unexporteds ... */</label><label for="timerCtx-showhide-fields" class="hide-inline">/* 7 unexporteds: */</label></i><span class="hidden"><i>
 			<span class="nodocs"><a href="../src/context/context.go.html#line-466">cancelCtx</a> <i><a href="#name-cancelCtx">cancelCtx</a></i></span></i></span><span class="hidden"><i>
 			<input type='checkbox' class="fold" id="timerCtx-fold-field-children"><label for="timerCtx-fold-field-children"><a href="../src/context/context.go.html#line-466" class="path-duplicate">cancelCtx</a>.<a href="../src/context/context.go.html#line-347">children</a> <i>map[<a href="#name-canceler">canceler</a>]struct{}</i></label><span id='timerCtx-fold-field-children-docs' class="fold-docs">
-				// set to nil by the first cancel call
+<span class="md-text">				// set to nil by the first cancel call</span>
 </span></i></span><span class="hidden"><i>
 			<input type='checkbox' class="fold" id="timerCtx-fold-field-done"><label for="timerCtx-fold-field-done"><a href="../src/context/context.go.html#line-466" class="path-duplicate">cancelCtx</a>.<a href="../src/context/context.go.html#line-346">done</a> <i><a href="sync/atomic.html">atomic</a>.<a href="sync/atomic.html#name-Value">Value</a></i></label><span id='timerCtx-fold-field-done-docs' class="fold-docs">
-				// of chan struct{}, created lazily, closed by first cancel call
+<span class="md-text">				// of chan struct{}, created lazily, closed by first cancel call</span>
 </span></i></span><span class="hidden"><i>
 			<input type='checkbox' class="fold" id="timerCtx-fold-field-err"><label for="timerCtx-fold-field-err"><a href="../src/context/context.go.html#line-466" class="path-duplicate">cancelCtx</a>.<a href="../src/context/context.go.html#line-348">err</a> <i><a href="builtin.html#name-error">error</a></i></label><span id='timerCtx-fold-field-err-docs' class="fold-docs">
-				// set to non-nil by the first cancel call
+<span class="md-text">				// set to non-nil by the first cancel call</span>
 </span></i></span><span class="hidden"><i>
 			<input type='checkbox' class="fold" id="timerCtx-fold-field-mu"><label for="timerCtx-fold-field-mu"><a href="../src/context/context.go.html#line-466" class="path-duplicate">cancelCtx</a>.<a href="../src/context/context.go.html#line-345">mu</a> <i><a href="sync.html">sync</a>.<a href="sync.html#name-Mutex">Mutex</a></i></label><span id='timerCtx-fold-field-mu-docs' class="fold-docs">
-				// protects following fields
+<span class="md-text">				// protects following fields</span>
 </span></i></span><span class="hidden"><i>
 			<span class="nodocs"><a href="../src/context/context.go.html#line-469">deadline</a> <i><a href="time.html">time</a>.<a href="time.html#name-Time">Time</a></i></span></i></span><span class="hidden"><i>
 			<input type='checkbox' class="fold" id="timerCtx-fold-field-timer"><label for="timerCtx-fold-field-timer"><a href="../src/context/context.go.html#line-467">timer</a> <i>*<a href="time.html">time</a>.<a href="time.html#name-Timer">Timer</a></i></label><span id='timerCtx-fold-field-timer-docs' class="fold-docs">
-				// Under cancelCtx.mu.
+<span class="md-text">				// Under cancelCtx.mu.</span>
 </span></i></span></span>
 		<input type='checkbox' class="fold" id="timerCtx-fold-methods"><label for="timerCtx-fold-methods">Methods (<i>total 6, in which 5 are exported</i>)</label><span id='timerCtx-fold-methods-items' class="fold-items"><span>
 			<span class="nodocs">(*timerCtx) <a href="../src/context/context.go.html#line-472">Deadline</a>() (deadline <a href="time.html">time</a>.<a href="time.html#name-Time">Time</a>, ok <a href="builtin.html#name-bool">bool</a>)</span></span><span>
@@ -3206,34 +3206,34 @@
 			*timerCtx : runtime.<a href="runtime.html#name-stringer">stringer</a></i></span></span>
 
 </span></div><div class="anchor type-res hidden" id="name-valueCtx" data-popularity="450">	<input type='checkbox' class="fold" id="valueCtx-fold-content"><label for="valueCtx-fold-content"> <a href="../use/context..valueCtx^a78e9.html">type</a> <a href="../src/context/context.go.html#line-538">valueCtx</a> <i>(struct)</i></label><span id='valueCtx-fold-content-docs' class="fold-docs">
-		A valueCtx carries a key-value pair. It implements Value for that key and
-		delegates all other calls to the embedded Context.
+<span class="md-text">		A valueCtx carries a key-value pair. It implements Value for that key and
+		delegates all other calls to the embedded Context.</span>
 
-		<input type='checkbox' class="fold" id="valueCtx-fold-fields"><label for="valueCtx-fold-fields">Fields (<i>total 3, in which 1 are exported</i>)</label><span id='valueCtx-fold-fields-items' class="fold-items"><span>
+		<input type='checkbox' class="fold" id="valueCtx-fold-fields"><label for="valueCtx-fold-fields">Fields (<i>total 3, in which 1 is exported</i>)</label><span id='valueCtx-fold-fields-items' class="fold-items"><span>
 			<span class="nodocs"><a href="../src/context/context.go.html#line-539">Context</a> <i><a href="#name-Context">Context</a></i></span></span>
 			<input type='checkbox' checked class="showhide" id="valueCtx-showhide-fields"><i><label for="valueCtx-showhide-fields" class="show-inline">/* 2 unexporteds ... */</label><label for="valueCtx-showhide-fields" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
 			<span class="nodocs"><a href="../src/context/context.go.html#line-540">key</a> <i><a href="builtin.html#name-any">any</a></i></span></i></span><span class="hidden"><i>
 			<span class="nodocs"><a href="../src/context/context.go.html#line-540">val</a> <i><a href="builtin.html#name-any">any</a></i></span></i></span></span>
 		<input type='checkbox' class="fold" id="valueCtx-fold-methods"><label for="valueCtx-fold-methods">Methods (<i>total 5, all are exported</i>)</label><span id='valueCtx-fold-methods-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="valueCtx-fold-method-Deadline"><label for="valueCtx-fold-method-Deadline">( valueCtx) <a href="../src/context/context.go.html#line-66">Deadline</a>() (deadline <a href="time.html">time</a>.<a href="time.html#name-Time">Time</a>, ok <a href="builtin.html#name-bool">bool</a>)</label><span id='valueCtx-fold-method-Deadline-docs' class="fold-docs">
-				Deadline returns the time when work done on behalf of this context
+<span class="md-text">				Deadline returns the time when work done on behalf of this context
 				should be canceled. Deadline returns ok==false when no deadline is
-				set. Successive calls to Deadline return the same results.
+				set. Successive calls to Deadline return the same results.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="valueCtx-fold-method-Done"><label for="valueCtx-fold-method-Done">( valueCtx) <a href="../src/context/context.go.html#line-99">Done</a>() &lt;-chan struct{}</label><span id='valueCtx-fold-method-Done-docs' class="fold-docs">
-				Done returns a channel that's closed when work done on behalf of this
+<span class="md-text">				Done returns a channel that's closed when work done on behalf of this
 				context should be canceled. Done may return nil if this context can
 				never be canceled. Successive calls to Done return the same value.
 				The close of the Done channel may happen asynchronously,
 				after the cancel function returns.
-
+				
 				WithCancel arranges for Done to be closed when cancel is called;
 				WithDeadline arranges for Done to be closed when the deadline
 				expires; WithTimeout arranges for Done to be closed when the timeout
 				elapses.
-
+				
 				Done is provided for use in select statements:
-
+				
 				 // Stream generates values with DoSomething and sends them to out
 				 // until DoSomething returns an error or ctx.Done is closed.
 				 func Stream(ctx context.Context, out chan&lt;- Value) error {
@@ -3249,16 +3249,16 @@
 				 		}
 				 	}
 				 }
-
+				
 				See https://blog.golang.org/pipelines for more examples of how to use
-				a Done channel for cancellation.
+				a Done channel for cancellation.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="valueCtx-fold-method-Err"><label for="valueCtx-fold-method-Err">( valueCtx) <a href="../src/context/context.go.html#line-106">Err</a>() <a href="builtin.html#name-error">error</a></label><span id='valueCtx-fold-method-Err-docs' class="fold-docs">
-				If Done is not yet closed, Err returns nil.
+<span class="md-text">				If Done is not yet closed, Err returns nil.
 				If Done is closed, Err returns a non-nil error explaining why:
 				Canceled if the context was canceled
 				or DeadlineExceeded if the context's deadline passed.
-				After Err returns a non-nil error, successive calls to Err return the same error.
+				After Err returns a non-nil error, successive calls to Err return the same error.</span>
 </span></span><span>
 			<span class="nodocs">(*valueCtx) <a href="../src/context/context.go.html#line-556">String</a>() <a href="builtin.html#name-string">string</a></span></span><span>
 			<span class="nodocs">(*valueCtx) <a href="../src/context/context.go.html#line-562">Value</a>(key <a href="builtin.html#name-any">any</a>) <a href="builtin.html#name-any">any</a></span></span></span>
@@ -3273,107 +3273,107 @@
 <div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 14, in which 6 are exported)</i></span></span>
 
 <div class="anchor value-res" id="name-Background">	<input type='checkbox' class="fold" id="Background-fold-content"><label for="Background-fold-content"> <a href="../use/context..Background.html">func</a> <a href="../src/context/context.go.html#line-208">Background</a>() <a href="#name-Context">Context</a></label><span id='Background-fold-content-docs' class="fold-docs">
-		Background returns a non-nil, empty Context. It is never canceled, has no
+<span class="md-text">		Background returns a non-nil, empty Context. It is never canceled, has no
 		values, and has no deadline. It is typically used by the main function,
 		initialization, and tests, and as the top-level Context for incoming
-		requests.
+		requests.</span>
 
 </span></div><div class="anchor value-res" id="name-TODO">	<input type='checkbox' class="fold" id="TODO-fold-content"><label for="TODO-fold-content"> <a href="../use/context..TODO.html">func</a> <a href="../src/context/context.go.html#line-216">TODO</a>() <a href="#name-Context">Context</a></label><span id='TODO-fold-content-docs' class="fold-docs">
-		TODO returns a non-nil, empty Context. Code should use context.TODO when
+<span class="md-text">		TODO returns a non-nil, empty Context. Code should use context.TODO when
 		it's unclear which Context to use or it is not yet available (because the
 		surrounding function has not yet been extended to accept a Context
-		parameter).
+		parameter).</span>
 
 </span></div><div class="anchor value-res" id="name-WithCancel">	<input type='checkbox' class="fold" id="WithCancel-fold-content"><label for="WithCancel-fold-content"> <a href="../use/context..WithCancel.html">func</a> <a href="../src/context/context.go.html#line-232">WithCancel</a>(parent <a href="#name-Context">Context</a>) (ctx <a href="#name-Context">Context</a>, cancel <a href="#name-CancelFunc">CancelFunc</a>)</label><span id='WithCancel-fold-content-docs' class="fold-docs">
-		WithCancel returns a copy of parent with a new Done channel. The returned
+<span class="md-text">		WithCancel returns a copy of parent with a new Done channel. The returned
 		context's Done channel is closed when the returned cancel function is called
 		or when the parent context's Done channel is closed, whichever happens first.
-
+		
 		Canceling this context releases resources associated with it, so code should
-		call cancel as soon as the operations running in this Context complete.
+		call cancel as soon as the operations running in this Context complete.</span>
 
 </span></div><div class="anchor value-res" id="name-WithDeadline">	<input type='checkbox' class="fold" id="WithDeadline-fold-content"><label for="WithDeadline-fold-content"> <a href="../use/context..WithDeadline.html">func</a> <a href="../src/context/context.go.html#line-434">WithDeadline</a>(parent <a href="#name-Context">Context</a>, d <a href="time.html">time</a>.<a href="time.html#name-Time">Time</a>) (<a href="#name-Context">Context</a>, <a href="#name-CancelFunc">CancelFunc</a>)</label><span id='WithDeadline-fold-content-docs' class="fold-docs">
-		WithDeadline returns a copy of the parent context with the deadline adjusted
+<span class="md-text">		WithDeadline returns a copy of the parent context with the deadline adjusted
 		to be no later than d. If the parent's deadline is already earlier than d,
 		WithDeadline(parent, d) is semantically equivalent to parent. The returned
 		context's Done channel is closed when the deadline expires, when the returned
 		cancel function is called, or when the parent context's Done channel is
 		closed, whichever happens first.
-
+		
 		Canceling this context releases resources associated with it, so code should
-		call cancel as soon as the operations running in this Context complete.
+		call cancel as soon as the operations running in this Context complete.</span>
 
 </span></div><div class="anchor value-res" id="name-WithTimeout">	<input type='checkbox' class="fold" id="WithTimeout-fold-content"><label for="WithTimeout-fold-content"> <a href="../use/context..WithTimeout.html">func</a> <a href="../src/context/context.go.html#line-506">WithTimeout</a>(parent <a href="#name-Context">Context</a>, timeout <a href="time.html">time</a>.<a href="time.html#name-Duration">Duration</a>) (<a href="#name-Context">Context</a>, <a href="#name-CancelFunc">CancelFunc</a>)</label><span id='WithTimeout-fold-content-docs' class="fold-docs">
-		WithTimeout returns WithDeadline(parent, time.Now().Add(timeout)).
-
+<span class="md-text">		WithTimeout returns WithDeadline(parent, time.Now().Add(timeout)).
+		
 		Canceling this context releases resources associated with it, so code should
 		call cancel as soon as the operations running in this Context complete:
-
+		
 			func slowOperationWithTimeout(ctx context.Context) (Result, error) {
 				ctx, cancel := context.WithTimeout(ctx, 100*time.Millisecond)
 				defer cancel()  // releases resources if slowOperation completes before timeout elapses
 				return slowOperation(ctx)
-			}
+			}</span>
 
 </span></div><div class="anchor value-res" id="name-WithValue">	<input type='checkbox' class="fold" id="WithValue-fold-content"><label for="WithValue-fold-content"> <a href="../use/context..WithValue.html">func</a> <a href="../src/context/context.go.html#line-523">WithValue</a>(parent <a href="#name-Context">Context</a>, key, val <a href="builtin.html#name-any">any</a>) <a href="#name-Context">Context</a></label><span id='WithValue-fold-content-docs' class="fold-docs">
-		WithValue returns a copy of parent in which the value associated with key is
+<span class="md-text">		WithValue returns a copy of parent in which the value associated with key is
 		val.
-
+		
 		Use context Values only for request-scoped data that transits processes and
 		APIs, not for passing optional parameters to functions.
-
+		
 		The provided key must be comparable and should not be of type
 		string or any other built-in type to avoid collisions between
 		packages using context. Users of WithValue should define their own
 		types for keys. To avoid allocating when assigning to an
 		interface{}, context keys often have concrete type
 		struct{}. Alternatively, exported context key variables' static
-		type should be a pointer or interface.
+		type should be a pointer or interface.</span>
 
 </span></div>	<input type='checkbox' class="showhide" id="unexported-functions-showhide"><i><label for="unexported-functions-showhide" class="show-inline">/* 8 unexporteds ... */</label><label for="unexported-functions-showhide" class="hide-inline">/* 8 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-contextName"><i>	<span class="nodocs"> <a href="../use/context..contextName^a9fd1.html">func</a> <a href="../src/context/context.go.html#line-384">contextName</a>(c <a href="#name-Context">Context</a>) <a href="builtin.html#name-string">string</a></span></i></div><div class="anchor value-res hidden" id="name-init"><i>	<span class="nodocs"> <a href="../use/context..init^bb540.html">func</a> <a href="../src/context/context.go.html#line-336">init</a>()</span></i></div><div class="anchor value-res hidden" id="name-newCancelCtx"><i>	<input type='checkbox' class="fold" id="newCancelCtx-fold-content"><label for="newCancelCtx-fold-content"> <a href="../use/context..newCancelCtx^3ebb7.html">func</a> <a href="../src/context/context.go.html#line-242">newCancelCtx</a>(parent <a href="#name-Context">Context</a>) <a href="#name-cancelCtx">cancelCtx</a></label><span id='newCancelCtx-fold-content-docs' class="fold-docs">
-		newCancelCtx returns an initialized cancelCtx.
+<span class="md-text">		newCancelCtx returns an initialized cancelCtx.</span>
 
 </span></i></div><div class="anchor value-res hidden" id="name-parentCancelCtx"><i>	<input type='checkbox' class="fold" id="parentCancelCtx-fold-content"><label for="parentCancelCtx-fold-content"> <a href="../use/context..parentCancelCtx^c2c04.html">func</a> <a href="../src/context/context.go.html#line-297">parentCancelCtx</a>(parent <a href="#name-Context">Context</a>) (*<a href="#name-cancelCtx">cancelCtx</a>, <a href="builtin.html#name-bool">bool</a>)</label><span id='parentCancelCtx-fold-content-docs' class="fold-docs">
-		parentCancelCtx returns the underlying *cancelCtx for parent.
+<span class="md-text">		parentCancelCtx returns the underlying *cancelCtx for parent.
 		It does this by looking up parent.Value(&amp;cancelCtxKey) to find
 		the innermost enclosing *cancelCtx and then checking whether
 		parent.Done() matches that *cancelCtx. (If not, the *cancelCtx
 		has been wrapped in a custom implementation providing a
-		different done channel, in which case we should not bypass it.)
+		different done channel, in which case we should not bypass it.)</span>
 
 </span></i></div><div class="anchor value-res hidden" id="name-propagateCancel"><i>	<input type='checkbox' class="fold" id="propagateCancel-fold-content"><label for="propagateCancel-fold-content"> <a href="../use/context..propagateCancel^4d9b4.html">func</a> <a href="../src/context/context.go.html#line-250">propagateCancel</a>(parent <a href="#name-Context">Context</a>, child <a href="#name-canceler">canceler</a>)</label><span id='propagateCancel-fold-content-docs' class="fold-docs">
-		propagateCancel arranges for child to be canceled when parent is.
+<span class="md-text">		propagateCancel arranges for child to be canceled when parent is.</span>
 
 </span></i></div><div class="anchor value-res hidden" id="name-removeChild"><i>	<input type='checkbox' class="fold" id="removeChild-fold-content"><label for="removeChild-fold-content"> <a href="../use/context..removeChild^de48d.html">func</a> <a href="../src/context/context.go.html#line-314">removeChild</a>(parent <a href="#name-Context">Context</a>, child <a href="#name-canceler">canceler</a>)</label><span id='removeChild-fold-content-docs' class="fold-docs">
-		removeChild removes a context from its parent.
+<span class="md-text">		removeChild removes a context from its parent.</span>
 
 </span></i></div><div class="anchor value-res hidden" id="name-stringify"><i>	<input type='checkbox' class="fold" id="stringify-fold-content"><label for="stringify-fold-content"> <a href="../use/context..stringify^fc5e7.html">func</a> <a href="../src/context/context.go.html#line-546">stringify</a>(v <a href="builtin.html#name-any">any</a>) <a href="builtin.html#name-string">string</a></label><span id='stringify-fold-content-docs' class="fold-docs">
-		stringify tries a bit to stringify v, without using fmt, since we don't
+<span class="md-text">		stringify tries a bit to stringify v, without using fmt, since we don't
 		want context depending on the unicode tables. This is only used by
-		*valueCtx.String().
+		*valueCtx.String().</span>
 
 </span></i></div><div class="anchor value-res hidden" id="name-value"><i>	<span class="nodocs"> <a href="../use/context..value^cd424.html">func</a> <a href="../src/context/context.go.html#line-569">value</a>(c <a href="#name-Context">Context</a>, key <a href="builtin.html#name-any">any</a>) <a href="builtin.html#name-any">any</a></span></i></div></div>
 <div id="exported-variables"><span class="title">Package-Level Variables<span class="title-stat"><i> (total 7, in which 2 are exported)</i></span></span>
 
 <div class="anchor value-res" id="name-Canceled">	<input type='checkbox' class="fold" id="Canceled-fold-content"><label for="Canceled-fold-content">  <a href="../use/context..Canceled.html">var</a> <a href="../src/context/context.go.html#line-157">Canceled</a> <a href="builtin.html#name-error">error</a></label><span id='Canceled-fold-content-docs' class="fold-docs">
-		Canceled is the error returned by Context.Err when the context is canceled.
+<span class="md-text">		Canceled is the error returned by Context.Err when the context is canceled.</span>
 
 </span></div><div class="anchor value-res" id="name-DeadlineExceeded">	<input type='checkbox' class="fold" id="DeadlineExceeded-fold-content"><label for="DeadlineExceeded-fold-content">  <a href="../use/context..DeadlineExceeded.html">var</a> <a href="../src/context/context.go.html#line-161">DeadlineExceeded</a> <a href="builtin.html#name-error">error</a></label><span id='DeadlineExceeded-fold-content-docs' class="fold-docs">
-		DeadlineExceeded is the error returned by Context.Err when the context's
-		deadline passes.
+<span class="md-text">		DeadlineExceeded is the error returned by Context.Err when the context's
+		deadline passes.</span>
 
 </span></div>	<input type='checkbox' class="showhide" id="unexported-variables-showhide"><i><label for="unexported-variables-showhide" class="show-inline">/* 5 unexporteds ... */</label><label for="unexported-variables-showhide" class="hide-inline">/* 5 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-background"><i>	<span class="nodocs">  <a href="../use/context..background^89b91.html">var</a> <a href="../src/context/context.go.html#line-200">background</a> *<a href="#name-emptyCtx">emptyCtx</a></span></i></div><div class="anchor value-res hidden" id="name-cancelCtxKey"><i>	<input type='checkbox' class="fold" id="cancelCtxKey-fold-content"><label for="cancelCtxKey-fold-content">  <a href="../use/context..cancelCtxKey^958ac.html">var</a> <a href="../src/context/context.go.html#line-289">cancelCtxKey</a> <a href="builtin.html#name-int">int</a></label><span id='cancelCtxKey-fold-content-docs' class="fold-docs">
-		&amp;cancelCtxKey is the key that a cancelCtx returns itself for.
+<span class="md-text">		&amp;cancelCtxKey is the key that a cancelCtx returns itself for.</span>
 
 </span></i></div><div class="anchor value-res hidden" id="name-closedchan"><i>	<input type='checkbox' class="fold" id="closedchan-fold-content"><label for="closedchan-fold-content">  <a href="../use/context..closedchan^b16d5.html">var</a> <a href="../src/context/context.go.html#line-334">closedchan</a> chan struct{}</label><span id='closedchan-fold-content-docs' class="fold-docs">
-		closedchan is a reusable closed channel.
+<span class="md-text">		closedchan is a reusable closed channel.</span>
 
 </span></i></div><div class="anchor value-res hidden" id="name-goroutines"><i>	<input type='checkbox' class="fold" id="goroutines-fold-content"><label for="goroutines-fold-content">  <a href="../use/context..goroutines^0c04f.html">var</a> <a href="../src/context/context.go.html#line-247">goroutines</a> <a href="builtin.html#name-int32">int32</a></label><span id='goroutines-fold-content-docs' class="fold-docs">
-		goroutines counts the number of goroutines ever created; for testing.
+<span class="md-text">		goroutines counts the number of goroutines ever created; for testing.</span>
 
 </span></i></div><div class="anchor value-res hidden" id="name-todo"><i>	<span class="nodocs">  <a href="../use/context..todo^602fa.html">var</a> <a href="../src/context/context.go.html#line-201">todo</a> *<a href="#name-emptyCtx">emptyCtx</a></span></i></div></div></code></pre><pre id="footer">
 <table><tr><td><img src="../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.6</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>
