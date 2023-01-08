@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Package: go.opentelemetry.io/otel/trace</title>
-<link href="../../../css/light-v0.5.2.css" rel="stylesheet">
-<script src="../../../jvs/golds-v0.5.2.js"></script>
+<link href="../../../css/light-v0.5.6.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.5.6.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="package-details"><code><span style="font-size:xx-large;">package <b>trace</b></span>
@@ -22,55 +22,55 @@
 	<span class="nodocs">      <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html">config.go</a></span>
 	<span class="nodocs">      <a href="../../../src/go.opentelemetry.io/otel/trace/context.go.html">context.go</a></span>
 	<input type='checkbox' checked class="fold" id="file-2-fold-content"><label for="file-2-fold-content">   <a href="../../../src/go.opentelemetry.io/otel/trace/doc.go.html#doc">#d</a> <a href="../../../src/go.opentelemetry.io/otel/trace/doc.go.html">doc.go</a></label><span id='file-2-fold-content-items' class="fold-items">
-		Package trace provides an implementation of the tracing part of the
+<span class="md-text">		Package trace provides an implementation of the tracing part of the
 		OpenTelemetry API.
-
+		
 		To participate in distributed traces a Span needs to be created for the
 		operation being performed as part of a traced workflow. In its simplest form:
-
-		var tracer trace.Tracer
-
-		func init() {
-			tracer = otel.Tracer("instrumentation/package/name")
-		}
-
-		func operation(ctx context.Context) {
-			var span trace.Span
-			ctx, span = tracer.Start(ctx, "operation")
-			defer span.End()
-			// ...
-		}
-
+		
+			var tracer trace.Tracer
+		
+			func init() {
+				tracer = otel.Tracer("instrumentation/package/name")
+			}
+		
+			func operation(ctx context.Context) {
+				var span trace.Span
+				ctx, span = tracer.Start(ctx, "operation")
+				defer span.End()
+				// ...
+			}
+		
 		A Tracer is unique to the instrumentation and is used to create Spans.
 		Instrumentation should be designed to accept a TracerProvider from which it
 		can create its own unique Tracer. Alternatively, the registered global
 		TracerProvider from the go.opentelemetry.io/otel package can be used as
 		a default.
-
-		const (
-			name    = "instrumentation/package/name"
-			version = "0.1.0"
-		)
-
-		type Instrumentation struct {
-			tracer trace.Tracer
-		}
-
-		func NewInstrumentation(tp trace.TracerProvider) *Instrumentation {
-			if tp == nil {
-				tp = otel.TracerProvider()
+		
+			const (
+				name    = "instrumentation/package/name"
+				version = "0.1.0"
+			)
+		
+			type Instrumentation struct {
+				tracer trace.Tracer
 			}
-			return &amp;Instrumentation{
-				tracer: tp.Tracer(name, trace.WithInstrumentationVersion(version)),
+		
+			func NewInstrumentation(tp trace.TracerProvider) *Instrumentation {
+				if tp == nil {
+					tp = otel.TracerProvider()
+				}
+				return &amp;Instrumentation{
+					tracer: tp.Tracer(name, trace.WithInstrumentationVersion(version)),
+				}
 			}
-		}
-
-		func operation(ctx context.Context, inst *Instrumentation) {
-			var span trace.Span
-			ctx, span = inst.tracer.Start(ctx, "operation")
-			defer span.End()
-			// ...
-		}
+		
+			func operation(ctx context.Context, inst *Instrumentation) {
+				var span trace.Span
+				ctx, span = inst.tracer.Start(ctx, "operation")
+				defer span.End()
+				// ...
+			}</span>
 </span>
 	<span class="nodocs">      <a href="../../../src/go.opentelemetry.io/otel/trace/nonrecording.go.html">nonrecording.go</a></span>
 	<span class="nodocs">      <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html">noop.go</a></span>
@@ -79,7 +79,7 @@
 <div id="exported-types"><span class="title">Package-Level Type Names<span class="title-stat"><i> (total 34, in which 22 are exported)</i></span></span>
 
 <div id="exported-types-buttons" class="js-on">	/* sort exporteds by: <label id="sort-types-by-alphabet" class="button">alphabet</label> | <label id="sort-types-by-popularity" class="button">popularity</label> */</div><div class="anchor type-res" id="name-EventConfig" data-popularity="225">	<input type='checkbox' class="fold" id="EventConfig-fold-content"><label for="EventConfig-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..EventConfig.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-145">EventConfig</a> <i>(struct)</i></label><span id='EventConfig-fold-content-docs' class="fold-docs">
-		EventConfig is a group of options for an Event.
+<span class="md-text">		EventConfig is a group of options for an Event.</span>
 
 		<input type='checkbox' class="fold" id="EventConfig-fold-fields"><label for="EventConfig-fold-fields">Fields (<i>total 3, none are exported</i>)</label><span id='EventConfig-fold-fields-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="EventConfig-showhide-fields"><i><label for="EventConfig-showhide-fields" class="show-inline">/* 3 unexporteds ... */</label><label for="EventConfig-showhide-fields" class="hide-inline">/* 3 unexporteds: */</label></i><span class="hidden"><i>
@@ -88,19 +88,19 @@
 			<span class="nodocs"><a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-147">timestamp</a> <i><a href="../../time.html">time</a>.<a href="../../time.html#name-Time">Time</a></i></span></i></span></span>
 		<input type='checkbox' class="fold" id="EventConfig-fold-methods"><label for="EventConfig-fold-methods">Methods (<i>total 3, all are exported</i>)</label><span id='EventConfig-fold-methods-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="EventConfig-fold-method-Attributes"><label for="EventConfig-fold-method-Attributes">(*EventConfig) <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-152">Attributes</a>() []<a href="attribute.html">attribute</a>.<a href="attribute.html#name-KeyValue">KeyValue</a></label><span id='EventConfig-fold-method-Attributes-docs' class="fold-docs">
-				Attributes describe the associated qualities of an Event.
+<span class="md-text">				Attributes describe the associated qualities of an Event.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="EventConfig-fold-method-StackTrace"><label for="EventConfig-fold-method-StackTrace">(*EventConfig) <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-162">StackTrace</a>() <a href="../../builtin.html#name-bool">bool</a></label><span id='EventConfig-fold-method-StackTrace-docs' class="fold-docs">
-				StackTrace checks whether stack trace capturing is enabled.
+<span class="md-text">				StackTrace checks whether stack trace capturing is enabled.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="EventConfig-fold-method-Timestamp"><label for="EventConfig-fold-method-Timestamp">(*EventConfig) <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-157">Timestamp</a>() <a href="../../time.html">time</a>.<a href="../../time.html#name-Time">Time</a></label><span id='EventConfig-fold-method-Timestamp-docs' class="fold-docs">
-				Timestamp is a time in an Event life-cycle.
+<span class="md-text">				Timestamp is a time in an Event life-cycle.</span>
 </span></span></span>
 		<input type='checkbox' class="fold" id="EventConfig-fold-results"><label for="EventConfig-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='EventConfig-fold-results-items' class="fold-items"><span>
 			func <a href="#name-NewEventConfig">NewEventConfig</a>(options ...<a href="#name-EventOption">EventOption</a>) <b>EventConfig</b></span></span>
 
 </span></div><div class="anchor type-res" id="name-EventOption" data-popularity="1055">	<input type='checkbox' class="fold" id="EventOption-fold-content"><label for="EventOption-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..EventOption.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-182">EventOption</a> <b><i>(interface)</i></b></label><span id='EventOption-fold-content-docs' class="fold-docs">
-		EventOption applies span event options to an EventConfig.
+<span class="md-text">		EventOption applies span event options to an EventConfig.</span>
 
 		<input type='checkbox' class="fold" id="EventOption-fold-methods"><label for="EventOption-fold-methods">Methods (<i>only one, which is unexported</i>)</label><span id='EventOption-fold-methods-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="EventOption-showhide-methods"><i><label for="EventOption-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="EventOption-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
@@ -119,11 +119,11 @@
 			func <a href="#name-Span">Span</a>.<a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-360">RecordError</a>(err <a href="../../builtin.html#name-error">error</a>, options ...<b>EventOption</b>)</span></span>
 
 </span></div><div class="anchor type-res" id="name-Link" data-popularity="185">	<input type='checkbox' class="fold" id="Link-fold-content"><label for="Link-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..Link.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-400">Link</a> <i>(struct)</i></label><span id='Link-fold-content-docs' class="fold-docs">
-		Link is the relationship between two Spans. The relationship can be within
+<span class="md-text">		Link is the relationship between two Spans. The relationship can be within
 		the same Trace or across different Traces.
-
+		
 		For example, a Link is used in the following situations:
-
+		
 		 1. Batch Processing: A batch of operations may contain operations
 		    associated with one or more traces/spans. Since there can only be one
 		    parent SpanContext, a Link is used to keep reference to the
@@ -133,14 +133,14 @@
 		    trace with its own identity and sampling decision needs to be created,
 		    but this new trace needs to be related to the original trace in some
 		    form. A Link is used to keep reference to the original SpanContext and
-		    track the relationship.
+		    track the relationship.</span>
 
 		<input type='checkbox' class="fold" id="Link-fold-fields"><label for="Link-fold-fields">Fields (<i>total 2, both are exported</i>)</label><span id='Link-fold-fields-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="Link-fold-field-Attributes"><label for="Link-fold-field-Attributes"><a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-405">Attributes</a> <i>[]<a href="attribute.html">attribute</a>.<a href="attribute.html#name-KeyValue">KeyValue</a></i></label><span id='Link-fold-field-Attributes-docs' class="fold-docs">
-				Attributes describe the aspects of the link.
+<span class="md-text">				Attributes describe the aspects of the link.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="Link-fold-field-SpanContext"><label for="Link-fold-field-SpanContext"><a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-402">SpanContext</a> <i><a href="#name-SpanContext">SpanContext</a></i></label><span id='Link-fold-field-SpanContext-docs' class="fold-docs">
-				SpanContext of the linked Span.
+<span class="md-text">				SpanContext of the linked Span.</span>
 </span></span></span>
 		<input type='checkbox' class="fold" id="Link-fold-results"><label for="Link-fold-results">As Outputs Of (<i>at least 2, both are exported</i>)</label><span id='Link-fold-results-items' class="fold-items"><span>
 			func <a href="#name-LinkFromContext">LinkFromContext</a>(ctx <a href="../../context.html">context</a>.<a href="../../context.html#name-Context">Context</a>, attrs ...<a href="attribute.html">attribute</a>.<a href="attribute.html#name-KeyValue">KeyValue</a>) <b>Link</b></span><span>
@@ -149,54 +149,54 @@
 			func <a href="#name-WithLinks">WithLinks</a>(links ...<b>Link</b>) <a href="#name-SpanStartOption">SpanStartOption</a></span></span>
 
 </span></div><div class="anchor type-res" id="name-Span" data-popularity="935">	<input type='checkbox' class="fold" id="Span-fold-content"><label for="Span-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..Span.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-342">Span</a> <b><i>(interface)</i></b></label><span id='Span-fold-content-docs' class="fold-docs">
-		Span is the individual component of a trace. It represents a single named
+<span class="md-text">		Span is the individual component of a trace. It represents a single named
 		and timed operation of a workflow that is traced. A Tracer is used to
 		create a Span and it is then up to the operation the Span represents to
 		properly end the Span when the operation itself ends.
-
-		Warning: methods may be added to this interface in minor releases.
+		
+		Warning: methods may be added to this interface in minor releases.</span>
 
 		<input type='checkbox' class="fold" id="Span-fold-methods"><label for="Span-fold-methods">Methods (<i>total 9, all are exported</i>)</label><span id='Span-fold-methods-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="Span-fold-method-AddEvent"><label for="Span-fold-method-AddEvent">( Span) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-350">AddEvent</a>(name <a href="../../builtin.html#name-string">string</a>, options ...<a href="#name-EventOption">EventOption</a>)</label><span id='Span-fold-method-AddEvent-docs' class="fold-docs">
-				AddEvent adds an event with the provided name and options.
+<span class="md-text">				AddEvent adds an event with the provided name and options.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="Span-fold-method-End"><label for="Span-fold-method-End">( Span) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-347">End</a>(options ...<a href="#name-SpanEndOption">SpanEndOption</a>)</label><span id='Span-fold-method-End-docs' class="fold-docs">
-				End completes the Span. The Span is considered complete and ready to be
+<span class="md-text">				End completes the Span. The Span is considered complete and ready to be
 				delivered through the rest of the telemetry pipeline after this method
 				is called. Therefore, updates to the Span are not allowed after this
-				method has been called.
+				method has been called.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="Span-fold-method-IsRecording"><label for="Span-fold-method-IsRecording">( Span) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-354">IsRecording</a>() <a href="../../builtin.html#name-bool">bool</a></label><span id='Span-fold-method-IsRecording-docs' class="fold-docs">
-				IsRecording returns the recording state of the Span. It will return
-				true if the Span is active and events can be recorded.
+<span class="md-text">				IsRecording returns the recording state of the Span. It will return
+				true if the Span is active and events can be recorded.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="Span-fold-method-RecordError"><label for="Span-fold-method-RecordError">( Span) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-360">RecordError</a>(err <a href="../../builtin.html#name-error">error</a>, options ...<a href="#name-EventOption">EventOption</a>)</label><span id='Span-fold-method-RecordError-docs' class="fold-docs">
-				RecordError will record err as an exception span event for this span. An
+<span class="md-text">				RecordError will record err as an exception span event for this span. An
 				additional call to SetStatus is required if the Status of the Span should
 				be set to Error, as this method does not change the Span status. If this
-				span is not being recorded or err is nil then this method does nothing.
+				span is not being recorded or err is nil then this method does nothing.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="Span-fold-method-SetAttributes"><label for="Span-fold-method-SetAttributes">( Span) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-378">SetAttributes</a>(kv ...<a href="attribute.html">attribute</a>.<a href="attribute.html#name-KeyValue">KeyValue</a>)</label><span id='Span-fold-method-SetAttributes-docs' class="fold-docs">
-				SetAttributes sets kv as attributes of the Span. If a key from kv
+<span class="md-text">				SetAttributes sets kv as attributes of the Span. If a key from kv
 				already exists for an attribute of the Span it will be overwritten with
-				the value contained in kv.
+				the value contained in kv.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="Span-fold-method-SetName"><label for="Span-fold-method-SetName">( Span) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-373">SetName</a>(name <a href="../../builtin.html#name-string">string</a>)</label><span id='Span-fold-method-SetName-docs' class="fold-docs">
-				SetName sets the Span name.
+<span class="md-text">				SetName sets the Span name.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="Span-fold-method-SetStatus"><label for="Span-fold-method-SetStatus">( Span) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-370">SetStatus</a>(code <a href="codes.html">codes</a>.<a href="codes.html#name-Code">Code</a>, description <a href="../../builtin.html#name-string">string</a>)</label><span id='Span-fold-method-SetStatus-docs' class="fold-docs">
-				SetStatus sets the status of the Span in the form of a code and a
+<span class="md-text">				SetStatus sets the status of the Span in the form of a code and a
 				description, provided the status hasn't already been set to a higher
 				value before (OK &gt; Error &gt; Unset). The description is only included in a
-				status when the code is for an error.
+				status when the code is for an error.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="Span-fold-method-SpanContext"><label for="Span-fold-method-SpanContext">( Span) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-364">SpanContext</a>() <a href="#name-SpanContext">SpanContext</a></label><span id='Span-fold-method-SpanContext-docs' class="fold-docs">
-				SpanContext returns the SpanContext of the Span. The returned SpanContext
-				is usable even after the End method has been called for the Span.
+<span class="md-text">				SpanContext returns the SpanContext of the Span. The returned SpanContext
+				is usable even after the End method has been called for the Span.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="Span-fold-method-TracerProvider"><label for="Span-fold-method-TracerProvider">( Span) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-382">TracerProvider</a>() <a href="#name-TracerProvider">TracerProvider</a></label><span id='Span-fold-method-TracerProvider-docs' class="fold-docs">
-				TracerProvider returns a TracerProvider that can be used to generate
-				additional Spans on the same telemetry pipeline as the current Span.
+<span class="md-text">				TracerProvider returns a TracerProvider that can be used to generate
+				additional Spans on the same telemetry pipeline as the current Span.</span>
 </span></span></span>
 		<input type='checkbox' class="fold" id="Span-fold-impledby"><label for="Span-fold-impledby">Implemented By (<i>at least 2, neither is exported</i>)</label><span id='Span-fold-impledby-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="Span-showhide-impedBys"><i><label for="Span-showhide-impedBys" class="show-inline">/* 2+ unexporteds ... */</label><label for="Span-showhide-impedBys" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
@@ -209,7 +209,7 @@
 			func <a href="#name-ContextWithSpan">ContextWithSpan</a>(parent <a href="../../context.html">context</a>.<a href="../../context.html#name-Context">Context</a>, span <b>Span</b>) <a href="../../context.html">context</a>.<a href="../../context.html#name-Context">Context</a></span></span>
 
 </span></div><div class="anchor type-res" id="name-SpanConfig" data-popularity="450">	<input type='checkbox' class="fold" id="SpanConfig-fold-content"><label for="SpanConfig-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..SpanConfig.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-61">SpanConfig</a> <i>(struct)</i></label><span id='SpanConfig-fold-content-docs' class="fold-docs">
-		SpanConfig is a group of options for a Span.
+<span class="md-text">		SpanConfig is a group of options for a Span.</span>
 
 		<input type='checkbox' class="fold" id="SpanConfig-fold-fields"><label for="SpanConfig-fold-fields">Fields (<i>total 6, none are exported</i>)</label><span id='SpanConfig-fold-fields-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="SpanConfig-showhide-fields"><i><label for="SpanConfig-showhide-fields" class="show-inline">/* 6 unexporteds ... */</label><label for="SpanConfig-showhide-fields" class="hide-inline">/* 6 unexporteds: */</label></i><span class="hidden"><i>
@@ -221,31 +221,31 @@
 			<span class="nodocs"><a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-63">timestamp</a> <i><a href="../../time.html">time</a>.<a href="../../time.html#name-Time">Time</a></i></span></i></span></span>
 		<input type='checkbox' class="fold" id="SpanConfig-fold-methods"><label for="SpanConfig-fold-methods">Methods (<i>total 6, all are exported</i>)</label><span id='SpanConfig-fold-methods-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="SpanConfig-fold-method-Attributes"><label for="SpanConfig-fold-method-Attributes">(*SpanConfig) <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-71">Attributes</a>() []<a href="attribute.html">attribute</a>.<a href="attribute.html#name-KeyValue">KeyValue</a></label><span id='SpanConfig-fold-method-Attributes-docs' class="fold-docs">
-				Attributes describe the associated qualities of a Span.
+<span class="md-text">				Attributes describe the associated qualities of a Span.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanConfig-fold-method-Links"><label for="SpanConfig-fold-method-Links">(*SpanConfig) <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-86">Links</a>() []<a href="#name-Link">Link</a></label><span id='SpanConfig-fold-method-Links-docs' class="fold-docs">
-				Links are the associations a Span has with other Spans.
+<span class="md-text">				Links are the associations a Span has with other Spans.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanConfig-fold-method-NewRoot"><label for="SpanConfig-fold-method-NewRoot">(*SpanConfig) <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-93">NewRoot</a>() <a href="../../builtin.html#name-bool">bool</a></label><span id='SpanConfig-fold-method-NewRoot-docs' class="fold-docs">
-				NewRoot identifies a Span as the root Span for a new trace. This is
+<span class="md-text">				NewRoot identifies a Span as the root Span for a new trace. This is
 				commonly used when an existing trace crosses trust boundaries and the
-				remote parent span context should be ignored for security.
+				remote parent span context should be ignored for security.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanConfig-fold-method-SpanKind"><label for="SpanConfig-fold-method-SpanKind">(*SpanConfig) <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-98">SpanKind</a>() <a href="#name-SpanKind">SpanKind</a></label><span id='SpanConfig-fold-method-SpanKind-docs' class="fold-docs">
-				SpanKind is the role a Span has in a trace.
+<span class="md-text">				SpanKind is the role a Span has in a trace.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanConfig-fold-method-StackTrace"><label for="SpanConfig-fold-method-StackTrace">(*SpanConfig) <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-81">StackTrace</a>() <a href="../../builtin.html#name-bool">bool</a></label><span id='SpanConfig-fold-method-StackTrace-docs' class="fold-docs">
-				StackTrace checks whether stack trace capturing is enabled.
+<span class="md-text">				StackTrace checks whether stack trace capturing is enabled.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanConfig-fold-method-Timestamp"><label for="SpanConfig-fold-method-Timestamp">(*SpanConfig) <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-76">Timestamp</a>() <a href="../../time.html">time</a>.<a href="../../time.html#name-Time">Time</a></label><span id='SpanConfig-fold-method-Timestamp-docs' class="fold-docs">
-				Timestamp is a time in a Span life-cycle.
+<span class="md-text">				Timestamp is a time in a Span life-cycle.</span>
 </span></span></span>
 		<input type='checkbox' class="fold" id="SpanConfig-fold-results"><label for="SpanConfig-fold-results">As Outputs Of (<i>at least 2, both are exported</i>)</label><span id='SpanConfig-fold-results-items' class="fold-items"><span>
 			func <a href="#name-NewSpanEndConfig">NewSpanEndConfig</a>(options ...<a href="#name-SpanEndOption">SpanEndOption</a>) <b>SpanConfig</b></span><span>
 			func <a href="#name-NewSpanStartConfig">NewSpanStartConfig</a>(options ...<a href="#name-SpanStartOption">SpanStartOption</a>) <b>SpanConfig</b></span></span>
 
 </span></div><div class="anchor type-res" id="name-SpanContext" data-popularity="1555">	<input type='checkbox' class="fold" id="SpanContext-fold-content"><label for="SpanContext-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..SpanContext.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-205">SpanContext</a> <i>(struct)</i></label><span id='SpanContext-fold-content-docs' class="fold-docs">
-		SpanContext contains identifying trace information about a Span.
+<span class="md-text">		SpanContext contains identifying trace information about a Span.</span>
 
 		<input type='checkbox' class="fold" id="SpanContext-fold-fields"><label for="SpanContext-fold-fields">Fields (<i>total 5, none are exported</i>)</label><span id='SpanContext-fold-fields-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="SpanContext-showhide-fields"><i><label for="SpanContext-showhide-fields" class="show-inline">/* 5 unexporteds ... */</label><label for="SpanContext-showhide-fields" class="hide-inline">/* 5 unexporteds: */</label></i><span class="hidden"><i>
@@ -256,53 +256,53 @@
 			<span class="nodocs"><a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-209">traceState</a> <i><a href="#name-TraceState">TraceState</a></i></span></i></span></span>
 		<input type='checkbox' class="fold" id="SpanContext-fold-methods"><label for="SpanContext-fold-methods">Methods (<i>total 16, all are exported</i>)</label><span id='SpanContext-fold-methods-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="SpanContext-fold-method-Equal"><label for="SpanContext-fold-method-Equal">( SpanContext) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-317">Equal</a>(other <b>SpanContext</b>) <a href="../../builtin.html#name-bool">bool</a></label><span id='SpanContext-fold-method-Equal-docs' class="fold-docs">
-				Equal is a predicate that determines whether two SpanContext values are equal.
+<span class="md-text">				Equal is a predicate that determines whether two SpanContext values are equal.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanContext-fold-method-HasSpanID"><label for="SpanContext-fold-method-HasSpanID">( SpanContext) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-264">HasSpanID</a>() <a href="../../builtin.html#name-bool">bool</a></label><span id='SpanContext-fold-method-HasSpanID-docs' class="fold-docs">
-				HasSpanID checks if the SpanContext has a valid SpanID.
+<span class="md-text">				HasSpanID checks if the SpanContext has a valid SpanID.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanContext-fold-method-HasTraceID"><label for="SpanContext-fold-method-HasTraceID">( SpanContext) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-243">HasTraceID</a>() <a href="../../builtin.html#name-bool">bool</a></label><span id='SpanContext-fold-method-HasTraceID-docs' class="fold-docs">
-				HasTraceID checks if the SpanContext has a valid TraceID.
+<span class="md-text">				HasTraceID checks if the SpanContext has a valid TraceID.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanContext-fold-method-IsRemote"><label for="SpanContext-fold-method-IsRemote">( SpanContext) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-222">IsRemote</a>() <a href="../../builtin.html#name-bool">bool</a></label><span id='SpanContext-fold-method-IsRemote-docs' class="fold-docs">
-				IsRemote indicates whether the SpanContext represents a remotely-created Span.
+<span class="md-text">				IsRemote indicates whether the SpanContext represents a remotely-created Span.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanContext-fold-method-IsSampled"><label for="SpanContext-fold-method-IsSampled">( SpanContext) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-285">IsSampled</a>() <a href="../../builtin.html#name-bool">bool</a></label><span id='SpanContext-fold-method-IsSampled-docs' class="fold-docs">
-				IsSampled returns if the sampling bit is set in the SpanContext's TraceFlags.
+<span class="md-text">				IsSampled returns if the sampling bit is set in the SpanContext's TraceFlags.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanContext-fold-method-IsValid"><label for="SpanContext-fold-method-IsValid">( SpanContext) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-217">IsValid</a>() <a href="../../builtin.html#name-bool">bool</a></label><span id='SpanContext-fold-method-IsValid-docs' class="fold-docs">
-				IsValid returns if the SpanContext is valid. A valid span context has a
-				valid TraceID and SpanID.
+<span class="md-text">				IsValid returns if the SpanContext is valid. A valid span context has a
+				valid TraceID and SpanID.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanContext-fold-method-MarshalJSON"><label for="SpanContext-fold-method-MarshalJSON">( SpanContext) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-326">MarshalJSON</a>() ([]<a href="../../builtin.html#name-byte">byte</a>, <a href="../../builtin.html#name-error">error</a>)</label><span id='SpanContext-fold-method-MarshalJSON-docs' class="fold-docs">
-				MarshalJSON implements a custom marshal function to encode a SpanContext.
+<span class="md-text">				MarshalJSON implements a custom marshal function to encode a SpanContext.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanContext-fold-method-SpanID"><label for="SpanContext-fold-method-SpanID">( SpanContext) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-259">SpanID</a>() <a href="#name-SpanID">SpanID</a></label><span id='SpanContext-fold-method-SpanID-docs' class="fold-docs">
-				SpanID returns the SpanID from the SpanContext.
+<span class="md-text">				SpanID returns the SpanID from the SpanContext.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanContext-fold-method-TraceFlags"><label for="SpanContext-fold-method-TraceFlags">( SpanContext) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-280">TraceFlags</a>() <a href="#name-TraceFlags">TraceFlags</a></label><span id='SpanContext-fold-method-TraceFlags-docs' class="fold-docs">
-				TraceFlags returns the flags from the SpanContext.
+<span class="md-text">				TraceFlags returns the flags from the SpanContext.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanContext-fold-method-TraceID"><label for="SpanContext-fold-method-TraceID">( SpanContext) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-238">TraceID</a>() <a href="#name-TraceID">TraceID</a></label><span id='SpanContext-fold-method-TraceID-docs' class="fold-docs">
-				TraceID returns the TraceID from the SpanContext.
+<span class="md-text">				TraceID returns the TraceID from the SpanContext.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanContext-fold-method-TraceState"><label for="SpanContext-fold-method-TraceState">( SpanContext) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-301">TraceState</a>() <a href="#name-TraceState">TraceState</a></label><span id='SpanContext-fold-method-TraceState-docs' class="fold-docs">
-				TraceState returns the TraceState from the SpanContext.
+<span class="md-text">				TraceState returns the TraceState from the SpanContext.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanContext-fold-method-WithRemote"><label for="SpanContext-fold-method-WithRemote">( SpanContext) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-227">WithRemote</a>(remote <a href="../../builtin.html#name-bool">bool</a>) <b>SpanContext</b></label><span id='SpanContext-fold-method-WithRemote-docs' class="fold-docs">
-				WithRemote returns a copy of sc with the Remote property set to remote.
+<span class="md-text">				WithRemote returns a copy of sc with the Remote property set to remote.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanContext-fold-method-WithSpanID"><label for="SpanContext-fold-method-WithSpanID">( SpanContext) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-269">WithSpanID</a>(spanID <a href="#name-SpanID">SpanID</a>) <b>SpanContext</b></label><span id='SpanContext-fold-method-WithSpanID-docs' class="fold-docs">
-				WithSpanID returns a new SpanContext with the SpanID replaced.
+<span class="md-text">				WithSpanID returns a new SpanContext with the SpanID replaced.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanContext-fold-method-WithTraceFlags"><label for="SpanContext-fold-method-WithTraceFlags">( SpanContext) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-290">WithTraceFlags</a>(flags <a href="#name-TraceFlags">TraceFlags</a>) <b>SpanContext</b></label><span id='SpanContext-fold-method-WithTraceFlags-docs' class="fold-docs">
-				WithTraceFlags returns a new SpanContext with the TraceFlags replaced.
+<span class="md-text">				WithTraceFlags returns a new SpanContext with the TraceFlags replaced.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanContext-fold-method-WithTraceID"><label for="SpanContext-fold-method-WithTraceID">( SpanContext) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-248">WithTraceID</a>(traceID <a href="#name-TraceID">TraceID</a>) <b>SpanContext</b></label><span id='SpanContext-fold-method-WithTraceID-docs' class="fold-docs">
-				WithTraceID returns a new SpanContext with the TraceID replaced.
+<span class="md-text">				WithTraceID returns a new SpanContext with the TraceID replaced.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanContext-fold-method-WithTraceState"><label for="SpanContext-fold-method-WithTraceState">( SpanContext) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-306">WithTraceState</a>(state <a href="#name-TraceState">TraceState</a>) <b>SpanContext</b></label><span id='SpanContext-fold-method-WithTraceState-docs' class="fold-docs">
-				WithTraceState returns a new SpanContext with the TraceState replaced.
+<span class="md-text">				WithTraceState returns a new SpanContext with the TraceState replaced.</span>
 </span></span></span>
 		<input type='checkbox' class="fold" id="SpanContext-fold-impls"><label for="SpanContext-fold-impls">Implements (<i>at least one exported</i>)</label><span id='SpanContext-fold-impls-items' class="fold-items"><span>
 			 SpanContext : encoding/json.<a href="../../encoding/json.html#name-Marshaler">Marshaler</a></span></span>
@@ -321,8 +321,8 @@
 			func SpanContext.<a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-317">Equal</a>(other <b>SpanContext</b>) <a href="../../builtin.html#name-bool">bool</a></span></span>
 
 </span></div><div class="anchor type-res" id="name-SpanContextConfig" data-popularity="35">	<input type='checkbox' class="fold" id="SpanContextConfig-fold-content"><label for="SpanContextConfig-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..SpanContextConfig.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-184">SpanContextConfig</a> <i>(struct)</i></label><span id='SpanContextConfig-fold-content-docs' class="fold-docs">
-		SpanContextConfig contains mutable fields usable for constructing
-		an immutable SpanContext.
+<span class="md-text">		SpanContextConfig contains mutable fields usable for constructing
+		an immutable SpanContext.</span>
 
 		<input type='checkbox' class="fold" id="SpanContextConfig-fold-fields"><label for="SpanContextConfig-fold-fields">Fields (<i>total 5, all are exported</i>)</label><span id='SpanContextConfig-fold-fields-items' class="fold-items"><span>
 			<span class="nodocs"><a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-189">Remote</a> <i><a href="../../builtin.html#name-bool">bool</a></i></span></span><span>
@@ -334,13 +334,13 @@
 			func <a href="#name-NewSpanContext">NewSpanContext</a>(config <b>SpanContextConfig</b>) <a href="#name-SpanContext">SpanContext</a></span></span>
 
 </span></div><div class="anchor type-res" id="name-SpanEndEventOption" data-popularity="725">	<input type='checkbox' class="fold" id="SpanEndEventOption-fold-content"><label for="SpanEndEventOption-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..SpanEndEventOption.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-199">SpanEndEventOption</a> <b><i>(interface)</i></b></label><span id='SpanEndEventOption-fold-content-docs' class="fold-docs">
-		SpanEndEventOption are options that can be used at the end of a span, or with an event.
+<span class="md-text">		SpanEndEventOption are options that can be used at the end of a span, or with an event.</span>
 
 		<input type='checkbox' class="fold" id="SpanEndEventOption-fold-methods"><label for="SpanEndEventOption-fold-methods">Methods (<i>total 2, neither is exported</i>)</label><span id='SpanEndEventOption-fold-methods-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="SpanEndEventOption-showhide-methods"><i><label for="SpanEndEventOption-showhide-methods" class="show-inline">/* 2 unexporteds ... */</label><label for="SpanEndEventOption-showhide-methods" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
 			<span class="nodocs">( SpanEndEventOption) <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-183">applyEvent</a>(<a href="#name-EventConfig">EventConfig</a>) <a href="#name-EventConfig">EventConfig</a></span></i></span><span class="hidden"><i>
 			<span class="nodocs">( SpanEndEventOption) <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-141">applySpanEnd</a>(<a href="#name-SpanConfig">SpanConfig</a>) <a href="#name-SpanConfig">SpanConfig</a></span></i></span></span>
-		<input type='checkbox' class="fold" id="SpanEndEventOption-fold-impledby"><label for="SpanEndEventOption-fold-impledby">Implemented By (<i>at least 3, in which 1 are exported</i>)</label><span id='SpanEndEventOption-fold-impledby-items' class="fold-items"><span>
+		<input type='checkbox' class="fold" id="SpanEndEventOption-fold-impledby"><label for="SpanEndEventOption-fold-impledby">Implemented By (<i>at least 3, in which 1 is exported</i>)</label><span id='SpanEndEventOption-fold-impledby-items' class="fold-items"><span>
 			 <a href="#name-SpanEventOption">SpanEventOption</a> <i>(interface)</i></span>
 			<input type='checkbox' class="showhide" id="SpanEndEventOption-showhide-impedBys"><i><label for="SpanEndEventOption-showhide-impedBys" class="show-inline">/* 2+ unexporteds ... */</label><label for="SpanEndEventOption-showhide-impedBys" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
 			 <a href="#name-stackTraceOption">stackTraceOption</a></i></span><span class="hidden"><i>
@@ -352,8 +352,8 @@
 			func <a href="#name-WithStackTrace">WithStackTrace</a>(b <a href="../../builtin.html#name-bool">bool</a>) <b>SpanEndEventOption</b></span></span>
 
 </span></div><div class="anchor type-res" id="name-SpanEndOption" data-popularity="870">	<input type='checkbox' class="fold" id="SpanEndOption-fold-content"><label for="SpanEndOption-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..SpanEndOption.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-140">SpanEndOption</a> <b><i>(interface)</i></b></label><span id='SpanEndOption-fold-content-docs' class="fold-docs">
-		SpanEndOption applies an option to a SpanConfig. These options are
-		applicable only when the span is ended.
+<span class="md-text">		SpanEndOption applies an option to a SpanConfig. These options are
+		applicable only when the span is ended.</span>
 
 		<input type='checkbox' class="fold" id="SpanEndOption-fold-methods"><label for="SpanEndOption-fold-methods">Methods (<i>only one, which is unexported</i>)</label><span id='SpanEndOption-fold-methods-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="SpanEndOption-showhide-methods"><i><label for="SpanEndOption-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="SpanEndOption-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
@@ -370,7 +370,7 @@
 			func <a href="#name-Span">Span</a>.<a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-347">End</a>(options ...<b>SpanEndOption</b>)</span></span>
 
 </span></div><div class="anchor type-res" id="name-SpanEventOption" data-popularity="675">	<input type='checkbox' class="fold" id="SpanEventOption-fold-content"><label for="SpanEventOption-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..SpanEventOption.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-232">SpanEventOption</a> <b><i>(interface)</i></b></label><span id='SpanEventOption-fold-content-docs' class="fold-docs">
-		SpanEventOption are options that can be used with an event or a span.
+<span class="md-text">		SpanEventOption are options that can be used with an event or a span.</span>
 
 		<input type='checkbox' class="fold" id="SpanEventOption-fold-methods"><label for="SpanEventOption-fold-methods">Methods (<i>total 3, none are exported</i>)</label><span id='SpanEventOption-fold-methods-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="SpanEventOption-showhide-methods"><i><label for="SpanEventOption-showhide-methods" class="show-inline">/* 3 unexporteds ... */</label><label for="SpanEventOption-showhide-methods" class="hide-inline">/* 3 unexporteds: */</label></i><span class="hidden"><i>
@@ -391,19 +391,19 @@
 			func <a href="#name-WithTimestamp">WithTimestamp</a>(t <a href="../../time.html">time</a>.<a href="../../time.html#name-Time">Time</a>) <b>SpanEventOption</b></span></span>
 
 </span></div><div class="anchor type-res" id="name-SpanID" data-popularity="540">	<input type='checkbox' class="fold" id="SpanID-fold-content"><label for="SpanID-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..SpanID.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-72">SpanID</a> <i>([...])</i></label><span id='SpanID-fold-content-docs' class="fold-docs">
-		SpanID is a unique identity of a span in a trace.
+<span class="md-text">		SpanID is a unique identity of a span in a trace.</span>
 
 		<input type='checkbox' class="fold" id="SpanID-fold-methods"><label for="SpanID-fold-methods">Methods (<i>total 3, all are exported</i>)</label><span id='SpanID-fold-methods-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="SpanID-fold-method-IsValid"><label for="SpanID-fold-method-IsValid">( SpanID) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-79">IsValid</a>() <a href="../../builtin.html#name-bool">bool</a></label><span id='SpanID-fold-method-IsValid-docs' class="fold-docs">
-				IsValid checks whether the SpanID is valid. A valid SpanID does not consist
-				of zeros only.
+<span class="md-text">				IsValid checks whether the SpanID is valid. A valid SpanID does not consist
+				of zeros only.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanID-fold-method-MarshalJSON"><label for="SpanID-fold-method-MarshalJSON">( SpanID) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-85">MarshalJSON</a>() ([]<a href="../../builtin.html#name-byte">byte</a>, <a href="../../builtin.html#name-error">error</a>)</label><span id='SpanID-fold-method-MarshalJSON-docs' class="fold-docs">
-				MarshalJSON implements a custom marshal function to encode SpanID
-				as a hex string.
+<span class="md-text">				MarshalJSON implements a custom marshal function to encode SpanID
+				as a hex string.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="SpanID-fold-method-String"><label for="SpanID-fold-method-String">( SpanID) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-90">String</a>() <a href="../../builtin.html#name-string">string</a></label><span id='SpanID-fold-method-String-docs' class="fold-docs">
-				String returns the hex string representation form of a SpanID.
+<span class="md-text">				String returns the hex string representation form of a SpanID.</span>
 </span></span></span>
 		<input type='checkbox' class="fold" id="SpanID-fold-impls"><label for="SpanID-fold-impls">Implements (<i>at least 4, in which 2 are exported</i>)</label><span id='SpanID-fold-impls-items' class="fold-items"><span>
 			 SpanID : encoding/json.<a href="../../encoding/json.html#name-Marshaler">Marshaler</a></span><span>
@@ -421,13 +421,13 @@
 			  var <a href="#name-nilSpanID">nilSpanID</a></i></span></span>
 
 </span></div><div class="anchor type-res" id="name-SpanKind" data-popularity="435">	<input type='checkbox' class="fold" id="SpanKind-fold-content"><label for="SpanKind-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..SpanKind.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-417">SpanKind</a> <a href="../../builtin.html#name-int">int</a> <i>(basic type)</i></label><span id='SpanKind-fold-content-docs' class="fold-docs">
-		SpanKind is the role a Span plays in a Trace.
+<span class="md-text">		SpanKind is the role a Span plays in a Trace.</span>
 
 		<input type='checkbox' class="fold" id="SpanKind-fold-methods"><label for="SpanKind-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='SpanKind-fold-methods-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="SpanKind-fold-method-String"><label for="SpanKind-fold-method-String">( SpanKind) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-470">String</a>() <a href="../../builtin.html#name-string">string</a></label><span id='SpanKind-fold-method-String-docs' class="fold-docs">
-				String returns the specified name of the SpanKind in lower-case.
+<span class="md-text">				String returns the specified name of the SpanKind in lower-case.</span>
 </span></span></span>
-		<input type='checkbox' class="fold" id="SpanKind-fold-impls"><label for="SpanKind-fold-impls">Implements (<i>at least 3, in which 1 are exported</i>)</label><span id='SpanKind-fold-impls-items' class="fold-items"><span>
+		<input type='checkbox' class="fold" id="SpanKind-fold-impls"><label for="SpanKind-fold-impls">Implements (<i>at least 3, in which 1 is exported</i>)</label><span id='SpanKind-fold-impls-items' class="fold-items"><span>
 			 SpanKind : fmt.<a href="../../fmt.html#name-Stringer">Stringer</a></span>
 			<input type='checkbox' class="showhide" id="SpanKind-showhide-impls"><i><label for="SpanKind-showhide-impls" class="show-inline">/* 2+ unexporteds ... */</label><label for="SpanKind-showhide-impls" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
 			 SpanKind : context.<a href="../../context.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
@@ -447,13 +447,13 @@
 			const <a href="#name-SpanKindUnspecified">SpanKindUnspecified</a></span></span>
 
 </span></div><div class="anchor type-res" id="name-SpanOption" data-popularity="500">	<input type='checkbox' class="fold" id="SpanOption-fold-content"><label for="SpanOption-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..SpanOption.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-187">SpanOption</a> <b><i>(interface)</i></b></label><span id='SpanOption-fold-content-docs' class="fold-docs">
-		SpanOption are options that can be used at both the beginning and end of a span.
+<span class="md-text">		SpanOption are options that can be used at both the beginning and end of a span.</span>
 
 		<input type='checkbox' class="fold" id="SpanOption-fold-methods"><label for="SpanOption-fold-methods">Methods (<i>total 2, neither is exported</i>)</label><span id='SpanOption-fold-methods-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="SpanOption-showhide-methods"><i><label for="SpanOption-showhide-methods" class="show-inline">/* 2 unexporteds ... */</label><label for="SpanOption-showhide-methods" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
 			<span class="nodocs">( SpanOption) <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-141">applySpanEnd</a>(<a href="#name-SpanConfig">SpanConfig</a>) <a href="#name-SpanConfig">SpanConfig</a></span></i></span><span class="hidden"><i>
 			<span class="nodocs">( SpanOption) <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-129">applySpanStart</a>(<a href="#name-SpanConfig">SpanConfig</a>) <a href="#name-SpanConfig">SpanConfig</a></span></i></span></span>
-		<input type='checkbox' class="fold" id="SpanOption-fold-impledby"><label for="SpanOption-fold-impledby">Implemented By (<i>at least 2, in which 1 are exported</i>)</label><span id='SpanOption-fold-impledby-items' class="fold-items"><span>
+		<input type='checkbox' class="fold" id="SpanOption-fold-impledby"><label for="SpanOption-fold-impledby">Implemented By (<i>at least 2, in which 1 is exported</i>)</label><span id='SpanOption-fold-impledby-items' class="fold-items"><span>
 			 <a href="#name-SpanEventOption">SpanEventOption</a> <i>(interface)</i></span>
 			<input type='checkbox' class="showhide" id="SpanOption-showhide-impedBys"><i><label for="SpanOption-showhide-impedBys" class="show-inline">/* at least one unexported ... */</label><label for="SpanOption-showhide-impedBys" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
 			 <a href="#name-timestampOption">timestampOption</a></i></span></span>
@@ -462,13 +462,13 @@
 			 SpanOption : <a href="#name-SpanStartOption">SpanStartOption</a></span></span>
 
 </span></div><div class="anchor type-res" id="name-SpanStartEventOption" data-popularity="725">	<input type='checkbox' class="fold" id="SpanStartEventOption-fold-content"><label for="SpanStartEventOption-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..SpanStartEventOption.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-193">SpanStartEventOption</a> <b><i>(interface)</i></b></label><span id='SpanStartEventOption-fold-content-docs' class="fold-docs">
-		SpanStartEventOption are options that can be used at the start of a span, or with an event.
+<span class="md-text">		SpanStartEventOption are options that can be used at the start of a span, or with an event.</span>
 
 		<input type='checkbox' class="fold" id="SpanStartEventOption-fold-methods"><label for="SpanStartEventOption-fold-methods">Methods (<i>total 2, neither is exported</i>)</label><span id='SpanStartEventOption-fold-methods-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="SpanStartEventOption-showhide-methods"><i><label for="SpanStartEventOption-showhide-methods" class="show-inline">/* 2 unexporteds ... */</label><label for="SpanStartEventOption-showhide-methods" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
 			<span class="nodocs">( SpanStartEventOption) <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-183">applyEvent</a>(<a href="#name-EventConfig">EventConfig</a>) <a href="#name-EventConfig">EventConfig</a></span></i></span><span class="hidden"><i>
 			<span class="nodocs">( SpanStartEventOption) <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-129">applySpanStart</a>(<a href="#name-SpanConfig">SpanConfig</a>) <a href="#name-SpanConfig">SpanConfig</a></span></i></span></span>
-		<input type='checkbox' class="fold" id="SpanStartEventOption-fold-impledby"><label for="SpanStartEventOption-fold-impledby">Implemented By (<i>at least 3, in which 1 are exported</i>)</label><span id='SpanStartEventOption-fold-impledby-items' class="fold-items"><span>
+		<input type='checkbox' class="fold" id="SpanStartEventOption-fold-impledby"><label for="SpanStartEventOption-fold-impledby">Implemented By (<i>at least 3, in which 1 is exported</i>)</label><span id='SpanStartEventOption-fold-impledby-items' class="fold-items"><span>
 			 <a href="#name-SpanEventOption">SpanEventOption</a> <i>(interface)</i></span>
 			<input type='checkbox' class="showhide" id="SpanStartEventOption-showhide-impedBys"><i><label for="SpanStartEventOption-showhide-impedBys" class="show-inline">/* 2+ unexporteds ... */</label><label for="SpanStartEventOption-showhide-impedBys" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
 			 <a href="#name-attributeOption">attributeOption</a></i></span><span class="hidden"><i>
@@ -480,8 +480,8 @@
 			func <a href="#name-WithAttributes">WithAttributes</a>(attributes ...<a href="attribute.html">attribute</a>.<a href="attribute.html#name-KeyValue">KeyValue</a>) <b>SpanStartEventOption</b></span></span>
 
 </span></div><div class="anchor type-res" id="name-SpanStartOption" data-popularity="1245">	<input type='checkbox' class="fold" id="SpanStartOption-fold-content"><label for="SpanStartOption-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..SpanStartOption.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-128">SpanStartOption</a> <b><i>(interface)</i></b></label><span id='SpanStartOption-fold-content-docs' class="fold-docs">
-		SpanStartOption applies an option to a SpanConfig. These options are applicable
-		only when the span is created.
+<span class="md-text">		SpanStartOption applies an option to a SpanConfig. These options are applicable
+		only when the span is created.</span>
 
 		<input type='checkbox' class="fold" id="SpanStartOption-fold-methods"><label for="SpanStartOption-fold-methods">Methods (<i>only one, which is unexported</i>)</label><span id='SpanStartOption-fold-methods-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="SpanStartOption-showhide-methods"><i><label for="SpanStartOption-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="SpanStartOption-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
@@ -503,21 +503,21 @@
 			func <a href="#name-Tracer">Tracer</a>.<a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-504">Start</a>(ctx <a href="../../context.html">context</a>.<a href="../../context.html#name-Context">Context</a>, spanName <a href="../../builtin.html#name-string">string</a>, opts ...<b>SpanStartOption</b>) (<a href="../../context.html">context</a>.<a href="../../context.html#name-Context">Context</a>, <a href="#name-Span">Span</a>)</span></span>
 
 </span></div><div class="anchor type-res" id="name-TraceFlags" data-popularity="590">	<input type='checkbox' class="fold" id="TraceFlags-fold-content"><label for="TraceFlags-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..TraceFlags.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-155">TraceFlags</a> <a href="../../builtin.html#name-byte">byte</a> <i>(basic type)</i></label><span id='TraceFlags-fold-content-docs' class="fold-docs">
-		TraceFlags contains flags that can be set on a SpanContext.
+<span class="md-text">		TraceFlags contains flags that can be set on a SpanContext.</span>
 
 		<input type='checkbox' class="fold" id="TraceFlags-fold-methods"><label for="TraceFlags-fold-methods">Methods (<i>total 4, all are exported</i>)</label><span id='TraceFlags-fold-methods-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="TraceFlags-fold-method-IsSampled"><label for="TraceFlags-fold-method-IsSampled">( TraceFlags) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-158">IsSampled</a>() <a href="../../builtin.html#name-bool">bool</a></label><span id='TraceFlags-fold-method-IsSampled-docs' class="fold-docs">
-				IsSampled returns if the sampling bit is set in the TraceFlags.
+<span class="md-text">				IsSampled returns if the sampling bit is set in the TraceFlags.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="TraceFlags-fold-method-MarshalJSON"><label for="TraceFlags-fold-method-MarshalJSON">( TraceFlags) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-173">MarshalJSON</a>() ([]<a href="../../builtin.html#name-byte">byte</a>, <a href="../../builtin.html#name-error">error</a>)</label><span id='TraceFlags-fold-method-MarshalJSON-docs' class="fold-docs">
-				MarshalJSON implements a custom marshal function to encode TraceFlags
-				as a hex string.
+<span class="md-text">				MarshalJSON implements a custom marshal function to encode TraceFlags
+				as a hex string.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="TraceFlags-fold-method-String"><label for="TraceFlags-fold-method-String">( TraceFlags) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-178">String</a>() <a href="../../builtin.html#name-string">string</a></label><span id='TraceFlags-fold-method-String-docs' class="fold-docs">
-				String returns the hex string representation form of TraceFlags.
+<span class="md-text">				String returns the hex string representation form of TraceFlags.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="TraceFlags-fold-method-WithSampled"><label for="TraceFlags-fold-method-WithSampled">( TraceFlags) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-163">WithSampled</a>(sampled <a href="../../builtin.html#name-bool">bool</a>) <b>TraceFlags</b></label><span id='TraceFlags-fold-method-WithSampled-docs' class="fold-docs">
-				WithSampled sets the sampling bit in a new copy of the TraceFlags.
+<span class="md-text">				WithSampled sets the sampling bit in a new copy of the TraceFlags.</span>
 </span></span></span>
 		<input type='checkbox' class="fold" id="TraceFlags-fold-impls"><label for="TraceFlags-fold-impls">Implements (<i>at least 4, in which 2 are exported</i>)</label><span id='TraceFlags-fold-impls-items' class="fold-items"><span>
 			 TraceFlags : encoding/json.<a href="../../encoding/json.html#name-Marshaler">Marshaler</a></span><span>
@@ -534,20 +534,20 @@
 			const <a href="#name-FlagsSampled">FlagsSampled</a></span></span>
 
 </span></div><div class="anchor type-res" id="name-TraceID" data-popularity="540">	<input type='checkbox' class="fold" id="TraceID-fold-content"><label for="TraceID-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..TraceID.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-49">TraceID</a> <i>([...])</i></label><span id='TraceID-fold-content-docs' class="fold-docs">
-		TraceID is a unique identity of a trace.
-		nolint:revive // revive complains about stutter of `trace.TraceID`.
+<span class="md-text">		TraceID is a unique identity of a trace.
+		nolint:revive // revive complains about stutter of `trace.TraceID`.</span>
 
 		<input type='checkbox' class="fold" id="TraceID-fold-methods"><label for="TraceID-fold-methods">Methods (<i>total 3, all are exported</i>)</label><span id='TraceID-fold-methods-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="TraceID-fold-method-IsValid"><label for="TraceID-fold-method-IsValid">( TraceID) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-56">IsValid</a>() <a href="../../builtin.html#name-bool">bool</a></label><span id='TraceID-fold-method-IsValid-docs' class="fold-docs">
-				IsValid checks whether the trace TraceID is valid. A valid trace ID does
-				not consist of zeros only.
+<span class="md-text">				IsValid checks whether the trace TraceID is valid. A valid trace ID does
+				not consist of zeros only.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="TraceID-fold-method-MarshalJSON"><label for="TraceID-fold-method-MarshalJSON">( TraceID) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-62">MarshalJSON</a>() ([]<a href="../../builtin.html#name-byte">byte</a>, <a href="../../builtin.html#name-error">error</a>)</label><span id='TraceID-fold-method-MarshalJSON-docs' class="fold-docs">
-				MarshalJSON implements a custom marshal function to encode TraceID
-				as a hex string.
+<span class="md-text">				MarshalJSON implements a custom marshal function to encode TraceID
+				as a hex string.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="TraceID-fold-method-String"><label for="TraceID-fold-method-String">( TraceID) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-67">String</a>() <a href="../../builtin.html#name-string">string</a></label><span id='TraceID-fold-method-String-docs' class="fold-docs">
-				String returns the hex string representation form of a TraceID.
+<span class="md-text">				String returns the hex string representation form of a TraceID.</span>
 </span></span></span>
 		<input type='checkbox' class="fold" id="TraceID-fold-impls"><label for="TraceID-fold-impls">Implements (<i>at least 4, in which 2 are exported</i>)</label><span id='TraceID-fold-impls-items' class="fold-items"><span>
 			 TraceID : encoding/json.<a href="../../encoding/json.html#name-Marshaler">Marshaler</a></span><span>
@@ -565,25 +565,25 @@
 			  var <a href="#name-nilTraceID">nilTraceID</a></i></span></span>
 
 </span></div><div class="anchor type-res" id="name-Tracer" data-popularity="275">	<input type='checkbox' class="fold" id="Tracer-fold-content"><label for="Tracer-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..Tracer.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-490">Tracer</a> <b><i>(interface)</i></b></label><span id='Tracer-fold-content-docs' class="fold-docs">
-		Tracer is the creator of Spans.
-
-		Warning: methods may be added to this interface in minor releases.
+<span class="md-text">		Tracer is the creator of Spans.
+		
+		Warning: methods may be added to this interface in minor releases.</span>
 
 		<input type='checkbox' class="fold" id="Tracer-fold-methods"><label for="Tracer-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='Tracer-fold-methods-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="Tracer-fold-method-Start"><label for="Tracer-fold-method-Start">( Tracer) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-504">Start</a>(ctx <a href="../../context.html">context</a>.<a href="../../context.html#name-Context">Context</a>, spanName <a href="../../builtin.html#name-string">string</a>, opts ...<a href="#name-SpanStartOption">SpanStartOption</a>) (<a href="../../context.html">context</a>.<a href="../../context.html#name-Context">Context</a>, <a href="#name-Span">Span</a>)</label><span id='Tracer-fold-method-Start-docs' class="fold-docs">
-				Start creates a span and a context.Context containing the newly-created span.
-
+<span class="md-text">				Start creates a span and a context.Context containing the newly-created span.
+				
 				If the context.Context provided in `ctx` contains a Span then the newly-created
 				Span will be a child of that span, otherwise it will be a root span. This behavior
 				can be overridden by providing `WithNewRoot()` as a SpanOption, causing the
 				newly-created Span to be a root span even if `ctx` contains a Span.
-
+				
 				When creating a Span it is recommended to provide all known span attributes using
 				the `WithAttributes()` SpanOption as samplers will only have access to the
 				attributes provided when a Span is created.
-
+				
 				Any Span that is created MUST also be ended. This is the responsibility of the user.
-				Implementations of this API may leak memory or other resources if Spans are not ended.
+				Implementations of this API may leak memory or other resources if Spans are not ended.</span>
 </span></span></span>
 		<input type='checkbox' class="fold" id="Tracer-fold-impledby"><label for="Tracer-fold-impledby">Implemented By (<i>at least one unexported</i>)</label><span id='Tracer-fold-impledby-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="Tracer-showhide-impedBys"><i><label for="Tracer-showhide-impedBys" class="show-inline">/* at least one unexported ... */</label><label for="Tracer-showhide-impedBys" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
@@ -592,26 +592,26 @@
 			func <a href="#name-TracerProvider">TracerProvider</a>.<a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-550">Tracer</a>(name <a href="../../builtin.html#name-string">string</a>, options ...<a href="#name-TracerOption">TracerOption</a>) <b>Tracer</b></span></span>
 
 </span></div><div class="anchor type-res" id="name-TracerConfig" data-popularity="175">	<input type='checkbox' class="fold" id="TracerConfig-fold-content"><label for="TracerConfig-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..TracerConfig.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-24">TracerConfig</a> <i>(struct)</i></label><span id='TracerConfig-fold-content-docs' class="fold-docs">
-		TracerConfig is a group of options for a Tracer.
+<span class="md-text">		TracerConfig is a group of options for a Tracer.</span>
 
 		<input type='checkbox' class="fold" id="TracerConfig-fold-fields"><label for="TracerConfig-fold-fields">Fields (<i>total 2, neither is exported</i>)</label><span id='TracerConfig-fold-fields-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="TracerConfig-showhide-fields"><i><label for="TracerConfig-showhide-fields" class="show-inline">/* 2 unexporteds ... */</label><label for="TracerConfig-showhide-fields" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
 			<span class="nodocs"><a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-25">instrumentationVersion</a> <i><a href="../../builtin.html#name-string">string</a></i></span></i></span><span class="hidden"><i>
 			<input type='checkbox' class="fold" id="TracerConfig-fold-field-schemaURL"><label for="TracerConfig-fold-field-schemaURL"><a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-27">schemaURL</a> <i><a href="../../builtin.html#name-string">string</a></i></label><span id='TracerConfig-fold-field-schemaURL-docs' class="fold-docs">
-				Schema URL of the telemetry emitted by the Tracer.
+<span class="md-text">				Schema URL of the telemetry emitted by the Tracer.</span>
 </span></i></span></span>
 		<input type='checkbox' class="fold" id="TracerConfig-fold-methods"><label for="TracerConfig-fold-methods">Methods (<i>total 2, both are exported</i>)</label><span id='TracerConfig-fold-methods-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="TracerConfig-fold-method-InstrumentationVersion"><label for="TracerConfig-fold-method-InstrumentationVersion">(*TracerConfig) <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-31">InstrumentationVersion</a>() <a href="../../builtin.html#name-string">string</a></label><span id='TracerConfig-fold-method-InstrumentationVersion-docs' class="fold-docs">
-				InstrumentationVersion returns the version of the library providing instrumentation.
+<span class="md-text">				InstrumentationVersion returns the version of the library providing instrumentation.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="TracerConfig-fold-method-SchemaURL"><label for="TracerConfig-fold-method-SchemaURL">(*TracerConfig) <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-36">SchemaURL</a>() <a href="../../builtin.html#name-string">string</a></label><span id='TracerConfig-fold-method-SchemaURL-docs' class="fold-docs">
-				SchemaURL returns the Schema URL of the telemetry emitted by the Tracer.
+<span class="md-text">				SchemaURL returns the Schema URL of the telemetry emitted by the Tracer.</span>
 </span></span></span>
 		<input type='checkbox' class="fold" id="TracerConfig-fold-results"><label for="TracerConfig-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='TracerConfig-fold-results-items' class="fold-items"><span>
 			func <a href="#name-NewTracerConfig">NewTracerConfig</a>(options ...<a href="#name-TracerOption">TracerOption</a>) <b>TracerConfig</b></span></span>
 
 </span></div><div class="anchor type-res" id="name-TracerOption" data-popularity="420">	<input type='checkbox' class="fold" id="TracerOption-fold-content"><label for="TracerOption-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..TracerOption.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-50">TracerOption</a> <b><i>(interface)</i></b></label><span id='TracerOption-fold-content-docs' class="fold-docs">
-		TracerOption applies an option to a TracerConfig.
+<span class="md-text">		TracerOption applies an option to a TracerConfig.</span>
 
 		<input type='checkbox' class="fold" id="TracerOption-fold-methods"><label for="TracerOption-fold-methods">Methods (<i>only one, which is unexported</i>)</label><span id='TracerOption-fold-methods-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="TracerOption-showhide-methods"><i><label for="TracerOption-showhide-methods" class="show-inline">/* one unexported ... */</label><label for="TracerOption-showhide-methods" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
@@ -627,28 +627,28 @@
 			func <a href="#name-TracerProvider">TracerProvider</a>.<a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-550">Tracer</a>(name <a href="../../builtin.html#name-string">string</a>, options ...<b>TracerOption</b>) <a href="#name-Tracer">Tracer</a></span></span>
 
 </span></div><div class="anchor type-res" id="name-TracerProvider" data-popularity="350">	<input type='checkbox' class="fold" id="TracerProvider-fold-content"><label for="TracerProvider-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..TracerProvider.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-522">TracerProvider</a> <b><i>(interface)</i></b></label><span id='TracerProvider-fold-content-docs' class="fold-docs">
-		TracerProvider provides Tracers that are used by instrumentation code to
+<span class="md-text">		TracerProvider provides Tracers that are used by instrumentation code to
 		trace computational workflows.
-
+		
 		A TracerProvider is the collection destination of all Spans from Tracers it
 		provides, it represents a unique telemetry collection pipeline. How that
 		pipeline is defined, meaning how those Spans are collected, processed, and
 		where they are exported, depends on its implementation. Instrumentation
 		authors do not need to define this implementation, rather just use the
 		provided Tracers to instrument code.
-
+		
 		Commonly, instrumentation code will accept a TracerProvider implementation
 		at runtime from its users or it can simply use the globally registered one
 		(see https://pkg.go.dev/go.opentelemetry.io/otel#GetTracerProvider).
-
-		Warning: methods may be added to this interface in minor releases.
+		
+		Warning: methods may be added to this interface in minor releases.</span>
 
 		<input type='checkbox' class="fold" id="TracerProvider-fold-methods"><label for="TracerProvider-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='TracerProvider-fold-methods-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="TracerProvider-fold-method-Tracer"><label for="TracerProvider-fold-method-Tracer">( TracerProvider) <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-550">Tracer</a>(name <a href="../../builtin.html#name-string">string</a>, options ...<a href="#name-TracerOption">TracerOption</a>) <a href="#name-Tracer">Tracer</a></label><span id='TracerProvider-fold-method-Tracer-docs' class="fold-docs">
-				Tracer returns a unique Tracer scoped to be used by instrumentation code
+<span class="md-text">				Tracer returns a unique Tracer scoped to be used by instrumentation code
 				to trace computational workflows. The scope and identity of that
 				instrumentation code is uniquely defined by the name and options passed.
-
+				
 				The passed name needs to uniquely identify instrumentation code.
 				Therefore, it is recommended that name is the Go package name of the
 				library providing instrumentation (note: not the code being
@@ -660,18 +660,18 @@
 				this is the case, the WithScopeAttributes option should be used to
 				uniquely identify Tracers that handle the different domains of workflow
 				data.
-
+				
 				If the same name and options are passed multiple times, the same Tracer
 				will be returned (it is up to the implementation if this will be the
 				same underlying instance of that Tracer or not). It is not necessary to
 				call this multiple times with the same name and options to get an
 				up-to-date Tracer. All implementations will ensure any TracerProvider
 				configuration changes are propagated to all provided Tracers.
-
+				
 				If name is empty, then an implementation defined default name will be
 				used instead.
-
-				This method is safe to call concurrently.
+				
+				This method is safe to call concurrently.</span>
 </span></span></span>
 		<input type='checkbox' class="fold" id="TracerProvider-fold-impledby"><label for="TracerProvider-fold-impledby">Implemented By (<i>at least one unexported</i>)</label><span id='TracerProvider-fold-impledby-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="TracerProvider-showhide-impedBys"><i><label for="TracerProvider-showhide-impedBys" class="show-inline">/* at least one unexported ... */</label><label for="TracerProvider-showhide-impedBys" class="hide-inline">/* at least one unexported: */</label></i><span class="hidden"><i>
@@ -681,56 +681,56 @@
 			func <a href="#name-Span">Span</a>.<a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-382">TracerProvider</a>() <b>TracerProvider</b></span></span>
 
 </span></div><div class="anchor type-res" id="name-TraceState" data-popularity="835">	<input type='checkbox' class="fold" id="TraceState-fold-content"><label for="TraceState-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..TraceState.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-92">TraceState</a> <i>(struct)</i></label><span id='TraceState-fold-content-docs' class="fold-docs">
-		TraceState provides additional vendor-specific trace identification
+<span class="md-text">		TraceState provides additional vendor-specific trace identification
 		information across different distributed tracing systems. It represents an
 		immutable list consisting of key/value pairs, each pair is referred to as a
 		list-member.
-
+		
 		TraceState conforms to the W3C Trace Context specification
 		(https://www.w3.org/TR/trace-context-1). All operations that create or copy
 		a TraceState do so by validating all input and will only produce TraceState
 		that conform to the specification. Specifically, this means that all
 		list-member's key/value pairs are valid, no duplicate list-members exist,
-		and the maximum number of list-members (32) is not exceeded.
+		and the maximum number of list-members (32) is not exceeded.</span>
 
 		<input type='checkbox' class="fold" id="TraceState-fold-fields"><label for="TraceState-fold-fields">Fields (<i>only one, which is unexported</i>)</label><span id='TraceState-fold-fields-items' class="fold-items">
 			<input type='checkbox' class="showhide" id="TraceState-showhide-fields"><i><label for="TraceState-showhide-fields" class="show-inline">/* one unexported ... */</label><label for="TraceState-showhide-fields" class="hide-inline">/* one unexported: */</label></i><span class="hidden"><i>
 			<input type='checkbox' class="fold" id="TraceState-fold-field-list"><label for="TraceState-fold-field-list"><a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-94">list</a> <i>[]<a href="#name-member">member</a></i></label><span id='TraceState-fold-field-list-docs' class="fold-docs">
-				list is the members in order.
+<span class="md-text">				list is the members in order.</span>
 </span></i></span></span>
 		<input type='checkbox' class="fold" id="TraceState-fold-methods"><label for="TraceState-fold-methods">Methods (<i>total 6, all are exported</i>)</label><span id='TraceState-fold-methods-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="TraceState-fold-method-Delete"><label for="TraceState-fold-method-Delete">( TraceState) <a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-196">Delete</a>(key <a href="../../builtin.html#name-string">string</a>) <b>TraceState</b></label><span id='TraceState-fold-method-Delete-docs' class="fold-docs">
-				Delete returns a copy of the TraceState with the list-member identified by
-				key removed.
+<span class="md-text">				Delete returns a copy of the TraceState with the list-member identified by
+				key removed.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="TraceState-fold-method-Get"><label for="TraceState-fold-method-Get">( TraceState) <a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-155">Get</a>(key <a href="../../builtin.html#name-string">string</a>) <a href="../../builtin.html#name-string">string</a></label><span id='TraceState-fold-method-Get-docs' class="fold-docs">
-				Get returns the value paired with key from the corresponding TraceState
-				list-member if it exists, otherwise an empty string is returned.
+<span class="md-text">				Get returns the value paired with key from the corresponding TraceState
+				list-member if it exists, otherwise an empty string is returned.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="TraceState-fold-method-Insert"><label for="TraceState-fold-method-Insert">( TraceState) <a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-177">Insert</a>(key, value <a href="../../builtin.html#name-string">string</a>) (<b>TraceState</b>, <a href="../../builtin.html#name-error">error</a>)</label><span id='TraceState-fold-method-Insert-docs' class="fold-docs">
-				Insert adds a new list-member defined by the key/value pair to the
+<span class="md-text">				Insert adds a new list-member defined by the key/value pair to the
 				TraceState. If a list-member already exists for the given key, that
 				list-member's value is updated. The new or updated list-member is always
 				moved to the beginning of the TraceState as specified by the W3C Trace
 				Context specification.
-
+				
 				If key or value are invalid according to the W3C Trace Context
 				specification an error is returned with the original TraceState.
-
+				
 				If adding a new list-member means the TraceState would have more members
 				then is allowed, the new list-member will be inserted and the right-most
-				list-member will be dropped in the returned TraceState.
+				list-member will be dropped in the returned TraceState.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="TraceState-fold-method-Len"><label for="TraceState-fold-method-Len">( TraceState) <a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-210">Len</a>() <a href="../../builtin.html#name-int">int</a></label><span id='TraceState-fold-method-Len-docs' class="fold-docs">
-				Len returns the number of list-members in the TraceState.
+<span class="md-text">				Len returns the number of list-members in the TraceState.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="TraceState-fold-method-MarshalJSON"><label for="TraceState-fold-method-MarshalJSON">( TraceState) <a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-138">MarshalJSON</a>() ([]<a href="../../builtin.html#name-byte">byte</a>, <a href="../../builtin.html#name-error">error</a>)</label><span id='TraceState-fold-method-MarshalJSON-docs' class="fold-docs">
-				MarshalJSON marshals the TraceState into JSON.
+<span class="md-text">				MarshalJSON marshals the TraceState into JSON.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="TraceState-fold-method-String"><label for="TraceState-fold-method-String">( TraceState) <a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-145">String</a>() <a href="../../builtin.html#name-string">string</a></label><span id='TraceState-fold-method-String-docs' class="fold-docs">
-				String encodes the TraceState into a string compliant with the W3C
+<span class="md-text">				String encodes the TraceState into a string compliant with the W3C
 				Trace Context specification. The returned string will be invalid if the
-				TraceState contains any invalid members.
+				TraceState contains any invalid members.</span>
 </span></span></span>
 		<input type='checkbox' class="fold" id="TraceState-fold-impls"><label for="TraceState-fold-impls">Implements (<i>at least 4, in which 2 are exported</i>)</label><span id='TraceState-fold-impls-items' class="fold-items"><span>
 			 TraceState : encoding/json.<a href="../../encoding/json.html#name-Marshaler">Marshaler</a></span><span>
@@ -781,21 +781,21 @@
 
 		<input type='checkbox' class="fold" id="member-fold-fields"><label for="member-fold-fields">Fields (<i>total 2, both are exported</i>)</label><span id='member-fold-fields-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="member-fold-field-Key"><label for="member-fold-field-Key"><a href="../../../src/runtime/debug/mod.go.html#line-63">Key</a> <i><a href="../../builtin.html#name-string">string</a></i></label><span id='member-fold-field-Key-docs' class="fold-docs">
-				Key and Value describe the build setting.
+<span class="md-text">				Key and Value describe the build setting.
 				Key must not contain an equals sign, space, tab, or newline.
-				Value must not contain newlines ('\n').
+				Value must not contain newlines ('\n').</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="member-fold-field-Value"><label for="member-fold-field-Value"><a href="../../../src/runtime/debug/mod.go.html#line-63">Value</a> <i><a href="../../builtin.html#name-string">string</a></i></label><span id='member-fold-field-Value-docs' class="fold-docs">
-				Key and Value describe the build setting.
+<span class="md-text">				Key and Value describe the build setting.
 				Key must not contain an equals sign, space, tab, or newline.
-				Value must not contain newlines ('\n').
+				Value must not contain newlines ('\n').</span>
 </span></span></span>
 		<input type='checkbox' class="fold" id="member-fold-methods"><label for="member-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='member-fold-methods-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="member-fold-method-String"><label for="member-fold-method-String">( member) <a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-77">String</a>() <a href="../../builtin.html#name-string">string</a></label><span id='member-fold-method-String-docs' class="fold-docs">
-				String encodes member into a string compliant with the W3C Trace Context
-				specification.
+<span class="md-text">				String encodes member into a string compliant with the W3C Trace Context
+				specification.</span>
 </span></span></span>
-		<input type='checkbox' class="fold" id="member-fold-impls"><label for="member-fold-impls">Implements (<i>at least 3, in which 1 are exported</i>)</label><span id='member-fold-impls-items' class="fold-items"><span>
+		<input type='checkbox' class="fold" id="member-fold-impls"><label for="member-fold-impls">Implements (<i>at least 3, in which 1 is exported</i>)</label><span id='member-fold-impls-items' class="fold-items"><span>
 			 member : fmt.<a href="../../fmt.html#name-Stringer">Stringer</a></span>
 			<input type='checkbox' checked class="showhide" id="member-showhide-impls"><i><label for="member-showhide-impls" class="show-inline">/* 2+ unexporteds ... */</label><label for="member-showhide-impls" class="hide-inline">/* 2+ unexporteds: */</label></i><span class="hidden"><i>
 			 member : context.<a href="../../context.html#name-stringer">stringer</a></i></span><span class="hidden"><i>
@@ -806,9 +806,9 @@
 			func <a href="#name-parseMember">parseMember</a>(m <a href="../../builtin.html#name-string">string</a>) (<b>member</b>, <a href="../../builtin.html#name-error">error</a>)</i></span></span>
 
 </span></div><div class="anchor type-res hidden" id="name-nonRecordingSpan" data-popularity="550">	<input type='checkbox' class="fold" id="nonRecordingSpan-fold-content"><label for="nonRecordingSpan-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..nonRecordingSpan^19e70.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/nonrecording.go.html#line-20">nonRecordingSpan</a> <i>(struct)</i></label><span id='nonRecordingSpan-fold-content-docs' class="fold-docs">
-		nonRecordingSpan is a minimal implementation of a Span that wraps a
+<span class="md-text">		nonRecordingSpan is a minimal implementation of a Span that wraps a
 		SpanContext. It performs no operations other than to return the wrapped
-		SpanContext.
+		SpanContext.</span>
 
 		<input type='checkbox' class="fold" id="nonRecordingSpan-fold-fields"><label for="nonRecordingSpan-fold-fields">Fields (<i>total 2, neither is exported</i>)</label><span id='nonRecordingSpan-fold-fields-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="nonRecordingSpan-showhide-fields"><i><label for="nonRecordingSpan-showhide-fields" class="show-inline">/* 2 unexporteds ... */</label><label for="nonRecordingSpan-showhide-fields" class="hide-inline">/* 2 unexporteds: */</label></i><span class="hidden"><i>
@@ -816,82 +816,82 @@
 			<span class="nodocs"><a href="../../../src/go.opentelemetry.io/otel/trace/nonrecording.go.html#line-23">sc</a> <i><a href="#name-SpanContext">SpanContext</a></i></span></i></span></span>
 		<input type='checkbox' class="fold" id="nonRecordingSpan-fold-methods"><label for="nonRecordingSpan-fold-methods">Methods (<i>total 10, all are exported</i>)</label><span id='nonRecordingSpan-fold-methods-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="nonRecordingSpan-fold-method-AddEvent"><label for="nonRecordingSpan-fold-method-AddEvent">( nonRecordingSpan) <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-83">AddEvent</a>(<a href="../../builtin.html#name-string">string</a>, ...<a href="#name-EventOption">EventOption</a>)</label><span id='nonRecordingSpan-fold-method-AddEvent-docs' class="fold-docs">
-				AddEvent does nothing.
+<span class="md-text">				AddEvent does nothing.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="nonRecordingSpan-fold-method-End"><label for="nonRecordingSpan-fold-method-End">( nonRecordingSpan) <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-77">End</a>(...<a href="#name-SpanEndOption">SpanEndOption</a>)</label><span id='nonRecordingSpan-fold-method-End-docs' class="fold-docs">
-				End does nothing.
+<span class="md-text">				End does nothing.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="nonRecordingSpan-fold-method-IsRecording"><label for="nonRecordingSpan-fold-method-IsRecording">( nonRecordingSpan) <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-65">IsRecording</a>() <a href="../../builtin.html#name-bool">bool</a></label><span id='nonRecordingSpan-fold-method-IsRecording-docs' class="fold-docs">
-				IsRecording always returns false.
+<span class="md-text">				IsRecording always returns false.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="nonRecordingSpan-fold-method-RecordError"><label for="nonRecordingSpan-fold-method-RecordError">( nonRecordingSpan) <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-80">RecordError</a>(<a href="../../builtin.html#name-error">error</a>, ...<a href="#name-EventOption">EventOption</a>)</label><span id='nonRecordingSpan-fold-method-RecordError-docs' class="fold-docs">
-				RecordError does nothing.
+<span class="md-text">				RecordError does nothing.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="nonRecordingSpan-fold-method-SetAttributes"><label for="nonRecordingSpan-fold-method-SetAttributes">( nonRecordingSpan) <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-74">SetAttributes</a>(...<a href="attribute.html">attribute</a>.<a href="attribute.html#name-KeyValue">KeyValue</a>)</label><span id='nonRecordingSpan-fold-method-SetAttributes-docs' class="fold-docs">
-				SetAttributes does nothing.
+<span class="md-text">				SetAttributes does nothing.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="nonRecordingSpan-fold-method-SetError"><label for="nonRecordingSpan-fold-method-SetError">( nonRecordingSpan) <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-71">SetError</a>(<a href="../../builtin.html#name-bool">bool</a>)</label><span id='nonRecordingSpan-fold-method-SetError-docs' class="fold-docs">
-				SetError does nothing.
+<span class="md-text">				SetError does nothing.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="nonRecordingSpan-fold-method-SetName"><label for="nonRecordingSpan-fold-method-SetName">( nonRecordingSpan) <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-86">SetName</a>(<a href="../../builtin.html#name-string">string</a>)</label><span id='nonRecordingSpan-fold-method-SetName-docs' class="fold-docs">
-				SetName does nothing.
+<span class="md-text">				SetName does nothing.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="nonRecordingSpan-fold-method-SetStatus"><label for="nonRecordingSpan-fold-method-SetStatus">( nonRecordingSpan) <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-68">SetStatus</a>(<a href="codes.html">codes</a>.<a href="codes.html#name-Code">Code</a>, <a href="../../builtin.html#name-string">string</a>)</label><span id='nonRecordingSpan-fold-method-SetStatus-docs' class="fold-docs">
-				SetStatus does nothing.
+<span class="md-text">				SetStatus does nothing.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="nonRecordingSpan-fold-method-SpanContext"><label for="nonRecordingSpan-fold-method-SpanContext">( nonRecordingSpan) <a href="../../../src/go.opentelemetry.io/otel/trace/nonrecording.go.html#line-27">SpanContext</a>() <a href="#name-SpanContext">SpanContext</a></label><span id='nonRecordingSpan-fold-method-SpanContext-docs' class="fold-docs">
-				SpanContext returns the wrapped SpanContext.
+<span class="md-text">				SpanContext returns the wrapped SpanContext.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="nonRecordingSpan-fold-method-TracerProvider"><label for="nonRecordingSpan-fold-method-TracerProvider">( nonRecordingSpan) <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-89">TracerProvider</a>() <a href="#name-TracerProvider">TracerProvider</a></label><span id='nonRecordingSpan-fold-method-TracerProvider-docs' class="fold-docs">
-				TracerProvider returns a no-op TracerProvider.
+<span class="md-text">				TracerProvider returns a no-op TracerProvider.</span>
 </span></span></span>
 		<input type='checkbox' class="fold" id="nonRecordingSpan-fold-impls"><label for="nonRecordingSpan-fold-impls">Implements (<i>at least one exported</i>)</label><span id='nonRecordingSpan-fold-impls-items' class="fold-items"><span>
 			 nonRecordingSpan : <a href="#name-Span">Span</a></span></span>
 
 </span></div><div class="anchor type-res hidden" id="name-noopSpan" data-popularity="550">	<input type='checkbox' class="fold" id="noopSpan-fold-content"><label for="noopSpan-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..noopSpan^c4d51.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-57">noopSpan</a> <i>(struct)</i></label><span id='noopSpan-fold-content-docs' class="fold-docs">
-		noopSpan is an implementation of Span that preforms no operations.
+<span class="md-text">		noopSpan is an implementation of Span that preforms no operations.</span>
 
 		<input type='checkbox' class="fold" id="noopSpan-fold-methods"><label for="noopSpan-fold-methods">Methods (<i>total 10, all are exported</i>)</label><span id='noopSpan-fold-methods-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="noopSpan-fold-method-AddEvent"><label for="noopSpan-fold-method-AddEvent">( noopSpan) <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-83">AddEvent</a>(<a href="../../builtin.html#name-string">string</a>, ...<a href="#name-EventOption">EventOption</a>)</label><span id='noopSpan-fold-method-AddEvent-docs' class="fold-docs">
-				AddEvent does nothing.
+<span class="md-text">				AddEvent does nothing.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="noopSpan-fold-method-End"><label for="noopSpan-fold-method-End">( noopSpan) <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-77">End</a>(...<a href="#name-SpanEndOption">SpanEndOption</a>)</label><span id='noopSpan-fold-method-End-docs' class="fold-docs">
-				End does nothing.
+<span class="md-text">				End does nothing.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="noopSpan-fold-method-IsRecording"><label for="noopSpan-fold-method-IsRecording">( noopSpan) <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-65">IsRecording</a>() <a href="../../builtin.html#name-bool">bool</a></label><span id='noopSpan-fold-method-IsRecording-docs' class="fold-docs">
-				IsRecording always returns false.
+<span class="md-text">				IsRecording always returns false.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="noopSpan-fold-method-RecordError"><label for="noopSpan-fold-method-RecordError">( noopSpan) <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-80">RecordError</a>(<a href="../../builtin.html#name-error">error</a>, ...<a href="#name-EventOption">EventOption</a>)</label><span id='noopSpan-fold-method-RecordError-docs' class="fold-docs">
-				RecordError does nothing.
+<span class="md-text">				RecordError does nothing.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="noopSpan-fold-method-SetAttributes"><label for="noopSpan-fold-method-SetAttributes">( noopSpan) <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-74">SetAttributes</a>(...<a href="attribute.html">attribute</a>.<a href="attribute.html#name-KeyValue">KeyValue</a>)</label><span id='noopSpan-fold-method-SetAttributes-docs' class="fold-docs">
-				SetAttributes does nothing.
+<span class="md-text">				SetAttributes does nothing.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="noopSpan-fold-method-SetError"><label for="noopSpan-fold-method-SetError">( noopSpan) <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-71">SetError</a>(<a href="../../builtin.html#name-bool">bool</a>)</label><span id='noopSpan-fold-method-SetError-docs' class="fold-docs">
-				SetError does nothing.
+<span class="md-text">				SetError does nothing.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="noopSpan-fold-method-SetName"><label for="noopSpan-fold-method-SetName">( noopSpan) <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-86">SetName</a>(<a href="../../builtin.html#name-string">string</a>)</label><span id='noopSpan-fold-method-SetName-docs' class="fold-docs">
-				SetName does nothing.
+<span class="md-text">				SetName does nothing.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="noopSpan-fold-method-SetStatus"><label for="noopSpan-fold-method-SetStatus">( noopSpan) <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-68">SetStatus</a>(<a href="codes.html">codes</a>.<a href="codes.html#name-Code">Code</a>, <a href="../../builtin.html#name-string">string</a>)</label><span id='noopSpan-fold-method-SetStatus-docs' class="fold-docs">
-				SetStatus does nothing.
+<span class="md-text">				SetStatus does nothing.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="noopSpan-fold-method-SpanContext"><label for="noopSpan-fold-method-SpanContext">( noopSpan) <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-62">SpanContext</a>() <a href="#name-SpanContext">SpanContext</a></label><span id='noopSpan-fold-method-SpanContext-docs' class="fold-docs">
-				SpanContext returns an empty span context.
+<span class="md-text">				SpanContext returns an empty span context.</span>
 </span></span><span>
 			<input type='checkbox' class="fold" id="noopSpan-fold-method-TracerProvider"><label for="noopSpan-fold-method-TracerProvider">( noopSpan) <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-89">TracerProvider</a>() <a href="#name-TracerProvider">TracerProvider</a></label><span id='noopSpan-fold-method-TracerProvider-docs' class="fold-docs">
-				TracerProvider returns a no-op TracerProvider.
+<span class="md-text">				TracerProvider returns a no-op TracerProvider.</span>
 </span></span></span>
 		<input type='checkbox' class="fold" id="noopSpan-fold-impls"><label for="noopSpan-fold-impls">Implements (<i>at least one exported</i>)</label><span id='noopSpan-fold-impls-items' class="fold-items"><span>
 			 noopSpan : <a href="#name-Span">Span</a></span></span>
 
 </span></div><div class="anchor type-res hidden" id="name-noopTracer" data-popularity="100">	<input type='checkbox' class="fold" id="noopTracer-fold-content"><label for="noopTracer-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..noopTracer^9bb15.html">type</a> <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-41">noopTracer</a> <i>(struct)</i></label><span id='noopTracer-fold-content-docs' class="fold-docs">
-		noopTracer is an implementation of Tracer that preforms no operations.
+<span class="md-text">		noopTracer is an implementation of Tracer that preforms no operations.</span>
 
 		<input type='checkbox' class="fold" id="noopTracer-fold-methods"><label for="noopTracer-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='noopTracer-fold-methods-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="noopTracer-fold-method-Start"><label for="noopTracer-fold-method-Start">( noopTracer) <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-47">Start</a>(ctx <a href="../../context.html">context</a>.<a href="../../context.html#name-Context">Context</a>, name <a href="../../builtin.html#name-string">string</a>, _ ...<a href="#name-SpanStartOption">SpanStartOption</a>) (<a href="../../context.html">context</a>.<a href="../../context.html#name-Context">Context</a>, <a href="#name-Span">Span</a>)</label><span id='noopTracer-fold-method-Start-docs' class="fold-docs">
-				Start carries forward a non-recording Span, if one is present in the context, otherwise it
-				creates a no-op Span.
+<span class="md-text">				Start carries forward a non-recording Span, if one is present in the context, otherwise it
+				creates a no-op Span.</span>
 </span></span></span>
 		<input type='checkbox' class="fold" id="noopTracer-fold-impls"><label for="noopTracer-fold-impls">Implements (<i>at least one exported</i>)</label><span id='noopTracer-fold-impls-items' class="fold-items"><span>
 			 noopTracer : <a href="#name-Tracer">Tracer</a></span></span>
@@ -900,7 +900,7 @@
 
 		<input type='checkbox' class="fold" id="noopTracerProvider-fold-methods"><label for="noopTracerProvider-fold-methods">Methods (<i>only one, which is exported</i>)</label><span id='noopTracerProvider-fold-methods-items' class="fold-items"><span>
 			<input type='checkbox' class="fold" id="noopTracerProvider-fold-method-Tracer"><label for="noopTracerProvider-fold-method-Tracer">( noopTracerProvider) <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-36">Tracer</a>(<a href="../../builtin.html#name-string">string</a>, ...<a href="#name-TracerOption">TracerOption</a>) <a href="#name-Tracer">Tracer</a></label><span id='noopTracerProvider-fold-method-Tracer-docs' class="fold-docs">
-				Tracer returns noop implementation of Tracer.
+<span class="md-text">				Tracer returns noop implementation of Tracer.</span>
 </span></span></span>
 		<input type='checkbox' class="fold" id="noopTracerProvider-fold-impls"><label for="noopTracerProvider-fold-impls">Implements (<i>at least one exported</i>)</label><span id='noopTracerProvider-fold-impls-items' class="fold-items"><span>
 			 noopTracerProvider : <a href="#name-TracerProvider">TracerProvider</a></span></span>
@@ -931,16 +931,16 @@
 			<input type='checkbox' checked class="showhide" id="timestampOption-showhide-fields"><i><label for="timestampOption-showhide-fields" class="show-inline">/* 3 unexporteds ... */</label><label for="timestampOption-showhide-fields" class="hide-inline">/* 3 unexporteds: */</label></i><span class="hidden"><i>
 			<span class="nodocs"><a href="../../../src/time/time.go.html#line-142">ext</a> <i><a href="../../builtin.html#name-int64">int64</a></i></span></i></span><span class="hidden"><i>
 			<input type='checkbox' class="fold" id="timestampOption-fold-field-loc"><label for="timestampOption-fold-field-loc"><a href="../../../src/time/time.go.html#line-149">loc</a> <i>*<a href="../../time.html">time</a>.<a href="../../time.html#name-Location">Location</a></i></label><span id='timestampOption-fold-field-loc-docs' class="fold-docs">
-				loc specifies the Location that should be used to
+<span class="md-text">				loc specifies the Location that should be used to
 				determine the minute, hour, month, day, and year
 				that correspond to this Time.
 				The nil location means UTC.
-				All UTC times are represented with loc==nil, never loc==&amp;utcLoc.
+				All UTC times are represented with loc==nil, never loc==&amp;utcLoc.</span>
 </span></i></span><span class="hidden"><i>
 			<input type='checkbox' class="fold" id="timestampOption-fold-field-wall"><label for="timestampOption-fold-field-wall"><a href="../../../src/time/time.go.html#line-141">wall</a> <i><a href="../../builtin.html#name-uint64">uint64</a></i></label><span id='timestampOption-fold-field-wall-docs' class="fold-docs">
-				wall and ext encode the wall time seconds, wall time nanoseconds,
+<span class="md-text">				wall and ext encode the wall time seconds, wall time nanoseconds,
 				and optional monotonic clock reading in nanoseconds.
-
+				
 				From high to low bit position, wall encodes a 1-bit flag (hasMonotonic),
 				a 33-bit seconds field, and a 30-bit wall time nanoseconds field.
 				The nanoseconds field is in the range [0, 999999999].
@@ -948,7 +948,7 @@
 				and the full signed 64-bit wall seconds since Jan 1 year 1 is stored in ext.
 				If the hasMonotonic bit is 1, then the 33-bit field holds a 33-bit
 				unsigned wall seconds since Jan 1 year 1885, and ext holds a
-				signed 64-bit monotonic clock reading, nanoseconds since process start.
+				signed 64-bit monotonic clock reading, nanoseconds since process start.</span>
 </span></i></span></span>
 		<input type='checkbox' class="fold" id="timestampOption-fold-methods"><label for="timestampOption-fold-methods">Methods (<i>total 4, none are exported</i>)</label><span id='timestampOption-fold-methods-items' class="fold-items">
 			<input type='checkbox' checked class="showhide" id="timestampOption-showhide-methods"><i><label for="timestampOption-showhide-methods" class="show-inline">/* 4 unexporteds ... */</label><label for="timestampOption-showhide-methods" class="hide-inline">/* 4 unexporteds: */</label></i><span class="hidden"><i>
@@ -983,117 +983,117 @@
 <div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 27, in which 24 are exported)</i></span></span>
 
 <div class="anchor value-res" id="name-ContextWithRemoteSpanContext">	<input type='checkbox' class="fold" id="ContextWithRemoteSpanContext-fold-content"><label for="ContextWithRemoteSpanContext-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..ContextWithRemoteSpanContext.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/context.go.html#line-40">ContextWithRemoteSpanContext</a>(parent <a href="../../context.html">context</a>.<a href="../../context.html#name-Context">Context</a>, rsc <a href="#name-SpanContext">SpanContext</a>) <a href="../../context.html">context</a>.<a href="../../context.html#name-Context">Context</a></label><span id='ContextWithRemoteSpanContext-fold-content-docs' class="fold-docs">
-		ContextWithRemoteSpanContext returns a copy of parent with rsc set explicly
+<span class="md-text">		ContextWithRemoteSpanContext returns a copy of parent with rsc set explicly
 		as a remote SpanContext and as the current Span. The Span implementation
 		that wraps rsc is non-recording and performs no operations other than to
-		return rsc as the SpanContext from the SpanContext method.
+		return rsc as the SpanContext from the SpanContext method.</span>
 
 </span></div><div class="anchor value-res" id="name-ContextWithSpan">	<input type='checkbox' class="fold" id="ContextWithSpan-fold-content"><label for="ContextWithSpan-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..ContextWithSpan.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/context.go.html#line-24">ContextWithSpan</a>(parent <a href="../../context.html">context</a>.<a href="../../context.html#name-Context">Context</a>, span <a href="#name-Span">Span</a>) <a href="../../context.html">context</a>.<a href="../../context.html#name-Context">Context</a></label><span id='ContextWithSpan-fold-content-docs' class="fold-docs">
-		ContextWithSpan returns a copy of parent with span set as the current Span.
+<span class="md-text">		ContextWithSpan returns a copy of parent with span set as the current Span.</span>
 
 </span></div><div class="anchor value-res" id="name-ContextWithSpanContext">	<input type='checkbox' class="fold" id="ContextWithSpanContext-fold-content"><label for="ContextWithSpanContext-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..ContextWithSpanContext.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/context.go.html#line-32">ContextWithSpanContext</a>(parent <a href="../../context.html">context</a>.<a href="../../context.html#name-Context">Context</a>, sc <a href="#name-SpanContext">SpanContext</a>) <a href="../../context.html">context</a>.<a href="../../context.html#name-Context">Context</a></label><span id='ContextWithSpanContext-fold-content-docs' class="fold-docs">
-		ContextWithSpanContext returns a copy of parent with sc as the current
+<span class="md-text">		ContextWithSpanContext returns a copy of parent with sc as the current
 		Span. The Span implementation that wraps sc is non-recording and performs
 		no operations other than to return sc as the SpanContext from the
-		SpanContext method.
+		SpanContext method.</span>
 
 </span></div><div class="anchor value-res" id="name-LinkFromContext">	<input type='checkbox' class="fold" id="LinkFromContext-fold-content"><label for="LinkFromContext-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..LinkFromContext.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-409">LinkFromContext</a>(ctx <a href="../../context.html">context</a>.<a href="../../context.html#name-Context">Context</a>, attrs ...<a href="attribute.html">attribute</a>.<a href="attribute.html#name-KeyValue">KeyValue</a>) <a href="#name-Link">Link</a></label><span id='LinkFromContext-fold-content-docs' class="fold-docs">
-		LinkFromContext returns a link encapsulating the SpanContext in the provided ctx.
+<span class="md-text">		LinkFromContext returns a link encapsulating the SpanContext in the provided ctx.</span>
 
 </span></div><div class="anchor value-res" id="name-NewEventConfig">	<input type='checkbox' class="fold" id="NewEventConfig-fold-content"><label for="NewEventConfig-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..NewEventConfig.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-170">NewEventConfig</a>(options ...<a href="#name-EventOption">EventOption</a>) <a href="#name-EventConfig">EventConfig</a></label><span id='NewEventConfig-fold-content-docs' class="fold-docs">
-		NewEventConfig applies all the EventOptions to a returned EventConfig. If no
+<span class="md-text">		NewEventConfig applies all the EventOptions to a returned EventConfig. If no
 		timestamp option is passed, the returned EventConfig will have a Timestamp
 		set to the call time, otherwise no validation is performed on the returned
-		EventConfig.
+		EventConfig.</span>
 
 </span></div><div class="anchor value-res" id="name-NewNoopTracerProvider">	<input type='checkbox' class="fold" id="NewNoopTracerProvider-fold-content"><label for="NewNoopTracerProvider-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..NewNoopTracerProvider.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/noop.go.html#line-27">NewNoopTracerProvider</a>() <a href="#name-TracerProvider">TracerProvider</a></label><span id='NewNoopTracerProvider-fold-content-docs' class="fold-docs">
-		NewNoopTracerProvider returns an implementation of TracerProvider that
+<span class="md-text">		NewNoopTracerProvider returns an implementation of TracerProvider that
 		performs no operations. The Tracer and Spans created from the returned
-		TracerProvider also perform no operations.
+		TracerProvider also perform no operations.</span>
 
 </span></div><div class="anchor value-res" id="name-NewSpanContext">	<input type='checkbox' class="fold" id="NewSpanContext-fold-content"><label for="NewSpanContext-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..NewSpanContext.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-194">NewSpanContext</a>(config <a href="#name-SpanContextConfig">SpanContextConfig</a>) <a href="#name-SpanContext">SpanContext</a></label><span id='NewSpanContext-fold-content-docs' class="fold-docs">
-		NewSpanContext constructs a SpanContext using values from the provided
-		SpanContextConfig.
+<span class="md-text">		NewSpanContext constructs a SpanContext using values from the provided
+		SpanContextConfig.</span>
 
 </span></div><div class="anchor value-res" id="name-NewSpanEndConfig">	<input type='checkbox' class="fold" id="NewSpanEndConfig-fold-content"><label for="NewSpanEndConfig-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..NewSpanEndConfig.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-118">NewSpanEndConfig</a>(options ...<a href="#name-SpanEndOption">SpanEndOption</a>) <a href="#name-SpanConfig">SpanConfig</a></label><span id='NewSpanEndConfig-fold-content-docs' class="fold-docs">
-		NewSpanEndConfig applies all the options to a returned SpanConfig.
+<span class="md-text">		NewSpanEndConfig applies all the options to a returned SpanConfig.
 		No validation is performed on the returned SpanConfig (e.g. no uniqueness
 		checking or bounding of data), it is left to the SDK to perform this
-		action.
+		action.</span>
 
 </span></div><div class="anchor value-res" id="name-NewSpanStartConfig">	<input type='checkbox' class="fold" id="NewSpanStartConfig-fold-content"><label for="NewSpanStartConfig-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..NewSpanStartConfig.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-106">NewSpanStartConfig</a>(options ...<a href="#name-SpanStartOption">SpanStartOption</a>) <a href="#name-SpanConfig">SpanConfig</a></label><span id='NewSpanStartConfig-fold-content-docs' class="fold-docs">
-		NewSpanStartConfig applies all the options to a returned SpanConfig.
+<span class="md-text">		NewSpanStartConfig applies all the options to a returned SpanConfig.
 		No validation is performed on the returned SpanConfig (e.g. no uniqueness
 		checking or bounding of data), it is left to the SDK to perform this
-		action.
+		action.</span>
 
 </span></div><div class="anchor value-res" id="name-NewTracerConfig">	<input type='checkbox' class="fold" id="NewTracerConfig-fold-content"><label for="NewTracerConfig-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..NewTracerConfig.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-41">NewTracerConfig</a>(options ...<a href="#name-TracerOption">TracerOption</a>) <a href="#name-TracerConfig">TracerConfig</a></label><span id='NewTracerConfig-fold-content-docs' class="fold-docs">
-		NewTracerConfig applies all the options to a returned TracerConfig.
+<span class="md-text">		NewTracerConfig applies all the options to a returned TracerConfig.</span>
 
 </span></div><div class="anchor value-res" id="name-ParseTraceState">	<input type='checkbox' class="fold" id="ParseTraceState-fold-content"><label for="ParseTraceState-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..ParseTraceState.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-102">ParseTraceState</a>(tracestate <a href="../../builtin.html#name-string">string</a>) (<a href="#name-TraceState">TraceState</a>, <a href="../../builtin.html#name-error">error</a>)</label><span id='ParseTraceState-fold-content-docs' class="fold-docs">
-		ParseTraceState attempts to decode a TraceState from the passed
+<span class="md-text">		ParseTraceState attempts to decode a TraceState from the passed
 		string. It returns an error if the input is invalid according to the W3C
-		Trace Context specification.
+		Trace Context specification.</span>
 
 </span></div><div class="anchor value-res" id="name-SpanContextFromContext">	<input type='checkbox' class="fold" id="SpanContextFromContext-fold-content"><label for="SpanContextFromContext-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..SpanContextFromContext.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/context.go.html#line-59">SpanContextFromContext</a>(ctx <a href="../../context.html">context</a>.<a href="../../context.html#name-Context">Context</a>) <a href="#name-SpanContext">SpanContext</a></label><span id='SpanContextFromContext-fold-content-docs' class="fold-docs">
-		SpanContextFromContext returns the current Span's SpanContext.
+<span class="md-text">		SpanContextFromContext returns the current Span's SpanContext.</span>
 
 </span></div><div class="anchor value-res" id="name-SpanFromContext">	<input type='checkbox' class="fold" id="SpanFromContext-fold-content"><label for="SpanFromContext-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..SpanFromContext.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/context.go.html#line-48">SpanFromContext</a>(ctx <a href="../../context.html">context</a>.<a href="../../context.html#name-Context">Context</a>) <a href="#name-Span">Span</a></label><span id='SpanFromContext-fold-content-docs' class="fold-docs">
-		SpanFromContext returns the current Span from ctx.
-
+<span class="md-text">		SpanFromContext returns the current Span from ctx.
+		
 		If no Span is currently set in ctx an implementation of a Span that
-		performs no operations is returned.
+		performs no operations is returned.</span>
 
 </span></div><div class="anchor value-res" id="name-SpanIDFromHex">	<input type='checkbox' class="fold" id="SpanIDFromHex-fold-content"><label for="SpanIDFromHex-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..SpanIDFromHex.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-117">SpanIDFromHex</a>(h <a href="../../builtin.html#name-string">string</a>) (<a href="#name-SpanID">SpanID</a>, <a href="../../builtin.html#name-error">error</a>)</label><span id='SpanIDFromHex-fold-content-docs' class="fold-docs">
-		SpanIDFromHex returns a SpanID from a hex string if it is compliant
+<span class="md-text">		SpanIDFromHex returns a SpanID from a hex string if it is compliant
 		with the w3c trace-context specification.
-		See more at https://www.w3.org/TR/trace-context/#parent-id
+		See more at https://www.w3.org/TR/trace-context/#parent-id</span>
 
 </span></div><div class="anchor value-res" id="name-TraceIDFromHex">	<input type='checkbox' class="fold" id="TraceIDFromHex-fold-content"><label for="TraceIDFromHex-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..TraceIDFromHex.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-98">TraceIDFromHex</a>(h <a href="../../builtin.html#name-string">string</a>) (<a href="#name-TraceID">TraceID</a>, <a href="../../builtin.html#name-error">error</a>)</label><span id='TraceIDFromHex-fold-content-docs' class="fold-docs">
-		TraceIDFromHex returns a TraceID from a hex string if it is compliant with
+<span class="md-text">		TraceIDFromHex returns a TraceID from a hex string if it is compliant with
 		the W3C trace-context specification.  See more at
 		https://www.w3.org/TR/trace-context/#trace-id
-		nolint:revive // revive complains about stutter of `trace.TraceIDFromHex`.
+		nolint:revive // revive complains about stutter of `trace.TraceIDFromHex`.</span>
 
 </span></div><div class="anchor value-res" id="name-ValidateSpanKind">	<input type='checkbox' class="fold" id="ValidateSpanKind-fold-content"><label for="ValidateSpanKind-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..ValidateSpanKind.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-455">ValidateSpanKind</a>(spanKind <a href="#name-SpanKind">SpanKind</a>) <a href="#name-SpanKind">SpanKind</a></label><span id='ValidateSpanKind-fold-content-docs' class="fold-docs">
-		ValidateSpanKind returns a valid span kind value.  This will coerce
-		invalid values into the default value, SpanKindInternal.
+<span class="md-text">		ValidateSpanKind returns a valid span kind value.  This will coerce
+		invalid values into the default value, SpanKindInternal.</span>
 
 </span></div><div class="anchor value-res" id="name-WithAttributes">	<input type='checkbox' class="fold" id="WithAttributes-fold-content"><label for="WithAttributes-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..WithAttributes.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-227">WithAttributes</a>(attributes ...<a href="attribute.html">attribute</a>.<a href="attribute.html#name-KeyValue">KeyValue</a>) <a href="#name-SpanStartEventOption">SpanStartEventOption</a></label><span id='WithAttributes-fold-content-docs' class="fold-docs">
-		WithAttributes adds the attributes related to a span life-cycle event.
+<span class="md-text">		WithAttributes adds the attributes related to a span life-cycle event.
 		These attributes are used to describe the work a Span represents when this
 		option is provided to a Span's start or end events. Otherwise, these
 		attributes provide additional information about the event being recorded
 		(e.g. error, state change, processing progress, system event).
-
+		
 		If multiple of these options are passed the attributes of each successive
 		option will extend the attributes instead of overwriting. There is no
-		guarantee of uniqueness in the resulting attributes.
+		guarantee of uniqueness in the resulting attributes.</span>
 
 </span></div><div class="anchor value-res" id="name-WithInstrumentationVersion">	<input type='checkbox' class="fold" id="WithInstrumentationVersion-fold-content"><label for="WithInstrumentationVersion-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..WithInstrumentationVersion.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-303">WithInstrumentationVersion</a>(version <a href="../../builtin.html#name-string">string</a>) <a href="#name-TracerOption">TracerOption</a></label><span id='WithInstrumentationVersion-fold-content-docs' class="fold-docs">
-		WithInstrumentationVersion sets the instrumentation version.
+<span class="md-text">		WithInstrumentationVersion sets the instrumentation version.</span>
 
 </span></div><div class="anchor value-res" id="name-WithLinks">	<input type='checkbox' class="fold" id="WithLinks-fold-content"><label for="WithLinks-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..WithLinks.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-277">WithLinks</a>(links ...<a href="#name-Link">Link</a>) <a href="#name-SpanStartOption">SpanStartOption</a></label><span id='WithLinks-fold-content-docs' class="fold-docs">
-		WithLinks adds links to a Span. The links are added to the existing Span
-		links, i.e. this does not overwrite. Links with invalid span context are ignored.
+<span class="md-text">		WithLinks adds links to a Span. The links are added to the existing Span
+		links, i.e. this does not overwrite. Links with invalid span context are ignored.</span>
 
 </span></div><div class="anchor value-res" id="name-WithNewRoot">	<input type='checkbox' class="fold" id="WithNewRoot-fold-content"><label for="WithNewRoot-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..WithNewRoot.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-287">WithNewRoot</a>() <a href="#name-SpanStartOption">SpanStartOption</a></label><span id='WithNewRoot-fold-content-docs' class="fold-docs">
-		WithNewRoot specifies that the Span should be treated as a root Span. Any
+<span class="md-text">		WithNewRoot specifies that the Span should be treated as a root Span. Any
 		existing parent span context will be ignored when defining the Span's trace
-		identifiers.
+		identifiers.</span>
 
 </span></div><div class="anchor value-res" id="name-WithSchemaURL">	<input type='checkbox' class="fold" id="WithSchemaURL-fold-content"><label for="WithSchemaURL-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..WithSchemaURL.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-311">WithSchemaURL</a>(schemaURL <a href="../../builtin.html#name-string">string</a>) <a href="#name-TracerOption">TracerOption</a></label><span id='WithSchemaURL-fold-content-docs' class="fold-docs">
-		WithSchemaURL sets the schema URL for the Tracer.
+<span class="md-text">		WithSchemaURL sets the schema URL for the Tracer.</span>
 
 </span></div><div class="anchor value-res" id="name-WithSpanKind">	<input type='checkbox' class="fold" id="WithSpanKind-fold-content"><label for="WithSpanKind-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..WithSpanKind.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-295">WithSpanKind</a>(kind <a href="#name-SpanKind">SpanKind</a>) <a href="#name-SpanStartOption">SpanStartOption</a></label><span id='WithSpanKind-fold-content-docs' class="fold-docs">
-		WithSpanKind sets the SpanKind of a Span.
+<span class="md-text">		WithSpanKind sets the SpanKind of a Span.</span>
 
 </span></div><div class="anchor value-res" id="name-WithStackTrace">	<input type='checkbox' class="fold" id="WithStackTrace-fold-content"><label for="WithStackTrace-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..WithStackTrace.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-271">WithStackTrace</a>(b <a href="../../builtin.html#name-bool">bool</a>) <a href="#name-SpanEndEventOption">SpanEndEventOption</a></label><span id='WithStackTrace-fold-content-docs' class="fold-docs">
-		WithStackTrace sets the flag to capture the error with stack trace (e.g. true, false).
+<span class="md-text">		WithStackTrace sets the flag to capture the error with stack trace (e.g. true, false).</span>
 
 </span></div><div class="anchor value-res" id="name-WithTimestamp">	<input type='checkbox' class="fold" id="WithTimestamp-fold-content"><label for="WithTimestamp-fold-content"> <a href="../../../use/go.opentelemetry.io/otel/trace..WithTimestamp.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/config.go.html#line-254">WithTimestamp</a>(t <a href="../../time.html">time</a>.<a href="../../time.html#name-Time">Time</a>) <a href="#name-SpanEventOption">SpanEventOption</a></label><span id='WithTimestamp-fold-content-docs' class="fold-docs">
-		WithTimestamp sets the time of a Span or Event life-cycle moment (e.g.
-		started, stopped, errored).
+<span class="md-text">		WithTimestamp sets the time of a Span or Event life-cycle moment (e.g.
+		started, stopped, errored).</span>
 
 </span></div>	<input type='checkbox' class="showhide" id="unexported-functions-showhide"><i><label for="unexported-functions-showhide" class="show-inline">/* 3 unexporteds ... */</label><label for="unexported-functions-showhide" class="hide-inline">/* 3 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-decodeHex"><i>	<span class="nodocs"> <a href="../../../use/go.opentelemetry.io/otel/trace..decodeHex^342eb.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-133">decodeHex</a>(h <a href="../../builtin.html#name-string">string</a>, b []<a href="../../builtin.html#name-byte">byte</a>) <a href="../../builtin.html#name-error">error</a></span></i></div><div class="anchor value-res hidden" id="name-newMember"><i>	<span class="nodocs"> <a href="../../../use/go.opentelemetry.io/otel/trace..newMember^2625e.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-53">newMember</a>(key, value <a href="../../builtin.html#name-string">string</a>) (<a href="#name-member">member</a>, <a href="../../builtin.html#name-error">error</a>)</span></i></div><div class="anchor value-res hidden" id="name-parseMember"><i>	<span class="nodocs"> <a href="../../../use/go.opentelemetry.io/otel/trace..parseMember^1940d.html">func</a> <a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-63">parseMember</a>(m <a href="../../builtin.html#name-string">string</a>) (<a href="#name-member">member</a>, <a href="../../builtin.html#name-error">error</a>)</span></i></div></div>
 <div id="exported-variables"><span class="title">Package-Level Variables<span class="title-stat"><i> (total 5, none are exported)</i></span></span>
@@ -1102,48 +1102,48 @@
 <div id="exported-constants"><span class="title">Package-Level Constants<span class="title-stat"><i> (total 23, in which 7 are exported)</i></span></span>
 
 <div class="anchor value-res" id="name-FlagsSampled">	<input type='checkbox' class="fold" id="FlagsSampled-fold-content"><label for="FlagsSampled-fold-content"><a href="../../../use/go.opentelemetry.io/otel/trace..FlagsSampled.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-30">FlagsSampled</a> <a href="#name-TraceFlags">TraceFlags</a> = 1</label><span id='FlagsSampled-fold-content-docs' class="fold-docs">
-		FlagsSampled is a bitmask with the sampled bit set. A SpanContext
-		with the sampling bit set means the span is sampled.
+<span class="md-text">		FlagsSampled is a bitmask with the sampled bit set. A SpanContext
+		with the sampling bit set means the span is sampled.</span>
 
 </span></div><div class="anchor value-res" id="name-SpanKindClient">	<input type='checkbox' class="fold" id="SpanKindClient-fold-content"><label for="SpanKindClient-fold-content"><a href="../../../use/go.opentelemetry.io/otel/trace..SpanKindClient.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-437">SpanKindClient</a> <a href="#name-SpanKind">SpanKind</a> = 3</label><span id='SpanKindClient-fold-content-docs' class="fold-docs">
-		SpanKindClient is a SpanKind for a Span that represents the operation
-		of client making a request to a server.
+<span class="md-text">		SpanKindClient is a SpanKind for a Span that represents the operation
+		of client making a request to a server.</span>
 
 </span></div><div class="anchor value-res" id="name-SpanKindConsumer">	<input type='checkbox' class="fold" id="SpanKindConsumer-fold-content"><label for="SpanKindConsumer-fold-content"><a href="../../../use/go.opentelemetry.io/otel/trace..SpanKindConsumer.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-450">SpanKindConsumer</a> <a href="#name-SpanKind">SpanKind</a> = 5</label><span id='SpanKindConsumer-fold-content-docs' class="fold-docs">
-		SpanKindConsumer is a SpanKind for a Span that represents the operation
+<span class="md-text">		SpanKindConsumer is a SpanKind for a Span that represents the operation
 		of a consumer receiving a message from a message broker. Like
 		SpanKindProducer Spans, there is often no direct relationship between
-		this Span and the Span that produced the message.
+		this Span and the Span that produced the message.</span>
 
 </span></div><div class="anchor value-res" id="name-SpanKindInternal">	<input type='checkbox' class="fold" id="SpanKindInternal-fold-content"><label for="SpanKindInternal-fold-content"><a href="../../../use/go.opentelemetry.io/otel/trace..SpanKindInternal.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-431">SpanKindInternal</a> <a href="#name-SpanKind">SpanKind</a> = 1</label><span id='SpanKindInternal-fold-content-docs' class="fold-docs">
-		SpanKindInternal is a SpanKind for a Span that represents an internal
-		operation within an application.
+<span class="md-text">		SpanKindInternal is a SpanKind for a Span that represents an internal
+		operation within an application.</span>
 
 </span></div><div class="anchor value-res" id="name-SpanKindProducer">	<input type='checkbox' class="fold" id="SpanKindProducer-fold-content"><label for="SpanKindProducer-fold-content"><a href="../../../use/go.opentelemetry.io/otel/trace..SpanKindProducer.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-445">SpanKindProducer</a> <a href="#name-SpanKind">SpanKind</a> = 4</label><span id='SpanKindProducer-fold-content-docs' class="fold-docs">
-		SpanKindProducer is a SpanKind for a Span that represents the operation
+<span class="md-text">		SpanKindProducer is a SpanKind for a Span that represents the operation
 		of a producer sending a message to a message broker. Unlike
 		SpanKindClient and SpanKindServer, there is often no direct
 		relationship between this kind of Span and a SpanKindConsumer kind. A
 		SpanKindProducer Span will end once the message is accepted by the
 		message broker which might not overlap with the processing of that
-		message.
+		message.</span>
 
 </span></div><div class="anchor value-res" id="name-SpanKindServer">	<input type='checkbox' class="fold" id="SpanKindServer-fold-content"><label for="SpanKindServer-fold-content"><a href="../../../use/go.opentelemetry.io/otel/trace..SpanKindServer.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-434">SpanKindServer</a> <a href="#name-SpanKind">SpanKind</a> = 2</label><span id='SpanKindServer-fold-content-docs' class="fold-docs">
-		SpanKindServer is a SpanKind for a Span that represents the operation
-		of handling a request from a client.
+<span class="md-text">		SpanKindServer is a SpanKind for a Span that represents the operation
+		of handling a request from a client.</span>
 
 </span></div><div class="anchor value-res" id="name-SpanKindUnspecified">	<input type='checkbox' class="fold" id="SpanKindUnspecified-fold-content"><label for="SpanKindUnspecified-fold-content"><a href="../../../use/go.opentelemetry.io/otel/trace..SpanKindUnspecified.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-428">SpanKindUnspecified</a> <a href="#name-SpanKind">SpanKind</a> = 0</label><span id='SpanKindUnspecified-fold-content-docs' class="fold-docs">
-		SpanKindUnspecified is an unspecified SpanKind and is not a valid
+<span class="md-text">		SpanKindUnspecified is an unspecified SpanKind and is not a valid
 		SpanKind. SpanKindUnspecified should be replaced with SpanKindInternal
-		if it is received.
+		if it is received.</span>
 
 </span></div>	<input type='checkbox' class="showhide" id="unexported-constants-showhide"><i><label for="unexported-constants-showhide" class="show-inline">/* 16 unexporteds ... */</label><label for="unexported-constants-showhide" class="hide-inline">/* 16 unexporteds: */</label></i><div class="anchor value-res hidden" id="name-currentSpanKey"><i>	<span class="nodocs"><a href="../../../use/go.opentelemetry.io/otel/trace..currentSpanKey^117fd.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/context.go.html#line-21">currentSpanKey</a> <a href="#name-traceContextKeyType">traceContextKeyType</a> = 0</span></i></div><div class="anchor value-res hidden" id="name-errDuplicate"><i>	<span class="nodocs"><a href="../../../use/go.opentelemetry.io/otel/trace..errDuplicate^df269.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-39">errDuplicate</a> <a href="#name-errorConst">errorConst</a> = "duplicate list-member in tracestate"</span></i></div><div class="anchor value-res hidden" id="name-errInvalidHexID"><i>	<span class="nodocs"><a href="../../../use/go.opentelemetry.io/otel/trace..errInvalidHexID^37458.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-32">errInvalidHexID</a> <a href="#name-errorConst">errorConst</a> = "trace-id and span-id can only contain [0-9a-f] characters, all lower...</span></i></div><div class="anchor value-res hidden" id="name-errInvalidKey"><i>	<span class="nodocs"><a href="../../../use/go.opentelemetry.io/otel/trace..errInvalidKey^82a31.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-35">errInvalidKey</a> <a href="#name-errorConst">errorConst</a> = "invalid tracestate key"</span></i></div><div class="anchor value-res hidden" id="name-errInvalidMember"><i>	<span class="nodocs"><a href="../../../use/go.opentelemetry.io/otel/trace..errInvalidMember^dd454.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-37">errInvalidMember</a> <a href="#name-errorConst">errorConst</a> = "invalid tracestate list-member"</span></i></div><div class="anchor value-res hidden" id="name-errInvalidSpanIDLength"><i>	<span class="nodocs"><a href="../../../use/go.opentelemetry.io/otel/trace..errInvalidSpanIDLength^f1366.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-37">errInvalidSpanIDLength</a> <a href="#name-errorConst">errorConst</a> = "hex encoded span-id must have length equals to 16"</span></i></div><div class="anchor value-res hidden" id="name-errInvalidTraceIDLength"><i>	<span class="nodocs"><a href="../../../use/go.opentelemetry.io/otel/trace..errInvalidTraceIDLength^46d3b.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-34">errInvalidTraceIDLength</a> <a href="#name-errorConst">errorConst</a> = "hex encoded trace-id must have length equals to 32"</span></i></div><div class="anchor value-res hidden" id="name-errInvalidValue"><i>	<span class="nodocs"><a href="../../../use/go.opentelemetry.io/otel/trace..errInvalidValue^5de3b.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-36">errInvalidValue</a> <a href="#name-errorConst">errorConst</a> = "invalid tracestate value"</span></i></div><div class="anchor value-res hidden" id="name-errMemberNumber"><i>	<span class="nodocs"><a href="../../../use/go.opentelemetry.io/otel/trace..errMemberNumber^0f185.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-38">errMemberNumber</a> <a href="#name-errorConst">errorConst</a> = "too many list-members in tracestate"</span></i></div><div class="anchor value-res hidden" id="name-errNilSpanID"><i>	<span class="nodocs"><a href="../../../use/go.opentelemetry.io/otel/trace..errNilSpanID^18c4f.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-38">errNilSpanID</a> <a href="#name-errorConst">errorConst</a> = "span-id can't be all zero"</span></i></div><div class="anchor value-res hidden" id="name-errNilTraceID"><i>	<span class="nodocs"><a href="../../../use/go.opentelemetry.io/otel/trace..errNilTraceID^48b85.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/trace.go.html#line-35">errNilTraceID</a> <a href="#name-errorConst">errorConst</a> = "trace-id can't be all zero"</span></i></div><div class="anchor value-res hidden" id="name-listDelimiter"><i>	<span class="nodocs"><a href="../../../use/go.opentelemetry.io/otel/trace..listDelimiter^831fe.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-27">listDelimiter</a> = ","</span></i></div><div class="anchor value-res hidden" id="name-maxListMembers"><i>	<span class="nodocs"><a href="../../../use/go.opentelemetry.io/otel/trace..maxListMembers^e761f.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-25">maxListMembers</a> = 32</span></i></div><div class="anchor value-res hidden" id="name-noTenantKeyFormat"><i>	<input type='checkbox' class="fold" id="noTenantKeyFormat-fold-content"><label for="noTenantKeyFormat-fold-content"><a href="../../../use/go.opentelemetry.io/otel/trace..noTenantKeyFormat^ea3d2.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-31">noTenantKeyFormat</a> = "[a-z][_0-9a-z\\-\\*\\/]{0,255}"</label><span id='noTenantKeyFormat-fold-content-docs' class="fold-docs">
-		based on the W3C Trace Context specification, see
-		https://www.w3.org/TR/trace-context-1/#tracestate-header
+<span class="md-text">		based on the W3C Trace Context specification, see
+		https://www.w3.org/TR/trace-context-1/#tracestate-header</span>
 
 </span></i></div><div class="anchor value-res hidden" id="name-valueFormat"><i>	<span class="nodocs"><a href="../../../use/go.opentelemetry.io/otel/trace..valueFormat^8bcc7.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-33">valueFormat</a> = "[\\x20-\\x2b\\x2d-\\x3c\\x3e-\\x7e]{0,255}[\\x21-\\x2b\\x2d-\\x3c\\x...</span></i></div><div class="anchor value-res hidden" id="name-withTenantKeyFormat"><i>	<span class="nodocs"><a href="../../../use/go.opentelemetry.io/otel/trace..withTenantKeyFormat^c8857.html">const</a> <a href="../../../src/go.opentelemetry.io/otel/trace/tracestate.go.html#line-32">withTenantKeyFormat</a> = "[a-z0-9][_0-9a-z\\-\\*\\/]{0,240}@[a-z][_0-9a-z\\-\\*\\/]{0,13}"</span></i></div></div></code></pre><pre id="footer">
 <table><tr><td><img src="../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.2</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.6</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>
