@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Source: x509.go in package crypto/x509</title>
-<link href="../../../css/light-v0.5.6.css" rel="stylesheet">
-<script src="../../../jvs/golds-v0.5.6.js"></script>
+<link href="../../../css/light-v0.5.7.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.5.7.js"></script>
 <body onload="onPageLoad()"><div>
 
 <pre id="header"><code><span class="title">Source File</span>
@@ -446,9 +446,7 @@ input[id=r426]:checked ~pre label[for=r426],
 input[id=r427]:checked ~pre label[for=r427],
 input[id=r428]:checked ~pre label[for=r428],
 input[id=r429]:checked ~pre label[for=r429],
-input[id=r430]:checked ~pre label[for=r430],
-input[id=r431]:checked ~pre label[for=r431],
-input[id=r432]:checked ~pre label[for=r432]
+input[id=r430]:checked ~pre label[for=r430]
 {background: #226; color: #ff8;}
 input[id=i0]:checked ~pre .i0,
 input[id=i1]:checked ~pre .i1,
@@ -907,8 +905,6 @@ input[id=i24]:checked ~pre .i24
 <input id="r428" type="radio" name="g"/>
 <input id="r429" type="radio" name="g"/>
 <input id="r430" type="radio" name="g"/>
-<input id="r431" type="radio" name="g"/>
-<input id="r432" type="radio" name="g"/>
 <input id="i0" type="radio" name="i"/>
 <input id="i1" type="radio" name="i"/>
 <input id="i2" type="radio" name="i"/>
@@ -2753,473 +2749,467 @@ input[id=i24]:checked ~pre .i24
 <span class="codeline" id="line-1816"><code>	}</code></span>
 <span class="codeline" id="line-1817"><code></code></span>
 <span class="codeline" id="line-1818"><code>	<span class="keyword">var</span> <label for="r336" class="ident">ret</label> []<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-113" class="ident">Extension</a></code></span>
-<span class="codeline" id="line-1819"><code>	<label for="r337" class="ident">seenExts</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>(<span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>]<a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>)</code></span>
+<span class="codeline" id="line-1819"><code>	<label for="r337" class="ident">requestedExts</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>(<span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>]<a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>)</code></span>
 <span class="codeline" id="line-1820"><code>	<span class="keyword">for</span> <label for="r338" class="ident">_</label>, <label for="r339" class="ident">rawAttr</label> := <span class="keyword">range</span> <label for="r332" class="ident">rawAttributes</label> {</code></span>
 <span class="codeline" id="line-1821"><code>		<span class="keyword">var</span> <label for="r340" class="ident">attr</label> <label for="r333" class="ident">pkcs10Attribute</label></code></span>
 <span class="codeline" id="line-1822"><code>		<span class="keyword">if</span> <label for="r341" class="ident">rest</label>, <label for="r342" class="ident">err</label> := <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-1089" class="ident">Unmarshal</a>(<label for="r339" class="ident">rawAttr</label>.<a href="../../encoding/asn1/asn1.go.html#line-513" class="ident">FullBytes</a>, &amp;<label for="r340" class="ident">attr</label>); <label for="r342" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> || <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r341" class="ident">rest</label>) != <span class="lit-number">0</span> || <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r340" class="ident">attr</label>.<label for="r335" class="ident">Values</label>) == <span class="lit-number">0</span> {</code></span>
 <span class="codeline" id="line-1823"><code>			<span class="comment">// Ignore attributes that don't parse.</span></code></span>
 <span class="codeline" id="line-1824"><code>			<span class="keyword">continue</span></code></span>
 <span class="codeline" id="line-1825"><code>		}</code></span>
-<span class="codeline" id="line-1826"><code>		<label for="r343" class="ident">oidStr</label> := <label for="r340" class="ident">attr</label>.<label for="r334" class="ident">Id</label>.<a href="../../encoding/asn1/asn1.go.html#line-238" class="ident">String</a>()</code></span>
-<span class="codeline" id="line-1827"><code>		<span class="keyword">if</span> <label for="r337" class="ident">seenExts</label>[<label for="r343" class="ident">oidStr</label>] {</code></span>
-<span class="codeline" id="line-1828"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: certificate request contains duplicate extensions"</span>)</code></span>
+<span class="codeline" id="line-1826"><code></code></span>
+<span class="codeline" id="line-1827"><code>		<span class="keyword">if</span> !<label for="r340" class="ident">attr</label>.<label for="r334" class="ident">Id</label>.<a href="../../encoding/asn1/asn1.go.html#line-225" class="ident">Equal</a>(<a href="#line-1774" class="ident">oidExtensionRequest</a>) {</code></span>
+<span class="codeline" id="line-1828"><code>			<span class="keyword">continue</span></code></span>
 <span class="codeline" id="line-1829"><code>		}</code></span>
-<span class="codeline" id="line-1830"><code>		<label for="r337" class="ident">seenExts</label>[<label for="r343" class="ident">oidStr</label>] = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-1831"><code></code></span>
-<span class="codeline" id="line-1832"><code>		<span class="keyword">if</span> !<label for="r340" class="ident">attr</label>.<label for="r334" class="ident">Id</label>.<a href="../../encoding/asn1/asn1.go.html#line-225" class="ident">Equal</a>(<a href="#line-1774" class="ident">oidExtensionRequest</a>) {</code></span>
-<span class="codeline" id="line-1833"><code>			<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-1830"><code></code></span>
+<span class="codeline" id="line-1831"><code>		<span class="keyword">var</span> <label for="r343" class="ident">extensions</label> []<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-113" class="ident">Extension</a></code></span>
+<span class="codeline" id="line-1832"><code>		<span class="keyword">if</span> <label for="r344" class="ident">_</label>, <label for="r345" class="ident">err</label> := <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-1089" class="ident">Unmarshal</a>(<label for="r340" class="ident">attr</label>.<label for="r335" class="ident">Values</label>[<span class="lit-number">0</span>].<a href="../../encoding/asn1/asn1.go.html#line-513" class="ident">FullBytes</a>, &amp;<label for="r343" class="ident">extensions</label>); <label for="r345" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-1833"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r345" class="ident">err</label></code></span>
 <span class="codeline" id="line-1834"><code>		}</code></span>
-<span class="codeline" id="line-1835"><code></code></span>
-<span class="codeline" id="line-1836"><code>		<span class="keyword">var</span> <label for="r344" class="ident">extensions</label> []<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-113" class="ident">Extension</a></code></span>
-<span class="codeline" id="line-1837"><code>		<span class="keyword">if</span> <label for="r345" class="ident">_</label>, <label for="r346" class="ident">err</label> := <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-1089" class="ident">Unmarshal</a>(<label for="r340" class="ident">attr</label>.<label for="r335" class="ident">Values</label>[<span class="lit-number">0</span>].<a href="../../encoding/asn1/asn1.go.html#line-513" class="ident">FullBytes</a>, &amp;<label for="r344" class="ident">extensions</label>); <label for="r346" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-1838"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r346" class="ident">err</label></code></span>
-<span class="codeline" id="line-1839"><code>		}</code></span>
-<span class="codeline" id="line-1840"><code>		<label for="r347" class="ident">requestedExts</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>(<span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>]<a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>)</code></span>
-<span class="codeline" id="line-1841"><code>		<span class="keyword">for</span> <label for="r348" class="ident">_</label>, <label for="r349" class="ident">ext</label> := <span class="keyword">range</span> <label for="r344" class="ident">extensions</label> {</code></span>
-<span class="codeline" id="line-1842"><code>			<label for="r350" class="ident">oidStr</label> := <label for="r349" class="ident">ext</label>.<a href="pkix/pkix.go.html#line-114" class="ident">Id</a>.<a href="../../encoding/asn1/asn1.go.html#line-238" class="ident">String</a>()</code></span>
-<span class="codeline" id="line-1843"><code>			<span class="keyword">if</span> <label for="r347" class="ident">requestedExts</label>[<label for="r350" class="ident">oidStr</label>] {</code></span>
-<span class="codeline" id="line-1844"><code>				<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: certificate request contains duplicate requested extensions"</span>)</code></span>
-<span class="codeline" id="line-1845"><code>			}</code></span>
-<span class="codeline" id="line-1846"><code>			<label for="r347" class="ident">requestedExts</label>[<label for="r350" class="ident">oidStr</label>] = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-1847"><code>		}</code></span>
-<span class="codeline" id="line-1848"><code>		<label for="r336" class="ident">ret</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r336" class="ident">ret</label>, <label for="r344" class="ident">extensions</label>...)</code></span>
-<span class="codeline" id="line-1849"><code>	}</code></span>
-<span class="codeline" id="line-1850"><code></code></span>
-<span class="codeline" id="line-1851"><code>	<span class="keyword">return</span> <label for="r336" class="ident">ret</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-1852"><code>}</code></span>
-<span class="codeline" id="line-1853"><code></code></span>
-<span class="codeline" id="line-1854"><code><span class="comment">// CreateCertificateRequest creates a new certificate request based on a</span></code></span>
-<span class="codeline" id="line-1855"><code><span class="comment">// template. The following members of template are used:</span></code></span>
-<span class="codeline" id="line-1856"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-1857"><code><span class="comment">//   - SignatureAlgorithm</span></code></span>
-<span class="codeline" id="line-1858"><code><span class="comment">//   - Subject</span></code></span>
-<span class="codeline" id="line-1859"><code><span class="comment">//   - DNSNames</span></code></span>
-<span class="codeline" id="line-1860"><code><span class="comment">//   - EmailAddresses</span></code></span>
-<span class="codeline" id="line-1861"><code><span class="comment">//   - IPAddresses</span></code></span>
-<span class="codeline" id="line-1862"><code><span class="comment">//   - URIs</span></code></span>
-<span class="codeline" id="line-1863"><code><span class="comment">//   - ExtraExtensions</span></code></span>
-<span class="codeline" id="line-1864"><code><span class="comment">//   - Attributes (deprecated)</span></code></span>
+<span class="codeline" id="line-1835"><code>		<span class="keyword">for</span> <label for="r346" class="ident">_</label>, <label for="r347" class="ident">ext</label> := <span class="keyword">range</span> <label for="r343" class="ident">extensions</label> {</code></span>
+<span class="codeline" id="line-1836"><code>			<label for="r348" class="ident">oidStr</label> := <label for="r347" class="ident">ext</label>.<a href="pkix/pkix.go.html#line-114" class="ident">Id</a>.<a href="../../encoding/asn1/asn1.go.html#line-238" class="ident">String</a>()</code></span>
+<span class="codeline" id="line-1837"><code>			<span class="keyword">if</span> <label for="r337" class="ident">requestedExts</label>[<label for="r348" class="ident">oidStr</label>] {</code></span>
+<span class="codeline" id="line-1838"><code>				<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: certificate request contains duplicate requested extensions"</span>)</code></span>
+<span class="codeline" id="line-1839"><code>			}</code></span>
+<span class="codeline" id="line-1840"><code>			<label for="r337" class="ident">requestedExts</label>[<label for="r348" class="ident">oidStr</label>] = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-1841"><code>		}</code></span>
+<span class="codeline" id="line-1842"><code>		<label for="r336" class="ident">ret</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r336" class="ident">ret</label>, <label for="r343" class="ident">extensions</label>...)</code></span>
+<span class="codeline" id="line-1843"><code>	}</code></span>
+<span class="codeline" id="line-1844"><code></code></span>
+<span class="codeline" id="line-1845"><code>	<span class="keyword">return</span> <label for="r336" class="ident">ret</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-1846"><code>}</code></span>
+<span class="codeline" id="line-1847"><code></code></span>
+<span class="codeline" id="line-1848"><code><span class="comment">// CreateCertificateRequest creates a new certificate request based on a</span></code></span>
+<span class="codeline" id="line-1849"><code><span class="comment">// template. The following members of template are used:</span></code></span>
+<span class="codeline" id="line-1850"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-1851"><code><span class="comment">//   - SignatureAlgorithm</span></code></span>
+<span class="codeline" id="line-1852"><code><span class="comment">//   - Subject</span></code></span>
+<span class="codeline" id="line-1853"><code><span class="comment">//   - DNSNames</span></code></span>
+<span class="codeline" id="line-1854"><code><span class="comment">//   - EmailAddresses</span></code></span>
+<span class="codeline" id="line-1855"><code><span class="comment">//   - IPAddresses</span></code></span>
+<span class="codeline" id="line-1856"><code><span class="comment">//   - URIs</span></code></span>
+<span class="codeline" id="line-1857"><code><span class="comment">//   - ExtraExtensions</span></code></span>
+<span class="codeline" id="line-1858"><code><span class="comment">//   - Attributes (deprecated)</span></code></span>
+<span class="codeline" id="line-1859"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-1860"><code><span class="comment">// priv is the private key to sign the CSR with, and the corresponding public</span></code></span>
+<span class="codeline" id="line-1861"><code><span class="comment">// key will be included in the CSR. It must implement crypto.Signer and its</span></code></span>
+<span class="codeline" id="line-1862"><code><span class="comment">// Public() method must return a *rsa.PublicKey or a *ecdsa.PublicKey or a</span></code></span>
+<span class="codeline" id="line-1863"><code><span class="comment">// ed25519.PublicKey. (A *rsa.PrivateKey, *ecdsa.PrivateKey or</span></code></span>
+<span class="codeline" id="line-1864"><code><span class="comment">// ed25519.PrivateKey satisfies this.)</span></code></span>
 <span class="codeline" id="line-1865"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-1866"><code><span class="comment">// priv is the private key to sign the CSR with, and the corresponding public</span></code></span>
-<span class="codeline" id="line-1867"><code><span class="comment">// key will be included in the CSR. It must implement crypto.Signer and its</span></code></span>
-<span class="codeline" id="line-1868"><code><span class="comment">// Public() method must return a *rsa.PublicKey or a *ecdsa.PublicKey or a</span></code></span>
-<span class="codeline" id="line-1869"><code><span class="comment">// ed25519.PublicKey. (A *rsa.PrivateKey, *ecdsa.PrivateKey or</span></code></span>
-<span class="codeline" id="line-1870"><code><span class="comment">// ed25519.PrivateKey satisfies this.)</span></code></span>
-<span class="codeline" id="line-1871"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-1872"><code><span class="comment">// The returned slice is the certificate request in DER encoding.</span></code></span>
-<span class="codeline" id="line-1873"><code><span class="keyword">func</span> <label for="r351" class="ident"><a href="../../../pkg/crypto/x509.html#name-CreateCertificateRequest" class="ident">CreateCertificateRequest</a></label>(<label for="r352" class="ident">rand</label> <a href="../../../pkg/io.html" class="ident i13">io</a>.<a href="../../io/io.go.html#line-83" class="ident">Reader</a>, <label for="r353" class="ident">template</label> *<a href="#line-1711" class="ident">CertificateRequest</a>, <label for="r354" class="ident">priv</label> <a href="../../../pkg/builtin.html#name-any" class="ident">any</a>) (<label for="r355" class="ident">csr</label> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r356" class="ident">err</label> <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-1874"><code>	<label for="r357" class="ident">key</label>, <label for="r358" class="ident">ok</label> := <label for="r354" class="ident">priv</label>.(<a href="../../../pkg/crypto.html" class="ident i1">crypto</a>.<a href="../crypto.go.html#line-180" class="ident">Signer</a>)</code></span>
-<span class="codeline" id="line-1875"><code>	<span class="keyword">if</span> !<label for="r358" class="ident">ok</label> {</code></span>
-<span class="codeline" id="line-1876"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: certificate private key does not implement crypto.Signer"</span>)</code></span>
-<span class="codeline" id="line-1877"><code>	}</code></span>
-<span class="codeline" id="line-1878"><code></code></span>
-<span class="codeline" id="line-1879"><code>	<span class="keyword">var</span> <label for="r359" class="ident">hashFunc</label> <a href="../../../pkg/crypto.html" class="ident i1">crypto</a>.<a href="../crypto.go.html#line-16" class="ident">Hash</a></code></span>
-<span class="codeline" id="line-1880"><code>	<span class="keyword">var</span> <label for="r360" class="ident">sigAlgo</label> <a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-19" class="ident">AlgorithmIdentifier</a></code></span>
-<span class="codeline" id="line-1881"><code>	<label for="r359" class="ident">hashFunc</label>, <label for="r360" class="ident">sigAlgo</label>, <label for="r356" class="ident">err</label> = <a href="#line-1346" class="ident">signingParamsForPublicKey</a>(<label for="r357" class="ident">key</label>.<a href="../crypto.go.html#line-183" class="ident">Public</a>(), <label for="r353" class="ident">template</label>.<a href="#line-1719" class="ident">SignatureAlgorithm</a>)</code></span>
-<span class="codeline" id="line-1882"><code>	<span class="keyword">if</span> <label for="r356" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-1883"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r356" class="ident">err</label></code></span>
-<span class="codeline" id="line-1884"><code>	}</code></span>
-<span class="codeline" id="line-1885"><code></code></span>
-<span class="codeline" id="line-1886"><code>	<span class="keyword">var</span> <label for="r361" class="ident">publicKeyBytes</label> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
-<span class="codeline" id="line-1887"><code>	<span class="keyword">var</span> <label for="r362" class="ident">publicKeyAlgorithm</label> <a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-19" class="ident">AlgorithmIdentifier</a></code></span>
-<span class="codeline" id="line-1888"><code>	<label for="r361" class="ident">publicKeyBytes</label>, <label for="r362" class="ident">publicKeyAlgorithm</label>, <label for="r356" class="ident">err</label> = <a href="#line-72" class="ident">marshalPublicKey</a>(<label for="r357" class="ident">key</label>.<a href="../crypto.go.html#line-183" class="ident">Public</a>())</code></span>
-<span class="codeline" id="line-1889"><code>	<span class="keyword">if</span> <label for="r356" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-1890"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r356" class="ident">err</label></code></span>
-<span class="codeline" id="line-1891"><code>	}</code></span>
-<span class="codeline" id="line-1892"><code></code></span>
-<span class="codeline" id="line-1893"><code>	<label for="r363" class="ident">extensions</label>, <label for="r356" class="ident">err</label> := <a href="#line-1316" class="ident">buildCSRExtensions</a>(<label for="r353" class="ident">template</label>)</code></span>
-<span class="codeline" id="line-1894"><code>	<span class="keyword">if</span> <label for="r356" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-1895"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r356" class="ident">err</label></code></span>
-<span class="codeline" id="line-1896"><code>	}</code></span>
-<span class="codeline" id="line-1897"><code></code></span>
-<span class="codeline" id="line-1898"><code>	<span class="comment">// Make a copy of template.Attributes because we may alter it below.</span></code></span>
-<span class="codeline" id="line-1899"><code>	<label for="r364" class="ident">attributes</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-106" class="ident">AttributeTypeAndValueSET</a>, <span class="lit-number">0</span>, <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r353" class="ident">template</label>.<a href="#line-1731" class="ident">Attributes</a>))</code></span>
-<span class="codeline" id="line-1900"><code>	<span class="keyword">for</span> <label for="r365" class="ident">_</label>, <label for="r366" class="ident">attr</label> := <span class="keyword">range</span> <label for="r353" class="ident">template</label>.<a href="#line-1731" class="ident">Attributes</a> {</code></span>
-<span class="codeline" id="line-1901"><code>		<label for="r367" class="ident">values</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([][]<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-99" class="ident">AttributeTypeAndValue</a>, <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r366" class="ident">attr</label>.<a href="pkix/pkix.go.html#line-108" class="ident">Value</a>))</code></span>
-<span class="codeline" id="line-1902"><code>		<a href="../../../pkg/builtin.html#name-copy" class="ident">copy</a>(<label for="r367" class="ident">values</label>, <label for="r366" class="ident">attr</label>.<a href="pkix/pkix.go.html#line-108" class="ident">Value</a>)</code></span>
-<span class="codeline" id="line-1903"><code>		<label for="r364" class="ident">attributes</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r364" class="ident">attributes</label>, <a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-106" class="ident">AttributeTypeAndValueSET</a>{</code></span>
-<span class="codeline" id="line-1904"><code>			<a href="pkix/pkix.go.html#line-107" class="ident">Type</a>:  <label for="r366" class="ident">attr</label>.<a href="pkix/pkix.go.html#line-107" class="ident">Type</a>,</code></span>
-<span class="codeline" id="line-1905"><code>			<a href="pkix/pkix.go.html#line-108" class="ident">Value</a>: <label for="r367" class="ident">values</label>,</code></span>
-<span class="codeline" id="line-1906"><code>		})</code></span>
-<span class="codeline" id="line-1907"><code>	}</code></span>
-<span class="codeline" id="line-1908"><code></code></span>
-<span class="codeline" id="line-1909"><code>	<label for="r368" class="ident">extensionsAppended</label> := <a href="../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-1910"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r363" class="ident">extensions</label>) &gt; <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-1911"><code>		<span class="comment">// Append the extensions to an existing attribute if possible.</span></code></span>
-<span class="codeline" id="line-1912"><code>		<span class="keyword">for</span> <label for="r369" class="ident">_</label>, <label for="r370" class="ident">atvSet</label> := <span class="keyword">range</span> <label for="r364" class="ident">attributes</label> {</code></span>
-<span class="codeline" id="line-1913"><code>			<span class="keyword">if</span> !<label for="r370" class="ident">atvSet</label>.<a href="pkix/pkix.go.html#line-107" class="ident">Type</a>.<a href="../../encoding/asn1/asn1.go.html#line-225" class="ident">Equal</a>(<a href="#line-1774" class="ident">oidExtensionRequest</a>) || <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r370" class="ident">atvSet</label>.<a href="pkix/pkix.go.html#line-108" class="ident">Value</a>) == <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-1914"><code>				<span class="keyword">continue</span></code></span>
-<span class="codeline" id="line-1915"><code>			}</code></span>
-<span class="codeline" id="line-1916"><code></code></span>
-<span class="codeline" id="line-1917"><code>			<span class="comment">// specifiedExtensions contains all the extensions that we</span></code></span>
-<span class="codeline" id="line-1918"><code><span class="comment">			// found specified via template.Attributes.</span></code></span>
-<span class="codeline" id="line-1919"><code>			<label for="r371" class="ident">specifiedExtensions</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>(<span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>]<a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>)</code></span>
+<span class="codeline" id="line-1866"><code><span class="comment">// The returned slice is the certificate request in DER encoding.</span></code></span>
+<span class="codeline" id="line-1867"><code><span class="keyword">func</span> <label for="r349" class="ident"><a href="../../../pkg/crypto/x509.html#name-CreateCertificateRequest" class="ident">CreateCertificateRequest</a></label>(<label for="r350" class="ident">rand</label> <a href="../../../pkg/io.html" class="ident i13">io</a>.<a href="../../io/io.go.html#line-83" class="ident">Reader</a>, <label for="r351" class="ident">template</label> *<a href="#line-1711" class="ident">CertificateRequest</a>, <label for="r352" class="ident">priv</label> <a href="../../../pkg/builtin.html#name-any" class="ident">any</a>) (<label for="r353" class="ident">csr</label> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r354" class="ident">err</label> <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-1868"><code>	<label for="r355" class="ident">key</label>, <label for="r356" class="ident">ok</label> := <label for="r352" class="ident">priv</label>.(<a href="../../../pkg/crypto.html" class="ident i1">crypto</a>.<a href="../crypto.go.html#line-180" class="ident">Signer</a>)</code></span>
+<span class="codeline" id="line-1869"><code>	<span class="keyword">if</span> !<label for="r356" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-1870"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: certificate private key does not implement crypto.Signer"</span>)</code></span>
+<span class="codeline" id="line-1871"><code>	}</code></span>
+<span class="codeline" id="line-1872"><code></code></span>
+<span class="codeline" id="line-1873"><code>	<span class="keyword">var</span> <label for="r357" class="ident">hashFunc</label> <a href="../../../pkg/crypto.html" class="ident i1">crypto</a>.<a href="../crypto.go.html#line-16" class="ident">Hash</a></code></span>
+<span class="codeline" id="line-1874"><code>	<span class="keyword">var</span> <label for="r358" class="ident">sigAlgo</label> <a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-19" class="ident">AlgorithmIdentifier</a></code></span>
+<span class="codeline" id="line-1875"><code>	<label for="r357" class="ident">hashFunc</label>, <label for="r358" class="ident">sigAlgo</label>, <label for="r354" class="ident">err</label> = <a href="#line-1346" class="ident">signingParamsForPublicKey</a>(<label for="r355" class="ident">key</label>.<a href="../crypto.go.html#line-183" class="ident">Public</a>(), <label for="r351" class="ident">template</label>.<a href="#line-1719" class="ident">SignatureAlgorithm</a>)</code></span>
+<span class="codeline" id="line-1876"><code>	<span class="keyword">if</span> <label for="r354" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-1877"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r354" class="ident">err</label></code></span>
+<span class="codeline" id="line-1878"><code>	}</code></span>
+<span class="codeline" id="line-1879"><code></code></span>
+<span class="codeline" id="line-1880"><code>	<span class="keyword">var</span> <label for="r359" class="ident">publicKeyBytes</label> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-1881"><code>	<span class="keyword">var</span> <label for="r360" class="ident">publicKeyAlgorithm</label> <a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-19" class="ident">AlgorithmIdentifier</a></code></span>
+<span class="codeline" id="line-1882"><code>	<label for="r359" class="ident">publicKeyBytes</label>, <label for="r360" class="ident">publicKeyAlgorithm</label>, <label for="r354" class="ident">err</label> = <a href="#line-72" class="ident">marshalPublicKey</a>(<label for="r355" class="ident">key</label>.<a href="../crypto.go.html#line-183" class="ident">Public</a>())</code></span>
+<span class="codeline" id="line-1883"><code>	<span class="keyword">if</span> <label for="r354" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-1884"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r354" class="ident">err</label></code></span>
+<span class="codeline" id="line-1885"><code>	}</code></span>
+<span class="codeline" id="line-1886"><code></code></span>
+<span class="codeline" id="line-1887"><code>	<label for="r361" class="ident">extensions</label>, <label for="r354" class="ident">err</label> := <a href="#line-1316" class="ident">buildCSRExtensions</a>(<label for="r351" class="ident">template</label>)</code></span>
+<span class="codeline" id="line-1888"><code>	<span class="keyword">if</span> <label for="r354" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-1889"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r354" class="ident">err</label></code></span>
+<span class="codeline" id="line-1890"><code>	}</code></span>
+<span class="codeline" id="line-1891"><code></code></span>
+<span class="codeline" id="line-1892"><code>	<span class="comment">// Make a copy of template.Attributes because we may alter it below.</span></code></span>
+<span class="codeline" id="line-1893"><code>	<label for="r362" class="ident">attributes</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-106" class="ident">AttributeTypeAndValueSET</a>, <span class="lit-number">0</span>, <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r351" class="ident">template</label>.<a href="#line-1731" class="ident">Attributes</a>))</code></span>
+<span class="codeline" id="line-1894"><code>	<span class="keyword">for</span> <label for="r363" class="ident">_</label>, <label for="r364" class="ident">attr</label> := <span class="keyword">range</span> <label for="r351" class="ident">template</label>.<a href="#line-1731" class="ident">Attributes</a> {</code></span>
+<span class="codeline" id="line-1895"><code>		<label for="r365" class="ident">values</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([][]<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-99" class="ident">AttributeTypeAndValue</a>, <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r364" class="ident">attr</label>.<a href="pkix/pkix.go.html#line-108" class="ident">Value</a>))</code></span>
+<span class="codeline" id="line-1896"><code>		<a href="../../../pkg/builtin.html#name-copy" class="ident">copy</a>(<label for="r365" class="ident">values</label>, <label for="r364" class="ident">attr</label>.<a href="pkix/pkix.go.html#line-108" class="ident">Value</a>)</code></span>
+<span class="codeline" id="line-1897"><code>		<label for="r362" class="ident">attributes</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r362" class="ident">attributes</label>, <a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-106" class="ident">AttributeTypeAndValueSET</a>{</code></span>
+<span class="codeline" id="line-1898"><code>			<a href="pkix/pkix.go.html#line-107" class="ident">Type</a>:  <label for="r364" class="ident">attr</label>.<a href="pkix/pkix.go.html#line-107" class="ident">Type</a>,</code></span>
+<span class="codeline" id="line-1899"><code>			<a href="pkix/pkix.go.html#line-108" class="ident">Value</a>: <label for="r365" class="ident">values</label>,</code></span>
+<span class="codeline" id="line-1900"><code>		})</code></span>
+<span class="codeline" id="line-1901"><code>	}</code></span>
+<span class="codeline" id="line-1902"><code></code></span>
+<span class="codeline" id="line-1903"><code>	<label for="r366" class="ident">extensionsAppended</label> := <a href="../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-1904"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r361" class="ident">extensions</label>) &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-1905"><code>		<span class="comment">// Append the extensions to an existing attribute if possible.</span></code></span>
+<span class="codeline" id="line-1906"><code>		<span class="keyword">for</span> <label for="r367" class="ident">_</label>, <label for="r368" class="ident">atvSet</label> := <span class="keyword">range</span> <label for="r362" class="ident">attributes</label> {</code></span>
+<span class="codeline" id="line-1907"><code>			<span class="keyword">if</span> !<label for="r368" class="ident">atvSet</label>.<a href="pkix/pkix.go.html#line-107" class="ident">Type</a>.<a href="../../encoding/asn1/asn1.go.html#line-225" class="ident">Equal</a>(<a href="#line-1774" class="ident">oidExtensionRequest</a>) || <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r368" class="ident">atvSet</label>.<a href="pkix/pkix.go.html#line-108" class="ident">Value</a>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-1908"><code>				<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-1909"><code>			}</code></span>
+<span class="codeline" id="line-1910"><code></code></span>
+<span class="codeline" id="line-1911"><code>			<span class="comment">// specifiedExtensions contains all the extensions that we</span></code></span>
+<span class="codeline" id="line-1912"><code><span class="comment">			// found specified via template.Attributes.</span></code></span>
+<span class="codeline" id="line-1913"><code>			<label for="r369" class="ident">specifiedExtensions</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>(<span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>]<a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>)</code></span>
+<span class="codeline" id="line-1914"><code></code></span>
+<span class="codeline" id="line-1915"><code>			<span class="keyword">for</span> <label for="r370" class="ident">_</label>, <label for="r371" class="ident">atvs</label> := <span class="keyword">range</span> <label for="r368" class="ident">atvSet</label>.<a href="pkix/pkix.go.html#line-108" class="ident">Value</a> {</code></span>
+<span class="codeline" id="line-1916"><code>				<span class="keyword">for</span> <label for="r372" class="ident">_</label>, <label for="r373" class="ident">atv</label> := <span class="keyword">range</span> <label for="r371" class="ident">atvs</label> {</code></span>
+<span class="codeline" id="line-1917"><code>					<label for="r369" class="ident">specifiedExtensions</label>[<label for="r373" class="ident">atv</label>.<a href="pkix/pkix.go.html#line-100" class="ident">Type</a>.<a href="../../encoding/asn1/asn1.go.html#line-238" class="ident">String</a>()] = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-1918"><code>				}</code></span>
+<span class="codeline" id="line-1919"><code>			}</code></span>
 <span class="codeline" id="line-1920"><code></code></span>
-<span class="codeline" id="line-1921"><code>			<span class="keyword">for</span> <label for="r372" class="ident">_</label>, <label for="r373" class="ident">atvs</label> := <span class="keyword">range</span> <label for="r370" class="ident">atvSet</label>.<a href="pkix/pkix.go.html#line-108" class="ident">Value</a> {</code></span>
-<span class="codeline" id="line-1922"><code>				<span class="keyword">for</span> <label for="r374" class="ident">_</label>, <label for="r375" class="ident">atv</label> := <span class="keyword">range</span> <label for="r373" class="ident">atvs</label> {</code></span>
-<span class="codeline" id="line-1923"><code>					<label for="r371" class="ident">specifiedExtensions</label>[<label for="r375" class="ident">atv</label>.<a href="pkix/pkix.go.html#line-100" class="ident">Type</a>.<a href="../../encoding/asn1/asn1.go.html#line-238" class="ident">String</a>()] = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-1924"><code>				}</code></span>
-<span class="codeline" id="line-1925"><code>			}</code></span>
-<span class="codeline" id="line-1926"><code></code></span>
-<span class="codeline" id="line-1927"><code>			<label for="r376" class="ident">newValue</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-99" class="ident">AttributeTypeAndValue</a>, <span class="lit-number">0</span>, <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r370" class="ident">atvSet</label>.<a href="pkix/pkix.go.html#line-108" class="ident">Value</a>[<span class="lit-number">0</span>])+<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r363" class="ident">extensions</label>))</code></span>
-<span class="codeline" id="line-1928"><code>			<label for="r376" class="ident">newValue</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r376" class="ident">newValue</label>, <label for="r370" class="ident">atvSet</label>.<a href="pkix/pkix.go.html#line-108" class="ident">Value</a>[<span class="lit-number">0</span>]...)</code></span>
-<span class="codeline" id="line-1929"><code></code></span>
-<span class="codeline" id="line-1930"><code>			<span class="keyword">for</span> <label for="r377" class="ident">_</label>, <label for="r378" class="ident">e</label> := <span class="keyword">range</span> <label for="r363" class="ident">extensions</label> {</code></span>
-<span class="codeline" id="line-1931"><code>				<span class="keyword">if</span> <label for="r371" class="ident">specifiedExtensions</label>[<label for="r378" class="ident">e</label>.<a href="pkix/pkix.go.html#line-114" class="ident">Id</a>.<a href="../../encoding/asn1/asn1.go.html#line-238" class="ident">String</a>()] {</code></span>
-<span class="codeline" id="line-1932"><code>					<span class="comment">// Attributes already contained a value for</span></code></span>
-<span class="codeline" id="line-1933"><code><span class="comment">					// this extension and it takes priority.</span></code></span>
-<span class="codeline" id="line-1934"><code>					<span class="keyword">continue</span></code></span>
-<span class="codeline" id="line-1935"><code>				}</code></span>
-<span class="codeline" id="line-1936"><code></code></span>
-<span class="codeline" id="line-1937"><code>				<label for="r376" class="ident">newValue</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r376" class="ident">newValue</label>, <a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-99" class="ident">AttributeTypeAndValue</a>{</code></span>
-<span class="codeline" id="line-1938"><code>					<span class="comment">// There is no place for the critical</span></code></span>
-<span class="codeline" id="line-1939"><code><span class="comment">					// flag in an AttributeTypeAndValue.</span></code></span>
-<span class="codeline" id="line-1940"><code>					<a href="pkix/pkix.go.html#line-100" class="ident">Type</a>:  <label for="r378" class="ident">e</label>.<a href="pkix/pkix.go.html#line-114" class="ident">Id</a>,</code></span>
-<span class="codeline" id="line-1941"><code>					<a href="pkix/pkix.go.html#line-101" class="ident">Value</a>: <label for="r378" class="ident">e</label>.<a href="pkix/pkix.go.html#line-116" class="ident">Value</a>,</code></span>
-<span class="codeline" id="line-1942"><code>				})</code></span>
-<span class="codeline" id="line-1943"><code>			}</code></span>
+<span class="codeline" id="line-1921"><code>			<label for="r374" class="ident">newValue</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-99" class="ident">AttributeTypeAndValue</a>, <span class="lit-number">0</span>, <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r368" class="ident">atvSet</label>.<a href="pkix/pkix.go.html#line-108" class="ident">Value</a>[<span class="lit-number">0</span>])+<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r361" class="ident">extensions</label>))</code></span>
+<span class="codeline" id="line-1922"><code>			<label for="r374" class="ident">newValue</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r374" class="ident">newValue</label>, <label for="r368" class="ident">atvSet</label>.<a href="pkix/pkix.go.html#line-108" class="ident">Value</a>[<span class="lit-number">0</span>]...)</code></span>
+<span class="codeline" id="line-1923"><code></code></span>
+<span class="codeline" id="line-1924"><code>			<span class="keyword">for</span> <label for="r375" class="ident">_</label>, <label for="r376" class="ident">e</label> := <span class="keyword">range</span> <label for="r361" class="ident">extensions</label> {</code></span>
+<span class="codeline" id="line-1925"><code>				<span class="keyword">if</span> <label for="r369" class="ident">specifiedExtensions</label>[<label for="r376" class="ident">e</label>.<a href="pkix/pkix.go.html#line-114" class="ident">Id</a>.<a href="../../encoding/asn1/asn1.go.html#line-238" class="ident">String</a>()] {</code></span>
+<span class="codeline" id="line-1926"><code>					<span class="comment">// Attributes already contained a value for</span></code></span>
+<span class="codeline" id="line-1927"><code><span class="comment">					// this extension and it takes priority.</span></code></span>
+<span class="codeline" id="line-1928"><code>					<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-1929"><code>				}</code></span>
+<span class="codeline" id="line-1930"><code></code></span>
+<span class="codeline" id="line-1931"><code>				<label for="r374" class="ident">newValue</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r374" class="ident">newValue</label>, <a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-99" class="ident">AttributeTypeAndValue</a>{</code></span>
+<span class="codeline" id="line-1932"><code>					<span class="comment">// There is no place for the critical</span></code></span>
+<span class="codeline" id="line-1933"><code><span class="comment">					// flag in an AttributeTypeAndValue.</span></code></span>
+<span class="codeline" id="line-1934"><code>					<a href="pkix/pkix.go.html#line-100" class="ident">Type</a>:  <label for="r376" class="ident">e</label>.<a href="pkix/pkix.go.html#line-114" class="ident">Id</a>,</code></span>
+<span class="codeline" id="line-1935"><code>					<a href="pkix/pkix.go.html#line-101" class="ident">Value</a>: <label for="r376" class="ident">e</label>.<a href="pkix/pkix.go.html#line-116" class="ident">Value</a>,</code></span>
+<span class="codeline" id="line-1936"><code>				})</code></span>
+<span class="codeline" id="line-1937"><code>			}</code></span>
+<span class="codeline" id="line-1938"><code></code></span>
+<span class="codeline" id="line-1939"><code>			<label for="r368" class="ident">atvSet</label>.<a href="pkix/pkix.go.html#line-108" class="ident">Value</a>[<span class="lit-number">0</span>] = <label for="r374" class="ident">newValue</label></code></span>
+<span class="codeline" id="line-1940"><code>			<label for="r366" class="ident">extensionsAppended</label> = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-1941"><code>			<span class="keyword">break</span></code></span>
+<span class="codeline" id="line-1942"><code>		}</code></span>
+<span class="codeline" id="line-1943"><code>	}</code></span>
 <span class="codeline" id="line-1944"><code></code></span>
-<span class="codeline" id="line-1945"><code>			<label for="r370" class="ident">atvSet</label>.<a href="pkix/pkix.go.html#line-108" class="ident">Value</a>[<span class="lit-number">0</span>] = <label for="r376" class="ident">newValue</label></code></span>
-<span class="codeline" id="line-1946"><code>			<label for="r368" class="ident">extensionsAppended</label> = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-1947"><code>			<span class="keyword">break</span></code></span>
-<span class="codeline" id="line-1948"><code>		}</code></span>
-<span class="codeline" id="line-1949"><code>	}</code></span>
-<span class="codeline" id="line-1950"><code></code></span>
-<span class="codeline" id="line-1951"><code>	<label for="r379" class="ident">rawAttributes</label>, <label for="r356" class="ident">err</label> := <a href="#line-1778" class="ident">newRawAttributes</a>(<label for="r364" class="ident">attributes</label>)</code></span>
-<span class="codeline" id="line-1952"><code>	<span class="keyword">if</span> <label for="r356" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-1953"><code>		<span class="keyword">return</span></code></span>
-<span class="codeline" id="line-1954"><code>	}</code></span>
-<span class="codeline" id="line-1955"><code></code></span>
-<span class="codeline" id="line-1956"><code>	<span class="comment">// If not included in attributes, add a new attribute for the</span></code></span>
-<span class="codeline" id="line-1957"><code><span class="comment">	// extensions.</span></code></span>
-<span class="codeline" id="line-1958"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r363" class="ident">extensions</label>) &gt; <span class="lit-number">0</span> &amp;&amp; !<label for="r368" class="ident">extensionsAppended</label> {</code></span>
-<span class="codeline" id="line-1959"><code>		<label for="r380" class="ident">attr</label> := <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-1960"><code>			<label for="r381" class="ident">Type</label>  <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-222" class="ident">ObjectIdentifier</a></code></span>
-<span class="codeline" id="line-1961"><code>			<label for="r382" class="ident">Value</label> [][]<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-113" class="ident">Extension</a> <span class="lit-string">`asn1:"set"`</span></code></span>
-<span class="codeline" id="line-1962"><code>		}{</code></span>
-<span class="codeline" id="line-1963"><code>			<label for="r381" class="ident">Type</label>:  <a href="#line-1774" class="ident">oidExtensionRequest</a>,</code></span>
-<span class="codeline" id="line-1964"><code>			<label for="r382" class="ident">Value</label>: [][]<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-113" class="ident">Extension</a>{<label for="r363" class="ident">extensions</label>},</code></span>
-<span class="codeline" id="line-1965"><code>		}</code></span>
-<span class="codeline" id="line-1966"><code></code></span>
-<span class="codeline" id="line-1967"><code>		<label for="r383" class="ident">b</label>, <label for="r384" class="ident">err</label> := <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/marshal.go.html#line-733" class="ident">Marshal</a>(<label for="r380" class="ident">attr</label>)</code></span>
-<span class="codeline" id="line-1968"><code>		<span class="keyword">if</span> <label for="r384" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-1969"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: failed to serialise extensions attribute: "</span> + <label for="r384" class="ident">err</label>.Error())</code></span>
-<span class="codeline" id="line-1970"><code>		}</code></span>
-<span class="codeline" id="line-1971"><code></code></span>
-<span class="codeline" id="line-1972"><code>		<span class="keyword">var</span> <label for="r385" class="ident">rawValue</label> <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-509" class="ident">RawValue</a></code></span>
-<span class="codeline" id="line-1973"><code>		<span class="keyword">if</span> <label for="r386" class="ident">_</label>, <label for="r387" class="ident">err</label> := <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-1089" class="ident">Unmarshal</a>(<label for="r383" class="ident">b</label>, &amp;<label for="r385" class="ident">rawValue</label>); <label for="r387" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-1974"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r387" class="ident">err</label></code></span>
-<span class="codeline" id="line-1975"><code>		}</code></span>
-<span class="codeline" id="line-1976"><code></code></span>
-<span class="codeline" id="line-1977"><code>		<label for="r379" class="ident">rawAttributes</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r379" class="ident">rawAttributes</label>, <label for="r385" class="ident">rawValue</label>)</code></span>
-<span class="codeline" id="line-1978"><code>	}</code></span>
-<span class="codeline" id="line-1979"><code></code></span>
-<span class="codeline" id="line-1980"><code>	<label for="r388" class="ident">asn1Subject</label> := <label for="r353" class="ident">template</label>.<a href="#line-1715" class="ident">RawSubject</a></code></span>
-<span class="codeline" id="line-1981"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r388" class="ident">asn1Subject</label>) == <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-1982"><code>		<label for="r388" class="ident">asn1Subject</label>, <label for="r356" class="ident">err</label> = <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/marshal.go.html#line-733" class="ident">Marshal</a>(<label for="r353" class="ident">template</label>.<a href="#line-1724" class="ident">Subject</a>.<a href="pkix/pkix.go.html#line-226" class="ident">ToRDNSequence</a>())</code></span>
-<span class="codeline" id="line-1983"><code>		<span class="keyword">if</span> <label for="r356" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-1984"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r356" class="ident">err</label></code></span>
-<span class="codeline" id="line-1985"><code>		}</code></span>
-<span class="codeline" id="line-1986"><code>	}</code></span>
-<span class="codeline" id="line-1987"><code></code></span>
-<span class="codeline" id="line-1988"><code>	<label for="r389" class="ident">tbsCSR</label> := <a href="#line-1757" class="ident">tbsCertificateRequest</a>{</code></span>
-<span class="codeline" id="line-1989"><code>		<a href="#line-1759" class="ident">Version</a>: <span class="lit-number">0</span>, <span class="comment">// PKCS #10, RFC 2986</span></code></span>
-<span class="codeline" id="line-1990"><code>		<a href="#line-1760" class="ident">Subject</a>: <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-509" class="ident">RawValue</a>{<a href="../../encoding/asn1/asn1.go.html#line-513" class="ident">FullBytes</a>: <label for="r388" class="ident">asn1Subject</label>},</code></span>
-<span class="codeline" id="line-1991"><code>		<a href="#line-1761" class="ident">PublicKey</a>: <a href="#line-172" class="ident">publicKeyInfo</a>{</code></span>
-<span class="codeline" id="line-1992"><code>			<a href="#line-174" class="ident">Algorithm</a>: <label for="r362" class="ident">publicKeyAlgorithm</label>,</code></span>
-<span class="codeline" id="line-1993"><code>			<a href="#line-175" class="ident">PublicKey</a>: <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-159" class="ident">BitString</a>{</code></span>
-<span class="codeline" id="line-1994"><code>				<a href="../../encoding/asn1/asn1.go.html#line-160" class="ident">Bytes</a>:     <label for="r361" class="ident">publicKeyBytes</label>,</code></span>
-<span class="codeline" id="line-1995"><code>				<a href="../../encoding/asn1/asn1.go.html#line-161" class="ident">BitLength</a>: <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r361" class="ident">publicKeyBytes</label>) * <span class="lit-number">8</span>,</code></span>
-<span class="codeline" id="line-1996"><code>			},</code></span>
-<span class="codeline" id="line-1997"><code>		},</code></span>
-<span class="codeline" id="line-1998"><code>		<a href="#line-1762" class="ident">RawAttributes</a>: <label for="r379" class="ident">rawAttributes</label>,</code></span>
-<span class="codeline" id="line-1999"><code>	}</code></span>
+<span class="codeline" id="line-1945"><code>	<label for="r377" class="ident">rawAttributes</label>, <label for="r354" class="ident">err</label> := <a href="#line-1778" class="ident">newRawAttributes</a>(<label for="r362" class="ident">attributes</label>)</code></span>
+<span class="codeline" id="line-1946"><code>	<span class="keyword">if</span> <label for="r354" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-1947"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-1948"><code>	}</code></span>
+<span class="codeline" id="line-1949"><code></code></span>
+<span class="codeline" id="line-1950"><code>	<span class="comment">// If not included in attributes, add a new attribute for the</span></code></span>
+<span class="codeline" id="line-1951"><code><span class="comment">	// extensions.</span></code></span>
+<span class="codeline" id="line-1952"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r361" class="ident">extensions</label>) &gt; <span class="lit-number">0</span> &amp;&amp; !<label for="r366" class="ident">extensionsAppended</label> {</code></span>
+<span class="codeline" id="line-1953"><code>		<label for="r378" class="ident">attr</label> := <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-1954"><code>			<label for="r379" class="ident">Type</label>  <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-222" class="ident">ObjectIdentifier</a></code></span>
+<span class="codeline" id="line-1955"><code>			<label for="r380" class="ident">Value</label> [][]<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-113" class="ident">Extension</a> <span class="lit-string">`asn1:"set"`</span></code></span>
+<span class="codeline" id="line-1956"><code>		}{</code></span>
+<span class="codeline" id="line-1957"><code>			<label for="r379" class="ident">Type</label>:  <a href="#line-1774" class="ident">oidExtensionRequest</a>,</code></span>
+<span class="codeline" id="line-1958"><code>			<label for="r380" class="ident">Value</label>: [][]<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-113" class="ident">Extension</a>{<label for="r361" class="ident">extensions</label>},</code></span>
+<span class="codeline" id="line-1959"><code>		}</code></span>
+<span class="codeline" id="line-1960"><code></code></span>
+<span class="codeline" id="line-1961"><code>		<label for="r381" class="ident">b</label>, <label for="r382" class="ident">err</label> := <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/marshal.go.html#line-733" class="ident">Marshal</a>(<label for="r378" class="ident">attr</label>)</code></span>
+<span class="codeline" id="line-1962"><code>		<span class="keyword">if</span> <label for="r382" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-1963"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: failed to serialise extensions attribute: "</span> + <label for="r382" class="ident">err</label>.Error())</code></span>
+<span class="codeline" id="line-1964"><code>		}</code></span>
+<span class="codeline" id="line-1965"><code></code></span>
+<span class="codeline" id="line-1966"><code>		<span class="keyword">var</span> <label for="r383" class="ident">rawValue</label> <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-509" class="ident">RawValue</a></code></span>
+<span class="codeline" id="line-1967"><code>		<span class="keyword">if</span> <label for="r384" class="ident">_</label>, <label for="r385" class="ident">err</label> := <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-1089" class="ident">Unmarshal</a>(<label for="r381" class="ident">b</label>, &amp;<label for="r383" class="ident">rawValue</label>); <label for="r385" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-1968"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r385" class="ident">err</label></code></span>
+<span class="codeline" id="line-1969"><code>		}</code></span>
+<span class="codeline" id="line-1970"><code></code></span>
+<span class="codeline" id="line-1971"><code>		<label for="r377" class="ident">rawAttributes</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r377" class="ident">rawAttributes</label>, <label for="r383" class="ident">rawValue</label>)</code></span>
+<span class="codeline" id="line-1972"><code>	}</code></span>
+<span class="codeline" id="line-1973"><code></code></span>
+<span class="codeline" id="line-1974"><code>	<label for="r386" class="ident">asn1Subject</label> := <label for="r351" class="ident">template</label>.<a href="#line-1715" class="ident">RawSubject</a></code></span>
+<span class="codeline" id="line-1975"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r386" class="ident">asn1Subject</label>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-1976"><code>		<label for="r386" class="ident">asn1Subject</label>, <label for="r354" class="ident">err</label> = <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/marshal.go.html#line-733" class="ident">Marshal</a>(<label for="r351" class="ident">template</label>.<a href="#line-1724" class="ident">Subject</a>.<a href="pkix/pkix.go.html#line-226" class="ident">ToRDNSequence</a>())</code></span>
+<span class="codeline" id="line-1977"><code>		<span class="keyword">if</span> <label for="r354" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-1978"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r354" class="ident">err</label></code></span>
+<span class="codeline" id="line-1979"><code>		}</code></span>
+<span class="codeline" id="line-1980"><code>	}</code></span>
+<span class="codeline" id="line-1981"><code></code></span>
+<span class="codeline" id="line-1982"><code>	<label for="r387" class="ident">tbsCSR</label> := <a href="#line-1757" class="ident">tbsCertificateRequest</a>{</code></span>
+<span class="codeline" id="line-1983"><code>		<a href="#line-1759" class="ident">Version</a>: <span class="lit-number">0</span>, <span class="comment">// PKCS #10, RFC 2986</span></code></span>
+<span class="codeline" id="line-1984"><code>		<a href="#line-1760" class="ident">Subject</a>: <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-509" class="ident">RawValue</a>{<a href="../../encoding/asn1/asn1.go.html#line-513" class="ident">FullBytes</a>: <label for="r386" class="ident">asn1Subject</label>},</code></span>
+<span class="codeline" id="line-1985"><code>		<a href="#line-1761" class="ident">PublicKey</a>: <a href="#line-172" class="ident">publicKeyInfo</a>{</code></span>
+<span class="codeline" id="line-1986"><code>			<a href="#line-174" class="ident">Algorithm</a>: <label for="r360" class="ident">publicKeyAlgorithm</label>,</code></span>
+<span class="codeline" id="line-1987"><code>			<a href="#line-175" class="ident">PublicKey</a>: <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-159" class="ident">BitString</a>{</code></span>
+<span class="codeline" id="line-1988"><code>				<a href="../../encoding/asn1/asn1.go.html#line-160" class="ident">Bytes</a>:     <label for="r359" class="ident">publicKeyBytes</label>,</code></span>
+<span class="codeline" id="line-1989"><code>				<a href="../../encoding/asn1/asn1.go.html#line-161" class="ident">BitLength</a>: <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r359" class="ident">publicKeyBytes</label>) * <span class="lit-number">8</span>,</code></span>
+<span class="codeline" id="line-1990"><code>			},</code></span>
+<span class="codeline" id="line-1991"><code>		},</code></span>
+<span class="codeline" id="line-1992"><code>		<a href="#line-1762" class="ident">RawAttributes</a>: <label for="r377" class="ident">rawAttributes</label>,</code></span>
+<span class="codeline" id="line-1993"><code>	}</code></span>
+<span class="codeline" id="line-1994"><code></code></span>
+<span class="codeline" id="line-1995"><code>	<label for="r388" class="ident">tbsCSRContents</label>, <label for="r354" class="ident">err</label> := <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/marshal.go.html#line-733" class="ident">Marshal</a>(<label for="r387" class="ident">tbsCSR</label>)</code></span>
+<span class="codeline" id="line-1996"><code>	<span class="keyword">if</span> <label for="r354" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-1997"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-1998"><code>	}</code></span>
+<span class="codeline" id="line-1999"><code>	<label for="r387" class="ident">tbsCSR</label>.<a href="#line-1758" class="ident">Raw</a> = <label for="r388" class="ident">tbsCSRContents</label></code></span>
 <span class="codeline" id="line-2000"><code></code></span>
-<span class="codeline" id="line-2001"><code>	<label for="r390" class="ident">tbsCSRContents</label>, <label for="r356" class="ident">err</label> := <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/marshal.go.html#line-733" class="ident">Marshal</a>(<label for="r389" class="ident">tbsCSR</label>)</code></span>
-<span class="codeline" id="line-2002"><code>	<span class="keyword">if</span> <label for="r356" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-2003"><code>		<span class="keyword">return</span></code></span>
-<span class="codeline" id="line-2004"><code>	}</code></span>
-<span class="codeline" id="line-2005"><code>	<label for="r389" class="ident">tbsCSR</label>.<a href="#line-1758" class="ident">Raw</a> = <label for="r390" class="ident">tbsCSRContents</label></code></span>
-<span class="codeline" id="line-2006"><code></code></span>
-<span class="codeline" id="line-2007"><code>	<label for="r391" class="ident">signed</label> := <label for="r390" class="ident">tbsCSRContents</label></code></span>
-<span class="codeline" id="line-2008"><code>	<span class="keyword">if</span> <label for="r359" class="ident">hashFunc</label> != <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-2009"><code>		<label for="r392" class="ident">h</label> := <label for="r359" class="ident">hashFunc</label>.<a href="../crypto.go.html#line-127" class="ident">New</a>()</code></span>
-<span class="codeline" id="line-2010"><code>		<label for="r392" class="ident">h</label>.<a href="../../io/io.go.html#line-97" class="ident">Write</a>(<label for="r391" class="ident">signed</label>)</code></span>
-<span class="codeline" id="line-2011"><code>		<label for="r391" class="ident">signed</label> = <label for="r392" class="ident">h</label>.<a href="../../hash/hash.go.html#line-33" class="ident">Sum</a>(<a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-2001"><code>	<label for="r389" class="ident">signed</label> := <label for="r388" class="ident">tbsCSRContents</label></code></span>
+<span class="codeline" id="line-2002"><code>	<span class="keyword">if</span> <label for="r357" class="ident">hashFunc</label> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-2003"><code>		<label for="r390" class="ident">h</label> := <label for="r357" class="ident">hashFunc</label>.<a href="../crypto.go.html#line-127" class="ident">New</a>()</code></span>
+<span class="codeline" id="line-2004"><code>		<label for="r390" class="ident">h</label>.<a href="../../io/io.go.html#line-97" class="ident">Write</a>(<label for="r389" class="ident">signed</label>)</code></span>
+<span class="codeline" id="line-2005"><code>		<label for="r389" class="ident">signed</label> = <label for="r390" class="ident">h</label>.<a href="../../hash/hash.go.html#line-33" class="ident">Sum</a>(<a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-2006"><code>	}</code></span>
+<span class="codeline" id="line-2007"><code></code></span>
+<span class="codeline" id="line-2008"><code>	<span class="keyword">var</span> <label for="r391" class="ident">signature</label> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-2009"><code>	<label for="r391" class="ident">signature</label>, <label for="r354" class="ident">err</label> = <label for="r355" class="ident">key</label>.<a href="../crypto.go.html#line-198" class="ident">Sign</a>(<label for="r350" class="ident">rand</label>, <label for="r389" class="ident">signed</label>, <label for="r357" class="ident">hashFunc</label>)</code></span>
+<span class="codeline" id="line-2010"><code>	<span class="keyword">if</span> <label for="r354" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-2011"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-2012"><code>	}</code></span>
 <span class="codeline" id="line-2013"><code></code></span>
-<span class="codeline" id="line-2014"><code>	<span class="keyword">var</span> <label for="r393" class="ident">signature</label> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
-<span class="codeline" id="line-2015"><code>	<label for="r393" class="ident">signature</label>, <label for="r356" class="ident">err</label> = <label for="r357" class="ident">key</label>.<a href="../crypto.go.html#line-198" class="ident">Sign</a>(<label for="r352" class="ident">rand</label>, <label for="r391" class="ident">signed</label>, <label for="r359" class="ident">hashFunc</label>)</code></span>
-<span class="codeline" id="line-2016"><code>	<span class="keyword">if</span> <label for="r356" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-2017"><code>		<span class="keyword">return</span></code></span>
-<span class="codeline" id="line-2018"><code>	}</code></span>
-<span class="codeline" id="line-2019"><code></code></span>
-<span class="codeline" id="line-2020"><code>	<span class="keyword">return</span> <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/marshal.go.html#line-733" class="ident">Marshal</a>(<a href="#line-1765" class="ident">certificateRequest</a>{</code></span>
-<span class="codeline" id="line-2021"><code>		<a href="#line-1767" class="ident">TBSCSR</a>:             <label for="r389" class="ident">tbsCSR</label>,</code></span>
-<span class="codeline" id="line-2022"><code>		<a href="#line-1768" class="ident">SignatureAlgorithm</a>: <label for="r360" class="ident">sigAlgo</label>,</code></span>
-<span class="codeline" id="line-2023"><code>		<a href="#line-1769" class="ident">SignatureValue</a>: <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-159" class="ident">BitString</a>{</code></span>
-<span class="codeline" id="line-2024"><code>			<a href="../../encoding/asn1/asn1.go.html#line-160" class="ident">Bytes</a>:     <label for="r393" class="ident">signature</label>,</code></span>
-<span class="codeline" id="line-2025"><code>			<a href="../../encoding/asn1/asn1.go.html#line-161" class="ident">BitLength</a>: <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r393" class="ident">signature</label>) * <span class="lit-number">8</span>,</code></span>
-<span class="codeline" id="line-2026"><code>		},</code></span>
-<span class="codeline" id="line-2027"><code>	})</code></span>
-<span class="codeline" id="line-2028"><code>}</code></span>
-<span class="codeline" id="line-2029"><code></code></span>
-<span class="codeline" id="line-2030"><code><span class="comment">// ParseCertificateRequest parses a single certificate request from the</span></code></span>
-<span class="codeline" id="line-2031"><code><span class="comment">// given ASN.1 DER data.</span></code></span>
-<span class="codeline" id="line-2032"><code><span class="keyword">func</span> <label for="r394" class="ident"><a href="../../../pkg/crypto/x509.html#name-ParseCertificateRequest" class="ident">ParseCertificateRequest</a></label>(<label for="r395" class="ident">asn1Data</label> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>) (*<a href="#line-1711" class="ident">CertificateRequest</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-2033"><code>	<span class="keyword">var</span> <label for="r396" class="ident">csr</label> <a href="#line-1765" class="ident">certificateRequest</a></code></span>
-<span class="codeline" id="line-2034"><code></code></span>
-<span class="codeline" id="line-2035"><code>	<label for="r397" class="ident">rest</label>, <label for="r398" class="ident">err</label> := <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-1089" class="ident">Unmarshal</a>(<label for="r395" class="ident">asn1Data</label>, &amp;<label for="r396" class="ident">csr</label>)</code></span>
-<span class="codeline" id="line-2036"><code>	<span class="keyword">if</span> <label for="r398" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-2037"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r398" class="ident">err</label></code></span>
-<span class="codeline" id="line-2038"><code>	} <span class="keyword">else</span> <span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r397" class="ident">rest</label>) != <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-2039"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-43" class="ident">SyntaxError</a>{<a href="../../encoding/asn1/asn1.go.html#line-44" class="ident">Msg</a>: <span class="lit-string">"trailing data"</span>}</code></span>
-<span class="codeline" id="line-2040"><code>	}</code></span>
-<span class="codeline" id="line-2041"><code></code></span>
-<span class="codeline" id="line-2042"><code>	<span class="keyword">return</span> <a href="#line-2045" class="ident">parseCertificateRequest</a>(&amp;<label for="r396" class="ident">csr</label>)</code></span>
-<span class="codeline" id="line-2043"><code>}</code></span>
-<span class="codeline" id="line-2044"><code></code></span>
-<span class="codeline" id="line-2045"><code><span class="keyword">func</span> <label for="r399" class="ident"><a href="../../../pkg/crypto/x509.html#name-parseCertificateRequest" class="ident">parseCertificateRequest</a></label>(<label for="r400" class="ident">in</label> *<a href="#line-1765" class="ident">certificateRequest</a>) (*<a href="#line-1711" class="ident">CertificateRequest</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-2046"><code>	<label for="r401" class="ident">out</label> := &amp;<a href="#line-1711" class="ident">CertificateRequest</a>{</code></span>
-<span class="codeline" id="line-2047"><code>		<a href="#line-1712" class="ident">Raw</a>:                      <label for="r400" class="ident">in</label>.<a href="#line-1766" class="ident">Raw</a>,</code></span>
-<span class="codeline" id="line-2048"><code>		<a href="#line-1713" class="ident">RawTBSCertificateRequest</a>: <label for="r400" class="ident">in</label>.<a href="#line-1767" class="ident">TBSCSR</a>.<a href="#line-1758" class="ident">Raw</a>,</code></span>
-<span class="codeline" id="line-2049"><code>		<a href="#line-1714" class="ident">RawSubjectPublicKeyInfo</a>:  <label for="r400" class="ident">in</label>.<a href="#line-1767" class="ident">TBSCSR</a>.<a href="#line-1761" class="ident">PublicKey</a>.<a href="#line-173" class="ident">Raw</a>,</code></span>
-<span class="codeline" id="line-2050"><code>		<a href="#line-1715" class="ident">RawSubject</a>:               <label for="r400" class="ident">in</label>.<a href="#line-1767" class="ident">TBSCSR</a>.<a href="#line-1760" class="ident">Subject</a>.<a href="../../encoding/asn1/asn1.go.html#line-513" class="ident">FullBytes</a>,</code></span>
-<span class="codeline" id="line-2051"><code></code></span>
-<span class="codeline" id="line-2052"><code>		<a href="#line-1718" class="ident">Signature</a>:          <label for="r400" class="ident">in</label>.<a href="#line-1769" class="ident">SignatureValue</a>.<a href="../../encoding/asn1/asn1.go.html#line-177" class="ident">RightAlign</a>(),</code></span>
-<span class="codeline" id="line-2053"><code>		<a href="#line-1719" class="ident">SignatureAlgorithm</a>: <a href="#line-377" class="ident">getSignatureAlgorithmFromAI</a>(<label for="r400" class="ident">in</label>.<a href="#line-1768" class="ident">SignatureAlgorithm</a>),</code></span>
+<span class="codeline" id="line-2014"><code>	<span class="keyword">return</span> <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/marshal.go.html#line-733" class="ident">Marshal</a>(<a href="#line-1765" class="ident">certificateRequest</a>{</code></span>
+<span class="codeline" id="line-2015"><code>		<a href="#line-1767" class="ident">TBSCSR</a>:             <label for="r387" class="ident">tbsCSR</label>,</code></span>
+<span class="codeline" id="line-2016"><code>		<a href="#line-1768" class="ident">SignatureAlgorithm</a>: <label for="r358" class="ident">sigAlgo</label>,</code></span>
+<span class="codeline" id="line-2017"><code>		<a href="#line-1769" class="ident">SignatureValue</a>: <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-159" class="ident">BitString</a>{</code></span>
+<span class="codeline" id="line-2018"><code>			<a href="../../encoding/asn1/asn1.go.html#line-160" class="ident">Bytes</a>:     <label for="r391" class="ident">signature</label>,</code></span>
+<span class="codeline" id="line-2019"><code>			<a href="../../encoding/asn1/asn1.go.html#line-161" class="ident">BitLength</a>: <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r391" class="ident">signature</label>) * <span class="lit-number">8</span>,</code></span>
+<span class="codeline" id="line-2020"><code>		},</code></span>
+<span class="codeline" id="line-2021"><code>	})</code></span>
+<span class="codeline" id="line-2022"><code>}</code></span>
+<span class="codeline" id="line-2023"><code></code></span>
+<span class="codeline" id="line-2024"><code><span class="comment">// ParseCertificateRequest parses a single certificate request from the</span></code></span>
+<span class="codeline" id="line-2025"><code><span class="comment">// given ASN.1 DER data.</span></code></span>
+<span class="codeline" id="line-2026"><code><span class="keyword">func</span> <label for="r392" class="ident"><a href="../../../pkg/crypto/x509.html#name-ParseCertificateRequest" class="ident">ParseCertificateRequest</a></label>(<label for="r393" class="ident">asn1Data</label> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>) (*<a href="#line-1711" class="ident">CertificateRequest</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-2027"><code>	<span class="keyword">var</span> <label for="r394" class="ident">csr</label> <a href="#line-1765" class="ident">certificateRequest</a></code></span>
+<span class="codeline" id="line-2028"><code></code></span>
+<span class="codeline" id="line-2029"><code>	<label for="r395" class="ident">rest</label>, <label for="r396" class="ident">err</label> := <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-1089" class="ident">Unmarshal</a>(<label for="r393" class="ident">asn1Data</label>, &amp;<label for="r394" class="ident">csr</label>)</code></span>
+<span class="codeline" id="line-2030"><code>	<span class="keyword">if</span> <label for="r396" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-2031"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r396" class="ident">err</label></code></span>
+<span class="codeline" id="line-2032"><code>	} <span class="keyword">else</span> <span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r395" class="ident">rest</label>) != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-2033"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-43" class="ident">SyntaxError</a>{<a href="../../encoding/asn1/asn1.go.html#line-44" class="ident">Msg</a>: <span class="lit-string">"trailing data"</span>}</code></span>
+<span class="codeline" id="line-2034"><code>	}</code></span>
+<span class="codeline" id="line-2035"><code></code></span>
+<span class="codeline" id="line-2036"><code>	<span class="keyword">return</span> <a href="#line-2039" class="ident">parseCertificateRequest</a>(&amp;<label for="r394" class="ident">csr</label>)</code></span>
+<span class="codeline" id="line-2037"><code>}</code></span>
+<span class="codeline" id="line-2038"><code></code></span>
+<span class="codeline" id="line-2039"><code><span class="keyword">func</span> <label for="r397" class="ident"><a href="../../../pkg/crypto/x509.html#name-parseCertificateRequest" class="ident">parseCertificateRequest</a></label>(<label for="r398" class="ident">in</label> *<a href="#line-1765" class="ident">certificateRequest</a>) (*<a href="#line-1711" class="ident">CertificateRequest</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-2040"><code>	<label for="r399" class="ident">out</label> := &amp;<a href="#line-1711" class="ident">CertificateRequest</a>{</code></span>
+<span class="codeline" id="line-2041"><code>		<a href="#line-1712" class="ident">Raw</a>:                      <label for="r398" class="ident">in</label>.<a href="#line-1766" class="ident">Raw</a>,</code></span>
+<span class="codeline" id="line-2042"><code>		<a href="#line-1713" class="ident">RawTBSCertificateRequest</a>: <label for="r398" class="ident">in</label>.<a href="#line-1767" class="ident">TBSCSR</a>.<a href="#line-1758" class="ident">Raw</a>,</code></span>
+<span class="codeline" id="line-2043"><code>		<a href="#line-1714" class="ident">RawSubjectPublicKeyInfo</a>:  <label for="r398" class="ident">in</label>.<a href="#line-1767" class="ident">TBSCSR</a>.<a href="#line-1761" class="ident">PublicKey</a>.<a href="#line-173" class="ident">Raw</a>,</code></span>
+<span class="codeline" id="line-2044"><code>		<a href="#line-1715" class="ident">RawSubject</a>:               <label for="r398" class="ident">in</label>.<a href="#line-1767" class="ident">TBSCSR</a>.<a href="#line-1760" class="ident">Subject</a>.<a href="../../encoding/asn1/asn1.go.html#line-513" class="ident">FullBytes</a>,</code></span>
+<span class="codeline" id="line-2045"><code></code></span>
+<span class="codeline" id="line-2046"><code>		<a href="#line-1718" class="ident">Signature</a>:          <label for="r398" class="ident">in</label>.<a href="#line-1769" class="ident">SignatureValue</a>.<a href="../../encoding/asn1/asn1.go.html#line-177" class="ident">RightAlign</a>(),</code></span>
+<span class="codeline" id="line-2047"><code>		<a href="#line-1719" class="ident">SignatureAlgorithm</a>: <a href="#line-377" class="ident">getSignatureAlgorithmFromAI</a>(<label for="r398" class="ident">in</label>.<a href="#line-1768" class="ident">SignatureAlgorithm</a>),</code></span>
+<span class="codeline" id="line-2048"><code></code></span>
+<span class="codeline" id="line-2049"><code>		<a href="#line-1721" class="ident">PublicKeyAlgorithm</a>: <a href="#line-454" class="ident">getPublicKeyAlgorithmFromOID</a>(<label for="r398" class="ident">in</label>.<a href="#line-1767" class="ident">TBSCSR</a>.<a href="#line-1761" class="ident">PublicKey</a>.<a href="#line-174" class="ident">Algorithm</a>.<a href="pkix/pkix.go.html#line-20" class="ident">Algorithm</a>),</code></span>
+<span class="codeline" id="line-2050"><code></code></span>
+<span class="codeline" id="line-2051"><code>		<a href="#line-1717" class="ident">Version</a>:    <label for="r398" class="ident">in</label>.<a href="#line-1767" class="ident">TBSCSR</a>.<a href="#line-1759" class="ident">Version</a>,</code></span>
+<span class="codeline" id="line-2052"><code>		<a href="#line-1731" class="ident">Attributes</a>: <a href="#line-1795" class="ident">parseRawAttributes</a>(<label for="r398" class="ident">in</label>.<a href="#line-1767" class="ident">TBSCSR</a>.<a href="#line-1762" class="ident">RawAttributes</a>),</code></span>
+<span class="codeline" id="line-2053"><code>	}</code></span>
 <span class="codeline" id="line-2054"><code></code></span>
-<span class="codeline" id="line-2055"><code>		<a href="#line-1721" class="ident">PublicKeyAlgorithm</a>: <a href="#line-454" class="ident">getPublicKeyAlgorithmFromOID</a>(<label for="r400" class="ident">in</label>.<a href="#line-1767" class="ident">TBSCSR</a>.<a href="#line-1761" class="ident">PublicKey</a>.<a href="#line-174" class="ident">Algorithm</a>.<a href="pkix/pkix.go.html#line-20" class="ident">Algorithm</a>),</code></span>
-<span class="codeline" id="line-2056"><code></code></span>
-<span class="codeline" id="line-2057"><code>		<a href="#line-1717" class="ident">Version</a>:    <label for="r400" class="ident">in</label>.<a href="#line-1767" class="ident">TBSCSR</a>.<a href="#line-1759" class="ident">Version</a>,</code></span>
-<span class="codeline" id="line-2058"><code>		<a href="#line-1731" class="ident">Attributes</a>: <a href="#line-1795" class="ident">parseRawAttributes</a>(<label for="r400" class="ident">in</label>.<a href="#line-1767" class="ident">TBSCSR</a>.<a href="#line-1762" class="ident">RawAttributes</a>),</code></span>
+<span class="codeline" id="line-2055"><code>	<span class="keyword">var</span> <label for="r400" class="ident">err</label> <a href="../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-2056"><code>	<label for="r399" class="ident">out</label>.<a href="#line-1722" class="ident">PublicKey</a>, <label for="r400" class="ident">err</label> = <a href="parser.go.html#line-215" class="ident">parsePublicKey</a>(<label for="r399" class="ident">out</label>.<a href="#line-1721" class="ident">PublicKeyAlgorithm</a>, &amp;<label for="r398" class="ident">in</label>.<a href="#line-1767" class="ident">TBSCSR</a>.<a href="#line-1761" class="ident">PublicKey</a>)</code></span>
+<span class="codeline" id="line-2057"><code>	<span class="keyword">if</span> <label for="r400" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-2058"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r400" class="ident">err</label></code></span>
 <span class="codeline" id="line-2059"><code>	}</code></span>
 <span class="codeline" id="line-2060"><code></code></span>
-<span class="codeline" id="line-2061"><code>	<span class="keyword">var</span> <label for="r402" class="ident">err</label> <a href="../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
-<span class="codeline" id="line-2062"><code>	<label for="r401" class="ident">out</label>.<a href="#line-1722" class="ident">PublicKey</a>, <label for="r402" class="ident">err</label> = <a href="parser.go.html#line-215" class="ident">parsePublicKey</a>(<label for="r401" class="ident">out</label>.<a href="#line-1721" class="ident">PublicKeyAlgorithm</a>, &amp;<label for="r400" class="ident">in</label>.<a href="#line-1767" class="ident">TBSCSR</a>.<a href="#line-1761" class="ident">PublicKey</a>)</code></span>
-<span class="codeline" id="line-2063"><code>	<span class="keyword">if</span> <label for="r402" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-2064"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r402" class="ident">err</label></code></span>
-<span class="codeline" id="line-2065"><code>	}</code></span>
-<span class="codeline" id="line-2066"><code></code></span>
-<span class="codeline" id="line-2067"><code>	<span class="keyword">var</span> <label for="r403" class="ident">subject</label> <a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-24" class="ident">RDNSequence</a></code></span>
-<span class="codeline" id="line-2068"><code>	<span class="keyword">if</span> <label for="r404" class="ident">rest</label>, <label for="r405" class="ident">err</label> := <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-1089" class="ident">Unmarshal</a>(<label for="r400" class="ident">in</label>.<a href="#line-1767" class="ident">TBSCSR</a>.<a href="#line-1760" class="ident">Subject</a>.<a href="../../encoding/asn1/asn1.go.html#line-513" class="ident">FullBytes</a>, &amp;<label for="r403" class="ident">subject</label>); <label for="r405" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-2069"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r405" class="ident">err</label></code></span>
-<span class="codeline" id="line-2070"><code>	} <span class="keyword">else</span> <span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r404" class="ident">rest</label>) != <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-2071"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: trailing data after X.509 Subject"</span>)</code></span>
+<span class="codeline" id="line-2061"><code>	<span class="keyword">var</span> <label for="r401" class="ident">subject</label> <a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-24" class="ident">RDNSequence</a></code></span>
+<span class="codeline" id="line-2062"><code>	<span class="keyword">if</span> <label for="r402" class="ident">rest</label>, <label for="r403" class="ident">err</label> := <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-1089" class="ident">Unmarshal</a>(<label for="r398" class="ident">in</label>.<a href="#line-1767" class="ident">TBSCSR</a>.<a href="#line-1760" class="ident">Subject</a>.<a href="../../encoding/asn1/asn1.go.html#line-513" class="ident">FullBytes</a>, &amp;<label for="r401" class="ident">subject</label>); <label for="r403" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-2063"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r403" class="ident">err</label></code></span>
+<span class="codeline" id="line-2064"><code>	} <span class="keyword">else</span> <span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r402" class="ident">rest</label>) != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-2065"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: trailing data after X.509 Subject"</span>)</code></span>
+<span class="codeline" id="line-2066"><code>	}</code></span>
+<span class="codeline" id="line-2067"><code></code></span>
+<span class="codeline" id="line-2068"><code>	<label for="r399" class="ident">out</label>.<a href="#line-1724" class="ident">Subject</a>.<a href="pkix/pkix.go.html#line-144" class="ident">FillFromRDNSequence</a>(&amp;<label for="r401" class="ident">subject</label>)</code></span>
+<span class="codeline" id="line-2069"><code></code></span>
+<span class="codeline" id="line-2070"><code>	<span class="keyword">if</span> <label for="r399" class="ident">out</label>.<a href="#line-1736" class="ident">Extensions</a>, <label for="r400" class="ident">err</label> = <a href="#line-1811" class="ident">parseCSRExtensions</a>(<label for="r398" class="ident">in</label>.<a href="#line-1767" class="ident">TBSCSR</a>.<a href="#line-1762" class="ident">RawAttributes</a>); <label for="r400" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-2071"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r400" class="ident">err</label></code></span>
 <span class="codeline" id="line-2072"><code>	}</code></span>
 <span class="codeline" id="line-2073"><code></code></span>
-<span class="codeline" id="line-2074"><code>	<label for="r401" class="ident">out</label>.<a href="#line-1724" class="ident">Subject</a>.<a href="pkix/pkix.go.html#line-144" class="ident">FillFromRDNSequence</a>(&amp;<label for="r403" class="ident">subject</label>)</code></span>
-<span class="codeline" id="line-2075"><code></code></span>
-<span class="codeline" id="line-2076"><code>	<span class="keyword">if</span> <label for="r401" class="ident">out</label>.<a href="#line-1736" class="ident">Extensions</a>, <label for="r402" class="ident">err</label> = <a href="#line-1811" class="ident">parseCSRExtensions</a>(<label for="r400" class="ident">in</label>.<a href="#line-1767" class="ident">TBSCSR</a>.<a href="#line-1762" class="ident">RawAttributes</a>); <label for="r402" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-2077"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r402" class="ident">err</label></code></span>
-<span class="codeline" id="line-2078"><code>	}</code></span>
-<span class="codeline" id="line-2079"><code></code></span>
-<span class="codeline" id="line-2080"><code>	<span class="keyword">for</span> <label for="r406" class="ident">_</label>, <label for="r407" class="ident">extension</label> := <span class="keyword">range</span> <label for="r401" class="ident">out</label>.<a href="#line-1736" class="ident">Extensions</a> {</code></span>
-<span class="codeline" id="line-2081"><code>		<span class="keyword">switch</span> {</code></span>
-<span class="codeline" id="line-2082"><code>		<span class="keyword">case</span> <label for="r407" class="ident">extension</label>.<a href="pkix/pkix.go.html#line-114" class="ident">Id</a>.<a href="../../encoding/asn1/asn1.go.html#line-225" class="ident">Equal</a>(<a href="#line-964" class="ident">oidExtensionSubjectAltName</a>):</code></span>
-<span class="codeline" id="line-2083"><code>			<label for="r401" class="ident">out</label>.<a href="#line-1748" class="ident">DNSNames</a>, <label for="r401" class="ident">out</label>.<a href="#line-1749" class="ident">EmailAddresses</a>, <label for="r401" class="ident">out</label>.<a href="#line-1750" class="ident">IPAddresses</a>, <label for="r401" class="ident">out</label>.<a href="#line-1751" class="ident">URIs</a>, <label for="r402" class="ident">err</label> = <a href="parser.go.html#line-362" class="ident">parseSANExtension</a>(<label for="r407" class="ident">extension</label>.<a href="pkix/pkix.go.html#line-116" class="ident">Value</a>)</code></span>
-<span class="codeline" id="line-2084"><code>			<span class="keyword">if</span> <label for="r402" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-2085"><code>				<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r402" class="ident">err</label></code></span>
-<span class="codeline" id="line-2086"><code>			}</code></span>
-<span class="codeline" id="line-2087"><code>		}</code></span>
-<span class="codeline" id="line-2088"><code>	}</code></span>
-<span class="codeline" id="line-2089"><code></code></span>
-<span class="codeline" id="line-2090"><code>	<span class="keyword">return</span> <label for="r401" class="ident">out</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-2091"><code>}</code></span>
-<span class="codeline" id="line-2092"><code></code></span>
-<span class="codeline" id="line-2093"><code><span class="comment">// CheckSignature reports whether the signature on c is valid.</span></code></span>
-<span class="codeline" id="line-2094"><code><span class="keyword">func</span> (<label for="r408" class="ident">c</label> *<a href="#line-1711" class="ident">CertificateRequest</a>) <label for="r409" class="ident"><a href="../../../use/crypto/x509..CertificateRequest.CheckSignature.html" class="ident">CheckSignature</a></label>() <a href="../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-2095"><code>	<span class="keyword">return</span> <a href="#line-818" class="ident">checkSignature</a>(<label for="r408" class="ident">c</label>.<a href="#line-1719" class="ident">SignatureAlgorithm</a>, <label for="r408" class="ident">c</label>.<a href="#line-1713" class="ident">RawTBSCertificateRequest</a>, <label for="r408" class="ident">c</label>.<a href="#line-1718" class="ident">Signature</a>, <label for="r408" class="ident">c</label>.<a href="#line-1722" class="ident">PublicKey</a>, <a href="../../../pkg/builtin.html#name-true" class="ident">true</a>)</code></span>
-<span class="codeline" id="line-2096"><code>}</code></span>
-<span class="codeline" id="line-2097"><code></code></span>
-<span class="codeline" id="line-2098"><code><span class="comment">// RevocationList contains the fields used to create an X.509 v2 Certificate</span></code></span>
-<span class="codeline" id="line-2099"><code><span class="comment">// Revocation list with CreateRevocationList.</span></code></span>
-<span class="codeline" id="line-2100"><code><span class="keyword">type</span> <a href="../../../pkg/crypto/x509.html#name-RevocationList" class="ident">RevocationList</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-2101"><code>	<span class="comment">// Raw contains the complete ASN.1 DER content of the CRL (tbsCertList,</span></code></span>
-<span class="codeline" id="line-2102"><code><span class="comment">	// signatureAlgorithm, and signatureValue.)</span></code></span>
-<span class="codeline" id="line-2103"><code>	<a href="../../../use/crypto/x509..RevocationList.Raw.html" class="ident">Raw</a> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
-<span class="codeline" id="line-2104"><code>	<span class="comment">// RawTBSRevocationList contains just the tbsCertList portion of the ASN.1</span></code></span>
-<span class="codeline" id="line-2105"><code><span class="comment">	// DER.</span></code></span>
-<span class="codeline" id="line-2106"><code>	<a href="../../../use/crypto/x509..RevocationList.RawTBSRevocationList.html" class="ident">RawTBSRevocationList</a> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
-<span class="codeline" id="line-2107"><code>	<span class="comment">// RawIssuer contains the DER encoded Issuer.</span></code></span>
-<span class="codeline" id="line-2108"><code>	<a href="../../../use/crypto/x509..RevocationList.RawIssuer.html" class="ident">RawIssuer</a> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
-<span class="codeline" id="line-2109"><code></code></span>
-<span class="codeline" id="line-2110"><code>	<span class="comment">// Issuer contains the DN of the issuing certificate.</span></code></span>
-<span class="codeline" id="line-2111"><code>	<a href="../../../use/crypto/x509..RevocationList.Issuer.html" class="ident">Issuer</a> <a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-123" class="ident">Name</a></code></span>
-<span class="codeline" id="line-2112"><code>	<span class="comment">// AuthorityKeyId is used to identify the public key associated with the</span></code></span>
-<span class="codeline" id="line-2113"><code><span class="comment">	// issuing certificate. It is populated from the authorityKeyIdentifier</span></code></span>
-<span class="codeline" id="line-2114"><code><span class="comment">	// extension when parsing a CRL. It is ignored when creating a CRL; the</span></code></span>
-<span class="codeline" id="line-2115"><code><span class="comment">	// extension is populated from the issuing certificate itself.</span></code></span>
-<span class="codeline" id="line-2116"><code>	<a href="../../../use/crypto/x509..RevocationList.AuthorityKeyId.html" class="ident">AuthorityKeyId</a> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-2074"><code>	<span class="keyword">for</span> <label for="r404" class="ident">_</label>, <label for="r405" class="ident">extension</label> := <span class="keyword">range</span> <label for="r399" class="ident">out</label>.<a href="#line-1736" class="ident">Extensions</a> {</code></span>
+<span class="codeline" id="line-2075"><code>		<span class="keyword">switch</span> {</code></span>
+<span class="codeline" id="line-2076"><code>		<span class="keyword">case</span> <label for="r405" class="ident">extension</label>.<a href="pkix/pkix.go.html#line-114" class="ident">Id</a>.<a href="../../encoding/asn1/asn1.go.html#line-225" class="ident">Equal</a>(<a href="#line-964" class="ident">oidExtensionSubjectAltName</a>):</code></span>
+<span class="codeline" id="line-2077"><code>			<label for="r399" class="ident">out</label>.<a href="#line-1748" class="ident">DNSNames</a>, <label for="r399" class="ident">out</label>.<a href="#line-1749" class="ident">EmailAddresses</a>, <label for="r399" class="ident">out</label>.<a href="#line-1750" class="ident">IPAddresses</a>, <label for="r399" class="ident">out</label>.<a href="#line-1751" class="ident">URIs</a>, <label for="r400" class="ident">err</label> = <a href="parser.go.html#line-362" class="ident">parseSANExtension</a>(<label for="r405" class="ident">extension</label>.<a href="pkix/pkix.go.html#line-116" class="ident">Value</a>)</code></span>
+<span class="codeline" id="line-2078"><code>			<span class="keyword">if</span> <label for="r400" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-2079"><code>				<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r400" class="ident">err</label></code></span>
+<span class="codeline" id="line-2080"><code>			}</code></span>
+<span class="codeline" id="line-2081"><code>		}</code></span>
+<span class="codeline" id="line-2082"><code>	}</code></span>
+<span class="codeline" id="line-2083"><code></code></span>
+<span class="codeline" id="line-2084"><code>	<span class="keyword">return</span> <label for="r399" class="ident">out</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-2085"><code>}</code></span>
+<span class="codeline" id="line-2086"><code></code></span>
+<span class="codeline" id="line-2087"><code><span class="comment">// CheckSignature reports whether the signature on c is valid.</span></code></span>
+<span class="codeline" id="line-2088"><code><span class="keyword">func</span> (<label for="r406" class="ident">c</label> *<a href="#line-1711" class="ident">CertificateRequest</a>) <label for="r407" class="ident"><a href="../../../use/crypto/x509..CertificateRequest.CheckSignature.html" class="ident">CheckSignature</a></label>() <a href="../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-2089"><code>	<span class="keyword">return</span> <a href="#line-818" class="ident">checkSignature</a>(<label for="r406" class="ident">c</label>.<a href="#line-1719" class="ident">SignatureAlgorithm</a>, <label for="r406" class="ident">c</label>.<a href="#line-1713" class="ident">RawTBSCertificateRequest</a>, <label for="r406" class="ident">c</label>.<a href="#line-1718" class="ident">Signature</a>, <label for="r406" class="ident">c</label>.<a href="#line-1722" class="ident">PublicKey</a>, <a href="../../../pkg/builtin.html#name-true" class="ident">true</a>)</code></span>
+<span class="codeline" id="line-2090"><code>}</code></span>
+<span class="codeline" id="line-2091"><code></code></span>
+<span class="codeline" id="line-2092"><code><span class="comment">// RevocationList contains the fields used to create an X.509 v2 Certificate</span></code></span>
+<span class="codeline" id="line-2093"><code><span class="comment">// Revocation list with CreateRevocationList.</span></code></span>
+<span class="codeline" id="line-2094"><code><span class="keyword">type</span> <a href="../../../pkg/crypto/x509.html#name-RevocationList" class="ident">RevocationList</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-2095"><code>	<span class="comment">// Raw contains the complete ASN.1 DER content of the CRL (tbsCertList,</span></code></span>
+<span class="codeline" id="line-2096"><code><span class="comment">	// signatureAlgorithm, and signatureValue.)</span></code></span>
+<span class="codeline" id="line-2097"><code>	<a href="../../../use/crypto/x509..RevocationList.Raw.html" class="ident">Raw</a> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-2098"><code>	<span class="comment">// RawTBSRevocationList contains just the tbsCertList portion of the ASN.1</span></code></span>
+<span class="codeline" id="line-2099"><code><span class="comment">	// DER.</span></code></span>
+<span class="codeline" id="line-2100"><code>	<a href="../../../use/crypto/x509..RevocationList.RawTBSRevocationList.html" class="ident">RawTBSRevocationList</a> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-2101"><code>	<span class="comment">// RawIssuer contains the DER encoded Issuer.</span></code></span>
+<span class="codeline" id="line-2102"><code>	<a href="../../../use/crypto/x509..RevocationList.RawIssuer.html" class="ident">RawIssuer</a> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-2103"><code></code></span>
+<span class="codeline" id="line-2104"><code>	<span class="comment">// Issuer contains the DN of the issuing certificate.</span></code></span>
+<span class="codeline" id="line-2105"><code>	<a href="../../../use/crypto/x509..RevocationList.Issuer.html" class="ident">Issuer</a> <a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-123" class="ident">Name</a></code></span>
+<span class="codeline" id="line-2106"><code>	<span class="comment">// AuthorityKeyId is used to identify the public key associated with the</span></code></span>
+<span class="codeline" id="line-2107"><code><span class="comment">	// issuing certificate. It is populated from the authorityKeyIdentifier</span></code></span>
+<span class="codeline" id="line-2108"><code><span class="comment">	// extension when parsing a CRL. It is ignored when creating a CRL; the</span></code></span>
+<span class="codeline" id="line-2109"><code><span class="comment">	// extension is populated from the issuing certificate itself.</span></code></span>
+<span class="codeline" id="line-2110"><code>	<a href="../../../use/crypto/x509..RevocationList.AuthorityKeyId.html" class="ident">AuthorityKeyId</a> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-2111"><code></code></span>
+<span class="codeline" id="line-2112"><code>	<a href="../../../use/crypto/x509..RevocationList.Signature.html" class="ident">Signature</a> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-2113"><code>	<span class="comment">// SignatureAlgorithm is used to determine the signature algorithm to be</span></code></span>
+<span class="codeline" id="line-2114"><code><span class="comment">	// used when signing the CRL. If 0 the default algorithm for the signing</span></code></span>
+<span class="codeline" id="line-2115"><code><span class="comment">	// key will be used.</span></code></span>
+<span class="codeline" id="line-2116"><code>	<a href="../../../use/crypto/x509..RevocationList.SignatureAlgorithm.html" class="ident">SignatureAlgorithm</a> <a href="#line-183" class="ident">SignatureAlgorithm</a></code></span>
 <span class="codeline" id="line-2117"><code></code></span>
-<span class="codeline" id="line-2118"><code>	<a href="../../../use/crypto/x509..RevocationList.Signature.html" class="ident">Signature</a> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
-<span class="codeline" id="line-2119"><code>	<span class="comment">// SignatureAlgorithm is used to determine the signature algorithm to be</span></code></span>
-<span class="codeline" id="line-2120"><code><span class="comment">	// used when signing the CRL. If 0 the default algorithm for the signing</span></code></span>
-<span class="codeline" id="line-2121"><code><span class="comment">	// key will be used.</span></code></span>
-<span class="codeline" id="line-2122"><code>	<a href="../../../use/crypto/x509..RevocationList.SignatureAlgorithm.html" class="ident">SignatureAlgorithm</a> <a href="#line-183" class="ident">SignatureAlgorithm</a></code></span>
-<span class="codeline" id="line-2123"><code></code></span>
-<span class="codeline" id="line-2124"><code>	<span class="comment">// RevokedCertificates is used to populate the revokedCertificates</span></code></span>
-<span class="codeline" id="line-2125"><code><span class="comment">	// sequence in the CRL, it may be empty. RevokedCertificates may be nil,</span></code></span>
-<span class="codeline" id="line-2126"><code><span class="comment">	// in which case an empty CRL will be created.</span></code></span>
-<span class="codeline" id="line-2127"><code>	<a href="../../../use/crypto/x509..RevocationList.RevokedCertificates.html" class="ident">RevokedCertificates</a> []<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-316" class="ident">RevokedCertificate</a></code></span>
+<span class="codeline" id="line-2118"><code>	<span class="comment">// RevokedCertificates is used to populate the revokedCertificates</span></code></span>
+<span class="codeline" id="line-2119"><code><span class="comment">	// sequence in the CRL, it may be empty. RevokedCertificates may be nil,</span></code></span>
+<span class="codeline" id="line-2120"><code><span class="comment">	// in which case an empty CRL will be created.</span></code></span>
+<span class="codeline" id="line-2121"><code>	<a href="../../../use/crypto/x509..RevocationList.RevokedCertificates.html" class="ident">RevokedCertificates</a> []<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-316" class="ident">RevokedCertificate</a></code></span>
+<span class="codeline" id="line-2122"><code></code></span>
+<span class="codeline" id="line-2123"><code>	<span class="comment">// Number is used to populate the X.509 v2 cRLNumber extension in the CRL,</span></code></span>
+<span class="codeline" id="line-2124"><code><span class="comment">	// which should be a monotonically increasing sequence number for a given</span></code></span>
+<span class="codeline" id="line-2125"><code><span class="comment">	// CRL scope and CRL issuer. It is also populated from the cRLNumber</span></code></span>
+<span class="codeline" id="line-2126"><code><span class="comment">	// extension when parsing a CRL.</span></code></span>
+<span class="codeline" id="line-2127"><code>	<a href="../../../use/crypto/x509..RevocationList.Number.html" class="ident">Number</a> *<a href="../../../pkg/math/big.html" class="ident i14">big</a>.<a href="../../math/big/int.go.html#line-25" class="ident">Int</a></code></span>
 <span class="codeline" id="line-2128"><code></code></span>
-<span class="codeline" id="line-2129"><code>	<span class="comment">// Number is used to populate the X.509 v2 cRLNumber extension in the CRL,</span></code></span>
-<span class="codeline" id="line-2130"><code><span class="comment">	// which should be a monotonically increasing sequence number for a given</span></code></span>
-<span class="codeline" id="line-2131"><code><span class="comment">	// CRL scope and CRL issuer. It is also populated from the cRLNumber</span></code></span>
-<span class="codeline" id="line-2132"><code><span class="comment">	// extension when parsing a CRL.</span></code></span>
-<span class="codeline" id="line-2133"><code>	<a href="../../../use/crypto/x509..RevocationList.Number.html" class="ident">Number</a> *<a href="../../../pkg/math/big.html" class="ident i14">big</a>.<a href="../../math/big/int.go.html#line-25" class="ident">Int</a></code></span>
-<span class="codeline" id="line-2134"><code></code></span>
-<span class="codeline" id="line-2135"><code>	<span class="comment">// ThisUpdate is used to populate the thisUpdate field in the CRL, which</span></code></span>
-<span class="codeline" id="line-2136"><code><span class="comment">	// indicates the issuance date of the CRL.</span></code></span>
-<span class="codeline" id="line-2137"><code>	<a href="../../../use/crypto/x509..RevocationList.ThisUpdate.html" class="ident">ThisUpdate</a> <a href="../../../pkg/time.html" class="ident i18">time</a>.<a href="../../time/time.go.html#line-129" class="ident">Time</a></code></span>
-<span class="codeline" id="line-2138"><code>	<span class="comment">// NextUpdate is used to populate the nextUpdate field in the CRL, which</span></code></span>
-<span class="codeline" id="line-2139"><code><span class="comment">	// indicates the date by which the next CRL will be issued. NextUpdate</span></code></span>
-<span class="codeline" id="line-2140"><code><span class="comment">	// must be greater than ThisUpdate.</span></code></span>
-<span class="codeline" id="line-2141"><code>	<a href="../../../use/crypto/x509..RevocationList.NextUpdate.html" class="ident">NextUpdate</a> <a href="../../../pkg/time.html" class="ident i18">time</a>.<a href="../../time/time.go.html#line-129" class="ident">Time</a></code></span>
-<span class="codeline" id="line-2142"><code></code></span>
-<span class="codeline" id="line-2143"><code>	<span class="comment">// Extensions contains raw X.509 extensions. When creating a CRL,</span></code></span>
-<span class="codeline" id="line-2144"><code><span class="comment">	// the Extensions field is ignored, see ExtraExtensions.</span></code></span>
-<span class="codeline" id="line-2145"><code>	<a href="../../../use/crypto/x509..RevocationList.Extensions.html" class="ident">Extensions</a> []<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-113" class="ident">Extension</a></code></span>
-<span class="codeline" id="line-2146"><code></code></span>
-<span class="codeline" id="line-2147"><code>	<span class="comment">// ExtraExtensions contains any additional extensions to add directly to</span></code></span>
-<span class="codeline" id="line-2148"><code><span class="comment">	// the CRL.</span></code></span>
-<span class="codeline" id="line-2149"><code>	<a href="../../../use/crypto/x509..RevocationList.ExtraExtensions.html" class="ident">ExtraExtensions</a> []<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-113" class="ident">Extension</a></code></span>
-<span class="codeline" id="line-2150"><code>}</code></span>
-<span class="codeline" id="line-2151"><code></code></span>
-<span class="codeline" id="line-2152"><code><span class="comment">// CreateRevocationList creates a new X.509 v2 Certificate Revocation List,</span></code></span>
-<span class="codeline" id="line-2153"><code><span class="comment">// according to RFC 5280, based on template.</span></code></span>
+<span class="codeline" id="line-2129"><code>	<span class="comment">// ThisUpdate is used to populate the thisUpdate field in the CRL, which</span></code></span>
+<span class="codeline" id="line-2130"><code><span class="comment">	// indicates the issuance date of the CRL.</span></code></span>
+<span class="codeline" id="line-2131"><code>	<a href="../../../use/crypto/x509..RevocationList.ThisUpdate.html" class="ident">ThisUpdate</a> <a href="../../../pkg/time.html" class="ident i18">time</a>.<a href="../../time/time.go.html#line-129" class="ident">Time</a></code></span>
+<span class="codeline" id="line-2132"><code>	<span class="comment">// NextUpdate is used to populate the nextUpdate field in the CRL, which</span></code></span>
+<span class="codeline" id="line-2133"><code><span class="comment">	// indicates the date by which the next CRL will be issued. NextUpdate</span></code></span>
+<span class="codeline" id="line-2134"><code><span class="comment">	// must be greater than ThisUpdate.</span></code></span>
+<span class="codeline" id="line-2135"><code>	<a href="../../../use/crypto/x509..RevocationList.NextUpdate.html" class="ident">NextUpdate</a> <a href="../../../pkg/time.html" class="ident i18">time</a>.<a href="../../time/time.go.html#line-129" class="ident">Time</a></code></span>
+<span class="codeline" id="line-2136"><code></code></span>
+<span class="codeline" id="line-2137"><code>	<span class="comment">// Extensions contains raw X.509 extensions. When creating a CRL,</span></code></span>
+<span class="codeline" id="line-2138"><code><span class="comment">	// the Extensions field is ignored, see ExtraExtensions.</span></code></span>
+<span class="codeline" id="line-2139"><code>	<a href="../../../use/crypto/x509..RevocationList.Extensions.html" class="ident">Extensions</a> []<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-113" class="ident">Extension</a></code></span>
+<span class="codeline" id="line-2140"><code></code></span>
+<span class="codeline" id="line-2141"><code>	<span class="comment">// ExtraExtensions contains any additional extensions to add directly to</span></code></span>
+<span class="codeline" id="line-2142"><code><span class="comment">	// the CRL.</span></code></span>
+<span class="codeline" id="line-2143"><code>	<a href="../../../use/crypto/x509..RevocationList.ExtraExtensions.html" class="ident">ExtraExtensions</a> []<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-113" class="ident">Extension</a></code></span>
+<span class="codeline" id="line-2144"><code>}</code></span>
+<span class="codeline" id="line-2145"><code></code></span>
+<span class="codeline" id="line-2146"><code><span class="comment">// CreateRevocationList creates a new X.509 v2 Certificate Revocation List,</span></code></span>
+<span class="codeline" id="line-2147"><code><span class="comment">// according to RFC 5280, based on template.</span></code></span>
+<span class="codeline" id="line-2148"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-2149"><code><span class="comment">// The CRL is signed by priv which should be the private key associated with</span></code></span>
+<span class="codeline" id="line-2150"><code><span class="comment">// the public key in the issuer certificate.</span></code></span>
+<span class="codeline" id="line-2151"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-2152"><code><span class="comment">// The issuer may not be nil, and the crlSign bit must be set in KeyUsage in</span></code></span>
+<span class="codeline" id="line-2153"><code><span class="comment">// order to use it as a CRL issuer.</span></code></span>
 <span class="codeline" id="line-2154"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-2155"><code><span class="comment">// The CRL is signed by priv which should be the private key associated with</span></code></span>
-<span class="codeline" id="line-2156"><code><span class="comment">// the public key in the issuer certificate.</span></code></span>
-<span class="codeline" id="line-2157"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-2158"><code><span class="comment">// The issuer may not be nil, and the crlSign bit must be set in KeyUsage in</span></code></span>
-<span class="codeline" id="line-2159"><code><span class="comment">// order to use it as a CRL issuer.</span></code></span>
-<span class="codeline" id="line-2160"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-2161"><code><span class="comment">// The issuer distinguished name CRL field and authority key identifier</span></code></span>
-<span class="codeline" id="line-2162"><code><span class="comment">// extension are populated using the issuer certificate. issuer must have</span></code></span>
-<span class="codeline" id="line-2163"><code><span class="comment">// SubjectKeyId set.</span></code></span>
-<span class="codeline" id="line-2164"><code><span class="keyword">func</span> <label for="r410" class="ident"><a href="../../../pkg/crypto/x509.html#name-CreateRevocationList" class="ident">CreateRevocationList</a></label>(<label for="r411" class="ident">rand</label> <a href="../../../pkg/io.html" class="ident i13">io</a>.<a href="../../io/io.go.html#line-83" class="ident">Reader</a>, <label for="r412" class="ident">template</label> *<a href="#line-2100" class="ident">RevocationList</a>, <label for="r413" class="ident">issuer</label> *<a href="#line-626" class="ident">Certificate</a>, <label for="r414" class="ident">priv</label> <a href="../../../pkg/crypto.html" class="ident i1">crypto</a>.<a href="../crypto.go.html#line-180" class="ident">Signer</a>) ([]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-2165"><code>	<span class="keyword">if</span> <label for="r412" class="ident">template</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-2166"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: template can not be nil"</span>)</code></span>
+<span class="codeline" id="line-2155"><code><span class="comment">// The issuer distinguished name CRL field and authority key identifier</span></code></span>
+<span class="codeline" id="line-2156"><code><span class="comment">// extension are populated using the issuer certificate. issuer must have</span></code></span>
+<span class="codeline" id="line-2157"><code><span class="comment">// SubjectKeyId set.</span></code></span>
+<span class="codeline" id="line-2158"><code><span class="keyword">func</span> <label for="r408" class="ident"><a href="../../../pkg/crypto/x509.html#name-CreateRevocationList" class="ident">CreateRevocationList</a></label>(<label for="r409" class="ident">rand</label> <a href="../../../pkg/io.html" class="ident i13">io</a>.<a href="../../io/io.go.html#line-83" class="ident">Reader</a>, <label for="r410" class="ident">template</label> *<a href="#line-2094" class="ident">RevocationList</a>, <label for="r411" class="ident">issuer</label> *<a href="#line-626" class="ident">Certificate</a>, <label for="r412" class="ident">priv</label> <a href="../../../pkg/crypto.html" class="ident i1">crypto</a>.<a href="../crypto.go.html#line-180" class="ident">Signer</a>) ([]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-2159"><code>	<span class="keyword">if</span> <label for="r410" class="ident">template</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-2160"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: template can not be nil"</span>)</code></span>
+<span class="codeline" id="line-2161"><code>	}</code></span>
+<span class="codeline" id="line-2162"><code>	<span class="keyword">if</span> <label for="r411" class="ident">issuer</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-2163"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: issuer can not be nil"</span>)</code></span>
+<span class="codeline" id="line-2164"><code>	}</code></span>
+<span class="codeline" id="line-2165"><code>	<span class="keyword">if</span> (<label for="r411" class="ident">issuer</label>.<a href="#line-644" class="ident">KeyUsage</a> &amp; <a href="#line-531" class="ident">KeyUsageCRLSign</a>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-2166"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: issuer must have the crlSign key usage bit set"</span>)</code></span>
 <span class="codeline" id="line-2167"><code>	}</code></span>
-<span class="codeline" id="line-2168"><code>	<span class="keyword">if</span> <label for="r413" class="ident">issuer</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-2169"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: issuer can not be nil"</span>)</code></span>
+<span class="codeline" id="line-2168"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r411" class="ident">issuer</label>.<a href="#line-695" class="ident">SubjectKeyId</a>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-2169"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: issuer certificate doesn't contain a subject key identifier"</span>)</code></span>
 <span class="codeline" id="line-2170"><code>	}</code></span>
-<span class="codeline" id="line-2171"><code>	<span class="keyword">if</span> (<label for="r413" class="ident">issuer</label>.<a href="#line-644" class="ident">KeyUsage</a> &amp; <a href="#line-531" class="ident">KeyUsageCRLSign</a>) == <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-2172"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: issuer must have the crlSign key usage bit set"</span>)</code></span>
+<span class="codeline" id="line-2171"><code>	<span class="keyword">if</span> <label for="r410" class="ident">template</label>.<a href="#line-2135" class="ident">NextUpdate</a>.<a href="../../time/time.go.html#line-260" class="ident">Before</a>(<label for="r410" class="ident">template</label>.<a href="#line-2131" class="ident">ThisUpdate</a>) {</code></span>
+<span class="codeline" id="line-2172"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: template.ThisUpdate is after template.NextUpdate"</span>)</code></span>
 <span class="codeline" id="line-2173"><code>	}</code></span>
-<span class="codeline" id="line-2174"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r413" class="ident">issuer</label>.<a href="#line-695" class="ident">SubjectKeyId</a>) == <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-2175"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: issuer certificate doesn't contain a subject key identifier"</span>)</code></span>
+<span class="codeline" id="line-2174"><code>	<span class="keyword">if</span> <label for="r410" class="ident">template</label>.<a href="#line-2127" class="ident">Number</a> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-2175"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: template contains nil Number field"</span>)</code></span>
 <span class="codeline" id="line-2176"><code>	}</code></span>
-<span class="codeline" id="line-2177"><code>	<span class="keyword">if</span> <label for="r412" class="ident">template</label>.<a href="#line-2141" class="ident">NextUpdate</a>.<a href="../../time/time.go.html#line-260" class="ident">Before</a>(<label for="r412" class="ident">template</label>.<a href="#line-2137" class="ident">ThisUpdate</a>) {</code></span>
-<span class="codeline" id="line-2178"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: template.ThisUpdate is after template.NextUpdate"</span>)</code></span>
-<span class="codeline" id="line-2179"><code>	}</code></span>
-<span class="codeline" id="line-2180"><code>	<span class="keyword">if</span> <label for="r412" class="ident">template</label>.<a href="#line-2133" class="ident">Number</a> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-2181"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: template contains nil Number field"</span>)</code></span>
-<span class="codeline" id="line-2182"><code>	}</code></span>
-<span class="codeline" id="line-2183"><code></code></span>
-<span class="codeline" id="line-2184"><code>	<label for="r415" class="ident">hashFunc</label>, <label for="r416" class="ident">signatureAlgorithm</label>, <label for="r417" class="ident">err</label> := <a href="#line-1346" class="ident">signingParamsForPublicKey</a>(<label for="r414" class="ident">priv</label>.<a href="../crypto.go.html#line-183" class="ident">Public</a>(), <label for="r412" class="ident">template</label>.<a href="#line-2122" class="ident">SignatureAlgorithm</a>)</code></span>
-<span class="codeline" id="line-2185"><code>	<span class="keyword">if</span> <label for="r417" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-2186"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r417" class="ident">err</label></code></span>
-<span class="codeline" id="line-2187"><code>	}</code></span>
-<span class="codeline" id="line-2188"><code></code></span>
-<span class="codeline" id="line-2189"><code>	<span class="comment">// Force revocation times to UTC per RFC 5280.</span></code></span>
-<span class="codeline" id="line-2190"><code>	<label for="r418" class="ident">revokedCertsUTC</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-316" class="ident">RevokedCertificate</a>, <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r412" class="ident">template</label>.<a href="#line-2127" class="ident">RevokedCertificates</a>))</code></span>
-<span class="codeline" id="line-2191"><code>	<span class="keyword">for</span> <label for="r419" class="ident">i</label>, <label for="r420" class="ident">rc</label> := <span class="keyword">range</span> <label for="r412" class="ident">template</label>.<a href="#line-2127" class="ident">RevokedCertificates</a> {</code></span>
-<span class="codeline" id="line-2192"><code>		<label for="r420" class="ident">rc</label>.<a href="pkix/pkix.go.html#line-318" class="ident">RevocationTime</a> = <label for="r420" class="ident">rc</label>.<a href="pkix/pkix.go.html#line-318" class="ident">RevocationTime</a>.<a href="../../time/time.go.html#line-1104" class="ident">UTC</a>()</code></span>
-<span class="codeline" id="line-2193"><code>		<label for="r418" class="ident">revokedCertsUTC</label>[<label for="r419" class="ident">i</label>] = <label for="r420" class="ident">rc</label></code></span>
-<span class="codeline" id="line-2194"><code>	}</code></span>
-<span class="codeline" id="line-2195"><code></code></span>
-<span class="codeline" id="line-2196"><code>	<label for="r421" class="ident">aki</label>, <label for="r417" class="ident">err</label> := <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/marshal.go.html#line-733" class="ident">Marshal</a>(<a href="#line-179" class="ident">authKeyId</a>{<a href="#line-180" class="ident">Id</a>: <label for="r413" class="ident">issuer</label>.<a href="#line-695" class="ident">SubjectKeyId</a>})</code></span>
-<span class="codeline" id="line-2197"><code>	<span class="keyword">if</span> <label for="r417" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-2198"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r417" class="ident">err</label></code></span>
-<span class="codeline" id="line-2199"><code>	}</code></span>
-<span class="codeline" id="line-2200"><code></code></span>
-<span class="codeline" id="line-2201"><code>	<span class="keyword">if</span> <label for="r422" class="ident">numBytes</label> := <label for="r412" class="ident">template</label>.<a href="#line-2133" class="ident">Number</a>.<a href="../../math/big/int.go.html#line-446" class="ident">Bytes</a>(); <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r422" class="ident">numBytes</label>) &gt; <span class="lit-number">20</span> || (<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r422" class="ident">numBytes</label>) == <span class="lit-number">20</span> &amp;&amp; <label for="r422" class="ident">numBytes</label>[<span class="lit-number">0</span>]&amp;<span class="lit-number">0x80</span> != <span class="lit-number">0</span>) {</code></span>
-<span class="codeline" id="line-2202"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: CRL number exceeds 20 octets"</span>)</code></span>
-<span class="codeline" id="line-2203"><code>	}</code></span>
-<span class="codeline" id="line-2204"><code>	<label for="r423" class="ident">crlNum</label>, <label for="r417" class="ident">err</label> := <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/marshal.go.html#line-733" class="ident">Marshal</a>(<label for="r412" class="ident">template</label>.<a href="#line-2133" class="ident">Number</a>)</code></span>
-<span class="codeline" id="line-2205"><code>	<span class="keyword">if</span> <label for="r417" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-2206"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r417" class="ident">err</label></code></span>
-<span class="codeline" id="line-2207"><code>	}</code></span>
-<span class="codeline" id="line-2208"><code></code></span>
-<span class="codeline" id="line-2209"><code>	<label for="r424" class="ident">tbsCertList</label> := <a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-303" class="ident">TBSCertificateList</a>{</code></span>
-<span class="codeline" id="line-2210"><code>		<a href="pkix/pkix.go.html#line-305" class="ident">Version</a>:    <span class="lit-number">1</span>, <span class="comment">// v2</span></code></span>
-<span class="codeline" id="line-2211"><code>		<a href="pkix/pkix.go.html#line-306" class="ident">Signature</a>:  <label for="r416" class="ident">signatureAlgorithm</label>,</code></span>
-<span class="codeline" id="line-2212"><code>		<a href="pkix/pkix.go.html#line-307" class="ident">Issuer</a>:     <label for="r413" class="ident">issuer</label>.<a href="#line-642" class="ident">Subject</a>.<a href="pkix/pkix.go.html#line-226" class="ident">ToRDNSequence</a>(),</code></span>
-<span class="codeline" id="line-2213"><code>		<a href="pkix/pkix.go.html#line-308" class="ident">ThisUpdate</a>: <label for="r412" class="ident">template</label>.<a href="#line-2137" class="ident">ThisUpdate</a>.<a href="../../time/time.go.html#line-1104" class="ident">UTC</a>(),</code></span>
-<span class="codeline" id="line-2214"><code>		<a href="pkix/pkix.go.html#line-309" class="ident">NextUpdate</a>: <label for="r412" class="ident">template</label>.<a href="#line-2141" class="ident">NextUpdate</a>.<a href="../../time/time.go.html#line-1104" class="ident">UTC</a>(),</code></span>
-<span class="codeline" id="line-2215"><code>		<a href="pkix/pkix.go.html#line-311" class="ident">Extensions</a>: []<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-113" class="ident">Extension</a>{</code></span>
-<span class="codeline" id="line-2216"><code>			{</code></span>
-<span class="codeline" id="line-2217"><code>				<a href="pkix/pkix.go.html#line-114" class="ident">Id</a>:    <a href="#line-962" class="ident">oidExtensionAuthorityKeyId</a>,</code></span>
-<span class="codeline" id="line-2218"><code>				<a href="pkix/pkix.go.html#line-116" class="ident">Value</a>: <label for="r421" class="ident">aki</label>,</code></span>
-<span class="codeline" id="line-2219"><code>			},</code></span>
-<span class="codeline" id="line-2220"><code>			{</code></span>
-<span class="codeline" id="line-2221"><code>				<a href="pkix/pkix.go.html#line-114" class="ident">Id</a>:    <a href="#line-969" class="ident">oidExtensionCRLNumber</a>,</code></span>
-<span class="codeline" id="line-2222"><code>				<a href="pkix/pkix.go.html#line-116" class="ident">Value</a>: <label for="r423" class="ident">crlNum</label>,</code></span>
-<span class="codeline" id="line-2223"><code>			},</code></span>
-<span class="codeline" id="line-2224"><code>		},</code></span>
-<span class="codeline" id="line-2225"><code>	}</code></span>
-<span class="codeline" id="line-2226"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r418" class="ident">revokedCertsUTC</label>) &gt; <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-2227"><code>		<label for="r424" class="ident">tbsCertList</label>.<a href="pkix/pkix.go.html#line-310" class="ident">RevokedCertificates</a> = <label for="r418" class="ident">revokedCertsUTC</label></code></span>
-<span class="codeline" id="line-2228"><code>	}</code></span>
-<span class="codeline" id="line-2229"><code></code></span>
-<span class="codeline" id="line-2230"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r412" class="ident">template</label>.<a href="#line-2149" class="ident">ExtraExtensions</a>) &gt; <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-2231"><code>		<label for="r424" class="ident">tbsCertList</label>.<a href="pkix/pkix.go.html#line-311" class="ident">Extensions</a> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r424" class="ident">tbsCertList</label>.<a href="pkix/pkix.go.html#line-311" class="ident">Extensions</a>, <label for="r412" class="ident">template</label>.<a href="#line-2149" class="ident">ExtraExtensions</a>...)</code></span>
-<span class="codeline" id="line-2232"><code>	}</code></span>
-<span class="codeline" id="line-2233"><code></code></span>
-<span class="codeline" id="line-2234"><code>	<label for="r425" class="ident">tbsCertListContents</label>, <label for="r417" class="ident">err</label> := <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/marshal.go.html#line-733" class="ident">Marshal</a>(<label for="r424" class="ident">tbsCertList</label>)</code></span>
-<span class="codeline" id="line-2235"><code>	<span class="keyword">if</span> <label for="r417" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-2236"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r417" class="ident">err</label></code></span>
-<span class="codeline" id="line-2237"><code>	}</code></span>
-<span class="codeline" id="line-2238"><code></code></span>
-<span class="codeline" id="line-2239"><code>	<label for="r426" class="ident">input</label> := <label for="r425" class="ident">tbsCertListContents</label></code></span>
-<span class="codeline" id="line-2240"><code>	<span class="keyword">if</span> <label for="r415" class="ident">hashFunc</label> != <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-2241"><code>		<label for="r427" class="ident">h</label> := <label for="r415" class="ident">hashFunc</label>.<a href="../crypto.go.html#line-127" class="ident">New</a>()</code></span>
-<span class="codeline" id="line-2242"><code>		<label for="r427" class="ident">h</label>.<a href="../../io/io.go.html#line-97" class="ident">Write</a>(<label for="r425" class="ident">tbsCertListContents</label>)</code></span>
-<span class="codeline" id="line-2243"><code>		<label for="r426" class="ident">input</label> = <label for="r427" class="ident">h</label>.<a href="../../hash/hash.go.html#line-33" class="ident">Sum</a>(<a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
-<span class="codeline" id="line-2244"><code>	}</code></span>
-<span class="codeline" id="line-2245"><code>	<span class="keyword">var</span> <label for="r428" class="ident">signerOpts</label> <a href="../../../pkg/crypto.html" class="ident i1">crypto</a>.<a href="../crypto.go.html#line-202" class="ident">SignerOpts</a> = <label for="r415" class="ident">hashFunc</label></code></span>
-<span class="codeline" id="line-2246"><code>	<span class="keyword">if</span> <label for="r412" class="ident">template</label>.<a href="#line-2122" class="ident">SignatureAlgorithm</a>.<a href="#line-206" class="ident">isRSAPSS</a>() {</code></span>
-<span class="codeline" id="line-2247"><code>		<label for="r428" class="ident">signerOpts</label> = &amp;<a href="../../../pkg/crypto/rsa.html" class="ident i5">rsa</a>.<a href="../rsa/pss.go.html#line-251" class="ident">PSSOptions</a>{</code></span>
-<span class="codeline" id="line-2248"><code>			<a href="../rsa/pss.go.html#line-255" class="ident">SaltLength</a>: <a href="../../../pkg/crypto/rsa.html" class="ident i5">rsa</a>.<a href="../rsa/pss.go.html#line-247" class="ident">PSSSaltLengthEqualsHash</a>,</code></span>
-<span class="codeline" id="line-2249"><code>			<a href="../rsa/pss.go.html#line-260" class="ident">Hash</a>:       <label for="r415" class="ident">hashFunc</label>,</code></span>
-<span class="codeline" id="line-2250"><code>		}</code></span>
-<span class="codeline" id="line-2251"><code>	}</code></span>
-<span class="codeline" id="line-2252"><code></code></span>
-<span class="codeline" id="line-2253"><code>	<label for="r429" class="ident">signature</label>, <label for="r417" class="ident">err</label> := <label for="r414" class="ident">priv</label>.<a href="../crypto.go.html#line-198" class="ident">Sign</a>(<label for="r411" class="ident">rand</label>, <label for="r426" class="ident">input</label>, <label for="r428" class="ident">signerOpts</label>)</code></span>
-<span class="codeline" id="line-2254"><code>	<span class="keyword">if</span> <label for="r417" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-2255"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r417" class="ident">err</label></code></span>
-<span class="codeline" id="line-2256"><code>	}</code></span>
-<span class="codeline" id="line-2257"><code></code></span>
-<span class="codeline" id="line-2258"><code>	<span class="keyword">return</span> <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/marshal.go.html#line-733" class="ident">Marshal</a>(<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-288" class="ident">CertificateList</a>{</code></span>
-<span class="codeline" id="line-2259"><code>		<a href="pkix/pkix.go.html#line-289" class="ident">TBSCertList</a>:        <label for="r424" class="ident">tbsCertList</label>,</code></span>
-<span class="codeline" id="line-2260"><code>		<a href="pkix/pkix.go.html#line-290" class="ident">SignatureAlgorithm</a>: <label for="r416" class="ident">signatureAlgorithm</label>,</code></span>
-<span class="codeline" id="line-2261"><code>		<a href="pkix/pkix.go.html#line-291" class="ident">SignatureValue</a>:     <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-159" class="ident">BitString</a>{<a href="../../encoding/asn1/asn1.go.html#line-160" class="ident">Bytes</a>: <label for="r429" class="ident">signature</label>, <a href="../../encoding/asn1/asn1.go.html#line-161" class="ident">BitLength</a>: <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r429" class="ident">signature</label>) * <span class="lit-number">8</span>},</code></span>
-<span class="codeline" id="line-2262"><code>	})</code></span>
-<span class="codeline" id="line-2263"><code>}</code></span>
-<span class="codeline" id="line-2264"><code></code></span>
-<span class="codeline" id="line-2265"><code><span class="comment">// CheckSignatureFrom verifies that the signature on rl is a valid signature</span></code></span>
-<span class="codeline" id="line-2266"><code><span class="comment">// from issuer.</span></code></span>
-<span class="codeline" id="line-2267"><code><span class="keyword">func</span> (<label for="r430" class="ident">rl</label> *<a href="#line-2100" class="ident">RevocationList</a>) <label for="r431" class="ident"><a href="../../../use/crypto/x509..RevocationList.CheckSignatureFrom.html" class="ident">CheckSignatureFrom</a></label>(<label for="r432" class="ident">parent</label> *<a href="#line-626" class="ident">Certificate</a>) <a href="../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-2268"><code>	<span class="keyword">if</span> <label for="r432" class="ident">parent</label>.<a href="#line-639" class="ident">Version</a> == <span class="lit-number">3</span> &amp;&amp; !<label for="r432" class="ident">parent</label>.<a href="#line-673" class="ident">BasicConstraintsValid</a> ||</code></span>
-<span class="codeline" id="line-2269"><code>		<label for="r432" class="ident">parent</label>.<a href="#line-673" class="ident">BasicConstraintsValid</a> &amp;&amp; !<label for="r432" class="ident">parent</label>.<a href="#line-674" class="ident">IsCA</a> {</code></span>
-<span class="codeline" id="line-2270"><code>		<span class="keyword">return</span> <a href="#line-750" class="ident">ConstraintViolationError</a>{}</code></span>
-<span class="codeline" id="line-2271"><code>	}</code></span>
-<span class="codeline" id="line-2272"><code></code></span>
-<span class="codeline" id="line-2273"><code>	<span class="keyword">if</span> <label for="r432" class="ident">parent</label>.<a href="#line-644" class="ident">KeyUsage</a> != <span class="lit-number">0</span> &amp;&amp; <label for="r432" class="ident">parent</label>.<a href="#line-644" class="ident">KeyUsage</a>&amp;<a href="#line-531" class="ident">KeyUsageCRLSign</a> == <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-2274"><code>		<span class="keyword">return</span> <a href="#line-750" class="ident">ConstraintViolationError</a>{}</code></span>
-<span class="codeline" id="line-2275"><code>	}</code></span>
-<span class="codeline" id="line-2276"><code></code></span>
-<span class="codeline" id="line-2277"><code>	<span class="keyword">if</span> <label for="r432" class="ident">parent</label>.<a href="#line-636" class="ident">PublicKeyAlgorithm</a> == <a href="#line-227" class="ident">UnknownPublicKeyAlgorithm</a> {</code></span>
-<span class="codeline" id="line-2278"><code>		<span class="keyword">return</span> <a href="#line-729" class="ident">ErrUnsupportedAlgorithm</a></code></span>
-<span class="codeline" id="line-2279"><code>	}</code></span>
-<span class="codeline" id="line-2280"><code></code></span>
-<span class="codeline" id="line-2281"><code>	<span class="keyword">return</span> <label for="r432" class="ident">parent</label>.<a href="#line-795" class="ident">CheckSignature</a>(<label for="r430" class="ident">rl</label>.<a href="#line-2122" class="ident">SignatureAlgorithm</a>, <label for="r430" class="ident">rl</label>.<a href="#line-2106" class="ident">RawTBSRevocationList</a>, <label for="r430" class="ident">rl</label>.<a href="#line-2118" class="ident">Signature</a>)</code></span>
-<span class="codeline" id="line-2282"><code>}</code></span>
+<span class="codeline" id="line-2177"><code></code></span>
+<span class="codeline" id="line-2178"><code>	<label for="r413" class="ident">hashFunc</label>, <label for="r414" class="ident">signatureAlgorithm</label>, <label for="r415" class="ident">err</label> := <a href="#line-1346" class="ident">signingParamsForPublicKey</a>(<label for="r412" class="ident">priv</label>.<a href="../crypto.go.html#line-183" class="ident">Public</a>(), <label for="r410" class="ident">template</label>.<a href="#line-2116" class="ident">SignatureAlgorithm</a>)</code></span>
+<span class="codeline" id="line-2179"><code>	<span class="keyword">if</span> <label for="r415" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-2180"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r415" class="ident">err</label></code></span>
+<span class="codeline" id="line-2181"><code>	}</code></span>
+<span class="codeline" id="line-2182"><code></code></span>
+<span class="codeline" id="line-2183"><code>	<span class="comment">// Force revocation times to UTC per RFC 5280.</span></code></span>
+<span class="codeline" id="line-2184"><code>	<label for="r416" class="ident">revokedCertsUTC</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-316" class="ident">RevokedCertificate</a>, <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r410" class="ident">template</label>.<a href="#line-2121" class="ident">RevokedCertificates</a>))</code></span>
+<span class="codeline" id="line-2185"><code>	<span class="keyword">for</span> <label for="r417" class="ident">i</label>, <label for="r418" class="ident">rc</label> := <span class="keyword">range</span> <label for="r410" class="ident">template</label>.<a href="#line-2121" class="ident">RevokedCertificates</a> {</code></span>
+<span class="codeline" id="line-2186"><code>		<label for="r418" class="ident">rc</label>.<a href="pkix/pkix.go.html#line-318" class="ident">RevocationTime</a> = <label for="r418" class="ident">rc</label>.<a href="pkix/pkix.go.html#line-318" class="ident">RevocationTime</a>.<a href="../../time/time.go.html#line-1104" class="ident">UTC</a>()</code></span>
+<span class="codeline" id="line-2187"><code>		<label for="r416" class="ident">revokedCertsUTC</label>[<label for="r417" class="ident">i</label>] = <label for="r418" class="ident">rc</label></code></span>
+<span class="codeline" id="line-2188"><code>	}</code></span>
+<span class="codeline" id="line-2189"><code></code></span>
+<span class="codeline" id="line-2190"><code>	<label for="r419" class="ident">aki</label>, <label for="r415" class="ident">err</label> := <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/marshal.go.html#line-733" class="ident">Marshal</a>(<a href="#line-179" class="ident">authKeyId</a>{<a href="#line-180" class="ident">Id</a>: <label for="r411" class="ident">issuer</label>.<a href="#line-695" class="ident">SubjectKeyId</a>})</code></span>
+<span class="codeline" id="line-2191"><code>	<span class="keyword">if</span> <label for="r415" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-2192"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r415" class="ident">err</label></code></span>
+<span class="codeline" id="line-2193"><code>	}</code></span>
+<span class="codeline" id="line-2194"><code></code></span>
+<span class="codeline" id="line-2195"><code>	<span class="keyword">if</span> <label for="r420" class="ident">numBytes</label> := <label for="r410" class="ident">template</label>.<a href="#line-2127" class="ident">Number</a>.<a href="../../math/big/int.go.html#line-446" class="ident">Bytes</a>(); <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r420" class="ident">numBytes</label>) &gt; <span class="lit-number">20</span> || (<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r420" class="ident">numBytes</label>) == <span class="lit-number">20</span> &amp;&amp; <label for="r420" class="ident">numBytes</label>[<span class="lit-number">0</span>]&amp;<span class="lit-number">0x80</span> != <span class="lit-number">0</span>) {</code></span>
+<span class="codeline" id="line-2196"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i10">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"x509: CRL number exceeds 20 octets"</span>)</code></span>
+<span class="codeline" id="line-2197"><code>	}</code></span>
+<span class="codeline" id="line-2198"><code>	<label for="r421" class="ident">crlNum</label>, <label for="r415" class="ident">err</label> := <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/marshal.go.html#line-733" class="ident">Marshal</a>(<label for="r410" class="ident">template</label>.<a href="#line-2127" class="ident">Number</a>)</code></span>
+<span class="codeline" id="line-2199"><code>	<span class="keyword">if</span> <label for="r415" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-2200"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r415" class="ident">err</label></code></span>
+<span class="codeline" id="line-2201"><code>	}</code></span>
+<span class="codeline" id="line-2202"><code></code></span>
+<span class="codeline" id="line-2203"><code>	<label for="r422" class="ident">tbsCertList</label> := <a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-303" class="ident">TBSCertificateList</a>{</code></span>
+<span class="codeline" id="line-2204"><code>		<a href="pkix/pkix.go.html#line-305" class="ident">Version</a>:    <span class="lit-number">1</span>, <span class="comment">// v2</span></code></span>
+<span class="codeline" id="line-2205"><code>		<a href="pkix/pkix.go.html#line-306" class="ident">Signature</a>:  <label for="r414" class="ident">signatureAlgorithm</label>,</code></span>
+<span class="codeline" id="line-2206"><code>		<a href="pkix/pkix.go.html#line-307" class="ident">Issuer</a>:     <label for="r411" class="ident">issuer</label>.<a href="#line-642" class="ident">Subject</a>.<a href="pkix/pkix.go.html#line-226" class="ident">ToRDNSequence</a>(),</code></span>
+<span class="codeline" id="line-2207"><code>		<a href="pkix/pkix.go.html#line-308" class="ident">ThisUpdate</a>: <label for="r410" class="ident">template</label>.<a href="#line-2131" class="ident">ThisUpdate</a>.<a href="../../time/time.go.html#line-1104" class="ident">UTC</a>(),</code></span>
+<span class="codeline" id="line-2208"><code>		<a href="pkix/pkix.go.html#line-309" class="ident">NextUpdate</a>: <label for="r410" class="ident">template</label>.<a href="#line-2135" class="ident">NextUpdate</a>.<a href="../../time/time.go.html#line-1104" class="ident">UTC</a>(),</code></span>
+<span class="codeline" id="line-2209"><code>		<a href="pkix/pkix.go.html#line-311" class="ident">Extensions</a>: []<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-113" class="ident">Extension</a>{</code></span>
+<span class="codeline" id="line-2210"><code>			{</code></span>
+<span class="codeline" id="line-2211"><code>				<a href="pkix/pkix.go.html#line-114" class="ident">Id</a>:    <a href="#line-962" class="ident">oidExtensionAuthorityKeyId</a>,</code></span>
+<span class="codeline" id="line-2212"><code>				<a href="pkix/pkix.go.html#line-116" class="ident">Value</a>: <label for="r419" class="ident">aki</label>,</code></span>
+<span class="codeline" id="line-2213"><code>			},</code></span>
+<span class="codeline" id="line-2214"><code>			{</code></span>
+<span class="codeline" id="line-2215"><code>				<a href="pkix/pkix.go.html#line-114" class="ident">Id</a>:    <a href="#line-969" class="ident">oidExtensionCRLNumber</a>,</code></span>
+<span class="codeline" id="line-2216"><code>				<a href="pkix/pkix.go.html#line-116" class="ident">Value</a>: <label for="r421" class="ident">crlNum</label>,</code></span>
+<span class="codeline" id="line-2217"><code>			},</code></span>
+<span class="codeline" id="line-2218"><code>		},</code></span>
+<span class="codeline" id="line-2219"><code>	}</code></span>
+<span class="codeline" id="line-2220"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r416" class="ident">revokedCertsUTC</label>) &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-2221"><code>		<label for="r422" class="ident">tbsCertList</label>.<a href="pkix/pkix.go.html#line-310" class="ident">RevokedCertificates</a> = <label for="r416" class="ident">revokedCertsUTC</label></code></span>
+<span class="codeline" id="line-2222"><code>	}</code></span>
+<span class="codeline" id="line-2223"><code></code></span>
+<span class="codeline" id="line-2224"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r410" class="ident">template</label>.<a href="#line-2143" class="ident">ExtraExtensions</a>) &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-2225"><code>		<label for="r422" class="ident">tbsCertList</label>.<a href="pkix/pkix.go.html#line-311" class="ident">Extensions</a> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r422" class="ident">tbsCertList</label>.<a href="pkix/pkix.go.html#line-311" class="ident">Extensions</a>, <label for="r410" class="ident">template</label>.<a href="#line-2143" class="ident">ExtraExtensions</a>...)</code></span>
+<span class="codeline" id="line-2226"><code>	}</code></span>
+<span class="codeline" id="line-2227"><code></code></span>
+<span class="codeline" id="line-2228"><code>	<label for="r423" class="ident">tbsCertListContents</label>, <label for="r415" class="ident">err</label> := <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/marshal.go.html#line-733" class="ident">Marshal</a>(<label for="r422" class="ident">tbsCertList</label>)</code></span>
+<span class="codeline" id="line-2229"><code>	<span class="keyword">if</span> <label for="r415" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-2230"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r415" class="ident">err</label></code></span>
+<span class="codeline" id="line-2231"><code>	}</code></span>
+<span class="codeline" id="line-2232"><code></code></span>
+<span class="codeline" id="line-2233"><code>	<label for="r424" class="ident">input</label> := <label for="r423" class="ident">tbsCertListContents</label></code></span>
+<span class="codeline" id="line-2234"><code>	<span class="keyword">if</span> <label for="r413" class="ident">hashFunc</label> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-2235"><code>		<label for="r425" class="ident">h</label> := <label for="r413" class="ident">hashFunc</label>.<a href="../crypto.go.html#line-127" class="ident">New</a>()</code></span>
+<span class="codeline" id="line-2236"><code>		<label for="r425" class="ident">h</label>.<a href="../../io/io.go.html#line-97" class="ident">Write</a>(<label for="r423" class="ident">tbsCertListContents</label>)</code></span>
+<span class="codeline" id="line-2237"><code>		<label for="r424" class="ident">input</label> = <label for="r425" class="ident">h</label>.<a href="../../hash/hash.go.html#line-33" class="ident">Sum</a>(<a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-2238"><code>	}</code></span>
+<span class="codeline" id="line-2239"><code>	<span class="keyword">var</span> <label for="r426" class="ident">signerOpts</label> <a href="../../../pkg/crypto.html" class="ident i1">crypto</a>.<a href="../crypto.go.html#line-202" class="ident">SignerOpts</a> = <label for="r413" class="ident">hashFunc</label></code></span>
+<span class="codeline" id="line-2240"><code>	<span class="keyword">if</span> <label for="r410" class="ident">template</label>.<a href="#line-2116" class="ident">SignatureAlgorithm</a>.<a href="#line-206" class="ident">isRSAPSS</a>() {</code></span>
+<span class="codeline" id="line-2241"><code>		<label for="r426" class="ident">signerOpts</label> = &amp;<a href="../../../pkg/crypto/rsa.html" class="ident i5">rsa</a>.<a href="../rsa/pss.go.html#line-251" class="ident">PSSOptions</a>{</code></span>
+<span class="codeline" id="line-2242"><code>			<a href="../rsa/pss.go.html#line-255" class="ident">SaltLength</a>: <a href="../../../pkg/crypto/rsa.html" class="ident i5">rsa</a>.<a href="../rsa/pss.go.html#line-247" class="ident">PSSSaltLengthEqualsHash</a>,</code></span>
+<span class="codeline" id="line-2243"><code>			<a href="../rsa/pss.go.html#line-260" class="ident">Hash</a>:       <label for="r413" class="ident">hashFunc</label>,</code></span>
+<span class="codeline" id="line-2244"><code>		}</code></span>
+<span class="codeline" id="line-2245"><code>	}</code></span>
+<span class="codeline" id="line-2246"><code></code></span>
+<span class="codeline" id="line-2247"><code>	<label for="r427" class="ident">signature</label>, <label for="r415" class="ident">err</label> := <label for="r412" class="ident">priv</label>.<a href="../crypto.go.html#line-198" class="ident">Sign</a>(<label for="r409" class="ident">rand</label>, <label for="r424" class="ident">input</label>, <label for="r426" class="ident">signerOpts</label>)</code></span>
+<span class="codeline" id="line-2248"><code>	<span class="keyword">if</span> <label for="r415" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-2249"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r415" class="ident">err</label></code></span>
+<span class="codeline" id="line-2250"><code>	}</code></span>
+<span class="codeline" id="line-2251"><code></code></span>
+<span class="codeline" id="line-2252"><code>	<span class="keyword">return</span> <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/marshal.go.html#line-733" class="ident">Marshal</a>(<a href="../../../pkg/crypto/x509/pkix.html" class="ident i7">pkix</a>.<a href="pkix/pkix.go.html#line-288" class="ident">CertificateList</a>{</code></span>
+<span class="codeline" id="line-2253"><code>		<a href="pkix/pkix.go.html#line-289" class="ident">TBSCertList</a>:        <label for="r422" class="ident">tbsCertList</label>,</code></span>
+<span class="codeline" id="line-2254"><code>		<a href="pkix/pkix.go.html#line-290" class="ident">SignatureAlgorithm</a>: <label for="r414" class="ident">signatureAlgorithm</label>,</code></span>
+<span class="codeline" id="line-2255"><code>		<a href="pkix/pkix.go.html#line-291" class="ident">SignatureValue</a>:     <a href="../../../pkg/encoding/asn1.html" class="ident i8">asn1</a>.<a href="../../encoding/asn1/asn1.go.html#line-159" class="ident">BitString</a>{<a href="../../encoding/asn1/asn1.go.html#line-160" class="ident">Bytes</a>: <label for="r427" class="ident">signature</label>, <a href="../../encoding/asn1/asn1.go.html#line-161" class="ident">BitLength</a>: <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r427" class="ident">signature</label>) * <span class="lit-number">8</span>},</code></span>
+<span class="codeline" id="line-2256"><code>	})</code></span>
+<span class="codeline" id="line-2257"><code>}</code></span>
+<span class="codeline" id="line-2258"><code></code></span>
+<span class="codeline" id="line-2259"><code><span class="comment">// CheckSignatureFrom verifies that the signature on rl is a valid signature</span></code></span>
+<span class="codeline" id="line-2260"><code><span class="comment">// from issuer.</span></code></span>
+<span class="codeline" id="line-2261"><code><span class="keyword">func</span> (<label for="r428" class="ident">rl</label> *<a href="#line-2094" class="ident">RevocationList</a>) <label for="r429" class="ident"><a href="../../../use/crypto/x509..RevocationList.CheckSignatureFrom.html" class="ident">CheckSignatureFrom</a></label>(<label for="r430" class="ident">parent</label> *<a href="#line-626" class="ident">Certificate</a>) <a href="../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-2262"><code>	<span class="keyword">if</span> <label for="r430" class="ident">parent</label>.<a href="#line-639" class="ident">Version</a> == <span class="lit-number">3</span> &amp;&amp; !<label for="r430" class="ident">parent</label>.<a href="#line-673" class="ident">BasicConstraintsValid</a> ||</code></span>
+<span class="codeline" id="line-2263"><code>		<label for="r430" class="ident">parent</label>.<a href="#line-673" class="ident">BasicConstraintsValid</a> &amp;&amp; !<label for="r430" class="ident">parent</label>.<a href="#line-674" class="ident">IsCA</a> {</code></span>
+<span class="codeline" id="line-2264"><code>		<span class="keyword">return</span> <a href="#line-750" class="ident">ConstraintViolationError</a>{}</code></span>
+<span class="codeline" id="line-2265"><code>	}</code></span>
+<span class="codeline" id="line-2266"><code></code></span>
+<span class="codeline" id="line-2267"><code>	<span class="keyword">if</span> <label for="r430" class="ident">parent</label>.<a href="#line-644" class="ident">KeyUsage</a> != <span class="lit-number">0</span> &amp;&amp; <label for="r430" class="ident">parent</label>.<a href="#line-644" class="ident">KeyUsage</a>&amp;<a href="#line-531" class="ident">KeyUsageCRLSign</a> == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-2268"><code>		<span class="keyword">return</span> <a href="#line-750" class="ident">ConstraintViolationError</a>{}</code></span>
+<span class="codeline" id="line-2269"><code>	}</code></span>
+<span class="codeline" id="line-2270"><code></code></span>
+<span class="codeline" id="line-2271"><code>	<span class="keyword">if</span> <label for="r430" class="ident">parent</label>.<a href="#line-636" class="ident">PublicKeyAlgorithm</a> == <a href="#line-227" class="ident">UnknownPublicKeyAlgorithm</a> {</code></span>
+<span class="codeline" id="line-2272"><code>		<span class="keyword">return</span> <a href="#line-729" class="ident">ErrUnsupportedAlgorithm</a></code></span>
+<span class="codeline" id="line-2273"><code>	}</code></span>
+<span class="codeline" id="line-2274"><code></code></span>
+<span class="codeline" id="line-2275"><code>	<span class="keyword">return</span> <label for="r430" class="ident">parent</label>.<a href="#line-795" class="ident">CheckSignature</a>(<label for="r428" class="ident">rl</label>.<a href="#line-2116" class="ident">SignatureAlgorithm</a>, <label for="r428" class="ident">rl</label>.<a href="#line-2100" class="ident">RawTBSRevocationList</a>, <label for="r428" class="ident">rl</label>.<a href="#line-2112" class="ident">Signature</a>)</code></span>
+<span class="codeline" id="line-2276"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../png/go101-twitter.png"></td>
-<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.6</i>. (GOOS=linux GOARCH=amd64)
+<td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.7</i>. (GOOS=linux GOARCH=amd64)
 <b>Golds</b> is a <a href="https://go101.org">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
 PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
 Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>
