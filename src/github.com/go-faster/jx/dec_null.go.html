@@ -21,7 +21,8 @@ input[id=r1]:checked ~pre label[for=r1],
 input[id=r2]:checked ~pre label[for=r2],
 input[id=r3]:checked ~pre label[for=r3],
 input[id=r4]:checked ~pre label[for=r4],
-input[id=r5]:checked ~pre label[for=r5]
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6]
 {background: #226; color: #ff8;}
 {background: brown; color: #eed;}
 </style><input id="r0" type="radio" name="g"/>
@@ -30,6 +31,7 @@ input[id=r5]:checked ~pre label[for=r5]
 <input id="r3" type="radio" name="g"/>
 <input id="r4" type="radio" name="g"/>
 <input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
 
 <pre class="line-numbers">
 <span class="codeline" id="line-1"><code><span class="keyword">package</span> jx</code></span>
@@ -41,17 +43,20 @@ input[id=r5]:checked ~pre label[for=r5]
 <span class="codeline" id="line-7"><code>		<span class="keyword">return</span> <label for="r2" class="ident">err</label></code></span>
 <span class="codeline" id="line-8"><code>	}</code></span>
 <span class="codeline" id="line-9"><code></code></span>
-<span class="codeline" id="line-10"><code>	<span class="keyword">var</span> <label for="r3" class="ident">buf</label> [<span class="lit-number">4</span>]<a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
-<span class="codeline" id="line-11"><code>	<span class="keyword">if</span> <label for="r4" class="ident">err</label> := <label for="r0" class="ident">d</label>.<a href="dec_read.go.html#line-135" class="ident">readExact4</a>(&amp;<label for="r3" class="ident">buf</label>); <label for="r4" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-12"><code>		<span class="keyword">return</span> <label for="r4" class="ident">err</label></code></span>
-<span class="codeline" id="line-13"><code>	}</code></span>
-<span class="codeline" id="line-14"><code></code></span>
-<span class="codeline" id="line-15"><code>	<span class="keyword">if</span> <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>(<label for="r3" class="ident">buf</label>[:]) != <span class="lit-string">"null"</span> {</code></span>
-<span class="codeline" id="line-16"><code>		<span class="keyword">const</span> <label for="r5" class="ident">encodedNull</label> = <span class="lit-number">'n'</span> | <span class="lit-number">'u'</span>&lt;&lt;<span class="lit-number">8</span> | <span class="lit-number">'l'</span>&lt;&lt;<span class="lit-number">16</span> | <span class="lit-number">'l'</span>&lt;&lt;<span class="lit-number">24</span></code></span>
-<span class="codeline" id="line-17"><code>		<span class="keyword">return</span> <a href="dec_read.go.html#line-149" class="ident">findInvalidToken4</a>(<label for="r3" class="ident">buf</label>, <label for="r5" class="ident">encodedNull</label>)</code></span>
-<span class="codeline" id="line-18"><code>	}</code></span>
-<span class="codeline" id="line-19"><code>	<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-20"><code>}</code></span>
+<span class="codeline" id="line-10"><code>	<span class="keyword">var</span> (</code></span>
+<span class="codeline" id="line-11"><code>		<label for="r3" class="ident">offset</label> = <label for="r0" class="ident">d</label>.<a href="dec.go.html#line-118" class="ident">offset</a>()</code></span>
+<span class="codeline" id="line-12"><code>		<label for="r4" class="ident">buf</label>    [<span class="lit-number">4</span>]<a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-13"><code>	)</code></span>
+<span class="codeline" id="line-14"><code>	<span class="keyword">if</span> <label for="r5" class="ident">err</label> := <label for="r0" class="ident">d</label>.<a href="dec_read.go.html#line-148" class="ident">readExact4</a>(&amp;<label for="r4" class="ident">buf</label>); <label for="r5" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-15"><code>		<span class="keyword">return</span> <label for="r5" class="ident">err</label></code></span>
+<span class="codeline" id="line-16"><code>	}</code></span>
+<span class="codeline" id="line-17"><code></code></span>
+<span class="codeline" id="line-18"><code>	<span class="keyword">if</span> <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>(<label for="r4" class="ident">buf</label>[:]) != <span class="lit-string">"null"</span> {</code></span>
+<span class="codeline" id="line-19"><code>		<span class="keyword">const</span> <label for="r6" class="ident">encodedNull</label> = <span class="lit-number">'n'</span> | <span class="lit-number">'u'</span>&lt;&lt;<span class="lit-number">8</span> | <span class="lit-number">'l'</span>&lt;&lt;<span class="lit-number">16</span> | <span class="lit-number">'l'</span>&lt;&lt;<span class="lit-number">24</span></code></span>
+<span class="codeline" id="line-20"><code>		<span class="keyword">return</span> <a href="dec_read.go.html#line-162" class="ident">findInvalidToken4</a>(<label for="r4" class="ident">buf</label>, <label for="r6" class="ident">encodedNull</label>, <label for="r3" class="ident">offset</label>)</code></span>
+<span class="codeline" id="line-21"><code>	}</code></span>
+<span class="codeline" id="line-22"><code>	<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-23"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.7</i>. (GOOS=linux GOARCH=amd64)

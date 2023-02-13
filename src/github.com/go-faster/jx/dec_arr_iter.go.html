@@ -28,7 +28,8 @@ input[id=r8]:checked ~pre label[for=r8],
 input[id=r9]:checked ~pre label[for=r9],
 input[id=r10]:checked ~pre label[for=r10],
 input[id=r11]:checked ~pre label[for=r11],
-input[id=r12]:checked ~pre label[for=r12]
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13]
 {background: #226; color: #ff8;}
 input[id=i0]:checked ~pre .i0
 {background: brown; color: #eed;}
@@ -45,6 +46,7 @@ input[id=i0]:checked ~pre .i0
 <input id="r10" type="radio" name="g"/>
 <input id="r11" type="radio" name="g"/>
 <input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
 <input id="i0" type="radio" name="i"/>
 
 <pre class="line-numbers">
@@ -65,15 +67,15 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-15"><code><span class="comment">// ArrIter creates new array iterator.</span></code></span>
 <span class="codeline" id="line-16"><code><span class="keyword">func</span> (<label for="r0" class="ident">d</label> *<a href="dec.go.html#line-77" class="ident">Decoder</a>) <label for="r1" class="ident"><a href="../../../../use/github.com/go-faster/jx..Decoder.ArrIter.html" class="ident">ArrIter</a></label>() (<a href="#line-8" class="ident">ArrIter</a>, <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
 <span class="codeline" id="line-17"><code>	<span class="keyword">if</span> <label for="r2" class="ident">err</label> := <label for="r0" class="ident">d</label>.<a href="dec_read.go.html#line-21" class="ident">consume</a>(<span class="lit-number">'['</span>); <label for="r2" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-18"><code>		<span class="keyword">return</span> <a href="#line-8" class="ident">ArrIter</a>{}, <a href="../../../../pkg/github.com/go-faster/errors.html" class="ident i0">errors</a>.<a href="../errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r2" class="ident">err</label>, <span class="lit-string">"start"</span>)</code></span>
+<span class="codeline" id="line-18"><code>		<span class="keyword">return</span> <a href="#line-8" class="ident">ArrIter</a>{}, <a href="../../../../pkg/github.com/go-faster/errors.html" class="ident i0">errors</a>.<a href="../errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r2" class="ident">err</label>, <span class="lit-string">`"[" expected`</span>)</code></span>
 <span class="codeline" id="line-19"><code>	}</code></span>
 <span class="codeline" id="line-20"><code>	<span class="keyword">if</span> <label for="r3" class="ident">err</label> := <label for="r0" class="ident">d</label>.<a href="dec_depth.go.html#line-10" class="ident">incDepth</a>(); <label for="r3" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-21"><code>		<span class="keyword">return</span> <a href="#line-8" class="ident">ArrIter</a>{}, <a href="../../../../pkg/github.com/go-faster/errors.html" class="ident i0">errors</a>.<a href="../errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r3" class="ident">err</label>, <span class="lit-string">"inc"</span>)</code></span>
+<span class="codeline" id="line-21"><code>		<span class="keyword">return</span> <a href="#line-8" class="ident">ArrIter</a>{}, <label for="r3" class="ident">err</label></code></span>
 <span class="codeline" id="line-22"><code>	}</code></span>
 <span class="codeline" id="line-23"><code>	<span class="keyword">if</span> <label for="r4" class="ident">_</label>, <label for="r5" class="ident">err</label> := <label for="r0" class="ident">d</label>.<a href="dec_read.go.html#line-46" class="ident">more</a>(); <label for="r5" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-24"><code>		<span class="keyword">return</span> <a href="#line-8" class="ident">ArrIter</a>{}, <label for="r5" class="ident">err</label></code></span>
 <span class="codeline" id="line-25"><code>	}</code></span>
-<span class="codeline" id="line-26"><code>	<label for="r0" class="ident">d</label>.<a href="dec_read.go.html#line-133" class="ident">unread</a>()</code></span>
+<span class="codeline" id="line-26"><code>	<label for="r0" class="ident">d</label>.<a href="dec_read.go.html#line-146" class="ident">unread</a>()</code></span>
 <span class="codeline" id="line-27"><code>	<span class="keyword">return</span> <a href="#line-8" class="ident">ArrIter</a>{<a href="#line-9" class="ident">d</a>: <label for="r0" class="ident">d</label>}, <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-28"><code>}</code></span>
 <span class="codeline" id="line-29"><code></code></span>
@@ -96,20 +98,21 @@ input[id=i0]:checked ~pre .i0
 <span class="codeline" id="line-46"><code>	}</code></span>
 <span class="codeline" id="line-47"><code>	<span class="keyword">if</span> <label for="r6" class="ident">i</label>.<a href="#line-12" class="ident">comma</a> {</code></span>
 <span class="codeline" id="line-48"><code>		<span class="keyword">if</span> <label for="r9" class="ident">c</label> != <span class="lit-number">','</span> {</code></span>
-<span class="codeline" id="line-49"><code>			<label for="r6" class="ident">i</label>.<a href="#line-10" class="ident">err</a> = <a href="dec_str.go.html#line-46" class="ident">badToken</a>(<label for="r9" class="ident">c</label>)</code></span>
-<span class="codeline" id="line-50"><code>			<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
-<span class="codeline" id="line-51"><code>		}</code></span>
-<span class="codeline" id="line-52"><code>	} <span class="keyword">else</span> {</code></span>
-<span class="codeline" id="line-53"><code>		<label for="r8" class="ident">dec</label>.<a href="dec_read.go.html#line-133" class="ident">unread</a>()</code></span>
-<span class="codeline" id="line-54"><code>	}</code></span>
-<span class="codeline" id="line-55"><code>	<label for="r6" class="ident">i</label>.<a href="#line-12" class="ident">comma</a> = <a href="../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-56"><code>	<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-57"><code>}</code></span>
-<span class="codeline" id="line-58"><code></code></span>
-<span class="codeline" id="line-59"><code><span class="comment">// Err returns the error, if any, that was encountered during iteration.</span></code></span>
-<span class="codeline" id="line-60"><code><span class="keyword">func</span> (<label for="r11" class="ident">i</label> *<a href="#line-8" class="ident">ArrIter</a>) <label for="r12" class="ident"><a href="../../../../use/github.com/go-faster/jx..ArrIter.Err.html" class="ident">Err</a></label>() <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-61"><code>	<span class="keyword">return</span> <label for="r11" class="ident">i</label>.<a href="#line-10" class="ident">err</a></code></span>
-<span class="codeline" id="line-62"><code>}</code></span>
+<span class="codeline" id="line-49"><code>			<label for="r11" class="ident">err</label> := <a href="dec_error.go.html#line-15" class="ident">badToken</a>(<label for="r9" class="ident">c</label>, <label for="r8" class="ident">dec</label>.<a href="dec.go.html#line-118" class="ident">offset</a>()-<span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-50"><code>			<label for="r6" class="ident">i</label>.<a href="#line-10" class="ident">err</a> = <a href="../../../../pkg/github.com/go-faster/errors.html" class="ident i0">errors</a>.<a href="../errors/wrap.go.html#line-81" class="ident">Wrap</a>(<label for="r11" class="ident">err</label>, <span class="lit-string">`"," expected`</span>)</code></span>
+<span class="codeline" id="line-51"><code>			<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-52"><code>		}</code></span>
+<span class="codeline" id="line-53"><code>	} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-54"><code>		<label for="r8" class="ident">dec</label>.<a href="dec_read.go.html#line-146" class="ident">unread</a>()</code></span>
+<span class="codeline" id="line-55"><code>	}</code></span>
+<span class="codeline" id="line-56"><code>	<label for="r6" class="ident">i</label>.<a href="#line-12" class="ident">comma</a> = <a href="../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-57"><code>	<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-58"><code>}</code></span>
+<span class="codeline" id="line-59"><code></code></span>
+<span class="codeline" id="line-60"><code><span class="comment">// Err returns the error, if any, that was encountered during iteration.</span></code></span>
+<span class="codeline" id="line-61"><code><span class="keyword">func</span> (<label for="r12" class="ident">i</label> *<a href="#line-8" class="ident">ArrIter</a>) <label for="r13" class="ident"><a href="../../../../use/github.com/go-faster/jx..ArrIter.Err.html" class="ident">Err</a></label>() <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-62"><code>	<span class="keyword">return</span> <label for="r12" class="ident">i</label>.<a href="#line-10" class="ident">err</a></code></span>
+<span class="codeline" id="line-63"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.7</i>. (GOOS=linux GOARCH=amd64)

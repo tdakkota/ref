@@ -63,7 +63,12 @@ input[id=r43]:checked ~pre label[for=r43],
 input[id=r44]:checked ~pre label[for=r44],
 input[id=r45]:checked ~pre label[for=r45],
 input[id=r46]:checked ~pre label[for=r46],
-input[id=r47]:checked ~pre label[for=r47]
+input[id=r47]:checked ~pre label[for=r47],
+input[id=r48]:checked ~pre label[for=r48],
+input[id=r49]:checked ~pre label[for=r49],
+input[id=r50]:checked ~pre label[for=r50],
+input[id=r51]:checked ~pre label[for=r51],
+input[id=r52]:checked ~pre label[for=r52]
 {background: #226; color: #ff8;}
 input[id=i0]:checked ~pre .i0,
 input[id=i1]:checked ~pre .i1
@@ -116,6 +121,11 @@ input[id=i1]:checked ~pre .i1
 <input id="r45" type="radio" name="g"/>
 <input id="r46" type="radio" name="g"/>
 <input id="r47" type="radio" name="g"/>
+<input id="r48" type="radio" name="g"/>
+<input id="r49" type="radio" name="g"/>
+<input id="r50" type="radio" name="g"/>
+<input id="r51" type="radio" name="g"/>
+<input id="r52" type="radio" name="g"/>
 <input id="i0" type="radio" name="i"/>
 <input id="i1" type="radio" name="i"/>
 
@@ -131,7 +141,7 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-9"><code><span class="keyword">func</span> (<label for="r0" class="ident">d</label> *<a href="dec.go.html#line-77" class="ident">Decoder</a>) <label for="r1" class="ident"><a href="../../../../use/github.com/go-faster/jx..Decoder.Next.html" class="ident">Next</a></label>() <a href="dec.go.html#line-8" class="ident">Type</a> {</code></span>
 <span class="codeline" id="line-10"><code>	<label for="r2" class="ident">v</label>, <label for="r3" class="ident">err</label> := <label for="r0" class="ident">d</label>.<a href="#line-55" class="ident">next</a>()</code></span>
 <span class="codeline" id="line-11"><code>	<span class="keyword">if</span> <label for="r3" class="ident">err</label> == <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-12"><code>		<label for="r0" class="ident">d</label>.<a href="#line-133" class="ident">unread</a>()</code></span>
+<span class="codeline" id="line-12"><code>		<label for="r0" class="ident">d</label>.<a href="#line-146" class="ident">unread</a>()</code></span>
 <span class="codeline" id="line-13"><code>	}</code></span>
 <span class="codeline" id="line-14"><code>	<span class="keyword">return</span> <a href="dec.go.html#line-48" class="ident">types</a>[<label for="r2" class="ident">v</label>]</code></span>
 <span class="codeline" id="line-15"><code>}</code></span>
@@ -146,16 +156,16 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-24"><code>		<span class="keyword">for</span> <label for="r9" class="ident">i</label>, <label for="r10" class="ident">got</label> := <span class="keyword">range</span> <label for="r8" class="ident">buf</label> {</code></span>
 <span class="codeline" id="line-25"><code>			<span class="keyword">switch</span> <a href="#line-17" class="ident">spaceSet</a>[<label for="r10" class="ident">got</label>] {</code></span>
 <span class="codeline" id="line-26"><code>			<span class="keyword">default</span>:</code></span>
-<span class="codeline" id="line-27"><code>				<label for="r4" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a> += <label for="r9" class="ident">i</label> + <span class="lit-number">1</span></code></span>
-<span class="codeline" id="line-28"><code>				<span class="keyword">if</span> <label for="r6" class="ident">c</label> != <label for="r10" class="ident">got</label> {</code></span>
-<span class="codeline" id="line-29"><code>					<span class="keyword">return</span> <a href="dec_str.go.html#line-46" class="ident">badToken</a>(<label for="r10" class="ident">got</label>)</code></span>
-<span class="codeline" id="line-30"><code>				}</code></span>
+<span class="codeline" id="line-27"><code>				<span class="keyword">if</span> <label for="r6" class="ident">c</label> != <label for="r10" class="ident">got</label> {</code></span>
+<span class="codeline" id="line-28"><code>					<span class="keyword">return</span> <a href="dec_error.go.html#line-15" class="ident">badToken</a>(<label for="r10" class="ident">got</label>, <label for="r4" class="ident">d</label>.<a href="dec.go.html#line-118" class="ident">offset</a>()+<label for="r9" class="ident">i</label>)</code></span>
+<span class="codeline" id="line-29"><code>				}</code></span>
+<span class="codeline" id="line-30"><code>				<label for="r4" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a> += <label for="r9" class="ident">i</label> + <span class="lit-number">1</span></code></span>
 <span class="codeline" id="line-31"><code>				<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-32"><code>			<span class="keyword">case</span> <span class="lit-number">1</span>:</code></span>
 <span class="codeline" id="line-33"><code>				<span class="keyword">continue</span></code></span>
 <span class="codeline" id="line-34"><code>			}</code></span>
 <span class="codeline" id="line-35"><code>		}</code></span>
-<span class="codeline" id="line-36"><code>		<span class="keyword">if</span> <label for="r7" class="ident">err</label> = <label for="r4" class="ident">d</label>.<a href="#line-88" class="ident">read</a>(); <label for="r7" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-36"><code>		<span class="keyword">if</span> <label for="r7" class="ident">err</label> = <label for="r4" class="ident">d</label>.<a href="#line-99" class="ident">read</a>(); <label for="r7" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-37"><code>			<span class="keyword">if</span> <label for="r7" class="ident">err</label> == <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-44" class="ident">EOF</a> {</code></span>
 <span class="codeline" id="line-38"><code>				<span class="keyword">return</span> <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-48" class="ident">ErrUnexpectedEOF</a></code></span>
 <span class="codeline" id="line-39"><code>			}</code></span>
@@ -186,93 +196,106 @@ input[id=i1]:checked ~pre .i1
 <span class="codeline" id="line-64"><code>				<span class="keyword">continue</span></code></span>
 <span class="codeline" id="line-65"><code>			}</code></span>
 <span class="codeline" id="line-66"><code>		}</code></span>
-<span class="codeline" id="line-67"><code>		<span class="keyword">if</span> <label for="r20" class="ident">err</label> := <label for="r15" class="ident">d</label>.<a href="#line-88" class="ident">read</a>(); <label for="r20" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-67"><code>		<span class="keyword">if</span> <label for="r20" class="ident">err</label> := <label for="r15" class="ident">d</label>.<a href="#line-99" class="ident">read</a>(); <label for="r20" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-68"><code>			<span class="keyword">return</span> <span class="lit-number">0</span>, <label for="r20" class="ident">err</label></code></span>
 <span class="codeline" id="line-69"><code>		}</code></span>
 <span class="codeline" id="line-70"><code>	}</code></span>
 <span class="codeline" id="line-71"><code>}</code></span>
 <span class="codeline" id="line-72"><code></code></span>
-<span class="codeline" id="line-73"><code><span class="keyword">func</span> (<label for="r21" class="ident">d</label> *<a href="dec.go.html#line-77" class="ident">Decoder</a>) <label for="r22" class="ident"><a href="../../../../use/github.com/go-faster/jx..Decoder.byte^1c316.html" class="ident">byte</a></label>() (<a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-74"><code>	<span class="keyword">if</span> <label for="r21" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a> == <label for="r21" class="ident">d</label>.<a href="dec.go.html#line-86" class="ident">tail</a> {</code></span>
-<span class="codeline" id="line-75"><code>		<label for="r23" class="ident">err</label> := <label for="r21" class="ident">d</label>.<a href="#line-88" class="ident">read</a>()</code></span>
-<span class="codeline" id="line-76"><code>		<span class="keyword">if</span> <label for="r23" class="ident">err</label> == <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-44" class="ident">EOF</a> {</code></span>
-<span class="codeline" id="line-77"><code>			<label for="r23" class="ident">err</label> = <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-48" class="ident">ErrUnexpectedEOF</a></code></span>
+<span class="codeline" id="line-73"><code><span class="comment">// peek returns next byte without advancing.</span></code></span>
+<span class="codeline" id="line-74"><code><span class="keyword">func</span> (<label for="r21" class="ident">d</label> *<a href="dec.go.html#line-77" class="ident">Decoder</a>) <label for="r22" class="ident"><a href="../../../../use/github.com/go-faster/jx..Decoder.peek^1ce89.html" class="ident">peek</a></label>() (<a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-75"><code>	<span class="keyword">if</span> <label for="r21" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a> == <label for="r21" class="ident">d</label>.<a href="dec.go.html#line-86" class="ident">tail</a> {</code></span>
+<span class="codeline" id="line-76"><code>		<span class="keyword">if</span> <label for="r23" class="ident">err</label> := <label for="r21" class="ident">d</label>.<a href="#line-99" class="ident">read</a>(); <label for="r23" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-77"><code>			<span class="keyword">return</span> <span class="lit-number">0</span>, <label for="r23" class="ident">err</label></code></span>
 <span class="codeline" id="line-78"><code>		}</code></span>
-<span class="codeline" id="line-79"><code>		<span class="keyword">if</span> <label for="r23" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-80"><code>			<span class="keyword">return</span> <span class="lit-number">0</span>, <label for="r23" class="ident">err</label></code></span>
-<span class="codeline" id="line-81"><code>		}</code></span>
-<span class="codeline" id="line-82"><code>	}</code></span>
-<span class="codeline" id="line-83"><code>	<label for="r24" class="ident">c</label> := <label for="r21" class="ident">d</label>.<a href="dec.go.html#line-84" class="ident">buf</a>[<label for="r21" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a>]</code></span>
-<span class="codeline" id="line-84"><code>	<label for="r21" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a>++</code></span>
-<span class="codeline" id="line-85"><code>	<span class="keyword">return</span> <label for="r24" class="ident">c</label>, <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-86"><code>}</code></span>
-<span class="codeline" id="line-87"><code></code></span>
-<span class="codeline" id="line-88"><code><span class="keyword">func</span> (<label for="r25" class="ident">d</label> *<a href="dec.go.html#line-77" class="ident">Decoder</a>) <label for="r26" class="ident"><a href="../../../../use/github.com/go-faster/jx..Decoder.read^33163.html" class="ident">read</a></label>() <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-89"><code>	<span class="keyword">if</span> <label for="r25" class="ident">d</label>.<a href="dec.go.html#line-78" class="ident">reader</a> == <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-90"><code>		<label for="r25" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a> = <label for="r25" class="ident">d</label>.<a href="dec.go.html#line-86" class="ident">tail</a></code></span>
-<span class="codeline" id="line-91"><code>		<span class="keyword">return</span> <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-44" class="ident">EOF</a></code></span>
-<span class="codeline" id="line-92"><code>	}</code></span>
-<span class="codeline" id="line-93"><code></code></span>
-<span class="codeline" id="line-94"><code>	<label for="r27" class="ident">n</label>, <label for="r28" class="ident">err</label> := <label for="r25" class="ident">d</label>.<a href="dec.go.html#line-78" class="ident">reader</a>.<a href="../../../io/io.go.html#line-84" class="ident">Read</a>(<label for="r25" class="ident">d</label>.<a href="dec.go.html#line-84" class="ident">buf</a>)</code></span>
-<span class="codeline" id="line-95"><code>	<span class="keyword">switch</span> <label for="r28" class="ident">err</label> {</code></span>
-<span class="codeline" id="line-96"><code>	<span class="keyword">case</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a>:</code></span>
-<span class="codeline" id="line-97"><code>	<span class="keyword">case</span> <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-44" class="ident">EOF</a>:</code></span>
-<span class="codeline" id="line-98"><code>		<span class="keyword">if</span> <label for="r27" class="ident">n</label> &gt; <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-99"><code>			<span class="keyword">break</span></code></span>
-<span class="codeline" id="line-100"><code>		}</code></span>
-<span class="codeline" id="line-101"><code>		<span class="keyword">fallthrough</span></code></span>
-<span class="codeline" id="line-102"><code>	<span class="keyword">default</span>:</code></span>
-<span class="codeline" id="line-103"><code>		<span class="keyword">return</span> <label for="r28" class="ident">err</label></code></span>
-<span class="codeline" id="line-104"><code>	}</code></span>
-<span class="codeline" id="line-105"><code></code></span>
-<span class="codeline" id="line-106"><code>	<label for="r25" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a> = <span class="lit-number">0</span></code></span>
-<span class="codeline" id="line-107"><code>	<label for="r25" class="ident">d</label>.<a href="dec.go.html#line-86" class="ident">tail</a> = <label for="r27" class="ident">n</label></code></span>
-<span class="codeline" id="line-108"><code>	<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-109"><code>}</code></span>
-<span class="codeline" id="line-110"><code></code></span>
-<span class="codeline" id="line-111"><code><span class="keyword">func</span> (<label for="r29" class="ident">d</label> *<a href="dec.go.html#line-77" class="ident">Decoder</a>) <label for="r30" class="ident"><a href="../../../../use/github.com/go-faster/jx..Decoder.readAtLeast^18b8f.html" class="ident">readAtLeast</a></label>(<label for="r31" class="ident">min</label> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-112"><code>	<span class="keyword">if</span> <label for="r29" class="ident">d</label>.<a href="dec.go.html#line-78" class="ident">reader</a> == <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-113"><code>		<label for="r29" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a> = <label for="r29" class="ident">d</label>.<a href="dec.go.html#line-86" class="ident">tail</a></code></span>
-<span class="codeline" id="line-114"><code>		<span class="keyword">return</span> <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-48" class="ident">ErrUnexpectedEOF</a></code></span>
+<span class="codeline" id="line-79"><code>	}</code></span>
+<span class="codeline" id="line-80"><code>	<label for="r24" class="ident">c</label> := <label for="r21" class="ident">d</label>.<a href="dec.go.html#line-84" class="ident">buf</a>[<label for="r21" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a>]</code></span>
+<span class="codeline" id="line-81"><code>	<span class="keyword">return</span> <label for="r24" class="ident">c</label>, <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-82"><code>}</code></span>
+<span class="codeline" id="line-83"><code></code></span>
+<span class="codeline" id="line-84"><code><span class="keyword">func</span> (<label for="r25" class="ident">d</label> *<a href="dec.go.html#line-77" class="ident">Decoder</a>) <label for="r26" class="ident"><a href="../../../../use/github.com/go-faster/jx..Decoder.byte^1c316.html" class="ident">byte</a></label>() (<a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-85"><code>	<span class="keyword">if</span> <label for="r25" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a> == <label for="r25" class="ident">d</label>.<a href="dec.go.html#line-86" class="ident">tail</a> {</code></span>
+<span class="codeline" id="line-86"><code>		<label for="r27" class="ident">err</label> := <label for="r25" class="ident">d</label>.<a href="#line-99" class="ident">read</a>()</code></span>
+<span class="codeline" id="line-87"><code>		<span class="keyword">if</span> <label for="r27" class="ident">err</label> == <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-44" class="ident">EOF</a> {</code></span>
+<span class="codeline" id="line-88"><code>			<label for="r27" class="ident">err</label> = <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-48" class="ident">ErrUnexpectedEOF</a></code></span>
+<span class="codeline" id="line-89"><code>		}</code></span>
+<span class="codeline" id="line-90"><code>		<span class="keyword">if</span> <label for="r27" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-91"><code>			<span class="keyword">return</span> <span class="lit-number">0</span>, <label for="r27" class="ident">err</label></code></span>
+<span class="codeline" id="line-92"><code>		}</code></span>
+<span class="codeline" id="line-93"><code>	}</code></span>
+<span class="codeline" id="line-94"><code>	<label for="r28" class="ident">c</label> := <label for="r25" class="ident">d</label>.<a href="dec.go.html#line-84" class="ident">buf</a>[<label for="r25" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a>]</code></span>
+<span class="codeline" id="line-95"><code>	<label for="r25" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a>++</code></span>
+<span class="codeline" id="line-96"><code>	<span class="keyword">return</span> <label for="r28" class="ident">c</label>, <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-97"><code>}</code></span>
+<span class="codeline" id="line-98"><code></code></span>
+<span class="codeline" id="line-99"><code><span class="keyword">func</span> (<label for="r29" class="ident">d</label> *<a href="dec.go.html#line-77" class="ident">Decoder</a>) <label for="r30" class="ident"><a href="../../../../use/github.com/go-faster/jx..Decoder.read^33163.html" class="ident">read</a></label>() <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-100"><code>	<span class="keyword">if</span> <label for="r29" class="ident">d</label>.<a href="dec.go.html#line-78" class="ident">reader</a> == <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-101"><code>		<label for="r29" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a> = <label for="r29" class="ident">d</label>.<a href="dec.go.html#line-86" class="ident">tail</a></code></span>
+<span class="codeline" id="line-102"><code>		<span class="keyword">return</span> <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-44" class="ident">EOF</a></code></span>
+<span class="codeline" id="line-103"><code>	}</code></span>
+<span class="codeline" id="line-104"><code></code></span>
+<span class="codeline" id="line-105"><code>	<label for="r31" class="ident">n</label>, <label for="r32" class="ident">err</label> := <label for="r29" class="ident">d</label>.<a href="dec.go.html#line-78" class="ident">reader</a>.<a href="../../../io/io.go.html#line-84" class="ident">Read</a>(<label for="r29" class="ident">d</label>.<a href="dec.go.html#line-84" class="ident">buf</a>)</code></span>
+<span class="codeline" id="line-106"><code>	<span class="keyword">switch</span> <label for="r32" class="ident">err</label> {</code></span>
+<span class="codeline" id="line-107"><code>	<span class="keyword">case</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a>:</code></span>
+<span class="codeline" id="line-108"><code>	<span class="keyword">case</span> <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-44" class="ident">EOF</a>:</code></span>
+<span class="codeline" id="line-109"><code>		<span class="keyword">if</span> <label for="r31" class="ident">n</label> &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-110"><code>			<span class="keyword">break</span></code></span>
+<span class="codeline" id="line-111"><code>		}</code></span>
+<span class="codeline" id="line-112"><code>		<span class="keyword">fallthrough</span></code></span>
+<span class="codeline" id="line-113"><code>	<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-114"><code>		<span class="keyword">return</span> <label for="r32" class="ident">err</label></code></span>
 <span class="codeline" id="line-115"><code>	}</code></span>
 <span class="codeline" id="line-116"><code></code></span>
-<span class="codeline" id="line-117"><code>	<span class="keyword">if</span> <label for="r32" class="ident">need</label> := <label for="r31" class="ident">min</label> - <a href="../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r29" class="ident">d</label>.<a href="dec.go.html#line-84" class="ident">buf</a>); <label for="r32" class="ident">need</label> &gt; <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-118"><code>		<label for="r29" class="ident">d</label>.<a href="dec.go.html#line-84" class="ident">buf</a> = <a href="../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r29" class="ident">d</label>.<a href="dec.go.html#line-84" class="ident">buf</a>, <a href="../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r32" class="ident">need</label>)...)</code></span>
-<span class="codeline" id="line-119"><code>	}</code></span>
-<span class="codeline" id="line-120"><code>	<label for="r33" class="ident">n</label>, <label for="r34" class="ident">err</label> := <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-326" class="ident">ReadAtLeast</a>(<label for="r29" class="ident">d</label>.<a href="dec.go.html#line-78" class="ident">reader</a>, <label for="r29" class="ident">d</label>.<a href="dec.go.html#line-84" class="ident">buf</a>, <label for="r31" class="ident">min</label>)</code></span>
-<span class="codeline" id="line-121"><code>	<span class="keyword">if</span> <label for="r34" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-122"><code>		<span class="keyword">if</span> <label for="r34" class="ident">err</label> == <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-44" class="ident">EOF</a> &amp;&amp; <label for="r33" class="ident">n</label> == <span class="lit-number">0</span> {</code></span>
-<span class="codeline" id="line-123"><code>			<span class="keyword">return</span> <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-48" class="ident">ErrUnexpectedEOF</a></code></span>
-<span class="codeline" id="line-124"><code>		}</code></span>
-<span class="codeline" id="line-125"><code>		<span class="keyword">return</span> <label for="r34" class="ident">err</label></code></span>
-<span class="codeline" id="line-126"><code>	}</code></span>
-<span class="codeline" id="line-127"><code></code></span>
-<span class="codeline" id="line-128"><code>	<label for="r29" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a> = <span class="lit-number">0</span></code></span>
-<span class="codeline" id="line-129"><code>	<label for="r29" class="ident">d</label>.<a href="dec.go.html#line-86" class="ident">tail</a> = <label for="r33" class="ident">n</label></code></span>
-<span class="codeline" id="line-130"><code>	<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-131"><code>}</code></span>
-<span class="codeline" id="line-132"><code></code></span>
-<span class="codeline" id="line-133"><code><span class="keyword">func</span> (<label for="r35" class="ident">d</label> *<a href="dec.go.html#line-77" class="ident">Decoder</a>) <label for="r36" class="ident"><a href="../../../../use/github.com/go-faster/jx..Decoder.unread^2cc1c.html" class="ident">unread</a></label>() { <label for="r35" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a>-- }</code></span>
-<span class="codeline" id="line-134"><code></code></span>
-<span class="codeline" id="line-135"><code><span class="keyword">func</span> (<label for="r37" class="ident">d</label> *<a href="dec.go.html#line-77" class="ident">Decoder</a>) <label for="r38" class="ident"><a href="../../../../use/github.com/go-faster/jx..Decoder.readExact4^4bda9.html" class="ident">readExact4</a></label>(<label for="r39" class="ident">b</label> *[<span class="lit-number">4</span>]<a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-136"><code>	<span class="keyword">if</span> <label for="r40" class="ident">buf</label> := <label for="r37" class="ident">d</label>.<a href="dec.go.html#line-84" class="ident">buf</a>[<label for="r37" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a>:<label for="r37" class="ident">d</label>.<a href="dec.go.html#line-86" class="ident">tail</a>]; <a href="../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r40" class="ident">buf</label>) &gt;= <a href="../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r39" class="ident">b</label>) {</code></span>
-<span class="codeline" id="line-137"><code>		<label for="r37" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a> += <a href="../../../../pkg/builtin.html#name-copy" class="ident">copy</a>(<label for="r39" class="ident">b</label>[:], <label for="r40" class="ident">buf</label>[:<span class="lit-number">4</span>])</code></span>
-<span class="codeline" id="line-138"><code>		<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-139"><code>	}</code></span>
-<span class="codeline" id="line-140"><code></code></span>
-<span class="codeline" id="line-141"><code>	<label for="r41" class="ident">n</label> := <a href="../../../../pkg/builtin.html#name-copy" class="ident">copy</a>(<label for="r39" class="ident">b</label>[:], <label for="r37" class="ident">d</label>.<a href="dec.go.html#line-84" class="ident">buf</a>[<label for="r37" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a>:<label for="r37" class="ident">d</label>.<a href="dec.go.html#line-86" class="ident">tail</a>])</code></span>
-<span class="codeline" id="line-142"><code>	<span class="keyword">if</span> <label for="r42" class="ident">err</label> := <label for="r37" class="ident">d</label>.<a href="#line-111" class="ident">readAtLeast</a>(<a href="../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r39" class="ident">b</label>) - <label for="r41" class="ident">n</label>); <label for="r42" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-143"><code>		<span class="keyword">return</span> <label for="r42" class="ident">err</label></code></span>
-<span class="codeline" id="line-144"><code>	}</code></span>
-<span class="codeline" id="line-145"><code>	<label for="r37" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a> += <a href="../../../../pkg/builtin.html#name-copy" class="ident">copy</a>(<label for="r39" class="ident">b</label>[<label for="r41" class="ident">n</label>:], <label for="r37" class="ident">d</label>.<a href="dec.go.html#line-84" class="ident">buf</a>[<label for="r37" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a>:<label for="r37" class="ident">d</label>.<a href="dec.go.html#line-86" class="ident">tail</a>])</code></span>
-<span class="codeline" id="line-146"><code>	<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-147"><code>}</code></span>
-<span class="codeline" id="line-148"><code></code></span>
-<span class="codeline" id="line-149"><code><span class="keyword">func</span> <label for="r43" class="ident"><a href="../../../../pkg/github.com/go-faster/jx.html#name-findInvalidToken4" class="ident">findInvalidToken4</a></label>(<label for="r44" class="ident">buf</label> [<span class="lit-number">4</span>]<a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r45" class="ident">mask</label> <a href="../../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>) <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-150"><code>	<label for="r46" class="ident">c</label> := <a href="../../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r44" class="ident">buf</label>[<span class="lit-number">0</span>]) | <a href="../../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r44" class="ident">buf</label>[<span class="lit-number">1</span>])&lt;&lt;<span class="lit-number">8</span> | <a href="../../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r44" class="ident">buf</label>[<span class="lit-number">2</span>])&lt;&lt;<span class="lit-number">16</span> | <a href="../../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r44" class="ident">buf</label>[<span class="lit-number">3</span>])&lt;&lt;<span class="lit-number">24</span></code></span>
-<span class="codeline" id="line-151"><code>	<label for="r47" class="ident">idx</label> := <a href="../../../../pkg/math/bits.html" class="ident i1">bits</a>.<a href="../../../math/bits/bits.go.html#line-75" class="ident">TrailingZeros32</a>(<label for="r46" class="ident">c</label>^<label for="r45" class="ident">mask</label>) / <span class="lit-number">8</span></code></span>
-<span class="codeline" id="line-152"><code>	<span class="keyword">return</span> <a href="dec_str.go.html#line-46" class="ident">badToken</a>(<label for="r44" class="ident">buf</label>[<label for="r47" class="ident">idx</label>])</code></span>
-<span class="codeline" id="line-153"><code>}</code></span>
+<span class="codeline" id="line-117"><code>	<label for="r29" class="ident">d</label>.<a href="dec.go.html#line-88" class="ident">streamOffset</a> += <label for="r29" class="ident">d</label>.<a href="dec.go.html#line-86" class="ident">tail</a></code></span>
+<span class="codeline" id="line-118"><code>	<label for="r29" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a> = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-119"><code>	<label for="r29" class="ident">d</label>.<a href="dec.go.html#line-86" class="ident">tail</a> = <label for="r31" class="ident">n</label></code></span>
+<span class="codeline" id="line-120"><code>	<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-121"><code>}</code></span>
+<span class="codeline" id="line-122"><code></code></span>
+<span class="codeline" id="line-123"><code><span class="keyword">func</span> (<label for="r33" class="ident">d</label> *<a href="dec.go.html#line-77" class="ident">Decoder</a>) <label for="r34" class="ident"><a href="../../../../use/github.com/go-faster/jx..Decoder.readAtLeast^18b8f.html" class="ident">readAtLeast</a></label>(<label for="r35" class="ident">min</label> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-124"><code>	<span class="keyword">if</span> <label for="r33" class="ident">d</label>.<a href="dec.go.html#line-78" class="ident">reader</a> == <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-125"><code>		<label for="r33" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a> = <label for="r33" class="ident">d</label>.<a href="dec.go.html#line-86" class="ident">tail</a></code></span>
+<span class="codeline" id="line-126"><code>		<span class="keyword">return</span> <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-48" class="ident">ErrUnexpectedEOF</a></code></span>
+<span class="codeline" id="line-127"><code>	}</code></span>
+<span class="codeline" id="line-128"><code></code></span>
+<span class="codeline" id="line-129"><code>	<span class="keyword">if</span> <label for="r36" class="ident">need</label> := <label for="r35" class="ident">min</label> - <a href="../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r33" class="ident">d</label>.<a href="dec.go.html#line-84" class="ident">buf</a>); <label for="r36" class="ident">need</label> &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-130"><code>		<label for="r33" class="ident">d</label>.<a href="dec.go.html#line-84" class="ident">buf</a> = <a href="../../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r33" class="ident">d</label>.<a href="dec.go.html#line-84" class="ident">buf</a>, <a href="../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r36" class="ident">need</label>)...)</code></span>
+<span class="codeline" id="line-131"><code>	}</code></span>
+<span class="codeline" id="line-132"><code>	<label for="r37" class="ident">n</label>, <label for="r38" class="ident">err</label> := <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-326" class="ident">ReadAtLeast</a>(<label for="r33" class="ident">d</label>.<a href="dec.go.html#line-78" class="ident">reader</a>, <label for="r33" class="ident">d</label>.<a href="dec.go.html#line-84" class="ident">buf</a>, <label for="r35" class="ident">min</label>)</code></span>
+<span class="codeline" id="line-133"><code>	<span class="keyword">if</span> <label for="r38" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-134"><code>		<span class="keyword">if</span> <label for="r38" class="ident">err</label> == <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-44" class="ident">EOF</a> &amp;&amp; <label for="r37" class="ident">n</label> == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-135"><code>			<span class="keyword">return</span> <a href="../../../../pkg/io.html" class="ident i0">io</a>.<a href="../../../io/io.go.html#line-48" class="ident">ErrUnexpectedEOF</a></code></span>
+<span class="codeline" id="line-136"><code>		}</code></span>
+<span class="codeline" id="line-137"><code>		<span class="keyword">return</span> <label for="r38" class="ident">err</label></code></span>
+<span class="codeline" id="line-138"><code>	}</code></span>
+<span class="codeline" id="line-139"><code></code></span>
+<span class="codeline" id="line-140"><code>	<label for="r33" class="ident">d</label>.<a href="dec.go.html#line-88" class="ident">streamOffset</a> += <label for="r33" class="ident">d</label>.<a href="dec.go.html#line-86" class="ident">tail</a></code></span>
+<span class="codeline" id="line-141"><code>	<label for="r33" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a> = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-142"><code>	<label for="r33" class="ident">d</label>.<a href="dec.go.html#line-86" class="ident">tail</a> = <label for="r37" class="ident">n</label></code></span>
+<span class="codeline" id="line-143"><code>	<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-144"><code>}</code></span>
+<span class="codeline" id="line-145"><code></code></span>
+<span class="codeline" id="line-146"><code><span class="keyword">func</span> (<label for="r39" class="ident">d</label> *<a href="dec.go.html#line-77" class="ident">Decoder</a>) <label for="r40" class="ident"><a href="../../../../use/github.com/go-faster/jx..Decoder.unread^2cc1c.html" class="ident">unread</a></label>() { <label for="r39" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a>-- }</code></span>
+<span class="codeline" id="line-147"><code></code></span>
+<span class="codeline" id="line-148"><code><span class="keyword">func</span> (<label for="r41" class="ident">d</label> *<a href="dec.go.html#line-77" class="ident">Decoder</a>) <label for="r42" class="ident"><a href="../../../../use/github.com/go-faster/jx..Decoder.readExact4^4bda9.html" class="ident">readExact4</a></label>(<label for="r43" class="ident">b</label> *[<span class="lit-number">4</span>]<a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-149"><code>	<span class="keyword">if</span> <label for="r44" class="ident">buf</label> := <label for="r41" class="ident">d</label>.<a href="dec.go.html#line-84" class="ident">buf</a>[<label for="r41" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a>:<label for="r41" class="ident">d</label>.<a href="dec.go.html#line-86" class="ident">tail</a>]; <a href="../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r44" class="ident">buf</label>) &gt;= <a href="../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r43" class="ident">b</label>) {</code></span>
+<span class="codeline" id="line-150"><code>		<label for="r41" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a> += <a href="../../../../pkg/builtin.html#name-copy" class="ident">copy</a>(<label for="r43" class="ident">b</label>[:], <label for="r44" class="ident">buf</label>[:<span class="lit-number">4</span>])</code></span>
+<span class="codeline" id="line-151"><code>		<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-152"><code>	}</code></span>
+<span class="codeline" id="line-153"><code></code></span>
+<span class="codeline" id="line-154"><code>	<label for="r45" class="ident">n</label> := <a href="../../../../pkg/builtin.html#name-copy" class="ident">copy</a>(<label for="r43" class="ident">b</label>[:], <label for="r41" class="ident">d</label>.<a href="dec.go.html#line-84" class="ident">buf</a>[<label for="r41" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a>:<label for="r41" class="ident">d</label>.<a href="dec.go.html#line-86" class="ident">tail</a>])</code></span>
+<span class="codeline" id="line-155"><code>	<span class="keyword">if</span> <label for="r46" class="ident">err</label> := <label for="r41" class="ident">d</label>.<a href="#line-123" class="ident">readAtLeast</a>(<a href="../../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r43" class="ident">b</label>) - <label for="r45" class="ident">n</label>); <label for="r46" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-156"><code>		<span class="keyword">return</span> <label for="r46" class="ident">err</label></code></span>
+<span class="codeline" id="line-157"><code>	}</code></span>
+<span class="codeline" id="line-158"><code>	<label for="r41" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a> += <a href="../../../../pkg/builtin.html#name-copy" class="ident">copy</a>(<label for="r43" class="ident">b</label>[<label for="r45" class="ident">n</label>:], <label for="r41" class="ident">d</label>.<a href="dec.go.html#line-84" class="ident">buf</a>[<label for="r41" class="ident">d</label>.<a href="dec.go.html#line-85" class="ident">head</a>:<label for="r41" class="ident">d</label>.<a href="dec.go.html#line-86" class="ident">tail</a>])</code></span>
+<span class="codeline" id="line-159"><code>	<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-160"><code>}</code></span>
+<span class="codeline" id="line-161"><code></code></span>
+<span class="codeline" id="line-162"><code><span class="keyword">func</span> <label for="r47" class="ident"><a href="../../../../pkg/github.com/go-faster/jx.html#name-findInvalidToken4" class="ident">findInvalidToken4</a></label>(<label for="r48" class="ident">buf</label> [<span class="lit-number">4</span>]<a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r49" class="ident">mask</label> <a href="../../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>, <label for="r50" class="ident">offset</label> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-163"><code>	<label for="r51" class="ident">c</label> := <a href="../../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r48" class="ident">buf</label>[<span class="lit-number">0</span>]) | <a href="../../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r48" class="ident">buf</label>[<span class="lit-number">1</span>])&lt;&lt;<span class="lit-number">8</span> | <a href="../../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r48" class="ident">buf</label>[<span class="lit-number">2</span>])&lt;&lt;<span class="lit-number">16</span> | <a href="../../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r48" class="ident">buf</label>[<span class="lit-number">3</span>])&lt;&lt;<span class="lit-number">24</span></code></span>
+<span class="codeline" id="line-164"><code>	<label for="r52" class="ident">idx</label> := <a href="../../../../pkg/math/bits.html" class="ident i1">bits</a>.<a href="../../../math/bits/bits.go.html#line-75" class="ident">TrailingZeros32</a>(<label for="r51" class="ident">c</label>^<label for="r49" class="ident">mask</label>) / <span class="lit-number">8</span></code></span>
+<span class="codeline" id="line-165"><code>	<span class="keyword">return</span> <a href="dec_error.go.html#line-15" class="ident">badToken</a>(<label for="r48" class="ident">buf</label>[<label for="r52" class="ident">idx</label>], <label for="r50" class="ident">offset</label>+<label for="r52" class="ident">idx</label>)</code></span>
+<span class="codeline" id="line-166"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.7</i>. (GOOS=linux GOARCH=amd64)
