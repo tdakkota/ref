@@ -2428,7 +2428,7 @@ input[id=i22]:checked ~pre .i22
 <span class="codeline" id="line-904"><code></code></span>
 <span class="codeline" id="line-905"><code><span class="keyword">func</span> (<label for="r122" class="ident">ecr</label> *<a href="#line-898" class="ident">expectContinueReader</a>) <label for="r123" class="ident"><a href="../../../use/net/http..expectContinueReader^2984f.Read.html" class="ident">Read</a></label>(<label for="r124" class="ident">p</label> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>) (<label for="r125" class="ident">n</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r126" class="ident">err</label> <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
 <span class="codeline" id="line-906"><code>	<span class="keyword">if</span> <label for="r122" class="ident">ecr</label>.<a href="#line-901" class="ident">closed</a>.<a href="#line-532" class="ident">isSet</a>() {</code></span>
-<span class="codeline" id="line-907"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="transfer.go.html#line-830" class="ident">ErrBodyReadAfterClose</a></code></span>
+<span class="codeline" id="line-907"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="transfer.go.html#line-823" class="ident">ErrBodyReadAfterClose</a></code></span>
 <span class="codeline" id="line-908"><code>	}</code></span>
 <span class="codeline" id="line-909"><code>	<label for="r127" class="ident">w</label> := <label for="r122" class="ident">ecr</label>.<a href="#line-899" class="ident">resp</a></code></span>
 <span class="codeline" id="line-910"><code>	<span class="keyword">if</span> !<label for="r127" class="ident">w</label>.<a href="#line-429" class="ident">wroteContinue</a> &amp;&amp; <label for="r127" class="ident">w</label>.<a href="#line-440" class="ident">canWriteContinue</a>.<a href="#line-532" class="ident">isSet</a>() &amp;&amp; !<label for="r127" class="ident">w</label>.<a href="#line-424" class="ident">conn</a>.<a href="#line-309" class="ident">hijacked</a>() {</code></span>
@@ -2554,8 +2554,8 @@ input[id=i22]:checked ~pre .i22
 <span class="codeline" id="line-1030"><code>	<label for="r156" class="ident">req</label>.<a href="request.go.html#line-323" class="ident">ctx</a> = <label for="r145" class="ident">ctx</label></code></span>
 <span class="codeline" id="line-1031"><code>	<label for="r156" class="ident">req</label>.<a href="request.go.html#line-286" class="ident">RemoteAddr</a> = <label for="r143" class="ident">c</label>.<a href="#line-271" class="ident">remoteAddr</a></code></span>
 <span class="codeline" id="line-1032"><code>	<label for="r156" class="ident">req</label>.<a href="request.go.html#line-301" class="ident">TLS</a> = <label for="r143" class="ident">c</label>.<a href="#line-275" class="ident">tlsState</a></code></span>
-<span class="codeline" id="line-1033"><code>	<span class="keyword">if</span> <label for="r165" class="ident">body</label>, <label for="r166" class="ident">ok</label> := <label for="r156" class="ident">req</label>.<a href="request.go.html#line-182" class="ident">Body</a>.(*<a href="transfer.go.html#line-812" class="ident">body</a>); <label for="r166" class="ident">ok</label> {</code></span>
-<span class="codeline" id="line-1034"><code>		<label for="r165" class="ident">body</label>.<a href="transfer.go.html#line-817" class="ident">doEarlyClose</a> = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-1033"><code>	<span class="keyword">if</span> <label for="r165" class="ident">body</label>, <label for="r166" class="ident">ok</label> := <label for="r156" class="ident">req</label>.<a href="request.go.html#line-182" class="ident">Body</a>.(*<a href="transfer.go.html#line-805" class="ident">body</a>); <label for="r166" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-1034"><code>		<label for="r165" class="ident">body</label>.<a href="transfer.go.html#line-810" class="ident">doEarlyClose</a> = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
 <span class="codeline" id="line-1035"><code>	}</code></span>
 <span class="codeline" id="line-1036"><code></code></span>
 <span class="codeline" id="line-1037"><code>	<span class="comment">// Adjust the read deadline if necessary.</span></code></span>
@@ -2897,20 +2897,20 @@ input[id=i22]:checked ~pre .i22
 <span class="codeline" id="line-1373"><code>			<span class="keyword">if</span> <label for="r221" class="ident">bdy</label>.<a href="#line-899" class="ident">resp</a>.<a href="#line-429" class="ident">wroteContinue</a> {</code></span>
 <span class="codeline" id="line-1374"><code>				<label for="r219" class="ident">discard</label> = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
 <span class="codeline" id="line-1375"><code>			}</code></span>
-<span class="codeline" id="line-1376"><code>		<span class="keyword">case</span> *<a href="transfer.go.html#line-812" class="ident">body</a>:</code></span>
-<span class="codeline" id="line-1377"><code>			<label for="r222" class="ident">bdy</label>.<a href="transfer.go.html#line-819" class="ident">mu</a>.<a href="../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
+<span class="codeline" id="line-1376"><code>		<span class="keyword">case</span> *<a href="transfer.go.html#line-805" class="ident">body</a>:</code></span>
+<span class="codeline" id="line-1377"><code>			<label for="r222" class="ident">bdy</label>.<a href="transfer.go.html#line-812" class="ident">mu</a>.<a href="../../sync/mutex.go.html#line-81" class="ident">Lock</a>()</code></span>
 <span class="codeline" id="line-1378"><code>			<span class="keyword">switch</span> {</code></span>
-<span class="codeline" id="line-1379"><code>			<span class="keyword">case</span> <label for="r222" class="ident">bdy</label>.<a href="transfer.go.html#line-821" class="ident">closed</a>:</code></span>
-<span class="codeline" id="line-1380"><code>				<span class="keyword">if</span> !<label for="r222" class="ident">bdy</label>.<a href="transfer.go.html#line-820" class="ident">sawEOF</a> {</code></span>
+<span class="codeline" id="line-1379"><code>			<span class="keyword">case</span> <label for="r222" class="ident">bdy</label>.<a href="transfer.go.html#line-814" class="ident">closed</a>:</code></span>
+<span class="codeline" id="line-1380"><code>				<span class="keyword">if</span> !<label for="r222" class="ident">bdy</label>.<a href="transfer.go.html#line-813" class="ident">sawEOF</a> {</code></span>
 <span class="codeline" id="line-1381"><code>					<span class="comment">// Body was closed in handler with non-EOF error.</span></code></span>
 <span class="codeline" id="line-1382"><code>					<label for="r196" class="ident">w</label>.<a href="#line-461" class="ident">closeAfterReply</a> = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
 <span class="codeline" id="line-1383"><code>				}</code></span>
-<span class="codeline" id="line-1384"><code>			<span class="keyword">case</span> <label for="r222" class="ident">bdy</label>.<a href="transfer.go.html#line-967" class="ident">unreadDataSizeLocked</a>() &gt;= <a href="#line-1102" class="ident">maxPostHandlerReadBytes</a>:</code></span>
+<span class="codeline" id="line-1384"><code>			<span class="keyword">case</span> <label for="r222" class="ident">bdy</label>.<a href="transfer.go.html#line-960" class="ident">unreadDataSizeLocked</a>() &gt;= <a href="#line-1102" class="ident">maxPostHandlerReadBytes</a>:</code></span>
 <span class="codeline" id="line-1385"><code>				<label for="r220" class="ident">tooBig</label> = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
 <span class="codeline" id="line-1386"><code>			<span class="keyword">default</span>:</code></span>
 <span class="codeline" id="line-1387"><code>				<label for="r219" class="ident">discard</label> = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
 <span class="codeline" id="line-1388"><code>			}</code></span>
-<span class="codeline" id="line-1389"><code>			<label for="r222" class="ident">bdy</label>.<a href="transfer.go.html#line-819" class="ident">mu</a>.<a href="../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
+<span class="codeline" id="line-1389"><code>			<label for="r222" class="ident">bdy</label>.<a href="transfer.go.html#line-812" class="ident">mu</a>.<a href="../../sync/mutex.go.html#line-212" class="ident">Unlock</a>()</code></span>
 <span class="codeline" id="line-1390"><code>		<span class="keyword">default</span>:</code></span>
 <span class="codeline" id="line-1391"><code>			<label for="r219" class="ident">discard</label> = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
 <span class="codeline" id="line-1392"><code>		}</code></span>
@@ -2921,7 +2921,7 @@ input[id=i22]:checked ~pre .i22
 <span class="codeline" id="line-1397"><code>			<span class="keyword">case</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>:</code></span>
 <span class="codeline" id="line-1398"><code>				<span class="comment">// There must be even more data left over.</span></code></span>
 <span class="codeline" id="line-1399"><code>				<label for="r220" class="ident">tooBig</label> = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
-<span class="codeline" id="line-1400"><code>			<span class="keyword">case</span> <a href="transfer.go.html#line-830" class="ident">ErrBodyReadAfterClose</a>:</code></span>
+<span class="codeline" id="line-1400"><code>			<span class="keyword">case</span> <a href="transfer.go.html#line-823" class="ident">ErrBodyReadAfterClose</a>:</code></span>
 <span class="codeline" id="line-1401"><code>				<span class="comment">// Body was already consumed and closed.</span></code></span>
 <span class="codeline" id="line-1402"><code>			<span class="keyword">case</span> <a href="../../../pkg/io.html" class="ident i7">io</a>.<a href="../../io/io.go.html#line-44" class="ident">EOF</a>:</code></span>
 <span class="codeline" id="line-1403"><code>				<span class="comment">// The remaining body was just consumed, close it.</span></code></span>
@@ -3186,7 +3186,7 @@ input[id=i22]:checked ~pre .i22
 <span class="codeline" id="line-1662"><code>	<label for="r264" class="ident">w</label>.<a href="#line-426" class="ident">reqBody</a>.<a href="../../io/io.go.html#line-105" class="ident">Close</a>()</code></span>
 <span class="codeline" id="line-1663"><code></code></span>
 <span class="codeline" id="line-1664"><code>	<span class="keyword">if</span> <label for="r264" class="ident">w</label>.<a href="#line-425" class="ident">req</a>.<a href="request.go.html#line-257" class="ident">MultipartForm</a> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-1665"><code>		<label for="r264" class="ident">w</label>.<a href="#line-425" class="ident">req</a>.<a href="request.go.html#line-257" class="ident">MultipartForm</a>.<a href="../../mime/multipart/formdata.go.html#line-130" class="ident">RemoveAll</a>()</code></span>
+<span class="codeline" id="line-1665"><code>		<label for="r264" class="ident">w</label>.<a href="#line-425" class="ident">req</a>.<a href="request.go.html#line-257" class="ident">MultipartForm</a>.<a href="../../mime/multipart/formdata.go.html#line-198" class="ident">RemoveAll</a>()</code></span>
 <span class="codeline" id="line-1666"><code>	}</code></span>
 <span class="codeline" id="line-1667"><code>}</code></span>
 <span class="codeline" id="line-1668"><code></code></span>
@@ -3219,8 +3219,8 @@ input[id=i22]:checked ~pre .i22
 <span class="codeline" id="line-1695"><code>}</code></span>
 <span class="codeline" id="line-1696"><code></code></span>
 <span class="codeline" id="line-1697"><code><span class="keyword">func</span> (<label for="r268" class="ident">w</label> *<a href="#line-423" class="ident">response</a>) <label for="r269" class="ident"><a href="../../../use/net/http..response^a9f4b.closedRequestBodyEarly^f52a1.html" class="ident">closedRequestBodyEarly</a></label>() <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
-<span class="codeline" id="line-1698"><code>	<label for="r270" class="ident">body</label>, <label for="r271" class="ident">ok</label> := <label for="r268" class="ident">w</label>.<a href="#line-425" class="ident">req</a>.<a href="request.go.html#line-182" class="ident">Body</a>.(*<a href="transfer.go.html#line-812" class="ident">body</a>)</code></span>
-<span class="codeline" id="line-1699"><code>	<span class="keyword">return</span> <label for="r271" class="ident">ok</label> &amp;&amp; <label for="r270" class="ident">body</label>.<a href="transfer.go.html#line-1015" class="ident">didEarlyClose</a>()</code></span>
+<span class="codeline" id="line-1698"><code>	<label for="r270" class="ident">body</label>, <label for="r271" class="ident">ok</label> := <label for="r268" class="ident">w</label>.<a href="#line-425" class="ident">req</a>.<a href="request.go.html#line-182" class="ident">Body</a>.(*<a href="transfer.go.html#line-805" class="ident">body</a>)</code></span>
+<span class="codeline" id="line-1699"><code>	<span class="keyword">return</span> <label for="r271" class="ident">ok</label> &amp;&amp; <label for="r270" class="ident">body</label>.<a href="transfer.go.html#line-1008" class="ident">didEarlyClose</a>()</code></span>
 <span class="codeline" id="line-1700"><code>}</code></span>
 <span class="codeline" id="line-1701"><code></code></span>
 <span class="codeline" id="line-1702"><code><span class="keyword">func</span> (<label for="r272" class="ident">w</label> *<a href="#line-423" class="ident">response</a>) <label for="r273" class="ident"><a href="../../../use/net/http..response^a9f4b.Flush.html" class="ident">Flush</a></label>() {</code></span>
@@ -3394,7 +3394,7 @@ input[id=i22]:checked ~pre .i22
 <span class="codeline" id="line-1870"><code>			<label for="r307" class="ident">c</label>.<a href="#line-265" class="ident">rwc</a>.<a href="../net.go.html#line-160" class="ident">SetReadDeadline</a>(<label for="r317" class="ident">dl</label>)</code></span>
 <span class="codeline" id="line-1871"><code>			<label for="r307" class="ident">c</label>.<a href="#line-265" class="ident">rwc</a>.<a href="../net.go.html#line-167" class="ident">SetWriteDeadline</a>(<label for="r317" class="ident">dl</label>)</code></span>
 <span class="codeline" id="line-1872"><code>		}</code></span>
-<span class="codeline" id="line-1873"><code>		<span class="keyword">if</span> <label for="r318" class="ident">err</label> := <label for="r314" class="ident">tlsConn</label>.<a href="../../crypto/tls/conn.go.html#line-1402" class="ident">HandshakeContext</a>(<label for="r309" class="ident">ctx</label>); <label for="r318" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-1873"><code>		<span class="keyword">if</span> <label for="r318" class="ident">err</label> := <label for="r314" class="ident">tlsConn</label>.<a href="../../crypto/tls/conn.go.html#line-1430" class="ident">HandshakeContext</a>(<label for="r309" class="ident">ctx</label>); <label for="r318" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-1874"><code>			<span class="comment">// If the handshake failed due to the client not speaking</span></code></span>
 <span class="codeline" id="line-1875"><code><span class="comment">			// TLS, assume they're speaking plaintext HTTP and write a</span></code></span>
 <span class="codeline" id="line-1876"><code><span class="comment">			// 400 response on the TLS conn's underlying net.Conn.</span></code></span>
@@ -3412,7 +3412,7 @@ input[id=i22]:checked ~pre .i22
 <span class="codeline" id="line-1888"><code>			<label for="r307" class="ident">c</label>.<a href="#line-265" class="ident">rwc</a>.<a href="../net.go.html#line-167" class="ident">SetWriteDeadline</a>(<a href="../../../pkg/time.html" class="ident i21">time</a>.<a href="../../time/time.go.html#line-129" class="ident">Time</a>{})</code></span>
 <span class="codeline" id="line-1889"><code>		}</code></span>
 <span class="codeline" id="line-1890"><code>		<label for="r307" class="ident">c</label>.<a href="#line-275" class="ident">tlsState</a> = <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="../../../pkg/crypto/tls.html" class="ident i3">tls</a>.<a href="../../crypto/tls/common.go.html#line-215" class="ident">ConnectionState</a>)</code></span>
-<span class="codeline" id="line-1891"><code>		*<label for="r307" class="ident">c</label>.<a href="#line-275" class="ident">tlsState</a> = <label for="r314" class="ident">tlsConn</label>.<a href="../../crypto/tls/conn.go.html#line-1482" class="ident">ConnectionState</a>()</code></span>
+<span class="codeline" id="line-1891"><code>		*<label for="r307" class="ident">c</label>.<a href="#line-275" class="ident">tlsState</a> = <label for="r314" class="ident">tlsConn</label>.<a href="../../crypto/tls/conn.go.html#line-1510" class="ident">ConnectionState</a>()</code></span>
 <span class="codeline" id="line-1892"><code>		<span class="keyword">if</span> <label for="r321" class="ident">proto</label> := <label for="r307" class="ident">c</label>.<a href="#line-275" class="ident">tlsState</a>.<a href="../../crypto/tls/common.go.html#line-231" class="ident">NegotiatedProtocol</a>; <a href="#line-1765" class="ident">validNextProto</a>(<label for="r321" class="ident">proto</label>) {</code></span>
 <span class="codeline" id="line-1893"><code>			<span class="keyword">if</span> <label for="r322" class="ident">fn</label> := <label for="r307" class="ident">c</label>.<a href="#line-256" class="ident">server</a>.<a href="#line-2655" class="ident">TLSNextProto</a>[<label for="r321" class="ident">proto</label>]; <label for="r322" class="ident">fn</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-1894"><code>				<label for="r323" class="ident">h</label> := <a href="#line-3533" class="ident">initALPNRequest</a>{<label for="r309" class="ident">ctx</label>, <label for="r314" class="ident">tlsConn</label>, <a href="#line-2922" class="ident">serverHandler</a>{<label for="r307" class="ident">c</label>.<a href="#line-256" class="ident">server</a>}}</code></span>
@@ -3599,8 +3599,8 @@ input[id=i22]:checked ~pre .i22
 <span class="codeline" id="line-2075"><code>	<span class="keyword">switch</span> v := <label for="r348" class="ident">rc</label>.(<span class="keyword">type</span>) {</code></span>
 <span class="codeline" id="line-2076"><code>	<span class="keyword">case</span> *<a href="#line-898" class="ident">expectContinueReader</a>:</code></span>
 <span class="codeline" id="line-2077"><code>		<label for="r347" class="ident">registerOnHitEOF</label>(<label for="r350" class="ident">v</label>.<a href="#line-900" class="ident">readCloser</a>, <label for="r349" class="ident">fn</label>)</code></span>
-<span class="codeline" id="line-2078"><code>	<span class="keyword">case</span> *<a href="transfer.go.html#line-812" class="ident">body</a>:</code></span>
-<span class="codeline" id="line-2079"><code>		<label for="r351" class="ident">v</label>.<a href="transfer.go.html#line-1029" class="ident">registerOnHitEOF</a>(<label for="r349" class="ident">fn</label>)</code></span>
+<span class="codeline" id="line-2078"><code>	<span class="keyword">case</span> *<a href="transfer.go.html#line-805" class="ident">body</a>:</code></span>
+<span class="codeline" id="line-2079"><code>		<label for="r351" class="ident">v</label>.<a href="transfer.go.html#line-1022" class="ident">registerOnHitEOF</a>(<label for="r349" class="ident">fn</label>)</code></span>
 <span class="codeline" id="line-2080"><code>	<span class="keyword">default</span>:</code></span>
 <span class="codeline" id="line-2081"><code>		<a href="../../../pkg/builtin.html#name-panic" class="ident">panic</a>(<span class="lit-string">"unexpected type "</span> + <a href="../../../pkg/fmt.html" class="ident i5">fmt</a>.<a href="../../fmt/print.go.html#line-217" class="ident">Sprintf</a>(<span class="lit-string">"%T"</span>, <label for="r348" class="ident">rc</label>))</code></span>
 <span class="codeline" id="line-2082"><code>	}</code></span>
@@ -3615,8 +3615,8 @@ input[id=i22]:checked ~pre .i22
 <span class="codeline" id="line-2091"><code>	<span class="keyword">switch</span> v := <label for="r353" class="ident">rc</label>.(<span class="keyword">type</span>) {</code></span>
 <span class="codeline" id="line-2092"><code>	<span class="keyword">case</span> *<a href="#line-898" class="ident">expectContinueReader</a>:</code></span>
 <span class="codeline" id="line-2093"><code>		<span class="keyword">return</span> <label for="r352" class="ident">requestBodyRemains</label>(<label for="r354" class="ident">v</label>.<a href="#line-900" class="ident">readCloser</a>)</code></span>
-<span class="codeline" id="line-2094"><code>	<span class="keyword">case</span> *<a href="transfer.go.html#line-812" class="ident">body</a>:</code></span>
-<span class="codeline" id="line-2095"><code>		<span class="keyword">return</span> <label for="r355" class="ident">v</label>.<a href="transfer.go.html#line-1023" class="ident">bodyRemains</a>()</code></span>
+<span class="codeline" id="line-2094"><code>	<span class="keyword">case</span> *<a href="transfer.go.html#line-805" class="ident">body</a>:</code></span>
+<span class="codeline" id="line-2095"><code>		<span class="keyword">return</span> <label for="r355" class="ident">v</label>.<a href="transfer.go.html#line-1016" class="ident">bodyRemains</a>()</code></span>
 <span class="codeline" id="line-2096"><code>	<span class="keyword">default</span>:</code></span>
 <span class="codeline" id="line-2097"><code>		<a href="../../../pkg/builtin.html#name-panic" class="ident">panic</a>(<span class="lit-string">"unexpected type "</span> + <a href="../../../pkg/fmt.html" class="ident i5">fmt</a>.<a href="../../fmt/print.go.html#line-217" class="ident">Sprintf</a>(<span class="lit-string">"%T"</span>, <label for="r353" class="ident">rc</label>))</code></span>
 <span class="codeline" id="line-2098"><code>	}</code></span>
@@ -5069,7 +5069,7 @@ input[id=i22]:checked ~pre .i22
 <span class="codeline" id="line-3545"><code><span class="keyword">func</span> (<label for="r685" class="ident">h</label> <a href="#line-3533" class="ident">initALPNRequest</a>) <label for="r686" class="ident"><a href="../../../use/net/http..initALPNRequest^5f217.ServeHTTP.html" class="ident">ServeHTTP</a></label>(<label for="r687" class="ident">rw</label> <a href="#line-95" class="ident">ResponseWriter</a>, <label for="r688" class="ident">req</label> *<a href="request.go.html#line-103" class="ident">Request</a>) {</code></span>
 <span class="codeline" id="line-3546"><code>	<span class="keyword">if</span> <label for="r688" class="ident">req</label>.<a href="request.go.html#line-301" class="ident">TLS</a> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-3547"><code>		<label for="r688" class="ident">req</label>.<a href="request.go.html#line-301" class="ident">TLS</a> = &amp;<a href="../../../pkg/crypto/tls.html" class="ident i3">tls</a>.<a href="../../crypto/tls/common.go.html#line-215" class="ident">ConnectionState</a>{}</code></span>
-<span class="codeline" id="line-3548"><code>		*<label for="r688" class="ident">req</label>.<a href="request.go.html#line-301" class="ident">TLS</a> = <label for="r685" class="ident">h</label>.<a href="#line-3535" class="ident">c</a>.<a href="../../crypto/tls/conn.go.html#line-1482" class="ident">ConnectionState</a>()</code></span>
+<span class="codeline" id="line-3548"><code>		*<label for="r688" class="ident">req</label>.<a href="request.go.html#line-301" class="ident">TLS</a> = <label for="r685" class="ident">h</label>.<a href="#line-3535" class="ident">c</a>.<a href="../../crypto/tls/conn.go.html#line-1510" class="ident">ConnectionState</a>()</code></span>
 <span class="codeline" id="line-3549"><code>	}</code></span>
 <span class="codeline" id="line-3550"><code>	<span class="keyword">if</span> <label for="r688" class="ident">req</label>.<a href="request.go.html#line-182" class="ident">Body</a> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
 <span class="codeline" id="line-3551"><code>		<label for="r688" class="ident">req</label>.<a href="request.go.html#line-182" class="ident">Body</a> = <a href="http.go.html#line-104" class="ident">NoBody</a></code></span>
