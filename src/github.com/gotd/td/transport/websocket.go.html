@@ -121,7 +121,7 @@ input[id=i8]:checked ~pre .i8
 <span class="codeline" id="line-17"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/transport.html#name-wsListener" class="ident">wsListener</a> <span class="keyword">struct</span> {</code></span>
 <span class="codeline" id="line-18"><code>	<a href="../../../../../use/github.com/gotd/td/transport..wsListener^d8eb4.addr^a2593.html" class="ident">addr</a>   <a href="../../../../../pkg/net.html" class="ident i2">net</a>.<a href="../../../../net/net.go.html#line-105" class="ident">Addr</a></code></span>
 <span class="codeline" id="line-19"><code>	<a href="../../../../../use/github.com/gotd/td/transport..wsListener^d8eb4.ch^34367.html" class="ident">ch</a>     <span class="keyword">chan</span> *<a href="#line-113" class="ident">wsServerConn</a></code></span>
-<span class="codeline" id="line-20"><code>	<a href="../../../../../use/github.com/gotd/td/transport..wsListener^d8eb4.closed^c3eef.html" class="ident">closed</a> *<a href="../../../../../pkg/github.com/gotd/td/internal/tdsync.html" class="ident i7">tdsync</a>.<a href="../internal/tdsync/ready.go.html#line-7" class="ident">Ready</a></code></span>
+<span class="codeline" id="line-20"><code>	<a href="../../../../../use/github.com/gotd/td/transport..wsListener^d8eb4.closed^c3eef.html" class="ident">closed</a> *<a href="../../../../../pkg/github.com/gotd/td/internal/tdsync.html" class="ident i7">tdsync</a>.<a href="../internal/tdsync/ready.go.html#line-9" class="ident">Ready</a></code></span>
 <span class="codeline" id="line-21"><code>}</code></span>
 <span class="codeline" id="line-22"><code></code></span>
 <span class="codeline" id="line-23"><code><span class="comment">// WebsocketListener creates new MTProto Websocket listener.</span></code></span>
@@ -129,7 +129,7 @@ input[id=i8]:checked ~pre .i8
 <span class="codeline" id="line-25"><code>	<label for="r2" class="ident">l</label> := <a href="#line-17" class="ident">wsListener</a>{</code></span>
 <span class="codeline" id="line-26"><code>		<a href="#line-18" class="ident">addr</a>:   <label for="r1" class="ident">addr</label>,</code></span>
 <span class="codeline" id="line-27"><code>		<a href="#line-19" class="ident">ch</a>:     <a href="../../../../runtime/chan.go.html#line-72">make</a>(<span class="keyword">chan</span> *<a href="#line-113" class="ident">wsServerConn</a>, <span class="lit-number">1</span>),</code></span>
-<span class="codeline" id="line-28"><code>		<a href="#line-20" class="ident">closed</a>: <a href="../../../../../pkg/github.com/gotd/td/internal/tdsync.html" class="ident i7">tdsync</a>.<a href="../internal/tdsync/ready.go.html#line-13" class="ident">NewReady</a>(),</code></span>
+<span class="codeline" id="line-28"><code>		<a href="#line-20" class="ident">closed</a>: <a href="../../../../../pkg/github.com/gotd/td/internal/tdsync.html" class="ident i7">tdsync</a>.<a href="../internal/tdsync/ready.go.html#line-15" class="ident">NewReady</a>(),</code></span>
 <span class="codeline" id="line-29"><code>	}</code></span>
 <span class="codeline" id="line-30"><code>	<span class="keyword">return</span> <label for="r2" class="ident">l</label>, <label for="r2" class="ident">l</label></code></span>
 <span class="codeline" id="line-31"><code>}</code></span>
@@ -162,7 +162,7 @@ input[id=i8]:checked ~pre .i8
 <span class="codeline" id="line-58"><code>	}</code></span>
 <span class="codeline" id="line-59"><code></code></span>
 <span class="codeline" id="line-60"><code>	<label for="r13" class="ident">accepted</label> := &amp;<a href="#line-113" class="ident">wsServerConn</a>{</code></span>
-<span class="codeline" id="line-61"><code>		<a href="#line-114" class="ident">closed</a>: *<a href="../../../../../pkg/github.com/gotd/td/internal/tdsync.html" class="ident i7">tdsync</a>.<a href="../internal/tdsync/ready.go.html#line-13" class="ident">NewReady</a>(),</code></span>
+<span class="codeline" id="line-61"><code>		<a href="#line-114" class="ident">closed</a>: *<a href="../../../../../pkg/github.com/gotd/td/internal/tdsync.html" class="ident i7">tdsync</a>.<a href="../internal/tdsync/ready.go.html#line-15" class="ident">NewReady</a>(),</code></span>
 <span class="codeline" id="line-62"><code>		<span class="comment">// Add codec tag in the begin of stream to emulate TCP fully.</span></code></span>
 <span class="codeline" id="line-63"><code><span class="comment">		// MTProto sends codec tag in plain TCP connections, but not in obfuscated2 (Websocket/MTProxy).</span></code></span>
 <span class="codeline" id="line-64"><code>		<a href="#line-115" class="ident">reader</a>: <a href="../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../io/multi.go.html#line-73" class="ident">MultiReader</a>(<label for="r12" class="ident">tag</label>, <label for="r10" class="ident">rw</label>),</code></span>
@@ -171,7 +171,7 @@ input[id=i8]:checked ~pre .i8
 <span class="codeline" id="line-67"><code>	}</code></span>
 <span class="codeline" id="line-68"><code></code></span>
 <span class="codeline" id="line-69"><code>	<label for="r14" class="ident">reqCtx</label> := <label for="r6" class="ident">r</label>.<a href="../../../../net/http/request.go.html#line-337" class="ident">Context</a>().<a href="../../../../context/context.go.html#line-99" class="ident">Done</a>()</code></span>
-<span class="codeline" id="line-70"><code>	<label for="r15" class="ident">closed</label> := <label for="r3" class="ident">l</label>.<a href="#line-20" class="ident">closed</a>.<a href="../internal/tdsync/ready.go.html#line-33" class="ident">Ready</a>()</code></span>
+<span class="codeline" id="line-70"><code>	<label for="r15" class="ident">closed</label> := <label for="r3" class="ident">l</label>.<a href="#line-20" class="ident">closed</a>.<a href="../internal/tdsync/ready.go.html#line-35" class="ident">Ready</a>()</code></span>
 <span class="codeline" id="line-71"><code></code></span>
 <span class="codeline" id="line-72"><code>	<span class="comment">// Pass connection to the Accept().</span></code></span>
 <span class="codeline" id="line-73"><code>	<a href="../../../../runtime/select.go.html#line-122"><span class="keyword">select</span></a> {</code></span>
@@ -188,12 +188,12 @@ input[id=i8]:checked ~pre .i8
 <span class="codeline" id="line-84"><code>		<span class="keyword">return</span></code></span>
 <span class="codeline" id="line-85"><code>	<span class="keyword">case</span> <a href="../../../../runtime/chan.go.html#line-441">&lt;-</a><label for="r15" class="ident">closed</label>:</code></span>
 <span class="codeline" id="line-86"><code>		<span class="keyword">return</span></code></span>
-<span class="codeline" id="line-87"><code>	<span class="keyword">case</span> <a href="../../../../runtime/chan.go.html#line-441">&lt;-</a><label for="r13" class="ident">accepted</label>.<a href="#line-114" class="ident">closed</a>.<a href="../internal/tdsync/ready.go.html#line-33" class="ident">Ready</a>():</code></span>
+<span class="codeline" id="line-87"><code>	<span class="keyword">case</span> <a href="../../../../runtime/chan.go.html#line-441">&lt;-</a><label for="r13" class="ident">accepted</label>.<a href="#line-114" class="ident">closed</a>.<a href="../internal/tdsync/ready.go.html#line-35" class="ident">Ready</a>():</code></span>
 <span class="codeline" id="line-88"><code>	}</code></span>
 <span class="codeline" id="line-89"><code>}</code></span>
 <span class="codeline" id="line-90"><code></code></span>
 <span class="codeline" id="line-91"><code><span class="keyword">func</span> (<label for="r16" class="ident">l</label> <a href="#line-17" class="ident">wsListener</a>) <label for="r17" class="ident"><a href="../../../../../use/github.com/gotd/td/transport..wsListener^d8eb4.Accept.html" class="ident">Accept</a></label>() (<a href="../../../../../pkg/net.html" class="ident i2">net</a>.<a href="../../../../net/net.go.html#line-113" class="ident">Conn</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-92"><code>	<label for="r18" class="ident">r</label> := <label for="r16" class="ident">l</label>.<a href="#line-20" class="ident">closed</a>.<a href="../internal/tdsync/ready.go.html#line-33" class="ident">Ready</a>()</code></span>
+<span class="codeline" id="line-92"><code>	<label for="r18" class="ident">r</label> := <label for="r16" class="ident">l</label>.<a href="#line-20" class="ident">closed</a>.<a href="../internal/tdsync/ready.go.html#line-35" class="ident">Ready</a>()</code></span>
 <span class="codeline" id="line-93"><code></code></span>
 <span class="codeline" id="line-94"><code>	<span class="keyword">for</span> {</code></span>
 <span class="codeline" id="line-95"><code>		<a href="../../../../runtime/select.go.html#line-122"><span class="keyword">select</span></a> {</code></span>
@@ -206,7 +206,7 @@ input[id=i8]:checked ~pre .i8
 <span class="codeline" id="line-102"><code>}</code></span>
 <span class="codeline" id="line-103"><code></code></span>
 <span class="codeline" id="line-104"><code><span class="keyword">func</span> (<label for="r20" class="ident">l</label> <a href="#line-17" class="ident">wsListener</a>) <label for="r21" class="ident"><a href="../../../../../use/github.com/gotd/td/transport..wsListener^d8eb4.Close.html" class="ident">Close</a></label>() <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-105"><code>	<label for="r20" class="ident">l</label>.<a href="#line-20" class="ident">closed</a>.<a href="../internal/tdsync/ready.go.html#line-26" class="ident">Signal</a>()</code></span>
+<span class="codeline" id="line-105"><code>	<label for="r20" class="ident">l</label>.<a href="#line-20" class="ident">closed</a>.<a href="../internal/tdsync/ready.go.html#line-28" class="ident">Signal</a>()</code></span>
 <span class="codeline" id="line-106"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-107"><code>}</code></span>
 <span class="codeline" id="line-108"><code></code></span>
@@ -215,7 +215,7 @@ input[id=i8]:checked ~pre .i8
 <span class="codeline" id="line-111"><code>}</code></span>
 <span class="codeline" id="line-112"><code></code></span>
 <span class="codeline" id="line-113"><code><span class="keyword">type</span> <a href="../../../../../pkg/github.com/gotd/td/transport.html#name-wsServerConn" class="ident">wsServerConn</a> <span class="keyword">struct</span> {</code></span>
-<span class="codeline" id="line-114"><code>	<a href="../../../../../use/github.com/gotd/td/transport..wsServerConn^76b8a.closed^c3eef.html" class="ident">closed</a> <a href="../../../../../pkg/github.com/gotd/td/internal/tdsync.html" class="ident i7">tdsync</a>.<a href="../internal/tdsync/ready.go.html#line-7" class="ident">Ready</a></code></span>
+<span class="codeline" id="line-114"><code>	<a href="../../../../../use/github.com/gotd/td/transport..wsServerConn^76b8a.closed^c3eef.html" class="ident">closed</a> <a href="../../../../../pkg/github.com/gotd/td/internal/tdsync.html" class="ident i7">tdsync</a>.<a href="../internal/tdsync/ready.go.html#line-9" class="ident">Ready</a></code></span>
 <span class="codeline" id="line-115"><code>	<a href="../../../../../use/github.com/gotd/td/transport..wsServerConn^76b8a.reader^3d094.html" class="ident">reader</a> <a href="../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../io/io.go.html#line-83" class="ident">Reader</a></code></span>
 <span class="codeline" id="line-116"><code>	<a href="../../../../../use/github.com/gotd/td/transport..wsServerConn^76b8a.writer^b9300.html" class="ident">writer</a> <a href="../../../../../pkg/io.html" class="ident i1">io</a>.<a href="../../../../io/io.go.html#line-96" class="ident">Writer</a></code></span>
 <span class="codeline" id="line-117"><code>	<a href="../../../../../pkg/net.html" class="ident i2">net</a>.<a href="../../../../net/net.go.html#line-113" class="ident">Conn</a></code></span>
@@ -230,7 +230,7 @@ input[id=i8]:checked ~pre .i8
 <span class="codeline" id="line-126"><code>}</code></span>
 <span class="codeline" id="line-127"><code></code></span>
 <span class="codeline" id="line-128"><code><span class="keyword">func</span> (<label for="r30" class="ident">c</label> *<a href="#line-113" class="ident">wsServerConn</a>) <label for="r31" class="ident"><a href="../../../../../use/github.com/gotd/td/transport..wsServerConn^76b8a.Close.html" class="ident">Close</a></label>() <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
-<span class="codeline" id="line-129"><code>	<label for="r30" class="ident">c</label>.<a href="#line-114" class="ident">closed</a>.<a href="../internal/tdsync/ready.go.html#line-26" class="ident">Signal</a>()</code></span>
+<span class="codeline" id="line-129"><code>	<label for="r30" class="ident">c</label>.<a href="#line-114" class="ident">closed</a>.<a href="../internal/tdsync/ready.go.html#line-28" class="ident">Signal</a>()</code></span>
 <span class="codeline" id="line-130"><code>	<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
 <span class="codeline" id="line-131"><code>}</code></span>
 </pre><pre id="footer">
