@@ -256,7 +256,7 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-24"><code>	_ = <a href="../../../../../pkg/fmt.html" class="ident i2">fmt</a>.<a href="../../../../fmt/print.go.html#line-62" class="ident">Stringer</a>(<a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
 <span class="codeline" id="line-25"><code>	_ = <a href="../../../../../pkg/strings.html" class="ident i4">strings</a>.<a href="../../../../strings/builder.go.html#line-15" class="ident">Builder</a>{}</code></span>
 <span class="codeline" id="line-26"><code>	_ = <a href="../../../../../pkg/errors.html" class="ident i1">errors</a>.<a href="../../../../errors/wrap.go.html#line-40" class="ident">Is</a></code></span>
-<span class="codeline" id="line-27"><code>	_ = <a href="../../../../../pkg/go.uber.org/multierr.html" class="ident i5">multierr</a>.<a href="../../../../go.uber.org/multierr/error.go.html#line-530" class="ident">AppendInto</a></code></span>
+<span class="codeline" id="line-27"><code>	_ = <a href="../../../../../pkg/go.uber.org/multierr.html" class="ident i5">multierr</a>.<a href="../../../../go.uber.org/multierr/error.go.html#line-501" class="ident">AppendInto</a></code></span>
 <span class="codeline" id="line-28"><code>	_ = <a href="../../../../../pkg/sort.html" class="ident i3">sort</a>.<a href="../../../../sort/sort.go.html#line-157" class="ident">Ints</a></code></span>
 <span class="codeline" id="line-29"><code>	_ = <a href="../../../../../pkg/github.com/gotd/td/tdp.html" class="ident i8">tdp</a>.<a href="../tdp/tdp.go.html#line-113" class="ident">Format</a></code></span>
 <span class="codeline" id="line-30"><code>	_ = <a href="../../../../../pkg/github.com/gotd/td/tgerr.html" class="ident i9">tgerr</a>.<a href="../tgerr/error.go.html#line-15" class="ident">Error</a>{}</code></span>
@@ -621,21 +621,22 @@ input[id=i9]:checked ~pre .i9
 <span class="codeline" id="line-389"><code><span class="comment">//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.</span></code></span>
 <span class="codeline" id="line-390"><code><span class="comment">//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.</span></code></span>
 <span class="codeline" id="line-391"><code><span class="comment">//	400 CHAT_ID_INVALID: The provided chat id is invalid.</span></code></span>
-<span class="codeline" id="line-392"><code><span class="comment">//	400 MAX_DATE_INVALID: The specified maximum date is invalid.</span></code></span>
-<span class="codeline" id="line-393"><code><span class="comment">//	400 MESSAGE_ID_INVALID: The provided message id is invalid.</span></code></span>
-<span class="codeline" id="line-394"><code><span class="comment">//	400 MIN_DATE_INVALID: The specified minimum date is invalid.</span></code></span>
-<span class="codeline" id="line-395"><code><span class="comment">//	400 MSG_ID_INVALID: Invalid message ID provided.</span></code></span>
-<span class="codeline" id="line-396"><code><span class="comment">//	400 PEER_ID_INVALID: The provided peer id is invalid.</span></code></span>
-<span class="codeline" id="line-397"><code><span class="comment">//</span></code></span>
-<span class="codeline" id="line-398"><code><span class="comment">// See https://core.telegram.org/method/messages.deleteHistory for reference.</span></code></span>
-<span class="codeline" id="line-399"><code><span class="keyword">func</span> (<label for="r89" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r90" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.MessagesDeleteHistory.html" class="ident">MessagesDeleteHistory</a></label>(<label for="r91" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r92" class="ident">request</label> *<a href="#line-38" class="ident">MessagesDeleteHistoryRequest</a>) (*<a href="tl_messages_affected_history_gen.go.html#line-38" class="ident">MessagesAffectedHistory</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
-<span class="codeline" id="line-400"><code>	<span class="keyword">var</span> <label for="r93" class="ident">result</label> <a href="tl_messages_affected_history_gen.go.html#line-38" class="ident">MessagesAffectedHistory</a></code></span>
-<span class="codeline" id="line-401"><code></code></span>
-<span class="codeline" id="line-402"><code>	<span class="keyword">if</span> <label for="r94" class="ident">err</label> := <label for="r89" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r91" class="ident">ctx</label>, <label for="r92" class="ident">request</label>, &amp;<label for="r93" class="ident">result</label>); <label for="r94" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
-<span class="codeline" id="line-403"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r94" class="ident">err</label></code></span>
-<span class="codeline" id="line-404"><code>	}</code></span>
-<span class="codeline" id="line-405"><code>	<span class="keyword">return</span> &amp;<label for="r93" class="ident">result</label>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
-<span class="codeline" id="line-406"><code>}</code></span>
+<span class="codeline" id="line-392"><code><span class="comment">//	400 CHAT_REVOKE_DATE_UNSUPPORTED: min_date and max_date are not available for using with non-user peers.</span></code></span>
+<span class="codeline" id="line-393"><code><span class="comment">//	400 MAX_DATE_INVALID: The specified maximum date is invalid.</span></code></span>
+<span class="codeline" id="line-394"><code><span class="comment">//	400 MESSAGE_ID_INVALID: The provided message id is invalid.</span></code></span>
+<span class="codeline" id="line-395"><code><span class="comment">//	400 MIN_DATE_INVALID: The specified minimum date is invalid.</span></code></span>
+<span class="codeline" id="line-396"><code><span class="comment">//	400 MSG_ID_INVALID: Invalid message ID provided.</span></code></span>
+<span class="codeline" id="line-397"><code><span class="comment">//	400 PEER_ID_INVALID: The provided peer id is invalid.</span></code></span>
+<span class="codeline" id="line-398"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-399"><code><span class="comment">// See https://core.telegram.org/method/messages.deleteHistory for reference.</span></code></span>
+<span class="codeline" id="line-400"><code><span class="keyword">func</span> (<label for="r89" class="ident">c</label> *<a href="tl_client_gen.go.html#line-40" class="ident">Client</a>) <label for="r90" class="ident"><a href="../../../../../use/github.com/gotd/td/tg..Client.MessagesDeleteHistory.html" class="ident">MessagesDeleteHistory</a></label>(<label for="r91" class="ident">ctx</label> <a href="../../../../../pkg/context.html" class="ident i0">context</a>.<a href="../../../../context/context.go.html#line-62" class="ident">Context</a>, <label for="r92" class="ident">request</label> *<a href="#line-38" class="ident">MessagesDeleteHistoryRequest</a>) (*<a href="tl_messages_affected_history_gen.go.html#line-38" class="ident">MessagesAffectedHistory</a>, <a href="../../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-401"><code>	<span class="keyword">var</span> <label for="r93" class="ident">result</label> <a href="tl_messages_affected_history_gen.go.html#line-38" class="ident">MessagesAffectedHistory</a></code></span>
+<span class="codeline" id="line-402"><code></code></span>
+<span class="codeline" id="line-403"><code>	<span class="keyword">if</span> <label for="r94" class="ident">err</label> := <label for="r89" class="ident">c</label>.<a href="tl_client_gen.go.html#line-41" class="ident">rpc</a>.<a href="tl_client_gen.go.html#line-36" class="ident">Invoke</a>(<label for="r91" class="ident">ctx</label>, <label for="r92" class="ident">request</label>, &amp;<label for="r93" class="ident">result</label>); <label for="r94" class="ident">err</label> != <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-404"><code>		<span class="keyword">return</span> <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r94" class="ident">err</label></code></span>
+<span class="codeline" id="line-405"><code>	}</code></span>
+<span class="codeline" id="line-406"><code>	<span class="keyword">return</span> &amp;<label for="r93" class="ident">result</label>, <a href="../../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-407"><code>}</code></span>
 </pre><pre id="footer">
 <table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
 <td>The pages are generated with <a href="https://go101.org/apps-and-libs/golds.html"><b>Golds</b></a> <i>v0.5.7</i>. (GOOS=linux GOARCH=amd64)
