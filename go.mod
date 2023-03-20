@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/gotd/td v0.79.0
-	go101.org/golds v0.5.7
+	go101.org/golds v0.6.2
 )
 
 require (
